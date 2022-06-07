@@ -400,6 +400,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe(this.item.Id).subscribe((res: any) => {
         // this.item.SoQuyTrinh = res.SoQuyTrinh;
         this.item.listTyLeBongPhe = res;
+        
       })
       let listItemCheck: any = [];
       if (this.item.CongDoan === "ONG") {
@@ -452,7 +453,8 @@ export class ThongkesanluongcamodalComponent implements OnInit {
           }
         }
       })
-      //console.log('this.thongKeFull',this.thongKeFull);
+      console.log('this.item',this.item);
+      console.log('this.thongKeFull',this.thongKeFull);
     }
     let i = 0;
     this.listCaSanXuat.forEach(element => {

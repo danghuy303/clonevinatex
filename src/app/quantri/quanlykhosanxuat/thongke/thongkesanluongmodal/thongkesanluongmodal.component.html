@@ -349,7 +349,7 @@
             </p-table>
             <br />
             <div class="p-col-12 p-p-0 d-flex flex-column p-jc-end">
-                <ng-container *ngFor="let CongDoan of item.listTyLeBongPhe|filterByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
+                <ng-container *ngFor="let CongDoan of item.listTyLeBongPhe|equalByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
                     <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end"
                         *ngFor="let bongphe of CongDoan.listKhoiLuongBongPhe;let i = index">
                         <div class="p-grid" style="width:100%">

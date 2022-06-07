@@ -485,7 +485,7 @@
                 <ng-template pTemplate="header">
                     <tr class="normal">
                         <th>Nội dung</th>
-                        <th>Giá trị</th>
+                        <th>Giá trị / tiêu chuẩn</th>
                         <th>Lũy kế</th>
                     </tr>
                 </ng-template>
@@ -495,7 +495,7 @@
                         </td>
                         <td class="text-right"
                             [ngStyle]="{'color': thongke.GiaTriTyLe>thongke.TieuChuanTyLe?'red':'black'}">
-                            {{thongke.GiaTriTyLe |number:'0.3-3'}}
+                            {{thongke.GiaTriTyLe |number:'0.3-3'}} / {{thongke.TieuChuanTyLe |number:'0.3-3'}}
                             <!-- <div *ngIf="thongke.TieuHao!='KwH'&&thongke.TieuHao!='%'; else elseTieuHao">
                             {{thongke.TieuHao|number:'0.0-3'}}
                         </div>

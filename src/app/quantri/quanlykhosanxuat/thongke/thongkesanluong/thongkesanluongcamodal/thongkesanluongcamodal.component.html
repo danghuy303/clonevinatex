@@ -313,15 +313,12 @@
                 <tbody>
                     <!-- <ng-container *ngIf="item.CongDoan==='CHAICOTTON'"> -->
                     <ng-container
-                        *ngFor="let row of item.listThongKeSanLuong[0].listTyLeBongPhe|filterByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
+                        *ngFor="let row of item.listThongKeSanLuong[0].listTyLeBongPhe | equalByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
                         <tr *ngFor="let loaibong of row.listKhoiLuongBongPhe ;let indexLoai = index">
                             <td class="text-left">{{loaibong.TenLoaiBongPhe}}</td>
                             <ng-container *ngFor="let col of item.listThongKeSanLuong; let i = index">
                                 <ng-container
-                                    *ngFor="let CongDoan of col.listTyLeBongPhe|filterByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
-                                    <!-- <td>
-                                        {{CongDoan.listKhoiLuongBongPhe[indexLoai].TenLoaiBongPhe}}
-                                    </td> -->
+                                    *ngFor="let CongDoan of col.listTyLeBongPhe | equalByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
                                     <td class="text-right p-d-flex p-flex-row">
                                         <p-inputNumber [minFractionDigits]="3" locale="en-EN" #inputKhoiLuong [data-index]="i*row.listKhoiLuongBongPhe.length+indexLoai" (keyup.enter)="nextFocus(i*row.listKhoiLuongBongPhe.length+indexLoai)"
                                             [(ngModel)]="CongDoan.listKhoiLuongBongPhe[indexLoai].KhoiLuong" (onBlur)="TinhTongKhoiLuongBong(i)">

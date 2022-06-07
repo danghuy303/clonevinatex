@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     }
   ];
 
-  constructor(private _auth: AuthenticationService, private toastr: ToastrService, private _router: Router , private _services:Dat09Service,private _SXservices:SanXuatService, private store:StoreService) { }
+  constructor(private _auth: AuthenticationService, private toastr: ToastrService, private _router: Router, private _services: Dat09Service, private _SXservices: SanXuatService, private store: StoreService) { }
 
   ngOnInit() {
     for (let i = 1; i <= 3; i++) {
@@ -55,17 +55,17 @@ export class LoginComponent implements OnInit {
       this.UserNameFG = '';
     }
   }
-  ForgotPass(){
-    this._services.ForgotPass({UserName:this.UserNameFG}).subscribe((res:any)=>{
-      if(res){
-        if(res?.Error===4){
+  ForgotPass() {
+    this._services.ForgotPass({ UserName: this.UserNameFG }).subscribe((res: any) => {
+      if (res) {
+        if (res?.Error === 4) {
           this.toastr.success(res.Detail);
           this.UserNameFG = '';
           this.timMKdialog = false;
-        }else{
+        } else {
           this.toastr.error(res.Detail);
         }
-      }else{
+      } else {
         this.toastr.error('Có lỗi trong quá trình xử lý!');
       }
     })
@@ -95,33 +95,59 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.validate()) {
       this._auth.login(this.account).subscribe((res: any) => {
-        if (res) {
-          if (res.Error === 4) {
-            (window as any).autoLogin = true;
-            this.loginState = true;
-            this.error = 0;
-            this.toastr.success('Đăng nhập thành công!');
+        if (res.access_token) {
+          (window as any).autoLogin = true;
+          this.loginState = true;
+          this.error = 0;
+          this.toastr.success('Đăng nhập thành công!');
+          this._auth.GetCurrentUser().subscribe((res:any) => {
+            console.log(res);
             this._SXservices
-            .GetOptions()
-            .GetDanhSachDuAnByIdUser(res.Value.Id)
-            .subscribe((res: any) => {
-              this.store.setNhaMay(res[0].Id)
-              if ((window as any).routeSnapShot !== undefined) {
-                this._router.navigate([(window as any).routeSnapShot])
-              } else {
-                this._router.navigate(['/quantri'])
-              }
-            });
-          } else {
-            this.loginState = false;
-            this.error = 0;
-            this.toastr.error('Đăng nhập thất bại!');
-          }
-        } else {
+              .GetOptions()
+              .GetDanhSachDuAnByIdUser(res.Id)
+              .subscribe((res: any) => {
+                this.store.setNhaMay(res[0].Id)
+                if ((window as any).routeSnapShot !== undefined) {
+                  this._router.navigate([(window as any).routeSnapShot])
+                } else {
+                  this._router.navigate(['/quantri'])
+                }
+              });
+          })
+
+        }
+        else {
           this.loginState = false;
           this.error = 0;
           this.toastr.error('Đăng nhập thất bại!');
         }
+        // if (res) {
+        //   if (res.Error === 4) {
+        //     (window as any).autoLogin = true;
+        //     this.loginState = true;
+        //     this.error = 0;
+        //     this.toastr.success('Đăng nhập thành công!');
+        //     this._SXservices
+        //     .GetOptions()
+        //     .GetDanhSachDuAnByIdUser(res.Value.Id)
+        //     .subscribe((res: any) => {
+        //       this.store.setNhaMay(res[0].Id)
+        //       if ((window as any).routeSnapShot !== undefined) {
+        //         this._router.navigate([(window as any).routeSnapShot])
+        //       } else {
+        //         this._router.navigate(['/quantri'])
+        //       }
+        //     });
+        //   } else {
+        //     this.loginState = false;
+        //     this.error = 0;
+        //     this.toastr.error('Đăng nhập thất bại!');
+        //   }
+        // } else {
+        //   this.loginState = false;
+        //   this.error = 0;
+        //   this.toastr.error('Đăng nhập thất bại!');
+        // }
       });
     } else {
       this.toastr.error(this.emes);
