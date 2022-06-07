@@ -33,8 +33,8 @@ export class BaoCaoTongHopClassimatComponent extends StoreBase implements OnInit
     legend: {
       position: 'bottom'
     },
-    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
-    aspectRatio: window.innerWidth <= 768 ? 1 : (((window.innerWidth - 80) / 2) / ((window.innerHeight-660) / 2))
+    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
+    aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (300 + 32.5)) / 2))
   }
   constructor(public store: StoreService, public _services: SanXuatService, public toastr: ToastrService) {
     super(store)
