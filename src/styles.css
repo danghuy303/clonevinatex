@@ -378,3 +378,6 @@ span.required {
 .canhbao{
     color: red;
 }
+.p-tooltip{
+    z-index: 9999 !important;
+}

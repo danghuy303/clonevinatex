@@ -9,6 +9,7 @@ import { UppercaseFirstletterPipe } from './../services/uppercase-firstletter.pi
 import { SumByKeyPipe } from './../services/sum.pipe';
 import { SortByKeyPipe } from './../services/sortPipe.pipe';
 import { CongDoanPipe } from './../services/congdoan.pipe';
+import { TruncatePipe } from './../services/truncate.pipe';
 import {CaPipe} from './../services/ca.pipe';
 import { isDieuChinhPipe } from './../services/isDieuChinh.pipe';
 import { BanGiaoTaiSanQuyTrinhComponent } from './ban-giao-tai-san-quy-trinh/ban-giao-tai-san-quy-trinh.component';
@@ -49,6 +50,7 @@ import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/mo
     FilterPipe,
     FilterByKeyPipe,
     EqualByKeyPipe,
+    TruncatePipe,
     SumByKeyPipe,
     CongDoanPipe,
     SortByKeyPipe,
@@ -72,7 +74,6 @@ import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/mo
     ScrollPanelModule,
     FormsModule,
     InputTextareaModule,
-
     TabViewModule,
     PanelModule,
     CheckboxModule,
@@ -96,6 +97,7 @@ import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/mo
     FilterPipe,
     FilterByKeyPipe,
     EqualByKeyPipe,
+    TruncatePipe,
     SumByKeyPipe,
     CongDoanPipe,
     SortByKeyPipe,
