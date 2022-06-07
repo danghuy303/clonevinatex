@@ -114,10 +114,12 @@ export class ThongkesanluongcamodalComponent implements OnInit {
         })
       })
     }
+    // console.log("data", data);
     return data;
   }
 
   GhiLai() {
+    // this.SetData()
     let isCheck: any = false;
     this.item.listThongKeSanLuong.forEach(element => {
       if (element.IddmCaSanXuatThucTe == undefined || element.IddmCaSanXuatThucTe == null)
