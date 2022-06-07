@@ -22,6 +22,8 @@ import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachk
 import { ChitietkehoachthangmodalComponent } from './kehoachkinhdoanhthang/chitietkehoachthangmodal/chitietkehoachthangmodal.component';
 import { BaocaokehoachkinhdoanhComponent } from './baocaokehoachkinhdoanh/baocaokehoachkinhdoanh.component';
 import { ChartModule } from 'primeng/chart';
+import { KeHoachSanXuatNamComponent } from './ke-hoach-san-xuat-nam/ke-hoach-san-xuat-nam.component';
+import { KeHoachSanXuatThangComponent } from './ke-hoach-san-xuat-thang/ke-hoach-san-xuat-thang.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { ChartModule } from 'primeng/chart';
     DanhmucmathangComponent,
     KehoachkinhdoanhthangComponent,
     ChitietkehoachthangmodalComponent,
-    BaocaokehoachkinhdoanhComponent
+    BaocaokehoachkinhdoanhComponent,
+    KeHoachSanXuatNamComponent,
+    KeHoachSanXuatThangComponent
   ],
   imports: [
     CommonModule,
