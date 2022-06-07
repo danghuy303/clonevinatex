@@ -45,7 +45,8 @@ export class ChonComponent implements OnInit {
       IddmLoaiTaiSan: this.item.IddmLoaiTaiSan
     }
     this._serviceTaiSan.NhapTaiSan().GetListNhomTaiSan(data).subscribe((res: any) => {
-      this.items = res.Data;
+      this.paging.TotalCount = res.Data.TotalCount
+      this.items = res.Data.Items;
       this.items.forEach(ele => {
         ele.checked = this.ItemDaChon === ele.Id;
         if (this.ItemDaChon) {
@@ -96,6 +97,8 @@ export class ChonComponent implements OnInit {
   }
 
   changePage(event) {
+    console.log(event);
+    
     this.paging.CurrentPage = event.page + 1;
     this.GetList()
   }

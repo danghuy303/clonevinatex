@@ -122,7 +122,6 @@ export class ModaldenghixulisucoComponent implements OnInit {
             ele.DenGio = UnixToDate(ele.DenGioUnix);
             ele.TuGio = UnixToDate(ele.TuGioUnix);
           })
-
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
           // this.activeModal.close();

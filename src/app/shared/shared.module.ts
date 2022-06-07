@@ -4,6 +4,7 @@ import { isXoaPipe } from './../services/isXoaPipe';
 import { VNDPipe } from './../services/vnd.pipe';
 import { FilterPipe } from './../services/filter.pipe';
 import { FilterByKeyPipe } from './../services/filterbykey.pipe';
+import { EqualByKeyPipe } from './../services/equalbykey.pipe';
 import { UppercaseFirstletterPipe } from './../services/uppercase-firstletter.pipe';
 import { SumByKeyPipe } from './../services/sum.pipe';
 import { SortByKeyPipe } from './../services/sortPipe.pipe';
@@ -47,6 +48,7 @@ import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/mo
     CaPipe,
     FilterPipe,
     FilterByKeyPipe,
+    EqualByKeyPipe,
     SumByKeyPipe,
     CongDoanPipe,
     SortByKeyPipe,
@@ -93,6 +95,7 @@ import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/mo
     CaPipe,
     FilterPipe,
     FilterByKeyPipe,
+    EqualByKeyPipe,
     SumByKeyPipe,
     CongDoanPipe,
     SortByKeyPipe,

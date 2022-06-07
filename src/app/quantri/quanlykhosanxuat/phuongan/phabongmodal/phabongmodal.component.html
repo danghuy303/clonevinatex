@@ -113,14 +113,19 @@
             <label class="p-col-12 p-lg-6 p-p-0 my-auto">Thêm bàn bông:</label>
             <div class="p-col-12 p-lg-6 p-p-0">
                 <div class="p-inputgroup">
-                    <p-inputNumber [(ngModel)]="SoBanCongThem" mode="decimal" [minFractionDigits]="0"
-                        locale="en-EN" ></p-inputNumber>
+                    <p-inputNumber [(ngModel)]="SoBanCongThem" mode="decimal" [minFractionDigits]="0" locale="en-EN"></p-inputNumber>
                     <button type="button" pButton pRipple icon="pi pi-check"
                         class="p-button-success p-button-sm p-button-text" (click)="ThemBanBong()"></button>
                 </div>
             </div>
         </div>
-        
+        <div class="p-col-12 p-p-3 d-flex flex-column flex-lg-row" >
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+            </div>
+        </div>
+
         <div class="p-col-12 d-flex flex-row p-p-0">
             <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
                 (click)="chonHangHoa()" *ngIf="checkbutton.Ghi"></button>
