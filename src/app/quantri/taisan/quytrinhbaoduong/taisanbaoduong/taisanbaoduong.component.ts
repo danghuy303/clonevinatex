@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 
 @Component({
   selector: 'app-taisanbaoduong',
@@ -21,13 +22,15 @@ export class TaisanbaoduongComponent implements OnInit, OnChanges {
   }
 
   delete(index) {
-    // let item = this.items.splice(index, 1)[0];
-    // if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    // } else {
-    //   item.isXoa = true;
-    //   this.items.push(JSON.parse(JSON.stringify(item)));
-    // }
-    this.items.splice(index, 1)
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      size: 'md',
+      backdrop: 'static',
+    })
+    modalRef.componentInstance.message = 'Bạn chắc chắn muốn xóa tài sản này?';
+    modalRef.result
+      .then(()=>{
+        this.items.splice(index, 1)
+      })
   }
 
 }

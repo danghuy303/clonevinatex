@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { host1 } from 'src/app/services/host';
 
 @Component({
   selector: 'app-tai-lieu-danh-sach',
@@ -14,6 +15,7 @@ export class TaiLieuDanhSachComponent implements OnInit {
 
   @Input() item: any;
   listTaiLieu: any = [];
+  API: string = host1;
 
   constructor(
     private _modal: NgbModal,
@@ -23,13 +25,12 @@ export class TaiLieuDanhSachComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
   }
 
   taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { 
-      size: 'lg', 
-      backdrop: 'static' 
+    const modalRef = this._modal.open(UploadmodalComponent, {
+      size: 'lg',
+      backdrop: 'static'
     });
     modalRef.componentInstance.multiple = true;
     modalRef.componentInstance.type = '';

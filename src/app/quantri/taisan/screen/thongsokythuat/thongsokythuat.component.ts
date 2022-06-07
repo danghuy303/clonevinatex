@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 
@@ -35,12 +36,13 @@ export class ThongsokythuatComponent implements OnInit, OnChanges {
     this.newitem = {}
   }
   delete(index) {
-    let listThongSoKyThuat = this.listThongSoKyThuat.splice(index, 1)[0];
-    if (listThongSoKyThuat.Id === '' || listThongSoKyThuat.Id === null || listThongSoKyThuat.Id === undefined) {
-    } else {
-      listThongSoKyThuat.isXoa = true;
-      this.listThongSoKyThuat.push(JSON.parse(JSON.stringify(listThongSoKyThuat)));
-    }
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+      this.listThongSoKyThuat.splice(index, 1)[0];
+    }).catch(er => console.log(er))
   }
 
 }

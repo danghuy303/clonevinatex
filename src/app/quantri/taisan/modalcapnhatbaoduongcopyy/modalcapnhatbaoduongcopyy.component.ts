@@ -21,6 +21,7 @@ export class
   disabled: boolean = true;
   existedItems: any = [];
   checkBaoDuong: any = '';
+  opt: any = '';
 
 
   constructor(public activeModal: NgbActiveModal,
@@ -50,16 +51,26 @@ export class
 
   }
   GhiLai() {
-    if (validVariable(this.item.IddmLoaiBaoDuong)) {
-      this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
-      if (!this.existedItems.includes(this.item.IddmLoaiBaoDuong)) {
+    if (this.opt === 'add') {
+      if (validVariable(this.item.IddmLoaiBaoDuong)) {
+        this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
+        if (!this.existedItems.includes(this.item.IddmLoaiBaoDuong)) {
+          this.activeModal.close(this.item);
+        }
+        else {
+          this.toastr.error("Đã tồn tại!");
+        }
+      } else {
+        this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+      }
+    }
+    else {
+      if (validVariable(this.item.IddmLoaiBaoDuong)) {
+        this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
         this.activeModal.close(this.item);
+      } else {
+        this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       }
-      else {
-        this.toastr.error("Đã tồn tại!");
-      }
-    } else {
-      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
     }
   }
 }

@@ -125,9 +125,31 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       return false;
     } else if (!validVariable(this.item.listTaiSan)) {
       this.toastr.error("Yêu cầu thêm tài sản!");
-      return false;
+      return false
+    } else if (!this.ValidateTaiSan()) {
+      return false
     }
     return true;
+  }
+
+  ValidateTaiSan() {
+    let checkDateTimeAll;
+    this.item.listTaiSan.forEach(taisan => {
+      if (taisan.isDaBaoDuong) {
+        taisan.checkDateTime = validVariable(taisan.TuGio) && validVariable(taisan.DenGio);
+      } else {
+        taisan.checkDateTime = true;
+      }
+    })
+    checkDateTimeAll = this.item.listTaiSan.every(taisan => taisan.checkDateTime);
+    // console.log("this.item", this.item);
+    // console.log("checkDateTimeAll", checkDateTimeAll);
+    if (!checkDateTimeAll) {
+      this.toastr.error('Vui lòng nhập đầy đủ thời gian bảo dưỡng của tài sản nếu tài sản đã bảo dưỡng!');
+      return false;
+    } else {
+      return true;
+    }
   }
 
   GhiLai() {
@@ -199,9 +221,4 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       .catch((er) => console.log(er));
   }
 
-  changeTab(e) {
-    // this.trangThai = e.index + 1;
-    // this.loaiTab = e.index;
-    // this.Loaddata(true);
-  }
 }
