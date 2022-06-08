@@ -253,12 +253,13 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   delete(index) {
-    let item = this.item.TaiSan.listTaiSan.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.push(JSON.parse(JSON.stringify(item)));
-    }
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+      this.item.TaiSan.listTaiSan.splice(index, 1)[0];
+    }).catch(er => console.log(er))
   }
 
   changeTab(e) {

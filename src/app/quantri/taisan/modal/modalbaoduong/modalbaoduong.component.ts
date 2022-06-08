@@ -45,8 +45,6 @@ export class ModalbaoduongComponent implements OnInit {
         ele.tenValue = `${ele.Ten} - ${ele.ThuTu}`;
      })
       this.listMucDoUuTien = mapArrayForDropDown(res.Data.Items, "tenValue", "Id",);
-      console.log(this.listMucDoUuTien);
-      
     })
   }
   ValidateData() {
@@ -58,12 +56,16 @@ export class ModalbaoduongComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ tên !");
       return false;
     }
-    if (!validVariable(this.item.IddmLoaiTaiSan)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ loại tài sản !");
+    if (!validVariable(this.item.IddmLoaiTaiSan) ||  !validVariable(this.item.IddmMucDoUuTien)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc !");
       return false;
     }
-    if (!validVariable(this.item.ThoiGianBaoDuong || this.item.IddmMucDoUuTien)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc !");
+    if (!validVariable(this.item.ThoiGianBaoDuong)) {
+      this.toastr.error("Yêu cầu nhập loại bảo dưỡng!");
+      return false;
+    }
+    if (!validVariable(this.item.MaLoaiThoiGian)) {
+      this.toastr.error("Yêu cầu chọn loại bảo dưỡng!");
       return false;
     }
     return true;

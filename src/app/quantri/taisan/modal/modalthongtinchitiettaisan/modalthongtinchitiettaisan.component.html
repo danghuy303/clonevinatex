@@ -105,7 +105,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng <span class="text-danger">(*)</span>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng <span *ngIf="item?.IdBoPhanSuDung != null" class="text-danger">(*)</span>
                 : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm bold" [locale]="lang"
@@ -115,7 +115,7 @@
             </div>
         </div>
         <div *ngIf="item.IdRoot === item.Id" class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số năm khấu hao <span *ngIf="item?.IdBoPhanSuDung != null" class="text-danger">(*)</span> : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số năm khấu hao <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao">
                 </p-inputNumber>
@@ -175,7 +175,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu"> </textarea>
             </div>
         </div>
     </div>

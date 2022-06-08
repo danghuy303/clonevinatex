@@ -22,7 +22,7 @@
             <ng-template pTemplate="body" let-tailieu let-columns="columns" let-i="rowIndex">
                 <tr>
                     <td class="text-center">{{i+1}}</td>
-                    <td>{{tailieu.FileName}}</td>
+                    <td><a [href]="API + '/' + tailieu.Link">{{tailieu.FileName}}</a></td>
                     <td class="text-center">
                         <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="deleteTaiLieu(i)"></button>
                     </td>

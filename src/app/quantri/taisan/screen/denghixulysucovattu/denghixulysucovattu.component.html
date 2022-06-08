@@ -52,11 +52,6 @@
                 <td style="padding-left: 50px;"> {{vattu.MaVatTu}}</td>
                 <td style="padding-left: 50px;">{{vattu.TenVatTu}}</td>
                 <td class=" text-right">
-                    <!-- <p-inputNumber [minFractionDigits]="0.0" [(ngModel)]="vattu.SoLuong" (onBlur)="TinhTong()">
-                    </p-inputNumber> -->
-                    <!-- <input min='0' mode="decimal" type="number" class="p-inputtext-sm" [(ngModel)]="item.ThuTu"
-                        onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
-                        pInputText> -->
                     <p-inputNumber min='0' [(ngModel)]="vattu.SoLuong" (onBlur)="sumItem(item)" mode="decimal" locale="en-US"></p-inputNumber>
                 </td>
                 <td class=" text-right">

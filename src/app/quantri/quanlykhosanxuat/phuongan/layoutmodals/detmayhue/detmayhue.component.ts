@@ -52,7 +52,7 @@ export class DetmayhueComponent implements OnInit {
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
-    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
+    for (let i = (this.length + this.item.SoViTriNgoaiQuan); i >=1 ; i--) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -77,21 +77,27 @@ export class DetmayhueComponent implements OnInit {
       // if (31 <= i && i <= 44) {
       //   this.block5.push(`${i}`)
       // }
-      if (i % 4 === 1) {
+      if (i % 6 === 1) {
         this.block1.push(`${i}`)
       }
-      if (i % 4 === 2) {
+      if (i % 6 === 2) {
         this.block2.push(`${i}`)
       }
-      if (i % 4 === 3) {
+      if (i % 6 === 3) {
         this.block3.push(`${i}`)
       }
-      if (i % 4 === 0) {
+      if (i % 6 === 4) {
         this.block4.push(`${i}`)
+      }
+      if (i % 6 === 5) {
+        this.block5.push(`${i}`)
+      }
+      if (i % 6 === 0) {
+        this.block6.push(`${i}`)
       }
     };
     if (validVariable(this.item.Id)) {
-      for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
+      for (let i = (this.length + this.item.SoViTriNgoaiQuan); i >=1 ; i--) {
         let data = this.item.listItem.find(ele => ele.ThuTu === i);
         this.banBong[`${i}`] = {
           _focus: false,
@@ -142,13 +148,14 @@ export class DetmayhueComponent implements OnInit {
     this.block3 = [];
     this.block4 = [];
     this.block5 = [];
+    this.block6 = [];
     this.veLayout();
     this.pasteBanBong();
   }
 
   pasteBanBong() {
     console.log(this.BanBongForCopy.listItem);
-    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
+    for (let i = (this.length + this.item.SoViTriNgoaiQuan); i >=1 ; i--) {
       let data = this.BanBongForCopy.listItem.find(ele => ele.ThuTu === i);
       this.banBongCopy[`${i}`] = {
         _focus: false,
@@ -189,13 +196,14 @@ export class DetmayhueComponent implements OnInit {
     this.block3 = [];
     this.block4 = [];
     this.block5 = [];
+    this.block6 = [];
     console.log(this.item.ViTriNgoaiQuan)
     this.ngoaiQuan = this.item.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
     console.log(this.ngoaiQuan)
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
-    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
+    for (let i = (this.length + this.item.SoViTriNgoaiQuan); i >=1 ; i--) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -205,17 +213,23 @@ export class DetmayhueComponent implements OnInit {
         IdLoBong: null,
         Mau: 'white'
       }
-      if (i % 4 === 1) {
+      if (i % 6 === 1) {
         this.block1.push(`${i}`)
       }
-      if (i % 4 === 2) {
+      if (i % 6 === 2) {
         this.block2.push(`${i}`)
       }
-      if (i % 4 === 3) {
+      if (i % 6 === 3) {
         this.block3.push(`${i}`)
       }
-      if (i % 4 === 0) {
+      if (i % 6 === 4) {
         this.block4.push(`${i}`)
+      }
+      if (i % 6 === 5) {
+        this.block5.push(`${i}`)
+      }
+      if (i % 6 === 0) {
+        this.block6.push(`${i}`)
       }
     };
   }

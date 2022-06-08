@@ -65,7 +65,7 @@
   </p-table>
   <!--  -->
   <p-table [value]="items.listBaoDuong" *ngIf="item.isChonNam === 0 && item.isChon"
-    styleClass="p-datatable-sm wrap-text p-datatable-striped">
+  styleClass="p-datatable-sm wrap-text p-datatable-striped  p-datatable-gridlines" [scrollable]="true">
     <ng-template pTemplate="colgroup">
       <colgroup>
         <col style="width:100px">
@@ -105,14 +105,14 @@
         <td >
           {{item.TendmLoaiBaoDuong}}
         </td>
-        <td  *ngFor="let newItem of item.listItemTheoThoiGian" [style.backgroundColor]="newItem.Mau">
+        <td class="text-center"  *ngFor="let newItem of item.listItemTheoThoiGian" [style.backgroundColor]="newItem.Mau">
           {{newItem.isChon?'X':''}}
         </td>
       </tr>
     </ng-template>
   </p-table>
   <p-table [value]="itemsThang.listBaoDuong" *ngIf="item.isChonThang ===1 && item.isChon"
-    styleClass="p-datatable-sm wrap-text p-datatable-striped">
+  styleClass="p-datatable-sm wrap-text p-datatable-striped  p-datatable-gridlines" [scrollable]="true">
     <ng-template pTemplate="colgroup">
       <colgroup>
 
