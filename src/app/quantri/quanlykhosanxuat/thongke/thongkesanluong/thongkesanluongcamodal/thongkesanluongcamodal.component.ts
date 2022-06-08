@@ -241,6 +241,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
 
       this.services.ThongKeSanLuong().GetMatHangTheoNgay(this.item.IddmPhanXuong, this.item.NgayUnix).subscribe((res: any) => {
         //console.log('res',res)
+        this.item.listThongKeSanLuong=[];
         res.forEach(element => {
           element.Id = null;
         });

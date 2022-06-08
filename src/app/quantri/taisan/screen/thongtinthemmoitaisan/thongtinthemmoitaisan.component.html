@@ -164,23 +164,23 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
-        <div class="p-col-12 p-xl-8 p-p-0">
-            <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu"></textarea>
-        </div>
-    </div>
-    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto d-flex p-ai-center">
             <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
             <label class="p-mb-0">Giá trị cao</label>
         </div>
         <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto d-flex p-ai-center">
             <p-checkbox (onClick)="isCanDuTru()" binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
-            <label class="p-mb-0">Cần dự trữ</label>
+            <label class="p-mb-0">Cần dự trữ <span class="required" *ngIf="item.isCanDuTru">(*)</span></label>
         </div>
         <div *ngIf="item.isCanDuTru" class="p-col-12 p-xl-4 p-p-0 my-auto">
             <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
             </p-inputNumber>
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
+        <div class="p-col-12 p-xl-8 p-p-0">
+            <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu"></textarea>
         </div>
     </div>
     <div class="p-mb-4">

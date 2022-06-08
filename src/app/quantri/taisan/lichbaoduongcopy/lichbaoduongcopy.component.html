@@ -58,7 +58,7 @@
   </p-table>
   <!--  -->
   <p-table [value]="items.listBaoDuong" *ngIf="item.isChonNam === 0 && item.isChon"
-  styleClass="p-datatable-sm wrap-text p-datatable-striped  p-datatable-gridlines" [scrollable]="true">
+  styleClass="p-datatable-sm wrap-text p-datatable-striped  p-datatable-gridlines" [scrollable]="false">
     <ng-template pTemplate="colgroup">
       <colgroup>
         <col style="width:100px">
@@ -108,13 +108,13 @@
   <!-- thang -->
 
   <p-table [value]="itemsThang.listBaoDuong" *ngIf="item.isChonThang ===1 && item.isChon"
-  styleClass="p-datatable-sm wrap-text p-datatable-striped  p-datatable-gridlines" [scrollable]="true">
-    <!-- <ng-template pTemplate="colgroup">
+  styleClass="p-datatable-sm wrap-text p-datatable-striped  p-datatable-gridlines" [scrollable]="false">
+    <ng-template pTemplate="colgroup">
       <colgroup>
         <col style="width: 120px !important; max-width: 120px !important;">
         <col *ngFor="let label of labelThang">
       </colgroup>
-    </ng-template> -->
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th class="text-center tc-w-120">Loại bảo dưỡng</th>

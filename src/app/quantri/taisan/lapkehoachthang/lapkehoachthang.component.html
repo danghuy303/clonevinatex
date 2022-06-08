@@ -53,7 +53,7 @@
         <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chọn tháng, năm  <span class="required">(*)</span></label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon" (onSelect)="chonThang(item.ThoiGian)" placeholder="Chọn tháng, năm" [locale]="vi" [(ngModel)]="item.ThoiGian">
+                <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon" (onSelect)="chonThang(item.ThoiGian, true)" placeholder="Chọn tháng, năm" [locale]="vi" [(ngModel)]="item.ThoiGian">
                 </p-calendar>
             </div>
         </div>

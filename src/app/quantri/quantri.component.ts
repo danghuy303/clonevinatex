@@ -1568,17 +1568,92 @@ export class QuantriComponent implements OnInit {
         items: [
           {
             label: "Kế hoạch kinh doanh năm",
-            routerLink: "/quantri/mkehoachsanxuat/danhmuc/kehoachkinhdoanhnam/0",
+            routerLink: "/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/0",
             command: () => this.close(),
           },
           {
             label: "Kế hoạch kinh doanh tháng",
-            routerLink: "/quantri/mkehoachsanxuat/danhmuc/kehoachkinhdoanhthang/0",
+            routerLink: "/quantri/mkehoachsanxuat/kehoachkinhdoanhthang/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Kế hoạch sản xuất năm",
+            routerLink: "/quantri/mkehoachsanxuat/kehoachsanxuatnam/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Đơn giá sản phẩm",
+            routerLink: "/quantri/mkehoachsanxuat/danhmuc/dongiasanpham/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Tỷ giá ngoại tệ",
+            routerLink: "/quantri/mkehoachsanxuat/danhmuc/tygiangoaite/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Doanh thu theo kế hoạch",
+            routerLink: "/quantri/mkehoachsanxuat/doanhthutheokehoach/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí bông năm",
+            routerLink: "/quantri/mkehoachsanxuat/danhsach/chiphibongnam/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí xơ năm",
+            routerLink: "/quantri/mkehoachsanxuat/danhsach/chiphixonam/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí điện năm",
+            routerLink: "/quantri/mkehoachsanxuat/danhsach/chiphidiennam/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Vật tư phụ",
+            routerLink: "/quantri/mkehoachsanxuat/danhmuc/vattuphu/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Cơ cấu nhân sự",
+            routerLink: "/quantri/mkehoachsanxuat/danhmuc/cocaunhansu/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Tài sản",
+            routerLink: "/quantri/mkehoachsanxuat/danhmuc/taisan/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí bán hàng",
+            routerLink: "/quantri/mkehoachsanxuat/danhmuc/chiphibanhang/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Năng lực sản xuất",
+            routerLink: "/quantri/mkehoachsanxuat/dinhmucsanxuat/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Danh sách tính lương",
+            routerLink: "/quantri/mkehoachsanxuat/danhsach/tinhluong/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Mức lương cơ cấu nhân sự",
+            routerLink: "/quantri/mkehoachsanxuat/danhmuc/cocaunhansu/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí bán hàng theo năm",
+            routerLink: "/quantri/mkehoachsanxuat/danhmuc/chiphibanhangtheonam/0",
             command: () => this.close(),
           },
           {
             label: "Báo cáo kế hoạch kinh doanh",
-            routerLink: "/quantri/mkehoachsanxuat/danhmuc/baocaokehoachkinhdoanh",
+            routerLink: "/quantri/mkehoachsanxuat/baocaokehoachkinhdoanh",
             command: () => this.close(),
           },
         ]

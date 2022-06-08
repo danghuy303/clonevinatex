@@ -494,8 +494,8 @@
                         <td>{{thongke.Ten}}
                         </td>
                         <td class="text-right"
-                            [ngStyle]="{'color': thongke.GiaTriTyLe>thongke.TieuChuanTyLe?'red':'black'}">
-                            {{thongke.GiaTriTyLe |number:'0.3-3'}} / {{thongke.TieuChuanTyLe |number:'0.3-3'}}
+                            [ngStyle]="{'color': (thongke.isCanhBao && thongke.GiaTriTyLe>thongke.TieuChuanTyLe)?'red':'black'}">
+                            {{thongke.GiaTriTyLe |number:'0.3-3'}} <ng-container *ngIf="thongke.isCanhBao">/ {{thongke.TieuChuanTyLe |number:'0.3-3'}}</ng-container>
                             <!-- <div *ngIf="thongke.TieuHao!='KwH'&&thongke.TieuHao!='%'; else elseTieuHao">
                             {{thongke.TieuHao|number:'0.0-3'}}
                         </div>
