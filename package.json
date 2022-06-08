@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --base-href=./",
+    "ci": "ng build --base-href=./ && cd /Users/mac/Downloads/script/ && sh deployAllTest.sh",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
