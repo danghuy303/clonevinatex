@@ -44,7 +44,8 @@ export class LapkehoachthangComponent implements OnInit {
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
-  ) { }
+  ) { 
+  }
 
   ngOnInit(): void {
     this.vi = {
@@ -75,8 +76,8 @@ export class LapkehoachthangComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listPhanXuong = mapArrayForDropDown(values[1], "Ten", "Id");
     });
-    this.chonThang(this.item.ThoiGian);
-    // console.log("this.item", this.item);
+    this.chonThang(this.item.ThoiGian, false);
+    // console.log("this.item oninit", this.item);
   }
 
   GetNextSoQuyTrinh() {
@@ -221,7 +222,7 @@ export class LapkehoachthangComponent implements OnInit {
       .catch((er) => console.log(er));
   }
 
-  chonThang(time) {
+  chonThang(time, reset) {
     let date = new Date(this.item.ThoiGian);
     let month = time.getMonth() +1;
     let year = time.getFullYear();
@@ -229,7 +230,9 @@ export class LapkehoachthangComponent implements OnInit {
     this.DenThang = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.getMonth = new Date(date.getFullYear(), date.getMonth() + 1);
     this.ngayCuoiCungCuaThangDaChon = new Date(year,month,0).getDate();
-    this.item.listTaiSan = []
+    if (reset) {
+      this.item.listTaiSan = [];
+    }
   }
 }
 
