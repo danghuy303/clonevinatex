@@ -12,7 +12,7 @@ import { DenghisulyluachonthemvattuComponent } from '../../modal/denghisulyluach
   styleUrls: ['./denghixulysucovattu.component.css']
 })
 export class DenghixulysucovattuComponent implements OnInit, OnChanges {
-  @Input('item') items: any = [];
+  @Input() items: any = [];
 
   TongGiaTriToanBang: any = 0;
 
@@ -24,8 +24,10 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges(): void {
-    this.sumItem(this.items)
-    this.sumAll();
+    this.items.forEach(item => {
+      this.sumItem(item);
+    })
+    console.log("this.item", this.items);
   }
 
   ngOnInit(): void {
@@ -49,7 +51,7 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
   }
 
   sumItem(item) {
-    item.listVatTu.forEach(vattu => {
+    item.listVatTu?.forEach(vattu => {
       vattu.ThanhTien = ((vattu.GiaTri || 0) * (vattu.SoLuong || 0)) || 0;
     })
     item.TongThanhTien = item.listVatTu.reduce((sum, obj) => {

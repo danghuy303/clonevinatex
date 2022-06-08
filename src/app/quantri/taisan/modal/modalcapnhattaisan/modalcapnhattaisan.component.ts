@@ -55,7 +55,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ngOnInit() {
-
     if (this.item.TaiSan.NgayNhapUnix !== 0 || this.item.TaiSan.NgayNhapUnix === 0) {
       this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
     }
@@ -137,6 +136,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
     if (this.item?.TaiSan?.IdBoPhanSuDung != null) {
       if (!validVariable(this.item?.TaiSan?.ThoiGianDuaVaoSuDung)) {
         this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
+        return false;
+      }
+    }
+    if (this.item?.TaiSan?.isCanDuTru) {
+      if (!validVariable(this.item?.TaiSan?.DuTruToiThieu)) {
+        this.toastr.error("Yêu cầu nhập số lượng dự trữ");
         return false;
       }
     }
@@ -226,6 +231,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
+    modalRef.componentInstance.IdBoPhanSuDung = this.item.TaiSan.IdBoPhanSuDung;
     modalRef.result
       .then((res: any) => {
         this.item.TaiSan.listTaiSan.push(res);
@@ -305,12 +311,24 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.item = this.item;
     modalRef.result
       .then((res: any) => {
-        this.item.TaiSan = {
-          ...res,
-          Id: ''
-        };
-        this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
-        this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
+        this.item = {
+          TaiSan: {
+            ...res,
+            Id: "",
+            ThoiGianDuaVaoSuDung: UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix),
+            NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
+            listFileDinhKem: []
+          },
+        }
+        console.log(this.item.TaiSan);
+        this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(this.item.TaiSan.IddmLoaiTaiSan).subscribe((res: any) => {
+          if (res.StatusCode === 500) {
+            this.toastr.error(res.Message);
+          }
+          else {
+            this.item.TaiSan.Ma = res.Data;
+          }
+        })
       })
       .catch((er) => {
       });

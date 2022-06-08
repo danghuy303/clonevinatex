@@ -75,12 +75,12 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
         data.push({
           Id: '',
           IdTaiSan: obj.IdTaiSan,
-          TenVatTu: `${obj.TenTaiSan} (${obj.DonVi})`,
+          TenTaiSan: `${obj.TenTaiSan} (${obj.DonVi})`,
           GiaTri: obj.GiaTri,
           SoLuong: obj.SoLuong,
           GhiChu: obj.GhiChu,
           IdVatTuCanThayThe: obj.IdVatTuCanThayThe,
-          MaVatTu: obj.Ma,
+          MaTaiSan: obj.Ma,
         })
       }
     });
