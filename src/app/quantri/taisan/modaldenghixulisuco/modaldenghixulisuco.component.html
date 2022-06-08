@@ -159,12 +159,12 @@
         </p-tabPanel>
         <p-tabPanel header="Vật tư">
             <ng-template pTemplate="content">
-                <app-denghixulysucovattu [item]="item.listTaiSan"></app-denghixulysucovattu>
+                <app-denghixulysucovattu [items]="item.listTaiSan"></app-denghixulysucovattu>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Chi phí khác">
             <ng-template pTemplate="content">
-                <app-denghixulysucochiphikhac [item]="item.listTaiSan"></app-denghixulysucochiphikhac>
+                <app-denghixulysucochiphikhac [items]="item.listTaiSan"></app-denghixulysucochiphikhac>
             </ng-template>
         </p-tabPanel>
     </p-tabView>

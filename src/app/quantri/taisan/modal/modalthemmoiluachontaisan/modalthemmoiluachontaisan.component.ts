@@ -30,6 +30,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   listCungSanXuat: any = [];
   listTinhTrangTaiSan_copy: any = [];
   listDonVi_copy: any = [];
+  IdBoPhanSuDung: any = "";
   qrcode: any = {
     size: 250
   };
@@ -45,6 +46,8 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.IdBoPhanSuDung);
+    
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
@@ -68,21 +71,20 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     })
   }
   LayMa(e) {
-    this.item.TendmTaiSan = '';
     this.item.IddmTaiSan = '';
     if (!validVariable(e.value)) {
       this.item.Ma = '';
       this.item.TendmTaiSan = '';
+    } else {
+      this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
+        if (res.StatusCode === 500) {
+          this.toastr.error(res.Message);
+        }
+        else {
+          this.item.Ma = res.Data;
+        }
+      })
     }
-    this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
-      if (res.StatusCode === 500) {
-        this.item.Ma = '';
-        this.toastr.error(res.Message);
-      }
-      else {
-        this.item.Ma = res.Data;
-      }
-    })
   }
 
   GhiLai() {

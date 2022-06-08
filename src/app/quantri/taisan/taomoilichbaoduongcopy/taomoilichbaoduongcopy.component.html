@@ -17,7 +17,7 @@
             </th>
             <th class="text-center">Loại bảo dưỡng</th>
             <th class="text-center">Theo thời gian</th>
-            <th class="text-center">Theo năng suất</th>
+            <th class="text-center">Theo năng suất (Tấn)</th>
             <th class="text-center">Ghi chú</th>
             <th class="text-center"> <button pButton pRipple icon="pi pi-plus" (click)="addBaoDuong()" class="p-button-sm p-mr-2"></button></th>
         </tr>
@@ -29,7 +29,7 @@
             </td>
             <td >{{item.TendmLoaiBaoDuong}}</td>
             <td >{{item.ThoiGianBaoDuong}} {{item.MaLoaiThoiGian}} </td>
-            <td >{{item.ThoiGianNangSuat}}</td>
+            <td >{{item.NangSuat}}</td>
             <td >{{item.GhiChu}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"

@@ -108,15 +108,13 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
     }
   }
 
-  // checked(e) {
-  //   this.items.forEach(ele => {
-  //     if (ele.data.Id !== e.Id) {
-  //       ele.data.disabled = e.checked;
-  //       // ele.data.disabled = !ele.data.checked;
-  //     }
-  //   })
-
-  // }
+  checked(e) {
+    this.items.forEach(ele => {
+      if (ele.data.Id !== e.Id) {
+        ele.data.disabled = e.checked; // nếu khác id thì disabled các item khác ( disabled = true). ko đc fix cứng => vì khi tích chọn thì e.checked = true
+      }
+    })
+  }
 
   FilterTree() {
     let data: any = [];
@@ -160,13 +158,6 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
       this.activeModal.close(res.Data);
     })
 
-  }
-  checked(e) {
-    this.items.forEach(ele => {
-      if (ele.data.Id !== e.Id) {
-        ele.data.disabled = e.checked; // nếu khác id thì disabled các item khác ( disabled = true). ko đc fix cứng => vì khi tích chọn thì e.checked = true
-      }
-    })
   }
 
 }

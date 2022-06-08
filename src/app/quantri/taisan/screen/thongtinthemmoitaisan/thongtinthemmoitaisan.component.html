@@ -2,8 +2,9 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span> : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản"
-                [(ngModel)]="item.IddmLoaiTaiSan" (onChange)="LayMa($event)" [showClear]="true"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="LayMa($event)"
+                placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true">
+                </p-dropdown>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -21,8 +22,8 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhóm tài sản : </label>
         <div class="p-col-12 p-xl-8 p-p-0 d-flex">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TendmTaiSan " pInputText disabled/>
-                <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="ChonTaiSan()"></button>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TendmTaiSan " pInputText disabled />
+            <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="ChonTaiSan()"></button>
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
@@ -51,7 +52,7 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đơn vị <span class="text-danger">(*)</span>  : </label>
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đơn vị <span class="text-danger">(*)</span> : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViNangSuat" pInputText />
         </div>
@@ -91,7 +92,8 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng <span *ngIf="item?.IdBoPhanSuDung != null" class="text-danger">(*)</span>: </label>
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng <span
+                *ngIf="item?.IdBoPhanSuDung != null" class="text-danger">(*)</span>: </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianDuaVaoSuDung"
@@ -102,21 +104,24 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số năm khấu hao <span class="text-danger">(*)</span> : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1"> </p-inputNumber>
+            <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao"
+                mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1"> </p-inputNumber>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nguyên giá: </label>
         <div class="p-col-12 p-xl-7 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" mode="decimal" locale="en-EN" [min]="0" [(ngModel)]="item.NguyenGia" (onBlur)="edit(item)">
-            </p-inputNumber> 
+            <p-inputNumber [minFractionDigits]="0" mode="decimal" locale="en-EN" [min]="0" [(ngModel)]="item.NguyenGia"
+                (onBlur)="edit(item)">
+            </p-inputNumber>
         </div>
         <span class="p-col-12 p-xl-1 p-p-0 p-m-2"> (VNĐ) </span>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị còn lại : </label>
         <div class="p-col-12 p-xl-7 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [min]="0" [(ngModel)]="item.GiaTriConLai"> </p-inputNumber>
+            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [min]="0" [(ngModel)]="item.GiaTriConLai">
+            </p-inputNumber>
         </div>
         <span class="p-col-12 p-xl-1 p-p-0 p-m-2"> (VNĐ) </span>
     </div>
@@ -161,7 +166,7 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+            <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu"></textarea>
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
@@ -13,7 +13,7 @@ import { ChonComponent } from '../chon/chon.component';
   templateUrl: './thongtinthemmoitaisan.component.html',
   styleUrls: ['./thongtinthemmoitaisan.component.css']
 })
-export class ThongtinthemmoitaisanComponent implements OnInit {
+export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
 
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
@@ -40,7 +40,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     private _serviceTaiSan: TaisanService,
   ) { }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.opt === 'edit') {
       this.item.listFileDinhKem?.forEach(obj => {
         this.NameFile += `${obj.FileName}, `;
@@ -49,23 +49,25 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     }
   }
 
+  ngOnInit() {
+    
+  }
+
   LayMa(e) {
-    this.item.TendmTaiSan  = '';
     this.item.IddmTaiSan = '';
     if (!validVariable(e.value)) {
       this.item.Ma = '';
-      this.item.TendmTaiSan  = '';
-      return
+      this.item.TendmTaiSan = '';
+    } else {
+      this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
+        if (res.StatusCode === 500) {
+          this.toastr.error(res.Message);
+        }
+        else {
+          this.item.Ma = res.Data;
+        }
+      })
     }
-    this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
-      if (res.StatusCode === 500) {
-        this.item.Ma = '';
-        this.toastr.error(res.Message);
-      }
-      else {
-        this.item.Ma = res.Data;
-      }
-    })
   }
 
   edit(item) {

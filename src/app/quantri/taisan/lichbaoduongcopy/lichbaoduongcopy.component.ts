@@ -69,14 +69,14 @@ export class LichbaoduongcopyComponent implements OnInit {
 
     })
     this.filter.Nam = new Date().getFullYear();
-    this.filter.Thang = new Date().getMonth()+1;
+    this.filter.Thang = new Date().getMonth() + 1;
   }
   resetFilter() {
     this.filter = {};
     this.GetList(true);
   }
   GetList(reset?) {
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id).subscribe((res: any) => {
+    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id,DateToUnix(new Date(this.filter.Nam, this.filter.Thang, 1))).subscribe((res: any) => {
       this.itemsThang = res.Data;
     })
     this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(this.item.Ngay)).subscribe((res: any) => {
@@ -94,7 +94,7 @@ export class LichbaoduongcopyComponent implements OnInit {
   }
   isChonThang(item) {
     item.isChonNam = 1;
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id).subscribe((res: any) => {
+    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id,DateToUnix(new Date(this.filter.Nam, this.filter.Thang, 1))).subscribe((res: any) => {
       this.itemsThang = res.Data;
     })
   }

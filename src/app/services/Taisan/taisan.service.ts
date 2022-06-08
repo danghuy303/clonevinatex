@@ -162,9 +162,12 @@ export class TaisanService {
       GetNam: (Id, Ngay) => {
         return this.http.get(`${url}QuanLyTaiSan/GetChiTietTaiSanById_LichBaoDuongNam?Id=${Id}&Ngay=${Ngay}`, httpOptions);
       },
-      GetThang: (Id) => {
-        return this.http.get(`${url}QuanLyTaiSan/GetChiTietTaiSanById_LichBaoDuongThang?Id=${Id}`, httpOptions);
+      GetThang: (Id, Ngay) => {
+        return this.http.get(`${url}QuanLyTaiSan/GetChiTietTaiSanById_LichBaoDuongThang?Id=${Id}&Ngay=${Ngay}`, httpOptions);
       },
+      // GetThang: (Id) => {
+      //   return this.http.get(`${url}QuanLyTaiSan/GetChiTietTaiSanById_LichBaoDuongThang?Id=${Id}`, httpOptions);
+      // },
       Get: (Id) => {
         return this.http.get(`${url}QuanLyTaiSan/GetChiTietTaiSanById_LichBaoDuong?Id=${Id}`, httpOptions);
       },

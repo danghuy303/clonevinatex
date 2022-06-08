@@ -47,6 +47,7 @@ export class
 
       this.item.MaLoaiThoiGian = filter?.MaLoaiThoiGian;
       this.item.ThoiGianBaoDuong = filter?.ThoiGianBaoDuong;
+      this.item.NangSuat = filter?.NangSuat;
     }
 
   }
