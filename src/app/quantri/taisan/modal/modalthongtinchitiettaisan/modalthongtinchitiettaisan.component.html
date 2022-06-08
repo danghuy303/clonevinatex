@@ -189,7 +189,7 @@
                 <p-tabPanel *ngIf="item.IdRoot === item.Id" header="Danh sách vật tư">
                     <ng-template pTemplate="content">
                         <p-table [value]="item.listTaiSan"
-                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
+                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="false">
                             <ng-template pTemplate="colgroup">
                                 <colgroup>
                                     <col style="width: 50px;">

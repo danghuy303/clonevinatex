@@ -54,9 +54,9 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
     item.listVatTu?.forEach(vattu => {
       vattu.ThanhTien = ((vattu.GiaTri || 0) * (vattu.SoLuong || 0)) || 0;
     })
-    item.TongThanhTien = item.listVatTu.reduce((sum, obj) => {
+    item.TongThanhTien = item.listVatTu?.reduce((sum, obj) => {
       return sum + obj.ThanhTien;
-    }, 0)
+    }, 0)||0
     this.sumAll();
   }
 

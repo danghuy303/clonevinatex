@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { vn } from 'src/app/services/const';
 import { DateToUnix } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
@@ -33,6 +34,7 @@ export class LichbaoduongcopyComponent implements OnInit {
   constructor(
     public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -42,46 +44,33 @@ export class LichbaoduongcopyComponent implements OnInit {
     for (let i = 1; i <= 12; i++) {
       this.listThang.push({ value: i, label: `Tháng ${i}` });
     }
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(this.item.Ngay)).subscribe((res: any) => {
+    this.filter.Nam = new Date().getFullYear();
+    this.filter.Thang = new Date().getMonth() + 1;
+    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(new Date(this.filter.Nam, 1, 1))).subscribe((res: any) => {
       this.items = res.Data;
     })
     this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().Get(this.item.Id).subscribe((res: any) => {
-      //  this.listThoiGianNangSuat = res?.Data[0]?.listThoiGianNangSuat;
-      //   this.itemLichBaoDuong= res?.Data;
-      this.listdmLoaiBaoDuong = res?.Data.lstLoaiBaoDuong;
-      this.itemLichBaoDuong = res?.Data.lstChondmBaoDuong;
-      // this.itemLichBaoDuong = datafake.Data.map(ele => {
-      //   return {
-      //     ...ele,
-      //     listThoiGianNangSuat : [
-      //       {
-      //         TGNS: 'TG/NS 1',
-      //         ischon: false,
-      //       },
-      //       {
-      //         TGNS: 'TG/NS 2',
-      //         isChon: true,
-      //       },
-
-      //     ]
-      //   }
-      // });
-
+      if (res.StatusCode === 200) {
+        this.listdmLoaiBaoDuong = res?.Data.lstLoaiBaoDuong;
+        this.itemLichBaoDuong = res?.Data.lstChondmBaoDuong;
+      } else {
+        this._toastr.error(`${res.Message} - Lỗi lấy dữ liệu từ QLTS_Vinatex/QuanLyTaiSan/GetChiTietTaiSanById_LichBaoDuong`);
+      }
     })
-    this.filter.Nam = new Date().getFullYear();
-    this.filter.Thang = new Date().getMonth() + 1;
+
   }
   resetFilter() {
     this.filter = {};
     this.GetList(true);
   }
   GetList(reset?) {
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id,DateToUnix(new Date(this.filter.Nam, this.filter.Thang, 1))).subscribe((res: any) => {
+    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id, DateToUnix(new Date(this.filter.Nam, this.filter.Thang, 1))).subscribe((res: any) => {
       this.itemsThang = res.Data;
+      this.labelThang = res.Data.listThoiGian;
     })
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(this.item.Ngay)).subscribe((res: any) => {
-      this.items = res.Data;
-    })
+    // this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(this.item.Ngay)).subscribe((res: any) => {
+    //   this.items = res.Data;
+    // })
   }
   isChon(item) {
     item.isChonNam = 0;
@@ -94,8 +83,6 @@ export class LichbaoduongcopyComponent implements OnInit {
   }
   isChonThang(item) {
     item.isChonNam = 1;
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id,DateToUnix(new Date(this.filter.Nam, this.filter.Thang, 1))).subscribe((res: any) => {
-      this.itemsThang = res.Data;
-    })
+    this.GetList(true)
   }
 }

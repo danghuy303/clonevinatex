@@ -140,7 +140,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
       }
     }
     if (this.item?.TaiSan?.isCanDuTru) {
-      if (!validVariable(this.item?.TaiSan?.DuTruToiThieu)) {
+      if (!validVariable(this.item?.TaiSan?.DuTruToiThieu) || this.item?.TaiSan?.DuTruToiThieu <= 0) {
         this.toastr.error("Yêu cầu nhập số lượng dự trữ");
         return false;
       }
@@ -296,7 +296,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
     this._serviceTaiSan.NhapTaiSan().AddThuVien(this.item).subscribe((res: any) => {
       if (res.StatusCode === 200) {
         // this.activeModal.close();
-        this.toastr.success(res.Message);
+        // this.toastr.success(res.Message); yêu cầu chỉnh sửa message 
+        this.toastr.success('Lưu vào thư viện thành công!')
       } else {
         this.toastr.error(res.message);
       }
@@ -317,7 +318,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
             Id: "",
             ThoiGianDuaVaoSuDung: UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix),
             NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
-            listFileDinhKem: []
+            // listFileDinhKem: []
           },
         }
         console.log(this.item.TaiSan);

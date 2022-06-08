@@ -41,8 +41,8 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         console.log(res);
-        
         this.item.listLichBaoDuong.push(res);
+        this.toastr.success(`Cập nhật thành công!`)
       })
       .catch((er) => {
 
@@ -64,6 +64,7 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.item.listLichBaoDuong[index] = res;
+        this.toastr.success(`Cập nhật thành công!`)
       })
       .catch((er) => {
 

@@ -58,4 +58,7 @@ export class TaiLieuDanhSachComponent implements OnInit {
       this.item.listFileDinhKem.splice(index, 1)
     }).catch(er => console.log(er))
   }
+  test(){
+    console.log(this.item)
+  }
 }
