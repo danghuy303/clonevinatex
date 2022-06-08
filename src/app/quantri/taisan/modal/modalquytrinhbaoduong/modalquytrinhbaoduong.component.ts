@@ -126,9 +126,10 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     } else if (!validVariable(this.item.listTaiSan)) {
       this.toastr.error("Yêu cầu thêm tài sản!");
       return false
-    } else if (!this.ValidateTaiSan()) {
-      return false
-    }
+    } 
+    // else if (!this.ValidateTaiSan()) {
+    //   return false
+    // }
     return true;
   }
 
@@ -181,14 +182,16 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   }
 
   ChuyenDuyet() {
-    this._serviceTaiSan.QuyTrinhBaoDuong().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
-        this.activeModal.close();
-      }
-    })
+    if (this.ValidateTaiSan()) {
+      this._serviceTaiSan.QuyTrinhBaoDuong().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        }
+      })
+    }
   }
 
   KhongDuyet() {

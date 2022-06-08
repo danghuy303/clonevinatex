@@ -60,7 +60,7 @@ export class KehoachkinhdoanhthangComponent implements OnInit {
   }
 
   changeParam(id) {
-    this.router.navigate([`quantri/mkehoachsanxuat/danhmuc/kehoachkinhdoanhthang/${id}`], {
+    this.router.navigate([`quantri/mkehoachsanxuat/kehoachkinhdoanhthang/${id}`], {
       replaceUrl: true,
     });
   }

@@ -12,8 +12,7 @@ import { handleHTTPResponse } from 'src/app/services/globalfunction';
 })
 export class DenghixulysucochiphikhacComponent implements OnInit, OnChanges {
 
-  @Input('item') items: any = {};
-  @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
+  @Input() items: any = {};
   newitem: any = {};
   TongChiPhi: any = 0;
 
@@ -51,7 +50,7 @@ export class DenghixulysucochiphikhacComponent implements OnInit, OnChanges {
   TinhTong() {
     this.TongChiPhi = 0;
     this.items.forEach(item => {
-      item.ThanhTien = item.listChiPhiKhac.reduce((total, chiphi) => {
+      item.ThanhTien = item.listChiPhiKhac?.reduce((total, chiphi) => {
         return total + chiphi.GiaTri
       }, 0)
       this.TongChiPhi += (item.ThanhTien || 0)

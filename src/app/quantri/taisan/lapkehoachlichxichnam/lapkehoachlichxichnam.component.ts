@@ -220,7 +220,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.checkBtnChonTaiSan = this.checkBtnChonTaiSan;
     modalRef.componentInstance.checkedAll = false;
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = this.merge(res || [], this.item.listTaiSan, 'IdTaiSan').filter(ele => !ele.isXoa);
+      this.item.listTaiSan = this.merge(res || [], this.item.listTaiSan||[], 'IdTaiSan').filter(ele => !ele.isXoa);
     })
       .catch((er) => {
       });
