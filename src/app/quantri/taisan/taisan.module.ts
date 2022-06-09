@@ -159,6 +159,7 @@ import { NhancongComponent } from './screen/nhancong/nhancong.component';
 import { VattuComponent } from './screen/vattu/vattu.component';
 import { ChiphikhacComponent } from './screen/chiphikhac/chiphikhac.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { ThongtinkhauhaoComponent } from './screen/thongtinkhauhao/thongtinkhauhao.component';
 // import { ThongtinkhauhaoComponent } from './screen/thongtinkhauhao/thongtinkhauhao.component';
 import { DieuChuyenTaiSanComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai-san.component';
 import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisanbaoduong.component';
@@ -175,7 +176,7 @@ import { ChiphilichxichthangComponent } from './screenLichXich/chiphilichxichtha
 import { TaisanlichxichthangComponent } from './screenLichXich/taisanlichxichthang/taisanlichxichthang.component';
 import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
 import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchitiet/capnhatthuvientaisanchitiet.component';
-
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -345,6 +346,7 @@ import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchit
     SharedModule,
     QRCodeModule,
     SelectButtonModule,
+    ToggleButtonModule
   ],
   providers: [
     LoaderService,
@@ -361,6 +363,7 @@ import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchit
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
     ModalcapnhattaisanComponent,
+    // ModalthongtinchitiettaisanComponent,
     ModalcapnhatbaoduongComponent,
     ModalcapnhatsuachuabaoduongComponent,
     ModalhangsanxuatComponent,

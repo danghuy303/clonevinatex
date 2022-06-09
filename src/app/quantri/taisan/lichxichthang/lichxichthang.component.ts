@@ -32,23 +32,24 @@ export class LichxichthangComponent implements OnInit {
     private _danhMucTaiSan: DanhmuctaisanService,) { }
 
   ngOnInit(): void {
+    this.filter.Ngay = new Date();
     this.GetList();
+    
     let getFullYear = new Date().getFullYear();
     let getMonth = new Date().getMonth() + 1;
-    this.filter.Ngay = `${getMonth}/${getFullYear}`;
+    // this.filter.Ngay = `${getMonth}/${getFullYear}`;
+    
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
       IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
       IdDuAn: 0,
     };
-
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
     })
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    
   }
   resetFilter() {
     this.filter = {};
@@ -56,8 +57,15 @@ export class LichxichthangComponent implements OnInit {
   }
   GetList(reset?) {
     let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '', Ngay: DateToUnix(this.filter.Ngay), LoaiKeHoach: '',
+      Keyword: "", 
+      CurrentPage: 0, 
+      PageSize: 20, 
+      MaCongDoan: '', 
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, 
+      IdUser: '', 
+      Ngay: DateToUnix(new Date(this.filter.Ngay.getFullYear(), this.filter.Ngay.getMonth(), 1)), 
+      LoaiKeHoach: '',
       IdDuAn: 0,
     };
     this._serviceTaiSan.ListLichXichThang().GetList(data).subscribe((res: any) => {
@@ -66,12 +74,14 @@ export class LichxichthangComponent implements OnInit {
     })
   }
   ChiTietThongTin(item) {
+    console.log(item);
+    
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.item = item.IdTaiSan;
+    modalRef.componentInstance.getId = item.IdTaiSan;
     // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
       .then((res: any) => {

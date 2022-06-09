@@ -5,6 +5,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NhaCungUngModalComponent } from './nha-cung-ung-modal/nha-cung-ung-modal.component';
 import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
+import { ConfirmationService } from 'src/app/services/confirmation.service';
 
 @Component({
   selector: 'app-nha-cung-ung-danh-muc',
@@ -26,6 +27,7 @@ export class NhaCungUngDanhMucComponent implements OnInit {
     private taiSanService: TaisanService,
     public modal: NgbModal,
     public toast: ToastrService,
+    private confirmService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -116,13 +118,17 @@ export class NhaCungUngDanhMucComponent implements OnInit {
     if (listId.length === 0) {
       this.toast.error('Chưa chọn nhà cung ứng')
     } else {
-      this.taiSanService.NhaCungUng().DeleteList(listId).subscribe((res: any) => {
-        if (res.StatusCode === 200) {
-          this.toast.success(res.Message)
-          this.ResetListNhaCungUng();
-        } else {
-          this.toast.error(res.Message)
-        }
+      this.confirmService.show({
+        message: 'Bạn chắc chắn muốn xóa nhà cung ứng này?'
+      }, () => {
+        this.taiSanService.NhaCungUng().DeleteList(listId).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.toast.success(res.Message)
+            this.ResetListNhaCungUng();
+          } else {
+            this.toast.error(res.Message)
+          }
+        })
       })
     }
   }

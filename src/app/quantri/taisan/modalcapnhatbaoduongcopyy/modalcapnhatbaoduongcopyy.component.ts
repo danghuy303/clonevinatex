@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { LohangComponent } from '../../quanlykhosanxuat/thongke/lohang/lohang.component';
 
 @Component({
   selector: 'app-modalcapnhatbaoduongcopyy',
@@ -44,7 +45,6 @@ export class
       filter = this.items.find(ele => ele.Id === e.value);
       this.item.ThoiGianNangSuat = filter?.ThoiGianNangSuat;
       this.item.NoiDung = filter?.NoiDung;
-
       this.item.MaLoaiThoiGian = filter?.MaLoaiThoiGian;
       this.item.ThoiGianBaoDuong = filter?.ThoiGianBaoDuong;
       this.item.NangSuat = filter?.NangSuat;
@@ -56,7 +56,8 @@ export class
       if (validVariable(this.item.IddmLoaiBaoDuong)) {
         this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
         if (!this.existedItems.includes(this.item.IddmLoaiBaoDuong)) {
-          this.activeModal.close(this.item);
+          this.activeModal.close(this.item); 
+          console.log(this.item)
         }
         else {
           this.toastr.error("Đã tồn tại!");
