@@ -64,7 +64,7 @@ export class LichbaoduongcopyComponent implements OnInit {
     this.GetList(true);
   }
   GetList(reset?) {
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id, DateToUnix(new Date(this.filter.Nam, this.filter.Thang, 1))).subscribe((res: any) => {
+    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id, DateToUnix(new Date(this.filter.Nam, this.filter.Thang-1, 1))).subscribe((res: any) => {
       this.itemsThang = res.Data;
       this.labelThang = res.Data.listThoiGian;
     })
@@ -77,7 +77,7 @@ export class LichbaoduongcopyComponent implements OnInit {
   }
   isChonNam(item) {
     item.isChonThang = 0;
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(this.item.Ngay)).subscribe((res: any) => {
+    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(new Date(this.filter.Nam, 1, 1))).subscribe((res: any) => {
       this.items = res.Data;
     })
   }

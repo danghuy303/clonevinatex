@@ -40,6 +40,7 @@ import { AntoanComponent } from '../quantri/taisan/screen/antoan/antoan.componen
 import { LichbaoduongcopyComponent } from '../quantri/taisan/lichbaoduongcopy/lichbaoduongcopy.component';
 import { BiendongComponent } from '../quantri/taisan/biendong/biendong.component';
 import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/modalbaoduong.component';
+import { ThongtinkhauhaoComponent } from '../quantri/taisan/screen/thongtinkhauhao/thongtinkhauhao.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/mo
     AntoanComponent,
     LichbaoduongcopyComponent,
     BiendongComponent,
-
+    ThongtinkhauhaoComponent
   ],
   imports: [
     AccordionModule,
@@ -109,6 +110,7 @@ import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/mo
     ModalbaoduongComponent,
     ThongsokythuatComponent,
     AntoanComponent,
+    ThongtinkhauhaoComponent
   ]
 })
 export class SharedModule { }
