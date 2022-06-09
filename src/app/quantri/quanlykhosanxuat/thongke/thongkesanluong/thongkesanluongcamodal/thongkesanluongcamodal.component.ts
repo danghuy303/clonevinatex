@@ -208,6 +208,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
               element.SoCot = 2;
           });
         }
+        console.log(this.listCaSanXuat)
       })
 
     })
@@ -682,8 +683,10 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     }
     // //console.log(this.TongKhoiLuong);
     let found = this.item.listThongKeSanLuong[index].listTyLeBongPhe?.find(ele => ele.MaCongDoan === this.item.CongDoan);
-    found.TongKhoiLuongCongDoan = this.KhoiLuongCa[index];
-    found.isTruVaoSanLuong = this.item.listThongKeSanLuong[index].isTruVaoSanLuong;
+    if(found){
+      found.TongKhoiLuongCongDoan = this.KhoiLuongCa[index];
+      found.isTruVaoSanLuong = this.item.listThongKeSanLuong[index].isTruVaoSanLuong;
+    }
     this.services.ThongKeSanLuong().TinhTyLeThongKeSanLuongBongPhe(this.item.listThongKeSanLuong[index].listTyLeBongPhe).subscribe((res: any) => {
       this.item.listThongKeSanLuong[index].listTyLeBongPhe = res;
     })

@@ -538,6 +538,7 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyTaiSan/GetThuVienTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyTaiSan/UpdateThuVienTaiSan`, data, httpOptions);
       },
       Delete: (Id) => {

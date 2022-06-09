@@ -125,7 +125,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập tên");
       return false;
     }
-    if (!validVariable(this.item?.TaiSan?.SoNamKhauHao || this.item?.TaiSan?.IddmLoaiTaiSan)) {
+    if (!validVariable(this.item?.TaiSan?.SoNamKhauHao || this.item?.TaiSan?.IddmLoaiTaiSan || this.item?.TaiSan?.TenVietTat)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
       return false;
     }

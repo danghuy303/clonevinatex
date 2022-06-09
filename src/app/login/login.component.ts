@@ -114,7 +114,6 @@ export class LoginComponent implements OnInit {
                 }
               });
           })
-
         }
         else {
           this.loginState = false;
@@ -148,6 +147,12 @@ export class LoginComponent implements OnInit {
         //   this.error = 0;
         //   this.toastr.error('Đăng nhập thất bại!');
         // }
+      },
+      (er)=>{
+        this.loginState = false;
+          this.error = 0;
+          // console.log(er.error.error);
+          this.toastr.error(er.error.error_description);
       });
     } else {
       this.toastr.error(this.emes);
