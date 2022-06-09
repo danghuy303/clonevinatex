@@ -48,12 +48,13 @@ export class CapnhatthuvienComponent implements OnInit {
 
   resetFilter() {
     this.getList(true);
+    this.filter='';
   }
 
   getList(reset?) {
     let data = {
       PageSize: 20,
-      CurrentPage: this.paging.CurrentPage,
+      CurrentPage: this.paging.Page,
       tabTrangThai: this.loaiTab,
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       Keyword: this.filter.Keyword,
@@ -88,7 +89,10 @@ export class CapnhatthuvienComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.title = "Nhập tài sản";
-    modalRef.componentInstance.item = {}
+    modalRef.componentInstance.item = {listTaiSan: [],
+      listLichBaoDuong: [],
+      listThongSoKyThuat: [],
+      listThongSoAnToan: [],}
     modalRef.result.then(res => {
 
     }).catch(er => console.log(er))
@@ -115,4 +119,8 @@ export class CapnhatthuvienComponent implements OnInit {
     })
   }
 
+  changePage(event){
+    this.paging.Page = event.page+1;
+    this.getList()
+  }
 }

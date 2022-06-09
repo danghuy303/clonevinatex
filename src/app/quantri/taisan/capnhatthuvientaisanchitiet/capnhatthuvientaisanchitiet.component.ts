@@ -10,6 +10,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from '../../modal/uploadmodal/uploadmodal.component';
 import { ModalthemmoiluachontaisanComponent } from '../modal/modalthemmoiluachontaisan/modalthemmoiluachontaisan.component';
+import { ChonComponent } from '../screen/chon/chon.component';
 
 @Component({
   selector: 'app-capnhatthuvientaisanchitiet',
@@ -24,6 +25,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
   lang: any = vn;
   NameFile: string;
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
+  yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   itemDonVi: any = {};
   uploader: FileUploader;
   listDonVi: any = [];
@@ -94,15 +96,9 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập tên");
       return false;
     }
-    if (!validVariable(this.item?.SoNamKhauHao)) {
-      this.toastr.error("Yêu cầu nhập số năm khấu hao");
+    if (!validVariable(this.item?.Ma || this.item?.IddmLoaiTaiSan)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
       return false;
-    }
-    if (this.item?.TaiSan?.IdBoPhanSuDung !== null) {
-      if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {
-        this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
-        return false;
-      }
     }
     return true;
   }
@@ -201,12 +197,6 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
     }
   }
 
-  changeTab(e) {
-    // this.trangThai = e.index + 1;
-    // this.loaiTab = e.index;
-    // this.Loaddata(true);
-  }
-
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.multiple = true;
@@ -223,6 +213,38 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
     }, (reason) => {
 
     });
+  }
+
+  ChonTaiSan() {
+    let modalRef = this._modal.open(ChonComponent, {
+      size: "xl",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.ItemDaChon = this.item.IddmTaiSan ? this.item.IddmTaiSan : "";
+    modalRef.componentInstance.item = this.item;
+    modalRef.result.then((res: any) => {
+      this.item.IddmTaiSan = res[0]?.Id;
+      this.item.TendmTaiSan = res[0]?.Ten;
+    })
+      .catch((er) => {
+      });
+  }
+
+  LayMa(e) {
+    this.item.IddmTaiSan = '';
+    if (!validVariable(e.value)) {
+      this.item.Ma = '';
+      this.item.TendmTaiSan = '';
+    } else {
+      this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
+        if (res.StatusCode === 500) {
+          this.toastr.error(res.Message);
+        }
+        else {
+          this.item.Ma = res.Data;
+        }
+      })
+    }
   }
 
 }
