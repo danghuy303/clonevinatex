@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { validVariable } from 'src/app/services/globalfunction';
+import { merge, validVariable } from 'src/app/services/globalfunction';
 import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong-tin-hang-hoa-modal.component';
 
 @Component({
@@ -67,8 +67,10 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
     modalRef.componentInstance.checkListItem = this.item.listItem;
     modalRef.result
       .then((res: any) => {
-        this.item.listItem = this.item.listItem.concat(res);
-        this.listItem_copy = this.item.listItem
+        
+        this.item.listItem = merge(res, this.item.listItem, 'MadmItem')
+        console.log("res", res);
+        console.log("item.listItem", this.item.listItem);
         this.LoadData();
       })
       .catch(er => {});

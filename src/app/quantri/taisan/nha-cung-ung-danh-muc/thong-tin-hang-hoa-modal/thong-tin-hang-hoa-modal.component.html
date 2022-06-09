@@ -5,7 +5,10 @@
 
 <div class="modal-body">
   <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <div></div>
+    <div>
+      <button pButton pRipple type="button" label="Đóng" class="p-button-outlined p-mr-2" (click)="activeModal.dismiss()"></button>
+      <p-button label="Chấp nhận" class="p-button-sm" (click)="SelectHangHoa()"></p-button>
+    </div>
     <div class="p-inputgroup" style="width: 200px;">
       <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="filter.keyWord" (keyup.enter)="GetListHangHoa(true)"/>
       <button type="button" pButton pRipple icon="pi pi-search"
@@ -59,8 +62,8 @@
     </p-table>
   </div>
 
-  <div class="p-d-flex p-ai-center p-jc-between p-mt-3">
+  <!-- <div class="p-d-flex p-ai-center p-jc-between p-mt-3">
     <button pButton pRipple type="button" label="Đóng" class="p-button-outlined" (click)="activeModal.dismiss()"></button>
     <p-button label="Chấp nhận" class="p-button-sm" (click)="SelectHangHoa()"></p-button>
-  </div>
+  </div> -->
 </div>
