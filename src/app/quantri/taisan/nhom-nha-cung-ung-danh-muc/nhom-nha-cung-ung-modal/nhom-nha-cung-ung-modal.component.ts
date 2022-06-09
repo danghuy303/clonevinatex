@@ -54,7 +54,10 @@ export class NhomNhaCungUngModalComponent implements OnInit {
 
   Validate() {
     if (!validVariable(this.item.Ma)) {
-      this.toast.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+      this.toast.error("Yêu cầu nhập mã");
+      return false;
+    } else if (!validVariable(this.item.Ten)) {
+      this.toast.error("Yêu cầu nhập tên");
       return false;
     }
     return true;

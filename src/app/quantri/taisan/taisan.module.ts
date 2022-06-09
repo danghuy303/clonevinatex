@@ -143,7 +143,7 @@ import { VattuComponent } from './screen/vattu/vattu.component';
 import { ChiphikhacComponent } from './screen/chiphikhac/chiphikhac.component';
 import { ModalnhapvattuluachontaisanComponent } from './modal/modalnhapvattuluachontaisan/modalnhapvattuluachontaisan.component';
 import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
-import {SelectButtonModule} from 'primeng/selectbutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { ThongtinkhauhaoComponent } from './screen/thongtinkhauhao/thongtinkhauhao.component';
 import { DieuChuyenTaiSanComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai-san.component';
 import { DieuChuyenTaiSanModalComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai-san-modal/dieu-chuyen-tai-san-modal.component';
@@ -173,7 +173,7 @@ import { TaisanlichxichthangComponent } from './screenLichXich/taisanlichxichtha
 import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
 import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchitiet/capnhatthuvientaisanchitiet.component';
 import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal/them-moi-vat-tu-modal.component';
-
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -343,6 +343,7 @@ import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal
     SharedModule,
     QRCodeModule,
     SelectButtonModule,
+    ToggleButtonModule
   ],
   providers: [
     LoaderService,
@@ -359,7 +360,7 @@ import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal
     ModaldonvinangsuatComponent,
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
-    ModalcapnhattaisanComponent,    
+    ModalcapnhattaisanComponent,
     // ModalthongtinchitiettaisanComponent,
     ModalcapnhatbaoduongComponent,
     ModalcapnhatsuachuabaoduongComponent,
@@ -399,7 +400,7 @@ import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal
     ModalluachontaisantheolichxichthangComponent,
     CapnhatthuvientaisanchitietComponent
   ],
-  
+
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class TaisanModule { }

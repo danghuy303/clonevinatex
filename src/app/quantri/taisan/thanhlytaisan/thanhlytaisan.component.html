@@ -9,10 +9,10 @@
          <button pButton pRipple label="Xóa tất cả" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>  -->
     </div>
     <div class="p-d-flex p-flex-row">
-        <div class="p-mr-2">
+        <!-- <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm" [(ngModel)]="filter.IdBoPhanSuDung">
             </p-dropdown>
-        </div>
+        </div> -->
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)">
@@ -51,7 +51,7 @@
                 <col>
                 <col>
                 <col>
-                <col>
+                <!-- <col> -->
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -60,7 +60,7 @@
                 <th class="text-center">STT</th>
                 <th class="text-center">Số quy trình</th>
                 <th class="text-center">Ngày thanh lý</th>
-                <th class="text-center">Bộ phận sử dụng</th>
+                <!-- <th class="text-center">Bộ phận sử dụng</th> -->
                 <th class="text-center">Lý do thanh lý</th>
                 <th class="text-center">Giá trị thanh lý</th>
                 <th class="text-center">Trạng thái</th>
@@ -76,7 +76,7 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center">{{item.NgayThanhLy|date:'dd/MM/yyyy'}}</td>
-                <td >{{item.TenBoPhanSuDung}}</td>
+                <!-- <td >{{item.TenBoPhanSuDung}}</td> -->
                 <td >{{item.NoiDung}}</td>
                 <td class="text-right">{{item.TongGiaTriThanhLy}}</td>
                 <td class="text-center">
