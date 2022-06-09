@@ -41,6 +41,7 @@ export class CapnhatthuvienComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+      res.push({Ten:"Chưa có bộ phận sử dụng",Id:"Chưa có bộ phận sử dụng"})
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
