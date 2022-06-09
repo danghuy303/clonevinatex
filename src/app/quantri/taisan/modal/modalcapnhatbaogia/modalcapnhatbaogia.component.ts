@@ -111,11 +111,13 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   Validate() {
-    if (!validVariable(this.item.NgayBanGiao) || !validVariable(this.item.IdBoPhanSuDung)) {
+    if (!validVariable(this.item.IdBoPhanSuDung)) {
+      this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
+      return false;
+    } else if (!validVariable(this.item.NgayBanGiao)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày");
       return false;
-    }
-    if (!validVariable(this.listTaiSan_copy) || this.listTaiSan_copy.length === 0) {
+    } else if (!validVariable(this.listTaiSan_copy)) {
       this.toastr.error("Yêu cầu nhập tài sản");
       return false;
     }
