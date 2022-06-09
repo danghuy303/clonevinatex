@@ -321,7 +321,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
             // listFileDinhKem: []
           },
         }
-        console.log(this.item.TaiSan);
+       
         this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(this.item.TaiSan.IddmLoaiTaiSan).subscribe((res: any) => {
           if (res.StatusCode === 500) {
             this.toastr.error(res.Message);

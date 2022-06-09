@@ -10,8 +10,8 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 })
 export class ThongtinkhauhaoComponent implements OnInit {
 
-  @Input('item') item: any = {};
-  @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
+  @Input() item: any = {};
+  // @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
   newitem: any = {};
 
   constructor(public _modal: NgbModal,
