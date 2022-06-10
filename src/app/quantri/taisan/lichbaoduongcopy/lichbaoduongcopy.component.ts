@@ -43,7 +43,7 @@ export class LichbaoduongcopyComponent implements OnInit {
       this.listThang.push({ value: i, label: `Tháng ${i}` });
     }
     this.filter.Nam = new Date().getFullYear();
-    this.filter.Thang = new Date().getMonth() + 1;
+    this.filter.Thang = new Date().getMonth()+1;
     this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().Get(this.item.Id).subscribe((res: any) => {
       if (res.StatusCode === 200) {
         this.listdmLoaiBaoDuong = res?.Data.lstLoaiBaoDuong;
@@ -66,7 +66,7 @@ export class LichbaoduongcopyComponent implements OnInit {
   }
   isChonThang() {
     this.item.isChonNam = true;
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id, DateToUnix(new Date(this.filter.Nam, this.filter.Thang, 1))).subscribe((res: any) => {
+    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id, DateToUnix(new Date(this.filter.Nam, this.filter.Thang - 1, 1))).subscribe((res: any) => {
         this.items = res.Data;
       })
   }

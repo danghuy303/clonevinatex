@@ -109,6 +109,10 @@ export class ModalthanhlytaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
       return false;
     }
+    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+      this.toastr.error("Yêu cầu nhập thêm tài sản!");
+      return false;
+    }
     return true;
   }
   GhiLai() {

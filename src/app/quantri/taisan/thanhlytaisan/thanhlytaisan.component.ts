@@ -62,7 +62,7 @@ export class ThanhlytaisanComponent implements OnInit {
       sFilter: this.keyWord,
       TabTrangThai: this.trangThai,
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-
+      Keyword: this.filter.Keyword
     };
     this._serviceTaiSan.ThanhLyTaiSan().GetList(data).subscribe((res: any) => {
       // res.Data.Items.forEach(obj=>{  

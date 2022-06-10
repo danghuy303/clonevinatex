@@ -47,8 +47,8 @@ export class CapnhatthuvienComponent implements OnInit {
   }
 
   resetFilter() {
+    this.filter={};
     this.getList(true);
-    this.filter='';
   }
 
   getList(reset?) {
@@ -89,10 +89,24 @@ export class CapnhatthuvienComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.title = "Nhập tài sản";
-    modalRef.componentInstance.item = {listTaiSan: [],
-      listLichBaoDuong: [],
-      listThongSoKyThuat: [],
-      listThongSoAnToan: [],}
+    modalRef.componentInstance.item = {
+      Id: "",
+      IdTaiSan: "",
+      IdTrangThai: "",
+      TenTrangThai: "",
+      isKetThuc: false,
+      TaiSan: {
+        Id: "",
+        isXoa: false,
+        listFileDinhKem: [],
+        Created: new Date(),
+        Modified: new Date(),
+        listTaiSan: [],
+        listLichBaoDuong: [],
+        listThongSoKyThuat: [],
+        listThongSoAnToan: [],
+      },
+     }
     modalRef.result.then(res => {
 
     }).catch(er => console.log(er))

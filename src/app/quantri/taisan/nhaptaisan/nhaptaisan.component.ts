@@ -18,11 +18,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class NhaptaisanComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
-
   eAction: any = "QUYTRINHNHAPTAISAN";
   loaiTab: any = 0;
   Keyword: any = '';
-  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  paging: any = {};
   selectedItems: any = [];
   filter: any = {};
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
@@ -46,11 +45,11 @@ export class NhaptaisanComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
-          .NhapTaiSan()
-          .Get(res.id)
-          .subscribe((res1: any) => {
-            this.update(res1);
-          });
+        .NhapTaiSan()
+        .Get(res.id)
+        .subscribe((res1: any) => {
+          this.update(res1);
+        });
       }
     });
     this.resetFilter();
@@ -81,17 +80,16 @@ export class NhaptaisanComponent implements OnInit {
     this.Loaddata(true);
   }
   resetFilter() {
-    this.Keyword = '';
     this.filter = {};
     this.Loaddata(true);
   }
   Loaddata(reset?) {
     if (reset) {
-      this.paging.currentPage = 1;
+      this.paging.CurrentPage = 0;
     }
     let data = {
       PageSize: 20,
-      CurrentPage: this.paging.currentPage,
+      CurrentPage: this.paging.CurrentPage,
       tabTrangThai: this.trangThai,
       Keyword: this.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
@@ -108,9 +106,7 @@ export class NhaptaisanComponent implements OnInit {
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
-          // obj.TenBoPhanSuDung = this.listPhanXuong.find(ele=>ele.value == obj.IdBoPhanSuDung)?.label||null;
           obj.listTaiSan.forEach(element => {
-            // element.TenBoPhanSuDung = this.listPhanXuong.find(ele=>ele.value == element.IdBoPhanSuDung)?.label||null;
             obj_copy.children.push({ data: element });
           });
           delete obj.listTaiSan;
@@ -156,8 +152,7 @@ export class NhaptaisanComponent implements OnInit {
 
     }).catch(er => console.log(er))
       .finally(() => {
-        this.Loaddata()
-        this.changeParam(0);
+        this.changeParam(0)
       })
   }
   update(item) {
@@ -170,16 +165,15 @@ export class NhaptaisanComponent implements OnInit {
     modalRef.componentInstance.title = "Cập nhật tài sản";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result.then(res => {
-
+      this.Loaddata()
     }).catch(er => console.log(er))
       .finally(() => {
-        this.Loaddata()
         this.changeParam(0);
       })
   }
   changePage(event) {
-    this.paging.currentPage = event.page + 1;
-    this.Loaddata(false);
+    this.paging.CurrentPage = event.page + 1;
+    this.Loaddata();
   }
 
 }
