@@ -48,20 +48,17 @@ export class ThongTinHangHoaModalComponent implements OnInit {
   }
 
   SelectHangHoa() {
-    let newArr = this.checkListItem.map(item=>item.MadmItem);
-    this.selectedList = this.items.filter(item=>{
-      return newArr.indexOf(item.Ma) == -1 && item.checked === true;
-    })
+    // let newArr = this.checkListItem.map(item=>item.MadmItem);
+    this.selectedList = this.items.filter(item => item.checked)
     .map(item=> {
       return ({
         IddmItem: item.Id,
+        Id: '',
         TendmItem: item.Ten,
         MadmItem: item.Ma
       })
     })
-    console.log("this.selectedList", this.selectedList);
-    
-    // this.activeModal.close(this.selectedList);
+    this.activeModal.close(this.selectedList);
   }
 
   CheckAllHangHoa() {
@@ -71,12 +68,8 @@ export class ThongTinHangHoaModalComponent implements OnInit {
   }
 
   CheckExistedHangHoa() {
-    this.items.forEach(item => {
-      this.checkListItem.forEach(checkedItem => {
-        if (item.Ma === checkedItem.MadmItem) {
-          item.checked = true;
-        }
-      })
+    this.items.forEach(ele => {
+      ele.checked = this.checkListItem.includes(ele.Id);
     })
   }
 

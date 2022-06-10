@@ -162,7 +162,6 @@ export function mapArrayForDropDown(array: Array<any>, labelProp: string, valueP
     })
 }
 export function merge(newArr: Array<any>, existingArr: Array<any>, diffProp: string): Array<any> {
-    // debugger
     let removeIndex = [];
     newArr.forEach((newEle) => {
         let index = existingArr.findIndex(

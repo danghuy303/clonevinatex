@@ -39,10 +39,10 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
     if (this.opt=== 'add') {
       this.GetNextSoQuyTrinh();
     } else {
-
     }
     if (this.item.listTaiSan.length) {
       this.item.listTaiSan.forEach(ele => {
@@ -68,6 +68,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.KiemTraButtonModal();
+    this.item.NgayBaoDuong = this.item.NgayBaoDuong || new Date();
   }
 
   GetNextSoQuyTrinh() {

@@ -1,6 +1,9 @@
 import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
+import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { deepCopy, merge, validVariable } from 'src/app/services/globalfunction';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong-tin-hang-hoa-modal.component';
 
 @Component({
@@ -16,16 +19,18 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   paging: any = {};
   checkedAll: boolean = false;
   fileUpload: any;
-
+  fileUploadHangHoa: any;
 
   constructor(
     public modal: NgbModal,
     public activeModal: NgbActiveModal,
+    private taiSanService: TaisanService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.item.listItem) {
-      this.LoadData();
+      this.LoadData(true);
     } else {
       this.item.listItem = [];
     }
@@ -35,68 +40,56 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   }
 
   SearchHangHoa(keyword) {
-    if ((validVariable(keyword)) && keyword.trim() !== '') {
+    this.LoadData(false);
+    if ((validVariable(keyword)) && keyword.toString().trim() !== '') {
       this.listItem_copy = this.listItem_copy.filter(ele => {
-        return ele.MadmItem.includes(keyword) || ele.TendmItem.includes(keyword)
+        return ele.MadmItem.toString().toLowerCase().includes(keyword.toString().trim().toLowerCase()) 
+        || ele.TendmItem.toString().toLowerCase().includes(keyword.toString().trim().toLowerCase());
       })
-      this.paging.totalCount = this.listItem_copy.length
+      this.paging.totalCount = this.listItem_copy.length;
     } else {
-      this.LoadData();
+      this.LoadData(true)
     }
-    // console.log(keyword);
   }
 
-  LoadData() {
+  LoadData(reset) {
+    if (reset) {
+      this.filter = {
+        keyword: ''
+      };
+      this.paging = {
+        currentPage: 1,
+        totalCount: this.item.listItem.length,
+      };
+    }
     this.listItem_copy = this.item.listItem;
-    this.filter = {};
-    this.paging = {
-      currentPage: 1,
-      totalCount: this.item.listItem.length,
-    };
     this.checkedAll = false;
   }
 
   AddHangHoa() {
+    let existedItem = this.item.listItem.map(ele => ele.IddmItem);
     let modalRef = this.modal.open(ThongTinHangHoaModalComponent, {
       size: "xl",
       backdrop: "static",
     })
-    if (!validVariable(this.item.listItem)) {
-      this.item.listItem = [];
-    }
-    modalRef.componentInstance.checkListItem = this.item.listItem;
+    modalRef.componentInstance.checkListItem = existedItem || [];
     modalRef.result
       .then((res: any) => {
-        this.listItem_copy = merge(res, this.listItem_copy, 'IddmItem');
-        this.item.listItem = this.listItem_copy;
-        this.LoadData();
+        this.item.listItem = merge(res, this.listItem_copy, 'IddmItem');
+        this.LoadData(true);
       })
       .catch(er => { });
   }
 
-  // autoMerge(newArr, existingArr, diffProp) {
-  //   let addItems = [];
-  //   newArr.forEach(newEle => {
-  //     let index = existingArr.findIndex((existedEle) => existedEle[diffProp] === newEle[diffProp]);
-  //     if (index === -1) {
-  //       addItems.push(newEle);
-  //     }
-  //   })
-  //   existingArr.forEach(oldEle => {
-  //     let index = newArr.findIndex((newEle) => newEle[diffProp] === oldEle[diffProp]);
-  //     if (index === -1) {
-  //       existingArr.splice()
-  //     }
-  //   })
-  //   console.log("addItems", addItems);
-  //   return addItems;
-  // }
-
   DeleteListHangHoa() {
-    this.item.listItem = this.item.listItem.filter(item => {
-      return !item.checked === true;
+    this.confirmationService.show({
+      message: 'Bạn chắc chắn muốn xóa hàng hóa đã chọn?'
+    }, () => {
+      this.item.listItem = this.item.listItem.filter(item => {
+        return !item.checked === true;
+      })
+      this.LoadData(true);
     })
-    this.LoadData();
   }
 
   CheckAllHangHoa() {
@@ -105,59 +98,34 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
     })
   }
 
-  // ExportListHangHoa() {
-  //   let data = {
-  //     CurrentPage: 0,
-  //     PageSize: 20,
-  //     Ma: "",
-  //     Ten: "",
-  //     Keyword: this.filterHangHoa.keyword,
-  //     GhiChu: "",
-  //   }
-  //   this.taiSanService.NhaCungUng().ExportItem(data).subscribe((res: any)=>{
-  //     window.open(res.Data);
-  //   })
-  // }
+  ExportListHangHoa() {
+    let data = {
+      IdNhaCungUng: this.item.Id,
+    }
+    this.taiSanService.NhaCungUng().ExportItem(data).subscribe((res: any)=>{
+      this.taiSanService.NhaCungUng().download(res.Data);
+    })
+  }
 
-  // ImportListHangHoa() {
-  //   let modalRef = this.modal.open(UploadmodalComponent, {
-  //     size: 'md',
-  //     backdrop: 'static',
-  //   })
-  //   modalRef.result
-  //     .then((res: any)=>{
-  //       this.fileUploadHangHoa = res;
-  //       this.taiSanService.NhaCungUng().Import(this.fileUploadHangHoa[0]).subscribe(()=>{
-  //         this.LoadListHangHoa(true);
-  //       })
-  //     })
-  //     .catch(er=>{})
-  //     .finally()
+  ImportListHangHoa() {
+    let data = {
+      FileName: "" 
+    }
+    let modalRef = this.modal.open(UploadmodalComponent, {
+      size: 'md',
+      backdrop: 'static',
+    })
+    modalRef.result
+      .then((res: any)=>{
+        data.FileName = res[0].Name;
+        this.taiSanService.NhaCungUng().ImportItem(data).subscribe((res: any)=>{
+          this.item.listItem = res.Data;
+          this.LoadData(true);
+        })
+      })
+      .catch(er=>{})
+      .finally()
 
-  // }
-
-  // SearchHangHoa() {
-  //   this.listHangHoa = this.listHangHoa.filter(item => {
-  //     if (
-  //       item.Ma.toLowerCase().includes(this.filterHangHoa.keyword.toLowerCase()) ||
-  //       item.Ten.toLowerCase().includes(this.filterHangHoa.keyword.toLowerCase())
-  //     ) {
-  //       // console.log(true);
-  //       return item;
-  //     } else {
-  //       // console.log(false);
-  //     }
-  //   })
-  //   if (this.filterHangHoa.keyword === '') {
-  //     this.LoadListHangHoa();
-  //   }
-  // }
-
-
-
-  // changePage(event) {
-  //   this.pageHangHoa.currentPage = event + 1;
-  //   this.LoadListHangHoa(false);
-  // }
+  }
 
 }
