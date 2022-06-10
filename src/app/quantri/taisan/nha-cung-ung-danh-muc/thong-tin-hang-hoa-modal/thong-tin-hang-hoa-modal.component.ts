@@ -59,7 +59,9 @@ export class ThongTinHangHoaModalComponent implements OnInit {
         MadmItem: item.Ma
       })
     })
-    this.activeModal.close(this.selectedList);
+    console.log("this.selectedList", this.selectedList);
+    
+    // this.activeModal.close(this.selectedList);
   }
 
   CheckAllHangHoa() {

@@ -1,0 +1,51 @@
+<div class="modal-body">
+    <app-quy-trinh-template [value]="title" (clickEvent)="handleProcedure($event)">
+        <div title class="d-flex p-jc-between" style="width: 100%">
+            <h5><b>{{title}}</b></h5>
+            <div class="d-flex flex-column flex-lg-row">
+                <div>
+                    <span style="font-weight: bold;">Số quy trình:</span>
+                </div>
+                <div class="ml-lg-3 mr-lg-3">
+                    <span style="font-weight: bold;">TG Tạo:</span>
+                </div>
+                <div>
+                    <span style="font-weight: bold;">TG Duyệt:</span>
+                </div>
+            </div>
+        </div>
+        <div content>
+            <div class="p-grid">
+                <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+                    <label class="p-col-12 p-lg-3 p-p-0 my-auto">Bộ phận sử dụng<span
+                            class="required">(*)</span></label>
+                    <div class="p-col-12 p-lg-9 p-p-0">
+                        <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"
+                            [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
+                    </div>
+                </div>
+                <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+                    <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày bàn giao<span class="required">(*)</span></label>
+                    <div class="p-col-12 p-lg-9 p-p-0">
+                        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+                            [locale]="lang" [yearNavigator]="true" [showIcon]="true" inputId="icon"
+                            placeholder="dd/mm/yyyy">
+                        </p-calendar>
+                    </div>
+                </div>
+                <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+                    <label class="p-col-12 p-lg-3 p-p-0 my-auto">Nội dung</label>
+                    <div class="p-col-12 p-lg-9 p-p-0 my-auto">
+                        <input type="text" class="p-inputtext-sm" pInputText />
+                    </div>
+                </div>
+                <div class="p-col-12 p-lg-6   d-flex flex-column flex-xl-row">
+                    <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ghi chú</label>
+                    <div class="p-col-12 p-lg-9 p-p-0">
+                        <textarea pInputTextarea></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </app-quy-trinh-template>
+</div>

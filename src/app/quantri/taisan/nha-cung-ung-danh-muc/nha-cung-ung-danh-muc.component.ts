@@ -123,10 +123,10 @@ export class NhaCungUngDanhMucComponent implements OnInit {
       }, () => {
         this.taiSanService.NhaCungUng().DeleteList(listId).subscribe((res: any) => {
           if (res.StatusCode === 200) {
-            this.toast.success(res.Message)
+            this.toast.success(res.Message);
             this.ResetListNhaCungUng();
           } else {
-            this.toast.error(res.Message)
+            this.toast.error(res.Message);
           }
         })
       })

@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { merge, validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, merge, validVariable } from 'src/app/services/globalfunction';
 import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong-tin-hang-hoa-modal.component';
 
 @Component({
@@ -22,18 +22,18 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
     public modal: NgbModal,
     public activeModal: NgbActiveModal,
   ) { }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     if (this.item.listItem) {
       this.LoadData();
     } else {
       this.item.listItem = [];
     }
-  } 
+  }
 
   ngOnInit(): void {
   }
-  
+
   SearchHangHoa(keyword) {
     if ((validVariable(keyword)) && keyword.trim() !== '') {
       this.listItem_copy = this.listItem_copy.filter(ele => {
@@ -67,28 +67,44 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
     modalRef.componentInstance.checkListItem = this.item.listItem;
     modalRef.result
       .then((res: any) => {
-        
-        this.item.listItem = merge(res, this.item.listItem, 'MadmItem')
-        console.log("res", res);
-        console.log("item.listItem", this.item.listItem);
+        this.listItem_copy = merge(res, this.listItem_copy, 'IddmItem');
+        this.item.listItem = this.listItem_copy;
         this.LoadData();
       })
-      .catch(er => {});
-    }
+      .catch(er => { });
+  }
 
-    DeleteListHangHoa() {
-      this.item.listItem = this.item.listItem.filter(item => {
-        return !item.checked === true;
-      })
-      this.LoadData();
-    }
+  // autoMerge(newArr, existingArr, diffProp) {
+  //   let addItems = [];
+  //   newArr.forEach(newEle => {
+  //     let index = existingArr.findIndex((existedEle) => existedEle[diffProp] === newEle[diffProp]);
+  //     if (index === -1) {
+  //       addItems.push(newEle);
+  //     }
+  //   })
+  //   existingArr.forEach(oldEle => {
+  //     let index = newArr.findIndex((newEle) => newEle[diffProp] === oldEle[diffProp]);
+  //     if (index === -1) {
+  //       existingArr.splice()
+  //     }
+  //   })
+  //   console.log("addItems", addItems);
+  //   return addItems;
+  // }
 
-    CheckAllHangHoa() {
-      this.item.listItem.forEach((obj)=>{
-        obj.checked = this.checkedAll;
-      })
-    }
-  
+  DeleteListHangHoa() {
+    this.item.listItem = this.item.listItem.filter(item => {
+      return !item.checked === true;
+    })
+    this.LoadData();
+  }
+
+  CheckAllHangHoa() {
+    this.item.listItem.forEach((obj) => {
+      obj.checked = this.checkedAll;
+    })
+  }
+
   // ExportListHangHoa() {
   //   let data = {
   //     CurrentPage: 0,
@@ -137,7 +153,7 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   //   }
   // }
 
-  
+
 
   // changePage(event) {
   //   this.pageHangHoa.currentPage = event + 1;

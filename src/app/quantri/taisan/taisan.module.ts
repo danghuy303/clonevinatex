@@ -177,6 +177,7 @@ import { TaisanlichxichthangComponent } from './screenLichXich/taisanlichxichtha
 import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
 import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchitiet/capnhatthuvientaisanchitiet.component';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { TestQuyTrinhComponent } from './bangiaotaisan/test-quy-trinh/test-quy-trinh.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -304,6 +305,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     CapnhatthuvienComponent,
     CapnhatthuvientaisanchitietComponent,
     ThemMoiVatTuModalComponent,
+    TestQuyTrinhComponent,
   ],
   imports: [
     CommonModule,
@@ -454,6 +456,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     ModalluachontaisantheolichxichthangComponent,
     ModalluachonbaoduonglichxichtheothangComponent,
     ThemMoiVatTuModalComponent,
+    TestQuyTrinhComponent
   ],
 
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
