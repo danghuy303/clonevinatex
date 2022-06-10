@@ -107,7 +107,8 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
           this.toast.success(res.Message);
           this.quyTrinh = res.Data;
           // this.quyTrinh.Id = res.Data.Id;
-          this.GetListNhaCungUng(true)
+          this.GetListNhaCungUng(true);
+          this.KiemTraButtonModal();
           
         } else {
           this.toast.error(res.Message);

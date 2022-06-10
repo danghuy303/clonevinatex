@@ -7,6 +7,7 @@ import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { AuthenticationService } from "src/app/services/auth.service";
 import { StoreService } from "src/app/services/store.service";
+import { TestQuyTrinhComponent } from "./test-quy-trinh/test-quy-trinh.component";
 
 import {
   DateToUnix,
@@ -166,6 +167,14 @@ export class BangiaotaisanComponent implements OnInit {
   changePage(event) {
     this.paging.currentPage = event.page + 1;
     this.Loaddata(false);
+  }
+
+  test() {
+    let modalRef = this._modal.open(TestQuyTrinhComponent, {
+      size: 'fullscreen',
+      backdrop: 'static',
+    })
+
   }
 
 }

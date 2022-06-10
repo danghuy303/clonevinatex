@@ -48,43 +48,22 @@ import { DanhmucloaibaoduongComponent } from './danhmuc/danhmucloaibaoduong/danh
 import { DanhmucdonvitinhComponent } from './danhmuc/danhmucdonvitinh/danhmucdonvitinh.component';
 import { DanhmucloaitaisanComponent } from './danhmuc/danhmucloaitaisan/danhmucloaitaisan.component';
 import { DonvinangsuatComponent } from './danhmuc/donvinangsuat/donvinangsuat.component';
-import { ModaldonvitinhComponent } from './modal/modaldonvitinh/modaldonvitinh.component';
-import { ModalloaitaisanComponent } from './modal/modalloaitaisan/modalloaitaisan.component';
-import { ModalbaoduongComponent } from './modal/modalbaoduong/modalbaoduong.component';
-import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldonvinangsuat.component';
-import { ModalcapnhattaisanComponent } from './modal/modalcapnhattaisan/modalcapnhattaisan.component';
 import { HangsanxuatComponent } from './danhmuc/hangsanxuat/hangsanxuat.component';
-import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsanxuat.component';
 import { NhaptaisanComponent } from './nhaptaisan/nhaptaisan.component';
-import { ModalthongtinchitiettaisanComponent } from './modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
 import { BiendongComponent } from './biendong/biendong.component';
 import { LichbaoduongComponent } from './lichbaoduong/lichbaoduong.component';
 import { SucosuachuaComponent } from './sucosuachua/sucosuachua.component';
 import { ThongtinchungComponent } from './thongtinchung/thongtinchung.component';
-import { ModalcapnhatbaoduongComponent } from './modal/modalcapnhatbaoduong/modalcapnhatbaoduong.component';
-import { ModalcapnhatsuachuabaoduongComponent } from './modal/modalcapnhatsuachuabaoduong/modalcapnhatsuachuabaoduong.component';
 import { LoaikhauhaoComponent } from './danhmuc/loaikhauhao/loaikhauhao.component';
 import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
-import { ModalloaikhauhaoComponent } from './modal/modalloaikhauhao/modalloaikhauhao.component';
-import { ModaltinhtrangtaisanComponent } from './modal/modaltinhtrangtaisan/modaltinhtrangtaisan.component';
 import { ThongtitaisanchaComponent } from './screen/thongtitaisancha/thongtitaisancha.component';
-import { ModalcapnhattaisanconComponent } from './modal/modalcapnhattaisancon/modalcapnhattaisancon.component';
 import { SharedModule } from './../../shared/shared.module';
 import { BangiaotaisanComponent } from './bangiaotaisan/bangiaotaisan.component';
 import { PhieuthuhoitaisanComponent } from './thuhoitaisan/phieuthuhoitaisan/phieuthuhoitaisan.component';
-import { ModalthuhoitaisanComponent } from './modal/modalthuhoitaisan/modalthuhoitaisan.component';
-import { ModalcapnhatbaogiaComponent } from './modal/modalcapnhatbaogia/modalcapnhatbaogia.component';
-import { ModalchontaisanComponent } from './modal/modalchontaisan/modalchontaisan.component';
 import { ThanhlytaisanComponent } from './thanhlytaisan/thanhlytaisan.component';
-import { ModalthanhlytaisanComponent } from './modal/modalthanhlytaisan/modalthanhlytaisan.component';
-import { ModalchontaisanCopyComponent } from './modal/modalchontaisan-copy/modalchontaisan-copy.component';
-import { ModaltaolichbaoduongComponent } from './modal/modaltaolichbaoduong/modaltaolichbaoduong.component';
 import { NhaplieuxuattaisanComponent } from './nhaplieuxuattaisan/nhaplieuxuattaisan.component';
-import { ModalnhaplieuxuattaisanComponent } from './modal/modalnhaplieuxuattaisan/modalnhaplieuxuattaisan.component';
 import { LoaisucoComponent } from './danhmuc/loaisuco/loaisuco.component';
-import { ModalloaisucoComponent } from './modal/modalloaisuco/modalloaisuco.component';
 import { QRCodeModule } from 'angularx-qrcode';
-import { ModalchontaisanThanhlyCopyComponent } from './modal/modalchontaisan-thanhly-copy/modalchontaisan-thanhly-copy.component';
 import { Sucosuachua2Component } from './sucosuachua2/sucosuachua2.component';
 import { TaomoilichbaoduongComponent } from './screen/taomoilichbaoduong/taomoilichbaoduong.component';
 import { AntoanComponent } from './screen/antoan/antoan.component';
@@ -92,7 +71,6 @@ import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.
 
 // import { LichbaoduongcopyComponent } from './lichbaoduongcopy/lichbaoduongcopy.component';
 import { TaomoilichbaoduongcopyComponent } from './taomoilichbaoduongcopy/taomoilichbaoduongcopy.component';
-import { ModalcapnhatbaoduongcopyyComponent } from './modalcapnhatbaoduongcopyy/modalcapnhatbaoduongcopyy.component';
 
 import { VattudutruComponent } from './vattudutru/vattudutru.component';
 import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.component';
@@ -106,28 +84,69 @@ import { LichxichthangComponent } from './lichxichthang/lichxichthang.component'
 import { LapkehoachlichxichnamComponent } from './lapkehoachlichxichnam/lapkehoachlichxichnam.component';
 import { DenghixulisucoComponent } from './denghixulisuco/denghixulisuco.component';
 import { LapkehoachthangComponent } from './lapkehoachthang/lapkehoachthang.component';
-import { ModaldenghixulisucoComponent } from './modaldenghixulisuco/modaldenghixulisuco.component';
+import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
+import { DanhGiaNhaCungUngComponent } from './danh-gia-nha-cung-ung/danh-gia-nha-cung-ung.component';
+import { KhauHaoTaiSanQuyTrinhComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-quy-trinh.component';
 import { DanhmucmucdouutienComponent } from './danhmuc/danhmucmucdouutien/danhmucmucdouutien.component';
-import { ModalmucdouutienComponent } from './danhmuc/modalmucdouutien/modalmucdouutien.component';
 import { DanhmucnhacungcapComponent } from './danhmuc/danhmucnhacungcap/danhmucnhacungcap.component';
+import { ThongtinthemmoitaisanComponent } from './screen/thongtinthemmoitaisan/thongtinthemmoitaisan.component';
+
+import { ModalloaisucoComponent } from './modal/modalloaisuco/modalloaisuco.component';
+import { ModalchontaisanThanhlyCopyComponent } from './modal/modalchontaisan-thanhly-copy/modalchontaisan-thanhly-copy.component';
+import { ModalcapnhatbaoduongcopyyComponent } from './modalcapnhatbaoduongcopyy/modalcapnhatbaoduongcopyy.component';
+import { ModaldonvitinhComponent } from './modal/modaldonvitinh/modaldonvitinh.component';
+import { ModalloaitaisanComponent } from './modal/modalloaitaisan/modalloaitaisan.component';
+import { ModalbaoduongComponent } from './modal/modalbaoduong/modalbaoduong.component';
+import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldonvinangsuat.component';
+import { ModalcapnhattaisanComponent } from './modal/modalcapnhattaisan/modalcapnhattaisan.component';
+import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsanxuat.component';
+import { ModalthongtinchitiettaisanComponent } from './modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+import { ModalcapnhatbaoduongComponent } from './modal/modalcapnhatbaoduong/modalcapnhatbaoduong.component';
+import { ModalcapnhatsuachuabaoduongComponent } from './modal/modalcapnhatsuachuabaoduong/modalcapnhatsuachuabaoduong.component';
+import { ModalloaikhauhaoComponent } from './modal/modalloaikhauhao/modalloaikhauhao.component';
+import { ModaltinhtrangtaisanComponent } from './modal/modaltinhtrangtaisan/modaltinhtrangtaisan.component';
+import { ModalcapnhattaisanconComponent } from './modal/modalcapnhattaisancon/modalcapnhattaisancon.component';
+import { ModalthuhoitaisanComponent } from './modal/modalthuhoitaisan/modalthuhoitaisan.component';
+import { ModalcapnhatbaogiaComponent } from './modal/modalcapnhatbaogia/modalcapnhatbaogia.component';
+import { ModalchontaisanComponent } from './modal/modalchontaisan/modalchontaisan.component';
+import { ModalthanhlytaisanComponent } from './modal/modalthanhlytaisan/modalthanhlytaisan.component';
+import { ModalchontaisanCopyComponent } from './modal/modalchontaisan-copy/modalchontaisan-copy.component';
+import { ModaltaolichbaoduongComponent } from './modal/modaltaolichbaoduong/modaltaolichbaoduong.component';
+import { ModalnhaplieuxuattaisanComponent } from './modal/modalnhaplieuxuattaisan/modalnhaplieuxuattaisan.component';
+import { ModaldenghixulisucoComponent } from './modaldenghixulisuco/modaldenghixulisuco.component';
+import { ModalmucdouutienComponent } from './danhmuc/modalmucdouutien/modalmucdouutien.component';
 import { ModaldmnhacungcapComponent } from './danhmuc/modaldmnhacungcap/modaldmnhacungcap.component';
 import { ModalthemmoiluachontaisanComponent } from './modal/modalthemmoiluachontaisan/modalthemmoiluachontaisan.component';
-import { ThongtinthemmoitaisanComponent } from './screen/thongtinthemmoitaisan/thongtinthemmoitaisan.component';
 import { ModalluachontaisantheolichxichComponent } from './modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
-import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
-import { KhauHaoTaiSanQuyTrinhComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-quy-trinh.component';
 import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
 import { NhomNhaCungUngDanhMucComponent } from './nhom-nha-cung-ung-danh-muc/nhom-nha-cung-ung-danh-muc.component';
 import { NhomNhaCungUngModalComponent } from './nhom-nha-cung-ung-danh-muc/nhom-nha-cung-ung-modal/nhom-nha-cung-ung-modal.component';
 import { NhaCungUngDanhMucComponent } from './nha-cung-ung-danh-muc/nha-cung-ung-danh-muc.component';
 import { NhaCungUngModalComponent } from './nha-cung-ung-danh-muc/nha-cung-ung-modal/nha-cung-ung-modal.component';
-import { DanhGiaNhaCungUngComponent } from './danh-gia-nha-cung-ung/danh-gia-nha-cung-ung.component';
 import { DanhGiaNhaCungUngModalComponent } from './danh-gia-nha-cung-ung/danh-gia-nha-cung-ung-modal/danh-gia-nha-cung-ung-modal.component';
 import { ThongTinHangHoaModalComponent } from './nha-cung-ung-danh-muc/thong-tin-hang-hoa-modal/thong-tin-hang-hoa-modal.component';
 import { ThemNhaCungUngModalComponent } from './danh-gia-nha-cung-ung/them-nha-cung-ung-modal/them-nha-cung-ung-modal.component';
 import { SuaNhaCungUngModalComponent } from './danh-gia-nha-cung-ung/sua-nha-cung-ung-modal/sua-nha-cung-ung-modal.component';
 import { TieuChiDanhGiaNhaComponent } from './tieu-chi-danh-gia-nha/tieu-chi-danh-gia-nha.component';
 import { TieuChiDanhGiaModalComponent } from './tieu-chi-danh-gia-nha/tieu-chi-danh-gia-modal/tieu-chi-danh-gia-modal.component';
+import { ModalquytrinhbaoduongComponent } from './modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
+import { ModalbaoduongluachontaisanComponent } from './modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
+import { ModalnhapvattuluachontaisanComponent } from './modal/modalnhapvattuluachontaisan/modalnhapvattuluachontaisan.component';
+import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
+import { DieuChuyenTaiSanModalComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai-san-modal/dieu-chuyen-tai-san-modal.component';
+import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungcapvattu.component';
+import { ThoihancungcapvattumodalComponent } from './thoihancungcapvattumodal/thoihancungcapvattumodal.component';
+import { ModalluachontaisantheolichthangComponent } from './modal/modalluachontaisantheolichthang/modalluachontaisantheolichthang.component';
+import { ChonTaiSanDieuChuyenModalComponent } from './dieu-chuyen-tai-san/chon-tai-san-dieu-chuyen-modal/chon-tai-san-dieu-chuyen-modal.component';
+import { ChonTaiSanKhauHaoModalComponent } from './khau-hao-tai-san-quy-trinh/chon-tai-san-khau-hao-modal/chon-tai-san-khau-hao-modal.component';
+import { ThoihancungcapmodalluachonComponent } from './modal/thoihancungcapmodalluachon/thoihancungcapmodalluachon.component';
+import { LuachontaisannhaptaisanComponent } from './modal/luachontaisannhaptaisan/luachontaisannhaptaisan.component';
+import { XulysucoluachontaisanComponent } from './modal/xulysucoluachontaisan/xulysucoluachontaisan.component';
+import { DenghisulyluachonthemvattuComponent } from './modal/denghisulyluachonthemvattu/denghisulyluachonthemvattu.component';
+import { ModalluachontaisantheolichxichthangComponent } from './modal/modalluachontaisantheolichxichthang/modalluachontaisantheolichxichthang.component';
+import { ModalluachonbaoduonglichxichtheothangComponent } from './modal/modalluachonbaoduonglichxichtheothang/modalluachonbaoduonglichxichtheothang.component';
+import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal/them-moi-vat-tu-modal.component';
+
 import { ThongTinHangHoaComponent } from './nha-cung-ung-danh-muc/thong-tin-hang-hoa/thong-tin-hang-hoa.component';
 import { ThongTinChungComponent } from './nha-cung-ung-danh-muc/thong-tin-chung/thong-tin-chung.component';
 import { ThongTinDanhGiaComponent } from './nha-cung-ung-danh-muc/thong-tin-danh-gia/thong-tin-danh-gia.component';
@@ -136,45 +155,29 @@ import { ThongTinHopDongComponent } from './nha-cung-ung-danh-muc/thong-tin-hop-
 import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
 import { ThongTinDanhGiaNcuComponent } from './danh-gia-nha-cung-ung/thong-tin-danh-gia-ncu/thong-tin-danh-gia-ncu.component';
 import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.component';
-import { ModalquytrinhbaoduongComponent } from './modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
-import { ModalbaoduongluachontaisanComponent } from './modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
 import { NhancongComponent } from './screen/nhancong/nhancong.component';
 import { VattuComponent } from './screen/vattu/vattu.component';
 import { ChiphikhacComponent } from './screen/chiphikhac/chiphikhac.component';
-import { ModalnhapvattuluachontaisanComponent } from './modal/modalnhapvattuluachontaisan/modalnhapvattuluachontaisan.component';
-import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ThongtinkhauhaoComponent } from './screen/thongtinkhauhao/thongtinkhauhao.component';
 // import { ThongtinkhauhaoComponent } from './screen/thongtinkhauhao/thongtinkhauhao.component';
 import { DieuChuyenTaiSanComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai-san.component';
-import { DieuChuyenTaiSanModalComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai-san-modal/dieu-chuyen-tai-san-modal.component';
-import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungcapvattu.component';
-import { ThoihancungcapvattumodalComponent } from './thoihancungcapvattumodal/thoihancungcapvattumodal.component';
-import { ModalluachontaisantheolichthangComponent } from './modal/modalluachontaisantheolichthang/modalluachontaisantheolichthang.component';
-import { ChonTaiSanDieuChuyenModalComponent } from './dieu-chuyen-tai-san/chon-tai-san-dieu-chuyen-modal/chon-tai-san-dieu-chuyen-modal.component';
-import { ChonTaiSanKhauHaoModalComponent } from './khau-hao-tai-san-quy-trinh/chon-tai-san-khau-hao-modal/chon-tai-san-khau-hao-modal.component';
-import { ThoihancungcapmodalluachonComponent } from './modal/thoihancungcapmodalluachon/thoihancungcapmodalluachon.component';
+import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisanbaoduong.component';
 import { VattuthaythelichxichnamComponent } from './screenLichXich/vattuthaythelichxichnam/vattuthaythelichxichnam.component';
 import { ChiphilichxichnamComponent } from './screenLichXich/chiphilichxichnam/chiphilichxichnam.component';
 import { ChonComponent } from './screen/chon/chon.component';
-import { LuachontaisannhaptaisanComponent } from './modal/luachontaisannhaptaisan/luachontaisannhaptaisan.component';
 import { ChiphilichxichnamchonthemComponent } from './screenLichXich/chiphilichxichnamchonthem/chiphilichxichnamchonthem.component';
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
 import { DenghixulysuconhancongComponent } from './screen/denghixulysuconhancong/denghixulysuconhancong.component';
 import { DenghixulysucochiphikhacComponent } from './screen/denghixulysucochiphikhac/denghixulysucochiphikhac.component';
 import { DenghixulysucovattuComponent } from './screen/denghixulysucovattu/denghixulysucovattu.component';
-import { XulysucoluachontaisanComponent } from './modal/xulysucoluachontaisan/xulysucoluachontaisan.component';
-import { DenghisulyluachonthemvattuComponent } from './modal/denghisulyluachonthemvattu/denghisulyluachonthemvattu.component';
-import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisanbaoduong.component';
-import { ModalluachontaisantheolichxichthangComponent } from './modal/modalluachontaisantheolichxichthang/modalluachontaisantheolichxichthang.component';
-import { ModalluachonbaoduonglichxichtheothangComponent } from './modal/modalluachonbaoduonglichxichtheothang/modalluachonbaoduonglichxichtheothang.component';
 import { VattulichxichthangComponent } from './screenLichXich/vattulichxichthang/vattulichxichthang.component';
 import { ChiphilichxichthangComponent } from './screenLichXich/chiphilichxichthang/chiphilichxichthang.component';
 import { TaisanlichxichthangComponent } from './screenLichXich/taisanlichxichthang/taisanlichxichthang.component';
 import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
 import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchitiet/capnhatthuvientaisanchitiet.component';
-import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal/them-moi-vat-tu-modal.component';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { TestQuyTrinhComponent } from './bangiaotaisan/test-quy-trinh/test-quy-trinh.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -302,6 +305,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     CapnhatthuvienComponent,
     CapnhatthuvientaisanchitietComponent,
     ThemMoiVatTuModalComponent,
+    TestQuyTrinhComponent,
   ],
   imports: [
     CommonModule,
@@ -357,7 +361,6 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
   ],
 
   entryComponents: [
-    // ModalbaoduongComponent,
     ModaldonvinangsuatComponent,
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
@@ -378,7 +381,6 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     ModalnhaplieuxuattaisanComponent,
     ModalloaisucoComponent,
     ModalchontaisanThanhlyCopyComponent,
-    ModalcapnhatbaoduongComponent,
     ModalcapnhatbaoduongcopyyComponent,
     NhapvattuComponent,
     VattucanthayComponent,
@@ -400,7 +402,61 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     DenghisulyluachonthemvattuComponent,
     ModalluachontaisantheolichxichthangComponent,
     CapnhatthuvientaisanchitietComponent,
-    // ThongtinkhauhaoComponent,
+    ModalthongtinchitiettaisanComponent,
+    ModalluachonloaibaoduongComponent,
+    ModalluachonbaoduonglichxichtheothangComponent,
+    NhomNhaCungUngModalComponent,
+    ModalloaisucoComponent,
+    ModalchontaisanThanhlyCopyComponent,
+    ModalcapnhatbaoduongcopyyComponent,
+    ModalbaoduongComponent,
+    ModalhangsanxuatComponent,
+    ModalthongtinchitiettaisanComponent,
+    ModalcapnhatsuachuabaoduongComponent,
+    ModalloaikhauhaoComponent,
+    ModaltinhtrangtaisanComponent,
+    ModalcapnhattaisanconComponent,
+    ModalthuhoitaisanComponent,
+    ModalcapnhatbaogiaComponent,
+    ModalchontaisanComponent,
+    ModalthanhlytaisanComponent,
+    ModalchontaisanCopyComponent,
+    ModaltaolichbaoduongComponent,
+    ModalnhaplieuxuattaisanComponent,
+    ModaldenghixulisucoComponent,
+    ModalmucdouutienComponent,
+    ModaldmnhacungcapComponent,
+    ModalthemmoiluachontaisanComponent,
+    ModalluachontaisantheolichxichComponent,
+    KhauHaoTaiSanModalComponent,
+    NhomNhaCungUngDanhMucComponent,
+    NhomNhaCungUngModalComponent,
+    NhaCungUngDanhMucComponent,
+    NhaCungUngModalComponent,
+    DanhGiaNhaCungUngModalComponent,
+    ThongTinHangHoaModalComponent,
+    ThemNhaCungUngModalComponent,
+    SuaNhaCungUngModalComponent,
+    TieuChiDanhGiaNhaComponent,
+    TieuChiDanhGiaModalComponent,
+    ModalquytrinhbaoduongComponent,
+    ModalbaoduongluachontaisanComponent,
+    ModalnhapvattuluachontaisanComponent,
+    ModalluachonloaibaoduongComponent,
+    DieuChuyenTaiSanModalComponent,
+    ThoihancungcapvattuComponent,
+    ThoihancungcapvattumodalComponent,
+    ModalluachontaisantheolichthangComponent,
+    ChonTaiSanDieuChuyenModalComponent,
+    ChonTaiSanKhauHaoModalComponent,
+    ThoihancungcapmodalluachonComponent,
+    LuachontaisannhaptaisanComponent,
+    XulysucoluachontaisanComponent,
+    DenghisulyluachonthemvattuComponent,
+    ModalluachontaisantheolichxichthangComponent,
+    ModalluachonbaoduonglichxichtheothangComponent,
+    ThemMoiVatTuModalComponent,
+    TestQuyTrinhComponent
   ],
 
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

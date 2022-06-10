@@ -717,10 +717,10 @@ export class TaisanService {
       },
       ExportItem: (data) => {
         data.IdDuAn = this.store.getCurrent();
-        return this.http.post(`${url}DanhMuc/ExportdmItem`, data, httpOptions)
+        return this.http.get(`${url}DanhMuc/ExportdmNhaCungUng_Item?Id=${data.IdNhaCungUng}`, httpOptions)
       },
       ImportItem: (data) => {
-        return this.http.get(`${url}DanhMuc/ImportdmItem?FileName=${data.Name}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/ImportdmNhaCungUng_Item?FileName=${data.FileName}`, httpOptions)
       },
       GetListTinhTrang: () => {
         return this.http.get(`${url}DanhMuc/GetlistdmTinhTrangNhaCungUng`, httpOptions)

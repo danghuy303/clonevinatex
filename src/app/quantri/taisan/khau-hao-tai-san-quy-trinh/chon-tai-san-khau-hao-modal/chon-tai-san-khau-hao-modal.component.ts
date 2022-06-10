@@ -56,7 +56,7 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
     }
     this._serviceTaiSan
       .GetTaiSanTheoLoai()
-      .GetListTaiSanKhauHao("", this.idBoPhanSuDung, this.paging.currentPage, 20, this.keyword)
+      .GetListTaiSanKhauHao(0, this.idBoPhanSuDung, this.paging.currentPage, 20, this.keyword)
       .subscribe((res: any) => {
         this.items = res.Items.map(ele => {
           return {

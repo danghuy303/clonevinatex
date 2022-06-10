@@ -699,11 +699,13 @@ import { DetmayhueComponent } from './quanlykhosanxuat/phuongan/layoutmodals/det
     ChonmathangkiemtrabanchephammodalComponent,
     DmkhunggiomodalComponent,
     BaocaothongketiendienmodalComponent,
-
     Phuhung1Component,
     Phuhung2Component,
     LoaiBongPheDmModalComponent,
     ModaldmsucomayComponent,
+    Hungyenpx1Component,
+    Cnnamdinhpx1Component,
+    DetmayhueComponent
     // ModalthongtinchitiettaisanComponent,
   
   ],
