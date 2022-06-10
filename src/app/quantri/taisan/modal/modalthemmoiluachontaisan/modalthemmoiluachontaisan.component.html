@@ -11,10 +11,10 @@
                 (click)="GhiLai()"></button>
         </div>
     </div>
-    <div class="modal-bt p-mb-4 text-center" style="position: absolute; right: 0;transform: translate(-180%,-25%);"
+    <!-- <div class="modal-bt p-mb-4 text-center" style="position: absolute; right: 0;transform: translate(-180%,-25%);"
         [style.visibility]="item.Ma?'visible':'hidden'">
         <qrcode [qrdata]="item.Ma" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
-    </div>
+    </div> -->
     <div class="p-grid">
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span> : </label>
@@ -45,12 +45,6 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã QR : </label>
-            <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaQR" pInputText />
-            </div>
-        </div> -->
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
@@ -112,8 +106,8 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng <span
-                    *ngIf="IdBoPhanSuDung != null" class="text-danger">(*)</span> : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng 
+                     : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                     [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
@@ -121,16 +115,6 @@
                 </p-calendar>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tài liệu đính kèm : </label>
-            <div class="p-col-12 p-xl-8 p-p-0">
-                <div class="p-inputgroup">
-                    <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="NameFile" [disabled]="true" />
-                    <button type="button" pButton pRipple icon="pi pi-upload"
-                        class="p-button-sm p-button-text p-button-secondary" (click)="taiLenFileDinhKem()" ></button>
-                </div>
-            </div>
-        </div> -->
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
                 <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
@@ -148,7 +132,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
         <div class="p-mb-3">

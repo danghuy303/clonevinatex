@@ -309,19 +309,20 @@ export class ModalcapnhattaisanComponent implements OnInit {
       size: "lg",
       backdrop: "static",
     });
+    modalRef.componentInstance.listItemDaChon = this.item.TaiSan.Id ? this.item.TaiSan.Id : "";
     modalRef.componentInstance.item = this.item;
     modalRef.result
       .then((res: any) => {
+        console.log(res);
+        
         this.item = {
           TaiSan: {
             ...res,
-            Id: "",
+            // Id: "",
             ThoiGianDuaVaoSuDung: UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix),
             NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
-            // listFileDinhKem: []
           },
         }
-       
         this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(this.item.TaiSan.IddmLoaiTaiSan).subscribe((res: any) => {
           if (res.StatusCode === 500) {
             this.toastr.error(res.Message);

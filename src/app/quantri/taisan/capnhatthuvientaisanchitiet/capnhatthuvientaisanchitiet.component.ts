@@ -123,6 +123,8 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
   }
   
   ThemMoiTaiSanCon() {
+    console.log(this.item);
+    
     let modalRef = this._modal.open(ModalthemmoiluachontaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -139,19 +141,16 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
       listThongSoKyThuat: [],
       listThongSoAnToan: [],
     };
-    modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
-    modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
-    modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
     modalRef.result
       .then((res: any) => {
-        this.item.TaiSan.listTaiSan = res
+       this.item.TaiSan.listTaiSan.push(res);
       })
       .catch((er) => {
       });
   }
 
-  CapNhatTaiSanCon(item) {
+  CapNhatTaiSanCon(item, index) {
     let item_copy = {...item};
     let modalRef = this._modal.open(ModalthemmoiluachontaisanComponent, {
       size: "fullscreen-100",
@@ -164,7 +163,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
     modalRef.result
       .then((res: any) => {
-        this.item.TaiSan.listTaiSan = res;
+        this.item.TaiSan.listTaiSan[index] = res;
       })
       .catch((er) => {
       });

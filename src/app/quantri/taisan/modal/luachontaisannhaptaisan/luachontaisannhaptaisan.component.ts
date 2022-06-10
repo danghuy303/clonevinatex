@@ -15,7 +15,8 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
   opt: any = "";
   items: TreeNode[];
   item: any = {};
-  listItemDaChon: any = [];
+  // listItemDaChon: any = [];
+  listItemDaChon: any = '';
   Lay_Chon: any = "";
   checkedAll: boolean = false;
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
@@ -55,12 +56,13 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
           children: []
         }
       });
-      this.items = this.TreeItems(this.items)
+      this.items = this.TreeItems(this.items);
     });
   }
 
   TreeItems(list) {
     list.forEach(ele => {
+      ele.data.checked = this.listItemDaChon === ele.data.Id
       ele.children = list.filter(a => a.data.IdTaiSan === ele.data.Id)
     })
     return list.filter(ele => ele.data.IdTaiSan === null)
@@ -116,36 +118,6 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
     })
   }
 
-  FilterTree() {
-    let data: any = [];
-    this.items.forEach(obj => {
-      if (obj.data.checked) {
-        data.push({
-          IdTaiSan: obj.data.Id,
-          Id: '',
-          TenTaiSan: obj.data.Ten,
-          MaSanPham: obj.data.Ma,
-          NguyenGia: obj.data.NguyenGia,
-          GiaTriConLai: obj.data.GiaTriConLai,
-        });
-      }
-      if (validVariable(obj.children) && obj.children.length > 0) {
-        obj.children.forEach(objchildren => {
-          if (objchildren.data.checked) {
-            data.push({
-              IdTaiSan: objchildren.data.Id,
-              Id: '',
-              TenTaiSan: objchildren.data.Ten,
-              MaSanPham: objchildren.data.Ma,
-              NguyenGia: objchildren.data.NguyenGia,
-              GiaTriConLai: objchildren.data.GiaTriConLai,
-            });
-          }
-        });
-      }
-    });
-    return data;
-  }
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetList()
@@ -153,7 +125,6 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
 
   GhiLai() {
     this.LayId = this.items.find( ele => ele.data.checked).data.Id;
-    // this.activeModal.close(this.FilterTree());
     this._serviceTaiSan.NhapTaiSan().AddThuVienById(this.LayId).subscribe((res: any) => {
       this.activeModal.close(res.Data);
     })
