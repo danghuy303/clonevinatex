@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
@@ -32,9 +33,18 @@ export class CapnhatthuvienComponent implements OnInit {
     private _serviceTaiSan: TaisanService,
     private _servicesSanXuat: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,
+    private activatedRoute: ActivatedRoute, private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== "0") {
+        this._serviceTaiSan.ThuVienTaiSan().Get(res.id)
+        .subscribe((res1: any) => {
+          this.update(res1);
+        });
+      }
+    });
     this.getList();
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
@@ -49,6 +59,12 @@ export class CapnhatthuvienComponent implements OnInit {
   resetFilter() {
     this.filter={};
     this.getList(true);
+  }
+
+  changeParam(id) {
+    this.router.navigate([`/quantri/taisan/capnhatthuvien/${id}`], {
+      replaceUrl: true,
+    });
   }
 
   getList(reset?) {
@@ -116,21 +132,20 @@ export class CapnhatthuvienComponent implements OnInit {
   }
 
   update(item) {
-    this._serviceTaiSan.ThuVienTaiSan().Get(item.Id || "").subscribe((res: any) => {
     let modalRef = this._modal.open(CapnhatthuvientaisanchitietComponent, {
       size: "fullscreen-100",
       backdrop: "static",
       keyboard: false,
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.title = "Cập nhập tài sản";
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res.Data));
+    modalRef.componentInstance.title = "Cập nhật thư viện";
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result.then(res => {
+      this.getList()
     }).catch(er => console.log(er))
       .finally(() => {
-        this.getList()
+        this.changeParam(0);
       })
-    })
   }
 
   changePage(event){

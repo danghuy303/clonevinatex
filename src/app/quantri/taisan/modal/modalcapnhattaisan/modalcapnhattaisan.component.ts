@@ -299,7 +299,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
         // this.toastr.success(res.Message); yêu cầu chỉnh sửa message 
         this.toastr.success('Lưu vào thư viện thành công!')
       } else {
-        this.toastr.error(res.message);
+        this.toastr.error(res.Message);
       }
     })
   }

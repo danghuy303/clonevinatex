@@ -81,7 +81,7 @@ export class NhaptaisanComponent implements OnInit {
   }
   resetFilter() {
     this.filter = {};
-    this.Loaddata(true);
+    this.Loaddata();
   }
   Loaddata(reset?) {
     if (reset) {
@@ -102,7 +102,7 @@ export class NhaptaisanComponent implements OnInit {
       this.items = [];
       items = res.Data.Items;
       this.paging = res.Data;
-      items.forEach(obj => {
+      items?.forEach(obj => {
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];

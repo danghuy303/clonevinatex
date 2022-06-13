@@ -127,6 +127,8 @@ export class ModalthuhoitaisanComponent implements OnInit {
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
       this.item.listTaiSan = res;
+      console.log(res);
+      
       // this.item.listTaiSan.forEach(ele => {
       //   ele.SoLuong = 1;
       // })
