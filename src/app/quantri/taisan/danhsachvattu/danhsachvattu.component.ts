@@ -214,7 +214,12 @@ export class DanhsachvattuComponent implements OnInit {
 
   changeTab(e) {
     this.loaiTab = e.index;
-    this.GetList(true);
+    if( this.loaiTab === 1) {
+      this.GetList(true);
+    }
+    if( this.loaiTab === 0) {
+      this.GetListTonKho(true);
+    }
   }
 
   changePage(event) {
