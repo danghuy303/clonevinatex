@@ -25,7 +25,7 @@
                 </p-dropdown>
             </td>
             <td class="text-left">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" [ngbTooltip]="item.GhiChu" pInputText />
             </td>
             <td class="text-center">
                 <button pButton pRipple icon="pi pi-trash"

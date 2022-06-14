@@ -41,6 +41,7 @@ import { LichbaoduongcopyComponent } from '../quantri/taisan/lichbaoduongcopy/li
 import { BiendongComponent } from '../quantri/taisan/biendong/biendong.component';
 import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/modalbaoduong.component';
 import { ThongtinkhauhaoComponent } from '../quantri/taisan/screen/thongtinkhauhao/thongtinkhauhao.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuyTrinhTemplateComponent } from './quy-trinh-template/quy-trinh-template.component';
 
 @NgModule({
@@ -90,6 +91,7 @@ import { QuyTrinhTemplateComponent } from './quy-trinh-template/quy-trinh-templa
     InputNumberModule,
     DropdownModule,
     InputTextModule,
+    NgbModule,
 
   ],
   exports:[

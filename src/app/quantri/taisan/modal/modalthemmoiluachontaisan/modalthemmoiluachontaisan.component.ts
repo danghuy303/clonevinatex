@@ -46,8 +46,6 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.IdBoPhanSuDung);
-    
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
