@@ -331,6 +331,9 @@ export class TaisanService {
       Get: (Id) => {
         return this.http.get(`${url}NhatKySuDung/GetQuyTrinhKhauHaoTaiSanById?Id=${Id}`, httpOptions);
       },
+      GetListKhauHaoByIdTaiSan: (Id) => {
+        return this.http.get(`${url}NhatKySuDung/GetListKhauHaoByIdTaiSan?Id=${Id}`, httpOptions);
+      },
       Set: (data) => {
         return this.http.post(`${url}NhatKySuDung/SetQuyTrinhKhauHaoTaiSan`, data, httpOptions);
       },

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
-import { validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
@@ -98,6 +98,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
         MaTaiSan: ele.data.Ma,
         Id:'',
         GiaTriConLai: ele.data.GiaTriConLai,
+        SoLuong: ele.data.SoLuong,
         TenTaiSan: ele.data.Ten,
         IdTaiSan: ele.data.Id,
         isCha: ele.data.isCha?ele.data.isCha:false,

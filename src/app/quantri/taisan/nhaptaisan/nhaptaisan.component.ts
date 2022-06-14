@@ -81,7 +81,7 @@ export class NhaptaisanComponent implements OnInit {
   }
   resetFilter() {
     this.filter = {};
-    this.Loaddata();
+    this.Loaddata(true);
   }
   Loaddata(reset?) {
     if (reset) {
@@ -91,7 +91,7 @@ export class NhaptaisanComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       tabTrangThai: this.trangThai,
-      Keyword: this.Keyword,
+      Keyword: this.filter.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
