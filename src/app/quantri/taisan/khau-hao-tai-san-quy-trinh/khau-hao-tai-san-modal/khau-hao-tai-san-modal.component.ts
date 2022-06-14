@@ -6,6 +6,7 @@ import { TreeNode } from 'primeng/api';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ChonTaiSanKhauHaoModalComponent } from '../chon-tai-san-khau-hao-modal/chon-tai-san-khau-hao-modal.component';
@@ -35,6 +36,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
     public toastr: ToastrService,
     private _servicesSanXuat: SanXuatService,
     private _serviceTaiSan: TaisanService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -68,8 +70,11 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   }
 
   Validate() {
-    if (!validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Ngay)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+    if (!validVariable(this.item.IdBoPhanSuDung)) {
+      this.toastr.error("Yêu cầu nhập bộ phận sử dụng");
+      return false;
+    } else if (!validVariable(this.item.Ngay)) {
+      this.toastr.error("Yêu cầu nhập ngày");
       return false;
     }
     return true;
@@ -208,15 +213,14 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
     this.listTaiSan_copy && this.listTaiSan_copy.forEach(ele => {
       listId.push(ele.IdTaiSan)
     })
-    console.log("listId", listId);
-    
-    if (validVariable(this.item.IdBoPhanSuDung)) {
+    if (this.Validate()) {
       let modalRef = this._modal.open(ChonTaiSanKhauHaoModalComponent, {
         size: "xl",
         backdrop: "static"
       });
       modalRef.componentInstance.opt = this.opt;
       modalRef.componentInstance.idBoPhanSuDung = this.item?.IdBoPhanSuDung;
+      modalRef.componentInstance.ngay = DateToUnix(this.item.Ngay);
       modalRef.componentInstance.listIdDaChon = listId;
       modalRef.componentInstance.item = {};
       modalRef.result
@@ -229,8 +233,6 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
         })
         .catch((er) => {
         });
-    } else {
-      this.toastr.error("Yêu cầu nhập bộ phận sử dụng")
     }
   }
 
@@ -259,8 +261,12 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   }
 
   XoaTaiSan(index) {
-    this.item.listTaiSan.splice(index - 1, 1);
-    this.Loaddata()
+    this.confirmationService.show({
+      message: 'Bạn chắc chắc muốn xóa tài sản này?'
+    }, () => {
+      this.item.listTaiSan.splice(index - 1, 1);
+      this.Loaddata()
+    })
   }
 
   taiLenFileDinhKem() {
