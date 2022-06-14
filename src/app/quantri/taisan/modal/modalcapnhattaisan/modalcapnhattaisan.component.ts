@@ -313,12 +313,13 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.item = this.item;
     modalRef.result
       .then((res: any) => {
-        console.log(res);
+        console.log('res',res);
         
         this.item = {
+          SoQuyTrinh: this.item.SoQuyTrinh,
           TaiSan: {
             ...res,
-            // Id: "",
+            Id: null,
             ThoiGianDuaVaoSuDung: UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix),
             NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
           },

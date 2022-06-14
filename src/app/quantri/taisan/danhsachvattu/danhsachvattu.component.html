@@ -11,7 +11,7 @@
                 [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn tài sản "
+            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản "
                 [(ngModel)]="filter.IddmLoaiTaiSan" styleClass="p-inputtext-sm" (onChange)="GetList(true)"
                 [showClear]="true" [filter]="true"></p-dropdown>
         </div>
@@ -67,10 +67,10 @@
                 <td >{{item.NuocSanXuat}}</td>
                 <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.DuTruToiThieu | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.SoLuong | number:'0.0-0'}}</td>
                 <td class="text-center">{{item.ThoiGianDuaVaoSuDung | date:"dd/MM/yyyy"}}</td>
-                <td style="text-align: right;">{{item.NguyenGia | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.DonGiaNhapGanNhat | number:'0.0-0'}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
