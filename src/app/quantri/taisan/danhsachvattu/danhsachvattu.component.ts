@@ -35,10 +35,9 @@ export class DanhsachvattuComponent implements OnInit {
   listBoPhanSuDung: any = [];
   labelThang: any[];
   checkList: any = [];
-  thang = '1';
   checkedAll: boolean = false;
-
   listVatTuDaChon: any = [];
+  checkButton: boolean = false;
 
   constructor(
     public _modal: NgbModal,
@@ -64,45 +63,33 @@ export class DanhsachvattuComponent implements OnInit {
     for (let i = 1; i <= 12; i++) {
       this.labelThang.push({ label: i, value: i })
     }
-    this.GetListTonKho();
-    this.GetList();
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
     this.filter.Nam = new Date().getFullYear();
     this.filter.Thang = new Date().getMonth() + 1;
+    this.GetList();
   }
 
-  GetListTonKho(reset?) {
-    // if (reset) {
-    //   this.paging.CurrentPage = 1;
-    // }
-    // let data = {
-    //   PageSize: 20,
-    //   CurrentPage: this.paging.CurrentPage,
-    //   KeyWord: this.filter.KeyWord,
-    //   IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
-    //   IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-    // };
-    // this._serviceTaiSan.ListDanhSachVatTu().GetListVatTuChuaBanGiao(data).subscribe((res: any) => {
-    //   this.paging.CurrentPage = res.Data.Page;
-    //   this.paging.TotalPages = res.Data.TotalPages;
-    //   this.paging.TotalCount = res.Data.TotalCount;
-    //   this.itemsTonKho = res.Data.Items;
-    //   this.itemsTonKho.forEach(item => {
-    //     item.ThanhTien = 0;
-    //     item.ThanhTien = (item.NguyenGia || 0) * (item.SoLuong || 0);
+  changeTab(e) {
+    this.loaiTab = e.index;
+    this.GetList(true);
+  }
 
-    //   })
-    // })
+  changePage(event) {
+    this.paging.CurrentPage = event.page + 1;
+    this.GetList();
   }
 
   resetFilter() {
     this.filter = {};
+     this.filter.Nam = new Date().getFullYear();
+    this.filter.Thang = new Date().getMonth() + 1;
     this.GetList(true);
   }
 
   GetList(reset?) {
+   
     if (reset) {
       this.paging.CurrentPage = 1;
     }
@@ -111,11 +98,12 @@ export class DanhsachvattuComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       KeyWord: this.filter.KeyWord,
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       Nam: this.filter.Nam,
       Thang: this.filter.Thang,
       QuaHan: this.filter.QuaHan,
     };
-    if( this.loaiTab === 1) {
+    if (this.loaiTab === 1) {
       this._serviceTaiSan.ListDanhSachVatTu().GetList(data).subscribe((res: any) => {
         this.paging.CurrentPage = res.Data.Page;
         this.paging.TotalPages = res.Data.TotalPages;
@@ -127,9 +115,11 @@ export class DanhsachvattuComponent implements OnInit {
         })
         this.CheckExist(this.items);
         this.TimCheck();
+       
+        
       });
     }
-    if(this.loaiTab === 0) {
+    if (this.loaiTab === 0) {
       this._serviceTaiSan.ListDanhSachVatTu().GetListVatTuChuaBanGiao(data).subscribe((res: any) => {
         this.paging.CurrentPage = res.Data.Page;
         this.paging.TotalPages = res.Data.TotalPages;
@@ -142,7 +132,6 @@ export class DanhsachvattuComponent implements OnInit {
       })
     }
   }
-
 
   KiemTraNCC() {
     // let data = {
@@ -161,6 +150,7 @@ export class DanhsachvattuComponent implements OnInit {
   }
 
   checked() {
+    this.checkButton = this.items.some(ele => ele.checked)
     this.items.forEach(ele => {
       let exist = this.listVatTuDaChon.find(obj => obj.Id === ele.Id);
       if (ele.checked) {
@@ -204,32 +194,6 @@ export class DanhsachvattuComponent implements OnInit {
       this.checkQuyen = res;
       this.GetList();
     })
-  }
-
-  ChiTietThongTin(item) {
-    let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
-      size: "fullscreen",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.item = item;
-
-    modalRef.result
-      .then((res: any) => {
-        this.GetList();
-      })
-      .catch((er) => {
-      });
-  }
-
-  changeTab(e) {
-    this.loaiTab = e.index;
-      this.GetList(true);
-  }
-
-  changePage(event) {
-    this.paging.CurrentPage = event.page + 1;
-    this.GetList();
   }
 
   exportExcel() {
