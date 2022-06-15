@@ -44,7 +44,8 @@ export class BangiaotaisanComponent implements OnInit {
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private activatedRoute: ActivatedRoute, private router: Router,
+    private activatedRoute: ActivatedRoute, 
+    private router: Router,
     private _serviceAuth: AuthenticationService,
     private store: StoreService,
     

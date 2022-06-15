@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DanhGiaNhaCungUngComponent implements OnInit {
 
+  @ViewChild('paginator') paginator:any;
   filter: any = {};
   eAction: any = "QUYTRINHDANHGIANHACUNGUNG";
   trangThai: any = 1;
@@ -32,6 +33,7 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.ResetFilter();
     this.KiemTraTabTrangThai();
     this.activatedRoute.params.subscribe((res: any) => {
@@ -74,7 +76,6 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
   LoadData(reset?) {
     if (reset) {
       this.paging.currentPage = 1;
-      // this.filter.keyword = '';
     }
     let data  = {
       CurrentPage: this.paging.currentPage,
@@ -118,12 +119,18 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
     modalRef.componentInstance.quyTrinh = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then((res: any) =>{
+        this.LoadData(true);
       })
       .catch(er=>{})
       .finally(()=>{
-        this.LoadData(true);
+        
         this.changeParam(0);
       })
+  }
+
+  changePage(e) {
+    this.paging.currentPage = e.page + 1;
+    this.LoadData(false);
   }
 
 }
