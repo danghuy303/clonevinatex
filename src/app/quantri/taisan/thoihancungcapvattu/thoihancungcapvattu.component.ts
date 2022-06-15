@@ -97,7 +97,7 @@ export class ThoihancungcapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thời hạn cung cấp';
+    modalRef.componentInstance.title = 'Kế hoạch mua vật tư';
     modalRef.componentInstance.item = {
       Id: '', IdTrangThai: '', TenTrangThai: "", SoQuyTrinh: '',
       isKetThuc: false, listTaiSan: [], IdDuAn: 0,
@@ -118,7 +118,7 @@ export class ThoihancungcapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật thời hạn cung cấp'
+    modalRef.componentInstance.title = 'Cập nhật kế hoạch mua vật tư'
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

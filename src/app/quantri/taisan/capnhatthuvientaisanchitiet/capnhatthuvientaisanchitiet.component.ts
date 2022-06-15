@@ -53,7 +53,13 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.item.NgayNhap = !this.item.NgayNhap?new Date():UnixToDate(this.item.NgayNhapUnix);
+    // this.item.NgayNhap = !this.item.NgayNhap?new Date():UnixToDate(this.item.NgayNhapUnix);
+    this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
+    if (this.opt === 'add') {
+    }
+    else {
+      this.GetIem();
+    }
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
@@ -72,23 +78,17 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
   }
 
   GetIem() {
-    // this._serviceTaiSan.ThuVienTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
-    //   this.item = res.Data;
-    //   console.log("this.item", this.item);
-      
-    //   this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
-    //   this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
-    //   this.itemDonVi = this.listDonVi_copy.find(obj => obj.Id === this.item.TaiSan.IddmDonViTinh);
-    //   if (this.item.TaiSan.listTaiSan.length > 0) {
-    //     this.item.TaiSan.listTaiSan.forEach(element => {
-    //       element.ThoiGianDuaVaoSuDung = UnixToDate(element.ThoiGianDuaVaoSuDungUnix);
-    //       element.NgayNhap = UnixToDate(element.NgayNhapUnix);
-    //       if (validVariable(this.item.IddmDonViTinh)) {
-    //         element.TenDonViTinh = this.listDonVi_copy.find(obj => obj.Id === element.IddmDonViTinh).Ten;
-    //       }
-    //     });
-    //   }
-    // });
+    this._serviceTaiSan.ThuVienTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
+      this.item = res.Data;
+      this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
+      this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
+      if (this.item.listTaiSan.length > 0) {
+        this.item.listTaiSan.forEach(element => {
+          element.ThoiGianDuaVaoSuDung = UnixToDate(element.ThoiGianDuaVaoSuDungUnix);
+          element.NgayNhap = UnixToDate(element.NgayNhapUnix);
+        });
+      }
+    });
   }
 
   ValidateData() {

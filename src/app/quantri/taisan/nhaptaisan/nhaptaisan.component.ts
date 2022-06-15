@@ -152,6 +152,7 @@ export class NhaptaisanComponent implements OnInit {
 
     }).catch(er => console.log(er))
       .finally(() => {
+        this.Loaddata();
         this.changeParam(0)
       })
   }

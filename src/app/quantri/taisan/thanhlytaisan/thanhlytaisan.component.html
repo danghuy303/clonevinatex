@@ -62,7 +62,7 @@
                 <th class="text-center">Ngày thanh lý</th>
                 <!-- <th class="text-center">Bộ phận sử dụng</th> -->
                 <th class="text-center">Lý do thanh lý</th>
-                <th class="text-center">Giá trị thanh lý</th>
+                <th class="text-center">Giá trị thanh lý (VNĐ)</th>
                 <th class="text-center">Trạng thái</th>
                 <th class="text-center">Thao tác</th>
             </tr>
@@ -78,7 +78,7 @@
                 <td class="text-center">{{item.NgayThanhLy|date:'dd/MM/yyyy'}}</td>
                 <!-- <td >{{item.TenBoPhanSuDung}}</td> -->
                 <td >{{item.NoiDung}}</td>
-                <td class="text-right">{{item.TongGiaTriThanhLy}}</td>
+                <td class="text-right">{{item.TongGiaTriThanhLy | number:"0.0"}}</td>
                 <td class="text-center">
                     {{item.TenTrangThai}}
                 </td>

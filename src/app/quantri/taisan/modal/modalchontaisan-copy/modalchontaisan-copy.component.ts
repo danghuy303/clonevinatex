@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
-import { validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
@@ -46,6 +46,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       IddmLoaiTaiSan: '',
       IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      Ngay:DateToUnix(this.item.NgayThuHoi),
     }
     this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanThuHoi(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;

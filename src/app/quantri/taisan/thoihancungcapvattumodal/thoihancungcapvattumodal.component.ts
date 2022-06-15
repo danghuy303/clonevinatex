@@ -33,6 +33,8 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
   store: any;
   tongThanhTien: any = 0;
   IdTaiSan: '';
+  TuNgay: any = '';
+  DenNgay: any = '';
 
   constructor(
     private _modal: NgbModal,
@@ -123,10 +125,11 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
 
   ThemMoiDanhSachTaiSan() {
     let modalRef = this._modal.open(ThoihancungcapmodalluachonComponent, {
-      size: "lg",
+      size: "xl",
       backdrop: "static",
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+    modalRef.componentInstance.filter = this.item.Ngay ? { DenNgay: this.DenNgay, TuNgay: this.TuNgay} : {};
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = {};
@@ -214,12 +217,13 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     // this.Loaddata(true);
   }
   delete(index) {
-    let item = this.item.listTaiSan.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
-    }
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+      this.item.listTaiSan.splice(index, 1)
+    }).catch(er => console.log(er))
   }
 
   Tong() {
@@ -232,4 +236,11 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
   getList() {
     this.Tong();
   }
+
+  chonThang() {
+    let date = new Date(this.item.Ngay);
+    this.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  }
+
 }
