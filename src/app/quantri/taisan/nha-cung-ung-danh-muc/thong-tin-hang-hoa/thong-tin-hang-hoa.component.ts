@@ -20,7 +20,7 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   checkedAll: boolean = false;
   fileUpload: any;
   fileUploadHangHoa: any;
-  disabled?: boolean;
+  @Input() disabled?: boolean;
 
   constructor(
     public modal: NgbModal,
