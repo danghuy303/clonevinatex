@@ -65,7 +65,7 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
       ele.data.checked = this.listItemDaChon === ele.data.Id
       ele.children = list.filter(a => a.data.IdTaiSan === ele.data.Id)
     })
-    return list.filter(ele => ele.data.IdTaiSan === null)
+    return list.filter(ele => !ele.data.IdTaiSan)
   }
 
   TimCheck() {

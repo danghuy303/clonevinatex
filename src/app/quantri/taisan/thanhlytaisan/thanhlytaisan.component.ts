@@ -48,7 +48,7 @@ export class ThanhlytaisanComponent implements OnInit {
     this.GetListdmPhanXuong();
   }
   resetFilter() {
-    this.keyWord = '';
+    this.filter = {};
     this.GetList(true);
   }
   GetList(reset?) {
@@ -59,7 +59,6 @@ export class ThanhlytaisanComponent implements OnInit {
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      sFilter: this.keyWord,
       TabTrangThai: this.trangThai,
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       Keyword: this.filter.Keyword

@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
   selector: 'app-thongtinkhauhao',
@@ -11,25 +13,21 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 export class ThongtinkhauhaoComponent implements OnInit {
 
   @Input() item: any = {};
-  // @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
-  newitem: any = {};
+  listKhauHao: any = [];
 
-  constructor(public _modal: NgbModal,
+  constructor(
+    public _modal: NgbModal,
     public activeModal: NgbActiveModal,
     public toastr: ToastrService,
+    private _serviceTaiSan: TaisanService,
   ) { }
 
   ngOnInit(): void {
-
+    this.GetList();
   }
-
-  add() {
-    if (this.item === undefined || this.item === null)
-    this.item = [];
-    this.item.push(this.newitem);
-    this.newitem = {}
-  }
-  delete(index) {
-    let item = this.item.splice(index, 1)[0];
+  GetList() {
+    this._serviceTaiSan.KhauHaoTaiSan().GetListKhauHaoByIdTaiSan(this.item.Id).subscribe((res: any) => {
+      this.listKhauHao = res.Data;
+    })
   }
 }

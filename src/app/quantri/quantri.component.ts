@@ -1030,7 +1030,7 @@ export class QuantriComponent implements OnInit {
               },
               {
                 label: "Cập nhật thư viện",
-                routerLink: "/quantri/taisan/capnhatthuvien",
+                routerLink: "/quantri/taisan/capnhatthuvien/0",
                 command: () => {
                   this.close();
                 },

@@ -53,8 +53,6 @@ export class DanhsachvattuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.filter.Keyword, };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
@@ -75,33 +73,33 @@ export class DanhsachvattuComponent implements OnInit {
     this.filter.Thang = new Date().getMonth() + 1;
   }
 
-  resetFilter() {
-    this.filter = {};
-    this.GetListTonKho(true);
+  GetListTonKho(reset?) {
+    // if (reset) {
+    //   this.paging.CurrentPage = 1;
+    // }
+    // let data = {
+    //   PageSize: 20,
+    //   CurrentPage: this.paging.CurrentPage,
+    //   KeyWord: this.filter.KeyWord,
+    //   IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+    //   IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+    // };
+    // this._serviceTaiSan.ListDanhSachVatTu().GetListVatTuChuaBanGiao(data).subscribe((res: any) => {
+    //   this.paging.CurrentPage = res.Data.Page;
+    //   this.paging.TotalPages = res.Data.TotalPages;
+    //   this.paging.TotalCount = res.Data.TotalCount;
+    //   this.itemsTonKho = res.Data.Items;
+    //   this.itemsTonKho.forEach(item => {
+    //     item.ThanhTien = 0;
+    //     item.ThanhTien = (item.NguyenGia || 0) * (item.SoLuong || 0);
+
+    //   })
+    // })
   }
 
-  GetListTonKho(reset?) {
-    if (reset) {
-      this.paging.CurrentPage = 1;
-    }
-    let data = {
-      PageSize: 20,
-      CurrentPage: this.paging.CurrentPage,
-      KeyWord: this.filter.KeyWord,
-      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
-      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-    };
-    this._serviceTaiSan.ListDanhSachVatTu().GetListVatTuChuaBanGiao(data).subscribe((res: any) => {
-      this.paging.CurrentPage = res.Data.Page;
-      this.paging.TotalPages = res.Data.TotalPages;
-      this.paging.TotalCount = res.Data.TotalCount;
-      this.itemsTonKho = res.Data.Items;
-      this.itemsTonKho.forEach(item => {
-        item.ThanhTien = 0;
-        item.ThanhTien = (item.NguyenGia || 0) * (item.SoLuong || 0);
-
-      })
-    })
+  resetFilter() {
+    this.filter = {};
+    this.GetList(true);
   }
 
   GetList(reset?) {
@@ -117,20 +115,32 @@ export class DanhsachvattuComponent implements OnInit {
       Thang: this.filter.Thang,
       QuaHan: this.filter.QuaHan,
     };
-    this._serviceTaiSan.ListDanhSachVatTu().GetList(data).subscribe((res: any) => {
-      this.paging.CurrentPage = res.Data.Page;
-      this.paging.TotalPages = res.Data.TotalPages;
-      this.paging.TotalCount = res.Data.TotalCount;
-      this.items = res.Data.Items;
-      this.items.forEach(item => {
-        item.ThanhTien = 0;
-        item.ThanhTien = (item.NguyenGia || 0) * (item.SoLuong || 0);
-
+    if( this.loaiTab === 1) {
+      this._serviceTaiSan.ListDanhSachVatTu().GetList(data).subscribe((res: any) => {
+        this.paging.CurrentPage = res.Data.Page;
+        this.paging.TotalPages = res.Data.TotalPages;
+        this.paging.TotalCount = res.Data.TotalCount;
+        this.items = res.Data.Items;
+        this.items.forEach(item => {
+          item.ThanhTien = 0;
+          item.ThanhTien = (item.NguyenGia || 0) * (item.SoLuong || 0);
+        })
+        this.CheckExist(this.items);
+        this.TimCheck();
+      });
+    }
+    if(this.loaiTab === 0) {
+      this._serviceTaiSan.ListDanhSachVatTu().GetListVatTuChuaBanGiao(data).subscribe((res: any) => {
+        this.paging.CurrentPage = res.Data.Page;
+        this.paging.TotalPages = res.Data.TotalPages;
+        this.paging.TotalCount = res.Data.TotalCount;
+        this.itemsTonKho = res.Data.Items;
+        this.itemsTonKho.forEach(item => {
+          item.ThanhTien = 0;
+          item.ThanhTien = (item.NguyenGia || 0) * (item.SoLuong || 0);
+        })
       })
-      this.CheckExist(this.items);
-      this.TimCheck();
-    });
-
+    }
   }
 
 
@@ -214,7 +224,7 @@ export class DanhsachvattuComponent implements OnInit {
 
   changeTab(e) {
     this.loaiTab = e.index;
-    this.GetList(true);
+      this.GetList(true);
   }
 
   changePage(event) {

@@ -125,7 +125,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập tên");
       return false;
     }
-    if (!validVariable(this.item?.TaiSan?.SoNamKhauHao || this.item?.TaiSan?.IddmLoaiTaiSan || this.item?.TaiSan?.TenVietTat)) {
+    if (!validVariable(this.item?.TaiSan?.SoNamKhauHao) || !validVariable(this.item?.TaiSan?.IddmLoaiTaiSan) || !validVariable(this.item?.TaiSan?.TenVietTat)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
       return false;
     }
@@ -299,7 +299,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
         // this.toastr.success(res.Message); yêu cầu chỉnh sửa message 
         this.toastr.success('Lưu vào thư viện thành công!')
       } else {
-        this.toastr.error(res.message);
+        this.toastr.error(res.Message);
       }
     })
   }
@@ -313,12 +313,13 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.item = this.item;
     modalRef.result
       .then((res: any) => {
-        console.log(res);
+        console.log('res',res);
         
         this.item = {
+          SoQuyTrinh: this.item.SoQuyTrinh,
           TaiSan: {
             ...res,
-            // Id: "",
+            Id: null,
             ThoiGianDuaVaoSuDung: UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix),
             NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
           },

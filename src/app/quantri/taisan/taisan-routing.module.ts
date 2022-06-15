@@ -85,7 +85,7 @@ const routes: Routes = [
   {path:'dieuchuyentaisan/:id',component:DieuChuyenTaiSanComponent},
   {path:'thoihancungcapvattu/:id',component:ThoihancungcapvattuComponent},
   {path:'lichsusudungtaisan/:id', component:LichSuSuDungComponent},
-  {path:'capnhatthuvien', component:CapnhatthuvienComponent},
+  {path:'capnhatthuvien/:id', component:CapnhatthuvienComponent},
 ];
 
 @NgModule({
