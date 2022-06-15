@@ -43,7 +43,7 @@ export class ThemNhaCungUngModalComponent implements OnInit {
     this.taiSanService.NhaCungUng().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
-      this.CheckExistedHangHoa();
+      this.CheckExistedNhaCungUng();
     })
   }
 
@@ -55,6 +55,7 @@ export class ThemNhaCungUngModalComponent implements OnInit {
     })
     .map(item=> {
       return ({
+        Id: "",
         IddmNhaCungUng: item.Id,
         TendmNhaCungUng: item.Ten,
         MadmNhaCungUng: item.Ma,
@@ -64,19 +65,19 @@ export class ThemNhaCungUngModalComponent implements OnInit {
     this.activeModal.close(this.selectedList);
   }
 
+  Check() {
+    this.checkedAll = this.items.every(item => item.checked);
+  }
+
   CheckAllNhaCungUng() {
     this.items.forEach(item => {
       item.checked = this.checkedAll;
     })
   } 
 
-  CheckExistedHangHoa() {
+  CheckExistedNhaCungUng() {
     this.items.forEach(item => {
-      this.checkListItem.forEach(checkedItem => {
-        if (item.Ma === checkedItem.MadmNhaCungUng) {
-          item.checked = true;
-        }
-      })
+      item.checked = this.checkListItem.includes(item.Id);
     })
   }
 

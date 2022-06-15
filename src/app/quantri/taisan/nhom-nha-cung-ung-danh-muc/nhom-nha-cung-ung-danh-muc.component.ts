@@ -30,12 +30,12 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
   listTrangThai: any = [
     {
       label: 'Hoạt động',
-      value: true
+      value: 1
     },
     {
       label: 'Không hoạt động',
-      value: false
-    }
+      value: 3
+    },
   ]
 
   constructor(
@@ -64,7 +64,7 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
       CurrentPage: this.paging.currentPage,
       PageSize: 20,
       Keyword: this.filter.keyword,
-      HoatDong: this.filter.HoatDong
+      HoatDong: this.filter.HoatDong || 3
     }
     this.taiSanService.NhomNhaCungUng().GetListdmNhomNhaCungung(data).subscribe((res: any) => {
       this.items = res.Data.Items;
