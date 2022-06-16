@@ -23,6 +23,7 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
   listIdDaChon: string[];
   listTaiSanDaChon: any[] = [];
   idBoPhanSuDung: any = '';
+  ngay: any;
   selectedNodes: TreeNode[] = [];
 
   constructor(
@@ -35,7 +36,7 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.Loaddata();
+    this.resetFilter();
   }
 
   TreeItems(list) {
@@ -50,13 +51,18 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
     this.Loaddata(false);
   }
 
+  resetFilter() {
+    this.keyword = '';
+    this.Loaddata(true);
+  }
+
   Loaddata(reset?) {
     if (reset) {
       this.paging.currentPage = 1
     }
     this._serviceTaiSan
       .GetTaiSanTheoLoai()
-      .GetListTaiSanKhauHao("", this.idBoPhanSuDung, this.paging.currentPage, 20, this.keyword)
+      .GetListTaiSanKhauHao(0, this.idBoPhanSuDung, this.paging.currentPage, 20, this.keyword, this.ngay)
       .subscribe((res: any) => {
         this.items = res.Items.map(ele => {
           return {
@@ -91,16 +97,10 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
   }
 
   SetData() {
-    let data = [];
-    data = this.selectedNodes.map(ele => {
-      // return {
-      //   IdTaiSan: ele.data.Id,
-      //   Id: "",
-      //   MaTaiSan: ele.data.Ma,
-      //   TenTaiSan: ele.data.Ten,
-      // }
-      return ele.data.Id;
-    })
+    let data = {
+      ListIdTaiSan: this.selectedNodes.map(ele => ele.data.Id),
+      Ngay: this.ngay
+    };
     return data;
   }
 
@@ -108,7 +108,7 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
     let listTaiSanKhauHao = [];
     let data = this.SetData();
     this._serviceTaiSan.KhauHaoTaiSan().GetKhauHao(data).subscribe((res: any) => {
-      data.forEach(ele=>{
+      data.ListIdTaiSan.forEach(ele=>{
         listTaiSanKhauHao.push(...res.Data.filter(obj => obj.IdTaiSan === ele));
       })
       listTaiSanKhauHao.forEach(ele => {

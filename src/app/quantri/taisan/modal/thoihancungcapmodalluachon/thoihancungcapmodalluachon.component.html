@@ -19,11 +19,11 @@
                 </p-calendar>
             </div>
             <div class="p-mr-2">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon" [(ngModel)]="filter.DenNgay"
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [minDate]="filter.TuNgay" [showIcon]="true" inputId="icon" [(ngModel)]="filter.DenNgay"
                     placeholder="Đến ngày" (onSelect)="GetList()">
                 </p-calendar>
             </div>
-            <div class="p-mr-2 p-inputgroup">
+            <div class="p-mr-2 p-inputgroup" sstyle="width:100px">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
                     (keyup.enter)="GetList()" />
                     <button type="button" pButton pRipple icon="pi pi-search"

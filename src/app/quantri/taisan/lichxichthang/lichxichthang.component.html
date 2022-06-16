@@ -2,9 +2,7 @@
     <h4 style="color:#1f2779">Lịch xích tháng</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <!-- <button pButton lab el="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
-        *ngIf="checkQuyen.ThemMoi"></button> -->
-
+  
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
@@ -18,7 +16,7 @@
                 [showClear]="true" [filter]="true" (onChange)="GetList(true)"></p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn tài sản " [(ngModel)]="filter.IddmLoaiTaiSan" styleClass="p-inputtext-sm"
+            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản " [(ngModel)]="filter.IddmLoaiTaiSan" styleClass="p-inputtext-sm"
                 [showClear]="true" [filter]="true" (onChange)="GetList(true)"></p-dropdown>
         </div>
     </div>

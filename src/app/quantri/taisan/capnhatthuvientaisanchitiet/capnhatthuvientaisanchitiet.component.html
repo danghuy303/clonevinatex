@@ -1,4 +1,3 @@
-
 <div class="modal-header">
     <h5 class="modal-title">
         Thông tin chi tiết</h5>
@@ -8,52 +7,47 @@
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="activeModal.dismiss('close')"></button>
-                <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm"
+            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm"
                 (click)="GhiLai()"></button>
-                <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" (click)="XoaThuVien()"></button>
+            <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm"
+                (click)="XoaThuVien()"></button>
         </div>
-        <div class="modal-bt p-mb-4 text-center" style="position: absolute; right: 0;transform: translate(-180%,20%);">
+        <!-- <div class="modal-bt p-mb-4 text-center" style="position: absolute; right: 0;transform: translate(-180%,20%);">
             <qrcode [qrdata]="item.Ma" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
-        </div>
+        </div> -->
     </div>
 
     <!-- Phần cha -->
     <div class="p-grid">
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" (onChange)="LayMa($event)" [options]="listLoaiTaiSan"
                     placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã tài sản : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã tài sản <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+        <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
 
-        </div>
+        </div> -->
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhóm tài sản : </label>
             <div class="p-col-12 p-xl-8 p-p-0 d-flex">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenNhomTaiSan" pInputText disabled />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TendmTaiSan" pInputText disabled />
                 <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="ChonTaiSan()"></button>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên tài sản : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên tài sản <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã QR : </label>
-            <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaQR" pInputText />
-            </div>
-        </div> -->
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
@@ -74,13 +68,13 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đơn vị năng xuất : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đơn vị : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViNangSuat" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tuổi thọ : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tuổi thọ (tháng): </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TuoiTho">
                 </p-inputNumber>
@@ -131,14 +125,14 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nguyên giá: </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nguyên giá (VNĐ): </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.NguyenGia">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị còn lại : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị còn lại (VNĐ): </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriConLai">
                 </p-inputNumber>
@@ -151,7 +145,7 @@
                     placeholder="Chọn bộ phận" [showClear]="true"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+        <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tài liệu đính kèm : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <div class="p-inputgroup">
@@ -160,7 +154,7 @@
                         class="p-button-sm p-button-text p-button-secondary" (click)="taiLenFileDinhKem()"></button>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
                 <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
@@ -176,94 +170,32 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên viết tắt : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenVietTat" pInputText />
             </div>
         </div>
-        <!-- phần con -->
-        <!-- <p-tabView>
-            <p-tabPanel header="Danh sách tài sản">
-                <ng-template pTemplate="content">
-                    <p-table [value]="item.listTaiSan"
-                        styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
-                        <ng-template pTemplate="colgroup">
-                            <colgroup>
-                                <col style="width: 50px;">
-                                <col>
-                                <col>
-                                <col>
-                                <col>
-                                <col>
-                                <col>
-                            </colgroup>
-                        </ng-template>
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th class="text-center">
-                                    STT
-                                </th>
-                                <th class="text-center">Mã</th>
-                                <th class="text-center">Tên</th>
-                                <th class="text-center">Model</th>
-                                <th class="text-center">Số seri</th>
-                                <th class="text-center">Hãng sản xuất</th>
-                                <th class="text-center">Thời gian dưa vào sử dụng</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-item let-i="rowIndex">
-                            <tr>
-                                <td class="text-center">
-                                    {{i + 1}}
-                                </td>
-                                <td >{{item.Ma}}</td>
-                                <td >{{item.Ten}}</td>
-                                <td >{{item.Modem}}</td>
-                                <td >{{item.SoSeri}}</td>
-                                <td >{{item.HangSanXuat}}</td>
-                                <td class="text-center">{{item.ThoiGianDuaVaoSuDung|date:'dd/MM/yyyy'}}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </ng-template>
-            </p-tabPanel>
-            <p-tabPanel header="Lịch bảo dưỡng">
-                <ng-template pTemplate="content">
-                    <app-lichbaoduongcopy [item]="item"></app-lichbaoduongcopy>
-                </ng-template>
-            </p-tabPanel>
-            <p-tabPanel header="Thông số kỹ thuật">
-                <ng-template pTemplate="content">
-                    <app-thongsokythuat [item]="item.listThongSoKyThuat"></app-thongsokythuat>
-                </ng-template>
-            </p-tabPanel>
-            <p-tabPanel header="Thông số an toàn">
-                <ng-template pTemplate="content">
-                    <app-antoan [item]="item.listThongSoAnToan"></app-antoan>
-                </ng-template>
-            </p-tabPanel>
-            <p-tabPanel header="Thông tin khấu hao">
-                <ng-template pTemplate="content">
-                    <app-thongtinkhauhao [item]="item.listThongTinKhauHao"></app-thongtinkhauhao>
-                </ng-template>
-            </p-tabPanel>
-            <p-tabPanel header="Biến động">
-                <ng-template pTemplate="content">
-                    <app-biendong [item]="item"></app-biendong>
-                </ng-template>
-            </p-tabPanel>
-        </p-tabView> -->
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
+            </div>
+        </div>
+        <div class="p-mb-4" *ngIf="item.TaiSan">
+            <app-tai-lieu-danh-sach [item]="item.TaiSan"></app-tai-lieu-danh-sach>
+        </div>
         <p-panel header="Chi tiết tài sản" [toggleable]="true">
             <ng-template pTemplate="content">
-                <p-tabView (onChange)="changeTab($event)">
-                    <p-tabPanel header="Danh sách tài sản">
+                <p-tabView>
+                    <p-tabPanel header="Danh sách vật tư">
                         <ng-template pTemplate="content">
                             <div class="p-d-flex p-flex-row p-jc-between">
                                 <div class="modal-bt p-mb-4 ">
                                 </div>
                             </div>
-                            <p-table [value]="item.listTaiSan|isXoa"
-                                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
+                            <p-table [value]="item.TaiSan?.listTaiSan"
+                                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+                                [scrollable]="true">
                                 <ng-template pTemplate="colgroup">
                                     <colgroup>
                                         <col style="width: 50px;">
@@ -283,7 +215,8 @@
                                         <th class="text-center">Tên</th>
                                         <th class="text-center">Hãng sản xuất</th>
                                         <th class="text-center">Thời gian sử dụng</th>
-                                        <th class="text-center"> <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="ThemMoiTaiSanCon()" ></button></th>
+                                        <th class="text-center"> <button pButton pRipple icon="pi pi-plus"
+                                                class="p-button-sm p-mr-2" (click)="ThemMoiTaiSanCon()"></button></th>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -291,20 +224,17 @@
                                         <td class="text-center">
                                             {{i + 1}}
                                         </td>
-                                        <td >{{item.Ma}}</td>
-                                        <td >{{item.Ten}}</td>
-                                        <td >{{item.HangSanXuat}}</td>
+                                        <td>{{item.Ma}}</td>
+                                        <td>{{item.Ten}}</td>
+                                        <td>{{item.HangSanXuat}}</td>
                                         <td class="text-center">{{item.ThoiGianDuaVaoSuDung|date:'dd/MM/yyyy'}}</td>
                                         <td class="text-center">
                                             <button pButton pRipple type="button" icon="pi pi-pencil"
                                                 class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                                                pTooltip="Chỉnh sửa" (click)="CapNhatTaiSanCon(item)"></button>
-                                            <!-- <button pButton pRipple type="button" icon="pi pi-align-justify"
-                                                class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                                                pTooltip="Tạo lịch bảo dưỡng" (click)="TaoLichBaoDuong(item)"></button> -->
+                                                pTooltip="Chỉnh sửa" (click)="CapNhatTaiSanCon(item, i)"></button>
                                             <button pButton pRipple type="button" icon="pi pi-trash"
-                                                class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                                                (click)=" delete(i)"></button>
+                                                class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                                                pTooltip="Xóa" (click)=" delete(i)"></button>
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -313,28 +243,31 @@
                     </p-tabPanel>
                     <p-tabPanel header="Lịch bảo dưỡng">
                         <ng-template pTemplate="content">
-                            <!-- <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listLichBaoDuong"></app-taomoilichbaoduongcopy>
-                            <app-taomoilichbaoduongcopy *ngIf="item.TaiSan === undefined" [item]="item.listLichBaoDuong"></app-taomoilichbaoduongcopy> -->
-                            <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan"></app-taomoilichbaoduongcopy>
-                            <app-taomoilichbaoduongcopy *ngIf="item.TaiSan === undefined" [item]="item"></app-taomoilichbaoduongcopy>
+                            <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan">
+                            </app-taomoilichbaoduongcopy>
+                            <app-taomoilichbaoduongcopy *ngIf="item.TaiSan === undefined" [item]="item">
+                            </app-taomoilichbaoduongcopy>
                         </ng-template>
                     </p-tabPanel>
                     <p-tabPanel header="Thông số kỹ thuật">
                         <ng-template pTemplate="content">
-                            <app-thongsokythuat *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listThongSoKyThuat" ></app-thongsokythuat>
-                            <app-thongsokythuat *ngIf="item.TaiSan === undefined" [item]="item.listThongSoKyThuat" ></app-thongsokythuat>
+                            <app-thongsokythuat *ngIf="item.TaiSan !== undefined"
+                                [listThongSoKyThuat]="item.TaiSan.listThongSoKyThuat"></app-thongsokythuat>
+                            <app-thongsokythuat *ngIf="item.TaiSan === undefined"
+                                [listThongSoKyThuat]="item.listThongSoKyThuat"></app-thongsokythuat>
                         </ng-template>
                     </p-tabPanel>
                     <p-tabPanel header="Thông số an toàn">
                         <ng-template pTemplate="content">
-                            <app-antoan *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listThongSoAnToan"></app-antoan>
+                            <app-antoan *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listThongSoAnToan">
+                            </app-antoan>
                             <app-antoan *ngIf="item.TaiSan === undefined" [item]="item.listThongSoAnToan"></app-antoan>
                         </ng-template>
                     </p-tabPanel>
                 </p-tabView>
             </ng-template>
         </p-panel>
-    
+
         <div class="modal-footer">
 
         </div>

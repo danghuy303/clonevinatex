@@ -11,7 +11,7 @@
                 [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn tài sản "
+            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản "
                 [(ngModel)]="filter.IddmLoaiTaiSan" styleClass="p-inputtext-sm" (onChange)="GetList(true)"
                 [showClear]="true" [filter]="true"></p-dropdown>
         </div>
@@ -50,27 +50,25 @@
                 <th class="text-center" rowspan="2">Mã </th>
                 <th class="text-center" rowspan="2">Tên vật tư</th>
                 <th class="text-center" rowspan="2">Xuất xứ</th>
-                <th class="text-center" rowspan="2">Tuổi thọ (tháng)</th>
+                <th class="text-center" rowspan="2">Tuổi thọ (Tháng)</th>
                 <th class="text-center" rowspan="2">Số lượng tồn</th>
                 <th class="text-center" rowspan="2">Số lượng cần dự trữ</th>
                 <th class="text-center" rowspan="2">Số lượng cần thay thế</th>
                 <th class="text-center" rowspan="2">Ngày đưa vào sử dụng</th>
-                <th class="text-center" rowspan="2">Đơn giá</th>
+                <th class="text-center" rowspan="2">Đơn giá (VNĐ)</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
-                <!-- {{rowData.Ma}}
-                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler> -->
                 <td >{{item.Ma}}</td>
                 <td>{{item.Ten}}</td>
                 <td >{{item.NuocSanXuat}}</td>
                 <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.DuTruToiThieu | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.SoLuong | number:'0.0-0'}}</td>
                 <td class="text-center">{{item.ThoiGianDuaVaoSuDung | date:"dd/MM/yyyy"}}</td>
-                <td style="text-align: right;">{{item.NguyenGia | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.DonGiaNhapGanNhat | number:'0.0-0'}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -83,11 +81,10 @@
 </div>
 <div class="p-mt-3" *ngIf="loaiTab === 1 ">
     <div class="p-d-flex p-flex-row p-jc-between">
-        <div class="modal-bt p-mb-4 ">
+        <div class="modal-bt p-mb-4 " >
             <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm" (click)="exportExcel()" ></button>
-            <button pButton pRipple type="button" label=" Tạo kế hoạch mua vật tư" class="p-mr-2 p-button-sm"
-                (click)="KiemTraNCC()"></button>
-               
+            <button pButton pRipple type="button" label=" Tạo kế hoạch mua vật tư" class="p-mr-2 p-button-sm" [disabled]="!checkButton"
+                (click)="KiemTraNCC()"></button>  
         </div>
         <div class="p-d-flex p-ai-center p-jc-end p-mb-3">
             <span class="p-m-2">
@@ -97,7 +94,6 @@
             </span>
             <p-dropdown class="p-mr-2" [filter]="true" [options]="listNam" placeholder="Năm " [(ngModel)]="filter.Nam"
                 styleClass="p-inputtext-sm" (onChange)="GetList(true)" [showClear]="true" [filter]="true"></p-dropdown>
-            <!-- <button pButton pRipple type="button" [label]="item" *ngFor="let item of labelThang" class="p-mr-1 p-button-sm "></button> -->
             <p-selectButton [options]="labelThang" [(ngModel)]="filter.Thang" styleClass="p-button-primary" (onChange)="GetList(true)">
             </p-selectButton>
         </div>
@@ -105,15 +101,6 @@
     <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
             <colgroup>
-                <!-- <col >
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col> -->
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -125,11 +112,11 @@
                 <th class="text-center">Mã vật tư</th>
                 <th class="text-center">Tên vật tư</th>
                 <th class="text-center">Nhà cung cấp</th>
-                <th class="text-center">Tuổi thọ</th>
+                <th class="text-center">Tuổi thọ (Tháng)</th>
                 <th class="text-center">Số lượng tồn</th>
                 <th class="text-center">Số lượng cần thay</th>
-                <th class="text-center">Đơn giá nhập gần nhất</th>
-                <th class="text-center">Thành tiền</th>
+                <th class="text-center">Đơn giá nhập gần nhất (VNĐ)</th>
+                <th class="text-center">Thành tiền (VNĐ)</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -142,8 +129,8 @@
                 <td>{{item.Ten}}</td>
                 <td >{{item.TenNhaCungCap}}</td>
                 <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.SoLuong | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.SoLuongCanThayThe | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.SoLuongCanThayThe | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.NguyenGia | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.ThanhTien | number:'0.0-0'}}</td>
             </tr>

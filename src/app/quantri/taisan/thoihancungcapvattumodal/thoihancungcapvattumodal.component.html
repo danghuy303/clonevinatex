@@ -39,8 +39,9 @@
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
-                    [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy" [(ngModel)]="item.Ngay">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+                    [locale]="lang" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon"
+                    [(ngModel)]="item.Ngay" placeholder="dd/mm/yyyy" (onSelect)="chonThang()"> 
                 </p-calendar>
             </div>
         </div>
@@ -125,7 +126,7 @@
                     </p-inputNumber>
                 </td>
                 <td class="text-right"> {{item.ThanhTien | number:"0.0-0"}}</td>
-                <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.GhiChu" /></td>
+                <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.GhiChu" [ngbTooltip]="item.GhiChu" /></td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-trash"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"

@@ -167,7 +167,7 @@
             </div>
         </div>
         <div *ngIf="item.IdRoot === item.Id" class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên viết tắt : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên viết tắt <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenVietTat" pInputText />
             </div>
@@ -247,7 +247,7 @@
             </p-tabPanel>
             <p-tabPanel *ngIf="item.IdRoot === item.Id" header="Thông tin khấu hao">
                 <ng-template pTemplate="content">
-                    <app-thongtinkhauhao [item]="item.listThongTinKhauHao"></app-thongtinkhauhao>
+                    <app-thongtinkhauhao [item]="item"></app-thongtinkhauhao>
                 </ng-template>
             </p-tabPanel>
             <p-tabPanel header="Biến động">

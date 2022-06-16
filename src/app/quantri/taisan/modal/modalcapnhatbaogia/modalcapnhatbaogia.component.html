@@ -84,12 +84,12 @@
                     <th class="text-center">Tên</th>
                     <th class="text-center">Số lượng</th>
                     <th class="text-center">Ghi chú</th>
-                    <th *ngIf="tabTrangThai===0">Thao tác</th>
+                    <th class="text-center" *ngIf="tabTrangThai===0">Thao tác</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                 <tr>
-                    <td class="text-center">{{rowData.STT}}</td>
+                    <td>{{rowData.STT}}</td>
                     <td>
                         <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                         {{rowData.MaTaiSan}}

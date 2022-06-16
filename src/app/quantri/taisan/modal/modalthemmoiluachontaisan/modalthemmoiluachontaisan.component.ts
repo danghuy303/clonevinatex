@@ -46,16 +46,14 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.IdBoPhanSuDung);
-    
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
 
     Promise.all([ls1, ls2]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data.Items, "Ten", "Id");
-      this.listCungSanXuat = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");
+      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
     });
   }
   edit(item) {
@@ -87,14 +85,34 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     }
   }
 
-  GhiLai() {
-    if (!validVariable(this.item.DonViNangSuat || this.item.IddmLoaiTaiSan || this.item.Ten)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
-      return
+  ValidateData() {
+    if (!validVariable(this.item.Ten)) {
+      this.toastr.error("Yêu cầu nhập tên");
+      return false;
     }
+    if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.DonViNangSuat)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
+      return false;
+    }
+    if (this.IdBoPhanSuDung != null) {
+      if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {
+        this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
+        return false;
+      }
+    }
+    return true;
+  }
+
+  GhiLai() {
+    // if (!validVariable(this.item.DonViNangSuat) || !validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.Ten)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+    //   return
+    // }
+    if (this.ValidateData()) {
     this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
     this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
     this.activeModal.close(this.item);
+    }
   }
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });

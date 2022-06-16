@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
-import { validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
@@ -46,6 +46,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       IddmLoaiTaiSan: '',
       IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      Ngay:DateToUnix(this.item.NgayThuHoi),
     }
     this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanThuHoi(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
@@ -106,12 +107,11 @@ export class ModalchontaisanCopyComponent implements OnInit {
     this.items.forEach(obj => {
       if (obj.data.checked) {
         data.push({
+          ...obj.data,
           IdTaiSan: obj.data.Id,
           Id: '',
           TenTaiSan: obj.data.Ten,
           MaTaiSan: obj.data.Ma,
-          NguyenGia: obj.data.NguyenGia,
-          GiaTriConLai: obj.data.GiaTriConLai,
           isCha: true,
         });
 
@@ -120,12 +120,11 @@ export class ModalchontaisanCopyComponent implements OnInit {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
             data.push({
+              ...obj.data,
               IdTaiSan: objchildren.data.Id,
               Id: '',
               TenTaiSan: objchildren.data.Ten,
               MaTaiSan: objchildren.data.Ma,
-              NguyenGia: objchildren.data.NguyenGia,
-              GiaTriConLai: objchildren.data.GiaTriConLai,
               isCha: false,
             });
           }
@@ -141,6 +140,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
   }
 
   GhiLai() {
+    // console.log("this.FilterTree()", this.FilterTree());
     this.activeModal.close(this.FilterTree());
   }
 

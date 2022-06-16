@@ -7,6 +7,7 @@ import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { AuthenticationService } from "src/app/services/auth.service";
 import { StoreService } from "src/app/services/store.service";
+import { TestQuyTrinhComponent } from "./test-quy-trinh/test-quy-trinh.component";
 
 import {
   DateToUnix,
@@ -43,7 +44,8 @@ export class BangiaotaisanComponent implements OnInit {
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private activatedRoute: ActivatedRoute, private router: Router,
+    private activatedRoute: ActivatedRoute, 
+    private router: Router,
     private _serviceAuth: AuthenticationService,
     private store: StoreService,
     
@@ -166,6 +168,14 @@ export class BangiaotaisanComponent implements OnInit {
   changePage(event) {
     this.paging.currentPage = event.page + 1;
     this.Loaddata(false);
+  }
+
+  test() {
+    let modalRef = this._modal.open(TestQuyTrinhComponent, {
+      size: 'fullscreen',
+      backdrop: 'static',
+    })
+
   }
 
 }

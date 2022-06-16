@@ -33,7 +33,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
   listTaiSan_copy: any = [];
   NameFile: string;
   title: any = '';
-  TongGiaTri: any = 0;
+  // TongGiaTri: any = 0;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -48,7 +48,6 @@ export class ModalthanhlytaisanComponent implements OnInit {
     this.item.listTaiSan.forEach(ele => {
       ele.isCha = !!!ele.IdRoot;
     })
-    // console.log("item.listTaiSan", this.item.listTaiSan);
     if (this.item.NgayThanhLyUnix !== 0) {
       this.item.NgayThanhLy = UnixToDate(this.item.NgayThanhLyUnix);
     }
@@ -56,14 +55,9 @@ export class ModalthanhlytaisanComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     if (this.opt === 'edit') {
-      console.log("");
-      
     }
     this.KiemTraButtonModal();
     this.GetListdmPhanXuong();
-    // this.GetListTaiSanChuaBanGiao();
-
-    // this.GetPhanXuong();
     this.getList();
   }
   GetListdmPhanXuong() {
@@ -109,6 +103,10 @@ export class ModalthanhlytaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
       return false;
     }
+    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+      this.toastr.error("Yêu cầu nhập thêm tài sản!");
+      return false;
+    }
     return true;
   }
   GhiLai() {
@@ -139,7 +137,6 @@ export class ModalthanhlytaisanComponent implements OnInit {
     });
 
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
-
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
@@ -205,9 +202,9 @@ export class ModalthanhlytaisanComponent implements OnInit {
   }
 
   Tong() {
-    this.TongGiaTri = 0;
+    this.item.TongGiaTri = 0;
     this.item.listTaiSan.forEach(item => {
-      this.TongGiaTri += (item.GiaTriThanhLy || 0) * (item.SoLuong || 0);
+      this.item.TongGiaTri += (item.GiaTriThanhLy || 0) * (item.SoLuong || 0);
     })
   }
   getList() {

@@ -142,7 +142,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
 
         data = {
           ListIdTaiSan: arr,
-          // IdTaiSan: obj.data.IdTaiSan,
           IdBoPhanSuDung: this.item.IdBoPhanSuDung,
           IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
           Ngay: DateToUnix(new Date(this.item.Nam, 1, 1)),
@@ -155,7 +154,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
             arr.push(objchildren.data.IdTaiSan);
             data = {
               ListIdTaiSan: arr,
-              // IdTaiSan: objchildren.data.IdTaiSan,
               IdBoPhanSuDung: this.item.IdBoPhanSuDung,
               IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
               Ngay: DateToUnix(new Date(this.item.Nam, 1, 1)),

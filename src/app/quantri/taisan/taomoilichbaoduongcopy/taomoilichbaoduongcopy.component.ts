@@ -26,9 +26,9 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
   ngOnInit(): void {
   }
   addBaoDuong() {
-    this.listIdDaChon = this.item.listLichBaoDuong.map(ele => {
+    this.listIdDaChon = this.item?.listLichBaoDuong?.map(ele => {
       return ele.IddmLoaiBaoDuong
-    }, [])
+    }) || [];
     let modalRef = this._modal.open(ModalcapnhatbaoduongcopyyComponent, {
       size: 'lg',
       backdrop: 'static'
@@ -40,8 +40,9 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
     modalRef.componentInstance.existedItems = this.listIdDaChon|| [];
     modalRef.result
       .then((res: any) => {
-        console.log(res);
         this.item.listLichBaoDuong.push(res);
+       
+        
         this.toastr.success(`Cập nhật thành công!`)
       })
       .catch((er) => {
@@ -50,9 +51,9 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
   }
   CapNhat(index, item) {
     let item_copy = { ...item };
-    this.listIdDaChon = this.item.listLichBaoDuong.map(ele => {
+    this.listIdDaChon = this.item?.listLichBaoDuong?.map(ele => {
       return ele.IddmLoaiBaoDuong
-    }, [])
+    })||[]
     let modalRef = this._modal.open(ModalcapnhatbaoduongcopyyComponent, {
       size: "lg",
       backdrop: "static",

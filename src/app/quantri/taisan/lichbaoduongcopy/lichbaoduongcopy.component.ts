@@ -14,7 +14,7 @@ import { datafake } from './datafake';
 })
 export class LichbaoduongcopyComponent implements OnInit {
 
-  @Input('item') item: any = { isChonNam: 0, };
+  @Input('item') item: any = { };
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
 
@@ -28,9 +28,7 @@ export class LichbaoduongcopyComponent implements OnInit {
   itemsThang: any = [];
   listThoiGianNangSuat: any = [];
   listdmLoaiBaoDuong: any = [];
-  labelThang: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
-    '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
-
+  
   constructor(
     public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
@@ -45,10 +43,7 @@ export class LichbaoduongcopyComponent implements OnInit {
       this.listThang.push({ value: i, label: `Tháng ${i}` });
     }
     this.filter.Nam = new Date().getFullYear();
-    this.filter.Thang = new Date().getMonth() + 1;
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(new Date(this.filter.Nam, 1, 1))).subscribe((res: any) => {
-      this.items = res.Data;
-    })
+    this.filter.Thang = new Date().getMonth()+1;
     this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().Get(this.item.Id).subscribe((res: any) => {
       if (res.StatusCode === 200) {
         this.listdmLoaiBaoDuong = res?.Data.lstLoaiBaoDuong;
@@ -57,32 +52,22 @@ export class LichbaoduongcopyComponent implements OnInit {
         this._toastr.error(`${res.Message} - Lỗi lấy dữ liệu từ QLTS_Vinatex/QuanLyTaiSan/GetChiTietTaiSanById_LichBaoDuong`);
       }
     })
-
+    this.isChonNam();
   }
-  resetFilter() {
-    this.filter = {};
-    this.GetList(true);
-  }
-  GetList(reset?) {
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id, DateToUnix(new Date(this.filter.Nam, this.filter.Thang, 1))).subscribe((res: any) => {
-      this.itemsThang = res.Data;
-      this.labelThang = res.Data.listThoiGian;
-    })
-    // this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(this.item.Ngay)).subscribe((res: any) => {
-    //   this.items = res.Data;
-    // })
-  }
+ 
   isChon(item) {
     item.isChonNam = 0;
   }
-  isChonNam(item) {
-    item.isChonThang = 0;
-    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(this.item.Ngay)).subscribe((res: any) => {
+  isChonNam() {
+    this.item.isChonThang = false;
+    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetNam(this.item.Id, DateToUnix(new Date(this.filter.Nam, 1, 1))).subscribe((res: any) => {
       this.items = res.Data;
     })
   }
-  isChonThang(item) {
-    item.isChonNam = 1;
-    this.GetList(true)
+  isChonThang() {
+    this.item.isChonNam = true;
+    this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id, DateToUnix(new Date(this.filter.Nam, this.filter.Thang - 1, 1))).subscribe((res: any) => {
+        this.items = res.Data;
+      })
   }
 }

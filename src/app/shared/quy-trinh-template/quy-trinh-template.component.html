@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <ng-content select="[title]"></ng-content>
+</div>
+<div>
+  <div class="p-d-flex p-flex-row p-jc-between">
+    <div class="modal-bt p-my-3">
+        <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+            (click)="handleEvent('QuayLai')"></button>
+        <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm" (click)="handleEvent('GhiLai')"></button>
+        <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" (click)="handleEvent('Xoa')"></button>
+        <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="handleEvent('KhongDuyet')"></button>
+        <button pButton pRipple type="button" label="Chuyển tiếp" class="p-mr-2 p-button-sm" (click)="handleEvent('ChuyenTiep')"></button>
+    </div>
+  </div>
+  <app-ban-giao-tai-san-quy-trinh></app-ban-giao-tai-san-quy-trinh>
+
+  <ng-content select="[content]"></ng-content>
+  <app-tai-lieu-danh-sach
+    [item]="item"
+  ></app-tai-lieu-danh-sach>
+  <app-trao-doi></app-trao-doi>
+</div>

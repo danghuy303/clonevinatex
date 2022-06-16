@@ -5,6 +5,8 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NhomNhaCungUngModalComponent } from './nhom-nha-cung-ung-modal/nhom-nha-cung-ung-modal.component';
 import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
+import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
+import { ConfirmationService } from 'src/app/services/confirmation.service';
 
 interface NhomNhaCungUng {
   Id: string,
@@ -25,11 +27,22 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
   keyword: string = '';
   paging: any = {};
   fileUpload: any;
+  listTrangThai: any = [
+    {
+      label: 'Hoạt động',
+      value: 1
+    },
+    {
+      label: 'Không hoạt động',
+      value: 3
+    },
+  ]
 
   constructor(
     private taiSanService: TaisanService,
     public modal: NgbModal,
     public toast: ToastrService,
+    private confirmService: ConfirmationService
     // private upload: UploadmodalComponent
   ) { }
 
@@ -51,6 +64,7 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
       CurrentPage: this.paging.currentPage,
       PageSize: 20,
       Keyword: this.filter.keyword,
+      HoatDong: this.filter.HoatDong || 3
     }
     this.taiSanService.NhomNhaCungUng().GetListdmNhomNhaCungung(data).subscribe((res: any) => {
       this.items = res.Data.Items;
@@ -109,13 +123,17 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
       return a.concat(b.Id);
     }, [])
     if (listId.length !== 0) {
-      this.taiSanService.NhomNhaCungUng().DeleteListNhomCungUng(listId).subscribe((res: any) => {
-        if (res.StatusCode === 200) {
-          this.toast.success(res.Message)
-          this.LoadListNhomCungUng();
-        } else {
-          this.toast.error(res.Message)
-        }
+      this.confirmService.show({
+        message: 'Bạn chắc chắn muốn xóa nhà cung ứng này?'
+      }, () => {
+        this.taiSanService.NhomNhaCungUng().DeleteListNhomCungUng(listId).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.toast.success(res.Message)
+            this.LoadListNhomCungUng();
+          } else {
+            this.toast.error(res.Message)
+          }
+        })
       })
     } else {
       this.toast.error('Chưa chọn nhóm nhà cung ứng')

@@ -109,7 +109,7 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nguyên giá: </label>
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nguyên giá (VNĐ): </label>
         <div class="p-col-12 p-xl-7 p-p-0">
             <p-inputNumber [minFractionDigits]="0" mode="decimal" locale="en-EN" [min]="0" [(ngModel)]="item.NguyenGia"
                 (onBlur)="edit(item)">
@@ -118,7 +118,7 @@
         <span class="p-col-12 p-xl-1 p-p-0 p-m-2"> (VNĐ) </span>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị còn lại : </label>
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị còn lại (VNĐ): </label>
         <div class="p-col-12 p-xl-7 p-p-0">
             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [min]="0" [(ngModel)]="item.GiaTriConLai">
             </p-inputNumber>
@@ -158,7 +158,7 @@
     </div>
     </div> -->
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên viết tắt : </label>
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên viết tắt <span class="text-danger">(*)</span> : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenVietTat" pInputText />
         </div>

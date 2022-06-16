@@ -16,7 +16,7 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="Loaddata(true)">
+                [(ngModel)]="filter.DenNgay" [minDate]="filter.TuNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="Loaddata(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width: 200px;">
@@ -45,7 +45,7 @@
             <col style="width: 100px;">
         </colgroup>
     </ng-template>
-    <ng-template pTemplate="header" [style.backgroundColor]="black">
+    <ng-template pTemplate="header" >
         <tr>
             <th class="text-center">#</th>
             <th class="text-center">Số quy trình</th>

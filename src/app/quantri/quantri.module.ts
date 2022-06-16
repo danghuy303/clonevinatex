@@ -270,23 +270,23 @@ import { BaocaotonghoptaisanComponent } from './baocaotonghoptaisan/baocaotongho
 import { Hungyenpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/hungyenpx1/hungyenpx1.component';
 import { Cnnamdinhpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/cnnamdinhpx1/cnnamdinhpx1.component';
 import { DmsucomayComponent } from './danhmuc/dmsucomay/dmsucomay.component';
-import { ModaldmsucomayComponent } from './danhmuc/modal/modaldmsucomay/modaldmsucomay.component';
 import { ThongkethoigiandungmayComponent } from './quanlykhosanxuat/thongke/thongkethoigiandungmay/thongkethoigiandungmay.component';
 import { DashboardbanchephamComponent } from './dashboardbanchepham/dashboardbanchepham.component';
 import { DmchitieuloicatComponent } from './danhmuc/dmchitieuloicat/dmchitieuloicat.component';
 import { DmchitieuclasimatComponent } from './danhmuc/dmchitieuclasimat/dmchitieuclasimat.component';
-import { ModaldmloicatComponent } from './danhmuc/modal/modaldmloicat/modaldmloicat.component';
-import { ModaldmclassimatComponent } from './danhmuc/modal/modaldmclassimat/modaldmclassimat.component';
 import { DinhmucchitieuloicatComponent } from './danhmuc/dinhmucchitieuloicat/dinhmucchitieuloicat.component';
 import { DinhmucchitieuclassimatComponent } from './danhmuc/dinhmucchitieuclassimat/dinhmucchitieuclassimat.component';
+import { ModaldmsucomayComponent } from './danhmuc/modal/modaldmsucomay/modaldmsucomay.component';
+import { ModaldmclassimatComponent } from './danhmuc/modal/modaldmclassimat/modaldmclassimat.component';
+import { ModaldmloicatComponent } from './danhmuc/modal/modaldmloicat/modaldmloicat.component';
 import { ModaldinhmucclassimatComponent } from './danhmuc/modal/modaldinhmucclassimat/modaldinhmucclassimat.component';
 import { ModaldinhmucloicatComponent } from './danhmuc/modal/modaldinhmucloicat/modaldinhmucloicat.component';
 import { ModaldinhmucchitieuloicatComponent } from './danhmuc/danhmucsanxuat/modaldinhmucchitieuloicat/modaldinhmucchitieuloicat.component';
 import { ModaldinhmucchitieuclassimatComponent } from './danhmuc/danhmucsanxuat/modaldinhmucchitieuclassimat/modaldinhmucchitieuclassimat.component';
-import { ThongkechitieuloicatComponent } from './quanlykhosanxuat/thongke/thongkechitieuloicat/thongkechitieuloicat.component';
-import { ThongkechitieuclassimatComponent } from './quanlykhosanxuat/thongke/thongkechitieuclassimat/thongkechitieuclassimat.component';
 import { ModalthongkechitieuclassimatComponent } from './quanlykhosanxuat/thongke/modalthongkechitieuclassimat/modalthongkechitieuclassimat.component';
 import { ModalthongkechitieuloicatComponent } from './quanlykhosanxuat/thongke/modalthongkechitieuloicat/modalthongkechitieuloicat.component';
+import { ThongkechitieuloicatComponent } from './quanlykhosanxuat/thongke/thongkechitieuloicat/thongkechitieuloicat.component';
+import { ThongkechitieuclassimatComponent } from './quanlykhosanxuat/thongke/thongkechitieuclassimat/thongkechitieuclassimat.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { BaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/baocaoca.component';
 import { BaocaocaModalComponent } from './quanlykhosanxuat/thongke/baocaoca-modal/baocaoca-modal.component';
@@ -307,17 +307,17 @@ import { DetmayhueComponent } from './quanlykhosanxuat/phuongan/layoutmodals/det
     UploadmodalComponent,
     ModaldoimatkhauComponent,
     ModalimportexcelComponent,
-    DmkhoComponent,
-    ModaldmkhoComponent,
-    KiemkekhoComponent,
     KiemkekhomodalComponent,
-    NhapkhoComponent,
+    ModaldmkhoComponent,
     NhapkhomodalComponent,
+    ThongsochatluongmodalComponent,
+    ThongkesanluongmodalComponent,
+    DmkhoComponent,
+    KiemkekhoComponent,
+    NhapkhoComponent,
     PhabongComponent,
     ThongsochatluongComponent,
-    ThongsochatluongmodalComponent,
     ThongkesanluongComponent,
-    ThongkesanluongmodalComponent,
     SanluongtonghopComponent,
     SanluongchitietComponent,
     LoaibongComponent,
@@ -514,8 +514,6 @@ import { DetmayhueComponent } from './quanlykhosanxuat/phuongan/layoutmodals/det
     SogiodungmayComponent,
     NgansachdukienvathucteComponent,
     BaocaotonghoptaisanComponent,
-    // ModalthongtinchitiettaisanComponent,
-    // ModalbaoduongComponent,
     Hungyenpx1Component,
     Cnnamdinhpx1Component,
     DmsucomayComponent,
@@ -699,13 +697,25 @@ import { DetmayhueComponent } from './quanlykhosanxuat/phuongan/layoutmodals/det
     ChonmathangkiemtrabanchephammodalComponent,
     DmkhunggiomodalComponent,
     BaocaothongketiendienmodalComponent,
-
     Phuhung1Component,
     Phuhung2Component,
     LoaiBongPheDmModalComponent,
     ModaldmsucomayComponent,
+    Hungyenpx1Component,
+    Cnnamdinhpx1Component,
+    DetmayhueComponent,
+    ModaldmloicatComponent,
+    ModaldmsucomayComponent,
+    ModaldmclassimatComponent,
+    ModaldmloicatComponent,
+    ModaldinhmucclassimatComponent,
+    ModaldinhmucloicatComponent,
+    ModaldinhmucchitieuloicatComponent,
+    ModaldinhmucchitieuclassimatComponent,
+    ModalthongkechitieuclassimatComponent,
+    ModalthongkechitieuloicatComponent,
     // ModalthongtinchitiettaisanComponent,
-  
+
   ],
   providers: [
     SanXuatService,

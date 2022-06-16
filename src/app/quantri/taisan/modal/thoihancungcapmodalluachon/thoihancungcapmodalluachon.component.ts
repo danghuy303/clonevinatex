@@ -16,7 +16,7 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
 
   opt: any = "";
   items: any = [];
-  item: any = [];
+  item: any = {};
   listItemDaChon: any = [];
   Lay_Chon: any = [];
   checkedAll: boolean = false;
@@ -35,6 +35,9 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
 
   ngOnInit(): void {
     // this.GetList();
+    if (this.filter.DenNgay && this.filter.TuNgay) {
+      this.GetList();
+    }
   }
   resetFilter() {
     this.filter = {};

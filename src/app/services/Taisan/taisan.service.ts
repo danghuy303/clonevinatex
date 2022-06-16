@@ -331,6 +331,9 @@ export class TaisanService {
       Get: (Id) => {
         return this.http.get(`${url}NhatKySuDung/GetQuyTrinhKhauHaoTaiSanById?Id=${Id}`, httpOptions);
       },
+      GetListKhauHaoByIdTaiSan: (Id) => {
+        return this.http.get(`${url}NhatKySuDung/GetListKhauHaoByIdTaiSan?Id=${Id}`, httpOptions);
+      },
       Set: (data) => {
         return this.http.post(`${url}NhatKySuDung/SetQuyTrinhKhauHaoTaiSan`, data, httpOptions);
       },
@@ -538,6 +541,7 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyTaiSan/GetThuVienTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyTaiSan/UpdateThuVienTaiSan`, data, httpOptions);
       },
       Delete: (Id) => {
@@ -716,10 +720,10 @@ export class TaisanService {
       },
       ExportItem: (data) => {
         data.IdDuAn = this.store.getCurrent();
-        return this.http.post(`${url}DanhMuc/ExportdmItem`, data, httpOptions)
+        return this.http.get(`${url}DanhMuc/ExportdmNhaCungUng_Item?Id=${data.IdNhaCungUng}`, httpOptions)
       },
       ImportItem: (data) => {
-        return this.http.get(`${url}DanhMuc/ImportdmItem?FileName=${data.Name}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/ImportdmNhaCungUng_Item?FileName=${data.FileName}`, httpOptions)
       },
       GetListTinhTrang: () => {
         return this.http.get(`${url}DanhMuc/GetlistdmTinhTrangNhaCungUng`, httpOptions)
@@ -865,13 +869,14 @@ export class TaisanService {
         }
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanChuaBanGiao`, data, httpOptions)
       },
-      GetListTaiSanKhauHao: (IdDuAn, IdBoPhanSuDung, CurrentPage: number, PageSize: number, Keyword) => {
+      GetListTaiSanKhauHao: (IdDuAn, IdBoPhanSuDung, CurrentPage: number, PageSize: number, Keyword, Ngay: number) => {
         let data = {
           IdDuAn: IdDuAn,
           IdBoPhanSuDung: IdBoPhanSuDung,
           CurrentPage: CurrentPage,
           PageSize: PageSize,
           Keyword: Keyword,
+          Ngay: Ngay,
         }
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanKhauHao`, data, httpOptions)
       },
