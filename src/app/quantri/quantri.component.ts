@@ -1881,7 +1881,19 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/danhmucsanxuat/dinhmucchitieuclassimat",
             command: () => this.close(),
           },
-
+          {
+            label: "Hệ thống điều không",
+            routerLink: "/quantri/danhmucsanxuat/dmhethongdieukhong",
+            command: () => this.close(),
+          },{
+            label: "Khu vực điều không",
+            routerLink: "/quantri/danhmucsanxuat/dmkhuvucdieukhong",
+            command: () => this.close(),
+          },{
+            label: "Cấp hút điều không",
+            routerLink: "/quantri/danhmucsanxuat/dmcaphutdieukhong",
+            command: () => this.close(),
+          },
         ],
       },
       {

@@ -110,5 +110,9 @@ export class GhepThoTongHopComponent extends StoreBase implements OnInit {
       });
     }
   }
-
+  exportBaoCao(){
+    this._services.BaoCaoTongHop().XuatBaoCao_GhepThoTongHop(this.filter).subscribe((res:any)=>{
+        this._services.download(res.TenFile)
+    })
+  }
 }

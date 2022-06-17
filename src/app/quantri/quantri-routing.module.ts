@@ -109,6 +109,9 @@ import { ThongkechitieuloicatComponent } from "./quanlykhosanxuat/thongke/thongk
 import { ThongkechitieuclassimatComponent } from "./quanlykhosanxuat/thongke/thongkechitieuclassimat/thongkechitieuclassimat.component";
 import { BaocaocaComponent } from "./quanlykhosanxuat/thongke/baocaoca/baocaoca.component";
 import { TyLeTieuChuanBongHoiComponent } from "./danhmuc/danhmucsanxuat/ty-le-tieu-chuan-bong-hoi/ty-le-tieu-chuan-bong-hoi.component";
+import { DmHeThongDieuKhongComponent } from "./danhmuc/dm-he-thong-dieu-khong/dm-he-thong-dieu-khong.component";
+import { DmKhuVucDieuKhongComponent } from "./danhmuc/dm-khu-vuc-dieu-khong/dm-khu-vuc-dieu-khong.component";
+import { DmCapHutDieuKhongComponent } from "./danhmuc/dm-cap-hut-dieu-khong/dm-cap-hut-dieu-khong.component";
 
 const routes: Routes = [
   {
@@ -242,6 +245,10 @@ const routes: Routes = [
       { path: "danhmucsanxuat/dinhmucchitieuclassimat", component: DinhmucchitieuclassimatComponent },
       { path: "danhmucsanxuat/dmkhunggio", component: DmkhunggioComponent },
       { path: "danhmucsanxuat/loaidien", component: DmloaidienComponent },
+
+      { path: "danhmucsanxuat/dmhethongdieukhong", component: DmHeThongDieuKhongComponent },
+      { path: "danhmucsanxuat/dmkhuvucdieukhong", component: DmKhuVucDieuKhongComponent },
+      { path: "danhmucsanxuat/dmcaphutdieukhong", component: DmCapHutDieuKhongComponent },
 
       {
         path: "theodoithongkebaocaosanxuat/thongkesanluong/:id",

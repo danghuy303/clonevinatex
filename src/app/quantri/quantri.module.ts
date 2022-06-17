@@ -297,6 +297,12 @@ import { SoiconBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/soi
 import { ThaythoBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/thaytho-baocaoca/thaytho-baocaoca.component';
 import { TyLeTieuChuanBongHoiComponent } from './danhmuc/danhmucsanxuat/ty-le-tieu-chuan-bong-hoi/ty-le-tieu-chuan-bong-hoi.component';
 import { DetmayhueComponent } from './quanlykhosanxuat/phuongan/layoutmodals/detmayhue/detmayhue.component';
+import { DmHeThongDieuKhongComponent } from './danhmuc/dm-he-thong-dieu-khong/dm-he-thong-dieu-khong.component';
+import { DmKhuVucDieuKhongComponent } from './danhmuc/dm-khu-vuc-dieu-khong/dm-khu-vuc-dieu-khong.component';
+import { DmCapHutDieuKhongComponent } from './danhmuc/dm-cap-hut-dieu-khong/dm-cap-hut-dieu-khong.component';
+import { DmKhuVucDieuKhongModalComponent } from './danhmuc/dm-khu-vuc-dieu-khong-modal/dm-khu-vuc-dieu-khong-modal.component';
+import { DmHeThongDieuKhongModalComponent } from './danhmuc/dm-he-thong-dieu-khong-modal/dm-he-thong-dieu-khong-modal.component';
+import { DmCapHutDieuKhongModalComponent } from './danhmuc/dm-cap-hut-dieu-khong-modal/dm-cap-hut-dieu-khong-modal.component';
 
 
 @NgModule({
@@ -543,6 +549,12 @@ import { DetmayhueComponent } from './quanlykhosanxuat/phuongan/layoutmodals/det
     ThaythoBaocaocaComponent,
     TyLeTieuChuanBongHoiComponent,
     DetmayhueComponent,
+    DmHeThongDieuKhongComponent,
+    DmHeThongDieuKhongModalComponent,
+    DmKhuVucDieuKhongModalComponent,
+    DmKhuVucDieuKhongComponent,
+    DmCapHutDieuKhongComponent,
+    DmCapHutDieuKhongModalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -715,6 +727,9 @@ import { DetmayhueComponent } from './quanlykhosanxuat/phuongan/layoutmodals/det
     ModalthongkechitieuclassimatComponent,
     ModalthongkechitieuloicatComponent,
     // ModalthongtinchitiettaisanComponent,
+    DmKhuVucDieuKhongModalComponent,
+    DmHeThongDieuKhongModalComponent,
+    DmCapHutDieuKhongModalComponent,
 
   ],
   providers: [
