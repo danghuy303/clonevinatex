@@ -2731,4 +2731,22 @@ export class SanXuatService {
         }
     }
 
+    DanhMucHeThongDieuKhong() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetList: (data) => {
+                return this.http.post(url + 'GetListdmHeThongDieuKhong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetdmHeThongDieuKhong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetdmHeThongDieuKhong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteChiTieuChatLuongClasimat', data, httpOptions);
+            }
+        }
+    }
+
 }
