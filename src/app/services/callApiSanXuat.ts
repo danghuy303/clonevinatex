@@ -2744,7 +2744,44 @@ export class SanXuatService {
                 return this.http.post(url + 'SetdmHeThongDieuKhong', data, httpOptions);
             },
             Delete: (data) => {
-                return this.http.post(url + 'DeleteChiTieuChatLuongClasimat', data, httpOptions);
+                return this.http.post(url + 'DeletedmHeThongDieuKhong', data, httpOptions);
+            }
+        }
+    }
+    DanhMucCapHutDieuKhong() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetList: (data) => {
+                return this.http.post(url + 'GetListdmCapHutDieuKhong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetdmCapHutDieuKhong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetdmCapHutDieuKhong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletedmCapHutDieuKhong', data, httpOptions);
+            },
+            GetListLoaiCapHut:()=>{
+                return this.http.get(url + `GetListLoaiCapHut`, httpOptions);
+            }
+        }
+    }
+    DanhMucKhuVucDieuKhong() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetList: (data) => {
+                return this.http.post(url + 'GetListdmKhuVucDieuKhong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetdmKhuVucDieuKhong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetdmKhuVucDieuKhong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletedmKhuVucDieuKhong', data, httpOptions);
             }
         }
     }
