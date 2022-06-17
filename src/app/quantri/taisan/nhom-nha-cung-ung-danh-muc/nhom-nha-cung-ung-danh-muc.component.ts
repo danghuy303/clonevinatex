@@ -34,7 +34,7 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
     },
     {
       label: 'Không hoạt động',
-      value: 3
+      value: 2
     },
   ]
 

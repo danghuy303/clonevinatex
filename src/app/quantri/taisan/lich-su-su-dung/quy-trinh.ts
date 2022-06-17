@@ -113,7 +113,7 @@ export const QuyTrinh = {
   },
   QUYTRINHXULYSUCO: {
     Component: ModaldenghixulisucoComponent,
-    ServiceProp: "QuyTrinhDeNghiThayVatTu",
+    ServiceProp: "QuyTrinhXuLySuCo",
     ServiceMethod: "Get",
     ModalPrototype: "",
     ModalType: "CallOut"
