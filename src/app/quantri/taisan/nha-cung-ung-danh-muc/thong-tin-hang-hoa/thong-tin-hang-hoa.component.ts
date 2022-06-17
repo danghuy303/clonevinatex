@@ -69,6 +69,8 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
 
   AddHangHoa() {
     let existedItem = this.item.listItem.map(ele => ele.IddmItem);
+    console.log("existedItem", existedItem);
+    
     let modalRef = this.modal.open(ThongTinHangHoaModalComponent, {
       size: "xl",
       backdrop: "static",
@@ -76,7 +78,10 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
     modalRef.componentInstance.checkListItem = existedItem || [];
     modalRef.result
       .then((res: any) => {
+        console.log("res", res);
         this.item.listItem = merge(res, this.listItem_copy, 'IddmItem');
+        console.log("this.item.listItem", this.item.listItem);
+        
         this.LoadData(true);
       })
       .catch(er => { });
@@ -120,7 +125,7 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
       .then((res: any)=>{
         data.FileName = res[0].Name;
         this.taiSanService.NhaCungUng().ImportItem(data).subscribe((res: any)=>{
-          this.item.listItem = res.Data;
+          this.item.listItem = [...this.item.listItem,...res.Data];
           this.LoadData(true);
         })
       })
