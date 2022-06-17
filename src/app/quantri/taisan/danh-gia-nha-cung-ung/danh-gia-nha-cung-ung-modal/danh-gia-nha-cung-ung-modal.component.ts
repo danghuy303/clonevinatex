@@ -109,6 +109,7 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
         if (res.StatusCode === 200) {
           this.toast.success(res.Message);
           this.quyTrinh = res.Data;
+          this.quyTrinh.Ngay = UnixToDate(this.quyTrinh.NgayUnix);
           // this.quyTrinh.Id = res.Data.Id;
           this.GetListNhaCungUng(true);
           this.KiemTraButtonModal();
@@ -121,13 +122,17 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   }
 
   DeleteQuyTrinh() {
-    this._serviceTaiSan.DanhGiaNhaCungUng().Delete(this.quyTrinh).subscribe((res: any) => {
-      if (res.StatusCode === 200) {
-        this.toast.success(res.Message);
-        this.activeModal.close();
-      } else {
-        this.toast.error(res.Message);
-      }
+    this.confirmService.show({
+      message: 'Bạn chăc chắn muốn xóa quy trình này?'
+    }, () => {
+      this._serviceTaiSan.DanhGiaNhaCungUng().Delete(this.quyTrinh).subscribe((res: any) => {
+        if (res.StatusCode === 200) {
+          this.toast.success(res.Message);
+          this.activeModal.close();
+        } else {
+          this.toast.error(res.Message);
+        }
+      })
     })
   }
 
@@ -145,16 +150,20 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   }
 
   ChuyenTiepQuyTrinh() {
-    if (this.ValidateData()) {
-      this._serviceTaiSan.DanhGiaNhaCungUng().ChuyenTiep(this.SetData()).subscribe((res: any) => {
-        if (res.StatusCode === 200) {
-          this.toast.success(res.Message);
-          this.activeModal.close();
-        } else {
-          this.toast.error(res.Message);
-        }
-      })
-    }
+    this.confirmService.show({
+      message: 'Bạn chắc chắn muốn chuyển duyệt quy trình này?'
+    }, () => {
+      if (this.ValidateData()) {
+        this._serviceTaiSan.DanhGiaNhaCungUng().ChuyenTiep(this.SetData()).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.toast.success(res.Message);
+            this.activeModal.close();
+          } else {
+            this.toast.error(res.Message);
+          }
+        })
+      }
+    })
   }
 
   // =================================================================

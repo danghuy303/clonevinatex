@@ -15,6 +15,8 @@
         <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="keyword" pInputText
                 (keyup.enter)="Loaddata(true)" />
+            <button type="button" pButton pRipple icon="pi pi-search"
+            class="p-button-secondary p-button-sm p-button-text" (click)="Loaddata(true)"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh"
                 class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>

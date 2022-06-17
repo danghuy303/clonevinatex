@@ -1,5 +1,5 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
-import { validVariable } from 'src/app/services/globalfunction';
+import { handleHTTPResponse, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from 'ngx-toastr';
@@ -189,7 +189,8 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
       .then((res: any) => {
         this.fileUpload = res;
         console.log(this.fileUpload[0].Name);
-        this.taiSanService.TieuChiDanhGia().Import(this.fileUpload[0]).subscribe(()=>{
+        this.taiSanService.TieuChiDanhGia().Import(this.fileUpload[0]).subscribe((res: any)=>{
+          handleHTTPResponse(res, this.toast, () => {}, () => {})
           this.ResetListTieuChi();
         })
       })

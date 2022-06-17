@@ -12,7 +12,7 @@
       <app-thong-tin-hang-hoa [item]="item" [isDisabled]="true"></app-thong-tin-hang-hoa>
     </p-tabPanel>
 
-    <p-tabPanel header="Thông tin đánh giá" disabled="opt==='update'">
+    <p-tabPanel header="Thông tin đánh giá" [disabled]="!(opt!=='update')">
       <app-thong-tin-danh-gia [item]="item"></app-thong-tin-danh-gia>
     </p-tabPanel>
 
@@ -26,7 +26,7 @@
       </div>
 
       <div class="p-mt-3">
-        <p-table [value]="items" styleClass="p-datatable-sm p-datatable-gridlines">
+        <!-- <p-table [value]="items" styleClass="p-datatable-sm p-datatable-gridlines">
           <ng-template pTemplate="colgroup"> 
             <colgroup>
               <col style="width: 50px">
@@ -68,13 +68,7 @@
               </td>
             </tr>
           </ng-template>
-          <!-- <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between p-px-2">
-              Tổng số bản ghi {{paging.TotalCount}}.
-              <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
-            </div>
-          </ng-template> -->
-        </p-table>
+        </p-table> -->
       </div>
     </p-tabPanel>
   </p-tabView>
