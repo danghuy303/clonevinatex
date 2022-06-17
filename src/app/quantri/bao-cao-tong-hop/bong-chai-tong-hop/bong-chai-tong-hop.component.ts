@@ -114,5 +114,9 @@ export class BongChaiTongHopComponent extends StoreBase implements OnInit,OnDest
       });
     }
   }
-
+  exportBaoCao(){
+    this._services.BaoCaoTongHop().XuatBaoCao_BongChaiTongHop(this.filter).subscribe((res:any)=>{
+        this._services.download(res.TenFile)
+    })
+  }
 }

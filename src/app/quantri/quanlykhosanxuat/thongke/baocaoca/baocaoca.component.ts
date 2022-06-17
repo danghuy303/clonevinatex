@@ -67,4 +67,8 @@ export class BaocaocaComponent extends StoreBase implements OnInit {
       }
     })
   }
+  exportBaoCaoCa(){
+    let data = {}
+    this._services.BaoCaoCa().Export(data);
+  }
 }

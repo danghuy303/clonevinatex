@@ -1,4 +1,4 @@
-<div class="p-grid">
+<!-- <div class="p-grid">
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lao động:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
@@ -33,6 +33,49 @@
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
         </div>
     </div>
+</div> -->
+<div class="p-grid">
+    <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lao động:</label>
+        <div class="p-col-12 p-lg-8 p-p-0">
+            <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoLaoDong" pInputText /> -->
+            <textarea pInputTextarea [(ngModel)]="item.SoLaoDong"></textarea>
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổ trưởng:</label>
+        <div class="p-col-12 p-lg-8 p-p-0">
+            <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ToTruong" pInputText /> -->
+            <textarea pInputTextarea [(ngModel)]="item.ToTruong"></textarea>
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+        <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tình hình hoạt động trong ca:</label>
+        <div class="p-col-12 p-lg-10 p-p-0">
+            <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TinhHinhHoatDongTrongCa" pInputText /> -->
+            <textarea pInputTextarea [(ngModel)]="item.TinhHinhHoatDongTrongCa"></textarea>
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row"
+        *ngFor="let tinhhinh of item?.lstTinhHinhHoatDongChiTiet">
+        <label class="p-col-12 p-lg-2 p-p-0 my-auto">{{tinhhinh.TenTinhHinh}}:</label>
+        <div class="p-col-12 p-lg-10 p-p-0">
+            <!-- <input *ngIf="tinhhinh.LoaiDuLieu === 'string'" type="text" class="p-inputtext-sm"
+                [(ngModel)]="tinhhinh.TinhHinhHoatDong_String" pInputText /> -->
+            <textarea *ngIf="tinhhinh.LoaiDuLieu === 'string'" pInputTextarea
+                [(ngModel)]="item.TinhHinhHoatDong_String"></textarea>
+            <p-inputNumber *ngIf="tinhhinh.LoaiDuLieu === 'double'" mode="decimal" [minFractionDigits]="2"
+                [maxFractionDigits]="2" locale="en-EN" [(ngModel)]="product.TinhHinhHoatDong_Double"></p-inputNumber>
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+        <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
+        <div class="p-col-12 p-lg-10 p-p-0">
+            <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /> -->
+            <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
+
+        </div>
+    </div>
 </div>
 <hr>
 <div class="p-grid">
@@ -40,8 +83,8 @@
         <p-table [value]="item.lstMatHangBongPhe">
             <ng-template pTemplate="header">
                 <tr>
-                    <!-- <th>Mặt hàng</th> -->
                     <th>Loại phế</th>
+                    <th>Mặt hàng</th>
                     <th>Công đoạn</th>
                     <th>Lũy kế trước</th>
                     <th>Khối lượng</th>
@@ -51,8 +94,8 @@
             </ng-template>
             <ng-template pTemplate="body" let-product>
                 <tr>
-                    <!-- <td>{{product.TendmMatHang}}</td> -->
                     <td>{{product.TendmLoaiBongPhe}}</td>
+                    <td>{{product.TendmMatHang}}</td>
                     <td>{{product.TendmCongDoan}}</td>
                     <td class="text-right">{{product.KhoiLuongLuyKeThang|number:'0.2-2'}}</td>
                     <td>

@@ -305,6 +305,22 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent()
                 return this.http.post(`${API.SCMBaoCao}GetBaoCao_OngTongHop`, data, httpOptions);
             },
+            XuatBaoCao_BongChaiTongHop: (data) => {
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}XuatBaoCao_BongChaiTongHop`, data, httpOptions);
+            },
+            XuatBaoCao_GhepThoTongHop: (data) => {
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}XuatBaoCao_GhepThoTongHop`, data, httpOptions);
+            },
+            XuatBaoCao_SoiConTongHop: (data) => {
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}XuatBaoCao_SoiConTongHop`, data, httpOptions);
+            },
+            XuatBaoCao_OngTongHop: (data) => {
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}XuatBaoCao_OngTongHop`, data, httpOptions);
+            },
         }
     }
 
@@ -2706,6 +2722,9 @@ export class SanXuatService {
             Delete: (data) => {
                 return this.http.get(url + `DeleteQuyTrinhBaoCaoCa?Id=${data.Id}`, httpOptions);
             },
+            Export:(data)=>{
+                // return this.http.post(url + 'SetQuyTrinhBaoCaoCa', data, httpOptions);
+            }
             // GetThongKe: (data) => {
             //     return this.http.post(`${url}GetThongKeThoiGianDungMayVaTocDo`, data, httpOptions)
             // }
