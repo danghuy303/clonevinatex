@@ -97,7 +97,7 @@ export class NhaCungUngDanhMucComponent implements OnInit {
       size: 'fullscreen',
       backdrop: 'static',
     })
-    modalRef.componentInstance.opt = 'update';
+    modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item.Id = id;
     modalRef.result
       .then((res: any) => {})

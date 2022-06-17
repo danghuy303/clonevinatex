@@ -7,7 +7,7 @@
   <div></div>
   <div class="p-d-flex p-flex-row">
     <div class="p-mr-2">
-        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="filter.TuNgay" [showIcon]="true" inputId="icon" placeholder="Từ ngày" (onSelect)="LoadData()">
+        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [maxDate]="filter.DenNgay" [(ngModel)]="filter.TuNgay" [showIcon]="true" inputId="icon" placeholder="Từ ngày" (onSelect)="LoadData()">
         </p-calendar>
     </div>
     <div class="p-mr-2">

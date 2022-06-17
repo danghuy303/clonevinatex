@@ -109,5 +109,9 @@ export class OngTongHopComponent extends StoreBase implements OnInit {
       });
     }
   }
-
+  exportBaoCao(){
+    this._services.BaoCaoTongHop().XuatBaoCao_OngTongHop(this.filter).subscribe((res:any)=>{
+        this._services.download(res.TenFile)
+    })
+  }
 }
