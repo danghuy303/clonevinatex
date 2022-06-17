@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
@@ -11,7 +11,7 @@ import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong
   templateUrl: './thong-tin-hang-hoa.component.html',
   styleUrls: ['./thong-tin-hang-hoa.component.css']
 })
-export class ThongTinHangHoaComponent implements OnInit, OnChanges {
+export class ThongTinHangHoaComponent implements OnInit, OnChanges,AfterViewInit {
 
   @Input() item: any = {};
   listItem_copy: any = [];
@@ -20,13 +20,14 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   checkedAll: boolean = false;
   fileUpload: any;
   fileUploadHangHoa: any;
-  @Input() disabled?: boolean;
+  @Input() isDisabled?: boolean = false;
 
   constructor(
     public modal: NgbModal,
     public activeModal: NgbActiveModal,
     private taiSanService: TaisanService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -36,8 +37,12 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
       this.item.listItem = [];
     }
   }
-
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+    // console.log(this.isDisabled);
+  }
   ngOnInit(): void {
+    // console.log(this.isDisabled);
   }
 
   SearchHangHoa(keyword) {
@@ -126,7 +131,5 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
       })
       .catch(er=>{})
       .finally()
-
   }
-
 }
