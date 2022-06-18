@@ -2785,5 +2785,38 @@ export class SanXuatService {
             }
         }
     }
-
+    ThongKeDieuKhong(){
+        let url = API.SCM + 'BaoCaoDieuKhong/';
+        return {
+            Get: (data) => {
+                return this.http.post(url + `GetQuyTrinhBaoCaoDieuKhong`, data, httpOptions)
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListQuyTrinhBaoCaoCa', data, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetQuyTrinhBaoCaoDieuKhong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.get(url + `DeleteQuyTrinhBaoCaoDieuKhong?Id=${data.Id}`, httpOptions);
+            },
+            Export:(data)=>{
+                // return this.http.post(url + 'SetQuyTrinhBaoCaoCa', data, httpOptions);
+            }
+            // GetThongKe: (data) => {
+            //     return this.http.post(`${url}GetThongKeThoiGianDungMayVaTocDo`, data, httpOptions)
+            // }
+        }
+    }
+    BaoCaoDieuKhong(){
+        let url = API.SCM + 'BaoCao/';
+        return {
+            Get:(data)=>{
+                return this.http.post(url+'GetBaoCaoDieuKhongReport',data,httpOptions)
+            },
+            Export:(data)=>{
+                return this.http.post(url+"XuatBaoCaoDieuKhong",data,httpOptions)
+            }
+        }
+    }
 }

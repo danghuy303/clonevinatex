@@ -178,6 +178,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaSanXuat = res;
       this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((listTyLeBongPhe: any) => {
+        console.trace(listTyLeBongPhe)
         this.KhoiLuongCa = res.map((_, index) => 0)
         if (this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null) {
           this.item.listThongKeSanLuong = [];

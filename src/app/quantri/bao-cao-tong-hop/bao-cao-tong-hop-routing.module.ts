@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BaoCaoTongHopClassimatComponent } from './bao-cao-tong-hop-classimat/bao-cao-tong-hop-classimat.component';
 import { BaoCaoTongHopLoiCatComponent } from './bao-cao-tong-hop-loi-cat/bao-cao-tong-hop-loi-cat.component';
 import { BaoCaoTongHopComponent } from './bao-cao-tong-hop.component';
+import { BaocaodieukhongComponent } from './baocaodieukhong/baocaodieukhong.component';
 import { BongChaiTongHopComponent } from './bong-chai-tong-hop/bong-chai-tong-hop.component';
 import { GhepThoTongHopComponent } from './ghep-tho-tong-hop/ghep-tho-tong-hop.component';
 import { OngTongHopComponent } from './ong-tong-hop/ong-tong-hop.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'thoigiandungmay', component: ThongKeThoiGianDungMayComponent },
   { path: 'loicat', component: BaoCaoTongHopLoiCatComponent },
   { path: 'classimat', component: BaoCaoTongHopClassimatComponent },
+  { path: 'dieukhong', component: BaocaodieukhongComponent },
 ]
 
 @NgModule({

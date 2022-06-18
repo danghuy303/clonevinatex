@@ -522,6 +522,12 @@ export class QuantriComponent implements OnInit {
             separator: this.checkmenu("BAOCAOCA"),
             command: () => this.close(),
           },
+          {
+            label: "Điều không",
+            routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkedieukhong/0",
+            separator: this.checkmenu("THONGKEDIEUKHONG"),
+            command: () => this.close(),
+          },
         ],
       },
       {
@@ -1698,6 +1704,11 @@ export class QuantriComponent implements OnInit {
           {
             label: "Báo cáo tổng hợp classimat",
             routerLink: "/quantri/baocaotonghop/classimat",
+            command: () => this.close(),
+          },
+          {
+            label: "Báo cáo điều không",
+            routerLink: "/quantri/baocaotonghop/dieukhong",
             command: () => this.close(),
           },
         ],
