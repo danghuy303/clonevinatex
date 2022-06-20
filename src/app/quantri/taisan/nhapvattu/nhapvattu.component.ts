@@ -124,8 +124,14 @@ export class NhapvattuComponent implements OnInit {
     this.newitem = {}
   }
   delete(index) {
-    let item = this.item.listTaiSan.splice(index, 1)[0];
-    this.Tong();
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+       this.item.listTaiSan.splice(index, 1)[0];
+      this.Tong();
+    }).catch(er => console.log(er))
   }
   setData() {
     this.item.NgayUnix = DateToUnix(this.item.Ngay);
@@ -147,9 +153,9 @@ export class NhapvattuComponent implements OnInit {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
-          let Ngay =  UnixToDate( res.Data.NgayUnix);
-          this.item.Ngay = Ngay;
           this.item = res.Data;
+          let Ngay = UnixToDate(res.Data.NgayUnix);
+          this.item.Ngay = Ngay;
           this.ListNhaCungUng();
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
