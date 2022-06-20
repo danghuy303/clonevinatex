@@ -31,7 +31,7 @@ export class BiendongComponent implements OnInit {
     let data = {
       CurrentPage: 0,
       PageSize: 0,
-      IdTaiSan:'',
+      IdTaiSan:this.item.Id,
 
     }
     this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {

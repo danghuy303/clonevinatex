@@ -72,7 +72,7 @@
         <div class="modal-bt p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tổng giá trị:</label>
             <div class="d-flex p-col-12 p-xl-8 p-p-0">
-                    <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.TongGiaTri" class="p-col-12 p-xl-8 p-p-0 p-inputtext-sm"
+                    <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.TongGiaTriThanhLy" class="p-col-12 p-xl-8 p-p-0 p-inputtext-sm"
                         locale="en-EN" disabled></p-inputNumber>
                 <span class="p-col-12 p-xl-4 p-p-2">(VNĐ)</span>
             </div>
@@ -115,7 +115,7 @@
                     {{item.TenTaiSan}}
                 </td>
                 <td>
-                    <p-inputNumber [disabled]="!item.isCha" placeholder="Số lượng" [(ngModel)]="item.SoLuong"
+                    <p-inputNumber [disabled]="!item.isCha" [min]="0" placeholder="Số lượng" [(ngModel)]="item.SoLuong"
                         (onBlur)="Tong()"></p-inputNumber>
                 </td>
                 <td style="text-align: right;">

@@ -179,5 +179,9 @@ export class ModalthuhoitaisanComponent implements OnInit {
       this.listTaiSan = res.Data;
     });
   }
+
+  ChonLoaiTaiSan() {
+    this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
+  }
 }
 

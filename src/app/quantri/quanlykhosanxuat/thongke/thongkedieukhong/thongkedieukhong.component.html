@@ -1,0 +1,191 @@
+<div class="p-mb-3 p-mt-3">
+   <h4 style="color: #1f2779">Thống kê điều không</h4>
+</div>
+<div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+   <div class="p-d-flex p-flex-row">
+      <button
+         pButton
+         pRipple
+         label="Lưu lại"
+         icon="pi pi-plus"
+         class="p-button-sm p-mr-2"
+         (click)="setDieuKhong()"></button>
+   </div>
+   <div class="d-flex flex-column flex-lg-row">
+      <div class="p-mr-2">
+         <p-dropdown
+            [options]="listCaSanXuat"
+            placeholder="Ca sản xuất"
+            styleClass="p-inputtext-sm"
+            [(ngModel)]="filter.IddmCaSanXuat"
+            [showClear]="false"
+            (onChange)="getDieuKhong()"></p-dropdown>
+      </div>
+      <div class="p-mr-2">
+         <p-calendar
+            dateFormat="dd/mm/yy"
+            inputStyleClass="p-inputtext-sm"
+            [showIcon]="true"
+            [(ngModel)]="filter.NgayChon"
+            inputId="icon"
+            placeholder="Ngày"
+            (onSelect)="getDieuKhong()">
+         </p-calendar>
+      </div>
+      <div class="p-mr-2">
+         <p-dropdown
+            [filter]="true"
+            [options]="listPhanXuong"
+            placeholder="Chọn phân xưởng"
+            [(ngModel)]="filter.IddmPhanXuong"
+            styleClass="p-inputtext-sm"
+            (onChange)="getDieuKhong()"
+            [showClear]="false"
+            [filter]="true"></p-dropdown>
+      </div>
+   </div>
+</div>
+
+<div class="p-grid">
+   <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto"
+         >Nhân viên vận hành kiểm tra:</label
+      >
+      <div class="p-col-12 p-lg-8 p-p-0">
+         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoLaoDong" pInputText /> -->
+         <textarea
+            pInputTextarea
+            [(ngModel)]="item.TenNhanVienKiemTra"></textarea>
+      </div>
+   </div>
+
+   <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+      <label class="p-col-12 p-lg-2 p-p-0 my-auto"
+         >Tình hình hoạt động trong ca:</label
+      >
+      <div class="p-col-12 p-lg-10 p-p-0">
+         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TinhHinhHoatDongTrongCa" pInputText /> -->
+         <textarea
+            pInputTextarea
+            [(ngModel)]="item.TinhHinhHoatDong"></textarea>
+      </div>
+   </div>
+</div>
+<div>
+   <div
+      class="p-col-12 p-p-0 pintable-container"
+      style="height: calc(45vh) !important; background-color: #fff"
+      voiPintable
+      [pinnedCols]="1">
+      <table>
+         <thead>
+            <tr>
+               <th rowspan="2" class="tc-w-80">Giờ</th>
+               <th
+                  *ngFor="let khuvuc of item.listdmKhuVucDieuKhong"
+                  colspan="2"
+                  class="tc-w-160">
+                  {{ khuvuc.Ten }}
+               </th>
+            </tr>
+            <tr>
+               <th class="bg-white" style="display: none"></th>
+               <ng-container
+                  *ngFor="let khuvuc of item.listdmKhuVucDieuKhong"
+                  colspan="2">
+                  <th class="tc-w-80">t°</th>
+                  <th class="tc-w-80">φ</th>
+               </ng-container>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let gio of item.listGio">
+               <td class="tc-w-80 text-center bg-white">{{ gio.Gio }}</td>
+               <ng-container *ngFor="let nhietdodoam of gio.listNhietDoDoAm">
+                  <td class="tc-w-80">
+                     <p-inputNumber
+                        mode="decimal"
+                        [minFractionDigits]="2"
+                        [maxFractionDigits]="2"
+                        locale="en-EN"
+                        [(ngModel)]="nhietdodoam.NhietDo"></p-inputNumber>
+                  </td>
+                  <td class="tc-w-80">
+                     <p-inputNumber
+                        mode="decimal"
+                        [minFractionDigits]="2"
+                        [maxFractionDigits]="2"
+                        locale="en-EN"
+                        [(ngModel)]="nhietdodoam.DoAm"></p-inputNumber>
+                  </td>
+               </ng-container>
+            </tr>
+         </tbody>
+      </table>
+      <!-- </div> -->
+   </div>
+
+   <!-- Bang 2 -->
+   <div
+      class="p-col-12 p-p-0 pintable-container p-mt-5"
+      style="height: calc(45vh) !important; background-color: #fff"
+      voiPintable
+      [pinnedCols]="1">
+      <table>
+         <thead>
+            <tr>
+               <th rowspan="2" class="tc-w-80">Giờ</th>
+               <th
+                  *ngFor="let HeThong of item.listdmHeThongDieuKhong"
+                  [attr.colspan]="HeThong.colspan"
+                  [ngStyle]="{
+                     'min-width': HeThong.colspan * 80 + 'px',
+                     'max-width': HeThong.colspan * 80 + 'px'
+                  }">
+                  {{ HeThong.Ten }}
+               </th>
+               <th class="tc-w-800" colspan="2">MÔ TẢ CÁCH THỨC VẬN HÀNH</th>
+            </tr>
+            <tr>
+               <th class="bg-white" style="display: none"></th>
+               <th
+                  class="tc-w-80"
+                  *ngFor="let CapHut of item.listdmCapHutDieuKhong">
+                  {{ CapHut.Ten }}
+               </th>
+               <th
+                  class="tc-w-400"
+                  *ngFor="let HeThong of item.listdmHeThongDieuKhong">
+                  {{ HeThong.Ten }}
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let gio of item.listGio">
+               <td class="tc-w-80 text-center bg-white">{{ gio.Gio }}</td>
+               <td class="tc-w-80" *ngFor="let caphut of gio.listCapHut">
+                  <p-inputNumber
+                     mode="decimal"
+                     [minFractionDigits]="2"
+                     [maxFractionDigits]="2"
+                     locale="en-EN"
+                     [(ngModel)]="caphut.GiaTri"></p-inputNumber>
+               </td>
+               <td class="tc-w-400" *ngFor="let vanhanh of gio.listVanHanh">
+                  <input
+                     type="text"
+                     class="p-inputtext-sm"
+                     [(ngModel)]="vanhanh.MoTa"
+                     pInputText />
+                  <!-- <textarea
+                     pInputTextarea
+                     [(ngModel)]="vanhanh.MoTa"></textarea> -->
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <!-- </div> -->
+   </div>
+
+   <!-- Bang 3 -->
+</div>

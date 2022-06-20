@@ -100,6 +100,12 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
         return false;
       }
     }
+    if (this.item?.isCanDuTru) {
+      if (!validVariable(this.item?.DuTruToiThieu) || this.item?.DuTruToiThieu <= 0) {
+        this.toastr.error("Yêu cầu nhập số lượng dự trữ");
+        return false;
+      }
+    }
     return true;
   }
 

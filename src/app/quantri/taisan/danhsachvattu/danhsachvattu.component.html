@@ -111,7 +111,7 @@
                 </th>
                 <th class="text-center">Mã vật tư</th>
                 <th class="text-center">Tên vật tư</th>
-                <th class="text-center">Nhà cung cấp</th>
+                <!-- <th class="text-center">Nhà cung cấp</th> -->
                 <th class="text-center">Tuổi thọ (Tháng)</th>
                 <th class="text-center">Số lượng tồn</th>
                 <th class="text-center">Số lượng cần thay</th>
@@ -127,11 +127,11 @@
                 </td>
                 <td >{{item.Ma}} </td>
                 <td>{{item.Ten}}</td>
-                <td >{{item.TenNhaCungCap}}</td>
+                <!-- <td >{{item.TenNhaCungCap}}</td> -->
                 <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.SoLuongCanThayThe | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.SoLuongCanThayThe | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.NguyenGia | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.DonGiaNhapGanNhat | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.ThanhTien | number:'0.0-0'}}</td>
             </tr>
         </ng-template>

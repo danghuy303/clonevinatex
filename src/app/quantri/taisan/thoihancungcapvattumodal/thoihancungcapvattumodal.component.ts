@@ -35,6 +35,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
   IdTaiSan: '';
   TuNgay: any = '';
   DenNgay: any = '';
+  Keyword: any = '';
 
   constructor(
     private _modal: NgbModal,
@@ -152,13 +153,28 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     // this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
+
+  ValidateData() {
+    if (!validVariable(this.item.Ngay)) { 
+      this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
+      return false;
+    }
+    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+      this.toastr.error("Yêu cầu nhập thêm vật tư!");
+      return false;
+    }
+    return true;
+  }
+
   GhiLai() {
+    if (this.ValidateData()) {
     this._serviceTaiSan.ThoiHanCungCap().Set(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
         this.item = res.Data;
         this.ListNhaCungUng();
+        this.Tong();
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
         // this.activeModal.close();
@@ -166,6 +182,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
     })
+  }
   }
 
   KiemTraButtonModal() {

@@ -33,7 +33,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
   listTaiSan_copy: any = [];
   NameFile: string;
   title: any = '';
-  // TongGiaTri: any = 0;
+  // TongGiaTriThanhLy: any = 0;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -140,6 +140,8 @@ export class ModalthanhlytaisanComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
+console.log(res);
+
       this.item.listTaiSan = res;
 
       // let listTaiSan = [];
@@ -202,9 +204,9 @@ export class ModalthanhlytaisanComponent implements OnInit {
   }
 
   Tong() {
-    this.item.TongGiaTri = 0;
+    this.item.TongGiaTriThanhLy = 0;
     this.item.listTaiSan.forEach(item => {
-      this.item.TongGiaTri += (item.GiaTriThanhLy || 0) * (item.SoLuong || 0);
+      this.item.TongGiaTriThanhLy += (item.GiaTriThanhLy || 0) * (item.SoLuong || 0);
     })
   }
   getList() {
