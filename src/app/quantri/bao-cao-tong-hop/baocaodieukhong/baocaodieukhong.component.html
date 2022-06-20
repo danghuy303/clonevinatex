@@ -1,0 +1,54 @@
+<div class="p-mb-3 p-mt-3">
+    <h4 style="color: #1f2779">Báo cáo điều không</h4>
+ </div>
+ <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+    <div class="p-d-flex p-flex-row">
+    </div>
+    <div class="d-flex flex-column flex-lg-row">
+        <button pButton pRipple label="Xuất báo cáo" icon="fa fa-file-excel" class="p-button-sm p-mr-2"
+        (click)="exportDieuKhong()"></button>
+       <div class="p-mr-2">
+          <p-calendar
+             dateFormat="dd/mm/yy"
+             inputStyleClass="p-inputtext-sm"
+             [showIcon]="true"
+             [(ngModel)]="filter.NgayChon"
+             inputId="icon"
+             placeholder="Ngày"
+             (onSelect)="getDieuKhong()">
+          </p-calendar>
+       </div>
+       <div class="p-mr-2">
+          <p-dropdown
+             [filter]="true"
+             [options]="listPhanXuong"
+             placeholder="Chọn phân xưởng"
+             [(ngModel)]="filter.IddmPhanXuong"
+             styleClass="p-inputtext-sm"
+             (onChange)="getDieuKhong()"
+             [showClear]="false"
+             [filter]="true"></p-dropdown>
+       </div>
+    </div>
+ </div>
+ <div>
+    <table class="table table-bordered" *ngFor="let casanxuat of item">
+        <thead >
+            <tr *ngFor="let header of casanxuat.listRowHeader">
+                <th *ngFor="let cell of header.listCell" [attr.rowspan]="cell.MergeRow" [attr.colspan]="cell.MergeCollum">
+                    <span *ngIf="cell.LoaiGiaTri==='STRING'">{{cell.GiaTri_String}}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let body of casanxuat.listRow">
+                <td *ngFor="let cell of body.listCell" [attr.rowspan]="cell.MergeRow" [attr.colspan]="cell.MergeCollum" [ngClass]="{'text-right':cell.LoaiGiaTri==='DOUBLE'}">
+                    <span *ngIf="cell.LoaiGiaTri==='STRING'">{{cell.GiaTri_String}}</span>
+                    <span *ngIf="cell.LoaiGiaTri==='DOUBLE'">{{cell.GiaTri_Double|number:'0.2-2'}}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+ </div>
+
+ 

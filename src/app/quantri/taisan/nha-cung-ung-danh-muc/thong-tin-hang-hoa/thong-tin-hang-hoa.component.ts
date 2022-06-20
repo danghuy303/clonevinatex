@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
@@ -11,7 +11,7 @@ import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong
   templateUrl: './thong-tin-hang-hoa.component.html',
   styleUrls: ['./thong-tin-hang-hoa.component.css']
 })
-export class ThongTinHangHoaComponent implements OnInit, OnChanges {
+export class ThongTinHangHoaComponent implements OnInit, OnChanges,AfterViewInit {
 
   @Input() item: any = {};
   listItem_copy: any = [];
@@ -20,13 +20,14 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   checkedAll: boolean = false;
   fileUpload: any;
   fileUploadHangHoa: any;
-  disabled?: boolean;
+  @Input() isDisabled?: boolean = false;
 
   constructor(
     public modal: NgbModal,
     public activeModal: NgbActiveModal,
     private taiSanService: TaisanService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -36,8 +37,12 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
       this.item.listItem = [];
     }
   }
-
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+    // console.log(this.isDisabled);
+  }
   ngOnInit(): void {
+    // console.log(this.isDisabled);
   }
 
   SearchHangHoa(keyword) {
@@ -69,6 +74,8 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
 
   AddHangHoa() {
     let existedItem = this.item.listItem.map(ele => ele.IddmItem);
+    console.log("existedItem", existedItem);
+    
     let modalRef = this.modal.open(ThongTinHangHoaModalComponent, {
       size: "xl",
       backdrop: "static",
@@ -76,7 +83,10 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
     modalRef.componentInstance.checkListItem = existedItem || [];
     modalRef.result
       .then((res: any) => {
+        console.log("res", res);
         this.item.listItem = merge(res, this.listItem_copy, 'IddmItem');
+        console.log("this.item.listItem", this.item.listItem);
+        
         this.LoadData(true);
       })
       .catch(er => { });
@@ -120,13 +130,11 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
       .then((res: any)=>{
         data.FileName = res[0].Name;
         this.taiSanService.NhaCungUng().ImportItem(data).subscribe((res: any)=>{
-          this.item.listItem = res.Data;
+          this.item.listItem = [...this.item.listItem,...res.Data];
           this.LoadData(true);
         })
       })
       .catch(er=>{})
       .finally()
-
   }
-
 }

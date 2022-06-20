@@ -47,7 +47,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.title = 'Đề nghị xử lý sự cố'
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
     }

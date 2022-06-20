@@ -522,6 +522,12 @@ export class QuantriComponent implements OnInit {
             separator: this.checkmenu("BAOCAOCA"),
             command: () => this.close(),
           },
+          {
+            label: "Điều không",
+            routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkedieukhong/0",
+            separator: this.checkmenu("THONGKEDIEUKHONG"),
+            command: () => this.close(),
+          },
         ],
       },
       {
@@ -1700,6 +1706,11 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/baocaotonghop/classimat",
             command: () => this.close(),
           },
+          {
+            label: "Báo cáo điều không",
+            routerLink: "/quantri/baocaotonghop/dieukhong",
+            command: () => this.close(),
+          },
         ],
       },
 
@@ -1881,7 +1892,19 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/danhmucsanxuat/dinhmucchitieuclassimat",
             command: () => this.close(),
           },
-
+          {
+            label: "Hệ thống điều không",
+            routerLink: "/quantri/danhmucsanxuat/dmhethongdieukhong",
+            command: () => this.close(),
+          },{
+            label: "Khu vực điều không",
+            routerLink: "/quantri/danhmucsanxuat/dmkhuvucdieukhong",
+            command: () => this.close(),
+          },{
+            label: "Cấp hút điều không",
+            routerLink: "/quantri/danhmucsanxuat/dmcaphutdieukhong",
+            command: () => this.close(),
+          },
         ],
       },
       {

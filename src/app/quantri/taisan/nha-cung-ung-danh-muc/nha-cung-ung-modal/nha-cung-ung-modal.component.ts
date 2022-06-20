@@ -13,6 +13,7 @@ export class NhaCungUngModalComponent implements OnInit {
 
   item: any = {};
   title: string = "";
+  opt: any = "";
 
   constructor(
     private taiSanService: TaisanService,
@@ -23,7 +24,6 @@ export class NhaCungUngModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetNhaCungUng();
-    console.log('item ben modal 1', this.item);
   }
 
   GetNhaCungUng() {

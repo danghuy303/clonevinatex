@@ -2,6 +2,10 @@
     max-width: 150px !important;
     min-width: 150px !important;
 }
+.tc-w-100{
+    max-width: 100px !important;
+    min-width: 100px !important;
+}
 .tc-w-50{
     max-width: 50px !important;
     min-width: 50px !important;

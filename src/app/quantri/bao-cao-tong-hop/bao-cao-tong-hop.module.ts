@@ -18,12 +18,14 @@ import { BaoCaoTongHopLoiCatComponent } from './bao-cao-tong-hop-loi-cat/bao-cao
 import { BaoCaoTongHopClassimatComponent } from './bao-cao-tong-hop-classimat/bao-cao-tong-hop-classimat.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ChartModule } from 'primeng/chart';
+import {BaocaodieukhongComponent} from './baocaodieukhong/baocaodieukhong.component'
 
 @NgModule({
   declarations: [
     BaoCaoTongHopComponent, 
     BongChaiTongHopComponent, GhepThoTongHopComponent, SoiConTongHopComponent, OngTongHopComponent, ThongKeThoiGianDungMayComponent, BaoCaoTongHopLoiCatComponent, BaoCaoTongHopClassimatComponent,
     // SumByKeyPipe
+    BaocaodieukhongComponent
   ],
   imports: [
     CommonModule,
