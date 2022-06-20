@@ -124,7 +124,7 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
     }, [])
     if (listId.length !== 0) {
       this.confirmService.show({
-        message: 'Bạn chắc chắn muốn xóa nhà cung ứng này?'
+        message: 'Bạn chắc chắn muốn xóa nhóm nhà cung ứng này?'
       }, () => {
         this.taiSanService.NhomNhaCungUng().DeleteListNhomCungUng(listId).subscribe((res: any) => {
           if (res.StatusCode === 200) {
