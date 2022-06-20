@@ -209,7 +209,11 @@ export class DanhsachvattuComponent implements OnInit {
         "ThanhTien": ele.ThanhTien,
       }
     })
+    console.log(data);
+    
     this._serviceTaiSan.ListDanhSachVatTu().exportExcel(data).subscribe((res: any) => {
+      console.log(res);
+      
       this._danhMucTaiSan.DanhMucLoaiTaiSan().download(res.Data);
     })
   }
