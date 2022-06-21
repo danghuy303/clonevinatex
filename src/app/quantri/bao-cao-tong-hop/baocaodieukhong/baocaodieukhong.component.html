@@ -32,7 +32,7 @@
     </div>
  </div>
  <div>
-    <table class="table table-bordered" *ngFor="let casanxuat of item">
+    <table class="table table-bordered bg-white" *ngFor="let casanxuat of item">
         <thead >
             <tr *ngFor="let header of casanxuat.listRowHeader">
                 <th *ngFor="let cell of header.listCell" [attr.rowspan]="cell.MergeRow" [attr.colspan]="cell.MergeCollum">

@@ -61,7 +61,7 @@
         <label class="p-col-12 p-lg-2 p-p-0 my-auto">{{tinhhinh.TenTinhHinh}}({{tinhhinh.DonVi}}):</label>
         <div class="p-col-12 p-lg-10 p-p-0">
             <textarea *ngIf="tinhhinh.LoaiDuLieu === 'string'" pInputTextarea
-                [(ngModel)]="item.TinhHinhHoatDong_String"></textarea>
+                [(ngModel)]="tinhhinh.TinhHinhHoatDong_String"></textarea>
             <p-inputNumber *ngIf="tinhhinh.LoaiDuLieu === 'double'" mode="decimal" [minFractionDigits]="2"
                 [maxFractionDigits]="2" locale="en-EN" [(ngModel)]="tinhhinh.TinhHinhHoatDong_Double"></p-inputNumber>
         </div>

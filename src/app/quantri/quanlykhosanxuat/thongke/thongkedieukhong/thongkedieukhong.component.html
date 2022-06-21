@@ -144,7 +144,7 @@
                   }">
                   {{ HeThong.Ten }}
                </th>
-               <th class="tc-w-800" colspan="2">MÔ TẢ CÁCH THỨC VẬN HÀNH</th>
+               <th [ngStyle]="{'min-width': item.listdmHeThongDieuKhong.length * 400 + 'px','max-width': item.listdmHeThongDieuKhong.length * 400 + 'px'}" [attr.colspan]="item.listdmHeThongDieuKhong.length">MÔ TẢ CÁCH THỨC VẬN HÀNH</th>
             </tr>
             <tr>
                <th class="bg-white" style="display: none"></th>
