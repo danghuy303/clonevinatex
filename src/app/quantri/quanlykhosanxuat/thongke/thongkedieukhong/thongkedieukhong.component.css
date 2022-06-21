@@ -1,0 +1,16 @@
+.tc-w-80{
+    min-width: 80px !important;
+    max-width: 80px !important;
+}
+.tc-w-160{
+    min-width: 160px !important;
+    max-width: 160px !important;
+}
+.tc-w-400{
+    min-width: 400px !important;
+    max-width: 400px !important;
+}
+.tc-w-800{
+    min-width: 800px !important;
+    max-width: 800px !important;
+}

@@ -303,6 +303,7 @@ import { DmCapHutDieuKhongComponent } from './danhmuc/dm-cap-hut-dieu-khong/dm-c
 import { DmKhuVucDieuKhongModalComponent } from './danhmuc/dm-khu-vuc-dieu-khong-modal/dm-khu-vuc-dieu-khong-modal.component';
 import { DmHeThongDieuKhongModalComponent } from './danhmuc/dm-he-thong-dieu-khong-modal/dm-he-thong-dieu-khong-modal.component';
 import { DmCapHutDieuKhongModalComponent } from './danhmuc/dm-cap-hut-dieu-khong-modal/dm-cap-hut-dieu-khong-modal.component';
+import { ThongkedieukhongComponent } from './quanlykhosanxuat/thongke/thongkedieukhong/thongkedieukhong.component';
 
 
 @NgModule({
@@ -555,6 +556,7 @@ import { DmCapHutDieuKhongModalComponent } from './danhmuc/dm-cap-hut-dieu-khong
     DmKhuVucDieuKhongComponent,
     DmCapHutDieuKhongComponent,
     DmCapHutDieuKhongModalComponent,
+    ThongkedieukhongComponent,
   ],
   imports: [
     HttpClientModule,

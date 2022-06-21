@@ -57,7 +57,11 @@ export class NhaCungUngModalComponent implements OnInit {
 
   Validate() {
     if (!validVariable(this.item.Ma)) {
-      this.toast.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+      this.toast.error("Yêu cầu nhập mã nhà cung ứng!");
+      return false;
+    }
+    else if (!validVariable(this.item.Ten)) {
+      this.toast.error("Yêu cầu nhập tên nhà cung ứng!");
       return false;
     }
     return true;

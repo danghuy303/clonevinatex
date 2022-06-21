@@ -40,7 +40,7 @@
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày<span class="required">*</span></label>
             <div class="p-col-12 p-lg-9 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"
-                    [showIcon]="true" [(ngModel)]="item.Ngay"
+                    [showIcon]="true" [(ngModel)]="item.Ngay" [minDate]="minDate"
                     inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
