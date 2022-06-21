@@ -1,7 +1,8 @@
-import { AfterContentChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
+import { LohangComponent } from 'src/app/quantri/quanlykhosanxuat/thongke/lohang/lohang.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
@@ -14,6 +15,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 })
 export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('table') table: any;
   opt: any = "";
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   items: any = [];
@@ -54,11 +56,12 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewIn
     };
     this._serviceTaiSan.QuyTrinhDeNghiThayVatTu().GetListVatTu(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
-      this.items = res.Data.Items;
-      this.items?.forEach(obj => {
-
+      res.Data?.forEach(obj => {
+        obj.MaTenTaiSan = obj.MaTaiSan + ' - ' + obj.TenTaiSan;
+        obj.MaTenVatTu = obj.Ma + ' - ' + obj.Ten;
         obj.checked = this.listItemDaChon.includes(obj.Id);
       });
+      this.items = res.Data;
     });
     this.checkedAll = this.items.every(ele => ele.checked);
   }
@@ -103,4 +106,9 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewIn
   GhiLai() {
     this.activeModal.close(this.FilterTree());
   }
+
+  seach() {
+    console.log("table",this.table);
+  }
+
 }

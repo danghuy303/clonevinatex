@@ -140,7 +140,6 @@ export class ModalthanhlytaisanComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-console.log(res);
 
       this.item.listTaiSan = res;
 

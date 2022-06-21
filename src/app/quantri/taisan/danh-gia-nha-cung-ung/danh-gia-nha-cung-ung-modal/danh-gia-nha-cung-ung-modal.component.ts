@@ -172,7 +172,6 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
 
   SearchNhaCungUng(value) {
     console.log(value);
-    
     let newValue = value.trim().toLowerCase();
     this.listPhieuDanhGia_copy = this.quyTrinh.listPhieuDanhGia.filter(item => {
       return item.MadmNhaCungUng.toLowerCase().includes(newValue) ||

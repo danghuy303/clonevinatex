@@ -26,7 +26,7 @@
                             </div> -->
                         <!--  -->
                         <!-- <div  [style.display]="chiPhi.canInput?'block':'none' "> -->
-                            <div *ngIf="chiPhi.IsHienThi">
+                            <div >
                             <div class="p-grid" style="border: .5px solid #ccc;">
                                 <div class="p-col-4 t-head-custom">Tên chi phí</div>
                                 <div class="p-col-4 t-head-custom">Số tiền</div>
@@ -49,7 +49,7 @@
                                     </div>
                                 </ng-container>
                             </div>
-                            <a href="javascript:void(0)" (click)="ChiTietThongTin(chiPhi)">Chọn</a>
+                            <a *ngIf="chiPhi.IsHienThi" href="javascript:void(0)" (click)="ChiTietThongTin(chiPhi)">Chọn</a>
                         </div>
                     </td>
                     <td class="text-right tc-w-250 p-p-2">{{ item.TongTienChiPhi | number:'0.0-0'}}</td>
