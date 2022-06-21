@@ -29,6 +29,8 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   NameFile: string = "";
   listTaiSan_copy: any[] = [];
   khauHaoAll: boolean = false;
+  minDate?: Date;
+
 
   constructor(
     public _modal: NgbModal,
@@ -40,6 +42,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.GetMinDate();
     this.KiemTraButtonModal();
     this.getListdmPhanXuong();
     if (this.opt === 'add') {
@@ -55,6 +58,15 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       this.listTaiSan_copy = listTaiSan;
       this.Loaddata()
     }
+  }
+
+  GetMinDate() {
+    let d = new Date();
+    console.log("year", d.getFullYear());
+    
+    this.minDate = new Date(`01-01-${d.getFullYear()}`);
+    console.log("min date", this.minDate);
+    
   }
 
   Loaddata() {
@@ -83,10 +95,6 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
 
   Setdata() {
     this.item.NgayUnix = DateToUnix(this.item.Ngay);
-    // this.item.listTaiSan = [];
-    // this.item.listTaiSan = this.listTaiSan_copy.map(ele => {
-    //   return this.mapDataViewToModel(ele);
-    // });
     if (this.opt === 'add') {
       this.item.Created = new Date();
       this.item.Modified = new Date();

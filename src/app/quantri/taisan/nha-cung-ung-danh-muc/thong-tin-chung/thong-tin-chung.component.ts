@@ -9,7 +9,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 })
 export class ThongTinChungComponent implements OnInit {
 
-  @Input() item:any;
+  @Input() item: any;
   listNhomCungUng: any = [];
 
   constructor(
@@ -26,12 +26,13 @@ export class ThongTinChungComponent implements OnInit {
       PageSize: 20,
       Ma: "",
       Ten: "",
-      Keyword: "",  
+      Keyword: "",
       GhiChu: "",
     }
-    this.taiSanService.NhomNhaCungUng().GetListdmNhomNhaCungung(data).subscribe((res: any) => {
-      this.listNhomCungUng = mapArrayForDropDown(res.Data, 'Ten', 'Id');
-    })
+    this.taiSanService.NhomNhaCungUng().GetListdmNhomNhaCungung(data)
+      .subscribe((res: any) => {
+        this.listNhomCungUng = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+      })
   }
 
 }
