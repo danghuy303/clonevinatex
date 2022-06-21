@@ -18,3 +18,12 @@
         rotate(-45deg);
     margin-right: 3px;
 }
+
+.content{
+    height: calc(100vh - 100px);
+}
+
+:host ::ng-deep canvas {
+    height: calc(100vh - 60px - 32px - 60px - 28px) !important;
+    width: calc(100vw - 80px);
+}
