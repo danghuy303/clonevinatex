@@ -29,7 +29,7 @@ export class SogiodungmayComponent implements OnInit {
   backgroundColor = [
     "#4472C4",
     "#ED7D31",
-    "#A5A5A5",
+    "#2f995a",
     "#FFC000",
     "#5B9BD5",
   ]
