@@ -61,7 +61,13 @@ export class VattucanthayComponent implements OnInit {
     })
   }
   delete(index) {
-    let item = this.item.listTaiSan.splice(index, 1)[0];
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+     this.item.listTaiSan.splice(index, 1)[0];
+    }).catch(er => console.log(er))
   }
   edit(item) {
     item.edit = true;
@@ -81,6 +87,14 @@ export class VattucanthayComponent implements OnInit {
   ValidateData() {
     if (!validVariable(this.item.Ngay)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
+      return false;
+    }
+    if (!validVariable(this.item.IdBoPhanSuDung)) {
+      this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
+      return false;
+    }
+    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+      this.toastr.error("Yêu cầu nhập thêm vật tư!");
       return false;
     }
     return true;
@@ -109,7 +123,7 @@ export class VattucanthayComponent implements OnInit {
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.Lay_Chon = this.item.IddmPhanXuong;
-    modalRef.componentInstance.item = {};
+    modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
       let listKetQua = [];
       this.item.listTaiSan.forEach(Tai_San => {

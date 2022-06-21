@@ -46,15 +46,15 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewIn
   GetList() {
     let data = {
       PageSize: 20,
-      CurrentPage: 0,
-      Keyword: "",
+      CurrentPage: 1,
+      Keyword: this.filter.Keyword,
       IddmLoaiTaiSan: '',
       // IdBoPhanSuDung:'',
       IdBoPhanSuDung: this.item.IdBoPhanSuDung || "",
     };
     this._serviceTaiSan.QuyTrinhDeNghiThayVatTu().GetListVatTu(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
-      this.items = res.Data;
+      this.items = res.Data.Items;
       this.items?.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.Id);
       });

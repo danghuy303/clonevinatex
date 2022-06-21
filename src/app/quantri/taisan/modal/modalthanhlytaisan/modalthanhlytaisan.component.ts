@@ -113,7 +113,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
     if (this.ValidateData()) {
       this._serviceTaiSan.ThanhLyTaiSan().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode !== 200 || !res.StatusCode) {
-          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+          this.toastr.error(res.Message);
         } else {
           this.item = res.Data; // khi Ghi hiện duyệt >> KiemTraButtonModal()
           this.toastr.success(res.Message);

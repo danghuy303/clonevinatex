@@ -201,19 +201,15 @@ export class DanhsachvattuComponent implements OnInit {
       return {
         "Ma": ele.Ma,
         "Ten": ele.Ten,
-        "SoLuongTon": ele.TonKho,
-        "SoLuongCanThayThe": ele.TonKho,
+        "SoLuongTon": ele.SoLuongCanThayThe,
+        "SoLuongCanThayThe": ele.SoLuongCanThayThe,
         "TuoiTho": ele.TuoiTho,
         "NhaCungCap": ele.TenNhaCungCap,
         "DonGiaNhapGanNhat": ele.NguyenGia,
         "ThanhTien": ele.ThanhTien,
       }
     })
-    console.log(data);
-    
     this._serviceTaiSan.ListDanhSachVatTu().exportExcel(data).subscribe((res: any) => {
-      console.log(res);
-      
       this._danhMucTaiSan.DanhMucLoaiTaiSan().download(res.Data);
     })
   }
