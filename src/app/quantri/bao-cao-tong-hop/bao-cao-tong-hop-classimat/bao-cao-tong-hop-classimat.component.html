@@ -50,7 +50,7 @@
                 <td class="text-center" *ngFor="let chitieu of loaisoi.lstChatLuongSanPham">
                     <ng-container *ngIf="chitieu.chiSoChenhLech!==0">
                         <span [ngStyle]="{'color': chitieu.color}">
-                            {{chitieu.label}}&nbsp;{{chitieu.chiSoChenhLech}}&nbsp;lỗi
+                            {{chitieu.label}}&nbsp;{{chitieu.chiSoChenhLech|number:'0.2-2'}}&nbsp;lỗi
                         </span>
                     </ng-container>
 
