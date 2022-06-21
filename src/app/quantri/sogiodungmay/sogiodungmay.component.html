@@ -12,6 +12,7 @@
               [options]="CongDoan"
               [(ngModel)]="filter.MaCongDoan"
               (onChange)="getDataBaoCao(filter)"
+              [showClear]="true"
             >
             </p-dropdown>
           </div>
@@ -23,6 +24,7 @@
               [options]="PhanXuong"
               [(ngModel)]="filter.IdBoPhanSuDung"
               (onChange)="getDataBaoCao(filter)"
+              [showClear]="true"
             ></p-dropdown>
           </div>
         </div>
@@ -46,6 +48,7 @@
             [showIcon]="true"
             inputId="icon"
             placeholder="Đến ngày"
+            [minDate]="filter.TuNgay"
             [(ngModel)]="filter.DenNgay"
             (onSelect)="getDataBaoCao(filter)"
           >
