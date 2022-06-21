@@ -14,16 +14,20 @@
         </div>
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2 p-inputgroup">
-                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
+                <!-- <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
                     (keyup.enter)="GetList()" />
                     <button type="button" pButton pRipple icon="pi pi-search"
                     class="p-button-secondary p-button-sm p-button-text" (click)="GetList()"></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh"
-                    class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+                    class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button> -->
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [(ngModel)]="Keyword" placeholder="Tìm kiếm" />
+                    </span>
             </div>
         </div>
     </div>
-    <p-table [value]="items" styleClass="p-treetable p-datatable-striped p-datatable-gridlines">
+    <p-table [value]="items | filter:Keyword" styleClass="p-treetable p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width:50px" class="text-center">
@@ -44,7 +48,7 @@
                     </p-checkbox>
                 </td>
                 <td  style="width: 150px;">
-                    {{item.MaTaiSan}} - {{item.TenTaiSan}}
+                    {{item.MaTaiSan}}-{{item.TenTaiSan}} 
                 </td>
                 <td >
                     {{item.Ma}} - {{item.Ten}}

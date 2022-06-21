@@ -56,6 +56,7 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewIn
       this.paging.TotalCount = res.Data.TotalCount;
       this.items = res.Data.Items;
       this.items?.forEach(obj => {
+
         obj.checked = this.listItemDaChon.includes(obj.Id);
       });
     });
