@@ -22,7 +22,7 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
   Keyword: any = '';
-  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 0 };
   filter: any = {};
 
   constructor(
