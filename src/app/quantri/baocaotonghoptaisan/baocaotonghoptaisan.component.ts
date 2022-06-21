@@ -130,9 +130,8 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       this.paging.TotalCount = res.Data.pagination.TotalCount;
       this.listVatTu = res.Data.pagination.Items;
       this.listVatTu.forEach(ele => {
-        ele.ThanhTien = this.listVatTu.reduce((total, sum) => {
-          return sum.SoLuong * sum.DonGia
-        }, 0);
+        ele.ThanhTien =0;
+        ele.ThanhTien = ele.SoLuong * ele.DonGia;
       })
     })
   }

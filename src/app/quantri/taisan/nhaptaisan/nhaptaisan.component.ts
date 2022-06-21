@@ -91,7 +91,7 @@ export class NhaptaisanComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       tabTrangThai: this.trangThai,
-      Keyword: this.Keyword,
+      Keyword: this.filter.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
@@ -102,7 +102,7 @@ export class NhaptaisanComponent implements OnInit {
       this.items = [];
       items = res.Data.Items;
       this.paging = res.Data;
-      items.forEach(obj => {
+      items?.forEach(obj => {
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
@@ -152,6 +152,7 @@ export class NhaptaisanComponent implements OnInit {
 
     }).catch(er => console.log(er))
       .finally(() => {
+        this.Loaddata();
         this.changeParam(0)
       })
   }

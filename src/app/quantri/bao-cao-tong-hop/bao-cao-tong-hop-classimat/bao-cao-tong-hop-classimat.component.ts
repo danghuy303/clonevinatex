@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown, DateToUnix } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
 
@@ -19,7 +19,7 @@ export class BaoCaoTongHopClassimatComponent extends StoreBase implements OnInit
   listChiTieu: any = [];
   item: any = {};
   dataBieuDo: any = {};
-  optionLineChart:any= {
+  optionLineChart: any = {
     scales: {
       xAxes: [{
         beginAtZero: true
@@ -115,6 +115,16 @@ export class BaoCaoTongHopClassimatComponent extends StoreBase implements OnInit
             data: res.listLyThyet,
           },
         ]
+      }
+    })
+  }
+  exportBaoCaoCa() {
+    this.filter.Ngay = DateToUnix(this.filter.NgayChon);
+    this._services.QuyTrinhClassimat().XuatBaoCao(this.filter).subscribe((res: any) => {
+      if(validVariable(res.TenFile)){
+        this._services.download(res.TenFile);
+      }else{
+        this.toastr.error(res.message);
       }
     })
   }

@@ -85,14 +85,40 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     }
   }
 
-  GhiLai() {
-    if (!validVariable(this.item.DonViNangSuat || this.item.IddmLoaiTaiSan || this.item.Ten)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
-      return
+  ValidateData() {
+    if (!validVariable(this.item.Ten)) {
+      this.toastr.error("Yêu cầu nhập tên");
+      return false;
     }
+    if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.DonViNangSuat)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
+      return false;
+    }
+    if (this.IdBoPhanSuDung != null) {
+      if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {
+        this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
+        return false;
+      }
+    }
+    if (this.item?.isCanDuTru) {
+      if (!validVariable(this.item?.DuTruToiThieu) || this.item?.DuTruToiThieu <= 0) {
+        this.toastr.error("Yêu cầu nhập số lượng dự trữ");
+        return false;
+      }
+    }
+    return true;
+  }
+
+  GhiLai() {
+    // if (!validVariable(this.item.DonViNangSuat) || !validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.Ten)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+    //   return
+    // }
+    if (this.ValidateData()) {
     this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
     this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
     this.activeModal.close(this.item);
+    }
   }
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });

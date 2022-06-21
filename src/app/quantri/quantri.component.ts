@@ -522,6 +522,12 @@ export class QuantriComponent implements OnInit {
             separator: this.checkmenu("BAOCAOCA"),
             command: () => this.close(),
           },
+          {
+            label: "Điều không",
+            routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkedieukhong/0",
+            separator: this.checkmenu("THONGKEDIEUKHONG"),
+            command: () => this.close(),
+          },
         ],
       },
       {
@@ -1030,7 +1036,7 @@ export class QuantriComponent implements OnInit {
               },
               {
                 label: "Cập nhật thư viện",
-                routerLink: "/quantri/taisan/capnhatthuvien",
+                routerLink: "/quantri/taisan/capnhatthuvien/0",
                 command: () => {
                   this.close();
                 },
@@ -1142,7 +1148,7 @@ export class QuantriComponent implements OnInit {
                 },
               },
               {
-                label: "Thời hạn cung cấp",
+                label: "Kế hoạch mua vật tư",
                 routerLink: "/quantri/taisan/thoihancungcapvattu/0",
                 command: () => {
                   this.close();
@@ -1700,6 +1706,12 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/baocaotonghop/classimat",
             command: () => this.close(),
           },
+          {
+            label: "Báo cáo điều không",
+            routerLink: "/quantri/baocaotonghop/dieukhong",
+            separator: this.checkmenu("BAOCAODIEUKHONG"),
+            command: () => this.close(),
+          },
         ],
       },
 
@@ -1881,7 +1893,19 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/danhmucsanxuat/dinhmucchitieuclassimat",
             command: () => this.close(),
           },
-
+          {
+            label: "Hệ thống điều không",
+            routerLink: "/quantri/danhmucsanxuat/dmhethongdieukhong",
+            command: () => this.close(),
+          },{
+            label: "Khu vực điều không",
+            routerLink: "/quantri/danhmucsanxuat/dmkhuvucdieukhong",
+            command: () => this.close(),
+          },{
+            label: "Cấp hút điều không",
+            routerLink: "/quantri/danhmucsanxuat/dmcaphutdieukhong",
+            command: () => this.close(),
+          },
         ],
       },
       {

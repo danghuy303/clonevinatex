@@ -25,6 +25,7 @@ export class TaiLieuDanhSachComponent implements OnInit {
   }
 
   ngOnInit(): void {
+ 
   }
 
   taiLenFileDinhKem() {
@@ -36,7 +37,7 @@ export class TaiLieuDanhSachComponent implements OnInit {
     modalRef.componentInstance.type = '';
     modalRef.result
       .then((data) => {
-        this.item.listFileDinhKem.push(...data.map(obj => {
+        this.item?.listFileDinhKem.push(...data.map(obj => {
           return {
             Id: "",
             FileNameGUI: obj.Name,
@@ -55,7 +56,7 @@ export class TaiLieuDanhSachComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this.item.listFileDinhKem.splice(index, 1)
+      this.item?.listFileDinhKem.splice(index, 1)
     }).catch(er => console.log(er))
   }
   test(){

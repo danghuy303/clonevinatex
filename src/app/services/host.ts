@@ -6,8 +6,8 @@ import { HttpHeaders } from "@angular/common/http";
 // const host1 = 'http://hoaxa.vinatex.harmonyes.com.vn';//Tong Cong Ty Det May Nam Dinh moi
 // const host1 = 'http://phuhung.vinatex.harmonyes.com.vn/';//Nha May Phu Hung
 // export const host1 = `${window.location.origin.includes("4200")
-export const host1 = `${window.location.origin.includes("4300")
-  ? "http://103.130.212.45:2269"
+export const host1 = `${window.location.origin.includes("4200")
+  ? "http://103.130.212.45:2369"
   : window.location.origin
   }`;
 // export const host1 = `http://27.71.231.140`;
@@ -56,6 +56,7 @@ export class API {
   public static SCMKiemTraChatLuong = host1 + "/SCM/KiemTraChatLuong/";
   public static SCMDashBoard = host1 + "/SCM/BaoCao/";
   public static SCMBaoCao = host1 + "/SCM/BaoCao/";
+  public static SCMBaoCaoCa = host1 + "/SCM/BaoCaoCa/";
   public static danhmuc = API.baseUrl + "DanhMuc/";
   public static QLTSD = API.baseUrl + "QuanLyTaiSanDat/";
   public static uploadURL = host1 + "/QLTS/FileUploader/Post";

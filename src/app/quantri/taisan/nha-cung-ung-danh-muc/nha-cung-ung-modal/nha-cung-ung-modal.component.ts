@@ -13,6 +13,7 @@ export class NhaCungUngModalComponent implements OnInit {
 
   item: any = {};
   title: string = "";
+  opt: any = "";
 
   constructor(
     private taiSanService: TaisanService,
@@ -23,7 +24,6 @@ export class NhaCungUngModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetNhaCungUng();
-    console.log('item ben modal 1', this.item);
   }
 
   GetNhaCungUng() {
@@ -57,7 +57,11 @@ export class NhaCungUngModalComponent implements OnInit {
 
   Validate() {
     if (!validVariable(this.item.Ma)) {
-      this.toast.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+      this.toast.error("Yêu cầu nhập mã nhà cung ứng!");
+      return false;
+    }
+    else if (!validVariable(this.item.Ten)) {
+      this.toast.error("Yêu cầu nhập tên nhà cung ứng!");
       return false;
     }
     return true;

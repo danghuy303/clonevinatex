@@ -68,7 +68,8 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
       Keyword: this.filter.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
-      TabTrangThai: this.trangThai
+      TabTrangThai: this.trangThai,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung
     };
     this._serviceTaiSan.PhieuThuHoiTaiSan().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;  

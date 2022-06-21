@@ -7,6 +7,7 @@ import { ModalcapnhattaisanComponent } from '../modal/modalcapnhattaisan/modalca
 import { ModalquytrinhbaoduongComponent } from '../modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
 import { ModalthanhlytaisanComponent } from '../modal/modalthanhlytaisan/modalthanhlytaisan.component';
 import { ModalthuhoitaisanComponent } from '../modal/modalthuhoitaisan/modalthuhoitaisan.component';
+import { ModaldenghixulisucoComponent } from '../modaldenghixulisuco/modaldenghixulisuco.component';
 import { NhapvattuComponent } from '../nhapvattu/nhapvattu.component';
 import { ThoihancungcapvattumodalComponent } from '../thoihancungcapvattumodal/thoihancungcapvattumodal.component';
 import { VattucanthayComponent } from '../vattucanthay/vattucanthay.component';
@@ -111,8 +112,8 @@ export const QuyTrinh = {
     ModalType: "CallOut"
   },
   QUYTRINHXULYSUCO: {
-    Component: LapkehoachlichxichnamComponent,
-    ServiceProp: "QuyTrinhDeNghiThayVatTu",
+    Component: ModaldenghixulisucoComponent,
+    ServiceProp: "QuyTrinhXuLySuCo",
     ServiceMethod: "Get",
     ModalPrototype: "",
     ModalType: "CallOut"

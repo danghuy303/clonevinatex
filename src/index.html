@@ -21,13 +21,6 @@
 
 </body>
 <script>
-  // window.addEventListener('error',(event)=>{
-  //   console.log(event);
-  //   fetch(`http://localhost:3000/err/aloalo`).then(res=>{
-  //     console.log(res);
-  //   })
-  //   return true;
-  // })
   document.oncopy = function () {
     const selection = document.getSelection();
     event.clipboardData.setData('text/plain', selection.toString().trim());

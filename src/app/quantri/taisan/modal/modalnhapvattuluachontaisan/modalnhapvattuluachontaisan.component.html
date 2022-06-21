@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Lựa chọn tài sản</h5>
+    <h5 class="modal-title">Lựa chọn vật tư</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -16,6 +16,8 @@
             <div class="p-mr-2 p-inputgroup">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
                     (keyup.enter)="GetList()" />
+                    <button type="button" pButton pRipple icon="pi pi-search"
+                    class="p-button-secondary p-button-sm p-button-text" (click)="GetList()"></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh"
                     class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
@@ -28,10 +30,10 @@
                     <p-checkbox [(ngModel)]="checkedAll" binary="true"
                         (onChange)="checkAll($event)"></p-checkbox>
                 </th>
-                <th class="text-center" style="width: 150px;">Mã</th>
-                <th class="text-center">Tên</th>
-                <th class="text-center">Nguyên giá</th>
-                <th class="text-center">Giá trị còn lại</th>
+                <th class="text-center" style="width: 150px;">Mã, tên tài sản</th>
+                <th class="text-center">Mã, tên vật tư</th>
+                <!-- <th class="text-center">Nguyên giá</th>
+                <th class="text-center">Giá trị còn lại</th> -->
                 <th class="text-center">Ghi chú</th>
             </tr>
         </ng-template>
@@ -42,11 +44,13 @@
                     </p-checkbox>
                 </td>
                 <td  style="width: 150px;">
-                    {{item.Ma}}
+                    {{item.MaTaiSan}} - {{item.TenTaiSan}}
                 </td>
-                <td >{{item.Ten}}</td>
-                <td class="text-right"> {{item.NguyenGia | number:'0.0-0'}}</td>
-                <td class="text-right"> {{item.GiaTriConLai | number:'0.0-0'}}</td>
+                <td >
+                    {{item.Ma}} - {{item.Ten}}
+                </td>
+                <!-- <td class="text-right"> {{item.NguyenGia | number:'0.0-0'}}</td>
+                <td class="text-right"> {{item.GiaTriConLai | number:'0.0-0'}}</td> -->
                 <td >{{item.GhiChu}}</td>
             </tr>
         </ng-template>

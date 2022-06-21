@@ -47,14 +47,14 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto"> Ngày<span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
-                    [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy" [(ngModel)]="item.Ngay">
+                    [yearRange]="yearRange" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy" [(ngModel)]="item.Ngay">
                 </p-calendar>
             </div>
         </div>
         <div class="p-col-12 p-lg-8 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
     </div>
@@ -125,7 +125,7 @@
                     </td>
                     <td style="text-align: right;">
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm"
-                            [(ngModel)]="item.SoLuong">
+                            [(ngModel)]="item.SoLuong" (onBlur)=" Tong()">
                         </p-inputNumber>
                     </td>
                     <td style="text-align: right;">

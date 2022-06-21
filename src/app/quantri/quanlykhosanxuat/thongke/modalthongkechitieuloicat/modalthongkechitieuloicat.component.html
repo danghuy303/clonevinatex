@@ -84,7 +84,7 @@
                             <th style="display: none;"></th>
                             <th class="text-center tc-w-200" colspan="2">STT</th>
                             <th class="text-center tc-w-250">Loại sợi</th>
-                            <th *ngFor="let ban of item.lstDanhMuc" class="tc-w-150">
+                            <th *ngFor="let ban of item.lstDanhMuc" class="tc-w-100">
                                 {{ban.Ten}}
                                 <ng-container *ngIf="ban.isTong"><br>(Tổng)</ng-container>
                             </th>
@@ -96,7 +96,7 @@
                                 <td rowspan="4" class="text-center tc-w-50 bg-white">{{i+1}}</td>
                                 <td class="tc-w-150 bg-white">SL Lỗi Chỉ Tiêu</td>
                                 <td rowspan="4" class="tc-w-250 bg-white">{{loaisoi.TenMatHang}}</td>
-                                <td class="text-right tc-w-150" *ngFor="let lythuyet of loaisoi.lstChatLuongSanPham">
+                                <td class="text-right tc-w-100" *ngFor="let lythuyet of loaisoi.lstChatLuongSanPham">
                                     {{lythuyet.ChiTieuLyThuyet | number:'0.2-2'}}
                                 </td>
                             </tr>
@@ -104,7 +104,7 @@
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
                                 <td class="tc-w-150 bg-white">Hôm Trước</td>
-                                <td class="text-right tc-w-150" *ngFor="let homtruoc of loaisoi.lstChatLuongSanPham">
+                                <td class="text-right tc-w-100" *ngFor="let homtruoc of loaisoi.lstChatLuongSanPham">
                                     {{homtruoc.ChiTieuThucTe_HomTruoc | number:'0.2-2'}}
                                 </td>
                             </tr>
@@ -112,7 +112,7 @@
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
                                 <td class="tc-w-150 bg-white">Hôm Nay</td>
-                                <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham" class="text-right tc-w-150">
+                                <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham" class="text-right tc-w-100">
                                     <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
                                         locale="en-EN" [(ngModel)]="homnay.ChiTieuThucTe"
                                         (onBlur)="tinhTong(loaisoi.lstChatLuongSanPham,homnay.NhomChiTieu)"
@@ -123,7 +123,7 @@
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
                                 <td class="tc-w-150 bg-white">So Sánh</td>
-                                <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham" class="text-right tc-w-150">
+                                <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham" class="text-right tc-w-100">
                                     <td class="text-center"
                                         [ngStyle]="{'background-color': sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet?'#a7d1a7':'#f59999'}">
                                         <span *ngIf="sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet">Đạt</span>

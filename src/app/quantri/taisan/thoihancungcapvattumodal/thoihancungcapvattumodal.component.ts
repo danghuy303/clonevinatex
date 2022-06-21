@@ -33,6 +33,9 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
   store: any;
   tongThanhTien: any = 0;
   IdTaiSan: '';
+  TuNgay: any = '';
+  DenNgay: any = '';
+  Keyword: any = '';
 
   constructor(
     private _modal: NgbModal,
@@ -123,10 +126,11 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
 
   ThemMoiDanhSachTaiSan() {
     let modalRef = this._modal.open(ThoihancungcapmodalluachonComponent, {
-      size: "lg",
+      size: "xl",
       backdrop: "static",
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+    modalRef.componentInstance.filter = this.item.Ngay ? { DenNgay: this.DenNgay, TuNgay: this.TuNgay} : {};
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = {};
@@ -149,13 +153,28 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     // this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
+
+  ValidateData() {
+    if (!validVariable(this.item.Ngay)) { 
+      this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
+      return false;
+    }
+    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+      this.toastr.error("Yêu cầu nhập thêm vật tư!");
+      return false;
+    }
+    return true;
+  }
+
   GhiLai() {
+    if (this.ValidateData()) {
     this._serviceTaiSan.ThoiHanCungCap().Set(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
         this.item = res.Data;
         this.ListNhaCungUng();
+        this.Tong();
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
         // this.activeModal.close();
@@ -163,6 +182,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
     })
+  }
   }
 
   KiemTraButtonModal() {
@@ -214,22 +234,30 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     // this.Loaddata(true);
   }
   delete(index) {
-    let item = this.item.listTaiSan.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
-    }
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+      this.item.listTaiSan.splice(index, 1)
+    }).catch(er => console.log(er))
   }
 
   Tong() {
-    this.tongThanhTien = 0;
+    this.item.TongGiaTri = 0;
     this.item.listTaiSan.forEach(item => {
       item.ThanhTien = (item.SoLuong || 0) * (item.DonGia || 0);
-      this.tongThanhTien += (item.ThanhTien || 0);
+      this.item.TongGiaTri += (item.ThanhTien || 0);
     });
   }
   getList() {
     this.Tong();
   }
+
+  chonThang() {
+    let date = new Date(this.item.Ngay);
+    this.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  }
+
 }

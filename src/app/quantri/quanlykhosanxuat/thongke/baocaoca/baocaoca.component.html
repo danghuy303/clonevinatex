@@ -7,13 +7,15 @@
             (click)="setBaoCaoCa()"></button>
     </div>
     <div class="d-flex flex-column flex-lg-row">
+        <button pButton pRipple label="Xuất báo cáo" icon="fa fa-file-excel" class="p-button-sm p-mr-2"
+            (click)="exportBaoCaoCa()"></button>
         <div class="p-mr-2">
             <p-dropdown [options]="listCaSanXuat" placeholder="Ca sản xuất" styleClass="p-inputtext-sm"
                 [(ngModel)]="filter.IddmCaSanXuat" [showClear]="false" (onChange)="getBaoCaoCa()"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listCaSanXuatThucTe" placeholder="Chọn ca sản xuất thực tế"
-                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="false" (onChange)="getBaoCaoCa()"></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmCaLamViecThucTe" [showClear]="false"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"

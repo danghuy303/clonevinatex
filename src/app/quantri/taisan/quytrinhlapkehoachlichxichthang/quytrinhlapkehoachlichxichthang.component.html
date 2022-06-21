@@ -16,7 +16,7 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuThang " inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)">
+                [(ngModel)]="filter.TuThang "  [maxDate]="filter.DenThang" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-mr-2">

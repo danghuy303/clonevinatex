@@ -67,4 +67,16 @@ export class BaocaocaComponent extends StoreBase implements OnInit {
       }
     })
   }
+  exportBaoCaoCa(){
+    let data = {}
+    this._services.BaoCaoCa().Export(this.filter).subscribe((res:any)=>{
+      if(res){
+        this._services.download(res.TenFile);
+      }else{
+        this.toastr.error(`Có lỗi xảy ra trong quá trình xử lý!`)
+      }
+    },(er)=>{
+      this.toastr.warning(`Chức năng này đang trong giai đoạn phát triển!`)
+    });
+  }
 }

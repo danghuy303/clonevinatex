@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { validVariable } from 'src/app/services/globalfunction';
+import { handleHTTPResponse, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NhomNhaCungUngModalComponent } from './nhom-nha-cung-ung-modal/nhom-nha-cung-ung-modal.component';
@@ -30,12 +30,12 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
   listTrangThai: any = [
     {
       label: 'Hoạt động',
-      value: true
+      value: 1
     },
     {
       label: 'Không hoạt động',
-      value: false
-    }
+      value: 2
+    },
   ]
 
   constructor(
@@ -64,7 +64,7 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
       CurrentPage: this.paging.currentPage,
       PageSize: 20,
       Keyword: this.filter.keyword,
-      HoatDong: this.filter.HoatDong
+      HoatDong: this.filter.HoatDong || 3
     }
     this.taiSanService.NhomNhaCungUng().GetListdmNhomNhaCungung(data).subscribe((res: any) => {
       this.items = res.Data.Items;
@@ -124,7 +124,7 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
     }, [])
     if (listId.length !== 0) {
       this.confirmService.show({
-        message: 'Bạn chắc chắn muốn xóa nhà cung ứng này?'
+        message: 'Bạn chắc chắn muốn xóa nhóm nhà cung ứng này?'
       }, () => {
         this.taiSanService.NhomNhaCungUng().DeleteListNhomCungUng(listId).subscribe((res: any) => {
           if (res.StatusCode === 200) {
@@ -164,8 +164,10 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
       .then((res: any) => {
         this.fileUpload = res;
         console.log(this.fileUpload[0].Name);
-        this.taiSanService.NhomNhaCungUng().ImportFile(this.fileUpload[0]).subscribe(()=>{
-          this.resetListNhomNhaCungUng();
+        this.taiSanService.NhomNhaCungUng().ImportFile(this.fileUpload[0]).subscribe((res: any)=>{
+          handleHTTPResponse(res, this.toast, () => {
+            this.resetListNhomNhaCungUng();
+          })
         })
       })
       .catch(er => {})

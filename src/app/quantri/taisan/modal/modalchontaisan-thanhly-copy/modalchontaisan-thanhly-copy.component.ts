@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
-import { validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
@@ -61,7 +61,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
       this.items.forEach(ele => {
         ele.data.isCha = true
       })
-      
+
       this.listTaiSanDaChon = this.TimCheck(this.items)
       this.listItemDaChon.forEach(ele => {
         this.listTaiSanDaChon.forEach(obj => {
@@ -79,7 +79,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
     })
     return list.filter(ele => ele.data.IdTaiSan === null)
   }
-  
+
   TimCheck(list: Array<any>) {
     let newArr = [];
     list.forEach((ele) => {
@@ -93,14 +93,14 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
   FilterTree() {
     let data = [];
     data = this.selectedNodes.map(ele => {
-   
       return {
         MaTaiSan: ele.data.Ma,
-        Id:'',
+        Id: '',
         GiaTriConLai: ele.data.GiaTriConLai,
+        SoLuong: ele.data.SoLuong,
         TenTaiSan: ele.data.Ten,
         IdTaiSan: ele.data.Id,
-        isCha: ele.data.isCha?ele.data.isCha:false,
+        isCha: ele.data.isCha ? ele.data.isCha : false,
       }
     })
     return data;
@@ -111,7 +111,14 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
   }
 
   GhiLai() {
-    this.activeModal.close(this.FilterTree());
+    this.items.forEach(ele => {
+      if (!this.listItemDaChon.includes(ele.data?.Id)) {
+        this.activeModal.close(this.FilterTree());
+      }
+      else {
+        this.toastr.error("Đã tồn tại!");
+      }
+    })
   }
 
 }

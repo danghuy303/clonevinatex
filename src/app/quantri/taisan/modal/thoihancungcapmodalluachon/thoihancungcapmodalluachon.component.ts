@@ -16,13 +16,13 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
 
   opt: any = "";
   items: any = [];
-  item: any = [];
+  item: any = {};
   listItemDaChon: any = [];
   Lay_Chon: any = [];
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
   Keyword: any = '';
-  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 0 };
   filter: any = {};
 
   constructor(
@@ -35,6 +35,9 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
 
   ngOnInit(): void {
     // this.GetList();
+    if (this.filter.DenNgay && this.filter.TuNgay) {
+      this.GetList();
+    }
   }
   resetFilter() {
     this.filter = {};

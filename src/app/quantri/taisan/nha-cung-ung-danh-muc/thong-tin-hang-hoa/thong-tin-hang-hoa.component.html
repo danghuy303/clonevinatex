@@ -6,11 +6,13 @@
 </div> -->
 
 <div class="p-grid p-jc-between">
-  <div>
-    <p-button label="Thêm mới" class="p-mr-2" (click)="AddHangHoa()"></p-button>
-    <p-button label="Xóa" class="p-mr-2" (click)="DeleteListHangHoa()"></p-button>
-    <p-button label="Xuất Excel" class="p-mr-2" (click)="ExportListHangHoa()"></p-button>
-    <p-button label="Nhập Excel" (click)="ImportListHangHoa()"></p-button>
+  <div >
+    <div *ngIf="isDisabled">
+      <p-button label="Thêm mới" class="p-mr-2" (click)="AddHangHoa()"></p-button>
+      <p-button label="Xóa" class="p-mr-2" (click)="DeleteListHangHoa()"></p-button>
+      <p-button label="Xuất Excel" class="p-mr-2" (click)="ExportListHangHoa()"></p-button>
+      <p-button label="Nhập Excel" (click)="ImportListHangHoa()"></p-button>
+    </div>
   </div>
   <div class="p-grid p-ai-center p-flex-row-reverse p-lg-5 p-p-0">
     <div class="p-inputgroup" style="width:200px">

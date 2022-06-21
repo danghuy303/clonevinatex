@@ -1,5 +1,5 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
-import { validVariable } from 'src/app/services/globalfunction';
+import { handleHTTPResponse, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { TieuChiDanhGiaModalComponent } from './tieu-chi-danh-gia-modal/tieu-chi-danh-gia-modal.component';
 import {TreeTableModule} from 'primeng/treetable';
 import {TreeNode} from 'primeng/api';
+import { ConfirmationService } from 'src/app/services/confirmation.service';
 
 @Component({
   selector: 'app-tieu-chi-danh-gia-nha',
@@ -28,6 +29,7 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
     private taiSanService: TaisanService,
     public modal: NgbModal,
     public toast: ToastrService,
+    public confirmService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -136,15 +138,24 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
   }
 
   DeleteListTieuChi() {
-    let listId = [];
-    this.TreeToData(this.items).forEach(ele => {
-      if (ele.data.checked===true) {
-        listId.push(ele.data.Id)
-      }
-    })
-    this.taiSanService.TieuChiDanhGia().Delete(listId).subscribe((res: any) => {
-        this.LoadListTieuChi();
-    })
+    let listDeleteTieuChi = this.items.some(item => item.data.checked);
+    if (listDeleteTieuChi) {
+      this.confirmService.show({
+        message: 'Bạn chắc chắn muốn xóa các tiêu chí này?'
+      }, () => {
+        let listId = [];
+        this.TreeToData(this.items).forEach(ele => {
+          if (ele.data.checked===true) {
+            listId.push(ele.data.Id)
+          }
+        })
+        this.taiSanService.TieuChiDanhGia().Delete(listId).subscribe((res: any) => {
+            this.LoadListTieuChi();
+        })
+      })
+    } else {
+      this.toast.error('Vui lòng chọn tiêu chí!')
+    }
   }
 
   CheckAll(item) {
@@ -178,7 +189,8 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
       .then((res: any) => {
         this.fileUpload = res;
         console.log(this.fileUpload[0].Name);
-        this.taiSanService.TieuChiDanhGia().Import(this.fileUpload[0]).subscribe(()=>{
+        this.taiSanService.TieuChiDanhGia().Import(this.fileUpload[0]).subscribe((res: any)=>{
+          handleHTTPResponse(res, this.toast, () => {}, () => {})
           this.ResetListTieuChi();
         })
       })

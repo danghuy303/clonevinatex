@@ -118,6 +118,10 @@ export class ModalthuhoitaisanComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
+    if(!validVariable(this.item.NgayThuHoi)) {
+      this.toastr.error("Nhập ngày thu hồi !");
+      return ;
+    }
     let modalRef = this._modal.open(ModalchontaisanCopyComponent, {
       size: "xl",
       backdrop: "static",
@@ -127,6 +131,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
       this.item.listTaiSan = res;
+    
       // this.item.listTaiSan.forEach(ele => {
       //   ele.SoLuong = 1;
       // })
@@ -173,6 +178,10 @@ export class ModalthuhoitaisanComponent implements OnInit {
     this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: any) => {
       this.listTaiSan = res.Data;
     });
+  }
+
+  ChonLoaiTaiSan() {
+    this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
   }
 }
 

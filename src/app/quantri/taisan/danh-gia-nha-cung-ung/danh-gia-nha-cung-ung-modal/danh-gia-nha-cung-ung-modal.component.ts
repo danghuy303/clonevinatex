@@ -5,8 +5,9 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ThemNhaCungUngModalComponent } from '../them-nha-cung-ung-modal/them-nha-cung-ung-modal.component';
 import { SuaNhaCungUngModalComponent } from '../sua-nha-cung-ung-modal/sua-nha-cung-ung-modal.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
-import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmationService } from 'src/app/services/confirmation.service';
 
 @Component({
   selector: 'app-danh-gia-nha-cung-ung-modal',
@@ -34,10 +35,11 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     private _serviceSanXuat: SanXuatService,
     private _serviceAuth: AuthenticationService,
     public toast: ToastrService,
+    public confirmService: ConfirmationService
   ) {
     this.listPheDuyet = [
-      { id: 'DUYET', label: 'Phê duyệt' },
-      { id: 'CHUADUYET', label: 'Chưa phê duyệt' },
+      { value: true, label: 'Phê duyệt' },
+      { value: false, label: 'Chưa phê duyệt' },
     ]
     this.user = this._serviceAuth.currentUserValue;
   }
@@ -50,7 +52,8 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     }
     else {
       this.title = "Cập nhật quy trình đánh giá nhà cung ứng";
-      this.quyTrinh.Ngay = new Date(this.quyTrinh.Ngay)
+      this.quyTrinh.Ngay = new Date(this.quyTrinh.Ngay);
+      this.listPhieuDanhGia_copy = this.quyTrinh.listPhieuDanhGia;
       // this.GetQuyTrinh();
     }
     this.GetListTinhTrang();
@@ -106,6 +109,7 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
         if (res.StatusCode === 200) {
           this.toast.success(res.Message);
           this.quyTrinh = res.Data;
+          this.quyTrinh.Ngay = UnixToDate(this.quyTrinh.NgayUnix);
           // this.quyTrinh.Id = res.Data.Id;
           this.GetListNhaCungUng(true);
           this.KiemTraButtonModal();
@@ -118,13 +122,17 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   }
 
   DeleteQuyTrinh() {
-    this._serviceTaiSan.DanhGiaNhaCungUng().Delete(this.quyTrinh).subscribe((res: any) => {
-      if (res.StatusCode === 200) {
-        this.toast.success(res.Message);
-        this.activeModal.close();
-      } else {
-        this.toast.error(res.Message);
-      }
+    this.confirmService.show({
+      message: 'Bạn chăc chắn muốn xóa quy trình này?'
+    }, () => {
+      this._serviceTaiSan.DanhGiaNhaCungUng().Delete(this.quyTrinh).subscribe((res: any) => {
+        if (res.StatusCode === 200) {
+          this.toast.success(res.Message);
+          this.activeModal.close();
+        } else {
+          this.toast.error(res.Message);
+        }
+      })
     })
   }
 
@@ -142,34 +150,50 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   }
 
   ChuyenTiepQuyTrinh() {
-    if (this.ValidateData()) {
-      this._serviceTaiSan.DanhGiaNhaCungUng().ChuyenTiep(this.SetData()).subscribe((res: any) => {
-        if (res.StatusCode === 200) {
-          this.toast.success(res.Message);
-          this.activeModal.close();
-        } else {
-          this.toast.error(res.Message);
-        }
-      })
-    }
+    this.confirmService.show({
+      message: 'Bạn chắc chắn muốn chuyển duyệt quy trình này?'
+    }, () => {
+      if (this.ValidateData()) {
+        this._serviceTaiSan.DanhGiaNhaCungUng().ChuyenTiep(this.SetData()).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.toast.success(res.Message);
+            this.activeModal.close();
+          } else {
+            this.toast.error(res.Message);
+          }
+        })
+      }
+    })
   }
 
   // =================================================================
   //Nha cung ung
   // =================================================================
 
+  SearchNhaCungUng(value) {
+    console.log(value);
+    
+    let newValue = value.trim().toLowerCase();
+    this.listPhieuDanhGia_copy = this.quyTrinh.listPhieuDanhGia.filter(item => {
+      return item.MadmNhaCungUng.toLowerCase().includes(newValue) ||
+      item.TendmNhaCungUng.toLowerCase().includes(newValue);
+    })
+  }
+
   AddNhaCungUng() {
     let modalRef = this._modal.open(ThemNhaCungUngModalComponent, {
       size: "xl",
       backdrop: "static"
     })
-    modalRef.componentInstance.checkListItem = this.quyTrinh?.listPhieuDanhGia || [];
+    this.listPhieuDanhGia_copy = this.quyTrinh.listPhieuDanhGia || [];
+    let listExistedItems = this.listPhieuDanhGia_copy.map(item => item.IddmNhaCungUng) || [];
+    console.log("listExistedItems", listExistedItems);
+    modalRef.componentInstance.checkListItem = listExistedItems;
     modalRef.result
       .then((res: any) => {
-        this.quyTrinh.listPhieuDanhGia = (this.quyTrinh?.listPhieuDanhGia || []).concat(res);
-        // this.listPhieuDanhGia_copy = this.quyTrinh.listPhieuDanhGia;
-        // console.log('list phieu danh gia copy', this.listPhieuDanhGia_copy);
-        
+        console.log("res", res);
+        this.listPhieuDanhGia_copy = merge(res, this.listPhieuDanhGia_copy || [], 'IddmNhaCungUng');
+        this.quyTrinh.listPhieuDanhGia = this.listPhieuDanhGia_copy;
       })
       .catch(er => { })
       .finally()
@@ -195,8 +219,12 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   }
 
   DeleteNhaCungUng(id: string) {
-    let idItem = this.quyTrinh.listPhieuDanhGia.findIndex(item => item.IddmNhaCungUng === id);
-    this.quyTrinh.listPhieuDanhGia.splice(idItem, 1);
+    this.confirmService.show({
+      message: 'Bạn chắc chắn muốn xóa nhà cung ứng này?'
+    }, () => {
+      let idItem = this.quyTrinh.listPhieuDanhGia.findIndex(item => item.IddmNhaCungUng === id);
+      this.quyTrinh.listPhieuDanhGia.splice(idItem, 1);
+    })
   }
 
   changePage(event) {
@@ -204,9 +232,4 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     this.GetListNhaCungUng(false);
   }
 
-  test(item){
-    console.log(item);
-    console.log(DateToUnix(item));
-    // console.log(new Date(item));
-  }
 }
