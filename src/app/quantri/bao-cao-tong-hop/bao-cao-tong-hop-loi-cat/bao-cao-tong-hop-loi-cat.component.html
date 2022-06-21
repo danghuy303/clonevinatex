@@ -3,6 +3,8 @@
 </div>
  <div class="p-d-flex p-ai-center p-jc-end p-mb-3">
     <div class="p-d-flex p-flex-row">
+        <button pButton pRipple label="Xuất báo cáo" icon="fa fa-file-excel" class="p-button-sm p-mr-2"
+            (click)="exportBaoCaoCa()"></button>
     </div>
     <div class="d-flex flex-column flex-lg-row p-mr-2">
         <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.keyWord" class="p-inputtext-sm" pInputText />

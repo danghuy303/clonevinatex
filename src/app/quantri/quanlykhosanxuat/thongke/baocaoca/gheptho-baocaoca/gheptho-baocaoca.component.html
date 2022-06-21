@@ -63,7 +63,7 @@
             <!-- <input *ngIf="tinhhinh.LoaiDuLieu === 'string'" type="text" class="p-inputtext-sm"
                 [(ngModel)]="tinhhinh.TinhHinhHoatDong_String" pInputText /> -->
             <textarea *ngIf="tinhhinh.LoaiDuLieu === 'string'" pInputTextarea
-                [(ngModel)]="item.TinhHinhHoatDong_String"></textarea>
+                [(ngModel)]="tinhhinh.TinhHinhHoatDong_String"></textarea>
             <p-inputNumber *ngIf="tinhhinh.LoaiDuLieu === 'double'" mode="decimal" [minFractionDigits]="2"
                 [maxFractionDigits]="2" locale="en-EN" [(ngModel)]="product.TinhHinhHoatDong_Double"></p-inputNumber>
         </div>

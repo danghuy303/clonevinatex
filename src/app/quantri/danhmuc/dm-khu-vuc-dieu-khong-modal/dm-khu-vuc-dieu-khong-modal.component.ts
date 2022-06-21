@@ -16,19 +16,26 @@ export class DmKhuVucDieuKhongModalComponent implements OnInit {
   opt: any = "";
   khongclicknhieu: any = false;
   listPhanXuong: any[];
-  listCapHutBase:any[];
-  listCap:any[];
-  listHut:any[];
+  listCapHutBase: any[];
+  listCap: any[];
+  listHut: any[];
   listHeThongDieuKhong: any[];
   constructor(public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.sanXuatService.DanhMucKhuVucDieuKhong().Get(this.item.Id).subscribe(res=>{
-      this.item = res;
+
+    if (this.opt === 'edit') {
+      this.sanXuatService.DanhMucKhuVucDieuKhong().Get(this.item.Id).subscribe(res => {
+        this.item = res;
+        this.getOptPhanXuong();
+        this.getCapHut();
+        this.getHeThongDieuKhong();
+      })
+    } else {
       this.getOptPhanXuong();
       this.getCapHut();
       this.getHeThongDieuKhong();
-    })
+    }
   }
 
   getOptPhanXuong() {
@@ -37,20 +44,20 @@ export class DmKhuVucDieuKhongModalComponent implements OnInit {
     })
   }
   getCapHut() {
-    this.sanXuatService.DanhMucCapHutDieuKhong().GetList({CurrentPage:0}).subscribe((res:any)=>{
+    this.sanXuatService.DanhMucCapHutDieuKhong().GetList({ CurrentPage: 0 }).subscribe((res: any) => {
       this.listCapHutBase = res;
       this.changeHeThong()
     })
   }
-  changeHeThong(){
-    if(validVariable(this.item.IddmHeThongDieuKhong)){
-      this.listHut = mapArrayForDropDown(this.listCapHutBase.filter(ele=>ele.IddmHeThongDieuKhong===this.item.IddmHeThongDieuKhong && ele.LoaiCapHutDieuKhong==="Hut"),'Ten','Id');
-      this.listCap = mapArrayForDropDown(this.listCapHutBase.filter(ele=>ele.IddmHeThongDieuKhong===this.item.IddmHeThongDieuKhong && ele.LoaiCapHutDieuKhong==="Cap"),'Ten','Id');
+  changeHeThong() {
+    if (validVariable(this.item.IddmHeThongDieuKhong)) {
+      this.listHut = mapArrayForDropDown(this.listCapHutBase.filter(ele => ele.IddmHeThongDieuKhong === this.item.IddmHeThongDieuKhong && ele.LoaiCapHutDieuKhong === "Hut"), 'Ten', 'Id');
+      this.listCap = mapArrayForDropDown(this.listCapHutBase.filter(ele => ele.IddmHeThongDieuKhong === this.item.IddmHeThongDieuKhong && ele.LoaiCapHutDieuKhong === "Cap"), 'Ten', 'Id');
       console.log(this.listCap)
       console.log(this.listCap)
       console.log(this.listCapHutBase)
       console.log(this.item.IddmHeThongDieuKhong)
-    }else{
+    } else {
       this.item.listIddmCapDieuKhong = [];
       this.item.listIddmHutDieuKhong = [];
       this.listHut = [];

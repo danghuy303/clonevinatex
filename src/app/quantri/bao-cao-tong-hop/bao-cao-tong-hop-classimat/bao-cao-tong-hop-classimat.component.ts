@@ -118,4 +118,14 @@ export class BaoCaoTongHopClassimatComponent extends StoreBase implements OnInit
       }
     })
   }
+  exportBaoCaoCa(){
+    this.filter.Ngay = DateToUnix(this.filter.NgayChon);
+    this._services.QuyTrinhClassimat().XuatBaoCao(this.filter).subscribe((res:any)=>{
+      if(res.State ===1){
+        this._services.download(res.TenFile);
+      }else{
+        this.toastr.error(res.message);
+      }
+    })
+  }
 }
