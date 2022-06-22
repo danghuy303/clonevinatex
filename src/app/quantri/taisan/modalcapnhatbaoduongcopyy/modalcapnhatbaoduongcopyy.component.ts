@@ -57,7 +57,6 @@ export class
         this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
         if (!this.existedItems.includes(this.item.IddmLoaiBaoDuong)) {
           this.activeModal.close(this.item); 
-          console.log(this.item)
         }
         else {
           this.toastr.error("Đã tồn tại!");
