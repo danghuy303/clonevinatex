@@ -11,7 +11,7 @@
               styleClass="p-inputtext-sm"
               [options]="CongDoan"
               [(ngModel)]="filter.MaCongDoan"
-              (onChange)="getDataBaoCao(filter)"
+              (onChange)="getDataBaoCao()"
               [showClear]="true"
             >
             </p-dropdown>
@@ -23,7 +23,7 @@
               styleClass="p-inputtext-sm"
               [options]="PhanXuong"
               [(ngModel)]="filter.IdBoPhanSuDung"
-              (onChange)="getDataBaoCao(filter)"
+              (onChange)="getDataBaoCao()"
               [showClear]="true"
             ></p-dropdown>
           </div>
@@ -37,7 +37,7 @@
             inputId="icon"
             placeholder="Từ ngày"
             [(ngModel)]="filter.TuNgay"
-            (onSelect)="getDataBaoCao(filter)"
+            (onSelect)="getDataBaoCao()"
           >
           </p-calendar>
         </div>
@@ -50,7 +50,7 @@
             placeholder="Đến ngày"
             [minDate]="filter.TuNgay"
             [(ngModel)]="filter.DenNgay"
-            (onSelect)="getDataBaoCao(filter)"
+            (onSelect)="getDataBaoCao()"
           >
           </p-calendar>
         </div>
