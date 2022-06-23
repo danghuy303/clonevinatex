@@ -37,7 +37,12 @@
             inputId="icon"
             placeholder="Từ ngày"
             [(ngModel)]="filter.TuNgay"
+<<<<<<< HEAD
             (onSelect)="getDataBaoCao()"
+=======
+            [maxDate]="filter.DenNgay"
+            (onSelect)="getDataBaoCao(filter)"
+>>>>>>> cdffef879543ce27a76745712c23d44c3726b222
           >
           </p-calendar>
         </div>

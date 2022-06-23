@@ -78,7 +78,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nước sản xuất : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sản lượng (tấn) : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NuocSanXuat" pInputText />
             </div>
@@ -144,14 +144,14 @@
     <p-panel header="Chi tiết vật tư" [toggleable]="true">
         <ng-template pTemplate="content">
             <p-tabView (onChange)="changeTab($event)">
-                <p-tabPanel header="Lịch bảo dưỡng">
+                <!-- <p-tabPanel header="Lịch bảo dưỡng">
                     <ng-template pTemplate="content">
                         <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan">
                         </app-taomoilichbaoduongcopy>
                         <app-taomoilichbaoduongcopy *ngIf="item.TaiSan === undefined" [item]="item">
                         </app-taomoilichbaoduongcopy>
                     </ng-template>
-                </p-tabPanel>
+                </p-tabPanel> -->
                 <p-tabPanel header="Thông số kỹ thuật">
                     <ng-template pTemplate="content">
                         <app-thongsokythuat *ngIf="item.TaiSan !== undefined"

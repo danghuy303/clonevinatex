@@ -73,7 +73,7 @@ export class QuycachdonggoiComponent implements OnInit {
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'quycachdonggoi';
-    modalRef.componentInstance.title = 'Thêm mới danh mục nhóm công tơ';
+    modalRef.componentInstance.title = 'Thêm mới danh mục quy cách đóng gói';
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetDanhSach()
@@ -84,7 +84,7 @@ export class QuycachdonggoiComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
-    modalRef.componentInstance.title = 'Cập nhật danh mục nhóm công tơ';
+    modalRef.componentInstance.title = 'Cập nhật danh mục quy cách đóng gói';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.type = 'quycachdonggoi';
     modalRef.result.then(res=>{

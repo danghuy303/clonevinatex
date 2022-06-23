@@ -24,7 +24,7 @@ export class BaocaodieukhongComponent extends StoreBase implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filter.NgayChon = new Date(new Date().getTime() - 24*60*60*1000);
+    this.filter.NgayChon = new Date();
     this.GetAllOptions();
   }
   ngAfterViewInit(): void {

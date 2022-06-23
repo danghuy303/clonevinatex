@@ -250,6 +250,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
+    modalRef.componentInstance.IdBoPhanSuDung = this.item.TaiSan.IdBoPhanSuDung;
     modalRef.result
       .then((res: any) => {
         this.item.TaiSan.listTaiSan[index] = res;
