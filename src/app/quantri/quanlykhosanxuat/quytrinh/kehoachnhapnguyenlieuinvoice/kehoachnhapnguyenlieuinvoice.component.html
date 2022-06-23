@@ -74,7 +74,9 @@
                 <td class="text-center">{{item.SoHopDong}}</td>
                 <td class="text-center">{{item.MaInvoice}}</td>
                 <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
-                <td class="text-left">{{item.NoiDung}}</td>
+                <td class="text-left">
+                    {{item.NoiDung}}
+                </td>
                 <td class="text-center">{{item.TongKhoiLuongNhap|number:'0.0'}}</td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}

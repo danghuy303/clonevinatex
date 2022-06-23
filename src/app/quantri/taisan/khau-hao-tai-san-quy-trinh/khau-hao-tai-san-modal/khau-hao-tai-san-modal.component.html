@@ -32,7 +32,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Bộ phận sử dụng <span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"
+                <p-dropdown [filter]="true" [options]="listdmPhanXuong" (onChange)="ChonLoaiTaiSan()" placeholder="Bộ phận sử dụng"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
             </div>
         </div>

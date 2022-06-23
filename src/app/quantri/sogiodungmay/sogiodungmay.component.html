@@ -11,7 +11,7 @@
               styleClass="p-inputtext-sm"
               [options]="CongDoan"
               [(ngModel)]="filter.MaCongDoan"
-              (onChange)="getDataBaoCao(filter)"
+              (onChange)="getDataBaoCao()"
               [showClear]="true"
             >
             </p-dropdown>
@@ -23,7 +23,7 @@
               styleClass="p-inputtext-sm"
               [options]="PhanXuong"
               [(ngModel)]="filter.IdBoPhanSuDung"
-              (onChange)="getDataBaoCao(filter)"
+              (onChange)="getDataBaoCao()"
               [showClear]="true"
             ></p-dropdown>
           </div>
@@ -37,7 +37,7 @@
             inputId="icon"
             placeholder="Từ ngày"
             [(ngModel)]="filter.TuNgay"
-            (onSelect)="getDataBaoCao(filter)"
+            (onSelect)="getDataBaoCao()"
           >
           </p-calendar>
         </div>
@@ -50,9 +50,19 @@
             placeholder="Đến ngày"
             [minDate]="filter.TuNgay"
             [(ngModel)]="filter.DenNgay"
-            (onSelect)="getDataBaoCao(filter)"
+            (onSelect)="getDataBaoCao()"
           >
           </p-calendar>
+        </div>
+
+        <div>
+          <button
+            pButton
+            type="button"
+            label="Biểu đồ"
+            class="p-button-sm"
+            (click)="showBasicDialog()"
+          ></button>
         </div>
       </div>
     </div>
@@ -96,3 +106,22 @@
     </div>
   </div>
 </div>
+
+<p-dialog
+  header="Biểu đồ Chi tiết theo từng máy"
+  [(visible)]="displayBasic"
+  [style]="{ width: '80vw' }"
+  [modal]="true"
+>
+  <div>
+    <p-chart type="bar" [data]="data4" [options]="options4"></p-chart>
+  </div>
+  <ng-template pTemplate="footer">
+    <!-- <p-button
+      icon="pi pi-check"
+      (click)="displayBasic = false"
+      label="Ok"
+      styleClass="p-button-text"
+    ></p-button> -->
+  </ng-template>
+</p-dialog>

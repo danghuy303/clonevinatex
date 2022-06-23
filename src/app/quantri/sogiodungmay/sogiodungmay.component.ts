@@ -1,5 +1,4 @@
 import { formatNumber } from '@angular/common';
-import { map } from 'rxjs/operators';
 import { Component, OnInit } from "@angular/core";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
@@ -32,6 +31,9 @@ export class SogiodungmayComponent implements OnInit {
     "#2f995a",
     "#FFC000",
     "#5B9BD5",
+    "#9501AF",
+    "#F8FE06",
+    "#B40042"
   ]
 
   TenLoaiSuCo: any;
@@ -61,24 +63,28 @@ export class SogiodungmayComponent implements OnInit {
       position: "left",
     },
 
-    onClick: (event, array) => {
-      let index = array[0]._index;
+    onClick: ($event, array) => {
 
-      this.TenLoaiSuCo = this.SuCo[index].ten;
+      event.stopPropagation();
+
+      let index = array[0]?._index;
+
+      this.TenLoaiSuCo = this.SuCo[index]?.ten;
+      // console.log(this.TenLoaiSuCo);
       this.ColorLoaiSuCo = this.backgroundColor[index];
 
-      // TheoSuCo
+      // Click on chart1 to get TheoSuCo chart
       let data = {
         ...this.filter,
-        IddmLoaiSuCo: this.SuCo[index].id,
+        IddmLoaiSuCo: this.SuCo[index]?.id,
         TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
       };
 
       this.taisanService.getDataBaoCao().GetDataLoaiSuCo(data).subscribe((res: any) => {
 
-        let labels = res.Data.map((r) => { return r.Ten });
+        let labels: any[] = res.Data.map((r) => { return r.Ten });
 
-        let dataChart = res.Data.map((r) => { return r.SoGio });
+        let dataChart: any[] = res.Data.map((r) => { return r.SoGio });
 
         this.data2 = {
           labels: labels,
@@ -112,6 +118,10 @@ export class SogiodungmayComponent implements OnInit {
       yAxes: [
         {
           position: "left",
+          ticks: {
+            min: 0,
+            beginAtZero: true,
+          }
         },
       ],
     },
@@ -139,135 +149,114 @@ export class SogiodungmayComponent implements OnInit {
         }
       }
     },
-
     plugins: {
       labels: {
         render: () => { },
       }
     },
-
-    maintainAspectRatio: false,
+    // maintainAspectRatio: false,
     scales: {
       yAxes: [
         {
           position: "left",
+          ticks: {
+            min: 0,
+            beginAtZero: true,
+          }
         },
       ],
     },
   };
 
+  //chart 4
+  data4: any = {
+    labels: ['Máy 1', 'Máy 2', 'Máy 3', 'Máy 4', 'Máy 5'],
+    datasets: [
+      {
+        label: 'Số giờ hoạt động',
+        data: [65, 59, 80, 81, 56],
+        backgroundColor: "#4472C4",
+      },
+      {
+        label: 'Số giờ dừng hoạt động',
+        data: [65, 59, 80, 81, 56],
+        backgroundColor: "#ED7D31",
+      },
+
+    ]
+  };
+  options4 = {
+    type: 'bar',
+    tooltips: {
+      enabled: true,
+      mode: 'single',
+      // callbacks: {
+      //   label: function (tooltipItems, data) {
+      //     return tooltipItems.yLabel + ' giờ';
+      //   }
+      // }
+    },
+    plugins: {
+      title: {
+        display: true,
+        text: 'Chart.js Bar Chart - Stacked'
+      },
+    },
+    responsive: true,
+    scales: {
+      xAxes: [{
+        stacked: true,
+      }],
+      yAxes: [{
+        stacked: true
+      }]
+    }
+  };
+
   constructor(private _servicesSanXuat: SanXuatService, private _servicesTaiSan: TaisanService, private taisanService: TaisanService) { };
 
   ngOnInit(): void {
-    this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
-      this.CongDoan = mapArrayForDropDown(res, 'Ten', 'Ma')
-    })
 
-    this._servicesSanXuat.GetListdmPhanXuongOpt().subscribe((res: any) => {
-      this.PhanXuong = mapArrayForDropDown(res, 'Ten', 'Id')
-    })
+    let getListCongDoan = this._servicesSanXuat.GetListCongDoan().toPromise()
+
+    let getListDmPhanXuong = this._servicesSanXuat.GetListdmPhanXuongOpt().toPromise()
 
     let date = new Date();
     this.filter.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
+    Promise.all([getListCongDoan, getListDmPhanXuong]).then(([res1, res2]: any) => {
+
+      this.CongDoan = mapArrayForDropDown(res1, 'Ten', 'Ma');
+      this.filter.MaCongDoan = this.CongDoan[0].value;
+
+      this.PhanXuong = mapArrayForDropDown(res2, 'Ten', 'Id');
+      this.filter.IdBoPhanSuDung = this.PhanXuong[0].value;
+
+      this.getDataBaoCao();
+
+    }).catch(err => {
+      console.log('err', err)
+    })
+  }
+
+  getDataBaoCao() {
     let data = {
       ...this.filter,
       TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
     };
 
-    // TongHop Oninit
-    this.taisanService.getDataBaoCao().GetDataTongHop(data).subscribe((res: any) => {
-      this.SuCo = res.Data.map(r => ({ id: r.IddmLoaiSuCo, ten: r.Ten }));
+    this.getChart1and2(data);
 
-      let labels = res.Data.map(r => { return r.Ten });
-
-      let dataChart = res.Data.map(r => { return r.SoGio });
-
-      this.data1 = {
-        labels: labels,
-        datasets: [
-          {
-            data: dataChart,
-            backgroundColor: this.backgroundColor,
-            hoverBackgroundColor: this.backgroundColor,
-          },
-        ],
-      };
-
-      // TheoLoaiSuCo Oninit
-      this.TenLoaiSuCo = this.SuCo[0].ten;
-      this.ColorLoaiSuCo = this.backgroundColor[0];
-
-      let dataTheoSuCo = {
-        ...this.filter,
-        IddmLoaiSuCo: this.SuCo[0].id,
-        TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
-      };
-
-      this.taisanService.getDataBaoCao().GetDataLoaiSuCo(dataTheoSuCo).subscribe((res: any) => {
-
-        let labels = res.Data.map((r) => { return r.Ten });
-
-        let dataChart = res.Data.map((r) => { return r.SoGio });
-
-        this.data2 = {
-          labels: labels,
-          datasets: [
-            {
-              data: dataChart,
-              fill: false,
-              backgroundColor: this.ColorLoaiSuCo,
-            },
-          ],
-        };
-      });
-    });
-
-    // TheoNgay Oninit
-    this.taisanService.getDataBaoCao().GetDataTheoNgay(data).subscribe((res: any) => {
-
-      let labels = res.Data.map((r) => { return `${new Date(r.Ngay).getDate()}/${new Date(r.Ngay).getMonth() + 1}/${new Date(r.Ngay).getFullYear()}` });
-
-      let datasets = [];
-
-      let ListSuCo = res.Data.map((r) => { return r.listSuCoTheoNgay });
-
-      let TenSuCo = ListSuCo[0].map((r) => { return r.TendmLoaiSuCo });
-
-      for (let i = 0; i < TenSuCo.length; i++) {
-        let dataset = {
-          label: TenSuCo[i],
-          data: [],
-          fill: false,
-          backgroundColor: this.backgroundColor[i],
-        }
-        res.Data.forEach(ngay => {
-          dataset.data.push(ngay.listSuCoTheoNgay[i]?.SoGio)
-        });
-        datasets.push(dataset)
-      }
-      this.data3 = {
-        labels: labels,
-        datasets: datasets
-      };
-    })
+    this.getChart3(data);
   }
 
-  getDataBaoCao(filter) {
-    let data = {
-      ...filter,
-      TuNgay: DateToUnix(filter.TuNgay), DenNgay: DateToUnix(filter.DenNgay),
-    };
-
-    // TongHop
+  getChart1and2(data: any) {
     this.taisanService.getDataBaoCao().GetDataTongHop(data).subscribe((res: any) => {
+      // console.log(res)
       this.SuCo = res.Data.map(r => ({ id: r.IddmLoaiSuCo, ten: r.Ten }));
-
       let labels = res.Data.map(r => { return r.Ten });
-
       let dataChart = res.Data.map(r => { return r.SoGio });
-
       this.data1 = {
         labels: labels,
         datasets: [
@@ -278,20 +267,53 @@ export class SogiodungmayComponent implements OnInit {
           },
         ],
       };
+
+      if (res.Data.length != 0) {
+        this.TenLoaiSuCo = this.SuCo[0]?.ten;
+        this.ColorLoaiSuCo = this.backgroundColor[0];
+        let dataTheoSuCo = {
+          ...this.filter,
+          IddmLoaiSuCo: this.SuCo[0]?.id,
+          TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
+        };
+        this.getChart2(dataTheoSuCo);
+      } else {
+        this.TenLoaiSuCo = '';
+        this.ColorLoaiSuCo = '';
+        let dataTheoSuCo = {
+          ...this.filter,
+          IddmLoaiSuCo: '',
+          TuNgay: 0, DenNgay: 0,
+        };
+        this.getChart2(dataTheoSuCo)
+      }
     });
+  };
 
-    // TheoNgay
+  getChart2(data: any) {
+    this.taisanService.getDataBaoCao().GetDataLoaiSuCo(data).subscribe((res: any) => {
+      let labels = res.Data.map((r) => { return r.Ten });
+      let dataChart = res.Data.map((r) => { return r.SoGio });
+      this.data2 = {
+        labels: labels,
+        datasets: [
+          {
+            data: dataChart,
+            fill: false,
+            backgroundColor: this.ColorLoaiSuCo,
+          },
+        ],
+      };
+    });
+  };
+
+  getChart3(data: any) {
     this.taisanService.getDataBaoCao().GetDataTheoNgay(data).subscribe((res: any) => {
-
       let labels = res.Data.map((r) => { return `${new Date(r.Ngay).getDate()}/${new Date(r.Ngay).getMonth() + 1}/${new Date(r.Ngay).getFullYear()}` });
-
       let datasets = []
-
       let ListSuCo = res.Data.map((r) => { return r.listSuCoTheoNgay })
-
-      let TenSuCo = ListSuCo[0].map((r) => { return r.TendmLoaiSuCo })
-
-      for (let i = 0; i < TenSuCo.length; i++) {
+      let TenSuCo = ListSuCo[0]?.map((r) => { return r.TendmLoaiSuCo })
+      for (let i = 0; i < TenSuCo?.length; i++) {
         let dataset = {
           label: TenSuCo[i],
           data: [],
@@ -308,5 +330,10 @@ export class SogiodungmayComponent implements OnInit {
         datasets: datasets
       };
     })
+  };
+
+  displayBasic: boolean;
+  showBasicDialog() {
+    this.displayBasic = true;
   }
 }
