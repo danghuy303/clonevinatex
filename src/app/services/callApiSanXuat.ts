@@ -1148,6 +1148,9 @@ export class SanXuatService {
             GetTyLeThongKeSanLuongBongPhe: (IdThongKeSanLuong: any = '') => {
                 return this.http.get(url + `GetTyLeThongKeSanLuongBongPhe?IdThongKeSanLuong=${IdThongKeSanLuong}`, httpOptions)
             },
+            GetTyLeThongKeSanLuongBongPheNhieuCa:(NgayUnix,IddmPhanXuong)=>{
+                return this.http.get(url + `GetTyLeThongKeSanLuongBongPheNhieuCa?NgayUnix=${NgayUnix}&IddmPhanXuong=${IddmPhanXuong}`,httpOptions)
+            },
             TinhTyLeThongKeSanLuongBongPhe: (data) => {
                 console.log('service', data);
                 return this.http.post(`${url}TinhTyLeThongKeSanLuongBongPhe`, data, httpOptions)

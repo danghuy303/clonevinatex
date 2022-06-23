@@ -72,7 +72,7 @@ export class DmKhuVucDieuKhongModalComponent implements OnInit {
   }
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;
-    if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null && this.item.IddmPhanXuong !== undefined && this.item.IddmPhanXuong !== null) {
+    if (validVariable(this.item.Ma) && validVariable(this.item.Ten) &&validVariable(this.item.IddmPhanXuong)) {
       this.Save();
     } else {
       this.khongclicknhieu = !this.khongclicknhieu;

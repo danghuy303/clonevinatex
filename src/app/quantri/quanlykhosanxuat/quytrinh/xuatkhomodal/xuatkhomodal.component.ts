@@ -235,8 +235,8 @@ export class XuatkhomodalComponent implements OnInit {
 
   GetQuyTrinhFilter() {
     let items = [];
-    items = this.item.listItem.filter(ele=>ele.Ten.toLowerCase().indexOf(this.filter.KeyWord)!== -1
-                                      || ele.MaKienDoi.toLowerCase().indexOf(this.filter.KeyWord)!== -1);
+    items = this.item.listItem.filter(ele=>ele.Ten?.toLowerCase().includes(this.filter.KeyWord)|| ele.MaKienDoi?.toLowerCase().includes(this.filter.KeyWord));
+    console.log(this.item.listItem)
     this.listItem = deepCopy(items);
     this.paginator.changePage(0)
     this.paging.CurrentPage = 1;

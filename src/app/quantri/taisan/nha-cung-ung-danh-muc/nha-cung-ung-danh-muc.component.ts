@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { validVariable } from 'src/app/services/globalfunction';
+import { handleHTTPResponse, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NhaCungUngModalComponent } from './nha-cung-ung-modal/nha-cung-ung-modal.component';
@@ -156,8 +156,10 @@ export class NhaCungUngDanhMucComponent implements OnInit {
       .then((res: any) => {
         this.fileUpload = res;
         console.log(this.fileUpload[0].Name);
-        this.taiSanService.NhaCungUng().Import(this.fileUpload[0]).subscribe(()=>{
-          this.ResetListNhaCungUng();
+        this.taiSanService.NhaCungUng().Import(this.fileUpload[0]).subscribe((res: any) => {
+          handleHTTPResponse(res, this.toast, () => {
+            this.ResetListNhaCungUng();
+          })
         })
       })
       .catch(er => {})

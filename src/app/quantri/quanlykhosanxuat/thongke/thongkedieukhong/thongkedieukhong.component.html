@@ -176,7 +176,9 @@
                      type="text"
                      class="p-inputtext-sm"
                      [(ngModel)]="vanhanh.MoTa"
-                     pInputText />
+                     pInputText 
+                     [pTooltip]="vanhanh.MoTa" showDelay="500" tooltipPosition="bottom"
+                     />
                   <!-- <textarea
                      pInputTextarea
                      [(ngModel)]="vanhanh.MoTa"></textarea> -->
