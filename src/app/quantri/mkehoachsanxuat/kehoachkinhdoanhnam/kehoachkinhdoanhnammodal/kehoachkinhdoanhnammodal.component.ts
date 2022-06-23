@@ -23,6 +23,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     KhongDuyet: true,
     ChuyenTiep: true,
   };
+  listMatHang: any = [];
   kehoach: any = {};
   years: any = [];
   listDonViTienTe: Array<any> = [{ value: 'VND', label: 'Việt Nam Đồng' }, { value: 'USD', label: 'USD' }];
