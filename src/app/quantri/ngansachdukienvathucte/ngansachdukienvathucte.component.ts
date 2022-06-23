@@ -60,6 +60,8 @@ export class NgansachdukienvathucteComponent implements OnInit {
       y: {
         ticks: {
           color: "#495057",
+          min: 0,
+          beginAtZero: true,
         },
         grid: {
           color: "#ebedef",

@@ -149,13 +149,11 @@ export class SogiodungmayComponent implements OnInit {
         }
       }
     },
-
     plugins: {
       labels: {
         render: () => { },
       }
     },
-
     // maintainAspectRatio: false,
     scales: {
       yAxes: [
@@ -168,6 +166,51 @@ export class SogiodungmayComponent implements OnInit {
         },
       ],
     },
+  };
+
+  //chart 4
+  data4: any = {
+    labels: ['Máy 1', 'Máy 2', 'Máy 3', 'Máy 4', 'Máy 5'],
+    datasets: [
+      {
+        label: 'Số giờ hoạt động',
+        data: [65, 59, 80, 81, 56],
+        backgroundColor: "#4472C4",
+      },
+      {
+        label: 'Số giờ dừng hoạt động',
+        data: [65, 59, 80, 81, 56],
+        backgroundColor: "#ED7D31",
+      },
+
+    ]
+  };
+  options4 = {
+    type: 'bar',
+    tooltips: {
+      enabled: true,
+      mode: 'single',
+      // callbacks: {
+      //   label: function (tooltipItems, data) {
+      //     return tooltipItems.yLabel + ' giờ';
+      //   }
+      // }
+    },
+    plugins: {
+      title: {
+        display: true,
+        text: 'Chart.js Bar Chart - Stacked'
+      },
+    },
+    responsive: true,
+    scales: {
+      xAxes: [{
+        stacked: true,
+      }],
+      yAxes: [{
+        stacked: true
+      }]
+    }
   };
 
   constructor(private _servicesSanXuat: SanXuatService, private _servicesTaiSan: TaisanService, private taisanService: TaisanService) { };
@@ -289,4 +332,8 @@ export class SogiodungmayComponent implements OnInit {
     })
   };
 
+  displayBasic: boolean;
+  showBasicDialog() {
+    this.displayBasic = true;
+  }
 }
