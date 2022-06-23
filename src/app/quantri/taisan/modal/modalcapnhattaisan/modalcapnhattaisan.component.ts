@@ -250,6 +250,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
+    modalRef.componentInstance.IdBoPhanSuDung = this.item.TaiSan.IdBoPhanSuDung;
     modalRef.result
       .then((res: any) => {
         this.item.TaiSan.listTaiSan[index] = res;
@@ -309,15 +310,16 @@ export class ModalcapnhattaisanComponent implements OnInit {
       size: "lg",
       backdrop: "static",
     });
-    modalRef.componentInstance.listItemDaChon = this.item.TaiSan.Id ? this.item.TaiSan.Id : "";
+    modalRef.componentInstance.listItemDaChon = this.item.TaiSan.IdThuVien ? this.item.TaiSan.IdThuVien : "";
     modalRef.componentInstance.item = this.item;
     modalRef.result
       .then((res: any) => {
         this.item = {
           SoQuyTrinh: this.item.SoQuyTrinh,
           TaiSan: {
-            Id: null,
             ...res,
+            IdThuVien: res.Id,
+            Id: null,
             ThoiGianDuaVaoSuDung: UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix),
             NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
           },

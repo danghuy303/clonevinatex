@@ -157,6 +157,7 @@ export class NhapvattuComponent implements OnInit {
           let Ngay = UnixToDate(res.Data.NgayUnix);
           this.item.Ngay = Ngay;
           this.ListNhaCungUng();
+          this.Tong();
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
         }

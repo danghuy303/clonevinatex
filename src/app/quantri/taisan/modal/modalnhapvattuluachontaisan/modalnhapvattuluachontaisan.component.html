@@ -14,16 +14,20 @@
         </div>
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2 p-inputgroup">
-                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
+                <!-- <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
                     (keyup.enter)="GetList()" />
                     <button type="button" pButton pRipple icon="pi pi-search"
                     class="p-button-secondary p-button-sm p-button-text" (click)="GetList()"></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh"
-                    class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+                    class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button> -->
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [(ngModel)]="Keyword" (ngModelChange)="seach()" placeholder="Tìm kiếm" />
+                    </span>
             </div>
         </div>
     </div>
-    <p-table [value]="items" styleClass="p-treetable p-datatable-striped p-datatable-gridlines">
+    <p-table #table [value]="items | filter:Keyword" styleClass="p-treetable p-datatable-striped p-datatable-gridlines" [paginator]="true" [rows]="20">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width:50px" class="text-center">
@@ -44,21 +48,24 @@
                     </p-checkbox>
                 </td>
                 <td  style="width: 150px;">
-                    {{item.MaTaiSan}} - {{item.TenTaiSan}}
+                    {{item.MaTenTaiSan}}
                 </td>
                 <td >
-                    {{item.Ma}} - {{item.Ten}}
+                    {{item.MaTenVatTu}}
                 </td>
                 <!-- <td class="text-right"> {{item.NguyenGia | number:'0.0-0'}}</td>
                 <td class="text-right"> {{item.GiaTriConLai | number:'0.0-0'}}</td> -->
                 <td >{{item.GhiChu}}</td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="summary">
+        <!-- <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
                 Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
                     [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
+        </ng-template> -->
+        <ng-template pTemplate="paginatorleft">
+            Tổng số bản ghi {{(items | filter:Keyword)?.length}}.
         </ng-template>
     </p-table>
 </div>

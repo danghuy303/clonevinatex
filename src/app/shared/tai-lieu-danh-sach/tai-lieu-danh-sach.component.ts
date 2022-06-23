@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -11,7 +11,7 @@ import { host1 } from 'src/app/services/host';
   templateUrl: './tai-lieu-danh-sach.component.html',
   styleUrls: ['./tai-lieu-danh-sach.component.css']
 })
-export class TaiLieuDanhSachComponent implements OnInit {
+export class TaiLieuDanhSachComponent implements OnInit, OnChanges {
 
   @Input() item: any;
   listTaiLieu: any = [];
@@ -24,8 +24,11 @@ export class TaiLieuDanhSachComponent implements OnInit {
   ) {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("this.item", this.item);
+  }
+
   ngOnInit(): void {
- 
   }
 
   taiLenFileDinhKem() {
@@ -46,7 +49,6 @@ export class TaiLieuDanhSachComponent implements OnInit {
           }
         }));
       }, (reason) => {
-
       });
   }
 
