@@ -129,7 +129,7 @@
                             <td>{{item.Ma}}</td>
                             <td>{{item.TenTaiSan}}</td>
                             <td class="text-center">
-                                <p-calendar [showTime]="true" dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                                <p-calendar [showTime]="true" dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [maxDate]="item.DenGio"
                                     [(ngModel)]="item.TuGio" inputId="icon">
                                 </p-calendar>
                             </td>

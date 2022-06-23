@@ -46,6 +46,8 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   labelThang: any = [];
   thangDaChon: any = 0;
   itemsLichXichThang: any = [];
+  tongGiaTriVatTu: 0;
+  tongGiaTriChiPhi: 0;
 
   constructor(
     public _modal: NgbModal,
@@ -120,6 +122,8 @@ export class BaocaotonghoptaisanComponent implements OnInit {
 
   GetListChiPhiPhatSinh(data) {
     this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiPhatSinh(data).subscribe((res: any) => {
+      this.tongGiaTriChiPhi = 0;
+      this.tongGiaTriChiPhi = res.Data.TongGiaTri;
       this.pagingChiPhi.TotalCount = res.Data.pagination.TotalCount;
       this.listChiPhiKhac = res.Data.pagination.Items;
     })
@@ -127,6 +131,8 @@ export class BaocaotonghoptaisanComponent implements OnInit {
 
   GetListChiPhiVatTu(data) {
     this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiVatTu(data).subscribe((res: any) => {
+      this.tongGiaTriVatTu = 0;
+      this.tongGiaTriVatTu = res.Data.TongTien;
       this.paging.TotalCount = res.Data.pagination.TotalCount;
       this.listVatTu = res.Data.pagination.Items;
       this.listVatTu.forEach(ele => {

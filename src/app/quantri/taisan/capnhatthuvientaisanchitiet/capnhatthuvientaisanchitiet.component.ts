@@ -53,7 +53,6 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.item.NgayNhap = !this.item.NgayNhap?new Date():UnixToDate(this.item.NgayNhapUnix);
     this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
     if (this.opt === 'add') {
     }
@@ -69,6 +68,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
     });
+    
   }
 
   GetListdmPhanXuong() {
@@ -123,8 +123,6 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
   }
   
   ThemMoiTaiSanCon() {
-    console.log(this.item);
-    
     let modalRef = this._modal.open(ModalthemmoiluachontaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",

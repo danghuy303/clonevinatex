@@ -71,6 +71,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
         })
       })
     })
+    console.log(this.listItemDaChon);
   }
 
   TreeItems(list) {
@@ -111,14 +112,6 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
   }
 
   GhiLai() {
-    this.items.forEach(ele => {
-      if (!this.listItemDaChon.includes(ele.data?.Id)) {
-        this.activeModal.close(this.FilterTree());
-      }
-      else {
-        this.toastr.error("Đã tồn tại!");
-      }
-    })
+    this.activeModal.close(this.FilterTree());
   }
-
 }

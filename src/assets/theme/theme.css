@@ -3020,7 +3020,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tabview .p-tabview-panels {
   background: #ffffff;
-  padding: 1.25rem;
+  padding: 1rem 0;
   border: 0 none;
   color: #212529;
   border-bottom-right-radius: 4px;

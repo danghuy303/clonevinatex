@@ -181,8 +181,11 @@
                 <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
-        <div class="p-mb-4" *ngIf="item.TaiSan">
+        <!-- <div class="p-mb-4" *ngIf="item.TaiSan">
             <app-tai-lieu-danh-sach [item]="item.TaiSan"></app-tai-lieu-danh-sach>
+        </div> -->
+        <div class="p-mb-4">
+            <app-tai-lieu-danh-sach [item]="item"></app-tai-lieu-danh-sach>
         </div>
         <p-panel header="Chi tiết tài sản" [toggleable]="true">
             <ng-template pTemplate="content">

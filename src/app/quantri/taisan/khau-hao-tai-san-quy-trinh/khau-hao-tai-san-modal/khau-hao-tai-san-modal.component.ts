@@ -56,17 +56,16 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
         return this.mapDataModelToView(ele, index);
       });
       this.listTaiSan_copy = listTaiSan;
-      this.Loaddata()
+      this.Loaddata();
+      console.log("item", this.item);
+      
     }
   }
 
   GetMinDate() {
     let d = new Date();
     console.log("year", d.getFullYear());
-    
     this.minDate = new Date(`01-01-${d.getFullYear()}`);
-    console.log("min date", this.minDate);
-    
   }
 
   Loaddata() {
@@ -95,10 +94,6 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
 
   Setdata() {
     this.item.NgayUnix = DateToUnix(this.item.Ngay);
-    if (this.opt === 'add') {
-      this.item.Created = new Date();
-      this.item.Modified = new Date();
-    }
     return this.item;
   }
 

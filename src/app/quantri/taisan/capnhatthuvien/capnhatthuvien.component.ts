@@ -122,6 +122,7 @@ export class CapnhatthuvienComponent implements OnInit {
         listThongSoKyThuat: [],
         listThongSoAnToan: [],
       },
+      listFileDinhKem: [],
      }
     modalRef.result.then(res => {
 

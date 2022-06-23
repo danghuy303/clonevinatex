@@ -14,7 +14,7 @@
     </div>
 
 </div>
-<div class="modal-body">
+<!-- <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
@@ -51,9 +51,11 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chọn tháng, năm  <span class="required">(*)</span></label>
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chọn tháng, năm <span class="required">(*)</span></label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon" (onSelect)="chonThang(item.ThoiGian, true)" placeholder="Chọn tháng, năm" [locale]="vi" [(ngModel)]="item.ThoiGian">
+                <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    inputId="icon" (onSelect)="chonThang(item.ThoiGian, true)" placeholder="Chọn tháng, năm"
+                    [locale]="vi" [(ngModel)]="item.ThoiGian">
                 </p-calendar>
             </div>
         </div>
@@ -63,12 +65,6 @@
                 <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row p-ai-center">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Thay thế:</label>
-            <div class="p-col-12 p-xl-10 p-p-0">
-                <p-checkbox [(ngModel)]="item.isThayThe" [binary]="true"></p-checkbox>
-            </div>
-        </div> -->
     </div>
 
     <p-tabView>
@@ -84,33 +80,92 @@
                     <div class="modal-bt p-col-12 p-lg-2 p-pl-0 p-pt-0 d-flex flex-column flex-lg-row">
                         <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
                         <div class="p-col-12 p-lg-8 p-p-0">
-                            <!-- Tổng số: {{item.listTaiSan?.length}}thiết bị -->
                         </div>
                     </div>
                 </div>
-                <app-taisanlichxichthang 
-                    [listTaiSan]="item.listTaiSan" 
-                    [soNgay]="ngayCuoiCungCuaThangDaChon" 
-                    [ThoiGianDaChon]="item.ThoiGian"
-                    [checkBtnChonTaiSan]="checkBtnChonTaiSan"
-                ></app-taisanlichxichthang>
+                <app-taisanlichxichthang [listTaiSan]="item.listTaiSan" [soNgay]="ngayCuoiCungCuaThangDaChon"
+                    [ThoiGianDaChon]="item.ThoiGian" [checkBtnChonTaiSan]="checkBtnChonTaiSan">
+                </app-taisanlichxichthang>
             </ng-template>
         </p-tabPanel>
-
-     <!-- <p-tabPanel header="Vật tư thay thế">
-            <ng-template pTemplate="content">
-                <app-vattulichxichthang [listTaiSan]="item.listTaiSan"></app-vattulichxichthang>
-            </ng-template>
-        </p-tabPanel>
-
-        <p-tabPanel header="Chi phí">
-            <ng-template pTemplate="content">
-                <app-chiphilichxichthang [listTaiSan]="item.listTaiSan"></app-chiphilichxichthang>
-            </ng-template>
-        </p-tabPanel> -->
     </p-tabView>
 
+</div> -->
+
+<div class="modal-body">
+    <div class="p-d-flex p-flex-row p-jc-between">
+        <div class="modal-bt p-mb-4 ">
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
+                (click)="activeModal.dismiss()"></button>
+            <button pButton pRipple *ngIf="checkbutton.Ghi" type="button" label="Ghi lại" class="p-mr-2 p-button-sm "
+                (click)="GhiLai()"></button>
+            <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
+                (click)="XoaQuyTrinh()"></button>
+            <button pButton *ngIf="checkbutton.ChuyenTiep" pRipple type="button" label="Chuyển duyệt"
+                class="p-mr-2 p-button-sm " (click)="ChapNhan()"></button>
+            <button pButton *ngIf="checkbutton.KhongDuyet" pRipple type="button" label="Không duyệt"
+                class="p-mr-2 p-button-sm " (click)="KhongDuyet()"></button>
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-6  p-p-2 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Nội dung</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <input locale="en-EN" pInputText [(ngModel)]="item.NoiDung" />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Bộ phận sử dụng <span class="required">(*)</span></label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận"
+                    [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Công đoạn</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <p-dropdown [filter]="true" [showClear]="true" [(ngModel)]="item.IddmLoaiTaiSan"
+                    placeholder="Chọn công đoạn"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chọn tháng, năm <span class="required">(*)</span></label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    inputId="icon" (onSelect)="chonThang(item.ThoiGian, true)" placeholder="Chọn tháng, năm"
+                    [locale]="vi" [(ngModel)]="item.ThoiGian">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ghi chú</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <textarea pInputTextarea [(ngModel)]="item.GhiChu" placeholder="Ghi chú"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <p-tabView>
+        <p-tabPanel header="Danh sách tài sản">
+            <ng-template pTemplate="content">
+                <div class="p-d-flex p-flex-row p-jc-end p-grid">
+                    <!-- <div class="modal-bt p-col-12 p-lg-4 p-pb-3 p-pl-0 p-pt-0 d-flex flex-column flex-lg-row ">
+                        <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "
+                            (click)="ThemMoiDanhSachTaiSan()"></button>
+                    </div> -->
+                    <span class="p-input-icon-left mb-3">
+                        <i class="pi pi-search"></i>
+                        <input type="text" pInputText placeholder="Tìm kiếm..." />
+                    </span>
+                </div>
+                <app-taisanlichxichthang [listTaiSan]="item.listTaiSan" [soNgay]="ngayCuoiCungCuaThangDaChon"
+                    [ThoiGianDaChon]="item.ThoiGian" [checkBtnChonTaiSan]="checkBtnChonTaiSan">
+                </app-taisanlichxichthang>
+            </ng-template>
+        </p-tabPanel>
+    </p-tabView>
 </div>
+
 <div class="modal-footer">
 
 </div>
