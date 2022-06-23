@@ -177,8 +177,8 @@ export class ThongkesanluongcamodalComponent implements OnInit {
 
     this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaSanXuat = res;
-      this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((listTyLeBongPhe: any) => {
-        console.trace(listTyLeBongPhe)
+      // if (validVariable(this.item.Ngay) && validVariable(this.item.IddmPhanXuong)) {
+      this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPheNhieuCa(DateToUnix(this.item.Ngay), this.item.IddmPhanXuong).subscribe((listTyLeBongPhe: any) => {
         this.KhoiLuongCa = res.map((_, index) => 0)
         if (this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null) {
           this.item.listThongKeSanLuong = [];
@@ -188,7 +188,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
               listItem: [],
               isTruVaoSanLuong: false,
               STT: element.STT,
-              listTyLeBongPhe: listTyLeBongPhe
+              listTyLeBongPhe: listTyLeBongPhe[element.Id]
             }
             this.item.listThongKeSanLuong.push(itemFind)
           });
@@ -211,6 +211,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
         }
         console.log(this.listCaSanXuat)
       })
+      // }
 
     })
   }
@@ -243,7 +244,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
 
       this.services.ThongKeSanLuong().GetMatHangTheoNgay(this.item.IddmPhanXuong, this.item.NgayUnix).subscribe((res: any) => {
         //console.log('res',res)
-        this.item.listThongKeSanLuong=[];
+        this.item.listThongKeSanLuong = [];
         res.forEach(element => {
           element.Id = null;
         });
@@ -402,11 +403,16 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   getItemTheoCongDoan() {
     if (this.item.CongDoan !== undefined && this.item.listThongKeSanLuong !== undefined && this.item.listThongKeSanLuong !== null) {
       this.thongKeFull = [];
-      this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe(this.item.Id).subscribe((res: any) => {
-        // this.item.SoQuyTrinh = res.SoQuyTrinh;
-        this.item.listTyLeBongPhe = res;
-        
-      })
+      if (validVariable(this.item.Ngay) && validVariable(this.item.IddmPhanXuong)) {
+        this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPheNhieuCa(DateToUnix(this.item.Ngay), this.item.IddmPhanXuong).subscribe((res: any) => {
+          for (let k in res) {
+            let found = this.item.listThongKeSanLuong.find(ele=>ele.IddmCaSanXuat===k)
+            if(found){
+              found.listTyLeBongPhe = res[k];
+            }
+          }
+        })
+      }
       let listItemCheck: any = [];
       if (this.item.CongDoan === "ONG") {
         listItemCheck = this.item.listThongKeSanLuong[0].listItem.filter(ele => ele.CongDoan === this.item.CongDoan);
@@ -458,8 +464,8 @@ export class ThongkesanluongcamodalComponent implements OnInit {
           }
         }
       })
-      console.log('this.item',this.item);
-      console.log('this.thongKeFull',this.thongKeFull);
+      console.log('this.item', this.item);
+      console.log('this.thongKeFull', this.thongKeFull);
     }
     let i = 0;
     this.listCaSanXuat.forEach(element => {
@@ -684,13 +690,15 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     }
     // //console.log(this.TongKhoiLuong);
     let found = this.item.listThongKeSanLuong[index].listTyLeBongPhe?.find(ele => ele.MaCongDoan === this.item.CongDoan);
-    if(found){
+    if (found) {
       found.TongKhoiLuongCongDoan = this.KhoiLuongCa[index];
       found.isTruVaoSanLuong = this.item.listThongKeSanLuong[index].isTruVaoSanLuong;
     }
-    this.services.ThongKeSanLuong().TinhTyLeThongKeSanLuongBongPhe(this.item.listThongKeSanLuong[index].listTyLeBongPhe).subscribe((res: any) => {
-      this.item.listThongKeSanLuong[index].listTyLeBongPhe = res;
-    })
+    if(validVariable(this.item.listThongKeSanLuong[index].listTyLeBongPhe)){
+      this.services.ThongKeSanLuong().TinhTyLeThongKeSanLuongBongPhe(this.item.listThongKeSanLuong[index].listTyLeBongPhe).subscribe((res: any) => {
+        this.item.listThongKeSanLuong[index].listTyLeBongPhe = res;
+      })
+    }
   }
 
   resetKhoiLuongCuiHoi(index) {
