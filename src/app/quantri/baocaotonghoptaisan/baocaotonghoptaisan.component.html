@@ -192,7 +192,7 @@
                     number:'0.0-0'}}
             </div> -->
                 <div class="d-flex justify-content-end p-mb-3">
-                    <strong>Tổng giá trị: {{tongGiaTriVatTu}} (VNĐ)</strong>
+                    <strong>Tổng giá trị: {{tongGiaTriVatTu | number:"0.0-0"}} (VNĐ)</strong>
                 </div>
                 <div class="p-mt-3">
                     <p-table [value]="listVatTu"
@@ -239,7 +239,7 @@
                 <!-- <div style="width: 100%; height: 53px">
             </div> -->
                 <div class="d-flex justify-content-end p-mb-3">
-                    <strong>Tổng giá trị: (VNĐ)</strong>
+                    <strong>Tổng giá trị:{{tongGiaTriChiPhi | number:"0.0-0"}} (VNĐ)</strong>
                 </div>
                 <div class="p-mt-3">
                     <p-table [value]="listChiPhiKhac"
