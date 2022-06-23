@@ -298,4 +298,8 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
     });
   }
 
+  ChonLoaiTaiSan() {
+    this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
+  }
+
 }
