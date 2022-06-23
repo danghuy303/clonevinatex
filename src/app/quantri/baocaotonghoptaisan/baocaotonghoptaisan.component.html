@@ -4,12 +4,12 @@
             placeholder="Chọn tháng năm" (onChange)="loadData(true)" styleClass="p-inputtext-sm"></p-dropdown>
     </div>
     <div class="p-mr-2">
-        <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
-            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.Ngay" [locale]="lang"
+        <p-calendar *ngIf="filter.LoaiKeHoach !== 'NAM'" dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.namThang" [locale]="lang"
             (onSelect)="loadData(true)" inputId="icon" placeholder="mm/yyyy">
         </p-calendar>
-        <!-- <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="filter.Ngay" placeholder="Chọn năm"
-            styleClass="p-inputtext-sm" (onChange)="loadData(true)"></p-dropdown> -->
+        <p-dropdown *ngIf="filter.LoaiKeHoach === 'NAM'" [filter]="true" [options]="listNam" [(ngModel)]="filter.nam" placeholder="Chọn năm"
+            styleClass="p-inputtext-sm" (onChange)="loadData(true)"></p-dropdown>
     </div>
     <div class="p-mr-2">
         <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "

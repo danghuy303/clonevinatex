@@ -29,6 +29,8 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   pagingChiPhi: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   filter: any = {};
+  namThang: any;
+  nam: any;
   listLoaiTaiSan: any = [];
   listPhanXuong: any = [];
   lang: any = vn;
@@ -57,8 +59,13 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+      this.listNam.push({ value: i, label: i });
+    }
     this.filter.LoaiKeHoach = this.listThoiGian[0].value;
-    this.filter.Ngay = new Date();
+    // this.filter.Ngay = new Date();
+    this.filter.namThang = new Date();
+    this.filter.nam = new Date().getFullYear();
     this.filter.isChon = 'theoBaoDuong'
     let data = {
       Keyword: "",
@@ -86,10 +93,16 @@ export class BaocaotonghoptaisanComponent implements OnInit {
 
   loadData() {
     // goi thang nao hien so ngay trong thang
-    let month = this.filter.Ngay.getMonth() + 1;
-    let year = this.filter.Ngay.getFullYear();
+    // let month = this.filter.Ngay.getMonth() + 1;
+    // let year = this.filter.Ngay.getFullYear();
+    // this.thangDaChon = new Date(year, month, 0).getDate();
+    // this.labelThang = [];
+    let month = this.filter.namThang.getMonth() + 1;
+    let year = this.filter.namThang.getFullYear();
     this.thangDaChon = new Date(year, month, 0).getDate();
     this.labelThang = [];
+
+    this.filter.Ngay = (this.filter.LoaiKeHoach === 'NAM')?DateToUnix(new Date (this.filter.nam, 1, 1)): DateToUnix(this.filter.namThang);
     for (let i = 1; i <= this.thangDaChon; i++) {
       this.labelThang.push(i);
     }
@@ -101,7 +114,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       IdUser: '',
-      Ngay: DateToUnix(this.filter.Ngay),
+      Ngay: this.filter.Ngay,
       LoaiKeHoach: this.filter.LoaiKeHoach,
       IdDuAn: 0,
     };
@@ -124,8 +137,8 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiPhatSinh(data).subscribe((res: any) => {
       this.tongGiaTriChiPhi = 0;
       this.tongGiaTriChiPhi = res.Data.TongGiaTri;
-      this.pagingChiPhi.TotalCount = res.Data.pagination.TotalCount;
-      this.listChiPhiKhac = res.Data.pagination.Items;
+      this.pagingChiPhi.TotalCount = res.Data?.pagination?.TotalCount;
+      this.listChiPhiKhac = res.Data?.pagination?.Items;
     })
   }
 
@@ -133,9 +146,9 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiVatTu(data).subscribe((res: any) => {
       this.tongGiaTriVatTu = 0;
       this.tongGiaTriVatTu = res.Data.TongTien;
-      this.paging.TotalCount = res.Data.pagination.TotalCount;
-      this.listVatTu = res.Data.pagination.Items;
-      this.listVatTu.forEach(ele => {
+      this.paging.TotalCount = res.Data?.pagination?.TotalCount;
+      this.listVatTu = res.Data?.pagination?.Items;
+      this.listVatTu?.forEach(ele => {
         ele.ThanhTien =0;
         ele.ThanhTien = ele.SoLuong * ele.DonGia;
       })
