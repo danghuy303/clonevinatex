@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title">Chi tiết hợp đồng</h5>
+  <h5 class="modal-title">Danh sách hợp đồng của sản phẩm ... năm kế hoạch ... </h5>
 </div>
 <div class="modal-body">
   <div class="p-d-flex p-flex-row p-jc-between">
@@ -13,10 +13,10 @@
     <p-table [value]="hopdong.listSanPham" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped">
       <ng-template pTemplate="colgroup">
         <colgroup>
-          <col style="width: 50px">
+          <!-- <col style="width: 50px"> -->
           <col>
-          <col>
-          <col>
+          <!-- <col>
+          <col> -->
           <col>
           <col>
           <col>
@@ -24,27 +24,29 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th>
+          <!-- <th>
             <p-checkbox value="checkedAll" (onChange)="checkAll()"></p-checkbox>
-          </th>
+          </th> -->
           <th>Hợp đồng</th>
-          <th>Sản phẩm</th>
-          <th>Năm</th>
+          <!-- <th>Sản phẩm</th>
+          <th>Năm</th> -->
           <th>Tổng sản lượng (tấn)</th>
           <th>Đã sản xuất (tấn)</th>
+          <th>Sản lượng dở dang (tấn)</th>
           <th>Còn lại (tấn)</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-product>
         <tr>
-          <td  class="text-center">
+          <!-- <td  class="text-center">
             <p-checkbox value="product.checked" (onChange)="check(product)"></p-checkbox>
-          </td>
+          </td> -->
           <td>{{product.HopDong}}</td>
-          <td>{{product.TenSanPham}}</td>
-          <td class="text-center">{{product.Nam}}</td>
+          <!-- <td>{{product.TenSanPham}}</td>
+          <td class="text-center">{{product.Nam}}</td> -->
           <td class="text-right">{{product.TongSanLuong | number:'0.0'}}</td>
           <td class="text-right">{{product.DaSanXuat | number:'0.0'}}</td>
+          <td class="text-right">{{product.SanLuongDoDang | number:'0.0'}}</td>
           <td class="text-right">{{product.ConLai | number:'0.0'}}</td>
         </tr>
       </ng-template>
