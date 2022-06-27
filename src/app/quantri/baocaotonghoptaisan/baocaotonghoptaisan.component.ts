@@ -92,6 +92,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   }
 
   loadData() {
+
     // goi thang nao hien so ngay trong thang
     // let month = this.filter.Ngay.getMonth() + 1;
     // let year = this.filter.Ngay.getFullYear();
@@ -106,9 +107,10 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     for (let i = 1; i <= this.thangDaChon; i++) {
       this.labelThang.push(i);
     }
+    this.filter = { ...this.filter };
     let data = {
       Keyword: "",
-      CurrentPage: 0,
+      CurrentPage: this.paging.CurrentPage,
       PageSize: 20,
       MaCongDoan: '',
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
@@ -129,31 +131,48 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       })
     }
     this.GetListLichXichThang(data);
-    this.GetListChiPhiVatTu(data);
-    this.GetListChiPhiPhatSinh(data);
+    // this.GetListChiPhiVatTu(data);
+    // this.GetListChiPhiPhatSinh();
   }
 
-  GetListChiPhiPhatSinh(data) {
-    this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiPhatSinh(data).subscribe((res: any) => {
-      this.tongGiaTriChiPhi = 0;
-      this.tongGiaTriChiPhi = res.Data.TongGiaTri;
-      this.pagingChiPhi.TotalCount = res.Data?.pagination?.TotalCount;
-      this.listChiPhiKhac = res.Data?.pagination?.Items;
-    })
-  }
+  // GetListChiPhiPhatSinh() {
+  //   let data = {
+  //     Keyword: "",
+  //     CurrentPage: this.pagingChiPhi.CurrentPage,
+  //     PageSize: 20,
+  //     MaCongDoan: '',
+  //     IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+  //     IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+  //     IdUser: '',
+  //     Ngay: this.filter.Ngay,
+  //     LoaiKeHoach: this.filter.LoaiKeHoach,
+  //     IdDuAn: 0,
+  //   };
+  //   this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiPhatSinh(data).subscribe((res: any) => {
+  //     this.tongGiaTriChiPhi = 0;
+  //     this.tongGiaTriChiPhi = res.Data.TongGiaTri;
+  //     this.pagingChiPhi.TotalCount = res.Data?.pagination?.TotalCount;
+  //     this.listChiPhiKhac = res.Data?.pagination?.Items;
+  //   })
+  // }
 
-  GetListChiPhiVatTu(data) {
-    this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiVatTu(data).subscribe((res: any) => {
-      this.tongGiaTriVatTu = 0;
-      this.tongGiaTriVatTu = res.Data.TongTien;
-      this.paging.TotalCount = res.Data?.pagination?.TotalCount;
-      this.listVatTu = res.Data?.pagination?.Items;
-      this.listVatTu?.forEach(ele => {
-        ele.ThanhTien =0;
-        ele.ThanhTien = ele.SoLuong * ele.DonGia;
-      })
-    })
-  }
+  // GetListChiPhiVatTu(data) {
+  //   this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiVatTu(data).subscribe((res: any) => {
+  //     this.tongGiaTriVatTu = 0;
+  //     this.tongGiaTriVatTu = res.Data.TongTien;
+  //     this.paging.TotalCount = res.Data?.pagination?.TotalCount;
+  //     this.listVatTu = res.Data?.pagination?.Items;
+  //     this.listVatTu?.forEach(ele => {
+  //       ele.ThanhTien =0;
+  //       ele.ThanhTien = ele.SoLuong * ele.DonGia;
+  //     })
+  //   })
+  // }
+
+  // changePageChiPhi(event) {
+  //   this.pagingChiPhi.CurrentPage = event.page + 1;
+  //   this.loadData()
+  // }
 
   GetListLichXichThang(data) {
     this._serviceTaiSan.ListLichXichThang().GetList(data).subscribe((res: any) => {
@@ -199,10 +218,6 @@ export class BaocaotonghoptaisanComponent implements OnInit {
 
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
-    this.loadData()
-  }
-  changePageChiPhi(event) {
-    this.pagingChiPhi.CurrentPage = event.page + 1;
     this.loadData()
   }
 

@@ -121,7 +121,7 @@
                 </td>
                 <td class="text-right"> {{item.DonGia | number:"0.0-0"}}</td>
                 <td class="text-center">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm"
+                    <p-inputNumber inputId="locale-us"  mode="decimal" [min]="0" locale="en-US" Class="p-inputtext-sm"
                         [(ngModel)]="item.SoLuong" (onBlur)=" Tong()">
                     </p-inputNumber>
                 </td>
