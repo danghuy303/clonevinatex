@@ -70,8 +70,8 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
-                <td style="text-align: left;">{{item.TongGiaTri}}</td>
-                <td style="text-align: left;">{{item.NoiDung}}</td>
+                <td class="text-right">{{item.TongGiaTri | number:"0.0-0"}}</td>
+                <td>{{item.NoiDung}}</td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2"

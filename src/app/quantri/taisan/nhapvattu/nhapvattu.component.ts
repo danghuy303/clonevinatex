@@ -145,6 +145,10 @@ export class NhapvattuComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
       return false;
     }
+    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+      this.toastr.error("Yêu cầu nhập thêm vật tư!");
+      return false;
+    }
     return true;
   }
   GhiLai() {
@@ -193,6 +197,10 @@ export class NhapvattuComponent implements OnInit {
     });
   }
   ChuyenDuyet() {
+    if (!validVariable(this.item.listTaiSan[0]?.IddmNhaCungUng) || !validVariable(this.item.listTaiSan[0]?.SoLuong)) {
+      this.toastr.error("Yêu cầu nhập nhà cung ứng và số lượng của vật tư!");
+      return
+    }
     this._serviceTaiSan.QuyTrinhNhapTu().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
