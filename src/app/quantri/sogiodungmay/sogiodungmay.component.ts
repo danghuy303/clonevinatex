@@ -202,6 +202,10 @@ export class SogiodungmayComponent implements OnInit {
         text: 'Chart.js Bar Chart - Stacked'
       },
     },
+    legend: {
+      display: true,
+      position: "bottom",
+    },
     responsive: true,
     scales: {
       xAxes: [{
