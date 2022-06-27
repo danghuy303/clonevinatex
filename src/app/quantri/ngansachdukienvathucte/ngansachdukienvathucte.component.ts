@@ -52,6 +52,8 @@ export class NgansachdukienvathucteComponent implements OnInit {
       x: {
         ticks: {
           color: "#495057",
+          min: 0,
+          beginAtZero: true,
         },
         grid: {
           color: "#ebedef",
@@ -92,65 +94,68 @@ export class NgansachdukienvathucteComponent implements OnInit {
       TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
     };
 
-    this.taisanService.getDataBaoCao().GetDataNganSach(data).subscribe((res: any) => {
+    this.getDataBaoCao();
 
-      let labels = res.Data.map((r) => { return r.Label })
-
-      let dataThucTe = res.Data.map((r) => { return r.GiaTriThucTe })
-
-      let dataKeHoach = res.Data.map((r) => { return r.GiaTriKeHoach })
-
-      this.data = {
-        labels: labels,
-        datasets: [
-          {
-            type: "bar",
-            label: "Kế hoạch",
-            backgroundColor: "#FF5C00",
-            data: dataKeHoach,
-          },
-          {
-            type: "bar",
-            label: "Thực tế",
-            backgroundColor: "#0A91E6",
-            data: dataThucTe,
-          },
-          {
-            data: dataKeHoach,
-            type: "line",
-            label: "Lũy kế Kế hoạch",
-            borderColor: "#FF5C00",
-            borderWidth: 2,
-            fill: false,
-          },
-          {
-            data: dataThucTe,
-            type: "line",
-            label: "Lũy kế Thực tế",
-            borderColor: "#0A91E6",
-            borderWidth: 2,
-            fill: false,
-          },
-
-        ],
-      };
-    }
-    )
+    // this.taisanService.getDataBaoCao().GetDataNganSach(data).subscribe((res: any) => {
+    //   let labels = res.Data.map((r) => { return r.Label });
+    //   let dataThucTe = res.Data.map((r) => { return r.GiaTriThucTe });
+    //   let dataKeHoach = res.Data.map((r) => { return r.GiaTriKeHoach });
+    //   let luykeThucTe = res.Data.map((r) => { return r.LuyKeThucTe });
+    //   let luykeKeHoach = res.Data.map((r) => { return r.LuyKeKeHoach });
+    //   this.data = {
+    //     labels: labels,
+    //     datasets: [
+    //       {
+    //         type: "bar",
+    //         label: "Kế hoạch",
+    //         backgroundColor: "#FF5C00",
+    //         data: dataKeHoach,
+    //       },
+    //       {
+    //         type: "bar",
+    //         label: "Thực tế",
+    //         backgroundColor: "#0A91E6",
+    //         data: dataThucTe,
+    //       },
+    //       {
+    //         data: luykeKeHoach,
+    //         type: "line",
+    //         label: "Lũy kế Kế hoạch",
+    //         borderColor: "#FF5C00",
+    //         borderWidth: 2,
+    //         fill: false,
+    //       },
+    //       {
+    //         data: luykeThucTe,
+    //         type: "line",
+    //         label: "Lũy kế Thực tế",
+    //         borderColor: "#0A91E6",
+    //         borderWidth: 2,
+    //         fill: false,
+    //       },
+    //     ],
+    //   };
+    // }
+    // )
   }
 
-  getDataBaoCao(filter) {
+  getDataBaoCao() {
     let data = {
-      ...filter,
-      TuNgay: DateToUnix(filter.TuNgay), DenNgay: DateToUnix(filter.DenNgay),
+      ...this.filter,
+      TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
     };
 
     this.taisanService.getDataBaoCao().GetDataNganSach(data).subscribe((res: any) => {
 
-      let labels = res.Data.map((r) => { return r.Label })
+      let labels = res.Data.map((r: any) => { return r.Label });
 
-      let dataThucTe = res.Data.map((r) => { return r.GiaTriThucTe })
+      let dataThucTe = res.Data.map((r: any) => { return r.GiaTriThucTe });
 
-      let dataKeHoach = res.Data.map((r) => { return r.GiaTriKeHoach })
+      let dataKeHoach = res.Data.map((r: any) => { return r.GiaTriKeHoach });
+
+      let luykeThucTe = res.Data.map((r: any) => { return r.LuyKeThucTe });
+
+      let luykeKeHoach = res.Data.map((r: any) => { return r.LuyKeKeHoach });
 
       this.data = {
         labels: labels,
@@ -160,7 +165,6 @@ export class NgansachdukienvathucteComponent implements OnInit {
             label: "Kế hoạch",
             backgroundColor: "#FF5C00",
             data: dataKeHoach,
-            borderColor: "white",
             borderWidth: 2,
           },
           {
@@ -168,6 +172,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
             label: "Thực tế",
             backgroundColor: "#0A91E6",
             data: dataThucTe,
+            borderWidth: 2,
           },
           {
             type: "line",
@@ -175,13 +180,13 @@ export class NgansachdukienvathucteComponent implements OnInit {
             borderColor: "#FF5C00",
             borderWidth: 2,
             fill: false,
-            data: dataKeHoach,
+            data: luykeKeHoach,
           },
           {
             type: "line",
             label: "Lũy kế Thực tế",
             borderColor: "#0A91E6",
-            data: dataThucTe,
+            data: luykeThucTe,
             fill: false,
             borderWidth: 2,
           }

@@ -65,7 +65,7 @@ export class SogiodungmayComponent implements OnInit {
 
     onClick: ($event, array) => {
 
-      event.stopPropagation();
+      $event.stopPropagation();
 
       let index = array[0]?._index;
 
@@ -186,7 +186,6 @@ export class SogiodungmayComponent implements OnInit {
     ]
   };
   options4 = {
-    type: 'bar',
     tooltips: {
       enabled: true,
       mode: 'single',
@@ -197,10 +196,21 @@ export class SogiodungmayComponent implements OnInit {
       // }
     },
     plugins: {
-      title: {
-        display: true,
-        text: 'Chart.js Bar Chart - Stacked'
+      // title: {
+      //   display: true,
+      //   text: 'Chart.js Bar Chart - Stacked'
+      // },
+      labels: {
+        render: (arg: any) => {
+          // console.log(arg);
+          return arg.value
+        },
       },
+
+    },
+    legend: {
+      display: true,
+      position: "bottom",
     },
     responsive: true,
     scales: {
