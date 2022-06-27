@@ -57,8 +57,6 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
       IdBoPhanSuDung: this.item.IdBoPhanSuDung,
       IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
       Ngay: DateToUnix(this.item.ThoiGian),
-      // TuThang:DateToUnix(this.TuThang),
-      // DenThang:DateToUnix(this.DenThang),  
       TuThang: DateToUnix(this.filter.TuThang),
       DenThang: DateToUnix(this.filter.DenThang),
       IdQuyTrinh: this.item.Id || '',

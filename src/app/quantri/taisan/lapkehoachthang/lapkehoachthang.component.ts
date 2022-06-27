@@ -21,6 +21,7 @@ import { ModalluachontaisantheolichxichthangComponent } from '../modal/modalluac
 export class LapkehoachthangComponent implements OnInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   opt: any = "";
+  keyword: string;
   listNam: any = [];
   item: any = {};
   lang: any = vn;
@@ -28,11 +29,12 @@ export class LapkehoachthangComponent implements OnInit {
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   listPhanXuong = [];
   listLoaiTaiSan = [];
+  listCongDoan: any = [];
   TaiSanItem: any = [];
   TuThang: any = '';
   DenThang: any = '';
   getMonth: any = '';
-  ngayCuoiCungCuaThangDaChon:number;
+  ngayCuoiCungCuaThangDaChon: number;
   vi: any;
   checkBtnChonTaiSan: boolean;
 
@@ -44,12 +46,12 @@ export class LapkehoachthangComponent implements OnInit {
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
-  ) { 
+  ) {
   }
 
   ngOnInit(): void {
     this.vi = {
-      monthNamesShort: ["01","02","03","04","05","06","07","08","09","10","11","12",]
+      monthNamesShort: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",]
     }
     if (this.item.ThoiGianUnix !== 0) {
       this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
@@ -59,22 +61,25 @@ export class LapkehoachthangComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     let data = {
-      Keyword: "", 
-      CurrentPage: 0, 
-      PageSize: 20, 
-      MaCongDoan: '', 
+      Keyword: "",
+      CurrentPage: 0,
+      PageSize: 20,
+      MaCongDoan: '',
       IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '', 
-      IdUser: '', 
-      Ngay: 0, 
+      IddmLoaiTaiSan: '',
+      IdUser: '',
+      Ngay: 0,
       LoaiKeHoach: '',
       IdDuAn: 0,
     };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._servicesSanXuat.GetOptions().GetListdmPhanXuong().toPromise();
-    Promise.all([ls1,ls2]).then((values: any) => {
+    let ls3 = this._servicesSanXuat.GetListCongDoan().toPromise();
+    Promise.all([ls1, ls2, ls3]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listPhanXuong = mapArrayForDropDown(values[1], "Ten", "Id");
+      this.listCongDoan = mapArrayForDropDown(values[2], "Ten", "Ma");
+      
     });
     this.chonThang(this.item.ThoiGian, false);
     // console.log("this.item oninit", this.item);
@@ -87,39 +92,23 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalluachontaisantheolichxichthangComponent, {
-      size: "lg",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.item = this.item;
-    modalRef.componentInstance.filter = this.item.ThoiGian ? { DenThang: this.DenThang, TuThang: this.TuThang, getMonth: this.getMonth } : {};
-    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
-    modalRef.componentInstance.checkBtnChonTaiSan = this.checkBtnChonTaiSan;
-    modalRef.result.then((res: any) => {
-      this.item.listTaiSan = deepCopy(res);
-      this.item.listTaiSan.forEach(ele => {
-        ele.IdBoPhanSuDung = this.item.IdBoPhanSuDung;
-        ele.IddmLoaiTaiSan = this.item.IddmLoaiTaiSan;
-        ele.ThoiGian = this.item.ThoiGian;
-        if (!validVariable(ele.listBaoDuong)) {
-          ele.listBaoDuong = []
-          for (let i = 1; i <= 30; i++) {
-            ele.listBaoDuong.push(
-              {
-                ThoiGian: i,
-                listChiTiet: [],
-              }
-            )
-          }
-        }
-      })
+    let data = {
+      CurrentPage: 0,
+      PageSize: 0,
+      Keyword: "",
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung || "",
+      Ngay: DateToUnix(this.item.ThoiGian) || 0,
+      MaCongDoan: this.item.MaCongDoan,
+      IdQuyTrinh: this.item.Id || "",
+    }
+    this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
+      // console.log("res", res);
+      this.item.listTaiSan = res.Data;
     })
-      .catch((er) => {
-      });
   }
 
   setData() {
-    this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian)+172800;
+    this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian) + 172800;
     return this.item;
   }
 
@@ -132,9 +121,6 @@ export class LapkehoachthangComponent implements OnInit {
     }
     if (!validVariable(this.item.ThoiGian)) {
       this.toastr.error("Yêu cầu chọn tháng, năm!");
-      return false;
-    } else if (!validVariable(this.item.IddmLoaiTaiSan)) {
-      this.toastr.error("Yêu cầu nhập loại tài sản!");
       return false;
     } else if (!validVariable(this.item.IdBoPhanSuDung)) {
       this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
@@ -149,10 +135,13 @@ export class LapkehoachthangComponent implements OnInit {
   checkLoaiBaoDuong() {
     let loaiBaoDuongisNull;
     this.item.listTaiSan.forEach(taisan => {
-      taisan.hasNullListBaoDuong = taisan.listBaoDuong.every(baoduong => baoduong.listChiTiet.length === 0);
+      taisan.listBaoDuongThang.forEach(baoduong => {
+        baoduong.hasNullLoaiBD = baoduong.listThoiGian.some(ele => ele.isChon);
+      })
+      taisan.hasNullLoaiBD = taisan.listBaoDuongThang.some(ele => ele.hasNullLoaiBD);
     })
-    loaiBaoDuongisNull = this.item.listTaiSan.some(taisan => taisan.hasNullListBaoDuong)
-    return !loaiBaoDuongisNull;
+    loaiBaoDuongisNull = this.item.listTaiSan.some(taisan => taisan.hasNullLoaiBD);
+    return loaiBaoDuongisNull;
   }
 
   GhiLai() {
@@ -224,15 +213,16 @@ export class LapkehoachthangComponent implements OnInit {
 
   chonThang(time, reset) {
     let date = new Date(this.item.ThoiGian);
-    let month = time.getMonth() +1;
+    let month = time.getMonth() + 1;
     let year = time.getFullYear();
     this.TuThang = new Date(date.getFullYear(), date.getMonth(), 1);
     this.DenThang = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.getMonth = new Date(date.getFullYear(), date.getMonth() + 1);
-    this.ngayCuoiCungCuaThangDaChon = new Date(year,month,0).getDate();
+    this.ngayCuoiCungCuaThangDaChon = new Date(year, month, 0).getDate();
     if (reset) {
       this.item.listTaiSan = [];
     }
+    this.ThemMoiDanhSachTaiSan();
   }
 }
 
