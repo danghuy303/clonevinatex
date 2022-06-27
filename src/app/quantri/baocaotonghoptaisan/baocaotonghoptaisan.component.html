@@ -178,19 +178,14 @@
             </table>
         </div>
     </div>
-
     <!-- phan duoi -->
-
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-pl-0 p-pr-3">
-            <div class=" bg-white p-p-3">
+            <app-baocaotonghoptaisanchiphivattu [filter]="filter"></app-baocaotonghoptaisanchiphivattu>
+            <!-- <div class=" bg-white p-p-3">
                 <div class="p-mb-3 p-mt-3">
                     <h4 style="color:#1f2779">Chi phí vật tư</h4>
                 </div>
-                <!-- <div style="width: 100%; height: 53px">
-                {{TongGiaTriToanBang |
-                    number:'0.0-0'}}
-            </div> -->
                 <div class="d-flex justify-content-end p-mb-3">
                     <strong>Tổng giá trị: {{tongGiaTriVatTu | number:"0.0-0"}} (VNĐ)</strong>
                 </div>
@@ -228,16 +223,15 @@
                         </ng-template>
                     </p-table>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!--  -->
         <div class="p-col-12 p-lg-6 p-pr-0 p-pl-3">
-            <div class=" bg-white p-p-3">
+            <app-baocaotonghoptaisanchiphi [filter]="filter"></app-baocaotonghoptaisanchiphi>
+            <!-- <div class=" bg-white p-p-3">
                 <div class="p-mb-3 p-mt-3">
                     <h4 style="color:#1f2779">Chi phí</h4>
                 </div>
-                <!-- <div style="width: 100%; height: 53px">
-            </div> -->
                 <div class="d-flex justify-content-end p-mb-3">
                     <strong>Tổng giá trị:{{tongGiaTriChiPhi | number:"0.0-0"}} (VNĐ)</strong>
                 </div>
@@ -271,7 +265,7 @@
                         </ng-template>
                     </p-table>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

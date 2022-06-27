@@ -843,7 +843,7 @@ export class TaisanService {
       },
       GetListTaiSan: (IddmPhanXuong) => {
         return this.http.get(`${url}TaiSan/GetListTaiSanNhapHieuSuat?IdDuAn=${this.store.getCurrent()}&IddmPhanXuong=${IddmPhanXuong}`, httpOptions);
-      },
+      }
     }
   }
   GetTaiSanTheoLoai() {
