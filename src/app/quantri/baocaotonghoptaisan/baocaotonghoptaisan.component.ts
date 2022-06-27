@@ -227,7 +227,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.item = item.IdTaiSan;
+    modalRef.componentInstance.getId = item.IdTaiSan;
     modalRef.result
       .then((res: any) => {
 

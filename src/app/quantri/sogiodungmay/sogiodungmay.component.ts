@@ -238,10 +238,10 @@ export class SogiodungmayComponent implements OnInit {
     Promise.all([getListCongDoan, getListDmPhanXuong]).then(([res1, res2]: any) => {
 
       this.CongDoan = mapArrayForDropDown(res1, 'Ten', 'Ma');
-      this.filter.MaCongDoan = this.CongDoan[0].value;
+      // this.filter.MaCongDoan = this.CongDoan[0].value;
 
       this.PhanXuong = mapArrayForDropDown(res2, 'Ten', 'Id');
-      this.filter.IdBoPhanSuDung = this.PhanXuong[0].value;
+      // this.filter.IdBoPhanSuDung = this.PhanXuong[0].value;
 
       this.getDataBaoCao();
 
