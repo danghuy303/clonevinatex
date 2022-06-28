@@ -14,7 +14,6 @@ import { ModalluachonbaoduonglichxichtheothangComponent } from '../../modal/moda
 export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   @Input('listTaiSan') listTaiSan: any = [];
-  @Input('listTaiSan_copy') listTaiSan_copy: any = [];
   @Input('checkBtnChonTaiSan') checkBtnChonTaiSan: boolean;
   @Input('soNgay') soNgay: any = 0;
   @Input('ThoiGianDaChon') thoiGianDaChon:any;
@@ -35,8 +34,6 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
     for (let i = 1; i <= this.soNgay; i++) {
       this.labelThang.push(i);
     }
-    console.log("lít", this.listTaiSan);
-    
   }
   ngAfterViewInit(): void {
     // this.voiPintable.active();
