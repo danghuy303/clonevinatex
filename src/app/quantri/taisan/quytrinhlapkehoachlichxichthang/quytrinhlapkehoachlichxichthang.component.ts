@@ -105,8 +105,17 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = '';
     modalRef.componentInstance.item = {
-      Id: '',IdTrangThai: '', TenTrangThai: "",SoQuyTrinh:'',
-      isKetThuc: false,listTaiSan:[],LoaiKeHoach:"", IdDuAn:0, Ngay:0,
+      Id: '',
+      IdTrangThai: '', 
+      TenTrangThai: "",
+      SoQuyTrinh:'',
+      isKetThuc: false,
+      listTaiSan:[],
+      LoaiKeHoach:"", 
+      IdDuAn:0, 
+      Ngay:0,
+      IdBoPhanSuDung: '',
+      MaCongDoan: null
     };
     modalRef.result.then(res => {
 
