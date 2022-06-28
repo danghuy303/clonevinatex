@@ -71,6 +71,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     this.ListNhaCungUng();
     this.KiemTraButtonModal();
     this.getList();
+    this.Tong();
   }
 
  ListNhaCungUng() {
