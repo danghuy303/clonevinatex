@@ -118,22 +118,23 @@
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Bộ phận sử dụng <span class="required">(*)</span></label>
             <div class="p-col-12 p-xl-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận"
-                    [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ThemMoiDanhSachTaiSan()"></p-dropdown>
+                    [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ThemMoiDanhSachTaiSan('CHONLAI')" (onShow)="SaveOldVal()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chọn công đoạn</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <p-dropdown [filter]="true" [showClear]="true" [options]="listCongDoan" [(ngModel)]="item.MaCongDoan"
-                    placeholder="Chọn công đoạn" (onChange)="ThemMoiDanhSachTaiSan()"></p-dropdown>
+                <p-dropdown #congdoan [filter]="true" [showClear]="true" [options]="listCongDoan"
+                    [(ngModel)]="item.MaCongDoan" placeholder="Chọn công đoạn"
+                    (onChange)="ThemMoiDanhSachTaiSan('CHONLAI')" (onShow)="SaveOldVal()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chọn tháng, năm <span class="required">(*)</span></label>
             <div class="p-col-12 p-xl-10 p-p-0">
                 <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    inputId="icon" (onSelect)="chonThang(item.ThoiGian, true)" placeholder="Chọn tháng, năm"
-                    [locale]="vi" [(ngModel)]="item.ThoiGian">
+                    inputId="icon" (onSelect)="chonThang(item.ThoiGian, 'CHONLAI')" placeholder="Chọn tháng, năm"
+                    [locale]="vi" [(ngModel)]="item.ThoiGian" (onFocus)="SaveOldVal()">
                 </p-calendar>
             </div>
         </div>
@@ -154,7 +155,7 @@
                         <input type="text" [(ngModel)]="keyword"  pInputText placeholder="Tìm kiếm..." />
                     </span>
                 </div> -->
-                <app-taisanlichxichthang [listTaiSan]="item.listTaiSan" [soNgay]="ngayCuoiCungCuaThangDaChon"
+                <app-taisanlichxichthang [listTaiSan]="item.listTaiSan" [listTaiSan_Copy]="old_item.listTaiSan" [soNgay]="ngayCuoiCungCuaThangDaChon"
                     [ThoiGianDaChon]="item.ThoiGian" [checkBtnChonTaiSan]="checkBtnChonTaiSan">
                 </app-taisanlichxichthang>
             </ng-template>

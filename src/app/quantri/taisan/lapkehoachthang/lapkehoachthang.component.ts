@@ -1,17 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { PintableDirective } from 'voi-lib';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
-import { ModalluachonloaibaoduongComponent } from '../modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
-import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
-import { ModalluachontaisantheolichxichthangComponent } from '../modal/modalluachontaisantheolichxichthang/modalluachontaisantheolichxichthang.component';
 
 @Component({
   selector: 'app-lapkehoachthang',
@@ -20,6 +17,7 @@ import { ModalluachontaisantheolichxichthangComponent } from '../modal/modalluac
 })
 export class LapkehoachthangComponent implements OnInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
+  @ViewChild('congdoan') congdoan: any;
   opt: any = "";
   keyword: string;
   listNam: any = [];
@@ -37,7 +35,7 @@ export class LapkehoachthangComponent implements OnInit {
   ngayCuoiCungCuaThangDaChon: number;
   vi: any;
   checkBtnChonTaiSan: boolean;
-
+  old_item: any = {};
   constructor(
     private _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -45,10 +43,10 @@ export class LapkehoachthangComponent implements OnInit {
     private _serviceTaiSan: TaisanService,
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
-    private activatedRoute: ActivatedRoute,
+    private confirmService: ConfirmationService
   ) {
   }
-
+  
   ngOnInit(): void {
     this.vi = {
       monthNamesShort: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",]
@@ -59,8 +57,9 @@ export class LapkehoachthangComponent implements OnInit {
     this.KiemTraButtonModal();
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
+      this.item.ThoiGian = new Date();
     }
-    let data = {
+    let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList({
       Keyword: "",
       CurrentPage: 0,
       PageSize: 20,
@@ -71,18 +70,18 @@ export class LapkehoachthangComponent implements OnInit {
       Ngay: 0,
       LoaiKeHoach: '',
       IdDuAn: 0,
-    };
-    let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
+    }).toPromise();
     let ls2 = this._servicesSanXuat.GetOptions().GetListdmPhanXuong().toPromise();
     let ls3 = this._servicesSanXuat.GetListCongDoan().toPromise();
     Promise.all([ls1, ls2, ls3]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listPhanXuong = mapArrayForDropDown(values[1], "Ten", "Id");
       this.listCongDoan = mapArrayForDropDown(values[2], "Ten", "Ma");
-      
     });
-    this.chonThang(this.item.ThoiGian, false);
-    // console.log("this.item oninit", this.item);
+    this.chonThang(this.item.ThoiGian, 'MOI');
+    this.SaveOldVal();
+    console.log("this item", this.item);
+    
   }
 
   GetNextSoQuyTrinh() {
@@ -91,7 +90,20 @@ export class LapkehoachthangComponent implements OnInit {
     })
   }
 
-  ThemMoiDanhSachTaiSan() {
+  CheckBeforeChangeFilter() {
+    if (!this.checkLoaiBaoDuong()) {
+      return false;
+    }
+    return true;
+  }
+
+  SaveOldVal() {
+    console.trace()
+    this.old_item = {...this.item};
+    console.log("this.old_item", this.old_item);
+  }
+
+  GetListTaiSan() {
     let data = {
       CurrentPage: 0,
       PageSize: 0,
@@ -102,9 +114,28 @@ export class LapkehoachthangComponent implements OnInit {
       IdQuyTrinh: this.item.Id || "",
     }
     this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
-      // console.log("res", res);
       this.item.listTaiSan = res.Data;
+      this.SaveOldVal();
     })
+  }
+
+  ThemMoiDanhSachTaiSan(value?: string, event?) {
+    if (value === 'CHONLAI') {
+      if (this.CheckBeforeChangeFilter()) {
+        this.confirmService.show({
+          message: 'Bạn chắc chắn muốn chọn lại chứ? Các thay đổi chưa được lưu và có thể bị mất?'
+        }, () => {
+          this.GetListTaiSan();
+        }, () => {
+            this.item = this.old_item
+          console.log("this.item", this.item);
+        })
+      } else {
+        this.GetListTaiSan();
+      }
+    } else {
+      this.GetListTaiSan();
+    }
   }
 
   setData() {
@@ -211,18 +242,13 @@ export class LapkehoachthangComponent implements OnInit {
       .catch((er) => console.log(er));
   }
 
-  chonThang(time, reset) {
+  chonThang(time, value?) {
     let date = new Date(this.item.ThoiGian);
     let month = time.getMonth() + 1;
     let year = time.getFullYear();
-    this.TuThang = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.DenThang = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.getMonth = new Date(date.getFullYear(), date.getMonth() + 1);
     this.ngayCuoiCungCuaThangDaChon = new Date(year, month, 0).getDate();
-    if (reset) {
-      this.item.listTaiSan = [];
-    }
-    this.ThemMoiDanhSachTaiSan();
+    this.ThemMoiDanhSachTaiSan(value);
   }
 }
 
