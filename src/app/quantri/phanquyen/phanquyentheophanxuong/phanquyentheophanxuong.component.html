@@ -17,7 +17,7 @@
             </div> -->
         </div>
         <div class="p-inputgroup p-inputgroup-sm" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.keyWord" (keyup.enter)="GetListdm(true)"
+            <input type="text" placeholder="Tìm kiếm" [(ngModel)]="keyWord" (keyup.enter)="GetListdm(true)"
                 class="p-inputtext-sm" pInputText />
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-text"
                 (click)="resetFilter()" pTooltip="Làm mới" showDelay="1000" tooltipPosition="bottom"></button>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-chonkienbongmodal',
@@ -15,10 +16,11 @@ export class ChonkienbongmodalComponent implements OnInit {
   currentMic: any = 0;
   KeyWord:any='';
   isTimBongThuCong:any=false;
-  constructor(private _activeModal:NgbActiveModal) { }
+  constructor(private _activeModal:NgbActiveModal ,private loader:LoaderService) { }
 
   ngOnInit(): void {
     this.averagePickedMic();
+    this.loader.hide();
   }
   pickItem(Id) {
     if (this.selectedItems.length < this.maxSelected) {

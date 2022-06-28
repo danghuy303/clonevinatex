@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-chonkienbonghoimodal',
@@ -14,10 +15,11 @@ export class ChonkienbonghoimodalComponent implements OnInit {
   TenLoBong: any = '';
   currentTrongLuong: any = 0;
   KeyWord:any='';
-  constructor(private _activeModal:NgbActiveModal) { }
+  constructor(private _activeModal:NgbActiveModal,private loader:LoaderService) { }
 
   ngOnInit(): void {
     this.averagePickedTrongLuong();
+    this.loader.hide();
     console.log(this.currentTrongLuong);
   }
   pickItem(Id) {

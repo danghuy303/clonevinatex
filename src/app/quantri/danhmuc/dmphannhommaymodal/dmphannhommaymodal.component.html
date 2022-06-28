@@ -134,7 +134,8 @@
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th> -->
                     <th class="text-center">STT</th>
-                    <th *ngIf="childModalOpt!==''">{{childModalOpt==='MATHANG'?'Mặt hàng':'Loại sợi'}}</th>
+                    <!-- <th *ngIf="childModalOpt!==''">{{childModalOpt==='MATHANG'?'Mặt hàng':'Loại sợi'}}</th> -->
+                    <th *ngIf="childModalOpt!==''">Loại sợi</th>
 
                     <th>Chi số Ne</th>
                     <th>Chi số mét Nm</th>
@@ -158,7 +159,7 @@
                     <td *ngIf="childModalOpt!==''">
                         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText
                         [disabled]="true" /> -->
-                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
+                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn loại sợi" styleClass="p-inputtext-sm"
                             [(ngModel)]="item.Iditem"
                             (onChange)="changeLoaiSoiHoacMatHang($event,item)"></p-dropdown>
                     </td>

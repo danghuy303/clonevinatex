@@ -95,6 +95,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
 
   ChonNhaCungUng(e) {
     e.DonGia = e.listNhaCungUngDoiChieu.find(ele => ele.Id === e.IdNhaCungUng)?.DonGia;
+    this.Tong();
   }
 
   GetListNhaCungUng() {

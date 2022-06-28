@@ -127,7 +127,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       })
     } else {
       this._serviceTaiSan.ListLichXichNam().GetListMay(data).subscribe((res: any) => {
-        this.itemMay = res.Data;
+        this.items = res.Data;
       })
     }
     this.GetListLichXichThang(data);
@@ -227,7 +227,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.item = item.IdTaiSan;
+    modalRef.componentInstance.getId = item.IdTaiSan;
     modalRef.result
       .then((res: any) => {
 
