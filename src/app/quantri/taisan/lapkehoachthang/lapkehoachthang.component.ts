@@ -46,7 +46,7 @@ export class LapkehoachthangComponent implements OnInit {
     private confirmService: ConfirmationService
   ) {
   }
-  
+
   ngOnInit(): void {
     this.vi = {
       monthNamesShort: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",]
@@ -58,30 +58,16 @@ export class LapkehoachthangComponent implements OnInit {
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
       this.item.ThoiGian = new Date();
+      this.ThemMoiDanhSachTaiSan('MOI');
+    } else {
+      this.chonThang(this.item.ThoiGian);
     }
-    let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList({
-      Keyword: "",
-      CurrentPage: 0,
-      PageSize: 20,
-      MaCongDoan: '',
-      IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '',
-      IdUser: '',
-      Ngay: 0,
-      LoaiKeHoach: '',
-      IdDuAn: 0,
-    }).toPromise();
     let ls2 = this._servicesSanXuat.GetOptions().GetListdmPhanXuong().toPromise();
     let ls3 = this._servicesSanXuat.GetListCongDoan().toPromise();
-    Promise.all([ls1, ls2, ls3]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-      this.listPhanXuong = mapArrayForDropDown(values[1], "Ten", "Id");
-      this.listCongDoan = mapArrayForDropDown(values[2], "Ten", "Ma");
+    Promise.all([ls2, ls3]).then((values: any) => {
+      this.listPhanXuong = mapArrayForDropDown(values[0], "Ten", "Id");
+      this.listCongDoan = mapArrayForDropDown(values[1], "Ten", "Ma");
     });
-    this.chonThang(this.item.ThoiGian, 'MOI');
-    this.SaveOldVal();
-    console.log("this item", this.item);
-    
   }
 
   GetNextSoQuyTrinh() {
@@ -98,9 +84,7 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   SaveOldVal() {
-    console.trace()
-    this.old_item = {...this.item};
-    console.log("this.old_item", this.old_item);
+    this.old_item = { ...this.item };
   }
 
   GetListTaiSan() {
@@ -116,10 +100,11 @@ export class LapkehoachthangComponent implements OnInit {
     this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
       this.item.listTaiSan = res.Data;
       this.SaveOldVal();
+      this.chonThang(this.item.ThoiGian);
     })
   }
 
-  ThemMoiDanhSachTaiSan(value?: string, event?) {
+  ThemMoiDanhSachTaiSan(value?: string) {
     if (value === 'CHONLAI') {
       if (this.CheckBeforeChangeFilter()) {
         this.confirmService.show({
@@ -127,7 +112,8 @@ export class LapkehoachthangComponent implements OnInit {
         }, () => {
           this.GetListTaiSan();
         }, () => {
-            this.item = this.old_item
+          this.item = this.old_item;
+          this.chonThang(this.item.ThoiGian);
           console.log("this.item", this.item);
         })
       } else {
@@ -242,13 +228,13 @@ export class LapkehoachthangComponent implements OnInit {
       .catch((er) => console.log(er));
   }
 
-  chonThang(time, value?) {
+  chonThang(time) {
     let date = new Date(this.item.ThoiGian);
     let month = time.getMonth() + 1;
     let year = time.getFullYear();
     this.getMonth = new Date(date.getFullYear(), date.getMonth() + 1);
     this.ngayCuoiCungCuaThangDaChon = new Date(year, month, 0).getDate();
-    this.ThemMoiDanhSachTaiSan(value);
   }
+
 }
 
