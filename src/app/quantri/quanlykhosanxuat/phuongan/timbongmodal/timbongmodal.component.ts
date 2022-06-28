@@ -4,6 +4,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { CVMic, CVMic2, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { LoaderService } from 'src/app/services/loader.service';
 import { PintableDirective } from 'voi-lib';
 import { ChonkienbonghoimodalComponent } from '../chonkienbonghoimodal/chonkienbonghoimodal.component';
 import { ChonkienbongmodalComponent } from '../chonkienbongmodal/chonkienbongmodal.component';
@@ -63,7 +64,7 @@ export class TimbongmodalComponent implements OnInit {
   }
   cloneLoBong:any=[];
   listLoaiBong: any = [];
-  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
+  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal,private loader:LoaderService) {
 
   }
 
@@ -449,41 +450,45 @@ export class TimbongmodalComponent implements OnInit {
     });
   }
   chonKienBong(IdLoBong, y, x) {
-    if (this.item.listLoBong[y].isLoBongTuongLai) {
-      this._toastr.error('Lô bông này là lô tương lai!')
-    } else {
-      if (validVariable(IdLoBong)) {
-        let modalRef = this._modal.open(ChonkienbongmodalComponent, {
-          size: 'xl'
-        })
-        modalRef.componentInstance.items = this.PoolLoBong[`${IdLoBong.split('-').join('_')}`];
-        modalRef.componentInstance.selectedItems = this.item.listLoBong[y].tempBanBong[`${x}`].listItem;
-        modalRef.componentInstance.maxSelected = this.item.listLoBong[y].tempBanBong[`${x}`].SoKien;
-        modalRef.componentInstance.resultMic = this.itemMicBQ[`${x}`];
-        modalRef.componentInstance.TenLoBong = this.item.listLoBong[y].Ma;
-        modalRef.componentInstance.isTimBongThuCong = this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong;
-        modalRef.result.then((res) => {
-          // console.log(res);
-          this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong = res.isTimBongThuCong;
-          console.log(this.item.listLoBong[y].tempBanBong[`${x}`]);
-        })
+    this.loader.show()
+    setTimeout(()=>{
+      if (this.item.listLoBong[y].isLoBongTuongLai) {
+        this._toastr.error('Lô bông này là lô tương lai!');
+        this.loader.hide();
       } else {
-        let modalRef = this._modal.open(ChonkienbonghoimodalComponent, {
-          size: 'xl'
-        })
-        modalRef.componentInstance.items = this.PoolLoBong.BongHoi;
-        modalRef.componentInstance.selectedItems = this.item.listLoBong[y].tempBanBong[`${x}`].listItem;
-        modalRef.componentInstance.maxSelected = this.item.listLoBong[y].tempBanBong[`${x}`].SoKien;
-        // modalRef.componentInstance.resultTrongLuong = this.itemMicBQ[`${x}`];
-        modalRef.componentInstance.resultTrongLuong = this.item.listLoBong[y].TrongLuong;
-        modalRef.componentInstance.TenLoBong = this.item.listLoBong[y].Ma;
-        modalRef.componentInstance.isTimBongThuCong = this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong;
-        modalRef.result.then((res) => {
-          this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong = res.isTimBongThuCong;
-          console.log(this.item.listLoBong[y].tempBanBong[`${x}`].listItem);
-        })
+        if (validVariable(IdLoBong)) {
+          let modalRef = this._modal.open(ChonkienbongmodalComponent, {
+            size: 'xl'
+          })
+          modalRef.componentInstance.items = this.PoolLoBong[`${IdLoBong.split('-').join('_')}`];
+          modalRef.componentInstance.selectedItems = this.item.listLoBong[y].tempBanBong[`${x}`].listItem;
+          modalRef.componentInstance.maxSelected = this.item.listLoBong[y].tempBanBong[`${x}`].SoKien;
+          modalRef.componentInstance.resultMic = this.itemMicBQ[`${x}`];
+          modalRef.componentInstance.TenLoBong = this.item.listLoBong[y].Ma;
+          modalRef.componentInstance.isTimBongThuCong = this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong;
+          modalRef.result.then((res) => {
+            // console.log(res);
+            this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong = res.isTimBongThuCong;
+            console.log(this.item.listLoBong[y].tempBanBong[`${x}`]);
+          })
+        } else {
+          let modalRef = this._modal.open(ChonkienbonghoimodalComponent, {
+            size: 'xl'
+          })
+          modalRef.componentInstance.items = this.PoolLoBong.BongHoi;
+          modalRef.componentInstance.selectedItems = this.item.listLoBong[y].tempBanBong[`${x}`].listItem;
+          modalRef.componentInstance.maxSelected = this.item.listLoBong[y].tempBanBong[`${x}`].SoKien;
+          // modalRef.componentInstance.resultTrongLuong = this.itemMicBQ[`${x}`];
+          modalRef.componentInstance.resultTrongLuong = this.item.listLoBong[y].TrongLuong;
+          modalRef.componentInstance.TenLoBong = this.item.listLoBong[y].Ma;
+          modalRef.componentInstance.isTimBongThuCong = this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong;
+          modalRef.result.then((res) => {
+            this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong = res.isTimBongThuCong;
+            console.log(this.item.listLoBong[y].tempBanBong[`${x}`].listItem);
+          })
+        }
       }
-    }
+    },100)
 
   }
   SetData() {
