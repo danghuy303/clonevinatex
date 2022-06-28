@@ -49,7 +49,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let may of item.lstMay;let i = index">
+                <tr *ngFor="let may of item.lstMay|filterByKey:'MaCongDoan':filter.MaCongDoan;let i = index">
                     <td class="w-tc-50 bg-white text-center" >{{i+1}}</td>
                     <td class="w-tc-250 bg-white" >{{may.TendmMay}}</td>
                     <td class="text-right w-tc-100" *ngFor="let suco of may.lstSuCoDungMay">

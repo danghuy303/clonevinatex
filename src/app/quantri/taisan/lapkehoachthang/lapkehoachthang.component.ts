@@ -98,6 +98,7 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   SaveOldVal() {
+    console.trace()
     this.old_item = {...this.item};
     console.log("this.old_item", this.old_item);
   }
@@ -126,7 +127,7 @@ export class LapkehoachthangComponent implements OnInit {
         }, () => {
           this.GetListTaiSan();
         }, () => {
-          this.item = this.old_item
+            this.item = this.old_item
           console.log("this.item", this.item);
         })
       } else {
