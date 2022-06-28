@@ -87,19 +87,19 @@
 
                         <td *ngIf="opt==='LoBong'" [ngStyle]="{'color': item.isLoBongTuongLai?'red':''}">{{item.Ma}}</td>
                         <td *ngIf="opt==='LoBong'" class="text-right">{{item.SoLuongKien}}</td>
-                        <td *ngIf="opt==='LoBong'" class="text-right">{{item.Mic|number:'0.0-2'}}</td>
+                        <td *ngIf="opt==='LoBong'" class="text-right">{{item.Mic|number:'0.0-3'}}</td>
                         <td *ngIf="opt==='LoBong'" class="text-right">{{item.GiaBong}}</td>
                         <td *ngIf="opt==='LoBong'" class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
                         <td *ngIf="opt==='LoBong'" class="text-center">{{item.NgayVeDuKien|date:'dd/MM/yyyy'}}</td>
-                        <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongKeHoach|number:'0.0-2'}}</td>
-                        <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongHoanThanh|number:'0.0-2'}}</td>
-                        <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongDaSanXuat|number:'0.0-2'}}</td>
+                        <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongKeHoach|number:'0.0-3'}}</td>
+                        <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongHoanThanh|number:'0.0-3'}}</td>
+                        <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongDaSanXuat|number:'0.0-3'}}</td>
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [max]="item.KhoiLuongKeHoach"
+                            <p-inputNumber [minFractionDigits]="3" [minFractionDigits]="3" locale="en-EN" [max]="item.KhoiLuongKeHoach"
                                 [(ngModel)]="item.KhoiLuongSanXuat">
                             </p-inputNumber>
                         </td>
-                        <td *ngIf="opt==='KhoiLuongSanXuat'" class="text-right">{{item.KhoiLuongSanXuat|number:'0.0-2'}}</td>
+                        <td *ngIf="opt==='KhoiLuongSanXuat'" class="text-right">{{item.KhoiLuongSanXuat|number:'0.0-3'}}</td>
                         <td *ngIf="opt==='GiaoKeHoachSanXuatHopDong'">{{item.DaGiao}}</td>
                         <td>{{item.GhiChu}}</td>
                     </tr>
