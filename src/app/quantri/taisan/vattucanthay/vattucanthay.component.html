@@ -81,7 +81,7 @@
                 <tr>
                     <th>STT</th>
                     <th> Mã, tên tài sản </th>
-                    <th>Mã tên vật tư</th>
+                    <th>Mã, tên vật tư</th>
                     <th>Xuất xứ</th>
                     <th>Tuổi thọ</th>
                     <th>Số lượng tồn kho</th>
@@ -94,10 +94,10 @@
                 <tr>
                     <td class="text-center"> {{ i + 1 }}</td>
                     <td >
-                        {{item.MaTaiSan}}
+                        {{item.MaTenTaiSan}}
                     </td>
                     <td >
-                        {{item.TenTaiSan}}
+                        {{item.MaTenVatTu}}
                         <!-- <p-dropdown [disabled]="!item.edit" [filter]="true" [options]="listdsTaiSan" placeholder="Chọn "
                             styleClass="p-inputtext-sm" [(ngModel)]="item.IdTaiSan"></p-dropdown> -->
                     </td>
