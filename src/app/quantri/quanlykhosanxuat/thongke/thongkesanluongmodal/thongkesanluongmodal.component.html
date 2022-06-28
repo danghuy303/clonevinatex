@@ -190,17 +190,17 @@
 
                             </td>
                             <td>
-                                <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" #inputNumber [minFractionDigits]="3"
+                                <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" #inputNumber [minFractionDigits]="2"
                                     locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong" [tabindex]="i*5+1" disabled>
                                 </p-inputNumber>
                                 <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber
-                                    (keyup.enter)="enterCon(i*5+1)" [tabindex]="i*5+1" [minFractionDigits]="3"
+                                    (keyup.enter)="enterCon(i*5+1)" [tabindex]="i*5+1" [minFractionDigits]="2"
                                     locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong"
                                     (ngModelChange)="TinhTongKhoiLuongBong()">
                                 </p-inputNumber>
                             </td>
                             <td class="text-right">
-                                {{itemtbl.KhoiLuongTinhToan |number:'0.3-3'}}
+                                {{itemtbl.KhoiLuongTinhToan |number:'0.2-2'}}
                             </td>
                             <td *ngIf="itemtbl.DonViNangSuat===1" class="text-right">
                                 {{itemtbl.ChieuDai |number:'0.3-3'}}

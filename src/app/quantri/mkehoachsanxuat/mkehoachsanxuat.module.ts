@@ -49,6 +49,17 @@ import { KeHoachSanXuatNamModalComponent } from './ke-hoach-san-xuat-nam/ke-hoac
 import { DonGiaSanPhamModalComponent } from './danh-muc/don-gia-san-pham/don-gia-san-pham-modal/don-gia-san-pham-modal.component';
 import { TyGiaNgoaiTeModalComponent } from './danh-muc/ty-gia-ngoai-te/ty-gia-ngoai-te-modal/ty-gia-ngoai-te-modal.component';
 import { DoanhThuModalComponent } from './doanh-thu/doanh-thu-modal/doanh-thu-modal.component';
+import { ChiPhiBongModalComponent } from './danh-sach/chi-phi-bong/chi-phi-bong-modal/chi-phi-bong-modal.component';
+import { ChiPhiDienModalComponent } from './danh-sach/chi-phi-dien/chi-phi-dien-modal/chi-phi-dien-modal.component';
+import { ChiPhiXoModalComponent } from './danh-sach/chi-phi-xo/chi-phi-xo-modal/chi-phi-xo-modal.component';
+import { VatTuPhuModalComponent } from './danh-muc/vat-tu-phu/vat-tu-phu-modal/vat-tu-phu-modal.component';
+import { CoCauNhanSuModalComponent } from './danh-muc/co-cau-nhan-su/co-cau-nhan-su-modal/co-cau-nhan-su-modal.component';
+import { TaiSanModalComponent } from './danh-muc/tai-san/tai-san-modal/tai-san-modal.component';
+import { DanhSachTinhLuongComponent } from './danh-sach/danh-sach-tinh-luong/danh-sach-tinh-luong.component';
+import { ChiPhiBanHangTheoNamComponent } from './danh-sach/chi-phi-ban-hang-theo-nam/chi-phi-ban-hang-theo-nam.component';
+import { ChiPhiBanHangTheoNamModalComponent } from './danh-sach/chi-phi-ban-hang-theo-nam/chi-phi-ban-hang-theo-nam-modal/chi-phi-ban-hang-theo-nam-modal.component';
+import { DanhSachTinhLuongModalComponent } from './danh-sach/danh-sach-tinh-luong/danh-sach-tinh-luong-modal/danh-sach-tinh-luong-modal.component';
+import { MucLuongCoCauNhanSuModalComponent } from './danh-sach/muc-luong-co-cau-nhan-su/muc-luong-co-cau-nhan-su-modal/muc-luong-co-cau-nhan-su-modal.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +99,17 @@ import { DoanhThuModalComponent } from './doanh-thu/doanh-thu-modal/doanh-thu-mo
     DonGiaSanPhamModalComponent,
     TyGiaNgoaiTeModalComponent,
     DoanhThuModalComponent,
+    ChiPhiBongModalComponent,
+    ChiPhiDienModalComponent,
+    ChiPhiXoModalComponent,
+    VatTuPhuModalComponent,
+    CoCauNhanSuModalComponent,
+    TaiSanModalComponent,
+    DanhSachTinhLuongComponent,
+    ChiPhiBanHangTheoNamComponent,
+    ChiPhiBanHangTheoNamModalComponent,
+    DanhSachTinhLuongModalComponent,
+    MucLuongCoCauNhanSuModalComponent,
   ],
   imports: [
     CommonModule,

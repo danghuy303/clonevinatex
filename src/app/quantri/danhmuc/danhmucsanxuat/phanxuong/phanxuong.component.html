@@ -10,12 +10,12 @@
 
     </div>
     <div class="p-d-flex p-flex-row">
-        <div style="width:200px; margin-right:10px ;">
+        <!-- <div style="width:200px; margin-right:10px ;">
             <div class="p-col-12 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
                     styleClass="p-inputtext-sm" [(ngModel)]="filter.CongDoan" (onChange)="GetListdm(true)"></p-dropdown>
             </div>
-        </div>
+        </div> -->
         <div class="p-inputgroup p-inputgroup-sm" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.keyWord" (keyup.enter)="GetListdm(true)"
                 class="p-inputtext-sm" pInputText />
