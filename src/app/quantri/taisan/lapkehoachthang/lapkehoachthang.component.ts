@@ -108,7 +108,7 @@ export class LapkehoachthangComponent implements OnInit {
     if (value === 'CHONLAI') {
       if (this.CheckBeforeChangeFilter()) {
         this.confirmService.show({
-          message: 'Bạn chắc chắn muốn chọn lại chứ? Các thay đổi chưa được lưu và có thể bị mất?'
+          message: 'Bạn chắc chắn muốn chọn lại chứ? Các thay đổi chưa được lưu và có thể bị mất'
         }, () => {
           this.GetListTaiSan();
         }, () => {

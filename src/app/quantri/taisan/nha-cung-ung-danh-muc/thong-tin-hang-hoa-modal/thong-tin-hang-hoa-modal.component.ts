@@ -36,13 +36,12 @@ export class ThongTinHangHoaModalComponent implements OnInit {
       this.paging.currentPage = 1;
     }
     let data = {
-      CurrentPage: this.paging.currentPage,
-      PageSize: 20,
+      CurrentPage: 0,
       Keyword: this.filter.keyWord,
     }
     this.taiSanService.NhaCungUng().GetListItem(data).subscribe((res: any)=>{
-      this.items = res.Data.Items;
-      this.paging.totalCount = res.Data.TotalCount;
+      this.items = res.Data;
+      this.paging.totalCount = res.Data.length;
       this.CheckExistedHangHoa();
     })
   }
