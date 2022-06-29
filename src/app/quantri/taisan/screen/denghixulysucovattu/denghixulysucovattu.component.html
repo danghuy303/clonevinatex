@@ -52,7 +52,7 @@
                 <td style="padding-left: 50px;"> {{vattu.MaTaiSan}}</td>
                 <td style="padding-left: 50px;">{{vattu.TenTaiSan}}</td>
                 <td class=" text-right">
-                    <p-inputNumber min='0' [(ngModel)]="vattu.SoLuong" (onBlur)="sumItem(item)" mode="decimal" locale="en-US"></p-inputNumber>
+                    <p-inputNumber min='0' [(ngModel)]="vattu.SoLuong" [max]="vattu.TonKho" (onBlur)="sumItem(item)" mode="decimal" locale="en-US"></p-inputNumber>
                 </td>
                 <td class=" text-right">
                     <p-inputNumber inputId="locale-us" mode="decimal" (onBlur)="sumItem(item)" min='0' locale="en-US" styleClass="p-inputtext-sm"
