@@ -152,6 +152,7 @@ export class NhaCungUngDanhMucComponent implements OnInit {
       size: 'md',
       backdrop: 'static',
     })
+    modalRef.componentInstance.single = true;
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
