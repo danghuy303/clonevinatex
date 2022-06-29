@@ -43,12 +43,17 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
   GetList() {
     this._serviceTaiSan.QuyTrinhXuLySuCo().GetListVatTuByIdTaiSanForXuLySuCo([this.layIdTaiSan]).subscribe((res: any) => {
       this.paging.TotalCount = res.TotalCount;
-      res.Data.forEach(ele => {
-        this.items = ele.listVatTu;
+      // res.Data.forEach(ele => {
+      //   this.items = ele.listVatTu;
+      //   this.items.forEach(obj => {
+      //     obj.checked = this.listItemDaChon.includes(obj.IdVatTuCanThayThe);
+      //   })
+      // })
+      // this.checkedAll = this.items.every(obj => obj.checked);
+        this.items = res.Data;
         this.items.forEach(obj => {
           obj.checked = this.listItemDaChon.includes(obj.IdVatTuCanThayThe);
         })
-      })
       this.checkedAll = this.items.every(obj => obj.checked);
     });
   }
@@ -81,6 +86,8 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
           GhiChu: obj.GhiChu,
           IdVatTuCanThayThe: obj.IdVatTuCanThayThe,
           MaTaiSan: obj.Ma,
+          IddmTaiSan:obj.IddmTaiSan,
+          TonKho: obj.TonKho,
         })
       }
     });
