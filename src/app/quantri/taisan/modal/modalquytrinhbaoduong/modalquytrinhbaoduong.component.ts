@@ -158,7 +158,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     if (this.ValidateData()) {
       this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode !== 200 || !res.StatusCode) {
-          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+          this.toastr.error(res.Message);
         } else {
           this.item = res.Data;
           if (this.item.listTaiSan.length) {
