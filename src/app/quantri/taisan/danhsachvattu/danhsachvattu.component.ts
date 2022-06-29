@@ -111,7 +111,7 @@ export class DanhsachvattuComponent implements OnInit {
         this.items = res.Data.Items;
         this.items.forEach(item => {
           item.ThanhTien = 0;
-          item.ThanhTien = (item.NguyenGia || 0) * (item.SoLuong || 0);
+          item.ThanhTien = (item.SoLuongCanThayThe || 0) * (item.DonGiaNhapGanNhat || 0);
         })
         this.CheckExist(this.items);
         this.TimCheck();
@@ -197,21 +197,23 @@ export class DanhsachvattuComponent implements OnInit {
   }
 
   exportExcel() {
-    let data = this.listVatTuDaChon.map(ele => {
+    let data = this.listVatTuDaChon.map(ele => { 
+      console.log(ele);
+      
       return {
         "Ma": ele.Ma,
         "Ten": ele.Ten,
-        "SoLuongTon": ele.SoLuongCanThayThe,
-        "SoLuongCanThayThe": ele.SoLuongCanThayThe,
         "TuoiTho": ele.TuoiTho,
-        "NhaCungCap": ele.TenNhaCungCap,
-        "DonGiaNhapGanNhat": ele.NguyenGia,
+        "TonKho": ele.TonKho,
+        "SoLuongCanThayThe": ele.SoLuongCanThayThe,
+        "DonGiaNhapGanNhat": ele.DonGiaNhapGanNhat,
         "ThanhTien": ele.ThanhTien,
       }
     })
     this._serviceTaiSan.ListDanhSachVatTu().exportExcel(data).subscribe((res: any) => {
-      this._danhMucTaiSan.DanhMucLoaiTaiSan().download(res.Data);
+      this._serviceTaiSan.ListDanhSachVatTu().download(res.Data);
     })
+    
   }
 
 }

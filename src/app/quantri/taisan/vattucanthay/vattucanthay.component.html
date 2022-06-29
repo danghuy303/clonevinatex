@@ -33,7 +33,7 @@
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng <span class="text-danger">(*)</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
-                    styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdBoPhanSuDung">
+                    styleClass="p-inputtext-sm" (onChange)="ChonLoaiVatTu()" [showClear]="true" [filter]="true" [(ngModel)]="item.IdBoPhanSuDung">
                 </p-dropdown>
             </div>
         </div>
