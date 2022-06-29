@@ -17,6 +17,7 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewIn
 
   @ViewChild('table') table: any;
   opt: any = "";
+  vatTu: any = "";
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   items: any = [];
   // item: any = [];
@@ -97,6 +98,8 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewIn
           TuoiTho: obj.TuoiTho,
           NuocSanXuat: obj.NuocSanXuat,
           IddmTaiSan: obj.IddmTaiSan,
+          MaTaiSan: obj.Ma,
+          TenTaiSan: obj.Ten,
         });
       }
     });

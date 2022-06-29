@@ -34,10 +34,10 @@
                     <p-checkbox [(ngModel)]="checkedAll" binary="true"
                         (onChange)="checkAll($event)"></p-checkbox>
                 </th>
-                <th class="text-center" style="width: 150px;">Mã, tên tài sản</th>
-                <th class="text-center">Mã, tên vật tư</th>
-                <!-- <th class="text-center">Nguyên giá</th>
-                <th class="text-center">Giá trị còn lại</th> -->
+                <th *ngIf="vatTu === 'Thay vat tu'" class="text-center" style="width: 150px;">Mã, tên tài sản</th>
+                <th *ngIf="vatTu === 'Thay vat tu'" class="text-center">Mã, tên vật tư</th>
+                <th *ngIf="vatTu === 'Nhap vat tu'" class="text-center">Mã</th>
+                <th *ngIf="vatTu === 'Nhap vat tu'" class="text-center">Tên</th>
                 <th class="text-center">Ghi chú</th>
             </tr>
         </ng-template>
@@ -47,14 +47,18 @@
                     <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked()">
                     </p-checkbox>
                 </td>
-                <td  style="width: 150px;">
+                <td *ngIf="vatTu === 'Thay vat tu'" style="width: 150px;">
                     {{item.MaTenTaiSan}}
                 </td>
-                <td >
+                <td *ngIf="vatTu === 'Thay vat tu'">
                     {{item.MaTenVatTu}}
                 </td>
-                <!-- <td class="text-right"> {{item.NguyenGia | number:'0.0-0'}}</td>
-                <td class="text-right"> {{item.GiaTriConLai | number:'0.0-0'}}</td> -->
+                <td *ngIf="vatTu === 'Nhap vat tu'" style="width: 150px;">
+                    {{item.Ma}}
+                </td>
+                <td *ngIf="vatTu === 'Nhap vat tu'" >
+                    {{item.Ten}}
+                </td>
                 <td >{{item.GhiChu}}</td>
             </tr>
         </ng-template>

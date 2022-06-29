@@ -43,7 +43,7 @@ export class TaisanService {
       },
       GetListNhomTaiSan: (data) => {
         // return this.http.get(`${url}QuanLyTaiSan/GetListDanhMucTaiSanByIddmLoaiTaiSan?IddmLoaiTaiSan=${Id}`, httpOptions);
-        return this.http.post(`${url}QuanLyTaiSan/GetListDanhMucTaiSanByIddmLoaiTaiSan`,data, httpOptions);
+        return this.http.post(`${url}QuanLyTaiSan/GetListDanhMucTaiSanByIddmLoaiTaiSan`, data, httpOptions);
       },
       GetNextMaTaiSan: (Id) => {
         return this.http.get(`${url}QuanLyTaiSan/GetNextMaTaiSanByIddmLoaiTaiSan?IddmLoaiTaiSan=${Id}`, httpOptions);
@@ -208,7 +208,7 @@ export class TaisanService {
       },
       GetListVatTuByIdTaiSan: (Id) => {
         return this.http.get(`${url}BaoDuongTaiSan/GetListVatTuByIdTaiSan?IdTaiSan=${Id}`, httpOptions)
-      } 
+      }
     };
   }
 
@@ -583,6 +583,9 @@ export class TaisanService {
       exportExcel: (data) => {
         return this.http.post(`${url}QuanLyVatTuDuTru/ExportdsVatTuThayThe`, data, httpOptions);
       },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
     };
   }
   QuyTrinhNhapTu() {
@@ -927,6 +930,13 @@ export class TaisanService {
 
         return this.http.post(
           `${url}BaoCao/BieuDoSoGioDungMay_TheoNgay`, data, httpOptions
+        );
+      },
+
+      GetDataTheoMay: (data) => {
+
+        return this.http.post(
+          `${url}BaoCao/BieuDoSoGioDungMay_TheoTungMay`, data, httpOptions
         );
       },
 
