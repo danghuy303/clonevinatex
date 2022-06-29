@@ -31,7 +31,7 @@
 
         <div class="p-mr-2">
           <p-calendar
-            dateFormat="dd/mm/yy"
+            dateFormat="dd.mm.yy"
             inputStyleClass="p-inputtext-sm"
             [showIcon]="true"
             inputId="icon"
@@ -43,7 +43,7 @@
         </div>
         <div class="p-mr-2">
           <p-calendar
-            dateFormat="dd/mm/yy"
+            dateFormat="dd.mm.yy"
             inputStyleClass="p-inputtext-sm"
             [showIcon]="true"
             inputId="icon"
@@ -61,7 +61,7 @@
             type="button"
             label="Biểu đồ chi tiết theo từng máy"
             class="p-button-sm"
-            (click)="showBasicDialog()"
+            (click)="getChart4()"
           ></button>
         </div>
       </div>
@@ -102,19 +102,16 @@
         type="bar"
         [data]="data3"
         [options]="options3"
+        (onDataSelect)="selectData($event)"
       ></p-chart>
     </div>
   </div>
 </div>
 
 <!-- fourth chart -->
-<p-dialog
-  header="Biểu đồ Chi tiết theo từng máy"
-  [(visible)]="displayBasic"
-  [style]="{ width: '80vw' }"
-  [modal]="true"
->
+<p-dialog [(visible)]="displayBasic" [style]="{ width: '80vw' }" [modal]="true">
   <div>
+    <h5 class="text-center mb-3">Biểu đồ Chi tiết theo từng máy</h5>
     <p-chart type="bar" [data]="data4" [options]="options4"></p-chart>
   </div>
   <ng-template pTemplate="footer">

@@ -49,24 +49,24 @@ export class NgansachdukienvathucteComponent implements OnInit {
     },
 
     scales: {
-      x: {
+      xAxes: {
         ticks: {
           color: "#495057",
           min: 0,
           beginAtZero: true,
         },
         grid: {
-          color: "#ebedef",
+          color: "#495057",
         },
       },
-      y: {
+      yAxes: {
         ticks: {
           color: "#495057",
           min: 0,
           beginAtZero: true,
         },
         grid: {
-          color: "#ebedef",
+          color: "#495057",
         },
       },
 
@@ -89,12 +89,13 @@ export class NgansachdukienvathucteComponent implements OnInit {
     this.filter.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-    let data = {
-      ...this.filter,
-      TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
-    };
-
     this.getDataBaoCao();
+
+    // let data = {
+    //   ...this.filter,
+    //   TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
+    // };
+
 
     // this.taisanService.getDataBaoCao().GetDataNganSach(data).subscribe((res: any) => {
     //   let labels = res.Data.map((r) => { return r.Label });

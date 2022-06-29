@@ -1,3 +1,4 @@
+import { Label } from '@amcharts/amcharts4/core';
 import { formatNumber } from '@angular/common';
 import { Component, OnInit } from "@angular/core";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
@@ -169,22 +170,23 @@ export class SogiodungmayComponent implements OnInit {
   };
 
   //chart 4
-  data4: any = {
-    labels: ['Máy 1', 'Máy 2', 'Máy 3', 'Máy 4', 'Máy 5'],
-    datasets: [
-      {
-        label: 'Số giờ hoạt động',
-        data: [65, 59, 80, 81, 56],
-        backgroundColor: "#4472C4",
-      },
-      {
-        label: 'Số giờ dừng hoạt động',
-        data: [65, 59, 80, 81, 56],
-        backgroundColor: "#ED7D31",
-      },
+  data4: any;
+  // data4: any = {
+  //   labels: ['Máy 1', 'Máy 2', 'Máy 3', 'Máy 4', 'Máy 5'],
+  //   datasets: [
+  //     {
+  //       label: 'Số giờ hoạt động',
+  //       data: [65, 59, 80, 81, 56],
+  //       backgroundColor: "#4472C4",
+  //     },
+  //     {
+  //       label: 'Số giờ dừng hoạt động',
+  //       data: [65, 59, 80, 81, 56],
+  //       backgroundColor: "#ED7D31",
+  //     },
 
-    ]
-  };
+  //   ]
+  // };
   options4 = {
     tooltips: {
       enabled: true,
@@ -196,17 +198,12 @@ export class SogiodungmayComponent implements OnInit {
       // }
     },
     plugins: {
-      // title: {
-      //   display: true,
-      //   text: 'Chart.js Bar Chart - Stacked'
-      // },
       labels: {
         render: (arg: any) => {
           // console.log(arg);
           return arg.value
         },
       },
-
     },
     legend: {
       display: true,
@@ -344,6 +341,111 @@ export class SogiodungmayComponent implements OnInit {
 
   displayBasic: boolean;
   showBasicDialog() {
+    this.displayBasic = true;
+  }
+
+  getChart4() {
+    let data = {
+      ...this.filter,
+      TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
+    };
+
+    this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
+      console.log(res);
+      let labels = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          labels.push(i.TenTaiSan)
+        })
+      });
+      console.log(labels);
+      let dataSoGioDungMay = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          dataSoGioDungMay.push(i.SoGio)
+        })
+      });
+      console.log(dataSoGioDungMay);
+      let dataSoGioHoatDong = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          dataSoGioHoatDong.push(i.SoGioHoatDong)
+        })
+      });
+      console.log(dataSoGioHoatDong);
+      let loaiSoGio = ['Số giờ dừng máy', 'Số giờ hoạt động'];
+      this.data4 = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Số giờ dừng máy',
+            data: dataSoGioDungMay,
+            backgroundColor: "#4472C4",
+          },
+          {
+            label: 'Số giờ hoạt động',
+            data: dataSoGioHoatDong,
+            backgroundColor: "#ED7D31",
+          },
+
+        ]
+      };
+    });
+
+    this.displayBasic = true;
+  };
+
+  selectData($event) {
+    console.log($event.element._model.label);
+    let date = $event.element._model.label.split("/");
+    let ngay = (new Date(date[2], date[1] - 1, date[0])).getTime() / 1000
+    console.log(ngay);
+    let data = {
+      ...this.filter,
+      Ngay: ngay,
+      TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
+    };
+    this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
+      console.log(res);
+      let labels = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          labels.push(i.TenTaiSan)
+        })
+      });
+      console.log(labels);
+      let dataSoGioDungMay = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          dataSoGioDungMay.push(i.SoGio)
+        })
+      });
+      console.log(dataSoGioDungMay);
+      let dataSoGioHoatDong = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          dataSoGioHoatDong.push(i.SoGioHoatDong)
+        })
+      });
+      console.log(dataSoGioHoatDong);
+      let loaiSoGio = ['Số giờ dừng máy', 'Số giờ hoạt động'];
+      this.data4 = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Số giờ dừng máy',
+            data: dataSoGioDungMay,
+            backgroundColor: "#4472C4",
+          },
+          {
+            label: 'Số giờ hoạt động',
+            data: dataSoGioHoatDong,
+            backgroundColor: "#ED7D31",
+          },
+
+        ]
+      };
+    });
     this.displayBasic = true;
   }
 }
