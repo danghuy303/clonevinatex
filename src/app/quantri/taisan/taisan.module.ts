@@ -178,6 +178,7 @@ import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.compone
 import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchitiet/capnhatthuvientaisanchitiet.component';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TestQuyTrinhComponent } from './bangiaotaisan/test-quy-trinh/test-quy-trinh.component';
+import { NhapvattumodalthemvattuComponent } from './nhapvattu/nhapvattumodalthemvattu/nhapvattumodalthemvattu.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -306,6 +307,7 @@ import { TestQuyTrinhComponent } from './bangiaotaisan/test-quy-trinh/test-quy-t
     CapnhatthuvientaisanchitietComponent,
     ThemMoiVatTuModalComponent,
     TestQuyTrinhComponent,
+    NhapvattumodalthemvattuComponent,
   ],
   imports: [
     CommonModule,
