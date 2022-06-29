@@ -11,7 +11,7 @@ export class ConfirmationService {
     private modal: NgbModal
   ) { }
 
-  public show(option, callback) {
+  public show(option, callback, callback2?) {
     let modalRef = this.modal.open(ModalthongbaoComponent, {
       size: 'md',
       backdrop: 'static'
@@ -20,6 +20,9 @@ export class ConfirmationService {
     modalRef.result
       .then(()=>{
         callback();
+      })
+      .catch(() => {
+        callback2();
       })
   }
 
