@@ -38,6 +38,7 @@
                 </th>
                 <th class="text-center" style="width: 150px;">Mã</th>
                 <th class="text-center">Tên</th>
+                <th class="text-center">Tồn kho</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -50,6 +51,7 @@
                     {{item.Ma}}
                 </td>
                 <td  class="text-center"> {{item.TenTaiSan}}</td>
+                <td  class="text-center"> {{item.TonKho | number: "0.0-0"}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
