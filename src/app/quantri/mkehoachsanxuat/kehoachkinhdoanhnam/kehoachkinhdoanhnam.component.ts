@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { KehoachkinhdoanhnammodalComponent } from './kehoachkinhdoanhnammodal/kehoachkinhdoanhnammodal.component';
 
 @Component({
@@ -11,115 +12,19 @@ import { KehoachkinhdoanhnammodalComponent } from './kehoachkinhdoanhnammodal/ke
 })
 export class KehoachkinhdoanhnamComponent implements OnInit {
 
+  @ViewChild('paginator') paginator: any;
   listKeHoach: any = [];
-  paging: any = {};
+  keyWord: any = '';
+  paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
+  trangThai: any = 1;
   checkQuyen: any = {};
   constructor(
     public _modal: NgbModal,
     public toastr: ToastrService,
     private activatedRoute: ActivatedRoute, 
     private router: Router,
+    private _danhMucHopDong: DanhMucHopDongService
   ) {
-    this.listKeHoach = [
-      {
-        id: "KH001",
-        SoQuyTrinh: "QTGKHSX042022_0001",
-        TenKeHoach: "Tên/ Nội dung kế hoạch",
-        TenNhanVien: "Nguyễn Văn A",
-        DoanhThu: 100000000,
-        ChiPhi: 50000000,
-        LoiNhuan: 50000000,
-        Nam: 2022,
-        TenTrangThai: "Chưa duyệt",
-        GhiChu: "Ghi chú",
-        ListSanPham:[
-          {
-            TenSanPham: "Sản phẩm 1",
-            NhaMay: "Nhà máy 1",
-            HopDong: "Hợp đồng 1",
-            TongSanLuong: 1300,
-            Thang1: 200,
-            Thang2: 100,
-            Thang3: 100,
-            Thang4: 100,
-            Thang5: 100,
-            Thang6: 100,
-            Thang7: 100,
-            Thang8: 100,
-            Thang9: 100,
-            Thang10: 100,
-            Thang11: 100,
-            Thang12: 100,
-          },
-          {
-            TenSanPham: "Sản phẩm 2",
-            NhaMay: "Nhà máy 2",
-            HopDong: "Hợp đồng 1",
-            TongSanLuong: 1300,
-            Thang1: 200,
-            Thang2: 100,
-            Thang3: 100,
-            Thang4: 100,
-            Thang5: 100,
-            Thang6: 100,
-            Thang7: 100,
-            Thang8: 100,
-            Thang9: 100,
-            Thang10: 100,
-            Thang11: 100,
-            Thang12: 100,
-          },
-        ],
-      },
-      {
-        id: "KH002",
-        SoQuyTrinh: "QTGKHSX042022_0002",
-        TenKeHoach: "Tên/ Nội dung kế hoạch",
-        TenNhanVien: "Nguyễn Văn A",
-        DoanhThu: 100000000,
-        ChiPhi: 50000000,
-        LoiNhuan: 50000000,
-        Nam: 2022,
-        TenTrangThai: "Chưa duyệt",
-        GhiChu: "Ghi chú",
-      },
-      {
-        id: "KH003",
-        SoQuyTrinh: "QTGKHSX042022_0003",
-        TenKeHoach: "Tên/ Nội dung kế hoạch",
-        TenNhanVien: "Nguyễn Văn A",
-        DoanhThu: 100000000,
-        ChiPhi: 50000000,
-        LoiNhuan: 50000000,
-        Nam: 2022,
-        TenTrangThai: "Chưa duyệt",
-        GhiChu: "Ghi chú",
-      },
-      {
-        id: "KH004",
-        SoQuyTrinh: "QTGKHSX042022_0004",
-        TenKeHoach: "Tên/ Nội dung kế hoạch",
-        TenNhanVien: "Nguyễn Văn A",
-        DoanhThu: 100000000,
-        ChiPhi: 50000000,
-        LoiNhuan: 50000000,
-        Nam: 2022,
-        TenTrangThai: "Chưa duyệt",
-        GhiChu: "Ghi chú",
-      },
-      {
-        id: "KH005",
-        SoQuyTrinh: "QTGKHSX042022_0005",
-        TenKeHoach: "Tên/ Nội dung kế hoạch",
-        TenNhanVien: "Nguyễn Văn A",
-        DoanhThu: 100000000,
-        ChiPhi: 50000000,
-        LoiNhuan: 50000000,
-        Nam: 2022,
-        TenTrangThai: "Chưa duyệt",
-        GhiChu: "Ghi chú",
-      },
-    ]
   }
 
   ngOnInit(): void {
@@ -134,7 +39,21 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
   getListKeHoachKinhDoanh(reset?) {
     if (reset) {
       this.paging.Page = 1;
+      this.paginator.changePage(0);
     }
+    let data = {
+      PageSize: 20,
+      CurrentPage: this.paging.Page,
+      sFilter: this.keyWord,
+      TabTrangThai: this.trangThai
+
+    };
+    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetList(data).subscribe((res: any) => {
+      this.listKeHoach = res.Data.Items;
+      console.log("listKeHoach", this.listKeHoach);
+      
+      this.paging.TotalCount = res.Data.TotalCount;
+    })
   }
 
   changeParam(item) {
@@ -170,5 +89,10 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
 
   changeTab(e) {
 
+  }
+
+  changePage(event) {
+    this.paging.Page = event.page + 1;
+    this.getListKeHoachKinhDoanh()
   }
 }

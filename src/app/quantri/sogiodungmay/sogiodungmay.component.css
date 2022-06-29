@@ -32,13 +32,17 @@
     height: 50%;
 }
 
-::ng-deep .third-chart canvas {
+:host ::ng-deep .p-dialog-header {
+    justify-content: end;
+}
+
+:host ::ng-deep .third-chart canvas {
     height: calc((100vh - 211px)/2 - 28px) !important;
 }
-::ng-deep .second-chart canvas {
+:host ::ng-deep .second-chart canvas {
     height: calc((100vh - 211px)/2 - 45px) !important;
 }
-::ng-deep .first-chart canvas {
+:host ::ng-deep .first-chart canvas {
     height: calc((100vh - 211px)/2 - 45px) !important;
     cursor: pointer;
 }
