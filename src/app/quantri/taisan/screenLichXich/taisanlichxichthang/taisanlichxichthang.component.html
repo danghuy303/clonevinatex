@@ -31,15 +31,15 @@
     <p-table [value]="listTaiSan | filter: keyword" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped">
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 150px">Tài sản</th>
-                <th style="width: 150px">Loại BD</th>
+                <th style="width: 100px">Tài sản</th>
+                <th style="width: 250px">Loại BD</th>
                 <th *ngFor="let label of labelThang" class=""> {{label}}</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr *ngFor="let baoduongthang of item.listBaoDuongThang; let i = index">
                 <td *ngIf="i === 0" [attr.rowspan]="item.listBaoDuongThang.length" style="background-color: #fff;">{{item.TenTaiSan}}</td>
-                <td>{{baoduongthang.TendmLoaiBaoDuong}}</td>
+                <td>{{baoduongthang.TendmLoaiBaoDuong}} - {{baoduongthang.Ngay | date: 'dd/MM/yyyy'}}</td>
                 <td *ngFor="let thoigian of baoduongthang.listThoiGian; let index = index" [style.backgroundColor]="thoigian.IsWeekend?'#edbfbb':''" class="text-center">
                     <p-checkbox [(ngModel)]="thoigian.isChon" [binary]="true" (onChange)="check($event ,index,baoduongthang.listThoiGian)"></p-checkbox>
                 </td>
