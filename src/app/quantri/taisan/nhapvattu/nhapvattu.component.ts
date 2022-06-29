@@ -182,6 +182,7 @@ export class NhapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.vatTu = 'Nhap vat tu';
     modalRef.componentInstance.item.IdBoPhanSuDung = this.item.IdBoPhanSuDung;
     modalRef.componentInstance.checkedAll = false;
     modalRef.result.then((res: any) => {

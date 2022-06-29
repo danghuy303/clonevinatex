@@ -66,7 +66,7 @@ export class VattucanthayComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-     this.item.listTaiSan.splice(index, 1)[0];
+      this.item.listTaiSan.splice(index, 1)[0];
     }).catch(er => console.log(er))
   }
   edit(item) {
@@ -115,14 +115,23 @@ export class VattucanthayComponent implements OnInit {
       })
     }
   }
+
+  ChonLoaiVatTu() {
+    this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
+  }
+
   ThemMoiDanhSachTaiSan() {
+    if (!validVariable(this.item.IdBoPhanSuDung)) {
+      this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
+      return true;
+    }
     let modalRef = this._modal.open(ModalnhapvattuluachontaisanComponent, {
       size: "xl",
       backdrop: "static",
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.Lay_Chon = this.item.IddmPhanXuong;
+    modalRef.componentInstance.vatTu = 'Thay vat tu';
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
       let listKetQua = [];

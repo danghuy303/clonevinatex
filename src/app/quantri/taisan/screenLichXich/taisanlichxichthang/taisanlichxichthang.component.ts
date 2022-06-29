@@ -34,7 +34,6 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
     for (let i = 1; i <= this.soNgay; i++) {
       this.labelThang.push(i);
     }
-    console.log("listTaiSan", this.listTaiSan);
   }
   ngAfterViewInit(): void {
     // this.voiPintable.active();

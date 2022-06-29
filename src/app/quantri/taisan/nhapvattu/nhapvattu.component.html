@@ -124,7 +124,7 @@
                         {{item.Ton | number: '0.0'}}
                     </td>
                     <td style="text-align: right;">
-                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm"
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [min]="0" Class="p-inputtext-sm"
                             [(ngModel)]="item.SoLuong" (onBlur)=" Tong()">
                         </p-inputNumber>
                     </td>

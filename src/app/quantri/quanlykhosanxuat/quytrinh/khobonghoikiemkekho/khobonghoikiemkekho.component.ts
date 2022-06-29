@@ -14,7 +14,7 @@ import { StoreService } from 'src/app/services/store.service';
 })
 export class KhobonghoikiemkekhoComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild("paginator") paginator: any;
-  items: any = [{ id: 5, SoQuyTrinh: "PKK_0000_0000" }];
+  items: any = [];
   filter: any = {};
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;

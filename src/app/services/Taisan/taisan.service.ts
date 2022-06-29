@@ -583,6 +583,9 @@ export class TaisanService {
       exportExcel: (data) => {
         return this.http.post(`${url}QuanLyVatTuDuTru/ExportdsVatTuThayThe`, data, httpOptions);
       },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
     };
   }
   QuyTrinhNhapTu() {
