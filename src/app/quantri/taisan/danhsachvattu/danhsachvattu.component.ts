@@ -211,6 +211,8 @@ export class DanhsachvattuComponent implements OnInit {
       }
     })
     this._serviceTaiSan.ListDanhSachVatTu().exportExcel(data).subscribe((res: any) => {
+      console.log(res);
+      
       this._serviceTaiSan.ListDanhSachVatTu().download(res.Data);
     })
     

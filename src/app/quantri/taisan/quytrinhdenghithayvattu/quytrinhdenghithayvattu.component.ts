@@ -64,7 +64,7 @@ export class QuytrinhdenghithayvattuComponent implements OnInit {
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      keyWord: this.keyWord,
+      keyWord: this.filter.keyWord,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai
