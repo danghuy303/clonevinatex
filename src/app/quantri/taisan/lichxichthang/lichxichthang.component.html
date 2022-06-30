@@ -6,8 +6,8 @@
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
-            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.Ngay" (onSelect)="GetList(true)"
+            <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [locale]="lang"
+            [yearNavigator]="true" [yearRange]="yearRange"  [showIcon]="true" [(ngModel)]="filter.Ngay" (onSelect)="GetList(true)"
             inputId="icon" placeholder="mm/yyyy">
         </p-calendar>
         </div>
