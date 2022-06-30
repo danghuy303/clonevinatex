@@ -182,6 +182,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
             borderWidth: 2,
             fill: false,
             data: luykeKeHoach,
+            lineTension: 0,
           },
           {
             type: "line",
@@ -190,6 +191,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
             data: luykeThucTe,
             fill: false,
             borderWidth: 2,
+            lineTension: 0,
           }
 
         ],
