@@ -49,7 +49,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
     },
 
     scales: {
-      xAxes: {
+      x: {
         ticks: {
           color: "#495057",
           min: 0,
@@ -59,11 +59,16 @@ export class NgansachdukienvathucteComponent implements OnInit {
           color: "#495057",
         },
       },
-      yAxes: {
+      y: {
         ticks: {
           color: "#495057",
           min: 0,
           beginAtZero: true,
+
+          callback: function (value, index, ticks) {
+            return '$' + value;
+          }
+
         },
         grid: {
           color: "#495057",

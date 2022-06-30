@@ -188,6 +188,7 @@ export class SogiodungmayComponent implements OnInit {
   //   ]
   // };
   options4 = {
+
     tooltips: {
       enabled: true,
       mode: 'single',
@@ -203,6 +204,11 @@ export class SogiodungmayComponent implements OnInit {
           // console.log(arg);
           return arg.value
         },
+      },
+      datalabels: {
+        display: true,
+        align: 'center',
+        anchor: 'center'
       },
     },
     legend: {
