@@ -1,5 +1,5 @@
 import { formatNumber } from '@angular/common';
-import { Label } from '@amcharts/amcharts4/core';
+import { Label, number } from '@amcharts/amcharts4/core';
 import { Component, OnInit } from "@angular/core";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";

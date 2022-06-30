@@ -52,13 +52,12 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
 
   sumItem(item) {
     item.listVatTu?.forEach(vattu => {
-      if(vattu.SoLuong >= vattu.TonKho) {
-        this.toastr.error("Số lượng lớn hơn tồn kho")
-      }
-    else{
-
+    //   if(vattu.SoLuong > vattu.TonKho) {
+    //     this.toastr.error("Số lượng lớn hơn tồn kho")
+    //   }
+    // else{
       vattu.ThanhTien = ((vattu.GiaTri || 0) * (vattu.SoLuong || 0)) || 0;
-    }
+    // }
     })
     item.TongThanhTien = item.listVatTu?.reduce((sum, obj) => {
       return sum + obj.ThanhTien;

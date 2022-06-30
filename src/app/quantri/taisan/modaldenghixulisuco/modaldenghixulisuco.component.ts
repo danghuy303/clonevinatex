@@ -99,6 +99,17 @@ export class ModaldenghixulisucoComponent implements OnInit {
     return this.item;
   }
 
+  kiemTra() {
+    this.item.listTaiSan.forEach(ele => {
+      ele.listVatTu.forEach(vattu => {
+        if(vattu.SoLuong > vattu.TonKho) {
+          return true;
+        } 
+      })
+      
+    })
+  }
+
   ValidateData() {
     if (!validVariable(this.item.IdDmLoaiSuCo) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.IdDoUuTien)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
@@ -108,6 +119,12 @@ export class ModaldenghixulisucoComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập thêm tài sản!");
       return false;
     }
+
+    if (!validVariable(this.kiemTra())) {
+      this.toastr.error("Yêu cầu !");
+      return false;
+    }
+
     return true;
   }
 
