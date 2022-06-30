@@ -65,11 +65,11 @@ export class NgansachdukienvathucteComponent implements OnInit {
           min: 0,
           beginAtZero: true,
 
-          callback: function (value, index, ticks) {
-            return '$' + value;
-          }
-
+          // scaleLabel: function (label, index, ticks) {
+          //   return formatNumber(Number(label), 'en-GB', '1.0-0');
+          // },
         },
+
         grid: {
           color: "#495057",
         },

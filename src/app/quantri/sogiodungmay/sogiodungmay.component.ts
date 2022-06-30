@@ -6,6 +6,8 @@ import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DateToUnix } from "src/app/services/globalfunction";
 import { mapArrayForDropDown } from "src/app/services/globalfunction";
 
+import 'chartjs-plugin-labels';
+
 @Component({
   selector: "app-sogiodungmay",
   templateUrl: "./sogiodungmay.component.html",
@@ -155,6 +157,10 @@ export class SogiodungmayComponent implements OnInit {
         render: () => { },
       }
     },
+    legend: {
+      display: false,
+      position: "bottom",
+    },
     // maintainAspectRatio: false,
     scales: {
       yAxes: [
@@ -171,22 +177,7 @@ export class SogiodungmayComponent implements OnInit {
 
   //chart 4
   data4: any;
-  // data4: any = {
-  //   labels: ['Máy 1', 'Máy 2', 'Máy 3', 'Máy 4', 'Máy 5'],
-  //   datasets: [
-  //     {
-  //       label: 'Số giờ hoạt động',
-  //       data: [65, 59, 80, 81, 56],
-  //       backgroundColor: "#4472C4",
-  //     },
-  //     {
-  //       label: 'Số giờ dừng hoạt động',
-  //       data: [65, 59, 80, 81, 56],
-  //       backgroundColor: "#ED7D31",
-  //     },
 
-  //   ]
-  // };
   options4 = {
 
     tooltips: {
@@ -206,9 +197,9 @@ export class SogiodungmayComponent implements OnInit {
         },
       },
       datalabels: {
-        display: true,
         align: 'center',
-        anchor: 'center'
+        anchor: 'center',
+
       },
     },
     legend: {
@@ -268,7 +259,7 @@ export class SogiodungmayComponent implements OnInit {
     this.taisanService.getDataBaoCao().GetDataTongHop(data).subscribe((res: any) => {
       // console.log(res)
       this.SuCo = res.Data.map(r => ({ id: r.IddmLoaiSuCo, ten: r.Ten }));
-      let labels = res.Data.map(r => { return r.Ten });
+      let labels = res.Data.map(r => { return `${r.Ten} (${r.TyLe}%)` });
       let dataChart = res.Data.map(r => { return r.SoGio });
       this.data1 = {
         labels: labels,
@@ -361,7 +352,7 @@ export class SogiodungmayComponent implements OnInit {
       let labels = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
-          labels.push(i.TenTaiSan)
+          labels.push(`${i.TenTaiSan} (${i.TyLe}%)`)
         })
       });
       console.log(labels);
@@ -371,14 +362,14 @@ export class SogiodungmayComponent implements OnInit {
           dataSoGioDungMay.push(i.SoGio)
         })
       });
-      console.log(dataSoGioDungMay);
+      // console.log(dataSoGioDungMay);
       let dataSoGioHoatDong = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
           dataSoGioHoatDong.push(i.SoGioHoatDong)
         })
       });
-      console.log(dataSoGioHoatDong);
+      // console.log(dataSoGioHoatDong);
       let loaiSoGio = ['Số giờ dừng máy', 'Số giờ hoạt động'];
       this.data4 = {
         labels: labels,
@@ -433,7 +424,7 @@ export class SogiodungmayComponent implements OnInit {
           dataSoGioHoatDong.push(i.SoGioHoatDong)
         })
       });
-      console.log(dataSoGioHoatDong);
+      // console.log(dataSoGioHoatDong);
       let loaiSoGio = ['Số giờ dừng máy', 'Số giờ hoạt động'];
       this.data4 = {
         labels: labels,
