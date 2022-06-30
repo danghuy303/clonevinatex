@@ -1,5 +1,5 @@
 import { formatNumber } from '@angular/common';
-import { Label } from '@amcharts/amcharts4/core';
+import { Label, number } from '@amcharts/amcharts4/core';
 import { Component, OnInit } from "@angular/core";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
@@ -49,7 +49,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
     },
 
     scales: {
-      xAxes: {
+      x: {
         ticks: {
           color: "#495057",
           min: 0,
@@ -59,12 +59,17 @@ export class NgansachdukienvathucteComponent implements OnInit {
           color: "#495057",
         },
       },
-      yAxes: {
+      y: {
         ticks: {
           color: "#495057",
           min: 0,
           beginAtZero: true,
+
+          // scaleLabel: function (label, index, ticks) {
+          //   return formatNumber(Number(label), 'en-GB', '1.0-0');
+          // },
         },
+
         grid: {
           color: "#495057",
         },
