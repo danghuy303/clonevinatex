@@ -51,9 +51,10 @@
       <tr [ttRow]="rowNode">
         <td class="text-center">
           <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="CheckAll(rowData)"></p-checkbox>
+          <!-- <p-treeTableCheckbox [value]="rowNode"></p-treeTableCheckbox> -->
         </td>
         <td class="text-center">{{rowData.STT}}</td>
-        <td class="text-center">
+        <td class="">
           <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
           {{rowData.Ma}}
         </td>
