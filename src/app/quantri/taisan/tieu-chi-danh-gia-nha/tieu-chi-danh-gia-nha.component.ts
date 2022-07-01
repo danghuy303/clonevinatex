@@ -1,5 +1,5 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
-import { handleHTTPResponse, validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, handleHTTPResponse, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from 'ngx-toastr';
@@ -24,6 +24,7 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
   paging: any = {};
   fileUpload: any;
   index: any;
+  selectedNodes: TreeNode[];
 
   constructor(
     private taiSanService: TaisanService,
@@ -109,12 +110,8 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
       HoatDong: true,
     }
     modalRef.result
-      .then((res: any) => {
-
-      })
-      .catch(er => {
-
-      })
+      .then((res: any) => {})
+      .catch(er => {})
       .finally(() =>{
         this.LoadListTieuChi()
       })
@@ -138,18 +135,22 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
   }
 
   DeleteListTieuChi() {
-    let listDeleteTieuChi = this.items.some(item => item.data.checked);
-    if (listDeleteTieuChi) {
+    let arr = [];
+    this.items.forEach((item) => {
+      if (item.data.checked) {
+        arr.push(item.data.Id)
+      }    
+      item.children?.forEach((child) => {
+        if (child.data.checked) {
+          arr.push(child.data.Id)
+        }
+      })
+    })
+    if (arr.length > 0) {
       this.confirmService.show({
         message: 'Bạn chắc chắn muốn xóa các tiêu chí này?'
       }, () => {
-        let listId = [];
-        this.TreeToData(this.items).forEach(ele => {
-          if (ele.data.checked===true) {
-            listId.push(ele.data.Id)
-          }
-        })
-        this.taiSanService.TieuChiDanhGia().Delete(listId).subscribe((res: any) => {
+        this.taiSanService.TieuChiDanhGia().Delete(arr).subscribe((res: any) => {
             this.LoadListTieuChi();
         })
       })
