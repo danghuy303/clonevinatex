@@ -27,7 +27,6 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
     this.items.forEach(item => {
       this.sumItem(item);
     })
-    console.log("this.item", this.items);
   }
 
   ngOnInit(): void {

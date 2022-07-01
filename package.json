@@ -29,6 +29,7 @@
     "angularx-qrcode": "^10.0.12",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.4",
+    "chartjs-plugin-datalabels": "^1.0.0",
     "chartjs-plugin-labels": "^1.1.0",
     "ng2-file-upload": "^1.4.0",
     "ngx-mask": "^11.1.5",
