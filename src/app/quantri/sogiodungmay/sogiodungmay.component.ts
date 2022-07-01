@@ -1,12 +1,12 @@
-import { Label } from '@amcharts/amcharts4/core';
+
 import { formatNumber } from '@angular/common';
 import { Component, OnInit } from "@angular/core";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DateToUnix } from "src/app/services/globalfunction";
 import { mapArrayForDropDown } from "src/app/services/globalfunction";
-
-import 'chartjs-plugin-labels';
+import { Chart } from "chart.js";
+import ChartDatalabels from "chartjs-plugin-datalabels";
 
 @Component({
   selector: "app-sogiodungmay",
@@ -155,10 +155,10 @@ export class SogiodungmayComponent implements OnInit {
     plugins: {
       labels: {
         render: () => { },
-      }
+      },
     },
     legend: {
-      display: false,
+      display: true,
       position: "bottom",
     },
     // maintainAspectRatio: false,
@@ -178,29 +178,33 @@ export class SogiodungmayComponent implements OnInit {
   //chart 4
   data4: any;
 
-  options4 = {
+  options4: any = {
 
-    tooltips: {
-      enabled: true,
-      mode: 'single',
-      // callbacks: {
-      //   label: function (tooltipItems, data) {
-      //     return tooltipItems.yLabel + ' giờ';
-      //   }
-      // }
-    },
+    // tooltips: {
+    //   enabled: true,
+    //   mode: 'single',
+    //   // callbacks: {
+    //   //   label: function (tooltipItems, data) {
+    //   //     return tooltipItems.yLabel + ' giờ';
+    //   //   }
+    //   // }
+    // },
     plugins: {
       labels: {
         render: (arg: any) => {
           // console.log(arg);
-          return arg.value
+          // return arg.value
         },
       },
       datalabels: {
-        align: 'center',
-        anchor: 'center',
-
-      },
+        color: 'black',
+        font: {
+          weight: 'bold'
+        },
+        formatter: (value, context) => {
+          return formatNumber(parseFloat(value), 'en-US', '0.0-3')
+        }
+      }
     },
     legend: {
       display: true,
@@ -348,14 +352,14 @@ export class SogiodungmayComponent implements OnInit {
     };
 
     this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       let labels = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
           labels.push(`${i.TenTaiSan} (${i.TyLe}%)`)
         })
       });
-      console.log(labels);
+      // console.log(labels);
       let dataSoGioDungMay = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
@@ -363,6 +367,7 @@ export class SogiodungmayComponent implements OnInit {
         })
       });
       // console.log(dataSoGioDungMay);
+
       let dataSoGioHoatDong = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
@@ -384,9 +389,14 @@ export class SogiodungmayComponent implements OnInit {
             data: dataSoGioHoatDong,
             backgroundColor: "#ED7D31",
           },
-
         ]
       };
+      let chart = new Chart('chart4', {
+        type: 'bar',
+        data: this.data4,
+        plugins: [ChartDatalabels],
+        options: this.options4,
+      });
     });
 
     this.displayBasic = true;
@@ -396,28 +406,28 @@ export class SogiodungmayComponent implements OnInit {
     console.log($event.element._model.label);
     let date = $event.element._model.label.split("/");
     let ngay = (new Date(date[2], date[1] - 1, date[0])).getTime() / 1000
-    console.log(ngay);
+    // console.log(ngay);
     let data = {
       ...this.filter,
       Ngay: ngay,
       TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
     };
     this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       let labels = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
           labels.push(i.TenTaiSan)
         })
       });
-      console.log(labels);
+      // console.log(labels);
       let dataSoGioDungMay = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
           dataSoGioDungMay.push(i.SoGio)
         })
       });
-      console.log(dataSoGioDungMay);
+      // console.log(dataSoGioDungMay);
       let dataSoGioHoatDong = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {

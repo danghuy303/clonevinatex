@@ -96,7 +96,9 @@
   <!-- third chart -->
   <div class="third-chart row col-12 p-0 m-0">
     <div class="col-12 bg-white m-0 p-3">
-      <h6></h6>
+      <h6 class="text-center m-0" style="font-weight: bold">
+        BIỂU ĐỒ CHI TIẾT THEO TỪNG NGÀY
+      </h6>
       <p-chart
         height="250"
         type="bar"
@@ -111,8 +113,12 @@
 <!-- fourth chart -->
 <p-dialog [(visible)]="displayBasic" [style]="{ width: '80vw' }" [modal]="true">
   <div>
-    <h5 class="text-center mb-3">Biểu đồ Chi tiết theo từng máy</h5>
-    <p-chart type="bar" [data]="data4" [options]="options4"></p-chart>
+    <h6 class="text-center m-0" style="font-weight: bold">
+      BIỂU ĐỒ CHI TIẾT THEO TỪNG MÁY
+    </h6>
+
+    <canvas id="chart4" style="width: 100%; height: 500px"></canvas>
+    <!-- <p-chart type="bar" [data]="data4" [options]="options4"></p-chart> -->
   </div>
   <ng-template pTemplate="footer">
     <!-- <p-button

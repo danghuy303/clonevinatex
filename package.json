@@ -26,6 +26,7 @@
     "@angular/router": "~10.0.6",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
+    "@types/chart.js": "^2.9.37",
     "angularx-qrcode": "^10.0.12",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.4",
