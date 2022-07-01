@@ -155,10 +155,10 @@ export class SogiodungmayComponent implements OnInit {
     plugins: {
       labels: {
         render: () => { },
-      }
+      },
     },
     legend: {
-      display: false,
+      display: true,
       position: "bottom",
     },
     // maintainAspectRatio: false,
@@ -178,7 +178,7 @@ export class SogiodungmayComponent implements OnInit {
   //chart 4
   data4: any;
 
-  options4:any = {
+  options4: any = {
 
     // tooltips: {
     //   enabled: true,
@@ -198,11 +198,11 @@ export class SogiodungmayComponent implements OnInit {
       },
       datalabels: {
         color: 'black',
-        font:{
-          weight:'bold'
+        font: {
+          weight: 'bold'
         },
-        formatter:(value, context)=>{
-          return formatNumber(parseFloat(value),'en-US','0.0-3')
+        formatter: (value, context) => {
+          return formatNumber(parseFloat(value), 'en-US', '0.0-3')
         }
       }
     },
@@ -352,14 +352,14 @@ export class SogiodungmayComponent implements OnInit {
     };
 
     this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       let labels = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
           labels.push(`${i.TenTaiSan} (${i.TyLe}%)`)
         })
       });
-      console.log(labels);
+      // console.log(labels);
       let dataSoGioDungMay = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
@@ -367,6 +367,7 @@ export class SogiodungmayComponent implements OnInit {
         })
       });
       // console.log(dataSoGioDungMay);
+
       let dataSoGioHoatDong = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
@@ -393,7 +394,7 @@ export class SogiodungmayComponent implements OnInit {
       let chart = new Chart('chart4', {
         type: 'bar',
         data: this.data4,
-        plugins:[ChartDatalabels],
+        plugins: [ChartDatalabels],
         options: this.options4,
       });
     });
@@ -405,28 +406,28 @@ export class SogiodungmayComponent implements OnInit {
     console.log($event.element._model.label);
     let date = $event.element._model.label.split("/");
     let ngay = (new Date(date[2], date[1] - 1, date[0])).getTime() / 1000
-    console.log(ngay);
+    // console.log(ngay);
     let data = {
       ...this.filter,
       Ngay: ngay,
       TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
     };
     this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       let labels = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
           labels.push(i.TenTaiSan)
         })
       });
-      console.log(labels);
+      // console.log(labels);
       let dataSoGioDungMay = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
           dataSoGioDungMay.push(i.SoGio)
         })
       });
-      console.log(dataSoGioDungMay);
+      // console.log(dataSoGioDungMay);
       let dataSoGioHoatDong = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
