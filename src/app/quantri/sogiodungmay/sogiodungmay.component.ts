@@ -1,12 +1,12 @@
-import { Label } from '@amcharts/amcharts4/core';
+
 import { formatNumber } from '@angular/common';
 import { Component, OnInit } from "@angular/core";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DateToUnix } from "src/app/services/globalfunction";
 import { mapArrayForDropDown } from "src/app/services/globalfunction";
-
-import 'chartjs-plugin-labels';
+import { Chart } from "chart.js";
+import ChartDatalabels from "chartjs-plugin-datalabels";
 
 @Component({
   selector: "app-sogiodungmay",
@@ -178,29 +178,33 @@ export class SogiodungmayComponent implements OnInit {
   //chart 4
   data4: any;
 
-  options4 = {
+  options4:any = {
 
-    tooltips: {
-      enabled: true,
-      mode: 'single',
-      // callbacks: {
-      //   label: function (tooltipItems, data) {
-      //     return tooltipItems.yLabel + ' giờ';
-      //   }
-      // }
-    },
+    // tooltips: {
+    //   enabled: true,
+    //   mode: 'single',
+    //   // callbacks: {
+    //   //   label: function (tooltipItems, data) {
+    //   //     return tooltipItems.yLabel + ' giờ';
+    //   //   }
+    //   // }
+    // },
     plugins: {
       labels: {
         render: (arg: any) => {
           // console.log(arg);
-          return arg.value
+          // return arg.value
         },
       },
       datalabels: {
-        align: 'center',
-        anchor: 'center',
-
-      },
+        color: 'black',
+        font:{
+          weight:'bold'
+        },
+        formatter:(value, context)=>{
+          return formatNumber(parseFloat(value),'en-US','0.0-3')
+        }
+      }
     },
     legend: {
       display: true,
@@ -384,9 +388,14 @@ export class SogiodungmayComponent implements OnInit {
             data: dataSoGioHoatDong,
             backgroundColor: "#ED7D31",
           },
-
         ]
       };
+      let chart = new Chart('chart4', {
+        type: 'bar',
+        data: this.data4,
+        plugins:[ChartDatalabels],
+        options: this.options4,
+      });
     });
 
     this.displayBasic = true;
