@@ -28,6 +28,18 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== "0") {
+        console.log(res);
+        
+        this._danhMucHopDong
+          .DanhSachKeHoachKinhDoanh()
+          .Get(res.id)
+          .subscribe((res: any) => {
+            this.update(res);
+          });
+      }
+    });
     this.resetFilter();
   }
 
@@ -39,7 +51,7 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
   getListKeHoachKinhDoanh(reset?) {
     if (reset) {
       this.paging.Page = 1;
-      this.paginator.changePage(0);
+      // this.paginator.changePage(0);
     }
     let data = {
       PageSize: 20,
@@ -56,20 +68,26 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
     })
   }
 
-  changeParam(item) {
+  changeParam(id) {
+    this.router.navigate([`quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${id}`], {
+      replaceUrl: true,
+    });
+  }
+
+  update(item) {
     let modalRef = this._modal.open(KehoachkinhdoanhnammodalComponent, {
       size: "fullscreen",
       backdrop: "static",
     })
-    modalRef.componentInstance.kehoach = item;
+    modalRef.componentInstance.kehoach = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.title = 'Cập nhật kế hoạch kinh doanh';
     modalRef.result
-      .then((res: any) => {
-
+      .then((res: any) => {})
+      .catch((error: any) => {})
+      .finally(() => {
+        this.getListKeHoachKinhDoanh();
+        this.changeParam(0);
       })
-      .catch((error: any) => {
-
-      })
-      .finally(() => {})
   }
   
   add() {

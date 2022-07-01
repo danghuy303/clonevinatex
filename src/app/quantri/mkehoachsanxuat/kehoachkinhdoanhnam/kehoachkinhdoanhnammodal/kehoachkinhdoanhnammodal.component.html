@@ -102,7 +102,7 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container  *ngFor="let sanpham of kehoach.ListSanPham; let i = index">
+          <ng-container  *ngFor="let sanpham of kehoach.lstKH_KeHoachKinhDoanh_SanPham; let i = index">
             <tr>
               <td class="tc-w-200 p-px-2" style="background-color: #fff;z-index: 9999;">
                 <div class="d-flex p-ai-center">
@@ -117,16 +117,15 @@
                 <button pButton pRipple type="button" *ngIf="sanpham.HopDong" label="Danh sách hợp đồng" class="p-button-text" (click)="SeeHopDongDetail()"></button>
               </td>
               <td class="tc-w-200 p-px-2 text-right">
-                <p-inputNumber [(ngModel)]="sanpham.TongSanLuong" locale="en-US"></p-inputNumber>
+                <p-inputNumber [disabled]="true" [(ngModel)]="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang" locale="en-US"></p-inputNumber>
               </td>
-              <td *ngFor="let thang of propThang" class="tc-w-140 p-px-2">
-                <div class="d-flex p-jc-center p-ai-center">
-                  <a href="javascript:void(0)" (click)="SeeMonthDetail()">{{sanpham[thang] | number: '0.0'}}</a>
-                  <!-- <button pButton pRipple type="button" [label]="sanpham[thang]" class="p-button-text" (click)="SeeHopDongDetail()"></button> -->
-                  <!-- <p-inputNumber [(ngModel)]="sanpham[thang]" locale="en-US" suffix=" tấn"></p-inputNumber>
-                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="SeeMonthDetail()"></button> -->
-                </div>
-              </td>
+              <ng-container 
+              *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH"
+              >
+                <td class="tc-w-140 text-center">
+                  <button pButton pRipple type="button" [label]="thang.SanLuongThang.toString()" class="p-button-text" (click)="SeeMonthDetail()"></button>
+                </td>
+              </ng-container>
             </tr>
           </ng-container>
         </tbody>
