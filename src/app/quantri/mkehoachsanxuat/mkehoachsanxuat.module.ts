@@ -60,6 +60,8 @@ import { ChiPhiBanHangTheoNamComponent } from './danh-sach/chi-phi-ban-hang-theo
 import { ChiPhiBanHangTheoNamModalComponent } from './danh-sach/chi-phi-ban-hang-theo-nam/chi-phi-ban-hang-theo-nam-modal/chi-phi-ban-hang-theo-nam-modal.component';
 import { DanhSachTinhLuongModalComponent } from './danh-sach/danh-sach-tinh-luong/danh-sach-tinh-luong-modal/danh-sach-tinh-luong-modal.component';
 import { MucLuongCoCauNhanSuModalComponent } from './danh-sach/muc-luong-co-cau-nhan-su/muc-luong-co-cau-nhan-su-modal/muc-luong-co-cau-nhan-su-modal.component';
+import { LoaiContainerComponent } from './danh-muc/loai-container/loai-container.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -110,6 +112,7 @@ import { MucLuongCoCauNhanSuModalComponent } from './danh-sach/muc-luong-co-cau-
     ChiPhiBanHangTheoNamModalComponent,
     DanhSachTinhLuongModalComponent,
     MucLuongCoCauNhanSuModalComponent,
+    LoaiContainerComponent,
   ],
   imports: [
     CommonModule,
@@ -124,7 +127,8 @@ import { MucLuongCoCauNhanSuModalComponent } from './danh-sach/muc-luong-co-cau-
     VoiLibModule,
     InputNumberModule,
     CheckboxModule,
-    ChartModule
+    ChartModule,
+    SharedModule
   ],
   exports: [
     KehoachkinhdoanhnamComponent

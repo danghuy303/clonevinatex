@@ -2,13 +2,13 @@
   <h5 class="modal-title">Phiếu kế hoạch kinh doanh năm</h5>
   <div class="d-flex flex-column flex-lg-row">
     <div>
-      <span style="font-weight: bold;">Số quy trình:</span>
+      <span style="font-weight: bold;">Số quy trình: {{kehoach.SoQuyTrinh}}</span>
     </div>
     <div class="ml-lg-3 mr-lg-3">
-      <span style="font-weight: bold;">TG Tạo:</span>
+      <span style="font-weight: bold;">TG Tạo: {{kehoach.Created | date:'dd/MM/yyyy'}}</span>
     </div>
     <div>
-      <span style="font-weight: bold;">TG Duyệt:</span>
+      <span style="font-weight: bold;">TG Duyệt: </span>
     </div>
   </div>
 </div>
@@ -31,7 +31,7 @@
     <div class="p-col-12 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-1 p-p-0 my-auto">Người lập:</label>
       <div class="p-col-12 p-lg-11 p-p-0">
-        {{kehoach.TenNhanVien}}
+        {{kehoach.TenNguoiLap}}
       </div>
     </div>
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
@@ -43,15 +43,17 @@
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-2 p-p-0 my-auto">Năm kế hoạch:</label>
       <div class="p-col-12 p-lg-10 p-p-0 my-auto">
-        <p-dropdown [filter]="true" [options]="years" placeholder="Chọn năm" [showClear]="true"
+        <p-dropdown [(ngModel)]="kehoach.Nam" [filter]="true" [options]="years" placeholder="Chọn năm" [showClear]="true"
         styleClass="p-inputtext-sm"></p-dropdown>
       </div>
     </div>
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
-      <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mặt hàng gốc tham chiếu:</label>
+      <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chi số gốc:</label>
       <div class="p-col-12 p-lg-10 p-p-0 my-auto">
-        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng" [showClear]="true"
-          styleClass="p-inputtext-sm"></p-dropdown>
+        <p-inputNumber [(ngModel)]="kehoach.NeGoc" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="3" placeholder="Nhập chi số gốc">
+        </p-inputNumber>
+        <!-- <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng" [showClear]="true"
+          styleClass="p-inputtext-sm"></p-dropdown> -->
       </div>
     </div>
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
@@ -63,14 +65,17 @@
     <div class="p-col-12 p-lg-3 d-flex flex-column flex-xl-row p-p-2">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tiền tệ:</label>
       <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-        <p-dropdown [filter]="true" [options]="listDonViTienTe" placeholder="Chọn đơn vị tiền tệ" [showClear]="true"
-          styleClass="p-inputtext-sm"></p-dropdown>
+        <p-dropdown [(ngModel)]="kehoach.MaDonViTienTe" [filter]="true" [options]="listDonViTienTe" placeholder="Chọn đơn vị tiền tệ" [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày lập:</label>
       <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-        <p-calendar [showIcon]="true" inputId="icon" placeholder="Chọn ngày"></p-calendar>
+        <!-- <p-calendar [(ngModel)]="kehoach.NgayLap" [showIcon]="true" inputId="icon" placeholder="Chọn ngày"></p-calendar> -->
+        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [locale]="lang"
+              [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon" [(ngModel)]="kehoach.NgayLap"
+              placeholder="dd/mm/yyyy">
+            </p-calendar>
       </div>
     </div>
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
@@ -114,7 +119,7 @@
               </td>
               <td class="tc-w-200 p-px-2">{{sanpham.NhaMay}}</td>
               <td class="tc-w-121 p-px-2 text-center">
-                <button pButton pRipple type="button" *ngIf="sanpham.HopDong" label="Danh sách hợp đồng" class="p-button-text" (click)="SeeHopDongDetail()"></button>
+                <button pButton pRipple type="button" label="Danh sách hợp đồng" class="p-button-text" (click)="SeeHopDongDetail()"></button>
               </td>
               <td class="tc-w-200 p-px-2 text-right">
                 <p-inputNumber [disabled]="true" [(ngModel)]="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang" locale="en-US"></p-inputNumber>
@@ -123,7 +128,7 @@
               *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH"
               >
                 <td class="tc-w-140 text-center">
-                  <button pButton pRipple type="button" [label]="thang.SanLuongThang.toString()" class="p-button-text" (click)="SeeMonthDetail()"></button>
+                  <button pButton pRipple type="button" [label]="thang.SanLuongThang.toString()" class="p-button-text" (click)="SeeMonthDetail(sanpham, thang)"></button>
                 </td>
               </ng-container>
             </tr>

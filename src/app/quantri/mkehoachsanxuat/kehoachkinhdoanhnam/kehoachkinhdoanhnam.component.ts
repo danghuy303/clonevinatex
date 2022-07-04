@@ -79,6 +79,7 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
       size: "fullscreen",
       backdrop: "static",
     })
+    modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.kehoach = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.title = 'Cập nhật kế hoạch kinh doanh';
     modalRef.result
@@ -95,6 +96,7 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
       size: "fullscreen",
       backdrop: "static",
     })
+    modalRef.componentInstance.opt = 'add';
     modalRef.result
       .then((res: any) => {
 

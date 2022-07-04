@@ -605,6 +605,15 @@ export class SanXuatService {
             GetChiTietMatHangChoKHKD: () => {
                 return this.http.post(`${API.SCM}APIChoModuleKeHoach/GetDanhMucSanPhamHopDong`, {}, httpOptions)
             },
+            GetMatHangKhongHopDongChoKHKD: () => {
+                return this.http.post(`${API.SCM}APIChoModuleKeHoach/GetDanhMucSanPhamKhongCoHopDong`, {}, httpOptions)
+            },
+            GetListPhuongThucVanChuyenKHKD: () => {
+                return this.http.get(`${API.KeHoach}DanhMuc/GetListAllPhuongThucVanChuyen`);
+            },
+            GetListContainerForKHKD: () => {
+                return this.http.get(`${API.KeHoach}DanhMuc/GetListAlldmLoaiContainer`);
+            },
             GetNhaMay: () => {
                 return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`, {}, httpOptions)
             },

@@ -12,6 +12,7 @@ export class HopdongsanphammodalComponent implements OnInit {
   hopdong: any = {};
   selectedProducts: any = [];
   checkedAll: boolean;
+  nam: any;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -70,14 +71,14 @@ export class HopdongsanphammodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.CountSLConlai();
   }
 
-  checkAll() {
-
-  }
-
-  check() {
-    
+  CountSLConlai() {
+    this.hopdong.listSanPham.forEach(ele => {
+      ele.ConLai = 0;
+      ele.ConLai = (ele.TongSanLuong || 0) - (ele.SanLuongDoDang || 0) - (ele.DaSanXuat || 0);
+    }) 
   }
 
 }

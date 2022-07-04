@@ -6,7 +6,7 @@
     <div class="modal-bt p-mb-3">
       <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
         (click)="activeModal.dismiss()"></button>
-      <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm "></button>
+      <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm" (click)="ChapNhan()"></button>
     </div>
   </div>
   <p-panel header="Thông tin chung">
@@ -14,45 +14,45 @@
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <input type="text" class="p-inputtext-sm" [(ngModel)]="itemThang.TongSoCa" placeholder="Nhập nội dung"
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="itemThang.TongSoCa" [min]="0" placeholder="Nhập tổng số ca"
             pInputText />
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số máy con:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SoMayCon" locale="en-US"></p-inputNumber>
+          <p-inputNumber [(ngModel)]="itemThang.SoMayCon" locale="en-US" placeholder="Nhập số máy con"></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ngày làm việc:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SoNgayLamViec" locale="en-US"></p-inputNumber>
+          <p-inputNumber [(ngModel)]="itemThang.SoNgayLamViec" locale="en-US" placeholder="Nhập số ngày làm việc"></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sản lượng một ca:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SanLuongMotCa" locale="en-US"></p-inputNumber>
+          <p-inputNumber [(ngModel)]="itemThang.SanLuongMotCa" locale="en-US" placeholder="Nhập sản lượng một ca" (onBlur)="CountTongSanLuong()"></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hiệu suất:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.HieuSuat" locale="en-US"></p-inputNumber>
+          <p-inputNumber [(ngModel)]="itemThang.HieuSuat" locale="en-US" placeholder="Nhập hiệu suất"></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sản lượng quy đổi:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SanLuongQuyDoi" locale="en-US">
+          <p-inputNumber [(ngModel)]="itemThang.SanLuongQuyDoi" [disabled]="true" locale="en-US" placeholder="Sản lượng quy đổi">
           </p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng sản lượng trong tháng:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.TongSanLuong" locale="en-US">
+          <p-inputNumber [(ngModel)]="itemThang.TongSanLuong" [disabled]="true" locale="en-US">
           </p-inputNumber>
         </div>
       </div>
@@ -63,28 +63,28 @@
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại Container:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-dropdown [filter]="true" [options]="listContainer" placeholder="Chọn loại Container" [showClear]="true"
+          <p-dropdown [(ngModel)]="itemThang.IdLoaiContainer" [filter]="true" [options]="listContainer" placeholder="Chọn loại Container" [showClear]="true"
             styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phương thức vận chuyển:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-dropdown [filter]="true" [options]="listPhuongThucVanChuyen" placeholder="Chọn loại phương thức vận chuyển" [showClear]="true"
+          <p-dropdown [(ngModel)]="itemThang.IdLoaiPhuongThucVanChuyen" [filter]="true" [options]="listPhuongThucVanChuyen" placeholder="Chọn loại phương thức vận chuyển" [showClear]="true"
             styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cách thức:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-dropdown [filter]="true" [options]="listCachThuc" placeholder="Chọn loại phương thức vận chuyển" [showClear]="true"
+          <p-dropdown [(ngModel)]="itemThang.CachThuc" [filter]="true" [options]="listCachThuc" placeholder="Chọn loại phương thức vận chuyển" [showClear]="true"
             styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sử dụng cho tất cả các tháng:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-checkbox></p-checkbox>
+          <p-checkbox [(ngModel)]="itemThang.checkForAll" [binary]="true"></p-checkbox>
         </div>
       </div>
     </div>
