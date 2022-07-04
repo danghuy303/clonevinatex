@@ -31,7 +31,7 @@
 
         <div class="p-mr-2">
           <p-calendar
-            dateFormat="dd.mm.yy"
+            dateFormat="dd/mm/yy"
             inputStyleClass="p-inputtext-sm"
             [showIcon]="true"
             inputId="icon"
@@ -43,7 +43,7 @@
         </div>
         <div class="p-mr-2">
           <p-calendar
-            dateFormat="dd.mm.yy"
+            dateFormat="dd/mm/yy"
             inputStyleClass="p-inputtext-sm"
             [showIcon]="true"
             inputId="icon"
@@ -68,11 +68,10 @@
     </div>
   </div>
 
-  <!-- first and second chart -->
+  <!-- first and second chart: Biểu đồ Tổng hợp & Loại sự cố -->
   <div class="top-charts row col-12 mx-0 p-0">
     <div class="first-chart bg-white p-3">
       <h6 class="text-center m-0" style="font-weight: bold">TỔNG HỢP</h6>
-
       <p-chart
         class="p-2"
         type="pie"
@@ -80,7 +79,6 @@
         [data]="data1"
         width="100%"
         height="100%"
-        (click)="getDataBaoCao()"
       ></p-chart>
     </div>
 
@@ -93,7 +91,7 @@
     </div>
   </div>
 
-  <!-- third chart -->
+  <!-- third chart: Biểu đồ Chi tiết từng ngày -->
   <div class="third-chart row col-12 p-0 m-0">
     <div class="col-12 bg-white m-0 p-3">
       <h6 class="text-center m-0" style="font-weight: bold">
@@ -104,14 +102,21 @@
         type="bar"
         [data]="data3"
         [options]="options3"
-        (onDataSelect)="selectData($event)"
+        (onDataSelect)="getChart5($event)"
       ></p-chart>
     </div>
   </div>
 </div>
 
-<!-- fourth chart -->
-<p-dialog [(visible)]="displayBasic" [style]="{ width: '80vw' }" [modal]="true">
+<!-- fourth chart: Biểu đồ chi tiết từng máy -->
+<p-dialog
+  [(visible)]="displayChart4"
+  [style]="{ width: '80vw' }"
+  [modal]="true"
+  header="Từ ngày {{ filter.TuNgay | date: 'dd/MM/yyy' }} - Đến ngày {{
+    filter.DenNgay | date: 'dd/MM/yyy'
+  }}"
+>
   <div>
     <h6 class="text-center m-0" style="font-weight: bold">
       BIỂU ĐỒ CHI TIẾT THEO TỪNG MÁY
@@ -128,4 +133,24 @@
       styleClass="p-button-text"
     ></p-button> -->
   </ng-template>
+</p-dialog>
+
+<!-- fifth chart: Biểu đồ từng loại bảo dưỡng từng ngày -->
+<p-dialog
+  [(visible)]="displayChart5"
+  [style]="{ width: '80vw' }"
+  [modal]="true"
+  header="Loại sự cố: {{ loaiBieudochitietTungloai }} - Ngày: {{
+    dateBieudochitietTungloai
+  }}"
+>
+  <div>
+    <h6 class="text-center m-0" style="font-weight: bold">
+      BIỂU ĐỒ CHI TIẾT THEO TỪNG LOẠI SỰ CỐ TỪNG NGÀY
+    </h6>
+
+    <canvas id="chart5" style="width: 100%; height: 500px"></canvas>
+    <!-- <p-chart type="bar" [data]="data5" [options]="options5"></p-chart> -->
+  </div>
+  <ng-template pTemplate="footer"> </ng-template>
 </p-dialog>

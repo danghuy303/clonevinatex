@@ -33,7 +33,7 @@
 }
 
 :host ::ng-deep .p-dialog-header {
-    justify-content: end;
+    justify-content: space-between;
 }
 
 :host ::ng-deep .third-chart canvas {
