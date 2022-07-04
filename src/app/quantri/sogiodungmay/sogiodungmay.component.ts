@@ -25,7 +25,8 @@ export class SogiodungmayComponent implements OnInit {
   SuCo: any;
 
   CongDoan: any;
-
+  chart4:any;
+  chart5:any
   PhanXuong: any;
 
   backgroundColor = [
@@ -431,7 +432,8 @@ export class SogiodungmayComponent implements OnInit {
           },
         ]
       };
-      let chart = new Chart('chart4', {
+      this.chart4?.destroy();
+      this.chart4 = new Chart('chart4', {
         type: 'bar',
         data: this.data4,
         plugins: [ChartDatalabels],
@@ -502,7 +504,8 @@ export class SogiodungmayComponent implements OnInit {
 
         ]
       };
-      let chart = new Chart('chart5', {
+      this.chart5?.destroy();
+      this.chart5 = new Chart('chart5', {
         type: 'bar',
         data: this.data5,
         plugins: [ChartDatalabels],
