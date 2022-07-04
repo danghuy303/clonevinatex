@@ -49,31 +49,26 @@ export class NgansachdukienvathucteComponent implements OnInit {
     },
 
     scales: {
-      x: {
+      // x: {
+      //   ticks: {
+      //     color: "#495057",
+      //     min: 0,
+      //     beginAtZero: true,
+      //   },
+      //   grid: {
+      //     color: "#495057",
+      //   },
+      // },
+      yAxes: [{
         ticks: {
-          color: "#495057",
-          min: 0,
+          // color: "#495057",
+          // min: 0,
           beginAtZero: true,
-        },
-        grid: {
-          color: "#495057",
-        },
-      },
-      y: {
-        ticks: {
-          color: "#495057",
-          min: 0,
-          beginAtZero: true,
-
-          // scaleLabel: function (label, index, ticks) {
-          //   return formatNumber(Number(label), 'en-GB', '1.0-0');
-          // },
-        },
-
-        grid: {
-          color: "#495057",
-        },
-      },
+          callback: function (value, index, values) {
+            return formatNumber(value,'en-US','0.0-0');
+          }
+        }
+      }],
 
       // yAxes: [{
       //   ticks: {

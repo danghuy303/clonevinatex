@@ -131,31 +131,51 @@ export class ModaldenghixulisucoComponent implements OnInit {
     //   })
     // }
     if (this.ValidateData()) {
-      this.item.listTaiSan.forEach(ele => {
-        ele.listVatTu.forEach(vattu => {
-          if(vattu.SoLuong > vattu.TonKho) {
-            this.toastr.error("Số lượng lớn hơn tồn kho!!!");
-          } 
-          else {
-            this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
-              if (res.StatusCode !== 200 || !res.StatusCode) {
+      if (validVariable(this.item.listTaiSan[0]?.listVatTu)) {
+        this.item.listTaiSan.forEach(ele => {
+          ele.listVatTu.forEach(vattu => {
+            if (vattu.SoLuong > vattu.TonKho) {
+              this.toastr.error("Số lượng lớn hơn tồn kho!!!");
+            }
+            else {
+              this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
+                if (res.StatusCode !== 200 || !res.StatusCode) {
+                  this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+                } else {
+                  this.item = res.Data;
+                  this.item.listTaiSan.forEach(ele => {
+                    ele.DenGio = UnixToDate(ele.DenGioUnix);
+                    ele.TuGio = UnixToDate(ele.TuGioUnix);
+                  })
+                  this.toastr.success(res.Message);
+                  this.KiemTraButtonModal();
+                  // this.activeModal.close();
+                }
+              }, (er) => {
                 this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-              } else {
-                this.item = res.Data;
-                this.item.listTaiSan.forEach(ele => {
-                  ele.DenGio = UnixToDate(ele.DenGioUnix);
-                  ele.TuGio = UnixToDate(ele.TuGioUnix);
-                })
-                this.toastr.success(res.Message);
-                this.KiemTraButtonModal();
-                // this.activeModal.close();
-              }
-            }, (er) => {
-              this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+              })
+            }
+          })
+        })
+      }
+      else {
+        this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
+          if (res.StatusCode !== 200 || !res.StatusCode) {
+            this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+          } else {
+            this.item = res.Data;
+            this.item.listTaiSan.forEach(ele => {
+              ele.DenGio = UnixToDate(ele.DenGioUnix);
+              ele.TuGio = UnixToDate(ele.TuGioUnix);
             })
+            this.toastr.success(res.Message);
+            this.KiemTraButtonModal();
+            // this.activeModal.close();
           }
-        }) 
-      })
+        }, (er) => {
+          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+        })
+      }
     }
   }
 

@@ -1,12 +1,12 @@
-import { Label } from '@amcharts/amcharts4/core';
+
 import { formatNumber } from '@angular/common';
 import { Component, OnInit } from "@angular/core";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DateToUnix } from "src/app/services/globalfunction";
 import { mapArrayForDropDown } from "src/app/services/globalfunction";
-
-import 'chartjs-plugin-labels';
+import { Chart } from "chart.js";
+import ChartDatalabels from "chartjs-plugin-datalabels";
 
 @Component({
   selector: "app-sogiodungmay",
@@ -25,7 +25,8 @@ export class SogiodungmayComponent implements OnInit {
   SuCo: any;
 
   CongDoan: any;
-
+  chart4: any;
+  chart5: any
   PhanXuong: any;
 
   backgroundColor = [
@@ -42,7 +43,7 @@ export class SogiodungmayComponent implements OnInit {
   TenLoaiSuCo: any;
   ColorLoaiSuCo: any;
 
-  //chart 1
+  //chart 1: Biểu đồ Tổng hợp
   data1: any;
   optionsPie = {
     tooltips: {
@@ -54,13 +55,11 @@ export class SogiodungmayComponent implements OnInit {
         }
       }
     },
-
     plugins: {
       labels: {
         render: () => { },
       }
     },
-
     legend: {
       display: true,
       position: "left",
@@ -71,7 +70,6 @@ export class SogiodungmayComponent implements OnInit {
       $event.stopPropagation();
 
       let index = array[0]?._index;
-
       this.TenLoaiSuCo = this.SuCo[index]?.ten;
       // console.log(this.TenLoaiSuCo);
       this.ColorLoaiSuCo = this.backgroundColor[index];
@@ -103,7 +101,7 @@ export class SogiodungmayComponent implements OnInit {
     }
   };
 
-  //chart 2
+  //chart 2: Biểu đồ Loại sự cố
   data2: any;
   options2 = {
     tooltips: {
@@ -115,7 +113,6 @@ export class SogiodungmayComponent implements OnInit {
         }
       }
     },
-
     maintainAspectRatio: false,
     scales: {
       yAxes: [
@@ -128,11 +125,9 @@ export class SogiodungmayComponent implements OnInit {
         },
       ],
     },
-
     legend: {
       display: false,
     },
-
     plugins: {
       labels: {
         render: () => { },
@@ -140,7 +135,7 @@ export class SogiodungmayComponent implements OnInit {
     },
   };
 
-  //chart 3
+  //chart 3: Biểu đồ Chi tiết theo từng ngày
   data3: any;
   options3 = {
     tooltips: {
@@ -155,10 +150,10 @@ export class SogiodungmayComponent implements OnInit {
     plugins: {
       labels: {
         render: () => { },
-      }
+      },
     },
     legend: {
-      display: false,
+      display: true,
       position: "bottom",
     },
     // maintainAspectRatio: false,
@@ -175,32 +170,78 @@ export class SogiodungmayComponent implements OnInit {
     },
   };
 
-  //chart 4
+  //chart 4: Biểu đồ chi tiết Theo từng máy
   data4: any;
-
-  options4 = {
-
-    tooltips: {
-      enabled: true,
-      mode: 'single',
-      // callbacks: {
-      //   label: function (tooltipItems, data) {
-      //     return tooltipItems.yLabel + ' giờ';
-      //   }
-      // }
-    },
+  options4: any = {
+    // tooltips: {
+    //   enabled: true,
+    //   mode: 'single',
+    //   // callbacks: {
+    //   //   label: function (tooltipItems, data) {
+    //   //     return tooltipItems.yLabel + ' giờ';
+    //   //   }
+    //   // }
+    // },
     plugins: {
       labels: {
         render: (arg: any) => {
           // console.log(arg);
-          return arg.value
+          // return arg.value
         },
       },
       datalabels: {
-        align: 'center',
-        anchor: 'center',
+        color: 'black',
+        font: {
+          weight: 'bold'
+        },
+        formatter: (value, context) => {
+          return formatNumber(parseFloat(value), 'en-US', '0.0-3')
+        }
+      }
+    },
+    legend: {
+      display: true,
+      position: "bottom",
+    },
+    responsive: true,
+    scales: {
+      xAxes: [{
+        stacked: true,
+      }],
+      yAxes: [{
+        stacked: true
+      }]
+    }
+  };
 
+  //chart 5: Biểu đồ chi tiết Từng loại bảo dưỡng từng ngày
+  data5: any;
+  options5: any = {
+    // tooltips: {
+    //   enabled: true,
+    //   mode: 'single',
+    //   // callbacks: {
+    //   //   label: function (tooltipItems, data) {
+    //   //     return tooltipItems.yLabel + ' giờ';
+    //   //   }
+    //   // }
+    // },
+    plugins: {
+      labels: {
+        render: (arg: any) => {
+          // console.log(arg);
+          // return arg.value
+        },
       },
+      datalabels: {
+        color: 'black',
+        font: {
+          weight: 'bold'
+        },
+        formatter: (value, context) => {
+          return formatNumber(parseFloat(value), 'en-US', '0.0-3')
+        }
+      }
     },
     legend: {
       display: true,
@@ -336,26 +377,106 @@ export class SogiodungmayComponent implements OnInit {
     })
   };
 
-  displayBasic: boolean;
-  showBasicDialog() {
-    this.displayBasic = true;
-  }
+  displayChart4: boolean;
+  displayChart5: boolean;
+  // showBasicDialog1() {
+  //   this.displayChart4 = true;
+  // }
+  // showBasicDialog2() {
+  //   this.displayChart5 = true;
+  // }
 
-  getChart4() {
+  getChart4() {//biều đồ chi tiết từng máy
     let data = {
       ...this.filter,
       TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
     };
 
     this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       let labels = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
           labels.push(`${i.TenTaiSan} (${i.TyLe}%)`)
         })
       });
-      console.log(labels);
+      // console.log(labels);
+      let dataSoGioDungMay = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          dataSoGioDungMay.push(i.SoGio)
+        })
+      });
+      // console.log(dataSoGioDungMay);
+
+      let dataSoGioHoatDong = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          dataSoGioHoatDong.push(i.SoGioHoatDong)
+        })
+      });
+      // console.log(dataSoGioHoatDong);
+      let loaiSoGio = ['Số giờ dừng máy', 'Số giờ hoạt động'];
+      this.data4 = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Số giờ dừng máy',
+            data: dataSoGioDungMay,
+            backgroundColor: "#4472C4",
+          },
+          {
+            label: 'Số giờ hoạt động',
+            data: dataSoGioHoatDong,
+            backgroundColor: "#ED7D31",
+          },
+        ]
+      };
+      this.chart4?.destroy();
+      this.chart4 = new Chart('chart4', {
+        type: 'bar',
+        data: this.data4,
+        plugins: [ChartDatalabels],
+        options: this.options4,
+      });
+    });
+
+    this.displayChart4 = true;
+  };
+
+  dateBieudochitietTungloai: any;
+  loaiBieudochitietTungloai: any;
+  soLuongMay: any;
+  getChart5($event) {//biểu đồ chi tiết từng loại sự cố từng ngày
+    // console.log($event.element._model.label);
+    // console.log($event.element);
+    this.loaiBieudochitietTungloai = $event.element._model.datasetLabel;
+    this.dateBieudochitietTungloai = $event.element._model.label;
+    // console.log(this.SuCo);
+    let indexLoaiSuCo = this.SuCo.findIndex((suco: any) => suco.ten === this.loaiBieudochitietTungloai);
+    // console.log(this.SuCo[indexLoaiSuCo]?.id);
+
+    let date = $event.element._model.label.split("/");
+    let ngay = (new Date(date[2], date[1] - 1, date[0])).getTime() / 1000
+    // console.log(ngay);
+    let data = {
+      ...this.filter,
+      IddmLoaiSuCo: this.SuCo[indexLoaiSuCo]?.id,
+      Ngay: ngay,
+      TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
+    };
+    this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
+      // console.log(res);
+      this.soLuongMay = res.Data[0]?.listSuCoTheoNgay?.length;
+      // console.log(this.soLuongMay);
+
+      let labels = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          labels.push(i.TenTaiSan)
+        })
+      });
+      // console.log(labels);
       let dataSoGioDungMay = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
@@ -371,7 +492,7 @@ export class SogiodungmayComponent implements OnInit {
       });
       // console.log(dataSoGioHoatDong);
       let loaiSoGio = ['Số giờ dừng máy', 'Số giờ hoạt động'];
-      this.data4 = {
+      this.data5 = {
         labels: labels,
         datasets: [
           {
@@ -387,62 +508,15 @@ export class SogiodungmayComponent implements OnInit {
 
         ]
       };
+      this.chart5?.destroy();
+      this.chart5 = new Chart('chart5', {
+        type: 'bar',
+        data: this.data5,
+        plugins: [ChartDatalabels],
+        options: this.options5,
+      });
     });
-
-    this.displayBasic = true;
-  };
-
-  selectData($event) {
-    console.log($event.element._model.label);
-    let date = $event.element._model.label.split("/");
-    let ngay = (new Date(date[2], date[1] - 1, date[0])).getTime() / 1000
-    console.log(ngay);
-    let data = {
-      ...this.filter,
-      Ngay: ngay,
-      TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
-    };
-    this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
-      console.log(res);
-      let labels = [];
-      res.Data.forEach((r) => {
-        r.listSuCoTheoNgay.forEach((i) => {
-          labels.push(i.TenTaiSan)
-        })
-      });
-      console.log(labels);
-      let dataSoGioDungMay = [];
-      res.Data.forEach((r) => {
-        r.listSuCoTheoNgay.forEach((i) => {
-          dataSoGioDungMay.push(i.SoGio)
-        })
-      });
-      console.log(dataSoGioDungMay);
-      let dataSoGioHoatDong = [];
-      res.Data.forEach((r) => {
-        r.listSuCoTheoNgay.forEach((i) => {
-          dataSoGioHoatDong.push(i.SoGioHoatDong)
-        })
-      });
-      // console.log(dataSoGioHoatDong);
-      let loaiSoGio = ['Số giờ dừng máy', 'Số giờ hoạt động'];
-      this.data4 = {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Số giờ dừng máy',
-            data: dataSoGioDungMay,
-            backgroundColor: "#4472C4",
-          },
-          {
-            label: 'Số giờ hoạt động',
-            data: dataSoGioHoatDong,
-            backgroundColor: "#ED7D31",
-          },
-
-        ]
-      };
-    });
-    this.displayBasic = true;
+    this.displayChart5 = true;
   }
+
 }
