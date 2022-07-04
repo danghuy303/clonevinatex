@@ -25,8 +25,8 @@ export class SogiodungmayComponent implements OnInit {
   SuCo: any;
 
   CongDoan: any;
-  chart4:any;
-  chart5:any
+  chart4: any;
+  chart5: any
   PhanXuong: any;
 
   backgroundColor = [
@@ -446,14 +446,15 @@ export class SogiodungmayComponent implements OnInit {
 
   dateBieudochitietTungloai: any;
   loaiBieudochitietTungloai: any;
+  soLuongMay: any;
   getChart5($event) {//biểu đồ chi tiết từng loại sự cố từng ngày
     // console.log($event.element._model.label);
-    console.log($event.element);
+    // console.log($event.element);
     this.loaiBieudochitietTungloai = $event.element._model.datasetLabel;
     this.dateBieudochitietTungloai = $event.element._model.label;
-    console.log(this.SuCo);
+    // console.log(this.SuCo);
     let indexLoaiSuCo = this.SuCo.findIndex((suco: any) => suco.ten === this.loaiBieudochitietTungloai);
-    console.log(this.SuCo[indexLoaiSuCo]?.id);
+    // console.log(this.SuCo[indexLoaiSuCo]?.id);
 
     let date = $event.element._model.label.split("/");
     let ngay = (new Date(date[2], date[1] - 1, date[0])).getTime() / 1000
@@ -466,6 +467,9 @@ export class SogiodungmayComponent implements OnInit {
     };
     this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
       // console.log(res);
+      this.soLuongMay = res.Data[0]?.listSuCoTheoNgay?.length;
+      // console.log(this.soLuongMay);
+
       let labels = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
