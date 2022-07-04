@@ -4,6 +4,7 @@ import { BaocaokehoachkinhdoanhComponent } from './bao-cao-ke-hoach-kinh-doanh/b
 import { ChiPhiBanHangComponent } from './danh-muc/chi-phi-ban-hang/chi-phi-ban-hang.component';
 import { CoCauNhanSuComponent } from './danh-muc/co-cau-nhan-su/co-cau-nhan-su.component';
 import { DonGiaSanPhamComponent } from './danh-muc/don-gia-san-pham/don-gia-san-pham.component';
+import { LoaiContainerComponent } from './danh-muc/loai-container/loai-container.component';
 import { TaiSanComponent } from './danh-muc/tai-san/tai-san.component';
 import { TinhLuongComponent } from './danh-muc/tinh-luong/tinh-luong.component';
 import { TyGiaNgoaiTeComponent } from './danh-muc/ty-gia-ngoai-te/ty-gia-ngoai-te.component';
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'danhsach/tinhluong/:id', component: TinhLuongComponent },
   { path: 'danhsach/mucluongcocaunhansu/:id', component: MucLuongCoCauNhanSuComponent },
   { path: 'danhsach/chiphibanhangtheonam/:id', component: ChiPhiBanHangTheoNamComponent },
+  { path: 'danhmuc/loaicontainer', component: LoaiContainerComponent },
 ];
 
 @NgModule({
