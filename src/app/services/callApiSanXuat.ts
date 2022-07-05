@@ -229,8 +229,8 @@ export class SanXuatService {
             GetBaoCaoQuyTrinhKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu, KeyWord) => {
                 return this.http.get(url2 + `GetBaoCaoQuyTrinhKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu || '2a3dbea0-6c3f-4e10-9774-6201027f4bd0'}&KeyWord=${KeyWord}`, httpOptions);
             },
-            GetBieuDoDuongKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem, LoaiThoiGian) => {
-                return this.http.get(url2 + `GetBieuDoDuongKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&IddmItem=${IddmItem}&LoaiThoiGian=${LoaiThoiGian}`, httpOptions);
+            GetBieuDoDuongKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem, LoaiThoiGian,isKhongHienChuNhat) => {
+                return this.http.get(url2 + `GetBieuDoDuongKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&IddmItem=${IddmItem}&LoaiThoiGian=${LoaiThoiGian}&isKhongHienChuNhat=${isKhongHienChuNhat}`, httpOptions);
             },
             GetDanhSachChiTieuChatLuong_BieuDo: () => {
                 return this.http.get(url2 + 'GetDanhSachChiTieuChatLuong_BieuDo', httpOptions);
@@ -845,6 +845,9 @@ export class SanXuatService {
             HoanThanh: (data) => {
                 return this.http.post(url + 'HoanThanhTrienKhaiKeHoachSanXuat', data, httpOptions);
             },
+            ThuHoiPhieuXuat:(data)=>{
+                return this.http.post(`${url}ThuHoiPhuongAnSanXuat`,data,httpOptions)
+            }
         }
     }
     //CanDoiChuyen

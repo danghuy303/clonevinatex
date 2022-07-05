@@ -76,10 +76,16 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+        <div *ngIf="item.IdRoot === item.Id" class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nước sản xuất : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NuocSanXuat" pInputText />
+            </div>
+        </div>
+        <div *ngIf="item.IdRoot !== item.Id" class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sản lượng (tấn) : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SanLuong" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -230,7 +236,7 @@
                         </p-table>
                     </ng-template>
                 </p-tabPanel>
-                <p-tabPanel header="Lịch bảo dưỡng">
+                <p-tabPanel *ngIf="item.IdRoot === item.Id" header="Lịch bảo dưỡng">
                 <ng-template pTemplate="content">
                     <app-lichbaoduongcopy [item]="item"></app-lichbaoduongcopy>
                 </ng-template>
