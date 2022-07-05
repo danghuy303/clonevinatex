@@ -1,0 +1,9 @@
+<app-danh-muc-ke-hoach-modal 
+  [danhMuc]="danhMuc"
+  [danhMucName]="'LoaiContainer'"
+>
+  <ng-container input>
+    <label>Tải trọng</label>
+    <p-inputNumber [(ngModel)]="danhMuc.TaiTrong" placeholder="Nhập tải trọng"></p-inputNumber>
+  </ng-container>
+</app-danh-muc-ke-hoach-modal>

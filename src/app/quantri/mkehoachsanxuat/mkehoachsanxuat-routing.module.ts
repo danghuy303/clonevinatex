@@ -2,9 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BaocaokehoachkinhdoanhComponent } from './bao-cao-ke-hoach-kinh-doanh/baocaokehoachkinhdoanh.component';
 import { ChiPhiBanHangComponent } from './danh-muc/chi-phi-ban-hang/chi-phi-ban-hang.component';
+import { ChiPhiBangTienComponent } from './danh-muc/chi-phi-bang-tien/chi-phi-bang-tien.component';
+import { ChiPhiLaiVayComponent } from './danh-muc/chi-phi-lai-vay/chi-phi-lai-vay.component';
+import { ChiPhiNhanCongComponent } from './danh-muc/chi-phi-nhan-cong/chi-phi-nhan-cong.component';
+import { ChiPhiXuatHangComponent } from './danh-muc/chi-phi-xuat-hang/chi-phi-xuat-hang.component';
 import { CoCauNhanSuComponent } from './danh-muc/co-cau-nhan-su/co-cau-nhan-su.component';
 import { DonGiaSanPhamComponent } from './danh-muc/don-gia-san-pham/don-gia-san-pham.component';
 import { LoaiContainerComponent } from './danh-muc/loai-container/loai-container.component';
+import { PhuongThucVanChuyenComponent } from './danh-muc/phuong-thuc-van-chuyen/phuong-thuc-van-chuyen.component';
 import { TaiSanComponent } from './danh-muc/tai-san/tai-san.component';
 import { TinhLuongComponent } from './danh-muc/tinh-luong/tinh-luong.component';
 import { TyGiaNgoaiTeComponent } from './danh-muc/ty-gia-ngoai-te/ty-gia-ngoai-te.component';
@@ -20,6 +25,12 @@ import { KeHoachSanXuatNamComponent } from './ke-hoach-san-xuat-nam/ke-hoach-san
 import { KehoachkinhdoanhnamComponent } from './kehoachkinhdoanhnam/kehoachkinhdoanhnam.component';
 import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
 import { MkehoachsanxuatComponent } from './mkehoachsanxuat.component';
+import { BangGiaVtpComponent } from './nhap-lieu/bang-gia-vtp/bang-gia-vtp.component';
+import { ChiPhiBangTienHangThangComponent } from './nhap-lieu/chi-phi-bang-tien-hang-thang/chi-phi-bang-tien-hang-thang.component';
+import { ChiPhiLaiVayDaiHanComponent } from './nhap-lieu/chi-phi-lai-vay-dai-han/chi-phi-lai-vay-dai-han.component';
+import { ChiPhiLaiVayHangThangComponent } from './nhap-lieu/chi-phi-lai-vay-hang-thang/chi-phi-lai-vay-hang-thang.component';
+import { ChiPhiNhanCongHangThangComponent } from './nhap-lieu/chi-phi-nhan-cong-hang-thang/chi-phi-nhan-cong-hang-thang.component';
+import { GiaSanPhamTheoThangComponent } from './nhap-lieu/gia-san-pham-theo-thang/gia-san-pham-theo-thang.component';
 
 const routes: Routes = [
   { path: '', component: MkehoachsanxuatComponent },
@@ -42,6 +53,17 @@ const routes: Routes = [
   { path: 'danhsach/mucluongcocaunhansu/:id', component: MucLuongCoCauNhanSuComponent },
   { path: 'danhsach/chiphibanhangtheonam/:id', component: ChiPhiBanHangTheoNamComponent },
   { path: 'danhmuc/loaicontainer', component: LoaiContainerComponent },
+  { path: 'danhmuc/phuongthucvanchuyen', component: PhuongThucVanChuyenComponent },
+  { path: 'danhmuc/chiphixuathang', component: ChiPhiXuatHangComponent },
+  { path: 'danhmuc/chiphibangtien', component: ChiPhiBangTienComponent },
+  { path: 'danhmuc/chiphilaivay', component: ChiPhiLaiVayComponent },
+  { path: 'danhmuc/chiphinhancong', component: ChiPhiNhanCongComponent },
+  { path: 'banggiavtp', component: BangGiaVtpComponent },
+  { path: 'chiphinhanconghangthang', component: ChiPhiNhanCongHangThangComponent },
+  { path: 'chiphibangtienhangthang', component: ChiPhiBangTienHangThangComponent },
+  { path: 'chiphilaivayhangthang', component: ChiPhiLaiVayHangThangComponent },
+  { path: 'chiphilaivaydaihan', component: ChiPhiLaiVayDaiHanComponent },
+  { path: 'giasanphamtheothang', component: GiaSanPhamTheoThangComponent },
 ];
 
 @NgModule({

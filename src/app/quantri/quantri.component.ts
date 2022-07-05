@@ -1658,8 +1658,62 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "Loại container",
+            label: "Danh mục container",
             routerLink: '/quantri/mkehoachsanxuat/danhmuc/loaicontainer'
+          },
+          {
+            label: "Phương thức vận chuyển",
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/phuongthucvanchuyen'
+          },
+          {
+            label: "Danh mục chi phí xuất hàng",
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphixuathang'
+          },
+          {
+            label: "Danh mục chi phí bằng tiền",
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphibangtien'
+          },
+          {
+            label: "Danh mục chi phí lãi vay ngắn hạn",
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphilaivay'
+          },
+          // {
+          //   label: "Loại chi phí lãi vay dài hạn",
+          //   routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphilaivaydaihan'
+          // },
+          {
+            label: "Loại chi phí nhân công",
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphinhancong'
+          },
+          {
+            label: "Bảng giá vtp",
+            routerLink: "/quantri/mkehoachsanxuat/banggiavtp",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí nhân công hàng tháng",
+            routerLink: "/quantri/mkehoachsanxuat/chiphinhanconghangthang",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí bằng tiền hàng tháng",
+            routerLink: "/quantri/mkehoachsanxuat/chiphibangtienhangthang",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí lãi vay ngắn hạn hàng tháng",
+            routerLink: "/quantri/mkehoachsanxuat/chiphilaivayhangthang",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí lãi vay dài hạn hàng tháng",
+            routerLink: "/quantri/mkehoachsanxuat/chiphilaivaydaihan",
+            command: () => this.close(),
+          },
+          {
+            label: "Giá sản phẩm theo tháng",
+            routerLink: "/quantri/mkehoachsanxuat/giasanphamtheothang",
+            command: () => this.close(),
           },
           {
             label: "Báo cáo kế hoạch kinh doanh",

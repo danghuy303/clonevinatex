@@ -689,6 +689,80 @@ export class SanXuatService {
         }
     }
 
+    KeHoachSanXuat(endpoint: string) {
+        let url = API.KeHoach;
+        return {
+            GetListAll: () => {
+                return this.http.get(`${url}DanhMuc/GetListAlldm${endpoint}`);
+            },
+            GetList: (currentPage, pageSize) => {
+                return this.http.get(`${url}DanhMuc/GetListdm${endpoint}?CurrentPage=${currentPage}&PageSize=${pageSize}`);
+            },
+            Set: (data) => {
+                return this.http.post(`${url}DanhMuc/Setdm${endpoint}`, data);
+            },
+            Delete: (id) => {
+                return this.http.get(`${url}DanhMuc/Delete${endpoint}?Id=${id}`);
+            },
+            DeleleList: (listId) => {
+                return this.http.post(`${url}DanhMuc/DeleteList${endpoint}`, listId);
+            }
+        }
+    }
+    LoaiContainer() {
+        return this.KeHoachSanXuat('LoaiContainer');
+    }
+    PhuongThucVanChuyen() {
+        return this.KeHoachSanXuat('LoaiPhuongThucVanChuyen');
+    }
+    LoaiChiPhiXuatHang() {
+        return this.KeHoachSanXuat('LoaiChiPhiXuatHang');
+    }
+    LoaiChiPhiBangTien() {
+        return this.KeHoachSanXuat('LoaiChiPhiBangTien');
+    }
+    LoaiChiPhiVayLai() {
+        return this.KeHoachSanXuat('LoaiChiPhiVayLai');
+    }
+    LoaiChiPhiNhanCong() {
+        return this.KeHoachSanXuat('LoaiChiPhiNhanCong');
+    }
+
+    NhapLieuKeHoachSanXuat(endpoint) {
+        let url = API.KeHoach;
+        let idDuAn = this.store.getCurrent();
+        return {
+            GetAll: () => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetAll_${endpoint}?IdDuAn=${idDuAn}`);
+            },
+            GetByNam: (nam) => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetByNam_${endpoint}?Nam=${nam}&IdDuAn=${idDuAn}`);
+            },
+            Set: (data) => {
+                data.IdDuAn = idDuAn;
+                return this.http.post(`${url}KeHoachKinhDoanh/Set_${endpoint}`, data);
+            }
+        }
+    }
+    BangGiaVatTuPhu() {
+        return this.NhapLieuKeHoachSanXuat('BangGiaVatTuPhu');
+    }
+    ChiPhiNhanCongThang() {
+        return this.NhapLieuKeHoachSanXuat('ChiPhiNhanCongThang');
+    }
+    ChiPhiBangTienHangThang() {
+        return this.NhapLieuKeHoachSanXuat('ChiPhiBangTienHangThang');
+    }
+    ChiPhiLaiVayDaiHan() {
+        return this.NhapLieuKeHoachSanXuat('ChiPhiLaiVayDaiHan');
+    }
+    ChiPhiLaiVayNganHan() {
+        return this.NhapLieuKeHoachSanXuat('ChiPhiLaiVayNganHan');
+    }
+    DinhMucChiPhiSanPhamThang() {
+        return this.NhapLieuKeHoachSanXuat('DinhMucChiPhiSanPhamThang');
+    }
+
     //GiaoKeHoachSanXuat
     GiaoKeHoachSanXuat() {
         let url = API.SCMQuanLyKho;

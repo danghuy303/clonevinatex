@@ -62,6 +62,29 @@ import { DanhSachTinhLuongModalComponent } from './danh-sach/danh-sach-tinh-luon
 import { MucLuongCoCauNhanSuModalComponent } from './danh-sach/muc-luong-co-cau-nhan-su/muc-luong-co-cau-nhan-su-modal/muc-luong-co-cau-nhan-su-modal.component';
 import { LoaiContainerComponent } from './danh-muc/loai-container/loai-container.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PhuongThucVanChuyenComponent } from './danh-muc/phuong-thuc-van-chuyen/phuong-thuc-van-chuyen.component';
+import { ChiPhiXuatHangComponent } from './danh-muc/chi-phi-xuat-hang/chi-phi-xuat-hang.component';
+import { ChiPhiBangTienComponent } from './danh-muc/chi-phi-bang-tien/chi-phi-bang-tien.component';
+import { ChiPhiLaiVayComponent } from './danh-muc/chi-phi-lai-vay/chi-phi-lai-vay.component';
+import { ChiPhiNhanCongComponent } from './danh-muc/chi-phi-nhan-cong/chi-phi-nhan-cong.component';
+import { LoaiContainerModalComponent } from './danh-muc/loai-container/loai-container-modal/loai-container-modal.component';
+import { PhuongThucVanChuyenModalComponent } from './danh-muc/phuong-thuc-van-chuyen/phuong-thuc-van-chuyen-modal/phuong-thuc-van-chuyen-modal.component';
+import { ChiPhiXuatHangModalComponent } from './danh-muc/chi-phi-xuat-hang/chi-phi-xuat-hang-modal/chi-phi-xuat-hang-modal.component';
+import { ChiPhiBangTienModalComponent } from './danh-muc/chi-phi-bang-tien/chi-phi-bang-tien-modal/chi-phi-bang-tien-modal.component';
+import { ChiPhiLaiVayModalComponent } from './danh-muc/chi-phi-lai-vay/chi-phi-lai-vay-modal/chi-phi-lai-vay-modal.component';
+import { ChiPhiNhanCongModalComponent } from './danh-muc/chi-phi-nhan-cong/chi-phi-nhan-cong-modal/chi-phi-nhan-cong-modal.component';
+import { BangGiaVtpComponent } from './nhap-lieu/bang-gia-vtp/bang-gia-vtp.component';
+import { BangGiaVtpModalComponent } from './nhap-lieu/bang-gia-vtp/bang-gia-vtp-modal/bang-gia-vtp-modal.component';
+import { ChiPhiNhanCongHangThangComponent } from './nhap-lieu/chi-phi-nhan-cong-hang-thang/chi-phi-nhan-cong-hang-thang.component';
+import { ChiPhiNhanCongHangThangModalComponent } from './nhap-lieu/chi-phi-nhan-cong-hang-thang/chi-phi-nhan-cong-hang-thang-modal/chi-phi-nhan-cong-hang-thang-modal.component';
+import { ChiPhiBangTienHangThangComponent } from './nhap-lieu/chi-phi-bang-tien-hang-thang/chi-phi-bang-tien-hang-thang.component';
+import { ChiPhiBangTienHangThangModalComponent } from './nhap-lieu/chi-phi-bang-tien-hang-thang/chi-phi-bang-tien-hang-thang-modal/chi-phi-bang-tien-hang-thang-modal.component';
+import { ChiPhiLaiVayHangThangComponent } from './nhap-lieu/chi-phi-lai-vay-hang-thang/chi-phi-lai-vay-hang-thang.component';
+import { ChiPhiLaiVayHangThangModalComponent } from './nhap-lieu/chi-phi-lai-vay-hang-thang/chi-phi-lai-vay-hang-thang-modal/chi-phi-lai-vay-hang-thang-modal.component';
+import { GiaSanPhamTheoThangComponent } from './nhap-lieu/gia-san-pham-theo-thang/gia-san-pham-theo-thang.component';
+import { GiaSanPhamTheoThangModalComponent } from './nhap-lieu/gia-san-pham-theo-thang/gia-san-pham-theo-thang-modal/gia-san-pham-theo-thang-modal.component';
+import { ChiPhiLaiVayDaiHanComponent } from './nhap-lieu/chi-phi-lai-vay-dai-han/chi-phi-lai-vay-dai-han.component';
+import { ChiPhiLaiVayDaiHanModalComponent } from './nhap-lieu/chi-phi-lai-vay-dai-han/chi-phi-lai-vay-dai-han-modal/chi-phi-lai-vay-dai-han-modal.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +136,29 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DanhSachTinhLuongModalComponent,
     MucLuongCoCauNhanSuModalComponent,
     LoaiContainerComponent,
+    PhuongThucVanChuyenComponent,
+    ChiPhiXuatHangComponent,
+    ChiPhiBangTienComponent,
+    ChiPhiLaiVayComponent,
+    ChiPhiNhanCongComponent,
+    LoaiContainerModalComponent,
+    PhuongThucVanChuyenModalComponent,
+    ChiPhiXuatHangModalComponent,
+    ChiPhiBangTienModalComponent,
+    ChiPhiLaiVayModalComponent,
+    ChiPhiNhanCongModalComponent,
+    BangGiaVtpComponent,
+    BangGiaVtpModalComponent,
+    ChiPhiNhanCongHangThangComponent,
+    ChiPhiNhanCongHangThangModalComponent,
+    ChiPhiBangTienHangThangComponent,
+    ChiPhiBangTienHangThangModalComponent,
+    ChiPhiLaiVayHangThangComponent,
+    ChiPhiLaiVayHangThangModalComponent,
+    GiaSanPhamTheoThangComponent,
+    GiaSanPhamTheoThangModalComponent,
+    ChiPhiLaiVayDaiHanComponent,
+    ChiPhiLaiVayDaiHanModalComponent,
   ],
   imports: [
     CommonModule,

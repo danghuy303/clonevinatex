@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoaiContainerModalComponent } from './loai-container-modal/loai-container-modal.component';
 
 @Component({
   selector: 'app-loai-container',
@@ -7,22 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoaiContainerComponent implements OnInit {
 
+  modal = LoaiContainerModalComponent;
   cols: any = [
-    {header: 'STT', style: {
-      "width": "100px"
-    }},
-    {header: 'Mã', style: {
-
-    }},
-    {header: 'Tên', style: {
-
-    }},
-    {header: 'Tải trọng', style: {
-
-    }},
-    {header: 'Ghi chú', style: {
-
-    }},
+    {header: 'Mã', field: 'Ma', headerStyle: {}, dataStyle: {}},
+    {header: 'Tên', field: 'Ten', headerStyle: {}, dataStyle: {}},
+    {header: 'Tải trọng', field: 'TaiTrong', headerStyle: {}, dataStyle: {"text-align": "right"}},
+    {header: 'Ghi chú', field: 'GhiChu', headerStyle: {}, dataStyle: {}},
   ];
 
   constructor() { }
