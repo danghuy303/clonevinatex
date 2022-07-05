@@ -57,6 +57,7 @@ export class SanxuatmodalComponent implements OnInit {
   PoolLoBong: any = {
 
   }
+  soBanThuHoi: any;
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
 
   }
@@ -240,15 +241,15 @@ export class SanxuatmodalComponent implements OnInit {
         lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
       }
       if (validVariable(lobong.Mic) || lobong.isLoBongTuongLai) {
-        if(validVariable(lobong.Mic)&&validVariable(lobong.tempBanBong[`${x}`].SoKien)){
-          for(let i=0;i<lobong.tempBanBong[`${x}`].SoKien;i++){
+        if (validVariable(lobong.Mic) && validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
+          for (let i = 0; i < lobong.tempBanBong[`${x}`].SoKien; i++) {
             arrayMic.push(lobong.Mic)
           }
         }
 
       }
     });
-    this.itemCVMic[`${x}`]=CVMic2([...arrayMic],tempSoKien1LineTruBongHoi)
+    this.itemCVMic[`${x}`] = CVMic2([...arrayMic], tempSoKien1LineTruBongHoi)
     this.TinhTyLeTong();
     this.TinhTongTrongLuong()
     this.TinhDeltaB();
@@ -311,25 +312,25 @@ export class SanxuatmodalComponent implements OnInit {
 
     let data = [];
     let status = true;
-    let banLoi ={};
+    let banLoi = {};
     for (let prop in this.itemCheckBan) {
       if (this.itemCheckBan[prop].checked && !this.itemCheckBan[prop].isDisabled) {
         data.push(prop)
       }
     }
     this.item.listLoBong.forEach(lobong => {
-      data.forEach(ban=>{
-        if((lobong.tempBanBong[ban].SoLuongKien?lobong.tempBanBong[ban].SoLuongKien:0) !== lobong.tempBanBong[ban].SoLuongKienDaTim){
+      data.forEach(ban => {
+        if ((lobong.tempBanBong[ban].SoLuongKien ? lobong.tempBanBong[ban].SoLuongKien : 0) !== lobong.tempBanBong[ban].SoLuongKienDaTim) {
           status = false;
-          if(!validVariable(banLoi[ban])){
-            banLoi[ban]=[]
+          if (!validVariable(banLoi[ban])) {
+            banLoi[ban] = []
           }
           banLoi[ban].push(lobong.Ma);
         }
       })
     });
-    if(!status){
-      for(let key in banLoi){
+    if (!status) {
+      for (let key in banLoi) {
         let string = '';
         banLoi[key].forEach(lo => {
           string += `${lo};  `
@@ -350,6 +351,28 @@ export class SanxuatmodalComponent implements OnInit {
     this._services.KiemTraButton(this.ghostItem.Id || '', this.ghostItem.IdTrangThai || '').subscribe((res: any) => {
       this.checkbutton = res;
     })
+  }
+  ThuHoi() {
+    console.log(this.soBanThuHoi, this.item)
+    // if (validVariable(this.soBanThuHoi)) {
+      this._services.TrienKhaiKeHoachSanXuat().ThuHoiPhieuXuat({ThuTu:this.soBanThuHoi,IdPhuongAnPhaBong:this.item.Id}).subscribe((res:any)=>{
+        if(res.State ===1){
+          this._toastr.success(res.message);
+          this._services.SanXuat().Get(this.ghostItem.Id).subscribe((res: any) => {
+            this.item = deepCopy(res.PhuongAnPhaBong);
+            res.PhuongAnPhaBong = undefined;
+            this.ghostItem = res;
+            this.GetListTrienKhaiKeHoach();
+            this.KiemTraButtonModal();
+          })
+        }else{
+          this._toastr.error(res.message);
+        }
+      })
+    // } else {
+      // this._toastr.warning('Vui lòng nhập bàn cần thu hồi!')
+    // }
+
   }
   GhiLai() {
     let res = this.SetData()
