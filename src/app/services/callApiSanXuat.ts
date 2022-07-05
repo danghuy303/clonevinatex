@@ -771,6 +771,9 @@ export class SanXuatService {
             HoanThanh: (data) => {
                 return this.http.post(url + 'HoanThanhTrienKhaiKeHoachSanXuat', data, httpOptions);
             },
+            ThuHoiPhieuXuat:(data)=>{
+                return this.http.post(`${url}ThuHoiPhuongAnSanXuat`,data,httpOptions)
+            }
         }
     }
     //CanDoiChuyen
