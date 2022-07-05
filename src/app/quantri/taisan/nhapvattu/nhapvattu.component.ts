@@ -80,6 +80,7 @@ export class NhapvattuComponent implements OnInit {
 
   ChonNhaCungUng(e) {
     e.DonGia = e.listNhaCungUngDoiChieu.find(ele => ele.Id === e.IddmNhaCungUng)?.DonGia;
+    this.Tong();
   }
 
   GetListNhaCungUng() {

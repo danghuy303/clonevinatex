@@ -76,6 +76,7 @@
                 <col>
                 <col>
                 <col>
+                <col>
                 <col style="width:200px">
             </ng-template>
             <ng-template pTemplate="header">
@@ -85,6 +86,7 @@
                     <!-- <th>LK có lõi trước</th> -->
                     <th>KL có lõi (kg)</th>
                     <th>Số Lõi</th>
+                    <th>KL lõi</th>
                     <!-- <th>LK có lõi sau</th> -->
                     <!-- <th>LK tách lõi trước</th> -->
                     <th>KL tách lõi (kg)</th>
@@ -107,6 +109,10 @@
                     <td>
                         <p-inputNumber mode="decimal" [minFractionDigits]="0" [maxFractionDigits]="0"   locale="en-EN"
                             [(ngModel)]="product.SoLoi" (onBlur)="changeCoLoi(product)"></p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber mode="decimal" [minFractionDigits]="4" [maxFractionDigits]="4"   locale="en-EN"
+                            [(ngModel)]="product.TrongLuongLoi" (onBlur)="changeCoLoi(product)"></p-inputNumber>
                     </td>
                     <td>
                         <p-inputNumber mode="decimal"[minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"

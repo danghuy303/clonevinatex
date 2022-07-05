@@ -210,7 +210,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     { label: 'Báo cáo chất lượng BCP', command: () => { this.xuatBaoCaoBanChePham() } }
   ];
   TyLeBongPhe_Hoi: any = [];
-  ThongTinLuyKeDien = {};
+  ThongTinLuyKeDien:any = {};
+  isKhongHienChuNhat:any= true;
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
@@ -481,7 +482,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   GetBieuDoDuongKiemTraChatLuong() {
     this.GetBaoCaoQuyTrinhKiemTraChatLuong();
 
-    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem, this.filter.LoaiThoiGian).subscribe((res: any) => {
+    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem, this.filter.LoaiThoiGian,this.isKhongHienChuNhat).subscribe((res: any) => {
       // this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39", "02bd1952-5092-496f-a566-2f0ac6ab4940").subscribe((res: any) => {
       // this.dataSet1 = res;
       console.log(res);
@@ -543,7 +544,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   }
   GetBieuDoDuongKiemTraChatLuong_js() {
 
-    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem, this.filter.LoaiThoiGian).subscribe((res: any) => {
+    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem, this.filter.LoaiThoiGian,this.isKhongHienChuNhat).subscribe((res: any) => {
       // this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39", "02bd1952-5092-496f-a566-2f0ac6ab4940").subscribe((res: any) => {
       // this.dataSet1 = res;
       let label = this.listtieuchi.filter(obj => obj.value == this.filter.IddmChiTieu)[0].label;
