@@ -129,7 +129,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
       this.toastr.error("Bạn chưa chọn danh mục kho!");
     }
-    else if(!this.item.listItem.every(ele=>validVariable(ele.KgCone) && ele.isXoa !== true)){
+    else if(!this.item.listItem.filter(ele=>!ele.isXoa).every(ele=> validVariable(ele.KgCone))){
       console.log(this.item.listItem)
       this.toastr.error("Vui lòng chọn Kg/cone ở tất cả các mặt hàng!")
     }
