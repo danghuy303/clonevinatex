@@ -28,7 +28,7 @@
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hệ thống điều không:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listHeThongDieuKhong" placeholder="Chọn hệ thống điều không"
+                <p-dropdown [filter]="true" showClear="true" [options]="listHeThongDieuKhong" placeholder="Chọn hệ thống điều không"
                 styleClass="p-inputtext-sm" [(ngModel)]="item.IddmHeThongDieuKhong" (onChange)="changeHeThong()" ></p-dropdown>
             </div>
         </div>

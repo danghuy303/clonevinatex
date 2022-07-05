@@ -12,6 +12,6 @@ export class MayongBaocaocaComponent implements OnInit {
   ngOnInit(): void {
   }
   changeCoLoi(item) {
-    item.KhoiLuongTachLoi = (item.KhoiLuongCoLoi||0) - (item.SoLoi || 0)*0.054
+    item.KhoiLuongTachLoi = (item.KhoiLuongCoLoi || 0) - (item.SoLoi || 0) * (item.TrongLuongLoi||0)
   }
 }
