@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 
@@ -15,6 +16,9 @@ export class NhapLieuKeHoachComponent implements OnInit, OnChanges {
   @Input() cols: any;
   @Input() serviceName: any;
   @Input() modalName: any;
+  keyWord: any;
+  userInfo: any;
+  listNhaMay: any[] = [];
   items: any = [];
   paging: any = {};
 
@@ -22,8 +26,11 @@ export class NhapLieuKeHoachComponent implements OnInit, OnChanges {
     private sanxuatService: SanXuatService,
     public modal: NgbModal,
     public toast: ToastrService, 
-    private confirmService: ConfirmationService
-  ) { }
+    private confirmService: ConfirmationService,
+    private _auth: AuthenticationService
+  ) { 
+    this.userInfo = this._auth.currentUserValue;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.ResetData();
@@ -33,16 +40,30 @@ export class NhapLieuKeHoachComponent implements OnInit, OnChanges {
   }
 
   ResetData() {
+    this.keyWord = "";
     this.LoadData(true);
   }
   
   LoadData(reset?: boolean) {
     if (reset) {
+    
     }
-    this.sanxuatService[this.serviceName]().GetAll().subscribe((res: any) => {
-      // console.log("res", res);
-      this.items = res.Data;
-      this.paging.totalCount = this.items.length;
+    this.sanxuatService.GetOptions()
+      .GetDanhSachDuAnByIdUser(this.userInfo.Id)
+      .subscribe((res: any) => {
+        this.listNhaMay = res;
+        console.log("listNhaMay", this.listNhaMay);
+        
+        this.sanxuatService[this.serviceName]().GetAll().subscribe((res: any) => {
+          // console.log("res", res);
+          this.items = res.Data;
+          this.items.forEach(obj=>{            
+            obj.NhaMay = this.listNhaMay.find(ele=>ele.Id==obj.IdDuAn).TenDuAn;            
+          });
+          console.log("items", this.items);
+          
+          this.paging.totalCount = this.items.length;
+        })
     })
   }
 
