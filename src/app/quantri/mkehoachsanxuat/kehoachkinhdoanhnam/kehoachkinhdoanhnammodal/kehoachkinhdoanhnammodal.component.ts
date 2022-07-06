@@ -3,8 +3,9 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { vn } from 'src/app/services/const';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, handleHTTPResponse } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
@@ -28,6 +29,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     ChuyenTiep: true,
   };
   listMatHang: any = [];
+  listNhaMay: any[] = [];
   kehoach: any = {};
   years: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -43,21 +45,36 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     private _danhMucHopDong: DanhMucHopDongService,
     private _services: SanXuatService,
     private store: StoreService,
+    private _confirmService: ConfirmationService,
     private _auth: AuthenticationService) {
-
+      this.userInfo = this._auth.currentUserValue;
   }
 
   ngOnInit(): void {
-    this.userInfo = this._auth.currentUserValue;
     this.getYearsForDropDown();
     this.KiemTraButton();
     if (this.opt === 'add') {
       this.kehoach.TenNguoiLap = this.userInfo.TenNhanVien;
+      this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = [];
       this.GetNextSoQuyTrinh();
       this.GetListSanPhamHoaDon();
     } else {
+      this.GetNhaMay();
       this.CountTongSanLuong();
     }
+  }
+
+  GetNhaMay() {
+    this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
+      this.listNhaMay = res;
+      console.log("listNhaMay", this.listNhaMay);
+      this.kehoach.lstKH_KeHoachKinhDoanh_SanPham?.forEach((sanpham: any) => {
+        sanpham.TenNhaMay = this.listNhaMay.find(ele => 
+          ele.Id===sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].IdDuAn
+        )?.TenDuAn;
+      })
+      console.log("this.kehoach", this.kehoach);
+    })
   }
 
   getYearsForDropDown() {
@@ -85,7 +102,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
 
   GetListSanPhamHoaDon() {
     this._services.GetOptions().GetChiTietMatHangChoKHKD().subscribe((res: any) => {
-      console.log("res", res);
+      
     })
   }
 
@@ -105,7 +122,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   GhiLai() {
     if (this.ValidateData()) {
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.SetData()).subscribe((res: any) => {
-        console.log("res", res);
+        // console.log("res", res);
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
@@ -116,15 +133,31 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   XoaQuyTrinh() {
-
+    this._confirmService.show({
+      message: 'Bạn chắc chắn muốn xóa quy trình này?'
+    }, () => {
+      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Delete(this.kehoach).subscribe((res: any) => {
+        handleHTTPResponse(res, this.toastr, () => {
+          this.activeModal.close();
+        })
+      })
+    })
   }
 
   ChuyenDuyet() {
-
+    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().ChuyenTiep(this.kehoach).subscribe((res: any) => {
+      handleHTTPResponse(res, this.toastr, () => {
+        this.activeModal.close();
+      })
+    })
   }
 
   KhongDuyet() {
-
+    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().KhongDuyet(this.kehoach).subscribe((res: any) => {
+      handleHTTPResponse(res, this.toastr, () => {
+        this.activeModal.close();
+      })
+    })
   }
 
   AddSanPham() {
@@ -133,7 +166,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       backdrop: 'static',
     });
     this._services.GetOptions().GetMatHangKhongHopDongChoKHKD().subscribe((res: any) => {
-      console.log("res", res);
+      // console.log("res", res);
     })
     modalRef.result
     .then((res: any) => {
