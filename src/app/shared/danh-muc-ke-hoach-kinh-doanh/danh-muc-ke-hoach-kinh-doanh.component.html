@@ -1,24 +1,47 @@
 <div class="wrapper">
   <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Danh mục loại container</h4>
+    <h4 style="color:#1f2779">{{title}}</h4>
   </div>
-  <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+  <div class="p-d-flex p-ai-center p-mb-3">
     <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+    <button pButton label="Xóa" icon="pi pi-trash" class="p-button-sm p-mr-2" (click)="deleteList()"></button>
   </div>
   <div>
     <p-table [columns]="cols" [value]="listDanhMuc"
       styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped">
       <ng-template pTemplate="header" let-columns>
         <tr>
+          <th style="width: 80px">
+            <p-checkbox [(ngModel)]="checkedAll" [binary]="true" (onChange)="checkAll($event)"></p-checkbox>
+          </th>
+          <th style="width: 80px">STT</th>
           <th *ngFor="let col of columns" [style]="col.style">
             {{col.header}}
           </th>
+          <th style="width: 80px"></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body">
+      <ng-template pTemplate="body" let-item let-columns="columns" let-i="rowIndex">
         <tr>
+          <td style="text-align: center">
+            <p-checkbox [(ngModel)]="item.checked" [binary]="true" (onChange)="check()"></p-checkbox>
+          </td>
+          <td style="text-align: center">{{i + 1}}</td>
+          <td *ngFor="let col of columns" [style]="col.dataStyle">
+            {{item[col.field]}}
+          </td>
+          <td style="text-align: center">
+            <button pButton pRipple type="button" icon="pi pi-pencil"
+              class="p-button-rounded p-button-secondary p-button-text p-button-sm" (click)="update(item)"></button>
+          </td>
         </tr>
       </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.totalCount}}.
+            <p-paginator [first]="first" [totalRecords]="paging.totalCount" [rows]="20" (onPageChange)="changePage($event)">
+            </p-paginator>
+        </div>
+    </ng-template>
     </p-table>
   </div>
 </div>
