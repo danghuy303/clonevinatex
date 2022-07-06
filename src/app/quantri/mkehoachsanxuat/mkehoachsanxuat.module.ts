@@ -85,6 +85,7 @@ import { GiaSanPhamTheoThangComponent } from './nhap-lieu/gia-san-pham-theo-than
 import { GiaSanPhamTheoThangModalComponent } from './nhap-lieu/gia-san-pham-theo-thang/gia-san-pham-theo-thang-modal/gia-san-pham-theo-thang-modal.component';
 import { ChiPhiLaiVayDaiHanComponent } from './nhap-lieu/chi-phi-lai-vay-dai-han/chi-phi-lai-vay-dai-han.component';
 import { ChiPhiLaiVayDaiHanModalComponent } from './nhap-lieu/chi-phi-lai-vay-dai-han/chi-phi-lai-vay-dai-han-modal/chi-phi-lai-vay-dai-han-modal.component';
+import { BaoCaoNhuCauSuDungBongComponent } from './bao-cao-nhu-cau-su-dung-bong/bao-cao-nhu-cau-su-dung-bong.component';
 
 @NgModule({
   declarations: [
@@ -159,6 +160,7 @@ import { ChiPhiLaiVayDaiHanModalComponent } from './nhap-lieu/chi-phi-lai-vay-da
     GiaSanPhamTheoThangModalComponent,
     ChiPhiLaiVayDaiHanComponent,
     ChiPhiLaiVayDaiHanModalComponent,
+    BaoCaoNhuCauSuDungBongComponent,
   ],
   imports: [
     CommonModule,
