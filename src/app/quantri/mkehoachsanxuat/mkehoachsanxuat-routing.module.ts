@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BaocaokehoachkinhdoanhComponent } from './bao-cao-ke-hoach-kinh-doanh/baocaokehoachkinhdoanh.component';
+import { BaoCaoNhuCauSuDungBongComponent } from './bao-cao-nhu-cau-su-dung-bong/bao-cao-nhu-cau-su-dung-bong.component';
 import { ChiPhiBanHangComponent } from './danh-muc/chi-phi-ban-hang/chi-phi-ban-hang.component';
 import { ChiPhiBangTienComponent } from './danh-muc/chi-phi-bang-tien/chi-phi-bang-tien.component';
 import { ChiPhiLaiVayComponent } from './danh-muc/chi-phi-lai-vay/chi-phi-lai-vay.component';
@@ -64,6 +65,7 @@ const routes: Routes = [
   { path: 'chiphilaivayhangthang', component: ChiPhiLaiVayHangThangComponent },
   { path: 'chiphilaivaydaihan', component: ChiPhiLaiVayDaiHanComponent },
   { path: 'giasanphamtheothang', component: GiaSanPhamTheoThangComponent },
+  { path: 'baocaonhucausudungbong', component: BaoCaoNhuCauSuDungBongComponent },
 ];
 
 @NgModule({
