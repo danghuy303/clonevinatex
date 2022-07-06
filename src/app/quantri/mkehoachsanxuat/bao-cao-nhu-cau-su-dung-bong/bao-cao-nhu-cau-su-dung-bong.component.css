@@ -1,0 +1,4 @@
+:host ::ng-deep canvas {
+    height: calc(100vh - 60px - 32px - 60px - 100px) !important;
+    width: calc(100vw - 80px);
+}
