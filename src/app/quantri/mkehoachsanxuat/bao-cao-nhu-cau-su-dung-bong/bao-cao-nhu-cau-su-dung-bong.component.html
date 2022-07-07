@@ -1,9 +1,12 @@
 <div class="content">
     <div class="year d-flex p-jc-between p-ai-center">
         <h4 style="color:#1f2779">Báo cáo nhu cầu sử dụng bông</h4>
-        <div class="" style="width:15vw">
-            <p-dropdown [options]="listNam" placeholder="Chọn năm" [(ngModel)]="filter.Nam" (onChange)="LoadData()">
-            </p-dropdown>
+        <div class="" class="d-flex p-ai-center">
+            <label class="p-m-0">Chọn năm: </label>
+            <div class="p-ml-3" style="width: 200px">
+                <p-dropdown [options]="listNam" placeholder="Chọn năm" [(ngModel)]="filter.Nam" (onChange)="LoadData()">
+                </p-dropdown>
+            </div>
         </div>
     </div>
     <div class="chart py-3">
