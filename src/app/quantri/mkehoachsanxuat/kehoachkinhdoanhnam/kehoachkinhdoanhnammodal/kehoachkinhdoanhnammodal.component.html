@@ -114,12 +114,12 @@
                   <span>
                     {{sanpham.TenSanPham}}
                   </span>
-                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="DeleteSanPham(i)"></button>
+                  <button *ngIf="sanpham.isKhongHopDong" pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="DeleteSanPham(i)"></button>
                 </div>
               </td>
               <td class="tc-w-200 p-px-2">{{sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TenNhaMay}}</td>
               <td class="tc-w-121 p-px-2 text-center">
-                <button pButton pRipple type="button" label="Danh sách hợp đồng" class="p-button-text" (click)="SeeHopDongDetail()"></button>
+                <button *ngIf="!sanpham.isKhongHopDong" pButton pRipple type="button" label="Danh sách hợp đồng" class="p-button-text" (click)="SeeHopDongDetail(sanpham)"></button>
               </td>
               <td class="tc-w-200 p-px-2 text-right">
                 <p-inputNumber *ngIf="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length" [disabled]="true" [(ngModel)]="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang" locale="en-US"></p-inputNumber>
