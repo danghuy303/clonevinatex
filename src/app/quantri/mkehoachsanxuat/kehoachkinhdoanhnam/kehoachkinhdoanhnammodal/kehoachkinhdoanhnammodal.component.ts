@@ -125,7 +125,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
 
   RenderThang(sanpham) {
     let data = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 1; i <= 12; i++) {
       data.push({
         ChiPhi: null,
         ChiPhiDinhMuc1Kg: null,
@@ -177,6 +177,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         handleHTTPResponse(res, this.toastr, () => {
           this.kehoach = res.Data;
           this.GetNhaMay();
+          this.KiemTraButton();
         })
       })
     }

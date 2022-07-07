@@ -310,7 +310,8 @@ export class DanhMucHopDongService {
             },
             Delete: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/DeleteQuyTrinh`, data, httpOptions)
-            }, DieuChinh: (IdKeHoachKinhDoanh) => {
+            }, 
+            DieuChinh: (IdKeHoachKinhDoanh) => {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetKeHoachKinhDoanhChoDieuChinh?IdKeHoachKinhDoanh=${IdKeHoachKinhDoanh}`, httpOptions)
             },
             GetKeHoachKinhDoanhDangThucHien: () => {
@@ -319,6 +320,9 @@ export class DanhMucHopDongService {
             KiemTraTonTaiQuyTrinh: (Nam) => {
                 return this.http.get(`${url}KeHoachKinhDoanh/KiemTraTonTaiQuyTrinh?Nam=${Nam}`, httpOptions)
             },
+            GetBaoCaoNhuCauSuDungBong: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/GetBaoCaoNhuCauBongKeHoachKinhDoanhNam`, data)
+            }
         }
     }
     KeHoachKinhDoanhThang() {
