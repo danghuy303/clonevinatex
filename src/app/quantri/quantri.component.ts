@@ -1440,110 +1440,110 @@ export class QuantriComponent implements OnInit {
       // },
 
       /////  menu kế hoạch sau tách..................................
-      // {
-      //   label: "Menu kế hoạch kinh doanh",
-      //   icon: "fas fa-circle",
-      //   routerLink: "/quantri/hopdongsanxuat",
-      //   visible: this.showHopDongModule,
-      //   items: [
-      //     {
-      //       label: "Kế hoạch kinh doanh năm",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhnam/0",
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Kế hoạch kinh doanh tháng",
-      //       routerLink:
-      //         "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhthang/0",
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Kế hoạch sản xuất năm",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachsanxuatnam/0",
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Đơn giá sản phẩm",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/dongiasanpham/0",
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Tỷ giá ngoại tệ",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/tygiangoaite/0",
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Doanh thu theo kế hoạch",
-      //       routerLink: "/quantri/hopdongsanxuat/doanhthu/0",
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Chi phí bông năm",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphibongnam",
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Chi phí xơ năm",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphixonam",
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Chi phí điện năm",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphidiennam",
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Vật tư phụ",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmucvattuphu",
-
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Cơ cấu nhân sự",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuccocaunhansu",
-
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Tài sản",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuctaisan",
-
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Chi phí bán hàng",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmucphibanhang",
-
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Năng lực sản xuất",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/dinhmucsanxuat",
-
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Danh sách tính lương",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/danhsachtinhluong",
-
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Mức lương cơ cấu nhân sự",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/mucluongcocaunhansu",
-
-      //       command: () => this.close(),
-      //     },
-      //     {
-      //       label: "Chi phí bán hàng theo năm",
-      //       routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphibanhangtheonam",
-
-      //       command: () => this.close(),
-      //     },
-      //   ],
-      // },
       {
-        label: "Menu kế hoạch sản xuất",
+        label: "Menu kế hoạch kinh doanh",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/hopdongsanxuat",
+        visible: this.showHopDongModule,
+        items: [
+          {
+            label: "Kế hoạch kinh doanh năm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhnam/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Kế hoạch kinh doanh tháng",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhthang/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Kế hoạch sản xuất năm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachsanxuatnam/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Đơn giá sản phẩm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/dongiasanpham/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Tỷ giá ngoại tệ",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/tygiangoaite/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Doanh thu theo kế hoạch",
+            routerLink: "/quantri/hopdongsanxuat/doanhthu/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí bông năm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphibongnam",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí xơ năm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphixonam",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí điện năm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphidiennam",
+            command: () => this.close(),
+          },
+          {
+            label: "Vật tư phụ",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmucvattuphu",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Cơ cấu nhân sự",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuccocaunhansu",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Tài sản",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuctaisan",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí bán hàng",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmucphibanhang",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Năng lực sản xuất",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/dinhmucsanxuat",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Danh sách tính lương",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhsachtinhluong",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Mức lương cơ cấu nhân sự",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/mucluongcocaunhansu",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí bán hàng theo năm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphibanhangtheonam",
+
+            command: () => this.close(),
+          },
+        ],
+      },
+      {
+        label: "Menu kế hoạch kinh doanh",
         icon: "fas fa-circle",
         routerLink: "/quantri/mkehoachsanxuat",
         visible: this.showHopDongModule,
