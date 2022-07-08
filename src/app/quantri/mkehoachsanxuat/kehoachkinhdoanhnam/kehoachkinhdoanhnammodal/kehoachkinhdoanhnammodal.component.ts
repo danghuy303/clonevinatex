@@ -297,8 +297,9 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
 
   CountTongSanLuong() {
     this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.forEach(item => {
+      item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang = 0;
       item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH.forEach(thang => {
-        item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang += thang.SanLuongThang;
+        item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang += (thang.SanLuongThang || 0);
       })
     })
   }

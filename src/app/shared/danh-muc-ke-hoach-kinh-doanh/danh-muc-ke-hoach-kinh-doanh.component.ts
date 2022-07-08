@@ -48,7 +48,7 @@ export class DanhMucKeHoachKinhDoanhComponent implements OnInit, OnChanges {
       currentPage: 1,
       pageSize: 20
     }
-    this.sanxuatService.KeHoachSanXuat(this.danhMucName)
+    this.sanxuatService[this.danhMucName]()
       .GetList(data.currentPage, data.pageSize)
       .subscribe((res: any) => {
         this.listDanhMuc = res.Data.Items;
