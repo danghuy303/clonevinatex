@@ -76,7 +76,14 @@ export class BaocaocaComponent extends StoreBase implements OnInit {
         this.toastr.error(`Có lỗi xảy ra trong quá trình xử lý!`)
       }
     },(er)=>{
-      this.toastr.warning(`Chức năng này đang trong giai đoạn phát triển!`)
+      this.toastr.warning(`Có lỗi xảy ra trong quá trình xử lý!`)
     });
+  }
+  guiMail(){
+    this._services.BaoCaoCa().GuiMail(this.filter).subscribe((res:any)=>{
+      console.log(res)
+    },(er)=>{
+      this.toastr.warning(`Có lỗi xảy ra trong quá trình xử lý!`)
+    })
   }
 }
