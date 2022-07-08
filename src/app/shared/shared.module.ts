@@ -10,17 +10,17 @@ import { SumByKeyPipe } from './../services/sum.pipe';
 import { SortByKeyPipe } from './../services/sortPipe.pipe';
 import { CongDoanPipe } from './../services/congdoan.pipe';
 import { TruncatePipe } from './../services/truncate.pipe';
-import {CaPipe} from './../services/ca.pipe';
+import { CaPipe } from './../services/ca.pipe';
 import { isDieuChinhPipe } from './../services/isDieuChinh.pipe';
 import { BanGiaoTaiSanQuyTrinhComponent } from './ban-giao-tai-san-quy-trinh/ban-giao-tai-san-quy-trinh.component';
 import { TaiLieuDanhSachComponent } from './tai-lieu-danh-sach/tai-lieu-danh-sach.component';
 import { TraoDoiComponent } from './trao-doi/trao-doi.component';
-import {AccordionModule} from 'primeng/accordion';
-import {FileUploadModule} from 'primeng/fileupload';
-import {TableModule} from 'primeng/table';
-import {ScrollPanelModule} from 'primeng/scrollpanel';
+import { AccordionModule } from 'primeng/accordion';
+import { FileUploadModule } from 'primeng/fileupload';
+import { TableModule } from 'primeng/table';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { FormsModule } from '@angular/forms';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ModalthongtinchitiettaisanComponent } from '../quantri/taisan/modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
 import { TabViewModule } from 'primeng/tabview';
 import { PanelModule } from 'primeng/panel';
@@ -44,6 +44,10 @@ import { ThongtinkhauhaoComponent } from '../quantri/taisan/screen/thongtinkhauh
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuyTrinhTemplateComponent } from './quy-trinh-template/quy-trinh-template.component';
 import { DanhMucKeHoachKinhDoanhComponent } from './danh-muc-ke-hoach-kinh-doanh/danh-muc-ke-hoach-kinh-doanh.component';
+import { DanhMucKeHoachModalComponent } from './danh-muc-ke-hoach-kinh-doanh/danh-muc-ke-hoach-modal/danh-muc-ke-hoach-modal.component';
+import { PaginatorModule } from 'primeng/paginator';
+import { NhapLieuKeHoachComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke-hoach.component';
+import { NhapLieuKeHoachModalComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke-hoach-modal/nhap-lieu-ke-hoach-modal.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +74,10 @@ import { DanhMucKeHoachKinhDoanhComponent } from './danh-muc-ke-hoach-kinh-doanh
     BiendongComponent,
     ThongtinkhauhaoComponent,
     QuyTrinhTemplateComponent,
-    DanhMucKeHoachKinhDoanhComponent
+    DanhMucKeHoachKinhDoanhComponent,
+    DanhMucKeHoachModalComponent,
+    NhapLieuKeHoachComponent,
+    NhapLieuKeHoachModalComponent
   ],
   imports: [
     AccordionModule,
@@ -94,9 +101,9 @@ import { DanhMucKeHoachKinhDoanhComponent } from './danh-muc-ke-hoach-kinh-doanh
     DropdownModule,
     InputTextModule,
     NgbModule,
-
+    PaginatorModule
   ],
-  exports:[
+  exports: [
     isXoaPipe,
     isDieuChinhPipe,
     VNDPipe,
@@ -118,7 +125,10 @@ import { DanhMucKeHoachKinhDoanhComponent } from './danh-muc-ke-hoach-kinh-doanh
     AntoanComponent,
     ThongtinkhauhaoComponent,
     QuyTrinhTemplateComponent,
-    DanhMucKeHoachKinhDoanhComponent
+    DanhMucKeHoachKinhDoanhComponent,
+    DanhMucKeHoachModalComponent,
+    NhapLieuKeHoachComponent,
+    NhapLieuKeHoachModalComponent
   ]
 })
 export class SharedModule { }

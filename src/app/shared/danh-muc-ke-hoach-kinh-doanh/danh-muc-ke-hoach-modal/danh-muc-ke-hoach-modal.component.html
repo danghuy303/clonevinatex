@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h5>{{title}}</h5>
+</div>
+<div class="modal-body grid">
+  <div class="col-12 p-mb-3">
+    <button class="p-mr-2 p-button-sm" pButton pRipple type="button" label="Quay lại" (click)="activeModal.dismiss()"></button>
+    <button class="p-mr-2 p-button-sm" pButton pRipple type="button" label="Chấp nhận" (click)="ChapNhan()"></button>
+  </div>
+  <div class="col-12 flex p-mb-3">
+    <label class="p-mr-2">Tên</label>
+    <input type="text" pInputText [(ngModel)]="danhMuc.Ten" placeholder="Nhập tên"/>
+  </div>
+  <div class="col-12 flex p-mb-3">
+    <label class="p-mr-2">Mã</label>
+    <input type="text" pInputText [(ngModel)]="danhMuc.Ma" placeholder="Nhập Mã"/>
+  </div>
+  <div class="col-12 flex p-mb-3">
+    <ng-content select="[input]"></ng-content>
+  </div>
+  <div class="col-12 flex p-mb-3">
+    <label class="p-mr-2">Ghi chú</label>
+    <input type="text" pInputText [(ngModel)]="danhMuc.GhiChu" placeholder="Ghi chú"/>
+  </div>
+</div>

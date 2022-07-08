@@ -151,20 +151,20 @@ export class DanhMucHopDongService {
         let url = API.KeHoach
         return {
             GetListAll: () => {
-                return this.http.get(`${url}DanhMuc/GetListAlldmVatTuPhu`, httpOptions)
+                return this.http.get(`${url}DanhMuc/GetListAlldmLoaiVatTuPhu`, httpOptions)
             },
             GetList: (data) => {
-                return this.http.get(`${url}DanhMuc/GetListdmVatTuPhu?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+                return this.http.get(`${url}DanhMuc/GetListdmLoaiVatTuPhu?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
-                return this.http.post(`${url}DanhMuc/SetdmVatTuPhu`, data, httpOptions)
+                return this.http.post(`${url}DanhMuc/SetdmLoaiVatTuPhu`, data, httpOptions)
             },
             DeleteList: (data) => {
                 debugger;
-                return this.http.post(`${url}DanhMuc/DeleteListdmVatTuPhu`, data, httpOptions)
+                return this.http.post(`${url}DanhMuc/DeleteListdmLoaiVatTuPhu`, data, httpOptions)
             },
             Delete: (id) => {
-                return this.http.get(`${url}DanhMuc/DeletedmVatTuPhu?Id=${id}`, httpOptions)
+                return this.http.get(`${url}DanhMuc/DeletedmLoaiVatTuPhu?Id=${id}`, httpOptions)
             }
         }
     }
@@ -310,7 +310,8 @@ export class DanhMucHopDongService {
             },
             Delete: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/DeleteQuyTrinh`, data, httpOptions)
-            }, DieuChinh: (IdKeHoachKinhDoanh) => {
+            }, 
+            DieuChinh: (IdKeHoachKinhDoanh) => {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetKeHoachKinhDoanhChoDieuChinh?IdKeHoachKinhDoanh=${IdKeHoachKinhDoanh}`, httpOptions)
             },
             GetKeHoachKinhDoanhDangThucHien: () => {
@@ -319,6 +320,9 @@ export class DanhMucHopDongService {
             KiemTraTonTaiQuyTrinh: (Nam) => {
                 return this.http.get(`${url}KeHoachKinhDoanh/KiemTraTonTaiQuyTrinh?Nam=${Nam}`, httpOptions)
             },
+            GetBaoCaoNhuCauSuDungBong: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/GetBaoCaoNhuCauBongKeHoachKinhDoanhNam`, data)
+            }
         }
     }
     KeHoachKinhDoanhThang() {

@@ -1,0 +1,31 @@
+<div class="content">
+    <div class="year d-flex p-jc-between p-ai-center">
+        <h4 style="color:#1f2779">Báo cáo nhu cầu sử dụng bông</h4>
+        <div class="" class="d-flex p-ai-center">
+            <label class="p-m-0">Chọn năm: </label>
+            <div class="p-ml-3" style="width: 200px">
+                <p-dropdown [options]="listNam" placeholder="Chọn năm" [(ngModel)]="filter.Nam" (onChange)="LoadData()">
+                </p-dropdown>
+            </div>
+        </div>
+    </div>
+    <div class="chart py-3">
+        <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart>
+    </div>
+    <div class="table-BaoCao">
+        <p-table [value]="ListBaoCao" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">Tên loại bông</th>
+                    <th class="text-center" *ngFor="let LabelThang of ListLabelThang">{{LabelThang}}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-baoCao>
+                <tr>
+                    <td>{{baoCao.TenLoaiBong}}</td>
+                    <td class="text-right" *ngFor="let thang of baoCao.ListThang">{{thang.KeHoach}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

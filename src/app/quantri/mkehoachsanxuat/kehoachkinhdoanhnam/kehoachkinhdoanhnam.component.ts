@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { KehoachkinhdoanhnammodalComponent } from './kehoachkinhdoanhnammodal/kehoachkinhdoanhnammodal.component';
 
@@ -18,11 +19,14 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   trangThai: any = 1;
   checkQuyen: any = {};
+  eAction = "PHUONGANPHABONG";
+
   constructor(
     public _modal: NgbModal,
     public toastr: ToastrService,
     private activatedRoute: ActivatedRoute, 
     private router: Router,
+    private _services: SanXuatService,
     private _danhMucHopDong: DanhMucHopDongService
   ) {
   }
@@ -41,6 +45,7 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
       }
     });
     this.resetFilter();
+    this.KiemTraTabTrangThai();
   }
 
   
@@ -98,17 +103,23 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.result
-      .then((res: any) => {
-
+      .then((res: any) => {})
+      .catch((error: any) => {})
+      .finally(() => {
+        this.getListKeHoachKinhDoanh();
       })
-      .catch((error: any) => {
+  }
 
-      })
-      .finally(() => {})
+  KiemTraTabTrangThai() {
+    this._services.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
+      this.checkQuyen = res;
+      this.getListKeHoachKinhDoanh();
+    });
   }
 
   changeTab(e) {
-
+    this.trangThai = e.index + 1;
+    this.getListKeHoachKinhDoanh(true);
   }
 
   changePage(event) {
