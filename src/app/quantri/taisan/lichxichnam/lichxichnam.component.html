@@ -33,7 +33,7 @@
   <div class="p-mr-2"><strong>Tổng số: <span style="color: red;">{{items.TongSoTaiSan}}</span> thiết bị</strong></div>
 </div>
 
-<p-table [value]="items.listBaoDuong" *ngIf="filter.isChon === 'theoBaoDuong'"
+<p-table [value]="items.listBaoDuong" *ngIf="filter.isChon === 'theoBaoDuong'" [paginator]="true" [rows]="20"
   styleClass="p-datatable-sm wrap-text p-datatable-striped">
   <ng-template pTemplate="colgroup">
     <colgroup>
@@ -55,8 +55,12 @@
       </td>
     </tr>
   </ng-template>
+  <ng-template pTemplate="paginatorleft">
+    Tổng số bản ghi {{items.listBaoDuong?.length}}.
+</ng-template>
 </p-table>
-<p-table [value]="itemMay.listTaiSan" *ngIf="filter.isChon === 'theoMay'"
+
+<p-table [value]="itemMay.listTaiSan" *ngIf="filter.isChon === 'theoMay'" [paginator]="true" [rows]="20"
   styleClass="p-datatable-sm wrap-text p-datatable-striped">
   <ng-template pTemplate="colgroup">
     <colgroup>
@@ -78,4 +82,7 @@
       </td>
     </tr>
   </ng-template>
+  <ng-template pTemplate="paginatorleft">
+    Tổng số bản ghi {{itemMay.listTaiSan?.length}}.
+</ng-template>
 </p-table>
