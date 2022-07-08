@@ -17,7 +17,9 @@ import { ThoihancungcapmodalluachonComponent } from '../modal/thoihancungcapmoda
   templateUrl: './thoihancungcapvattumodal.component.html',
   styleUrls: ['./thoihancungcapvattumodal.component.css']
 })
-export class ThoihancungcapvattumodalComponent implements OnInit {
+export class 
+
+ThoihancungcapvattumodalComponent implements OnInit {
 
   opt: any = "";
   title: any = "";
