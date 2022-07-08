@@ -128,7 +128,7 @@
                 *ngIf="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length"
               >
                 <td *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH" class="tc-w-140 text-center">
-                  <button pButton pRipple type="button" [label]="thang.SanLuongThang.toString()" class="p-button-text" (click)="SeeMonthDetail(sanpham, thang)"></button>
+                  <button pButton pRipple type="button" [label]="thang.SanLuongThang.toString() | number: '0.0'" class="p-button-text" (click)="SeeMonthDetail(sanpham, thang)"></button>
                 </td>
               </ng-container>
             </tr>
