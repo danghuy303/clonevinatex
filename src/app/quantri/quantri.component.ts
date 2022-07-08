@@ -1543,7 +1543,7 @@ export class QuantriComponent implements OnInit {
       //   ],
       // },
       {
-        label: "Menu kế hoạch sản xuất",
+        label: "Menu kế hoạch kinh doanh",
         icon: "fas fa-circle",
         routerLink: "/quantri/mkehoachsanxuat",
         visible: this.showHopDongModule,
@@ -1691,11 +1691,11 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/mkehoachsanxuat/giasanphamtheothang",
             command: () => this.close(),
           },
-          {
-            label: "Báo cáo kế hoạch kinh doanh",
-            routerLink: "/quantri/mkehoachsanxuat/baocaokehoachkinhdoanh",
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Báo cáo kế hoạch kinh doanh",
+          //   routerLink: "/quantri/mkehoachsanxuat/baocaokehoachkinhdoanh",
+          //   command: () => this.close(),
+          // },
           {
             label: "Báo cáo nhu cầu sử dụng bông",
             routerLink: "/quantri/mkehoachsanxuat/baocaonhucausudungbong",

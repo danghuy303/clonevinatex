@@ -9,7 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HopdongsanphammodalComponent implements OnInit {
 
-  hopdong: any = {};
+  listHopDong: any = {};
+  tenSanPham: any = "";
   selectedProducts: any = [];
   checkedAll: boolean;
   nam: any;
@@ -19,66 +20,72 @@ export class HopdongsanphammodalComponent implements OnInit {
     private _modal: NgbModal,
     public toastr: ToastrService,
   ) { 
-    this.hopdong = {
-      listSanPham: [
-        {
-          HopDong: "Hợp đồng 1",
-          TenSanPham: "Sản phẩm 1",
-          Nam: 2022,
-          TongSanLuong: 1200,
-          DaSanXuat: 1100,
-          ConLai: 100,
-          DonVi: "tấn"
-        },
-        {
-          HopDong: "Hợp đồng 1",
-          TenSanPham: "Sản phẩm 2",
-          Nam: 2022,
-          TongSanLuong: 1200,
-          DaSanXuat: 1100,
-          ConLai: 100,
-          DonVi: "tấn"
-        },
-        {
-          HopDong: "Hợp đồng 1",
-          TenSanPham: "Sản phẩm 3",
-          Nam: 2022,
-          TongSanLuong: 1200,
-          DaSanXuat: 1100,
-          ConLai: 100,
-          DonVi: "tấn"
-        },
-        {
-          HopDong: "Hợp đồng 1",
-          TenSanPham: "Sản phẩm 4",
-          Nam: 2022,
-          TongSanLuong: 1200,
-          DaSanXuat: 1100,
-          ConLai: 100,
-          DonVi: "tấn"
-        },
-        {
-          HopDong: "Hợp đồng 1",
-          TenSanPham: "Sản phẩm 5",
-          Nam: 2022,
-          TongSanLuong: 1200,
-          DaSanXuat: 1100,
-          ConLai: 100,
-          DonVi: "tấn"
-        }
-      ]
-    }
+    // this.hopdong = {
+    //   listSanPham: [
+    //     {
+    //       HopDong: "Hợp đồng 1",
+    //       TenSanPham: "Sản phẩm 1",
+    //       Nam: 2022,
+    //       TongSanLuong: 1200,
+    //       DaSanXuat: 1100,
+    //       ConLai: 100,
+    //       DonVi: "tấn"
+    //     },
+    //     {
+    //       HopDong: "Hợp đồng 1",
+    //       TenSanPham: "Sản phẩm 2",
+    //       Nam: 2022,
+    //       TongSanLuong: 1200,
+    //       DaSanXuat: 1100,
+    //       ConLai: 100,
+    //       DonVi: "tấn"
+    //     },
+    //     {
+    //       HopDong: "Hợp đồng 1",
+    //       TenSanPham: "Sản phẩm 3",
+    //       Nam: 2022,
+    //       TongSanLuong: 1200,
+    //       DaSanXuat: 1100,
+    //       ConLai: 100,
+    //       DonVi: "tấn"
+    //     },
+    //     {
+    //       HopDong: "Hợp đồng 1",
+    //       TenSanPham: "Sản phẩm 4",
+    //       Nam: 2022,
+    //       TongSanLuong: 1200,
+    //       DaSanXuat: 1100,
+    //       ConLai: 100,
+    //       DonVi: "tấn"
+    //     },
+    //     {
+    //       HopDong: "Hợp đồng 1",
+    //       TenSanPham: "Sản phẩm 5",
+    //       Nam: 2022,
+    //       TongSanLuong: 1200,
+    //       DaSanXuat: 1100,
+    //       ConLai: 100,
+    //       DonVi: "tấn"
+    //     }
+    //   ]
+    // }
   }
 
   ngOnInit(): void {
+    console.log("listHopDong", this.listHopDong);
+    
     this.CountSLConlai();
   }
 
   CountSLConlai() {
-    this.hopdong.listSanPham.forEach(ele => {
+    this.listHopDong.forEach(ele => {
       ele.ConLai = 0;
-      ele.ConLai = (ele.TongSanLuong || 0) - (ele.SanLuongDoDang || 0) - (ele.DaSanXuat || 0);
+      ele.ConLai = (ele.TongSanLuong || 0) - (ele.SanLuongDoDang || 0) - (ele.SanLuongDaSanXuat || 0);
     }) 
+  }
+
+  ChapNhan() {
+    this.activeModal.close(this.listHopDong);
   }
 
 }

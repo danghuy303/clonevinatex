@@ -291,8 +291,10 @@ export class ChatluongsoimodalComponent implements OnInit {
     }
   }
   rebind(e,item,indexChild,Ma){
+    console.log('alo')
     if(e!==undefined){
-      item.ChiTieuThucTe = parseFloat(e);
+      item.ChiTieuThucTe = parseFloat(e)||null;
+      console.log(item.ChiTieuThucTe)
     }
     let arr = 'Thin50Thick50Neps200';
     if(arr.includes(Ma)){

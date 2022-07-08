@@ -6,7 +6,7 @@
     <div class="modal-bt p-mb-3">
       <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
         (click)="activeModal.dismiss()"></button>
-      <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm "></button>
+      <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm" (click)="ChapNhan()"></button>
     </div>
   </div>
   <div>
@@ -25,7 +25,7 @@
       <ng-template pTemplate="header">
         <tr>
           <th>
-            <p-checkbox value="checkedAll" (onChange)="checkAll()"></p-checkbox>
+            <p-checkbox value="checkedAll" [(ngModel)]="checkedAll" (onChange)="CheckAll($event)"></p-checkbox>
           </th>
           <th>Mặt hàng</th>
           <th>Mã</th>
@@ -38,12 +38,12 @@
       <ng-template pTemplate="body" let-product>
         <tr>
           <td  class="text-center">
-            <p-checkbox value="product.checked" (onChange)="check(product)"></p-checkbox>
+            <p-checkbox [binary]="true" [(ngModel)]="product.checked" (onChange)="Check()"></p-checkbox>
           </td>
           <td>{{product.Ten}}</td>
           <td>{{product.Ma}}</td>
           <td class="text-center">{{product.LoaiSoi}}</td>
-          <td class="text-right">{{product.ChiSoNe}}</td>
+          <td class="text-right">{{product.Ne}}</td>
           <td class="text-right">{{product.DoSan}}</td>
           <td class="text-right">{{product.GhiChu}}</td>
         </tr>

@@ -107,28 +107,28 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container  *ngFor="let sanpham of kehoach.lstKH_KeHoachKinhDoanh_SanPham; let i = index">
-            <tr>
+          <ng-container  *ngIf="kehoach.lstKH_KeHoachKinhDoanh_SanPham.length">
+            <tr *ngFor="let sanpham of kehoach.lstKH_KeHoachKinhDoanh_SanPham; let i = index">
               <td class="tc-w-200 p-px-2" style="background-color: #fff;z-index: 9999;">
                 <div class="d-flex p-ai-center">
                   <span>
                     {{sanpham.TenSanPham}}
                   </span>
-                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="DeleteSanPham(i)"></button>
+                  <button *ngIf="sanpham.isKhongHopDong" pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="DeleteSanPham(i)"></button>
                 </div>
               </td>
-              <td class="tc-w-200 p-px-2">{{sanpham.NhaMay}}</td>
+              <td class="tc-w-200 p-px-2">{{sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TenNhaMay}}</td>
               <td class="tc-w-121 p-px-2 text-center">
-                <button pButton pRipple type="button" label="Danh sách hợp đồng" class="p-button-text" (click)="SeeHopDongDetail()"></button>
+                <button *ngIf="!sanpham.isKhongHopDong" pButton pRipple type="button" label="Danh sách hợp đồng" class="p-button-text" (click)="SeeHopDongDetail(sanpham)"></button>
               </td>
               <td class="tc-w-200 p-px-2 text-right">
-                <p-inputNumber [disabled]="true" [(ngModel)]="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang" locale="en-US"></p-inputNumber>
+                <p-inputNumber *ngIf="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length" [disabled]="true" [(ngModel)]="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang" locale="en-US"></p-inputNumber>
               </td>
               <ng-container 
-              *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH"
+                *ngIf="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length"
               >
-                <td class="tc-w-140 text-center">
-                  <button pButton pRipple type="button" [label]="thang.SanLuongThang.toString()" class="p-button-text" (click)="SeeMonthDetail(sanpham, thang)"></button>
+                <td *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH" class="tc-w-140 text-center">
+                  <button pButton pRipple type="button" [label]="thang.SanLuongThang.toString() | number: '0.0'" class="p-button-text" (click)="SeeMonthDetail(sanpham, thang)"></button>
                 </td>
               </ng-container>
             </tr>
