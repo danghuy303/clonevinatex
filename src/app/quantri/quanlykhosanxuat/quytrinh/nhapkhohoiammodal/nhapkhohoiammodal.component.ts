@@ -38,6 +38,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   checkedAll: boolean = false;
   listCaSanXuat: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  mapData:any={};
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
 
@@ -69,6 +70,20 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this.getListPhanXuong();
     this.getListKgCone();
     this.getListCaSanXuat();
+  }
+  getListSanLuongOng(){
+    if(validVariable(this.item.Ngay)&&validVariable(this.item.IddmPhanXuong)&&validVariable(this.item.IddmCaSanXuatThucTe)){
+      let data = { "Ngay": DateToUnix(this.item.Ngay), "IddmPhanXuong": this.item.IddmPhanXuong, "IddmCaSanXuat": this.item.IddmCaSanXuat }
+      this._services.PhieuNhapHoiAm().GetThongKeSanLuongCongDoanOng(data).subscribe((res:any)=>{
+        this.mapData ={};
+        res.forEach(ele=>{
+          this.mapData[ele.IddmItem] = ele.KhoiLuong;
+        })
+      })
+    }
+    else{
+      this.toastr.warning("Vui lòng nhập đầy đủ các trường Ngày chứng từ, Phân xưởng, Thời điểm để có chức năng cảnh báo!")
+    }
   }
   getListCaSanXuat() {
     this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
@@ -200,6 +215,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     })
   }
   GetMatHangTheoKho() {
+    
     let itemSearch: any = {};
     itemSearch.IddmCaSanXuatThucTe = this.item.IddmCaSanXuatThucTe;
     if (this.item.Ngay !== undefined)
@@ -234,6 +250,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
         // không
       });
     })
+    
   }
   enter(i){
     if(i+1<this.inputNumbers.toArray().length){
@@ -261,7 +278,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       // this._modal.dismissAll()
       this.activeModal.close();
-
     }
   }
   getListKgCone() {

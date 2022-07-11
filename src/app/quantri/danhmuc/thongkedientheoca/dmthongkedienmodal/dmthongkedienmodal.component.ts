@@ -125,13 +125,14 @@ export class DmthongkedienmodalComponent implements OnInit {
                         if (res.State === 1) {
                             this.toastr.success(res.message);
                             this.khongclicknhieu = !this.khongclicknhieu;
-                            this.activeModal.close();
-                            // this._services
-                            //     .ThongKeDien()
-                            //     .Get(this.item)
-                            //     .subscribe((res: any) => {
-                            //         this.item = res;
-                            //     });
+                            // this.activeModal.close();
+                            this._services
+                                .ThongKeDien()
+                                .Get(this.item)
+                                .subscribe((res: any) => {
+                                    this.item = res;
+                                    this.ngOnInit()
+                                });
                         } else {
                             this.khongclicknhieu = !this.khongclicknhieu;
                             this.toastr.error(res.message);

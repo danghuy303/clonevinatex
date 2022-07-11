@@ -21,16 +21,16 @@
                 [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetList()">
             </p-calendar>
         </div>
-        <div class="p-mr-2">
+        <!-- <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listnhamay" placeholder="Chọn nhà máy" [(ngModel)]="filter.IddmItem"
                 styleClass="p-inputtext-sm" (onChange)="GetList()" [showClear]="true" [filter]="true"></p-dropdown>
-        </div>
-        <div class="p-inputgroup" style="width:200px">
+        </div> -->
+        <!-- <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetList()"
                 [(ngModel)]="filter.KeyWord" />
             <button type="button" pButton pRipple icon="pi pi-refresh"
                 class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
-        </div>
+        </div> -->
 
     </div>
 </div>

@@ -22,133 +22,64 @@
          {{ item.Modified | date: 'dd/MM/yyyy HH:mm' }}
       </div>
    </div>
-   <button
-      *ngIf="false"
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="activeModal.dismiss('Cross click')">
+   <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
    </button>
 </div>
 <div class="modal-body">
    <div class="p-d-flex p-flex-row p-jc-between">
       <div class="modal-bt p-mb-4">
-         <button
-            pButton
-            pRipple
-            type="button"
-            label="Quay lại"
-            class="p-mr-2 p-button-sm"
-            (click)="Onclose()"></button>
-         <button
-            pButton
-            pRipple
-            type="button"
-            label="Lưu nháp"
-            class="p-mr-2 p-button-sm"
-            (click)="GhiLai()"
+         <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="Onclose()"></button>
+         <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm" (click)="GhiLai()"
             *ngIf="checkbutton.Ghi"></button>
-         <button
-            pButton
-            pRipple
-            type="button"
-            label="Xóa"
-            class="p-mr-2 p-button-sm"
-            *ngIf="checkbutton.Xoa"
+         <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
             (click)="XoaQuyTrinh()"></button>
          <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
                 *ngIf="checkbutton.KhongDuyet"></button> -->
-         <button
-            pButton
-            pRipple
-            type="button"
-            label="Xác nhận"
-            class="p-mr-2 p-button-sm"
-            (click)="ChuyenDuyet()"
+         <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()"
             *ngIf="checkbutton.ChuyenTiep"></button>
          <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
       </div>
    </div>
    <div class="p-grid">
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto"
-            >Phân xưởng<span class="text-danger">*</span>:</label
-         >
+         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng<span class="text-danger">*</span>:</label>
          <div class="p-col-12 p-lg-8 p-p-0">
-            <p-dropdown
-               [filter]="true"
-               [options]="listdmPhanXuong"
-               placeholder="Chọn phân xưởng"
-               styleClass="p-inputtext-sm"
-               [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Chọn phân xưởng"
+               styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
          </div>
       </div>
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto"
-            >Từ ngày<span class="text-danger">*</span>:</label
-         >
+         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Từ ngày<span class="text-danger">*</span>:</label>
          <div class="p-col-12 p-lg-8 p-p-0">
-            <p-calendar
-               dateFormat="dd/mm/yy"
-               inputStyleClass="p-inputtext-sm"
-               [locale]="lang"
-               [monthNavigator]="true"
-               [yearNavigator]="true"
-               [yearRange]="yearRange"
-               [showIcon]="true"
-               [(ngModel)]="item.TuNgay"
-               inputId="icon"
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true"
+               [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.TuNgay" inputId="icon"
                placeholder="dd/mm/yyyy">
             </p-calendar>
          </div>
       </div>
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto"
-            >Đến ngày<span class="text-danger">*</span>:</label
-         >
+         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đến ngày<span class="text-danger">*</span>:</label>
          <div class="p-col-12 p-lg-8 p-p-0">
-            <p-calendar
-               dateFormat="dd/mm/yy"
-               inputStyleClass="p-inputtext-sm"
-               [locale]="lang"
-               [monthNavigator]="true"
-               [yearNavigator]="true"
-               [yearRange]="yearRange"
-               [showIcon]="true"
-               [(ngModel)]="item.DenNgay"
-               inputId="icon"
-               placeholder="dd/mm/yyyy">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true"
+               [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.DenNgay"
+               inputId="icon" placeholder="dd/mm/yyyy">
             </p-calendar>
          </div>
       </div>
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto"
-            >Ngày kiểm tra<span class="text-danger">*</span>:</label
-         >
+         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày kiểm tra<span class="text-danger">*</span>:</label>
          <div class="p-col-12 p-lg-8 p-p-0">
-            <p-calendar
-               dateFormat="dd/mm/yy"
-               inputStyleClass="p-inputtext-sm"
-               [locale]="lang"
-               [monthNavigator]="true"
-               [yearNavigator]="true"
-               [yearRange]="yearRange"
-               [showIcon]="true"
-               [(ngModel)]="item.NgayKiemTra"
-               inputId="icon"
-               placeholder="dd/mm/yyyy">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true"
+               [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayKiemTra"
+               inputId="icon" placeholder="dd/mm/yyyy">
             </p-calendar>
          </div>
       </div>
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
          <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
          <div class="p-col-12 p-lg-8 p-p-0">
-            <input
-               type="text"
-               class="p-inputtext-sm"
-               [(ngModel)]="item.GhiChu"
-               pInputText />
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
          </div>
       </div>
       <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
@@ -160,22 +91,12 @@
       <div class="p-col-12 p-p-0 d-flex flex-column">
          <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
             <div>
-               <button
-                  pButton
-                  pRipple
-                  type="button"
-                  label="Danh mục mặt hàng"
-                  class="p-mr-2 p-button-sm"
+               <button pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
                   (click)="GetMatHangTheoKho()"></button>
             </div>
          </div>
-         <p-table
-            [value]="item.lstDanhMuc | isXoa"
-            styleClass="p-datatable-sm wrap-text p-datatable-gridlines"
-            selectionMode="single"
-            [scrollable]="true"
-            scrollHeight="53vh"
-            [lazy]="true">
+         <p-table [value]="item.lstDanhMuc | isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines"
+            selectionMode="single" [scrollable]="true" scrollHeight="53vh" [lazy]="true">
             <ng-template pTemplate="colgroup">
                <colgroup>
                   <col style="width: 200px" />
@@ -187,9 +108,7 @@
             </ng-template>
             <ng-template pTemplate="header">
                <tr>
-                  <th
-                     class="align-content-center first-col sticky-col"
-                     rowspan="2">
+                  <th class="align-content-center first-col sticky-col" rowspan="2">
                      Chỉ tiêu
                   </th>
                   <th *ngFor="let ban of item.lstSanPham" colspan="2">
@@ -205,32 +124,27 @@
             </ng-template>
             <ng-template pTemplate="body" let-itemindex let-i="rowIndex">
                <tr>
-                  <td
-                     class="align-content-center first-col sticky-col"
-                     [ngStyle]="{
+                  <td class="align-content-center first-col sticky-col" [ngStyle]="{
                         'background-color': itemindex.isLoaiChiTieuUsterstatic
                            ? 'antiquewhite'
                            : 'white'
                      }">
                      {{ itemindex.Ten }}
                   </td>
-                  <ng-container
-                     *ngFor="
+                  <ng-container *ngFor="
                         let itemsanpham of itemindex.lstChatLuongSanPham;
                         let iC = index
                      ">
                      <td class="text-right">
                         {{
-                           itemindex.Ma !== 'DAT'
-                              ? itemsanpham.ChiTieuLyThuyet === 0
-                                 ? ''
-                                 : itemsanpham.ChiTieuLyThuyet
-                              : ''
+                        itemindex.Ma !== 'DAT'
+                        ? itemsanpham.ChiTieuLyThuyet === 0
+                        ? ''
+                        : itemsanpham.ChiTieuLyThuyet
+                        : ''
                         }}
                      </td>
-                     <td
-                        class="text-center"
-                        [ngStyle]="{
+                     <td class="text-center" [ngStyle]="{
                            'background-color':
                               itemindex.Ma === 'DAT'
                                  ? ''
@@ -239,29 +153,20 @@
                                  ? '#ef8888'
                                  : '#99c199'
                         }">
-                        <input
-                           *ngIf="itemindex.Ma === 'DAT'"
-                           type="checkbox"
-                           [(ngModel)]="itemsanpham.isDat" />
-                        <!-- <input *ngIf="itemindex.Ma!=='DAT'" class="text-right dat09focus" style="width: 100%; text-align: right; border: transparent; color:#495057"
+                        <input *ngIf="itemindex.Ma === 'DAT'" type="checkbox" [(ngModel)]="itemsanpham.isDat" />
+                        <input *ngIf="itemindex.Ma!=='DAT'" class="text-right dat09focus" style="width: 100%; text-align: right; border: transparent; color:#495057"
                                     type="text" [tabindex]="itemsanpham.tabIndex" [ngModel]="itemsanpham.ChiTieuThucTe"  [mask]="MO.mask" [allowNegativeNumbers]="true"
                                     (keydown)="move($event,itemsanpham.tabIndex)" (ngModelChange)="rebind($event,itemsanpham,iC,itemindex.Ma)"
-                                    [thousandSeparator]="MO.thousand" [ngModelOptions]="{standalone: true}" [disabled]="itemindex.Ma==='IPI'"> -->
-                        <input
-                           *ngIf="itemindex.Ma !== 'DAT'"
-                           [ngModel]="
+                                    [thousandSeparator]="MO.thousand" [ngModelOptions]="{standalone: true}" [disabled]="itemindex.Ma==='IPI'">
+                        <!-- <input class="text-right dat09focus" *ngIf="itemindex.Ma !== 'DAT'" [ngModel]="
                               itemsanpham.ChiTieuThucTe
-                           "
-                           (blur)="rebind($event.target.value, itemsanpham, iC, itemindex.Ma)"
-                           style="
+                           " (blur)="rebind($event.target.value, itemsanpham, iC, itemindex.Ma)" style="
                               width: 100%;
                               text-align: right;
                               border: transparent;
                               color: #495057;
-                           "
-                           type="number"
-                           [ngModelOptions]="{ standalone: true }"
-                           [disabled]="itemindex.Ma === 'IPI'" />
+                           " type="number" [ngModelOptions]="{ standalone: true }"
+                           [disabled]="itemindex.Ma === 'IPI'" /> -->
                         <!-- <div lang="vi-VN">
                                     <input style="width: 100%; text-align: right; border: transparent; color:#495057" step="0.01" lang="vi"
                                         class="dat09focus" type="number">

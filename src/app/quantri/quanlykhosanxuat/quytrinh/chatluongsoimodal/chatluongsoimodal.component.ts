@@ -241,9 +241,9 @@ export class ChatluongsoimodalComponent implements OnInit {
     for(let i = 0;i<this.item.lstDanhMuc.length;i++){
       for(let j=0;j<this.item.lstDanhMuc[i].lstChatLuongSanPham.length;j++){
         this.item.lstDanhMuc[i].lstChatLuongSanPham[j].tabIndex = i+1+(j*(this.item.lstDanhMuc.length));
-        if(this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe===0){
-          this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe = null;
-        }
+        // if(this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe===0){
+        //   this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe = 0;
+        // }
       }
     }
   }
@@ -293,7 +293,7 @@ export class ChatluongsoimodalComponent implements OnInit {
   rebind(e,item,indexChild,Ma){
     console.log('alo')
     if(e!==undefined){
-      item.ChiTieuThucTe = parseFloat(e)||null;
+      item.ChiTieuThucTe = parseFloat(e)?parseFloat(e):0;
       console.log(item.ChiTieuThucTe)
     }
     let arr = 'Thin50Thick50Neps200';

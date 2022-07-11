@@ -175,6 +175,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
+            res.objectReturn.Ngay = UnixToDate(res.objectReturn.NgayUnix)
             this.item = res.objectReturn;
             this.listItem = [];
             this.getItemTheoCongDoan()
@@ -302,9 +303,9 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhCongThucMoi(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0) {
-      KhoiLuong = item.ChieuDai / (item.Nm * 1000) * item.SoCoc;;
+      KhoiLuong = (item.ChieuDai / item.Nm) * item.SoCoc;;
       if (item.isM == true)
-        item.ChuDongHo = item.ChieuDai / (item.Nm * 1000);
+        item.ChuDongHo = item.ChieuDai / (item.Nm);
     }
     item.KhoiLuong = KhoiLuong;
     this.TinhTyLeBongThoMang();
@@ -625,9 +626,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
     console.log(this.TongKhoiLuong);
     let found = this.item.listTyLeBongPhe.find(ele => ele.MaCongDoan === this.item.CongDoan);
-    found.TongKhoiLuongCongDoan = this.TongKhoiLuong;
-    found.isTruVaoSanLuong = this.item.isTruVaoSanLuong;
-    this.typing.next('');
+    if (found) {
+      found.TongKhoiLuongCongDoan = this.TongKhoiLuong;
+      found.isTruVaoSanLuong = this.item.isTruVaoSanLuong;
+      this.typing.next('');
+    }
+
     //     break;
     // }
   }
@@ -695,10 +699,10 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   nextFocus(index) {
     let length = this.inputKhoiLuongs.toArray().length;
-    this.inputKhoiLuongs.toArray()[(index+1<length?index+1:0)].el.nativeElement.children[0].children[0].focus();
-    setTimeout(()=>{
-      this.inputKhoiLuongs.toArray()[(index+1<length?index+1:0)].el.nativeElement.children[0].children[0].focus();
-    },400)
+    this.inputKhoiLuongs.toArray()[(index + 1 < length ? index + 1 : 0)].el.nativeElement.children[0].children[0].focus();
+    setTimeout(() => {
+      this.inputKhoiLuongs.toArray()[(index + 1 < length ? index + 1 : 0)].el.nativeElement.children[0].children[0].focus();
+    }, 400)
   }
   ngOnDestroy() {
     this.$typing.unsubscribe()

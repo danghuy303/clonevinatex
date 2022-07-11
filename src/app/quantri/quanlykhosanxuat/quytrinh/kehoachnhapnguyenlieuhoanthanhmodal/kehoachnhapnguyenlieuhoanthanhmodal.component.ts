@@ -145,7 +145,7 @@ export class KehoachnhapnguyenlieuhoanthanhmodalComponent implements OnInit {
   }
   
   Onclose() {
-    this.activeModal.close();
+    this.activeModal.dismiss();
   }
  
   getDacTinhBong(item) {
