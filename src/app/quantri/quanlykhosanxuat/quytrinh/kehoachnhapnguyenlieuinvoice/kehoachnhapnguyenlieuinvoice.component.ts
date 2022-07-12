@@ -41,7 +41,7 @@ export class KehoachnhapnguyenlieuinvoiceComponent extends StoreBase implements 
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
-      width: '100px'
+      width: 'unset'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };

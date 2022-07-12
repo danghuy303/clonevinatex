@@ -103,12 +103,7 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-xl-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
-            </div>
-        </div>
+        
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ne bình quân 30(Tấn/ca):</label>
             <div class="p-col-12 p-xl-8 p-p-0">
@@ -127,6 +122,13 @@
             <label class="p-col-12 p-xl-3 p-p-0 my-auto"><strong>Kế hoạch điều chỉnh:</strong></label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isDieuChinh"/>
+            </div>
+        </div>
+        <div class="p-col-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-1 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-xl-11 p-p-0">
+                <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /> -->
+                <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">

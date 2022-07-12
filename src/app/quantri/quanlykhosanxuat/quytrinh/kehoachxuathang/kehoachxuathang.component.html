@@ -63,7 +63,10 @@
                 </td>
                 <td class="text-center" *ngFor="let col of cols">
                     <ng-container *ngIf="col.type===undefined">
-                        {{item[col.field]}}
+                        <div [pTooltip]="item[col.field]" tooltipPosition="bottom">
+                            {{ item[col.field] | truncate:20}}
+                        </div>
+                        <!-- {{item[col.field]}} -->
                     </ng-container>
                     <ng-container *ngIf="col.type==='number'">
                         {{item[col.field]|number:'0.0-2'}}

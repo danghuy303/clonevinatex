@@ -65,7 +65,7 @@
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
-                <td class="text-center">{{item.NoiDungTrienKhai}}</td>
+                <td class="text-center" [pTooltip]="item.NoiDungTrienKhai" tooltipPosition="bottom">{{item.NoiDungTrienKhai | truncate:40}}</td>
                 <!-- <td class="text-center">{{item.NgayDuyet|date:'dd/MM/yyyy'}}</td> -->
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
