@@ -48,7 +48,7 @@
                 <col style="width: 100px;">
                 <col style="width: 100px;">
                 <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
-                <col style="width: 70px;">
+                <col style="width: 80px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -85,7 +85,7 @@
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành"
                         (click)="hoanthanh(item.Id)"></button>
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.Id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>
