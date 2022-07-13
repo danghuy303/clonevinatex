@@ -52,10 +52,11 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú :</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <input pInputText type="text" [(ngModel)]="item.GhiChu">
+        <div class="p-col-12 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú :</label>
+            <div class="p-col-12 p-lg-11 p-p-0">
+                <!-- <input pInputText type="text" [(ngModel)]="item.GhiChu"> -->
+                <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">

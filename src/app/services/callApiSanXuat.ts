@@ -1420,6 +1420,9 @@ export class SanXuatService {
             GetListMatHang: (data) => {
                 return this.http.post(url + 'GetlistdmMatHangHoiAm', data, httpOptions)
             },
+            GetThongKeSanLuongCongDoanOng:(data)=>{
+                return this.http.post(url + 'GetThongKeSanLuongCongDoanOng', data, httpOptions)
+            }
         }
     }
     PhieuChatLuongSoi() {

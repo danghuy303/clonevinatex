@@ -40,14 +40,14 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
+                <col style="width:180px">
+                <col >
                 <col>
+                <col style="width:100px">
                 <col>
-                <col>
-                <col>
-                <col>
-                <col>
+                <col style="width:100px">
                 <col *ngFor="let col of cols">
-                <col style="width: 100px;">
+                <col style="width: 70px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -74,12 +74,13 @@
                 <td class="text-center">{{item.SoHopDong}}</td>
                 <td class="text-center">{{item.MaInvoice}}</td>
                 <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
-                <td class="text-left">
-                    {{item.NoiDung}}
-                </td>
-                <td class="text-center">{{item.TongKhoiLuongNhap|number:'0.0'}}</td>
+                <td class="text-left" [pTooltip]="item.NoiDung" tooltipPosition="bottom">{{item.NoiDung | truncate:33}}</td>
+                <td class="text-right">{{item.TongKhoiLuongNhap|number:'0.0'}}</td>
                 <td class="text-center" *ngFor="let col of cols">
-                    {{item[col.field]}}
+                    <!-- {{item[col.field]}} -->
+                    <div [pTooltip]="item[col.field]" tooltipPosition="bottom">
+                        {{ item[col.field] | truncate:20}}
+                    </div>
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"

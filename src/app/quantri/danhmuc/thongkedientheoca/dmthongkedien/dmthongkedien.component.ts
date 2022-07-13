@@ -34,7 +34,7 @@ export class DmthongkedienComponent  extends StoreBase implements OnInit,OnDestr
   }
 
   ngOnInit(): void {
-    this.GetDanhSachDuAnByIdUser();
+    // this.GetDanhSachDuAnByIdUser();
     this.resetFilter();
   }
   changeParam(id) {
@@ -44,11 +44,11 @@ export class DmthongkedienComponent  extends StoreBase implements OnInit,OnDestr
     this.router.navigate([`quantri/theodoithongkebaocaosanxuat/thongkedien/${id}`], { replaceUrl: true })
   }
 
-  GetDanhSachDuAnByIdUser() {
-    this._service.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
-      this.listnhamay = mapArrayForDropDown(res, 'TenDuAn', 'Id');
-    })
-  }
+  // GetDanhSachDuAnByIdUser() {
+  //   this._service.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
+  //     this.listnhamay = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+  //   })
+  // }
 
   add() {
     this.changeParam(0);
@@ -93,7 +93,7 @@ export class DmthongkedienComponent  extends StoreBase implements OnInit,OnDestr
       sFilter: this.filter.KeyWord,
       TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
       DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
-      IdDuAn: this.filter.IddmItem
+      IdDuAn: parseInt(this.store.getCurrent())
     }
     this._service.ThongKeDien().GetList(data).subscribe((res: any) => {
       this.items = res;
