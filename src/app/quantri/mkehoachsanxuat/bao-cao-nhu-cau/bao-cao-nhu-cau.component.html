@@ -1,0 +1,42 @@
+<div class="content">
+  <div class="year d-flex p-jc-between p-ai-center">
+      <h4 style="color:#1f2779">Báo cáo nhu cầu định mức</h4>
+      <div class="d-flex">
+        <div class="" class="d-flex p-ai-center p-mr-3">
+            <label class="p-m-0">Chọn năm: </label>
+            <div class="p-ml-3" style="width: 200px">
+                <p-dropdown [options]="listNam" placeholder="Chọn năm" [(ngModel)]="filter.Nam" (onChange)="LoadData()">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="" class="d-flex p-ai-center">
+          <label class="p-m-0">Chọn loại định mức: </label>
+          <div class="p-ml-3" style="width: 200px">
+              <p-dropdown [options]="listLoaiDinhMuc" placeholder="Chọn loại định mức" [(ngModel)]="filter.LoaiDinhMuc" (onChange)="LoadData()">
+              </p-dropdown>
+          </div>
+      </div>
+      </div>
+  </div>
+  <div #chart class="chart py-3 p-grid" style="align-self: stretch; height: 50vh; width: 100%">
+      <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart>
+  </div>
+  <div class="d-flex justify-content-end" style="width: 100%">
+    <p><b>Đơn vị: </b><span>{{donVi}}</span></p>
+  </div>
+  <div class="table-BaoCao">
+      <p-table [value]="ListBaoCao" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th class="text-center" *ngFor="let LabelThang of ListLabelThang">{{LabelThang.TenLabel}}</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-baoCao>
+              <tr>
+                  <td>{{baoCao.TenDinhMuc}}</td>
+                  <td class="text-right" *ngFor="let thang of baoCao.ListThang">{{thang.KeHoach}}</td>
+              </tr>
+          </ng-template>
+      </p-table>
+  </div>
+</div>

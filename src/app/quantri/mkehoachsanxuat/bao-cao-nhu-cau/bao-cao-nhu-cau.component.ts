@@ -1,31 +1,31 @@
 import { formatNumber } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 
 @Component({
-  selector: 'app-bao-cao-nhu-cau-su-dung-bong',
-  templateUrl: './bao-cao-nhu-cau-su-dung-bong.component.html',
-  styleUrls: ['./bao-cao-nhu-cau-su-dung-bong.component.css']
+  selector: 'app-bao-cao-nhu-cau',
+  templateUrl: './bao-cao-nhu-cau.component.html',
+  styleUrls: ['./bao-cao-nhu-cau.component.css']
 })
-export class BaoCaoNhuCauSuDungBongComponent implements OnInit, AfterViewInit {
+export class BaoCaoNhuCauComponent implements OnInit {
 
-  @ViewChild('chart') chart: any;
   listNam: any = [];
+  listLoaiDinhMuc: any = [
+    { label: "Xơ", value: "Xo" },
+    { label: "Vật tư phụ", value: "VatTuPhu" },
+    { label: "Điện", value: "Dien" },
+    { label: "Bông", value: "Bong" },
+  ]
   ListBaoCao: any = [];
   filter: any = {};
   data: any;
   chartOptions: any;
   ListLabelThang: any = [];
+  donVi: any = "";
 
   constructor(
     private _danhMucHopDong: DanhMucHopDongService,
   ) { }
-
-  ngAfterViewInit(): void {
-    console.log("chart h", this.chart.nativeElement.clientHeight);
-    console.log("chart w", this.chart.nativeElement.clientWidth);
-    // this.chartOptions.aspectRatio = (this.chart.nativeElement.clientWidth)/(this.chart.nativeElement.clientHeight)
-  }
 
   ngOnInit(): void {
     this.filter.Nam = new Date().getFullYear();
@@ -33,9 +33,9 @@ export class BaoCaoNhuCauSuDungBongComponent implements OnInit, AfterViewInit {
       this.listNam.push({ value: i, label: i });
     }
     this.LoadData();
-    for (let i = 1; i <= 12; i++) {
-      this.ListLabelThang.push(`Tháng ${i} (tấn)`);
-    }
+    // for (let i = 1; i <= 12; i++) {
+    //   this.ListLabelThang.push(`Tháng ${i} (tấn)`);
+    // }
     this.chartOptions = {
       tooltips: {
         enabled: true,
@@ -87,18 +87,17 @@ export class BaoCaoNhuCauSuDungBongComponent implements OnInit, AfterViewInit {
       },
       maintainAspectRatio: window.innerWidth <= 375 ? false : true,
       // aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
-      aspectRatio: (window.innerWidth - 42) / ((window.innerHeight*50)/100 - 28)
+      aspectRatio: (window.innerWidth - 42) / ((window.innerHeight * 50) / 100 - 28)
       // aspectRatio: (this.chart.nativeElement.clientWidth)/(this.chart.nativeElement.clientHeight)
     };
   }
 
   LoadData() {
     let data = {
-      Nam: this.filter.Nam,
-      IdSanPham: "",
+      ...this.filter
     }
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh()
-      .GetBaoCaoNhuCauSuDungBong(data)
+      .GetBaoCaoDinhMuc(data)
       .subscribe((res: any) => {
         // console.log("res", res);
         this.data = {
@@ -133,6 +132,8 @@ export class BaoCaoNhuCauSuDungBongComponent implements OnInit, AfterViewInit {
           }]
         };
         this.ListBaoCao = res.Data.BieuDoBang;
+        this.ListLabelThang = res.Data.listLabel;
+        this.donVi = res.Data.DonVi;
       })
   }
 

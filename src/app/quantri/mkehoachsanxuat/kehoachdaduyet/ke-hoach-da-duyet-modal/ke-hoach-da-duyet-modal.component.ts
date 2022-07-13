@@ -9,16 +9,17 @@ import { DateToUnix, handleHTTPResponse, merge, validVariable } from 'src/app/se
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
-import { ChitietthangComponent } from '../chitietthang/chitietthang.component';
-import { DanhmucmathangComponent } from '../danhmucmathang/danhmucmathang.component';
-import { HopdongsanphammodalComponent } from '../hopdongsanphammodal/hopdongsanphammodal.component';
+import { ChitietthangComponent } from '../../kehoachkinhdoanhnam/chitietthang/chitietthang.component';
+import { DanhmucmathangComponent } from '../../kehoachkinhdoanhnam/danhmucmathang/danhmucmathang.component';
+import { HopdongsanphammodalComponent } from '../../kehoachkinhdoanhnam/hopdongsanphammodal/hopdongsanphammodal.component';
 
 @Component({
-  selector: 'app-kehoachkinhdoanhnammodal',
-  templateUrl: './kehoachkinhdoanhnammodal.component.html',
-  styleUrls: ['./kehoachkinhdoanhnammodal.component.css']
+  selector: 'app-ke-hoach-da-duyet-modal',
+  templateUrl: './ke-hoach-da-duyet-modal.component.html',
+  styleUrls: ['./ke-hoach-da-duyet-modal.component.css']
 })
-export class KehoachkinhdoanhnammodalComponent implements OnInit {
+export class KeHoachDaDuyetModalComponent implements OnInit {
+
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   opt: any = ""
   userInfo: any;
@@ -46,7 +47,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     private _services: SanXuatService,
     private store: StoreService,
     private _confirmService: ConfirmationService,
-    private _auth: AuthenticationService) {
+    private _auth: AuthenticationService
+  ) { 
     this.userInfo = this._auth.currentUserValue;
   }
 
@@ -174,9 +176,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.SetData()).subscribe((res: any) => {
         // console.log("res", res);
         handleHTTPResponse(res, this.toastr, () => {
-          this.kehoach = res.Data;
-          this.GetNhaMay();
-          this.KiemTraButton();
+          this.activeModal.close(res);
         })
       })
     }
@@ -310,6 +310,14 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   DeleteSanPham(index) {
     console.log(index);
     this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1)
+  }
+
+  DieuChinh() {
+    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().DieuChinh(this.kehoach.Id).subscribe((res: any) => {
+      this.kehoach = res;
+      this.KiemTraButton();
+      this.GetNhaMay();
+    })
   }
 
 }

@@ -4,14 +4,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
-import { KehoachkinhdoanhnammodalComponent } from './kehoachkinhdoanhnammodal/kehoachkinhdoanhnammodal.component';
+import { KehoachkinhdoanhnammodalComponent } from '../kehoachkinhdoanhnam/kehoachkinhdoanhnammodal/kehoachkinhdoanhnammodal.component';
+import { KeHoachDaDuyetModalComponent } from './ke-hoach-da-duyet-modal/ke-hoach-da-duyet-modal.component';
 
 @Component({
-  selector: 'app-kehoachkinhdoanhnam',
-  templateUrl: './kehoachkinhdoanhnam.component.html',
-  styleUrls: ['./kehoachkinhdoanhnam.component.css']
+  selector: 'app-kehoachdaduyet',
+  templateUrl: './kehoachdaduyet.component.html',
+  styleUrls: ['./kehoachdaduyet.component.css']
 })
-export class KehoachkinhdoanhnamComponent implements OnInit {
+export class KehoachdaduyetComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   listKeHoach: any = [];
@@ -28,8 +29,7 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
     private router: Router,
     private _services: SanXuatService,
     private _danhMucHopDong: DanhMucHopDongService
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
@@ -45,10 +45,8 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
       }
     });
     this.resetFilter();
-    this.KiemTraTabTrangThai();
   }
 
-  
   resetFilter() {
     this.getListKeHoachKinhDoanh(true)
   }
@@ -62,25 +60,22 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.Page,
       sFilter: this.keyWord,
-      TabTrangThai: this.trangThai
-
+      // TabTrangThai: this.trangThai
     };
-    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetList(data).subscribe((res: any) => {
+    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetKeHoachKinhDoanhDaDuyet(data).subscribe((res: any) => {
       this.listKeHoach = res.Data.Items;
-      console.log("listKeHoach", this.listKeHoach);
-      
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
 
   changeParam(id) {
-    this.router.navigate([`quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${id}`], {
+    this.router.navigate([`quantri/mkehoachsanxuat/kehoachdaduyet/${id}`], {
       replaceUrl: true,
     });
   }
 
   update(item) {
-    let modalRef = this._modal.open(KehoachkinhdoanhnammodalComponent, {
+    let modalRef = this._modal.open(KeHoachDaDuyetModalComponent, {
       size: "fullscreen-100",
       backdrop: "static",
     })
@@ -88,16 +83,18 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
     modalRef.componentInstance.kehoach = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.title = 'Cập nhật kế hoạch kinh doanh';
     modalRef.result
-      .then((res: any) => {})
+      .then((res: any) => {
+        // this.changeParam(res.Data.Id);
+        this.router.navigate([`/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${res.Data.Id}`])
+      })
       .catch((error: any) => {})
       .finally(() => {
         this.getListKeHoachKinhDoanh();
-        this.changeParam(0);
       })
   }
   
   add() {
-    let modalRef = this._modal.open(KehoachkinhdoanhnammodalComponent, {
+    let modalRef = this._modal.open(KeHoachDaDuyetModalComponent, {
       size: "fullscreen-100",
       backdrop: "static",
     })
@@ -126,4 +123,5 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
     this.paging.Page = event.page + 1;
     this.getListKeHoachKinhDoanh()
   }
+
 }

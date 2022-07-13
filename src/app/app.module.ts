@@ -37,7 +37,6 @@ import { CommonModule } from "@angular/common";
 import { DecimalPipe } from "@angular/common";
 import { LoaderInterceptor } from "./services/loader.interceptor";
 import { LoaderService } from "./services/loader.service";
-
 // import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
@@ -86,4 +85,4 @@ import { LoaderService } from "./services/loader.service";
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
