@@ -19,6 +19,7 @@
         (click)="activeModal.dismiss()"></button>
       <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()"
         *ngIf="checkbutton.Ghi"></button>
+      <button pButton pRipple type="button" label="Điều chỉnh" class="p-mr-2 p-button-sm " (click)="DieuChinh()" *ngIf="!checkbutton.Ghi"></button>
       <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
         (click)="XoaQuyTrinh()"></button>
       <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
@@ -136,11 +137,13 @@
                 <b>{{sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang | number: '0.0'}}</b>
               </td>
               <ng-container *ngIf="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length">
-                <td *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH"
+                <td
+                  *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH"
                   class="tc-w-72 text-right">
                   <!-- <button pButton pRipple type="button" [label]="thang.SanLuongThang.toString() | number: '0.0'"
                     class="p-button-text" (click)="SeeMonthDetail(sanpham, thang)"></button> -->
-                  <span class="text-link" (click)="SeeMonthDetail(sanpham, thang)">{{thang.SanLuongThang | number: '0.0'}}</span>
+                  <span class="text-link" (click)="SeeMonthDetail(sanpham, thang)">{{thang.SanLuongThang | number:
+                    '0.0'}}</span>
                 </td>
               </ng-container>
             </tr>

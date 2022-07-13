@@ -15,6 +15,8 @@ export class ChitietthangComponent implements OnInit {
   listCachThuc: Array<any> = [{ value: 'noiDia', label: 'Nội địa' }, { value: 'xuatKhau', label: 'Xuất khẩu' }];
   listContainer: any = [];
   listPhuongThucVanChuyen: any = [];
+  thang: string = "";
+  tenSanPham: string = "";
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -34,11 +36,6 @@ export class ChitietthangComponent implements OnInit {
     Promise.all([ls1, ls2]).then((values: any) => {
       this.listPhuongThucVanChuyen = mapArrayForDropDown(values[0], "Ten", "Id");
       this.listContainer = mapArrayForDropDown(values[1], "Ten", "Id");
-      // console.log({
-      //   listPhuongThucVanChuyen: this.listPhuongThucVanChuyen,
-      //   listContainer: this.listContainer
-      // });
-      
     });
   }
 

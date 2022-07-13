@@ -35,17 +35,17 @@
     <p-table [value]="listKeHoach" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
             <colgroup>
-                <col style="width:50px">
+                <col style="width: 3rem">
                 <col>
                 <col>
                 <col>
                 <col>
                 <col>
                 <col>
+                <col style="width: 4rem">
                 <col>
-                <col>
-                <col>
-                <col style="width: 50px;">
+                <col style="width: 16rem">
+                <col style="width: 3rem">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -88,7 +88,11 @@
                 <td class="text-center">
                     {{item.TenTrangThai}}
                 </td>
-                <td> {{item.GhiChu}}</td>
+                <td>
+                    <div [ngbTooltip]="item.GhiChu" class="ellipsis">
+                        {{item.GhiChu}}
+                    </div>
+                </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2"

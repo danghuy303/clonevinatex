@@ -317,11 +317,17 @@ export class DanhMucHopDongService {
             GetKeHoachKinhDoanhDangThucHien: () => {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetKeHoachKinhDoanhDangThucHien`, httpOptions)
             },
+            GetKeHoachKinhDoanhDaDuyet: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/GetListKeHoachKinhDoanhDangThucHien`, data, httpOptions)
+            },
             KiemTraTonTaiQuyTrinh: (Nam) => {
                 return this.http.get(`${url}KeHoachKinhDoanh/KiemTraTonTaiQuyTrinh?Nam=${Nam}`, httpOptions)
             },
             GetBaoCaoNhuCauSuDungBong: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/GetBaoCaoNhuCauBongKeHoachKinhDoanhNam`, data)
+            },
+            GetBaoCaoDinhMuc: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/GetBaoCaoNhuCauCacDinhMucKeHoachKinhDoanhNam`, data)
             }
         }
     }

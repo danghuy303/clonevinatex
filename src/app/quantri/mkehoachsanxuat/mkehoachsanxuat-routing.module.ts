@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BaocaokehoachkinhdoanhComponent } from './bao-cao-ke-hoach-kinh-doanh/baocaokehoachkinhdoanh.component';
 import { BaoCaoNhuCauSuDungBongComponent } from './bao-cao-nhu-cau-su-dung-bong/bao-cao-nhu-cau-su-dung-bong.component';
+import { BaoCaoNhuCauComponent } from './bao-cao-nhu-cau/bao-cao-nhu-cau.component';
 import { ChiPhiBanHangComponent } from './danh-muc/chi-phi-ban-hang/chi-phi-ban-hang.component';
 import { ChiPhiBangTienComponent } from './danh-muc/chi-phi-bang-tien/chi-phi-bang-tien.component';
 import { ChiPhiLaiVayComponent } from './danh-muc/chi-phi-lai-vay/chi-phi-lai-vay.component';
@@ -23,6 +24,7 @@ import { MucLuongCoCauNhanSuComponent } from './danh-sach/muc-luong-co-cau-nhan-
 import { DinhMucSanXuatComponent } from './dinh-muc-san-xuat/dinh-muc-san-xuat.component';
 import { DoanhThuComponent } from './doanh-thu/doanh-thu.component';
 import { KeHoachSanXuatNamComponent } from './ke-hoach-san-xuat-nam/ke-hoach-san-xuat-nam.component';
+import { KehoachdaduyetComponent } from './kehoachdaduyet/kehoachdaduyet.component';
 import { KehoachkinhdoanhnamComponent } from './kehoachkinhdoanhnam/kehoachkinhdoanhnam.component';
 import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
 import { MkehoachsanxuatComponent } from './mkehoachsanxuat.component';
@@ -66,6 +68,8 @@ const routes: Routes = [
   { path: 'chiphilaivaydaihan', component: ChiPhiLaiVayDaiHanComponent },
   { path: 'giasanphamtheothang', component: GiaSanPhamTheoThangComponent },
   { path: 'baocaonhucausudungbong', component: BaoCaoNhuCauSuDungBongComponent },
+  { path: 'baocaonhucau', component: BaoCaoNhuCauComponent },
+  { path: 'kehoachdaduyet/:id', component: KehoachdaduyetComponent },
 ];
 
 @NgModule({

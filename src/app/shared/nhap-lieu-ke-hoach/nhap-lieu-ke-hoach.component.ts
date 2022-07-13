@@ -69,7 +69,7 @@ export class NhapLieuKeHoachComponent implements OnInit, OnChanges {
 
   add() {
     let modalRef = this.modal.open(this.modalName, {
-      size: 'fullscreen',
+      size: 'fullscreen-100',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
@@ -83,7 +83,7 @@ export class NhapLieuKeHoachComponent implements OnInit, OnChanges {
 
   update(item) {
     let modalRef = this.modal.open(this.modalName, {
-      size: 'fullscreen',
+      size: 'fullscreen-100',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';

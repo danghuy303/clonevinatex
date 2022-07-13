@@ -13,7 +13,7 @@
     </div>
   </div>
   <div>
-    <p-table [value]="item.ListChiPhi" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+    <p-table [value]="item.ListChiPhi" styleClass="p-datatable-sm wrap-text">
       <ng-template pTemplate="header">
         <tr>
           <th>Tên</th>
@@ -24,7 +24,7 @@
         <tr>
           <td>{{chiphi.Ten}}</td>
           <ng-container *ngIf="chiphi.ListChiPhi">
-            <td *ngFor="let thang of chiphi.ListChiPhi">
+            <td *ngFor="let thang of chiphi.ListChiPhi" style="width: 9rem">
               <p-inputNumber [(ngModel)]="thang.DonGia"></p-inputNumber>
               <!-- {{thang.DonGia}} -->
             </td>
