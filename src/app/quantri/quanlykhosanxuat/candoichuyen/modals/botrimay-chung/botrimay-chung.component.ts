@@ -209,4 +209,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
       }
     })
   }
+  HuyDieuChinh() {
+    this.activeModal.close({ respawn: true });
+  }
 }
