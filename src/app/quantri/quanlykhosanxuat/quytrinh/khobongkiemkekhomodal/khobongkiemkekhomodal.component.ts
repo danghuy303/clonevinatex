@@ -227,10 +227,14 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
         this.item.listItem.forEach(itemTon => {
             itemTon.TrongLuong = value;
         });
+        this.item.listItem.forEach(itemTon=>{
+            this.checkSoLuong(itemTon,1)
+        })
     }
     refreshFilter() {
         this.filter.KeyWord = null;
         this.changePage({ page: 0 })
+        this.paginator.changePage(0);
     }
     showItemInfo(item) {
         console.log(item);

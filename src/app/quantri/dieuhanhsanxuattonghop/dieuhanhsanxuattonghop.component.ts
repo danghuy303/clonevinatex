@@ -355,7 +355,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         { Ten: 'Điện AC | khí nén', TieuHao: "KwH", DonVi: 'KW', ManHinh: `${this._formatN(res.DienAC_KW)} | ${this._formatN(res.DienKhiNen_KW)}` },
         { Ten: 'Tổng điện', TieuHao: "KwH", DonVi: 'KW', ManHinh: this._formatN(res.TongDien_KW), button: 'xuatexceltongdien', button2: 'bieudotongdien' },
         { Ten: 'Tỷ lệ điện AC | Khí nén (3)/(4)', TieuHao: '%', DonVi: '%', ManHinh: `${this._formatN(res.DienAC_PhanTram)} | ${this._formatN(res.DienKhiNen_PhanTram)}` },
-        { Ten: 'Tiêu hao BQ', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: `${this._formatN(res.TieuHaoDienBinhQuan)}` },
+        { Ten: 'Tiêu hao BQ NE30 | SL Ống', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: `${this._formatN(res.TieuHaoDienBinhQuan)} | ${this._formatN(res.TieuHaoDienBinhQuan_SanLuongOng)}` },
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
@@ -676,11 +676,19 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       })
       datasets.push({
         type: 'line',
-        label: 'Tiêu hao điện bình quân',
+        label: 'Tiêu hao điện bình quân theo NE',
         borderColor: '#ff6530',
         yAxisID: 'KK',
         fill: false,
         data: res.map(ele => ele.TongSoDien_QuyNE)
+      })
+      datasets.push({
+        type: 'line',
+        label: 'Tiêu hao điện bình quân',
+        borderColor: '#006666',
+        yAxisID: 'KK',
+        fill: false,
+        data: res.map(ele => ele.TongSoDien_SanLuong)
       })
       this.dataBieuDoDien = {
         labels: res.map(ele => formatDate(ele.NgayNhap, 'dd/MM/yyyy', 'en-EN')),

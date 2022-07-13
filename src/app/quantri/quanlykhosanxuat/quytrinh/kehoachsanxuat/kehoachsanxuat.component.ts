@@ -32,12 +32,12 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit,OnDestr
     {
       header: 'Tổng số ca',
       field: 'TongSoCa',
-      width: '80px'
+      width: '50px'
     },
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
-      width: '80px'
+      width: 'unset'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };

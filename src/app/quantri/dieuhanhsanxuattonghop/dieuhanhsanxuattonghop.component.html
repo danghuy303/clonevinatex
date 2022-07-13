@@ -28,11 +28,12 @@
          style="
             background-color: white;
             border-radius: 5px;
+            padding: 5px;
             min-height: calc((100vh - 192.5px) / 2);
          ">
          <div class="p-d-flex flex-column flex-lg-row p-jc-between">
             <div>
-               <h5>Tổng hợp</h5>
+               <h5 style="margin: 0px;">Tổng hợp</h5>
             </div>
             <div class="p-d-flex flex-column flex-lg-row">
                <div class="p-mr-2">
@@ -83,8 +84,8 @@
                         <tr class="normal">
                            <th style="width: 20px">#</th>
                            <th>Tên</th>
-                           <th>Số lượng quả</th>
-                           <th>SL theo màn hình</th>
+                           <th style="width: 150px">SL quả/Đ.Vị</th>
+                           <th style="width: 150px">SL theo màn hình</th>
                         </tr>
                      </ng-template>
                      <ng-template pTemplate="body" let-thongke let-i="rowIndex">
@@ -170,7 +171,7 @@
                   <ng-container *ngFor="let thongke of thongKes1">
                      <ng-container *ngIf="thongke">
                         <div
-                           class="d-flex flex-row p-jc-between p-pt-2"
+                           class="d-flex flex-row p-jc-between p-pt-1"
                            [ngClass]="{ canhbao: thongke.isRed }">
                            <div>{{ thongke.Ten }}</div>
                            <div>
@@ -185,7 +186,7 @@
                   </ng-container>
                </div>
                <p-button
-                  styleClass="p-button-sm ml-1"
+                  styleClass="p-button-sm ml-1 mt-2"
                   (click)="bieuDoTyLeThongKeSanLuong()"
                   >Tỷ lệ tiêu hao
                </p-button>
