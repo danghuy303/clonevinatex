@@ -14,7 +14,7 @@
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số lượng sản xuất:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.TongSanLuong" locale="en-US" (onBlur)="CountTongSanLuong()">
+          <p-inputNumber [(ngModel)]="itemThang.TongSanLuong" [min]="0" locale="en-US" (onBlur)="CountTongSanLuong()">
           </p-inputNumber>
         </div>
       </div>

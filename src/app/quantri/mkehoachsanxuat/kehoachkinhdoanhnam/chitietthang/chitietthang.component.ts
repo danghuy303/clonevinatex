@@ -32,7 +32,10 @@ export class ChitietthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('itemThang', this.itemThang);
+    this.itemThang.checkForAll = false;
     if (this.opt === 'add') {
+      this.itemThang.SanLuongMotCa = 0;
       this.GetHieuSuat();
     }
     this.GetNangSuat();
@@ -45,7 +48,7 @@ export class ChitietthangComponent implements OnInit {
       .GetNangSuatTrungBinh()
       .subscribe((res: any) => {
         this.itemThang.NangSuat = res;
-        this.itemThang.SoMayCon = (this.itemThang.NangSuat || 0) / (this.itemThang.SanLuongMotCa || 0);
+        this.itemThang.SoMayCon = (this.itemThang?.SanLuongMotCa || 0) / (this.itemThang?.NangSuat || 0);
       })
   }
 
@@ -71,8 +74,10 @@ export class ChitietthangComponent implements OnInit {
 
   CountTongSanLuong() {
     this.itemThang.SanLuongMotCa = 0;
-    this.itemThang.SanLuongMotCa = (this.itemThang.TongSanLuong || 0) / (this.itemThang.TongSoCa || 0);
-    this.GetNangSuat();
+    if (this.itemThang.TongSoCa && this.itemThang.TongSanLuong) {
+      this.itemThang.SanLuongMotCa = this.itemThang.TongSanLuong / this.itemThang.TongSoCa;
+      this.GetNangSuat();
+    }
   }
 
   ChapNhan() {
