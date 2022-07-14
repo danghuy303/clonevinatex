@@ -52,6 +52,11 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
       width: '150px'
     },
     {
+      header: 'Công đoạn',
+      field: 'TendmPhanXuong',
+      width: '150px'
+    },
+    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: '150px'
