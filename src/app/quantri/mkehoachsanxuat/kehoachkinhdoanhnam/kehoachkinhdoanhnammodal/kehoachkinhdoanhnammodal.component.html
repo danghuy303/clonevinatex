@@ -140,10 +140,10 @@
                   [(ngModel)]="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang" locale="en-US">
                 </p-inputNumber> -->
                 <b>
-                  <span *ngIf="!isVuotSanLuong">
+                  <span *ngIf="!sanpham.isVuotSanLuong">
                     {{sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang | number: '0.0'}}
                   </span>
-                  <span *ngIf="isVuotSanLuong" style="color: red" [pTooltip]="sanLuongVuot" tooltipPosition="bottom">
+                  <span *ngIf="sanpham.isVuotSanLuong" style="color: red" [pTooltip]="sanpham.sanLuongVuot" tooltipPosition="bottom">
                     {{sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang | number: '0.0'}}
                   </span>
                 </b>
