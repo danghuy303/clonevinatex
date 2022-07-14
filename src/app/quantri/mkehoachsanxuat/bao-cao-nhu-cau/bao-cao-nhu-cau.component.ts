@@ -15,6 +15,8 @@ export class BaoCaoNhuCauComponent implements OnInit {
     { label: "Vật tư phụ", value: "VatTuPhu" },
     { label: "Điện", value: "Dien" },
     { label: "Bông", value: "Bong" },
+    { label: "Nhân công", value: "NhanCong" },
+    { label: "Khấu hao", value: "KhauHao" },
   ]
   ListBaoCao: any = [];
   filter: any = {};

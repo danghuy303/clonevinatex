@@ -14,14 +14,14 @@
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số lượng sản xuất:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.TongSanLuong" locale="en-US">
+          <p-inputNumber [(ngModel)]="itemThang.TongSanLuong" locale="en-US" (onBlur)="CountTongSanLuong()">
           </p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.TongSoCa" [min]="0" locale="en-US" placeholder="Nhập tổng số ca"></p-inputNumber>
+          <p-inputNumber [(ngModel)]="itemThang.TongSoCa" [min]="0" locale="en-US" placeholder="Nhập tổng số ca" (onBlur)="CountTongSanLuong()"></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
@@ -45,7 +45,7 @@
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sản lượng một ca:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SanLuongMotCa" [disabled]="true" locale="en-US" placeholder="Nhập sản lượng một ca" (onBlur)="CountTongSanLuong()"></p-inputNumber>
+          <p-inputNumber [(ngModel)]="itemThang.SanLuongMotCa" (ngModelChange)="CountTongSanLuong()" [disabled]="true" locale="en-US" placeholder="Nhập sản lượng một ca"></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">

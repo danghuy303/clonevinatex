@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 
 @Component({
   selector: 'app-chitietthang',
@@ -11,8 +12,12 @@ import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 })
 export class ChitietthangComponent implements OnInit {
 
+  opt: any = "";
+  idSanPham: any = "";
   itemThang: any = {};
-  listCachThuc: Array<any> = [{ value: 'noiDia', label: 'Nội địa' }, { value: 'xuatKhau', label: 'Xuất khẩu' }];
+  listCachThuc: Array<any> = [
+    { value: 'noiDia', label: 'Nội địa' }, 
+    { value: 'xuatKhau', label: 'Xuất khẩu' }];
   listContainer: any = [];
   listPhuongThucVanChuyen: any = [];
   thang: string = "";
@@ -23,25 +28,51 @@ export class ChitietthangComponent implements OnInit {
     private _modal: NgbModal,
     public toastr: ToastrService,
     private _services: SanXuatService,
+    private _danhMucHopDong: DanhMucHopDongService
   ) { }
 
   ngOnInit(): void {
+    if (this.opt === 'add') {
+      this.GetHieuSuat();
+    }
+    this.GetNangSuat();
     this.GetListDropDown();
     this.CountTongSanLuong()
   }
 
+  GetNangSuat() {
+    this._danhMucHopDong.KeHoachSanXuat()
+      .GetNangSuatTrungBinh()
+      .subscribe((res: any) => {
+        this.itemThang.NangSuat = res;
+        this.itemThang.SoMayCon = (this.itemThang.NangSuat || 0) / (this.itemThang.SanLuongMotCa || 0);
+      })
+  }
+
+  GetHieuSuat() {
+    let d = new Date();
+    this._danhMucHopDong.KeHoachSanXuat()
+      .GetHieuSuatTrungBinh(d.getFullYear())
+      .subscribe((res: any) => {
+        let sanpham = res.find(ele => ele.IdSanPham === this.idSanPham);
+        let objThang = sanpham.ListThang.find(ele => ele.Thang === this.thang);
+        this.itemThang.HieuSuat = objThang.HieuSuat;
+    })
+  }
+
   GetListDropDown() {
-    let ls1 = this._services.GetOptions().GetListPhuongThucVanChuyenKHKD().toPromise();
-    let ls2 = this._services.GetOptions().GetListContainerForKHKD().toPromise();
+    let ls1 = this._services.PhuongThucVanChuyen().GetListAll().toPromise();
+    let ls2 = this._services.LoaiContainer().GetListAll().toPromise();
     Promise.all([ls1, ls2]).then((values: any) => {
-      this.listPhuongThucVanChuyen = mapArrayForDropDown(values[0], "Ten", "Id");
-      this.listContainer = mapArrayForDropDown(values[1], "Ten", "Id");
+      this.listPhuongThucVanChuyen = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listContainer = mapArrayForDropDown(values[1].Data, "Ten", "Id");
     });
   }
 
   CountTongSanLuong() {
-    this.itemThang.TongSanLuong = 0;
-    this.itemThang.TongSanLuong = (this.itemThang.TongSoCa || 0) * (this.itemThang.SanLuongMotCa || 0);
+    this.itemThang.SanLuongMotCa = 0;
+    this.itemThang.SanLuongMotCa = (this.itemThang.TongSanLuong || 0) / (this.itemThang.TongSoCa || 0);
+    this.GetNangSuat();
   }
 
   ChapNhan() {

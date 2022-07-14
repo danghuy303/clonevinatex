@@ -52,6 +52,7 @@ export class API {
   public static KeHoachNguyenLieu = host1 + "/SCM/KeHoachNguyenLieu/";
   public static SCMQuanLyKho = host1 + "/SCM/QuanLyKho/";
   public static SCMChoModuleHopDong = host1 + "/SCM/APIChoModuleHopDong/";
+  public static SCMChoModuleKeHoach = host1 + "/SCM/APIChoModuleKeHoach/";
   public static SCMDanhMuc = host1 + "/SCM/DanhMuc/";
   public static SCMKiemTraChatLuong = host1 + "/SCM/KiemTraChatLuong/";
   public static SCMDashBoard = host1 + "/SCM/BaoCao/";

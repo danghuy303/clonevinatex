@@ -279,6 +279,18 @@ export class DanhMucHopDongService {
         }
     }
     /////
+    KeHoachSanXuat() {
+        let url = API.SCMChoModuleKeHoach;
+        return {
+            GetHieuSuatTrungBinh: (Nam) => {
+                return this.http.get(`${url}GetHieuSuatTrungBinh?Nam=${Nam}`);
+            },
+            GetNangSuatTrungBinh: () => {
+                return this.http.get(`${url}GetNangSuatDinhMucTrungBinh`);
+            }
+        } 
+    }
+
     DanhSachKeHoachKinhDoanh() {
         let url = API.KeHoach
         //http://103.130.212.45:2269/KeHoachAPI/

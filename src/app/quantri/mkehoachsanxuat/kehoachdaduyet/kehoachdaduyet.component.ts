@@ -89,6 +89,7 @@ export class KehoachdaduyetComponent implements OnInit {
       })
       .catch((error: any) => {})
       .finally(() => {
+        this.changeParam(0)
         this.getListKeHoachKinhDoanh();
       })
   }

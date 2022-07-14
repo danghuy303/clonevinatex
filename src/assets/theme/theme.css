@@ -3186,7 +3186,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #ffffff;
   padding: 0.5rem 0.75rem;
   box-shadow: none;
-  min-width: 400px;
+  /* min-width: 400px; */
   border-radius: 4px;
   z-index: 9999;
 }

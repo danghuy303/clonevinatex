@@ -86,11 +86,12 @@ import { GiaSanPhamTheoThangModalComponent } from './nhap-lieu/gia-san-pham-theo
 import { ChiPhiLaiVayDaiHanComponent } from './nhap-lieu/chi-phi-lai-vay-dai-han/chi-phi-lai-vay-dai-han.component';
 import { ChiPhiLaiVayDaiHanModalComponent } from './nhap-lieu/chi-phi-lai-vay-dai-han/chi-phi-lai-vay-dai-han-modal/chi-phi-lai-vay-dai-han-modal.component';
 import { BaoCaoNhuCauSuDungBongComponent } from './bao-cao-nhu-cau-su-dung-bong/bao-cao-nhu-cau-su-dung-bong.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { KehoachdaduyetComponent } from './kehoachdaduyet/kehoachdaduyet.component';
 import { KeHoachDaDuyetModalComponent } from './kehoachdaduyet/ke-hoach-da-duyet-modal/ke-hoach-da-duyet-modal.component';
 import { BaoCaoNhuCauComponent } from './bao-cao-nhu-cau/bao-cao-nhu-cau.component';
+import { TooltipModule } from 'primeng/tooltip';
 @NgModule({
   declarations: [
     MkehoachsanxuatComponent,
@@ -185,7 +186,8 @@ import { BaoCaoNhuCauComponent } from './bao-cao-nhu-cau/bao-cao-nhu-cau.compone
     ChartModule,
     SharedModule,
     NgbModule,
-    InputTextareaModule
+    InputTextareaModule,
+    TooltipModule
   ],
   exports: [
     KehoachkinhdoanhnamComponent
