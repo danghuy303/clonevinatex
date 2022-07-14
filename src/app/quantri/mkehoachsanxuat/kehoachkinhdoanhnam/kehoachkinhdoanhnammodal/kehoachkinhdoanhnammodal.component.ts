@@ -22,6 +22,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   opt: any = ""
   userInfo: any;
+  isVuotSanLuong: boolean;
+  sanLuongVuot: any = 0;
   checkbutton: any = {
     Ghi: true,
     Xoa: true,
@@ -111,6 +113,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
               IdSanPham: ele.Id,
               IdDuAn: this.store.getCurrent(),
               TongSanLuongThang: 0,
+              TongSanLuongConLai: ele.TongSanLuongConLaiPhaiThucHien,
               lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH: this.RenderThang(ele)
             }
           ],
@@ -119,7 +122,6 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       })
       this.GetNhaMay();
       this.CountTongSanLuong();
-      console.log("this.kehoach", this.kehoach);
     })
   }
 
@@ -172,7 +174,6 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   GhiLai() {
     if (this.ValidateData()) {
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.SetData()).subscribe((res: any) => {
-        // console.log("res", res);
         handleHTTPResponse(res, this.toastr, () => {
           this.kehoach = res.Data;
           this.GetNhaMay();
@@ -180,8 +181,6 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         })
       })
     }
-    // console.log("this.kehoach", this.kehoach);
-    
   }
 
   XoaQuyTrinh() {
@@ -221,17 +220,14 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     modalRef.componentInstance.listIdSanPham = listIdSanPham;
     modalRef.result
       .then((res: any) => {
-        console.log("res", res);
         let listKhongHD = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.filter(ele => ele.isKhongHopDong);
         listKhongHD = merge([...res], listKhongHD, 'IdSanPham');
-        console.log("listKhongHD", listKhongHD);
         this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.filter(ele => !ele.isKhongHopDong)
         this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.push(...listKhongHD);
         this.GetNhaMay();
       })
       .catch((error: any) => {})
       .finally(() => {})
-    // console.log("res", res);
   }
 
   SeeHopDongDetail(sanpham) {
@@ -244,7 +240,12 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     modalRef.componentInstance.nam = this.kehoach.Nam
     modalRef.result
       .then((res: any) => {
-        modalRef.componentInstance.listHopDong = sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong;
+        sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong = res;
+        // console.log("sanpham", sanpham);
+        sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai 
+        = sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong.reduce((total, ele) => {
+          return total + ele.SanLuongConLai;
+        }, 0);
       })
       .catch((error: any) => {
 
@@ -257,6 +258,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       size: 'xl',
       backdrop: 'static',
     })
+    modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
     modalRef.componentInstance.thang = itemThang.Thang;
     modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;
     modalRef.componentInstance.itemThang = itemThang.ThongTinThang_SanPham;
@@ -274,11 +277,10 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   CheckForAllMonth(sanpham, itemThang) {
-    // console.log(sanpham);
     let data = itemThang;
     if (itemThang.ThongTinThang_SanPham.checkForAll) {
       sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH = [];
-      for (let i = 0; i < 12; i++) {
+      for (let i = 1; i <= 12; i++) {
         sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH.push({
           ...itemThang,
           Thang: i,
@@ -291,8 +293,6 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         })
       }
       this.CountTongSanLuong();
-      console.log("san pham", sanpham);
-
     }
   }
 
@@ -303,12 +303,15 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH?.forEach(thang => {
           item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang += (thang.SanLuongThang || 0);
         })
+        this.isVuotSanLuong = item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang > item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai;
+        let slvuot = this.isVuotSanLuong?(item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang - item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai):0
+        this.sanLuongVuot = `Vượt quá sản lượng còn lại ${slvuot} tấn`;
+        
       }
     })
   }
 
   DeleteSanPham(index) {
-    console.log(index);
     this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1)
   }
 

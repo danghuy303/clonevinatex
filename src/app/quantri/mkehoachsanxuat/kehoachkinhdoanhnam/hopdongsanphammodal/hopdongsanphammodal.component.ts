@@ -79,8 +79,8 @@ export class HopdongsanphammodalComponent implements OnInit {
 
   CountSLConlai() {
     this.listHopDong.forEach(ele => {
-      ele.ConLai = 0;
-      ele.ConLai = (ele.TongSanLuong || 0) - (ele.SanLuongDoDang || 0) - (ele.SanLuongDaSanXuat || 0);
+      ele.SanLuongConLai = 0;
+      ele.SanLuongConLai = (ele.TongSanLuong || 0) - (ele.SanLuongDoDang || 0) - (ele.SanLuongDaSanXuat || 0);
     }) 
   }
 
