@@ -14,6 +14,7 @@ export class HopdongsanphammodalComponent implements OnInit {
   selectedProducts: any = [];
   checkedAll: boolean;
   nam: any;
+  keyword: any;
 
   constructor(
     public activeModal: NgbActiveModal,
