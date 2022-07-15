@@ -40,7 +40,8 @@ export class ChitietthangComponent implements OnInit {
     }
     this.GetNangSuat();
     this.GetListDropDown();
-    this.CountTongSanLuong()
+    this.CountTongSanLuong();
+    this.GetDate();
   }
 
   GetNangSuat() {
@@ -82,6 +83,13 @@ export class ChitietthangComponent implements OnInit {
 
   ChapNhan() {
     this.activeModal.close(this.itemThang);
+  }
+
+  GetDate() {
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+    this.itemThang.SoNgayLamViec = new Date(year, month, 0).getDate();
+    this.itemThang.TongSoCa = (this.itemThang.SoNgayLamViec * 3 || 0);
   }
 
 }
