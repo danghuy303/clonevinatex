@@ -12,28 +12,28 @@
   <p-panel header="Thông tin chung">
     <div class="p-grid p-mb-2">
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số lượng sản xuất:</label>
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số lượng sản xuất ( Tấn ):</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
           <p-inputNumber [(ngModel)]="itemThang.TongSanLuong" [min]="0" locale="en-US" (onBlur)="CountTongSanLuong()">
           </p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca:</label>
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ngày làm việc:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.TongSoCa" [min]="0" locale="en-US" placeholder="Nhập tổng số ca" (onBlur)="CountTongSanLuong()"></p-inputNumber>
+          <p-inputNumber [(ngModel)]="itemThang.SoNgayLamViec" locale="en-US" placeholder="Nhập số ngày làm việc"></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hiệu suất:</label>
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hiệu suất ( % ):</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
           <p-inputNumber [(ngModel)]="itemThang.HieuSuat" locale="en-US" placeholder="Nhập hiệu suất"></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ngày làm việc:</label>
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SoNgayLamViec" locale="en-US" placeholder="Nhập số ngày làm việc"></p-inputNumber>
+          <p-inputNumber [(ngModel)]="itemThang.TongSoCa" [min]="0" locale="en-US" placeholder="Nhập tổng số ca" (onBlur)="CountTongSanLuong()"></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
@@ -76,7 +76,7 @@
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Xuất khẩu/Nội địa:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-dropdown [(ngModel)]="itemThang.CachThuc" [filter]="true" [options]="listCachThuc" placeholder="Chọn loại phương thức vận chuyển" [showClear]="true"
+          <p-dropdown [(ngModel)]="itemThang.CachThuc" [filter]="true" [options]="listCachThuc" placeholder="Chọn hình thức vận chuyển" [showClear]="true"
             styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>

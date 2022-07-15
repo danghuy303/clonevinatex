@@ -1,107 +1,107 @@
 <h4 class="title" style="color:#1f2779">
-  Kế hoạch kinh doanh năm đang thực hiện
+    Kế hoạch kinh doanh năm đã duyệt
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
-  <div class="p-d-flex p-flex-row">
-      <!-- <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button> -->
-  </div>
-  <div class="p-d-flex p-flex-row">
-      <div class="p-mr-2">
-          <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Từ ngày">
-          </p-calendar>
-      </div>
-      <div class="p-mr-2">
-          <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Đến ngày">
-          </p-calendar>
-      </div>
-      <div class="p-inputgroup" style="width:200px">
-          <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-              (keyup.enter)="getListKeHoachKinhDoanh(true)" />
-          <button type="button" pButton pRipple icon="pi pi-search"
-              class="p-button-secondary p-button-sm p-button-text" (click)="getListKeHoachKinhDoanh(true)"></button>
-          <button type="button" pButton pRipple icon="pi pi-refresh"
-              class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
-      </div>
-  </div>
+    <div class="p-d-flex p-flex-row">
+        <!-- <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button> -->
+    </div>
+    <div class="p-d-flex p-flex-row">
+        <div class="p-mr-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Từ ngày">
+            </p-calendar>
+        </div>
+        <div class="p-mr-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Đến ngày">
+            </p-calendar>
+        </div>
+        <div class="p-inputgroup" style="width:200px">
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+                (keyup.enter)="getListKeHoachKinhDoanh(true)" />
+            <button type="button" pButton pRipple icon="pi pi-search"
+                class="p-button-secondary p-button-sm p-button-text" (click)="getListKeHoachKinhDoanh(true)"></button>
+            <button type="button" pButton pRipple icon="pi pi-refresh"
+                class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+        </div>
+    </div>
 </div>
 
 <div class="p-mt-3">
-  <p-table [value]="listKeHoach" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
-      <ng-template pTemplate="colgroup">
-          <colgroup>
-              <col style="width: 3rem">
-              <col>
-              <col>
-              <col>
-              <col>
-              <col>
-              <col>
-              <col style="width: 4rem">
-              <col>
-              <col style="width: 16rem">
-              <col style="width: 3rem">
-          </colgroup>
-      </ng-template>
-      <ng-template pTemplate="header">
-          <tr>
-              <th class="text-center">STT</th>
-              <th class="text-center">Số phiếu</th>
-              <th class="text-center">Tên kế hoạch</th>
-              <th class="text-center">Người lập</th>
-              <th class="text-center">Doanh thu</th>
-              <th class="text-center">Chi phí</th>
-              <th class="text-center">Lợi nhuận</th>
-              <th class="text-center">Năm</th>
-              <th class="text-center">Trạng thái</th>
-              <th class="text-center">Ghi chú</th>
-              <th class="text-center"></th>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-item let-i="rowIndex">
-          <tr>
-              <td class="text-center">
-                  {{ 20 * (paging.Page - 1) + i + 1 }}
-              </td>
-              <td class="text-center">
-                  {{item.SoQuyTrinh}}
-              </td>
-              <td>{{item.TenKeHoach}}</td>
-              <td>
-                  {{item.TenNhanVien}}
-              </td>
-              <td class="text-right">
-                  {{item.DoanhThu | number:'0.0'}}
-              </td>
-              <td class="text-right">
-                  {{item.ChiPhi | number:'0.0'}}
-              </td>
-              <td class="text-right">
-                  {{item.LoiNhuan | number:'0.0'}}
-              </td>
-              <td class="text-center">{{item.Nam}}</td>
-              <td class="text-center">
-                  {{item.TenTrangThai}}
-              </td>
-              <td>
-                  <div [ngbTooltip]="item.GhiChu" class="ellipsis">
-                      {{item.GhiChu}}
-                  </div>
-              </td>
-              <td class="text-center">
-                  <button pButton pRipple type="button" icon="pi pi-pencil"
-                      class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                      (click)="changeParam(item.Id)"></button>
-                  <!-- <button pButton pRipple type="button" icon="pi pi-trash"
+    <p-table [value]="listKeHoach" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width: 3rem">
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col style="width: 4rem">
+                <col>
+                <col style="width: 16rem">
+                <col style="width: 3rem">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center">STT</th>
+                <th class="text-center">Số phiếu</th>
+                <th class="text-center">Tên kế hoạch</th>
+                <th class="text-center">Người lập</th>
+                <th class="text-center">Doanh thu</th>
+                <th class="text-center">Chi phí</th>
+                <th class="text-center">Lợi nhuận</th>
+                <th class="text-center">Năm</th>
+                <th class="text-center">Trạng thái</th>
+                <th class="text-center">Ghi chú</th>
+                <th class="text-center"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center">
+                    {{ 20 * (paging.Page - 1) + i + 1 }}
+                </td>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td>
+                <td>{{item.TenKeHoach}}</td>
+                <td>
+                    {{item.TenNhanVien}}
+                </td>
+                <td class="text-right">
+                    {{item.DoanhThu | number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.ChiPhi | number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.LoiNhuan | number:'0.0'}}
+                </td>
+                <td class="text-center">{{item.Nam}}</td>
+                <td class="text-center">
+                    {{item.TenTrangThai}}
+                </td>
+                <td>
+                    <div [ngbTooltip]="item.GhiChu" class="ellipsis">
+                        {{item.GhiChu}}
+                    </div>
+                </td>
+                <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                        (click)="changeParam(item.Id)"></button>
+                    <!-- <button pButton pRipple type="button" icon="pi pi-trash"
                   class="p-button-text p-button-sm p-button-secondary" (click)="delete(item)" pTooltip="Xóa"
                   showDelay="1000" tooltipPosition="bottom"></button> -->
-              </td>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="summary">
-          <div class="p-d-flex p-ai-center p-jc-between">
-              Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
-                  [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
-          </div>
-      </ng-template>
-  </p-table>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
+                    [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
+            </div>
+        </ng-template>
+    </p-table>
 </div>

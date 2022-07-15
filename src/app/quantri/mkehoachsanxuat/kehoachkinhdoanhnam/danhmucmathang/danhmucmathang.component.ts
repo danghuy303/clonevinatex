@@ -14,6 +14,7 @@ export class DanhmucmathangComponent implements OnInit {
   listMatHang: any = [];
   checkedAll: boolean = false;
   listIdSanPham: any = [];
+  keyword: string;
 
   constructor(
     public activeModal: NgbActiveModal,

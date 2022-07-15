@@ -2,15 +2,24 @@
   <h5 class="modal-title">Danh sách hợp đồng của sản phẩm {{tenSanPham}} năm kế hoạch {{nam}} </h5>
 </div>
 <div class="modal-body">
-  <div class="p-d-flex p-flex-row p-jc-between">
-    <div class="modal-bt p-mb-3">
+  <div class="p-d-flex p-jc-between p-ai-center p-mb-3">
+    <div class="modal-bt">
       <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
         (click)="activeModal.dismiss()"></button>
       <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm" (click)="ChapNhan()"></button>
     </div>
+    <div class="p-inputgroup" style="width: 200px">
+      <span class="p-inputgroup-addon p-inputtext-sm"><i class="pi pi-search"></i></span>
+      <input class="p-inputtext-sm" type="text" [(ngModel)]="keyword" pInputText placeholder="Tìm kiếm">         
+  </div>
   </div>
   <div>
-    <p-table [value]="listHopDong" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped">
+    <p-table 
+      [value]="listHopDong | filter: keyword" 
+      styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+      [paginator]="true" 
+      [rows]="10"
+    >
       <ng-template pTemplate="colgroup">
         <colgroup>
           <col>
@@ -43,6 +52,9 @@
           </td>
           <td class="text-right">{{product.SanLuongConLai | number:'0.0'}}</td>
         </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <b>Tổng số bản ghi {{(listHopDong | filter: keyword).length}}</b>
       </ng-template>
     </p-table>
   </div>

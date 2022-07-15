@@ -1,3 +1,4 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -23,6 +24,8 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   opt: any = ""
   userInfo: any;
+  isVuotSanLuong: boolean;
+  sanLuongVuot: any = 0;
   checkbutton: any = {
     Ghi: true,
     Xoa: true,
@@ -47,8 +50,7 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
     private _services: SanXuatService,
     private store: StoreService,
     private _confirmService: ConfirmationService,
-    private _auth: AuthenticationService
-  ) { 
+    private _auth: AuthenticationService) {
     this.userInfo = this._auth.currentUserValue;
   }
 
@@ -56,7 +58,10 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
     this.getYearsForDropDown();
     this.KiemTraButton();
     if (this.opt === 'add') {
+      this.kehoach.Nam = new Date().getFullYear() + 1;
+      this.kehoach.NgayLap = new Date();
       this.kehoach.TenNguoiLap = this.userInfo.TenNhanVien;
+      this.kehoach.MaDonViTienTe = 'VND';
       this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = [];
       this.GetNextSoQuyTrinh();
       this.GetListSanPhamHoaDon();
@@ -64,6 +69,7 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       this.GetNhaMay();
       this.CountTongSanLuong();
     }
+    this.CountTongSanLuongConLai();
   }
 
   GetNhaMay() {
@@ -78,7 +84,7 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
   }
 
   getYearsForDropDown() {
-    let date = new Date().getFullYear() - 11;
+    let date = new Date().getFullYear() - 1;
     for (let i = 0; i <= 20; i++) {
       date++;
       this.years.push({
@@ -112,7 +118,8 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
               Id: "",
               IdSanPham: ele.Id,
               IdDuAn: this.store.getCurrent(),
-              TongSanLuongThang: 0,
+              TongSanLuongThang: ele.TongSanLuong || 0,
+              TongSanLuongConLai: 0,
               lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH: this.RenderThang(ele)
             }
           ],
@@ -121,7 +128,9 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       })
       this.GetNhaMay();
       this.CountTongSanLuong();
-      console.log("this.kehoach", this.kehoach);
+      this.CountTongSanLuongConLai();
+      console.log("kehoach", this.kehoach);
+
     })
   }
 
@@ -174,14 +183,13 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
   GhiLai() {
     if (this.ValidateData()) {
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.SetData()).subscribe((res: any) => {
-        // console.log("res", res);
         handleHTTPResponse(res, this.toastr, () => {
-          this.activeModal.close(res);
+          this.kehoach = res.Data;
+          this.GetNhaMay();
+          this.KiemTraButton();
         })
       })
     }
-    // console.log("this.kehoach", this.kehoach);
-    
   }
 
   XoaQuyTrinh() {
@@ -221,17 +229,15 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
     modalRef.componentInstance.listIdSanPham = listIdSanPham;
     modalRef.result
       .then((res: any) => {
-        console.log("res", res);
         let listKhongHD = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.filter(ele => ele.isKhongHopDong);
         listKhongHD = merge([...res], listKhongHD, 'IdSanPham');
-        console.log("listKhongHD", listKhongHD);
         this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.filter(ele => !ele.isKhongHopDong)
         this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.push(...listKhongHD);
         this.GetNhaMay();
+        this.CountTongSanLuongConLai();
       })
-      .catch((error: any) => {})
-      .finally(() => {})
-    // console.log("res", res);
+      .catch((error: any) => { })
+      .finally(() => { })
   }
 
   SeeHopDongDetail(sanpham) {
@@ -244,7 +250,8 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
     modalRef.componentInstance.nam = this.kehoach.Nam
     modalRef.result
       .then((res: any) => {
-        modalRef.componentInstance.listHopDong = sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong;
+        sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong = res;
+        this.CountTongSanLuongConLai();
       })
       .catch((error: any) => {
 
@@ -257,14 +264,18 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       size: 'xl',
       backdrop: 'static',
     })
+    modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
     modalRef.componentInstance.thang = itemThang.Thang;
     modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;
     modalRef.componentInstance.itemThang = itemThang.ThongTinThang_SanPham;
+    modalRef.componentInstance.itemThang.TongSanLuong = itemThang.SanLuongThang || 0;
     modalRef.result
       .then((res: any) => {
         itemThang.ThongTinThang_SanPham = res;
         itemThang.SanLuongThang = itemThang.ThongTinThang_SanPham.TongSanLuong;
         this.CountTongSanLuong();
+        this.CountTongSanLuongConLai();
         this.CheckForAllMonth(sanpham, itemThang);
       })
       .catch((error: any) => {
@@ -274,42 +285,48 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
   }
 
   CheckForAllMonth(sanpham, itemThang) {
-    // console.log(sanpham);
-    let data = itemThang;
+    let data = { ...itemThang };
     if (itemThang.ThongTinThang_SanPham.checkForAll) {
-      sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH = [];
-      for (let i = 0; i < 12; i++) {
-        sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH.push({
-          ...itemThang,
-          Thang: i,
-          SanLuongThang: data.SanLuongThang,
-          ThongTinThang_SanPham: {
-            ...data.ThongTinThang_SanPham,
-            Thang: i,
-            Id: ""
-          }
-        })
+      for (let i = itemThang.Thang - 1; i < 12; i++) {
+        data.Thang = i + 1;
+        sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH[i] = { ...data };
       }
       this.CountTongSanLuong();
-      console.log("san pham", sanpham);
-
     }
   }
 
+  CountTongSanLuongConLai() {
+    this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.forEach(sanpham => {
+      sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai
+        = sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong.reduce((total, hopdong) => {
+          return total + hopdong.SanLuongConLai;
+        }, 0)
+    })
+  }
+
   CountTongSanLuong() {
+    console.log("this kehoach", this.kehoach);
     this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.forEach(item => {
       if (validVariable(item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0])) {
+        // debugger
         item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang = 0;
         item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH?.forEach(thang => {
           item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang += (thang.SanLuongThang || 0);
         })
+        item.isVuotSanLuong = !!(item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang > item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai);
+        let slvuot = item.isVuotSanLuong ? (item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang - item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai) : 0;
+        // console.log("slvuot", slvuot);
+        item.sanLuongVuot = `Vượt quá sản lượng còn lại ${formatNumber(slvuot, 'en-US', '0.0-0')} tấn`;
       }
     })
   }
 
   DeleteSanPham(index) {
-    console.log(index);
-    this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1)
+    this._confirmService.show({
+      message: 'Are you sure you want to delete?'
+    }, () => {
+      this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1)
+    })
   }
 
   DieuChinh() {
