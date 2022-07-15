@@ -48,7 +48,9 @@ export class ChitietthangComponent implements OnInit {
       .GetNangSuatTrungBinh()
       .subscribe((res: any) => {
         this.itemThang.NangSuat = res;
-        this.itemThang.SoMayCon = (this.itemThang?.SanLuongMotCa || 0) / (this.itemThang?.NangSuat || 0);
+        if (!this.itemThang.isEdited) {
+          this.itemThang.SoMayCon = (this.itemThang?.SanLuongMotCa || 0) / (this.itemThang?.NangSuat || 0);
+        }
       })
   }
 
@@ -81,6 +83,7 @@ export class ChitietthangComponent implements OnInit {
   }
 
   ChapNhan() {
+    this.itemThang.isEdited = true;
     this.activeModal.close(this.itemThang);
   }
 

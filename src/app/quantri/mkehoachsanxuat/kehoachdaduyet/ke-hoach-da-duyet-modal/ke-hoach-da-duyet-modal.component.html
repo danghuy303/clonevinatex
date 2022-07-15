@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title">Phiếu kế hoạch kinh doanh năm</h5>
+  <h5 class="modal-title">Phiếu điều chỉnh kế hoạch kinh doanh năm</h5>
   <div class="d-flex flex-column flex-lg-row">
     <div>
       <span style="font-weight: bold;">Số quy trình: {{kehoach.SoQuyTrinh}}</span>
@@ -43,22 +43,21 @@
           [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
       </div>
     </div>
-    <div class="p-col-12 p-lg-3 d-flex flex-column flex-xl-row">
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chi số gốc:</label>
       <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-        <p-inputNumber [(ngModel)]="kehoach.NeGoc" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="3"
-          placeholder="Nhập chi số gốc">
+        <p-inputNumber class="p-inputtext-sm" [(ngModel)]="kehoach.NeGoc" inputId="minmaxfraction" locale="en-US" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" placeholder="Nhập chi số gốc">
         </p-inputNumber>
       </div>
     </div>
-    <div class="p-col-12 p-lg-3 d-flex flex-column flex-xl-row">
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Người lập:</label>
       <div class="p-col-12 p-lg-8 p-p-0 my-auto">
         <input type="text" class="p-inputtext-sm" [(ngModel)]="kehoach.TenNguoiLap" placeholder="Nhập nội dung"
           pInputText readonly />
       </div>
     </div>
-    <div class="p-col-12 p-lg-3 d-flex flex-column flex-xl-row">
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày lập:</label>
       <div class="p-col-12 p-lg-8 p-p-0 my-auto">
         <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [locale]="lang"
@@ -67,7 +66,7 @@
         </p-calendar>
       </div>
     </div>
-    <div class="p-col-12 p-lg-3 d-flex flex-column flex-xl-row p-p-2">
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row p-p-2">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tiền tệ:</label>
       <div class="p-col-12 p-lg-8 p-p-0 my-auto">
         <p-dropdown [(ngModel)]="kehoach.MaDonViTienTe" [filter]="true" [options]="listDonViTienTe"
@@ -77,16 +76,13 @@
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-2 p-p-0">Nội dung:</label>
       <div class="p-col-12 p-lg-10 p-p-0">
-        <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="kehoach.NoiDung" placeholder="Nhập nội dung"
-          pInputText /> -->
-        <textarea pInputTextarea [(ngModel)]="kehoach.NoiDung" placeholder="Nhập nội dung"></textarea>
+        <textarea class="p-inputtext-sm" pInputTextarea [(ngModel)]="kehoach.NoiDung" placeholder="Nhập nội dung"></textarea>
       </div>
     </div>
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-2 p-p-0">Ghi chú:</label>
       <div class="p-col-12 p-lg-10 p-p-0">
-        <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="kehoach.GhiChu" placeholder="Nhập nội dung" pInputText /> -->
-        <textarea pInputTextarea [(ngModel)]="kehoach.GhiChu" placeholder="Nhập ghi chú"></textarea>
+        <textarea class="p-inputtext-sm" pInputTextarea [(ngModel)]="kehoach.GhiChu" placeholder="Nhập ghi chú"></textarea>
       </div>
     </div>
   </div>
@@ -98,7 +94,7 @@
       <table>
         <thead>
           <tr>
-            <th class="tc-w-540">
+            <th class="tc-w-430">
               <div class="d-flex p-jc-center p-ai-center">
                 <span class="p-mr-2">Sản phẩm</span>
                 <span>
@@ -109,14 +105,15 @@
             </th>
             <th class="tc-w-200">Nhà máy</th>
             <th class="tc-w-121">Hợp đồng</th>
-            <th class="tc-w-121">Tổng sản lượng</th>
+            <th class="tc-w-121">Tổng sản lượng còn lại</th>
+            <th class="tc-w-121">Tổng sản lượng tháng</th>
             <th *ngFor="let label of labelThang" class="tc-w-72">{{label}}</th>
           </tr>
         </thead>
         <tbody>
           <ng-container *ngIf="kehoach.lstKH_KeHoachKinhDoanh_SanPham">
             <tr *ngFor="let sanpham of kehoach.lstKH_KeHoachKinhDoanh_SanPham; let i = index">
-              <td class="tc-w-540 p-px-2" style="background-color: #fff;z-index: 9999;">
+              <td class="tc-w-430 p-px-2" style="background-color: #fff;z-index: 9999;">
                 <div class="d-flex p-ai-center">
                   <span>
                     {{sanpham.TenSanPham}}
@@ -131,19 +128,28 @@
                   class="p-button-text" (click)="SeeHopDongDetail(sanpham)"></button>
               </td>
               <td class="tc-w-121 p-px-2 text-right">
-                <!-- <p-inputNumber *ngIf="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length" [disabled]="true"
-                  [(ngModel)]="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang" locale="en-US">
-                </p-inputNumber> -->
-                <b>{{sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang | number: '0.0'}}</b>
+                <b>
+                  {{sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai | number: '0.0'}}
+                </b>
+              </td>
+              <td class="tc-w-121 p-px-2 text-right">
+                <b>
+                  <span 
+                    *ngIf="!sanpham.isKhongHopDong"
+                    [style.color]="(sanpham.isVuotSanLuong)?'red':''"
+                    [pTooltip]="sanpham.sanLuongVuot"
+                  >
+                    {{sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang | number: '0.0'}}
+                  </span>
+                  <span *ngIf="sanpham.isKhongHopDong">
+                    {{sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang | number: '0.0'}}
+                  </span>
+                </b>
               </td>
               <ng-container *ngIf="sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length">
-                <td
-                  *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH"
+                <td *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH"
                   class="tc-w-72 text-right">
-                  <!-- <button pButton pRipple type="button" [label]="thang.SanLuongThang.toString() | number: '0.0'"
-                    class="p-button-text" (click)="SeeMonthDetail(sanpham, thang)"></button> -->
-                  <span class="text-link" (click)="SeeMonthDetail(sanpham, thang)">{{thang.SanLuongThang | number:
-                    '0.0'}}</span>
+                  <span class="text-link" (click)="SeeMonthDetail(sanpham, thang)">{{thang.SanLuongThang | number: '0.0'}}</span>
                 </td>
               </ng-container>
             </tr>

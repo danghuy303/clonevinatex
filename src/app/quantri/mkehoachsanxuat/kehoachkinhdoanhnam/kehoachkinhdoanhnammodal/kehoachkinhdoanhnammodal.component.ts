@@ -1,3 +1,4 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -56,7 +57,10 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     this.getYearsForDropDown();
     this.KiemTraButton();
     if (this.opt === 'add') {
+      this.kehoach.Nam = new Date().getFullYear() + 1;
+      this.kehoach.NgayLap = new Date();
       this.kehoach.TenNguoiLap = this.userInfo.TenNhanVien;
+      this.kehoach.MaDonViTienTe = 'VND';
       this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = [];
       this.GetNextSoQuyTrinh();
       this.GetListSanPhamHoaDon();
@@ -79,7 +83,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   getYearsForDropDown() {
-    let date = new Date().getFullYear() - 11;
+    let date = new Date().getFullYear() - 1;
     for (let i = 0; i <= 20; i++) {
       date++;
       this.years.push({
@@ -300,21 +304,28 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   CountTongSanLuong() {
+    console.log("this kehoach", this.kehoach);
     this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.forEach(item => {
       if (validVariable(item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0])) {
+        // debugger
         item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang = 0;
         item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH?.forEach(thang => {
           item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang += (thang.SanLuongThang || 0);
         })
-        item.isVuotSanLuong = item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang > item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai;
-        let slvuot = this.isVuotSanLuong ? (item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang - item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai) : 0
-        item.sanLuongVuot = `Vượt quá sản lượng còn lại ${slvuot} tấn`;
+        item.isVuotSanLuong = !!(item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang > item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai);
+        let slvuot = item.isVuotSanLuong ? (item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang - item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai) : 0;
+        // console.log("slvuot", slvuot);
+        item.sanLuongVuot = `Vượt quá sản lượng còn lại ${formatNumber(slvuot, 'en-US', '0.0-0')} tấn`;
       }
     })
   }
 
   DeleteSanPham(index) {
-    this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1)
+    this._confirmService.show({
+      message: 'Are you sure you want to delete?'
+    }, () => {
+      this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1)
+    })
   }
 
 }
