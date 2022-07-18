@@ -1,3 +1,4 @@
+import { number } from '@amcharts/amcharts4/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -20,7 +21,7 @@ export class ChitietthangComponent implements OnInit {
     { value: 'xuatKhau', label: 'Xuất khẩu' }];
   listContainer: any = [];
   listPhuongThucVanChuyen: any = [];
-  thang: string = "";
+  thang: any=number;
   tenSanPham: string = "";
   NeGoc: any;
   Ne: any;
@@ -101,9 +102,8 @@ export class ChitietthangComponent implements OnInit {
   }
 
   GetDate() {
-    let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear();
-    this.itemThang.SoNgayLamViec = new Date(year, month, 0).getDate();
+    this.itemThang.SoNgayLamViec = new Date(year, this.thang, 0).getDate();
     this.CountTongSoCa();
   }
 
