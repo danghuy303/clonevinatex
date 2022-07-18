@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, handleHTTPResponse, merge, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, handleHTTPResponse, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
@@ -65,10 +65,11 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
       this.GetListSanPhamHoaDon();
     } else {
+      this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix);
       this.GetNhaMay();
-      this.CountTongSanLuong();
     }
     this.CountTongSanLuongConLai();
+    this.CountTongSanLuong();
   }
 
   GetNhaMay() {
@@ -184,9 +185,10 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.SetData()).subscribe((res: any) => {
         handleHTTPResponse(res, this.toastr, () => {
           this.kehoach = res.Data;
+          this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix);
           this.GetNhaMay();
-          this.CountTongSanLuong();
           this.CountTongSanLuongConLai();
+          this.CountTongSanLuong();
           this.KiemTraButton();
         })
       })
@@ -266,6 +268,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       backdrop: 'static',
     })
     modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.NeGoc = this.kehoach.NeGoc;
+    modalRef.componentInstance.Ne = sanpham.Ne;
     modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
     modalRef.componentInstance.thang = itemThang.Thang;
     modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;
@@ -319,6 +323,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         // console.log("slvuot", slvuot);
         item.sanLuongVuot = `Vượt quá sản lượng còn lại ${formatNumber(slvuot, 'en-US', '0.0-0')} tấn`;
       }
+      console.log("item", item);
+      
     })
   }
 

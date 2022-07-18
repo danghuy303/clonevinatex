@@ -12,16 +12,32 @@
   <p-panel header="Thông tin chung">
     <div class="p-grid p-mb-2">
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số lượng sản xuất ( Tấn ):</label>
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số lượng sản xuất (Tấn):</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.TongSanLuong" [min]="0" locale="en-US" (onBlur)="CountTongSanLuong()">
+          <p-inputNumber 
+            [(ngModel)]="itemThang.TongSanLuong" 
+            [min]="0" 
+            [minFractionDigits]="1"
+            [maxFractionDigits]="3"
+            locale="en-US" 
+            (onBlur)="CountTongSanLuong()"
+            (onBlur)="CountSoMayCon()"
+          >
           </p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ngày làm việc:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SoNgayLamViec" locale="en-US" placeholder="Nhập số ngày làm việc"></p-inputNumber>
+          <p-inputNumber 
+            [(ngModel)]="itemThang.SoNgayLamViec" 
+            locale="en-US" 
+            placeholder="Nhập số ngày làm việc"
+            [min]="0"
+            [minFractionDigits]="1"
+            [maxFractionDigits]="1"
+            (onBlur)="CountTongSoCa()"
+          ></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
@@ -33,13 +49,20 @@
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.TongSoCa" [min]="0" locale="en-US" placeholder="Nhập tổng số ca" (onBlur)="CountTongSanLuong()"></p-inputNumber>
+          <p-inputNumber 
+            [(ngModel)]="itemThang.TongSoCa" 
+            [min]="0" 
+            locale="en-US" 
+            placeholder="Nhập tổng số ca" 
+            (onBlur)="CountTongSanLuong()"
+            (onBlur)="CountSoMayCon()"
+          ></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số máy con:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SoMayCon" locale="en-US" placeholder="Nhập số máy con"></p-inputNumber>
+          <p-inputNumber [(ngModel)]="itemThang.SoMayCon" [min]="0" locale="en-US" placeholder="Nhập số máy con"></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
