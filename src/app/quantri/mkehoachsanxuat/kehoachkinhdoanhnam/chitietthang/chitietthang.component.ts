@@ -64,7 +64,7 @@ export class ChitietthangComponent implements OnInit {
 
   CountSoMayCon() {
     if (validVariable(this.itemThang?.SanLuongMotCa) && validVariable(this.itemThang?.NangSuat)) {
-      this.itemThang.SoMayCon = this.itemThang?.SanLuongMotCa / this.itemThang?.NangSuat;
+      this.itemThang.SoMayCon = Math.round((this.itemThang?.SanLuongMotCa / this.itemThang?.NangSuat)*1000*10)/10;
     }
   }
 
