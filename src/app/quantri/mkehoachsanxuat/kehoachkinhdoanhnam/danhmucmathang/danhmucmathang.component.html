@@ -54,7 +54,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="paginatorleft">
-        <b>Tổng số bản ghi {{(listMatHang.length | filter: keyword).length}}</b>
+        <b>Tổng số bản ghi {{(listMatHang | filter: keyword).length}}</b>
       </ng-template>
     </p-table>
   </div>

@@ -7,7 +7,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, handleHTTPResponse, merge, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, handleHTTPResponse, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
@@ -69,10 +69,11 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
       this.GetListSanPhamHoaDon();
     } else {
+      this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix)
       this.GetNhaMay();
-      this.CountTongSanLuong();
     }
     this.CountTongSanLuongConLai();
+    this.CountTongSanLuong();
   }
 
   GetNhaMay() {
@@ -271,6 +272,8 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       backdrop: 'static',
     })
     modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.NeGoc = this.kehoach.NeGoc;
+    modalRef.componentInstance.Ne = sanpham.Ne;
     modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
     modalRef.componentInstance.thang = itemThang.Thang;
     modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;

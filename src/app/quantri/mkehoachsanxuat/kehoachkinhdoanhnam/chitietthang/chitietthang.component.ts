@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 
 @Component({
@@ -22,6 +22,8 @@ export class ChitietthangComponent implements OnInit {
   listPhuongThucVanChuyen: any = [];
   thang: string = "";
   tenSanPham: string = "";
+  NeGoc: any;
+  Ne: any;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -49,10 +51,19 @@ export class ChitietthangComponent implements OnInit {
       .GetNangSuatTrungBinh()
       .subscribe((res: any) => {
         this.itemThang.NangSuat = res;
-        if (!this.itemThang.isEdited) {
-          this.itemThang.SoMayCon = (this.itemThang?.SanLuongMotCa || 0) / (this.itemThang?.NangSuat || 0);
+        // if (!this.itemThang.isEdited) {
+        //   this.itemThang.SoMayCon = (this.itemThang?.SanLuongMotCa || 0) / (this.itemThang?.NangSuat || 0);
+        // }
+        if (validVariable(this.itemThang.TongSanLuong) && validVariable(this.NeGoc) && validVariable(this.Ne)) {
+          this.itemThang.SanLuongQuyDoi = (this.Ne*this.itemThang.TongSanLuong)/(this.NeGoc);
         }
       })
+  }
+
+  CountSoMayCon() {
+    if (validVariable(this.itemThang?.SanLuongMotCa) && validVariable(this.itemThang?.NangSuat)) {
+      this.itemThang.SoMayCon = this.itemThang?.SanLuongMotCa / this.itemThang?.NangSuat;
+    }
   }
 
   GetHieuSuat() {
@@ -80,6 +91,7 @@ export class ChitietthangComponent implements OnInit {
     if (this.itemThang.TongSoCa && this.itemThang.TongSanLuong) {
       this.itemThang.SanLuongMotCa = this.itemThang.TongSanLuong / this.itemThang.TongSoCa;
       this.GetNangSuat();
+
     }
   }
 
@@ -92,7 +104,13 @@ export class ChitietthangComponent implements OnInit {
     let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear();
     this.itemThang.SoNgayLamViec = new Date(year, month, 0).getDate();
-    this.itemThang.TongSoCa = (this.itemThang.SoNgayLamViec * 3 || 0);
+    this.CountTongSoCa();
+  }
+
+  CountTongSoCa() {
+    if (validVariable(this.itemThang.SoNgayLamViec)) {
+      this.itemThang.TongSoCa = (this.itemThang.SoNgayLamViec * 3);
+    }
   }
 
 }
