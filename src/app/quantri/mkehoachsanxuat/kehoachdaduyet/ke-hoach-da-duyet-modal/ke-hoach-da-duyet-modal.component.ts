@@ -1,5 +1,6 @@
 import { formatNumber } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
@@ -50,7 +51,9 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
     private _services: SanXuatService,
     private store: StoreService,
     private _confirmService: ConfirmationService,
-    private _auth: AuthenticationService) {
+    private _auth: AuthenticationService,
+    private router: Router
+    ) {
     this.userInfo = this._auth.currentUserValue;
   }
 
@@ -185,8 +188,11 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.SetData()).subscribe((res: any) => {
         handleHTTPResponse(res, this.toastr, () => {
           this.kehoach = res.Data;
-          this.GetNhaMay();
-          this.KiemTraButton();
+          this.router.navigate([`quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`]);
+          // this.GetNhaMay();
+          // this.CountTongSanLuong();
+          // this.CountTongSanLuongConLai();
+          // this.KiemTraButton();
         })
       })
     }

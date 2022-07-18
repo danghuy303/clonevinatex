@@ -185,6 +185,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         handleHTTPResponse(res, this.toastr, () => {
           this.kehoach = res.Data;
           this.GetNhaMay();
+          this.CountTongSanLuong();
+          this.CountTongSanLuongConLai();
           this.KiemTraButton();
         })
       })
