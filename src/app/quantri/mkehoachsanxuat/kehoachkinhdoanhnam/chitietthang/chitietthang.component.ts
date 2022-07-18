@@ -69,9 +69,8 @@ export class ChitietthangComponent implements OnInit {
   }
 
   GetHieuSuat() {
-    let d = new Date();
     this._danhMucHopDong.KeHoachSanXuat()
-      .GetHieuSuatTrungBinh(d.getFullYear())
+      .GetHieuSuatTrungBinh((this.nam - 1))
       .subscribe((res: any) => {
         let sanpham = res.find(ele => ele.IdSanPham === this.idSanPham);
         let objThang = sanpham.ListThang.find(ele => ele.Thang === this.thang);
