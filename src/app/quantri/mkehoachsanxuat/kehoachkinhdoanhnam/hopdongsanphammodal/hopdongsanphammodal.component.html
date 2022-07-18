@@ -47,7 +47,7 @@
             {{product.SanLuongDaSanXuat | number:'0.0'}}
           </td>
           <td class="text-right">
-            <p-inputNumber [(ngModel)]="product.SanLuongDoDang" locale="en-US" mode="decimal" [max]="product.TongSanLuong" [min]="0" [minFractionDigits]="3" (onBlur)="CountSLConlai()">
+            <p-inputNumber [(ngModel)]="product.SanLuongDoDang" locale="en-US" mode="decimal" [max]="product.TongSanLuong - product.SanLuongDaSanXuat" [min]="0" [minFractionDigits]="3" (onBlur)="CountSLConlai()">
             </p-inputNumber>
           </td>
           <td class="text-right">{{product.SanLuongConLai | number:'0.0'}}</td>
