@@ -1,3 +1,4 @@
+import { number } from '@amcharts/amcharts4/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +22,7 @@ export class ChitietthangComponent implements OnInit {
   listContainer: any = [];
   listPhuongThucVanChuyen: any = [];
   thang: string = "";
+  nam: any = "";
   tenSanPham: string = "";
   NeGoc: any;
   Ne: any;
@@ -62,7 +64,7 @@ export class ChitietthangComponent implements OnInit {
 
   CountSoMayCon() {
     if (validVariable(this.itemThang?.SanLuongMotCa) && validVariable(this.itemThang?.NangSuat)) {
-      this.itemThang.SoMayCon = this.itemThang?.SanLuongMotCa / this.itemThang?.NangSuat;
+      this.itemThang.SoMayCon = Math.round((this.itemThang?.SanLuongMotCa / this.itemThang?.NangSuat)*1000*10)/10;
     }
   }
 
@@ -91,7 +93,6 @@ export class ChitietthangComponent implements OnInit {
     if (this.itemThang.TongSoCa && this.itemThang.TongSanLuong) {
       this.itemThang.SanLuongMotCa = this.itemThang.TongSanLuong / this.itemThang.TongSoCa;
       this.GetNangSuat();
-
     }
   }
 
@@ -101,15 +102,14 @@ export class ChitietthangComponent implements OnInit {
   }
 
   GetDate() {
-    let month = new Date().getMonth() + 1;
-    let year = new Date().getFullYear();
-    this.itemThang.SoNgayLamViec = new Date(year, month, 0).getDate();
+    this.itemThang.SoNgayLamViec = new Date(this.nam, Number(this.thang), 0).getDate();
     this.CountTongSoCa();
   }
 
   CountTongSoCa() {
     if (validVariable(this.itemThang.SoNgayLamViec)) {
       this.itemThang.TongSoCa = (this.itemThang.SoNgayLamViec * 3);
+      this.CountTongSanLuong();
     }
   }
 

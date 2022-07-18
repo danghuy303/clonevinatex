@@ -277,6 +277,7 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
     modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
     modalRef.componentInstance.thang = itemThang.Thang;
     modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;
+    modalRef.componentInstance.nam = this.kehoach.Nam;
     modalRef.componentInstance.itemThang = itemThang.ThongTinThang_SanPham;
     modalRef.componentInstance.itemThang.TongSanLuong = itemThang.SanLuongThang || 0;
     modalRef.result
@@ -332,7 +333,7 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
 
   DeleteSanPham(index) {
     this._confirmService.show({
-      message: 'Are you sure you want to delete?'
+      message: 'Bạn chắc chắn muốn xóa mặt hàng này?'
     }, () => {
       this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1)
     })
