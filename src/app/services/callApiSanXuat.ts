@@ -598,6 +598,7 @@ export class SanXuatService {
     }
 
     GetOptions() {
+        let IdDuAn = this.store.getCurrent();
         return {
             GetMatHang: () => {
                 return this.http.post(`${API.SCMDanhMuc}GetListdmItem`, { Loai: 1 }, httpOptions)

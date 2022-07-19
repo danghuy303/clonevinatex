@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, handleHTTPResponse, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, handleHTTPResponse, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
@@ -40,6 +40,11 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   listDonViTienTe: Array<any> = [{ value: 'VND', label: 'Việt Nam Đồng' }, { value: 'USD', label: 'USD' }];
   labelThang: Array<string> = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12',];
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',];
+  soMayConAllMonth: any = [];
+  sanLuongAllMonth: any = [];
+  sanLuongForAllMonth: any;
+  sanLuongConLaiAllMonth: any;
+  tongSoMayCon: any;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -68,18 +73,19 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix);
       this.GetNhaMay();
     }
-    this.CountTongSanLuongConLai();
-    this.CountTongSanLuong();
+    this.CountAll();
+    this.GetTongSoMayCon();
+  }
+
+  GetTongSoMayCon() {
+    this._danhMucHopDong.KeHoachSanXuat().GetTongSoMayCon(this.kehoach.IdDuAn).subscribe((res: any) => {
+      this.tongSoMayCon = res;
+    })
   }
 
   GetNhaMay() {
     this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
-      this.listNhaMay = res;
-      this.kehoach.lstKH_KeHoachKinhDoanh_SanPham?.forEach((sanpham: any) => {
-        sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TenNhaMay = this.listNhaMay.find(ele =>
-          ele.Id === sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].IdDuAn
-        )?.TenDuAn;
-      })
+      this.listNhaMay = mapArrayForDropDown(res, 'TenDuAn', 'Id');
     })
   }
 
@@ -107,31 +113,29 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   GetListSanPhamHoaDon() {
-    this._services.GetOptions().GetChiTietMatHangChoKHKD().subscribe((res: any) => {
-      this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = res;
-      this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.map(ele => {
-        return {
-          TenSanPham: ele.Ten,
-          IdSanPham: ele.Id,
-          lstKH_KeHoachKinhDoanh_SanPham_NhaMay: [
-            {
-              Id: "",
-              IdSanPham: ele.Id,
-              IdDuAn: this.store.getCurrent(),
-              TongSanLuongThang: ele.TongSanLuong || 0,
-              TongSanLuongConLai: 0,
-              lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH: this.RenderThang(ele)
-            }
-          ],
-          lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong: ele.lstThoiGianHopDong
-        }
+    this._danhMucHopDong.KeHoachSanXuat()
+      .GetChiTietMatHangChoKHKD({ IdDuAn: this.kehoach.IdDuAn, })
+      .subscribe((res: any) => {
+        this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = res;
+        this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.map(ele => {
+          return {
+            TenSanPham: ele.Ten,
+            IdSanPham: ele.Id,
+            lstKH_KeHoachKinhDoanh_SanPham_NhaMay: [
+              {
+                Id: "",
+                IdSanPham: ele.Id,
+                TongSanLuongThang: ele.TongSanLuong || 0,
+                TongSanLuongConLai: 0,
+                lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH: this.RenderThang(ele)
+              }
+            ],
+            lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong: ele.lstThoiGianHopDong
+          }
+        })
+        this.GetNhaMay();
+        this.CountAll();
       })
-      this.GetNhaMay();
-      this.CountTongSanLuong();
-      this.CountTongSanLuongConLai();
-      console.log("kehoach", this.kehoach);
-
-    })
   }
 
   RenderThang(sanpham) {
@@ -143,7 +147,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         ChiPhiQuyDoiNe: null,
         DoanhThu: null,
         DonGia: null,
-        IdDuAn: this.store.getCurrent(),
+        // IdDuAn: this.store.getCurrent(),
         IdSanPham: sanpham.Id,
         Nam: 0,
         NangLucSanXuatNhaMay: 0,
@@ -155,6 +159,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
           Thang: i,
           TongSoCa: 0,
           SoMayCon: 0,
+          SoMayConBoTri: 0,
           SoNgayLamViec: 0,
           SanLuongMotCa: 0,
           HieuSuat: 0,
@@ -187,8 +192,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
           this.kehoach = res.Data;
           this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix);
           this.GetNhaMay();
-          this.CountTongSanLuongConLai();
-          this.CountTongSanLuong();
+          this.CountAll();
           this.KiemTraButton();
         })
       })
@@ -229,6 +233,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       backdrop: 'static',
     });
     let listIdSanPham = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.filter(ele => ele.isKhongHopDong).map(ele => ele.IdSanPham) || [];
+    modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
     modalRef.componentInstance.listIdSanPham = listIdSanPham;
     modalRef.result
       .then((res: any) => {
@@ -237,7 +242,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.filter(ele => !ele.isKhongHopDong)
         this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.push(...listKhongHD);
         this.GetNhaMay();
-        this.CountTongSanLuongConLai();
+        this.CountAll();
       })
       .catch((error: any) => { })
       .finally(() => { })
@@ -254,7 +259,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong = res;
-        this.CountTongSanLuongConLai();
+        // this.CountTongSanLuongConLai();
+        this.CountAll();
       })
       .catch((error: any) => {
 
@@ -271,6 +277,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     modalRef.componentInstance.NeGoc = this.kehoach.NeGoc;
     modalRef.componentInstance.Ne = sanpham.Ne;
     modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
+    modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
     modalRef.componentInstance.thang = itemThang.Thang;
     modalRef.componentInstance.nam = this.kehoach.Nam;
     modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;
@@ -280,8 +287,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       .then((res: any) => {
         itemThang.ThongTinThang_SanPham = res;
         itemThang.SanLuongThang = itemThang.ThongTinThang_SanPham.TongSanLuong;
-        this.CountTongSanLuong();
-        this.CountTongSanLuongConLai();
+        this.CountAll();
         this.CheckForAllMonth(sanpham, itemThang);
       })
       .catch((error: any) => {
@@ -297,8 +303,27 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         data.Thang = i + 1;
         sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH[i] = { ...data };
       }
-      this.CountTongSanLuong();
+      // this.CountTongSanLuong();
+      this.CountAll();
     }
+  }
+
+  CountAll() {
+    this.CountTongSanLuongConLai();
+    this.CountSoMayConBoTri();
+    this.CountTongSanLuong();
+    this.CountAllMonth();
+  }
+
+  CountSoMayConBoTri() {
+    this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.forEach(item => {
+      if (validVariable(item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0])) {
+        item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSoMayConBoTri = 0;
+        item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH?.forEach(thang => {
+          item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSoMayConBoTri += (thang.ThongTinThang_SanPham.SoMayConBoTri || 0);
+        })
+      }
+    })
   }
 
   CountTongSanLuongConLai() {
@@ -311,29 +336,48 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   CountTongSanLuong() {
-    console.log("this kehoach", this.kehoach);
+    // console.log("this kehoach", this.kehoach);
     this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.forEach(item => {
       if (validVariable(item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0])) {
-        // debugger
         item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang = 0;
         item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH?.forEach(thang => {
           item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang += (thang.SanLuongThang || 0);
         })
         item.isVuotSanLuong = !!(item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang > item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai);
         let slvuot = item.isVuotSanLuong ? (item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang - item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai) : 0;
-        // console.log("slvuot", slvuot);
         item.sanLuongVuot = `Vượt quá sản lượng còn lại ${formatNumber(slvuot, 'en-US', '0.0-0')} tấn`;
       }
-      console.log("item", item);
-      
     })
+  }
+
+  CountAllMonth() {
+    console.log("kehoach", this.kehoach);
+    for(let i = 0; i < 12; i++) {
+      this.sanLuongAllMonth[i]=0;
+      this.soMayConAllMonth[i]=0;
+    }
+    this.sanLuongConLaiAllMonth = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.reduce((total, ele) => {
+      return total + ele.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongConLai;
+    }, 0);
+    this.sanLuongForAllMonth = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.reduce((total, ele) => {
+      return total + ele.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].TongSanLuongThang;
+    }, 0)
+    this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.forEach((sanpham) => {
+      for(let i = 0; i < 12; i++) {
+        this.sanLuongAllMonth[i] += sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH[i].SanLuongThang;
+        this.soMayConAllMonth[i] += sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH[i].ThongTinThang_SanPham.SoMayConBoTri;
+      }
+    })
+    console.log("sanLuongAllMonth", this.sanLuongAllMonth);
+    
   }
 
   DeleteSanPham(index) {
     this._confirmService.show({
       message: 'Bạn chắc chắn muốn xóa mặt hàng này?'
     }, () => {
-      this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1)
+      this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1);
+      this.CountAll();
     })
   }
 
