@@ -66,6 +66,12 @@
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số máy con bố trí:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-inputNumber [(ngModel)]="itemThang.SoMayConBoTri" [min]="0" [maxFractionDigits]="0" locale="en-US" placeholder="Nhập số máy con"></p-inputNumber>
+        </div>
+      </div>
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sản lượng một ca:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
           <p-inputNumber [(ngModel)]="itemThang.SanLuongMotCa" (ngModelChange)="CountTongSanLuong()" [disabled]="true" locale="en-US" placeholder="Nhập sản lượng một ca"></p-inputNumber>

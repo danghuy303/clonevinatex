@@ -38,6 +38,7 @@ import { DecimalPipe } from "@angular/common";
 import { LoaderInterceptor } from "./services/loader.interceptor";
 import { LoaderService } from "./services/loader.service";
 // import { LoaderComponent } from './loader/loader.component';
+import 'chartjs-plugin-zoom'
 
 @NgModule({
   declarations: [
