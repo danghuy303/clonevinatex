@@ -71,7 +71,7 @@ export class ChitietthangComponent implements OnInit {
       .subscribe((res: any) => {
         let sanpham = res.find(ele => ele.IdSanPham === this.idSanPham);
         let objThang = sanpham.ListThang.find(ele => ele.Thang === this.thang);
-        this.itemThang.HieuSuat = objThang.HieuSuat;
+        this.itemThang.HieuSuat = (objThang.HieuSuat * 100) || 0;
     })
   }
 

@@ -288,11 +288,11 @@ export class DanhMucHopDongService {
             GetNangSuatTrungBinh: (IdDuAn) => {
                 return this.http.get(`${url}GetNangSuatDinhMucTrungBinh?IdDuAn=${IdDuAn}`);
             },
-            GetChiTietMatHangChoKHKD: (data) => {
-                return this.http.post(`${url}GetDanhMucSanPhamHopDong`, data)
+            GetChiTietMatHangChoKHKD: (IdDuAn) => {
+                return this.http.get(`${url}GetDanhMucSanPhamHopDong?IdDuAn=${IdDuAn}`,)
             },
-            GetMatHangKhongHopDongChoKHKD: (data) => {
-                return this.http.post(`${url}GetDanhMucSanPhamKhongCoHopDong`, data)
+            GetMatHangKhongHopDongChoKHKD: (IdDuAn) => {
+                return this.http.get(`${url}GetDanhMucSanPhamKhongCoHopDong?IdDuAn=${IdDuAn}`,)
             },
             GetTongSoMayCon: (IdDuAn) => {
                 return this.http.get(`${url}GetTongSoMayCon?IdDuAn=${IdDuAn}`)

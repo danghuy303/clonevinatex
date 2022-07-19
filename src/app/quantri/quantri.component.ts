@@ -1549,12 +1549,12 @@ export class QuantriComponent implements OnInit {
         visible: this.showHopDongModule,
         items: [
           {
-            label: "Kế hoạch đã duyệt",
+            label: "Kế hoạch sản xuất kinh doanh đã duyệt",
             routerLink: "/quantri/mkehoachsanxuat/kehoachdaduyet/0",
             command: () => this.close(),
           },
           {
-            label: "Kế hoạch kinh doanh năm",
+            label: "Lậpk kế hoạch sản lượng",
             routerLink: "/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/0",
             command: () => this.close(),
           },
