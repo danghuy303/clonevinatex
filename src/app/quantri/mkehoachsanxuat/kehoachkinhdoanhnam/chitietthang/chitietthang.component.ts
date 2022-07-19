@@ -26,6 +26,7 @@ export class ChitietthangComponent implements OnInit {
   tenSanPham: string = "";
   NeGoc: any;
   Ne: any;
+  IdDuAn: any;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -36,7 +37,6 @@ export class ChitietthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('itemThang', this.itemThang);
     this.itemThang.checkForAll = false;
     if (this.opt === 'add') {
       this.itemThang.SanLuongMotCa = 0;
@@ -50,12 +50,9 @@ export class ChitietthangComponent implements OnInit {
 
   GetNangSuat() {
     this._danhMucHopDong.KeHoachSanXuat()
-      .GetNangSuatTrungBinh()
+      .GetNangSuatTrungBinh(this.IdDuAn)
       .subscribe((res: any) => {
         this.itemThang.NangSuat = res;
-        // if (!this.itemThang.isEdited) {
-        //   this.itemThang.SoMayCon = (this.itemThang?.SanLuongMotCa || 0) / (this.itemThang?.NangSuat || 0);
-        // }
         if (validVariable(this.itemThang.TongSanLuong) && validVariable(this.NeGoc) && validVariable(this.Ne)) {
           this.itemThang.SanLuongQuyDoi = (this.Ne*this.itemThang.TongSanLuong)/(this.NeGoc);
         }
@@ -70,7 +67,7 @@ export class ChitietthangComponent implements OnInit {
 
   GetHieuSuat() {
     this._danhMucHopDong.KeHoachSanXuat()
-      .GetHieuSuatTrungBinh((this.nam - 1))
+      .GetHieuSuatTrungBinh((this.nam - 1), this.IdDuAn)
       .subscribe((res: any) => {
         let sanpham = res.find(ele => ele.IdSanPham === this.idSanPham);
         let objThang = sanpham.ListThang.find(ele => ele.Thang === this.thang);

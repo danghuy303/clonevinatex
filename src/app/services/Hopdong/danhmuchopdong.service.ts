@@ -282,12 +282,21 @@ export class DanhMucHopDongService {
     KeHoachSanXuat() {
         let url = API.SCMChoModuleKeHoach;
         return {
-            GetHieuSuatTrungBinh: (Nam) => {
-                return this.http.get(`${url}GetHieuSuatTrungBinh?Nam=${Nam}`);
+            GetHieuSuatTrungBinh: (Nam, IdDuAn) => {
+                return this.http.get(`${url}GetHieuSuatTrungBinh?Nam=${Nam}&IdDuAn=${IdDuAn}`);
             },
-            GetNangSuatTrungBinh: () => {
-                return this.http.get(`${url}GetNangSuatDinhMucTrungBinh`);
-            }
+            GetNangSuatTrungBinh: (IdDuAn) => {
+                return this.http.get(`${url}GetNangSuatDinhMucTrungBinh?IdDuAn=${IdDuAn}`);
+            },
+            GetChiTietMatHangChoKHKD: (data) => {
+                return this.http.post(`${url}GetDanhMucSanPhamHopDong`, data)
+            },
+            GetMatHangKhongHopDongChoKHKD: (data) => {
+                return this.http.post(`${url}GetDanhMucSanPhamKhongCoHopDong`, data)
+            },
+            GetTongSoMayCon: (IdDuAn) => {
+                return this.http.get(`${url}GetTongSoMayCon?IdDuAn=${IdDuAn}`)
+            }   
         } 
     }
 

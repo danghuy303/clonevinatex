@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -15,10 +16,12 @@ export class DanhmucmathangComponent implements OnInit {
   checkedAll: boolean = false;
   listIdSanPham: any = [];
   keyword: string;
+  IdDuAn: any;
 
   constructor(
     public activeModal: NgbActiveModal,
     private _modal: NgbModal,
+    private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
@@ -29,7 +32,7 @@ export class DanhmucmathangComponent implements OnInit {
   }
 
   LoadData() {
-    this._services.GetOptions().GetMatHangKhongHopDongChoKHKD().subscribe((res: any) => {
+    this._danhMucHopDong.KeHoachSanXuat().GetMatHangKhongHopDongChoKHKD({IdDuAn: this.IdDuAn}).subscribe((res: any) => {
       this.listMatHang = res;
       this.CheckExistedItems();
     })
@@ -94,6 +97,7 @@ export class DanhmucmathangComponent implements OnInit {
           Thang: i,
           TongSoCa: 0,
           SoMayCon: 0,
+          SoMayConBoTri: 0,
           SoNgayLamViec: 0,
           SanLuongMotCa: 0,
           HieuSuat: 0,
