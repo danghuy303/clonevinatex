@@ -62,6 +62,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     this.getYearsForDropDown();
     this.KiemTraButton();
     if (this.opt === 'add') {
+      this.kehoach.IdDuAn = this.store.getCurrent();
       this.kehoach.Nam = new Date().getFullYear() + 1;
       this.kehoach.NgayLap = new Date();
       this.kehoach.TenNguoiLap = this.userInfo.TenNhanVien;
@@ -71,8 +72,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       this.GetListSanPhamHoaDon();
     } else {
       this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix);
-      this.GetNhaMay();
     }
+    this.GetNhaMay();
     this.CountAll();
     this.GetTongSoMayCon();
   }
@@ -114,7 +115,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
 
   GetListSanPhamHoaDon() {
     this._danhMucHopDong.KeHoachSanXuat()
-      .GetChiTietMatHangChoKHKD({ IdDuAn: this.kehoach.IdDuAn, })
+      .GetChiTietMatHangChoKHKD(this.kehoach.IdDuAn)
       .subscribe((res: any) => {
         this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = res;
         this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.map(ele => {
@@ -268,32 +269,58 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       .finally(() => { })
   }
 
-  SeeMonthDetail(sanpham, itemThang) {
-    let modalRef = this._modal.open(ChitietthangComponent, {
-      size: 'xl',
-      backdrop: 'static',
-    })
-    modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.NeGoc = this.kehoach.NeGoc;
-    modalRef.componentInstance.Ne = sanpham.Ne;
-    modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
-    modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
-    modalRef.componentInstance.thang = itemThang.Thang;
-    modalRef.componentInstance.nam = this.kehoach.Nam;
-    modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;
-    modalRef.componentInstance.itemThang = itemThang.ThongTinThang_SanPham;
-    modalRef.componentInstance.itemThang.TongSanLuong = itemThang.SanLuongThang || 0;
-    modalRef.result
-      .then((res: any) => {
-        itemThang.ThongTinThang_SanPham = res;
-        itemThang.SanLuongThang = itemThang.ThongTinThang_SanPham.TongSanLuong;
-        this.CountAll();
-        this.CheckForAllMonth(sanpham, itemThang);
-      })
-      .catch((error: any) => {
+  CheckCurrentYearAndMonth(item) {
+    let d = new Date();
+    let y = d.getFullYear();
+    let m = d.getMonth() + 1;
+    // if (y === this.kehoach.Nam) {
+    //   if (m > item.Thang) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // } else {
+    //   return true;
+    // }
+    if (y === this.kehoach.Nam) {
+      return false;
+    } else if (m <= item.Thang) {
+      return false
+    } else {
+      return true;
+    }
+  }
 
+  SeeMonthDetail(sanpham, itemThang) {
+    if (this.CheckCurrentYearAndMonth(itemThang)) {
+      let modalRef = this._modal.open(ChitietthangComponent, {
+        size: 'xl',
+        backdrop: 'static',
       })
-      .finally(() => { })
+      modalRef.componentInstance.opt = this.opt;
+      modalRef.componentInstance.NeGoc = this.kehoach.NeGoc;
+      modalRef.componentInstance.Ne = sanpham.Ne;
+      modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
+      modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
+      modalRef.componentInstance.thang = itemThang.Thang;
+      modalRef.componentInstance.nam = this.kehoach.Nam;
+      modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;
+      modalRef.componentInstance.itemThang = itemThang.ThongTinThang_SanPham;
+      modalRef.componentInstance.itemThang.TongSanLuong = itemThang.SanLuongThang || 0;
+      modalRef.result
+        .then((res: any) => {
+          itemThang.ThongTinThang_SanPham = res;
+          itemThang.SanLuongThang = itemThang.ThongTinThang_SanPham.TongSanLuong;
+          this.CountAll();
+          this.CheckForAllMonth(sanpham, itemThang);
+        })
+        .catch((error: any) => {
+  
+        })
+        .finally(() => { })
+    } else {
+      this.toastr.error('Tháng đã thực hiện!');
+    }
   }
 
   CheckForAllMonth(sanpham, itemThang) {

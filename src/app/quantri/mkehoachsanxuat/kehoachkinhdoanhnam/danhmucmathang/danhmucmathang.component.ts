@@ -32,7 +32,7 @@ export class DanhmucmathangComponent implements OnInit {
   }
 
   LoadData() {
-    this._danhMucHopDong.KeHoachSanXuat().GetMatHangKhongHopDongChoKHKD({IdDuAn: this.IdDuAn}).subscribe((res: any) => {
+    this._danhMucHopDong.KeHoachSanXuat().GetMatHangKhongHopDongChoKHKD(this.IdDuAn).subscribe((res: any) => {
       this.listMatHang = res;
       this.CheckExistedItems();
     })
