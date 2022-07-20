@@ -40,6 +40,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   listDonViTienTe: Array<any> = [{ value: 'VND', label: 'Việt Nam Đồng' }, { value: 'USD', label: 'USD' }];
   labelThang: Array<string> = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12',];
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',];
+  checkThang: any = [];
   soMayConAllMonth: any = [];
   sanLuongAllMonth: any = [];
   sanLuongForAllMonth: any;
@@ -73,9 +74,22 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     } else {
       this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix);
     }
+    this.CheckThangForWarning();
     this.GetNhaMay();
     this.CountAll();
     this.GetTongSoMayCon();
+  }
+
+  CheckThangForWarning() {
+    this.checkThang = [];
+    let month =  new Date().getMonth() + 1;
+    let year =  new Date().getFullYear();
+    let currentTime = new Date(`${year},${month} 00:00:00`);
+    for(let i = 0; i < 12; i++) {
+      let checkTime = new Date(`${this.kehoach.Nam}, 0${i+1} 00:00:00`);
+      this.checkThang[i] = checkTime > currentTime;
+    }
+    console.log("checkThang", this.checkThang)
   }
 
   GetTongSoMayCon() {
@@ -269,50 +283,29 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       .finally(() => { })
   }
 
-  CheckCurrentYearAndMonth(item) {
-    let d = new Date();
-    let y = d.getFullYear();
-    let m = d.getMonth() + 1;
-    // if (y === this.kehoach.Nam) {
-    //   if (m > item.Thang) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // } else {
-    //   return true;
-    // }
-    if (y === this.kehoach.Nam) {
-      return false;
-    } else if (m <= item.Thang) {
-      return false
-    } else {
-      return true;
-    }
-  }
-
   SeeMonthDetail(sanpham, itemThang) {
-    if (this.CheckCurrentYearAndMonth(itemThang)) {
+    if (this.checkThang[itemThang.Thang - 1]) {
       let modalRef = this._modal.open(ChitietthangComponent, {
         size: 'xl',
         backdrop: 'static',
       })
       modalRef.componentInstance.opt = this.opt;
       modalRef.componentInstance.NeGoc = this.kehoach.NeGoc;
+      modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
+      modalRef.componentInstance.nam = this.kehoach.Nam;
       modalRef.componentInstance.Ne = sanpham.Ne;
       modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
-      modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
       modalRef.componentInstance.thang = itemThang.Thang;
-      modalRef.componentInstance.nam = this.kehoach.Nam;
       modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;
-      modalRef.componentInstance.itemThang = itemThang.ThongTinThang_SanPham;
+      modalRef.componentInstance.itemThang = {...itemThang.ThongTinThang_SanPham};
       modalRef.componentInstance.itemThang.TongSanLuong = itemThang.SanLuongThang || 0;
       modalRef.result
         .then((res: any) => {
           itemThang.ThongTinThang_SanPham = res;
           itemThang.SanLuongThang = itemThang.ThongTinThang_SanPham.TongSanLuong;
-          this.CountAll();
           this.CheckForAllMonth(sanpham, itemThang);
+          this.CountAll();
+          
         })
         .catch((error: any) => {
   
@@ -325,12 +318,15 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
 
   CheckForAllMonth(sanpham, itemThang) {
     let data = { ...itemThang };
+    // console.log("sanpham",sanpham);
+    // console.log("itemThang",itemThang);
     if (itemThang.ThongTinThang_SanPham.checkForAll) {
       for (let i = itemThang.Thang - 1; i < 12; i++) {
         data.Thang = i + 1;
         sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH[i] = { ...data };
+        sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH[i].ThongTinThang_SanPham
+        = {...data.ThongTinThang_SanPham};
       }
-      // this.CountTongSanLuong();
       this.CountAll();
     }
   }
