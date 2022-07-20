@@ -6,6 +6,7 @@ import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DateToUnix } from "src/app/services/globalfunction";
 import { mapArrayForDropDown } from "src/app/services/globalfunction";
 import { Chart } from "chart.js";
+import zoomPlugin from 'chartjs-plugin-zoom';
 import ChartDatalabels from "chartjs-plugin-datalabels";
 
 @Component({
@@ -197,6 +198,25 @@ export class SogiodungmayComponent implements OnInit {
         formatter: (value, context) => {
           return formatNumber(parseFloat(value), 'en-US', '0.0-3')
         }
+      },
+      zoom: {
+        zoom: {
+          enabled: true,
+          mode: 'x',
+
+          speed: 1,
+          threshold: 0.001,
+          sensitivity: 0,
+        },
+        pan: {
+          enabled: true,
+          mode: 'x',
+
+          speed: 1,
+          threshold: 0.001,
+
+        }
+
       }
     },
     legend: {

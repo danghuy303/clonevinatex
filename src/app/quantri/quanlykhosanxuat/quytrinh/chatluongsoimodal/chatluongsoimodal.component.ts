@@ -23,7 +23,7 @@ export class ChatluongsoimodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   }
-  MO:any = maskOption;
+  MO: any = maskOption;
   listdmKho: any = [];
   editTableItem: any = {};
   newTableItem: any = {};
@@ -31,11 +31,11 @@ export class ChatluongsoimodalComponent implements OnInit {
   listdmPhanXuong: any = [];
   lang: any = vn;
   lstSanPham: any = [];
-  userInfo: any ;
+  userInfo: any;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, 
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
-    public _modal: NgbModal, ) {
+    public _modal: NgbModal,) {
 
   }
 
@@ -44,9 +44,9 @@ export class ChatluongsoimodalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
       this.getDanhSachChiTieuChatLuong();
     }
-    else{
-    this.userInfo = this._auth.currentUserValue;
-    this.KiemTraButtonModal();
+    else {
+      this.userInfo = this._auth.currentUserValue;
+      this.KiemTraButtonModal();
     }
     if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
       this.item.NgayKiemTra = UnixToDate(this.item.NgayKiemTraUnix);
@@ -63,7 +63,7 @@ export class ChatluongsoimodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if(this.item.CreatedBy == this.userInfo.Id)
+      if (this.item.CreatedBy == this.userInfo.Id)
         this.checkbutton.Ghi = true;
     })
   }
@@ -123,7 +123,7 @@ export class ChatluongsoimodalComponent implements OnInit {
     }
   }
   XoaQuyTrinh() {
-    let modalRef = this._modal.open(ModalthongbaoComponent, { 
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
@@ -153,7 +153,7 @@ export class ChatluongsoimodalComponent implements OnInit {
     let data = {
       IddmPhanXuong: this.item.IddmPhanXuong,
       Ngay: DateToUnix(this.item.NgayKiemTra),
-      TuNgay: DateToUnix(this.item.TuNgay) ,
+      TuNgay: DateToUnix(this.item.TuNgay),
       DenNgay: DateToUnix(this.item.DenNgay),
     };
     this.services.GetlistdmMatHangKiemTraChatLuong(data).subscribe((res1: any) => {
@@ -176,7 +176,7 @@ export class ChatluongsoimodalComponent implements OnInit {
               IddmChiTieu: element.Id,
               IddmItem: danhmuc.IddmItem,
               IdLoHang: danhmuc.IdLoHang,
-              ChiTieuLyThuyet:danhmuc.lstChiTieuTieuChuan.find(chitieumathang=>chitieumathang.idChiTieu===element.Id)?.TieuChuan
+              ChiTieuLyThuyet: danhmuc.lstChiTieuTieuChuan.find(chitieumathang => chitieumathang.idChiTieu === element.Id)?.TieuChuan
             }
             for (let i = 0; i < element.lstChatLuongSanPham.length; i++) {
               if (element.lstChatLuongSanPham[i].IddmItem === danhmuc.Id) {
@@ -231,16 +231,16 @@ export class ChatluongsoimodalComponent implements OnInit {
   Onclose() {
     this.activeModal.close();
   }
-  initTabIndex(){
-    console.table(this.item.lstDanhMuc.map(ele=>{
+  initTabIndex() {
+    console.table(this.item.lstDanhMuc.map(ele => {
       return {
-          Ten:ele.Ten,
-          Ma:ele.Ma
+        Ten: ele.Ten,
+        Ma: ele.Ma
       }
     }));
-    for(let i = 0;i<this.item.lstDanhMuc.length;i++){
-      for(let j=0;j<this.item.lstDanhMuc[i].lstChatLuongSanPham.length;j++){
-        this.item.lstDanhMuc[i].lstChatLuongSanPham[j].tabIndex = i+1+(j*(this.item.lstDanhMuc.length));
+    for (let i = 0; i < this.item.lstDanhMuc.length; i++) {
+      for (let j = 0; j < this.item.lstDanhMuc[i].lstChatLuongSanPham.length; j++) {
+        this.item.lstDanhMuc[i].lstChatLuongSanPham[j].tabIndex = i + 1 + (j * (this.item.lstDanhMuc.length));
         // if(this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe===0){
         //   this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe = 0;
         // }
@@ -266,11 +266,11 @@ export class ChatluongsoimodalComponent implements OnInit {
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
         (listInput[realIndexInDom] as HTMLElement)?.focus();
       }
-      if (event.key === 'ArrowDown' || event.key === 'Enter' ) {
+      if (event.key === 'ArrowDown' || event.key === 'Enter') {
         let nextFocusIndex = `${index + 1}`;
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
-        let domObject:HTMLElement = (listInput[realIndexInDom] as HTMLElement);
-        if(domObject.hasAttribute('disabled')){
+        let domObject: HTMLElement = (listInput[realIndexInDom] as HTMLElement);
+        if (domObject.hasAttribute('disabled')) {
           nextFocusIndex = `${index + 2}`;
           realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
           domObject = (listInput[realIndexInDom] as HTMLElement);
@@ -280,8 +280,8 @@ export class ChatluongsoimodalComponent implements OnInit {
       if (event.key === 'ArrowUp') {
         let nextFocusIndex = `${index - 1}`;
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
-        let domObject:HTMLElement = (listInput[realIndexInDom] as HTMLElement);
-        if(domObject.hasAttribute('disabled')){
+        let domObject: HTMLElement = (listInput[realIndexInDom] as HTMLElement);
+        if (domObject.hasAttribute('disabled')) {
           nextFocusIndex = `${index - 2}`;
           realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
           domObject = (listInput[realIndexInDom] as HTMLElement);
@@ -290,18 +290,24 @@ export class ChatluongsoimodalComponent implements OnInit {
       }
     }
   }
-  rebind(e,item,indexChild,Ma){
+  rebind(e, item, indexChild, Ma) {
     console.log('alo')
-    if(e!==undefined){
-      item.ChiTieuThucTe = parseFloat(e)?parseFloat(e):0;
-      console.log(item.ChiTieuThucTe)
+    if (e !== undefined && e !== null) {
+      console.log(e);
+      let str = e;
+      if (str.includes(',')) {
+        str = str.replaceAll(',', '')
+        console.log(str);
+      }
+      item.ChiTieuThucTe = parseFloat(str) ? parseFloat(str) : null;
+      // console.log(item.ChiTieuThucTe)
     }
     let arr = 'Thin50Thick50Neps200';
-    if(arr.includes(Ma)){
-      let Thin = this.item.lstDanhMuc.find(ele=>ele.Ma ==='Thin50')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe||0;
-      let Thick = this.item.lstDanhMuc.find(ele=>ele.Ma ==='Thick50')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe||0;
-      let Neps = this.item.lstDanhMuc.find(ele=>ele.Ma ==='Neps200')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe||0;
-      this.item.lstDanhMuc.find(ele=>ele.Ma ==='IPI').lstChatLuongSanPham[indexChild].ChiTieuThucTe = Thin + Thick + Neps;
+    if (arr.includes(Ma)) {
+      let Thin = this.item.lstDanhMuc.find(ele => ele.Ma === 'Thin50')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe || 0;
+      let Thick = this.item.lstDanhMuc.find(ele => ele.Ma === 'Thick50')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe || 0;
+      let Neps = this.item.lstDanhMuc.find(ele => ele.Ma === 'Neps200')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe || 0;
+      this.item.lstDanhMuc.find(ele => ele.Ma === 'IPI').lstChatLuongSanPham[indexChild].ChiTieuThucTe = Thin + Thick + Neps;
     }
   }
 }

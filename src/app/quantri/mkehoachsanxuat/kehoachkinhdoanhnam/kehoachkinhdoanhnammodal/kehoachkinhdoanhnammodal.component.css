@@ -14,6 +14,12 @@
   padding: 8px 0;
 }
 
+.tc-w-120 {
+  min-width: 120px !important;
+  max-width: 120px !important;
+  padding: 8px;
+}
+
 .tc-w-100 {
   min-width: 100px !important;
   max-width: 100px !important;
@@ -23,7 +29,7 @@
 .tc-w-140 {
   min-width: 140px !important;
   max-width: 140px !important;
-  padding: 8px 0;
+  padding: 8px;
 }
 .VuotQuaNangLuc {
   background-color: red !important;
@@ -35,9 +41,9 @@
   padding: 8px 0;
 }
 
-.tc-w-72 {
-  min-width: 72px !important;
-  max-width: 72px !important;
+.tc-w-80 {
+  min-width: 80px !important;
+  max-width: 80px !important;
   padding: 8px 4px;
 }
 

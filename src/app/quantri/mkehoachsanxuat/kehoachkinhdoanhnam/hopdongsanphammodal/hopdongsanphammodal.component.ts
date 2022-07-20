@@ -74,7 +74,6 @@ export class HopdongsanphammodalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("listHopDong", this.listHopDong);
-    
     this.CountSLConlai();
   }
 

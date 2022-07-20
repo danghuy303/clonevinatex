@@ -21,10 +21,12 @@ export class ChitietthangComponent implements OnInit {
     { value: 'xuatKhau', label: 'Xuất khẩu' }];
   listContainer: any = [];
   listPhuongThucVanChuyen: any = [];
-  thang: any=number;
+  thang: string = "";
+  nam: any = "";
   tenSanPham: string = "";
   NeGoc: any;
   Ne: any;
+  IdDuAn: any;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -35,7 +37,6 @@ export class ChitietthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('itemThang', this.itemThang);
     this.itemThang.checkForAll = false;
     if (this.opt === 'add') {
       this.itemThang.SanLuongMotCa = 0;
@@ -49,12 +50,9 @@ export class ChitietthangComponent implements OnInit {
 
   GetNangSuat() {
     this._danhMucHopDong.KeHoachSanXuat()
-      .GetNangSuatTrungBinh()
+      .GetNangSuatTrungBinh(this.IdDuAn)
       .subscribe((res: any) => {
         this.itemThang.NangSuat = res;
-        // if (!this.itemThang.isEdited) {
-        //   this.itemThang.SoMayCon = (this.itemThang?.SanLuongMotCa || 0) / (this.itemThang?.NangSuat || 0);
-        // }
         if (validVariable(this.itemThang.TongSanLuong) && validVariable(this.NeGoc) && validVariable(this.Ne)) {
           this.itemThang.SanLuongQuyDoi = (this.Ne*this.itemThang.TongSanLuong)/(this.NeGoc);
         }
@@ -63,18 +61,17 @@ export class ChitietthangComponent implements OnInit {
 
   CountSoMayCon() {
     if (validVariable(this.itemThang?.SanLuongMotCa) && validVariable(this.itemThang?.NangSuat)) {
-      this.itemThang.SoMayCon = this.itemThang?.SanLuongMotCa / this.itemThang?.NangSuat;
+      this.itemThang.SoMayCon = Math.round((this.itemThang?.SanLuongMotCa / this.itemThang?.NangSuat)*1000*10)/10;
     }
   }
 
   GetHieuSuat() {
-    let d = new Date();
     this._danhMucHopDong.KeHoachSanXuat()
-      .GetHieuSuatTrungBinh(d.getFullYear())
+      .GetHieuSuatTrungBinh((this.nam - 1), this.IdDuAn)
       .subscribe((res: any) => {
         let sanpham = res.find(ele => ele.IdSanPham === this.idSanPham);
         let objThang = sanpham.ListThang.find(ele => ele.Thang === this.thang);
-        this.itemThang.HieuSuat = objThang.HieuSuat;
+        this.itemThang.HieuSuat = (objThang.HieuSuat * 100) || 0;
     })
   }
 
@@ -92,7 +89,6 @@ export class ChitietthangComponent implements OnInit {
     if (this.itemThang.TongSoCa && this.itemThang.TongSanLuong) {
       this.itemThang.SanLuongMotCa = this.itemThang.TongSanLuong / this.itemThang.TongSoCa;
       this.GetNangSuat();
-
     }
   }
 
@@ -102,14 +98,14 @@ export class ChitietthangComponent implements OnInit {
   }
 
   GetDate() {
-    let year = new Date().getFullYear();
-    this.itemThang.SoNgayLamViec = new Date(year, this.thang, 0).getDate();
+    this.itemThang.SoNgayLamViec = new Date(this.nam, Number(this.thang), 0).getDate();
     this.CountTongSoCa();
   }
 
   CountTongSoCa() {
     if (validVariable(this.itemThang.SoNgayLamViec)) {
       this.itemThang.TongSoCa = (this.itemThang.SoNgayLamViec * 3);
+      this.CountTongSanLuong();
     }
   }
 
