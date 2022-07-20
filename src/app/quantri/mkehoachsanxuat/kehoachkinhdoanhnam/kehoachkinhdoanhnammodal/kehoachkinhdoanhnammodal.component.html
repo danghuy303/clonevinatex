@@ -8,7 +8,7 @@
       <span style="font-weight: bold;">TG Tạo: {{kehoach.Created | date:'dd/MM/yyyy HH:mm'}}</span>
     </div>
     <div>
-      <span style="font-weight: bold;">TG Duyệt: {{kehoach.Created | date:'dd/MM/yyyy HH:mm'}}</span>
+      <span style="font-weight: bold;">TG Duyệt: {{kehoach.Modified | date:'dd/MM/yyyy HH:mm'}}</span>
     </div>
   </div>
 </div>
@@ -46,7 +46,7 @@
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Năm kế hoạch:</label>
       <div class="p-col-12 p-lg-8 p-p-0 my-auto">
         <p-dropdown [(ngModel)]="kehoach.Nam" [filter]="true" [options]="years" placeholder="Chọn năm"
-          [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
+          [showClear]="true" styleClass="p-inputtext-sm" (onChange)="CheckThangForWarning()"></p-dropdown>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row">
@@ -127,21 +127,22 @@
               [attr.colspan]="2" 
               [attr.rowspan]="2" 
               class="p-p-2"
+              style="background-color: #fff"
             >
               <b>Tổng</b>
             </td>
-            <td style="display: none"></td>
-            <td [attr.rowspan]="2" class="text-right p-p-2">
+            <td style="display: none; background-color: #fff"></td>
+            <td [attr.rowspan]="2" class="text-right p-p-2" style="background-color: #fff">
               <b>{{sanLuongConLaiAllMonth | number: '0.0'}}</b>
               
             </td>
-            <td [attr.rowspan]="2" class="text-right p-p-2">
+            <td [attr.rowspan]="2" class="text-right p-p-2" style="background-color: #fff">
               <b>{{sanLuongForAllMonth | number: '0.0'}}</b>
             </td>
             <td 
               *ngFor="let thang of sanLuongAllMonth" 
               class="tc-w-80 text-right"
-              [pTooltip]="'Sản lượng'"
+              [pTooltip]="'Tổng sản lượng tháng'"
             >
             <b>{{thang | number: '0.0'}}</b>
             </td>
@@ -154,7 +155,8 @@
             <td 
               *ngFor="let thang of soMayConAllMonth" 
               class="tc-w-80 text-right"
-              [pTooltip]="'Số máy con'"
+              [style.color]="(thang>tongSoMayCon)?'red':''"
+              [pTooltip]="(thang>tongSoMayCon)?'Số máy con của tháng vượt quá cho phép':'Tổng số máy con tháng'"
             >
               <b>{{thang | number: '0.0'}}/{{tongSoMayCon}}</b>
             </td>
@@ -199,9 +201,12 @@
                 </b>
               </td>
               <td
-                *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH"
-                class="tc-w-80 text-right">
-                <span class="text-link" (click)="SeeMonthDetail(sanpham, thang)">{{thang.SanLuongThang | number:
+                *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH; let i = index"
+                class="tc-w-80 text-right"
+                [pTooltip]="'Sản lượng tháng'"
+                [style.backgroundColor]="checkThang[i]?'':'#d3d7de'"
+              >
+                <span class="text-link" [style.color]="checkThang[i]?'':'black'" (click)="SeeMonthDetail(sanpham, thang)">{{thang.SanLuongThang | number:
                   '0.0'}}</span>
               </td>
             </tr>
@@ -210,9 +215,12 @@
               <td style="display: none"></td>
               <td style="display: none"></td>
               <td
-                *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH"
-                class="tc-w-80 text-right">
-                <span class="text-link" (click)="SeeMonthDetail(sanpham, thang)">{{thang.ThongTinThang_SanPham.SoMayConBoTri | number: '0.0'}}</span>
+                *ngFor="let thang of sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay[0].lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH; let i = index"
+                class="tc-w-80 text-right"
+                [pTooltip]="'Số máy con bố trí'"
+                [style.backgroundColor]="checkThang[i]?'':'#d3d7de'"
+              >
+                <span class="text-link" [style.color]="checkThang[i]?'':'black'" (click)="SeeMonthDetail(sanpham, thang)">{{thang.ThongTinThang_SanPham.SoMayConBoTri | number: '0.0'}}</span>
               </td>
             </tr>
           </ng-container>
