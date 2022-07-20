@@ -148,11 +148,13 @@ export class TonkhobongxoComponent extends StoreBase implements OnInit,OnDestroy
     super.ngOnDestroy();
   }
   showDaiMic(item){
-    this.headerDaiMic = 'Lô bông '+ item.Ten
-    this._service.GetLuuKhoTheKhoBongXo_DaiMic({IdLoBong:item.IdLoBong,IddmKho:this.filter.IddmKho}).subscribe(res=>{
-      console.log(res);
-      this.daiMic = res;
-      this.showModalDaiMic = true;
-    })
+    if (item.Ma) {
+      this.headerDaiMic = 'Lô bông '+ item.Ten
+      this._service.GetLuuKhoTheKhoBongXo_DaiMic({IdLoBong:item.IdLoBong,IddmKho:this.filter.IddmKho}).subscribe(res=>{
+        console.log(res);
+        this.daiMic = res;
+        this.showModalDaiMic = true;
+      })
+    }
   }
 }

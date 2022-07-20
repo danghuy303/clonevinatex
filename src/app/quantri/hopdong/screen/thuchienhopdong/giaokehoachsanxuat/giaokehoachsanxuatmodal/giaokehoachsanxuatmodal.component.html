@@ -192,8 +192,10 @@
                                 </div>
                             </div>
                         </td>
-                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu"
-                                (ngModelChange)="change(i)" pInputText /></td>
+                        <td>
+                            <input pInputText type="text" class="p-inputtext-sm" [ngbTooltip]="item.GhiChu" [pTooltip]="item.GhiChu" [(ngModel)]="item.GhiChu" 
+                                (ngModelChange)="change(i)" pInputText />
+                            </td>
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text"
