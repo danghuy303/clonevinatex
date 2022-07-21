@@ -3,7 +3,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
-import { handleHTTPResponse, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { vn } from 'src/app/services/const';
+import { DateToUnix, handleHTTPResponse, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { PintableDirective } from 'voi-lib';
 
@@ -17,6 +18,8 @@ export class LapDoanhThuModalComponent implements OnInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   opt: any = "";
   filter: any = {};
+  yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  lang: any = vn;
   kehoach: any = {};
   listKeHoachDaDuyet: any = [];
   listDoanhThu: any = [];
@@ -37,12 +40,15 @@ export class LapDoanhThuModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.initData();
-    console.log("kehoach", this.kehoach);
+    // console.log("kehoach", this.kehoach);
   }
 
   initData() {
     if (this.opt === 'add') {
       this.getNext();
+      this.kehoach.NgayLap = new Date();
+    } else {
+      this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix)
     }
     this.kiemTraButton();
     this.getLabelThang();
@@ -126,7 +132,8 @@ export class LapDoanhThuModalComponent implements OnInit {
   setData() {
     let data = {
       ...this.kehoach,
-      Id: ""
+      Id: "",
+      NgayLapUnix: DateToUnix(this.kehoach.NgayLap)
     };
     return data;
   }
@@ -136,6 +143,7 @@ export class LapDoanhThuModalComponent implements OnInit {
       .Set(this.setData()).subscribe((res: any) => {
         handleHTTPResponse(res, this.toastr, () => {
           this.kehoach = res.Data;
+          this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix);
           this.kiemTraButton();
           this.countAllSum();
         })
