@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MenuItem } from "primeng/api";
 import { AuthenticationService } from "../services/auth.service";
 import { ModaldoimatkhauComponent } from "./modal/modaldoimatkhau/modaldoimatkhau.component";
@@ -11,6 +11,7 @@ import { mapArrayForDropDown, validVariable } from "../services/globalfunction";
 import { SignalRService } from "../services/signalR.service";
 import { mapQuyTrinhRoute } from "../services/mapquytrinhroute";
 import { ToastrService } from "ngx-toastr";
+import { ModalQuyTrinhCanXuLyComponent } from "./modal/modal-quy-trinh-can-xu-ly/modal-quy-trinh-can-xu-ly.component";
 @Component({
   selector: "app-quantri",
   templateUrl: "./quantri.component.html",
@@ -49,7 +50,7 @@ export class QuantriComponent implements OnInit {
     private _services: SanXuatService,
     private store: StoreService,
     private _signalRService: SignalRService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
   ) {
     this.userInfo = this._auth.currentUserValue;
     this.getOSName(this._router.url);
@@ -175,6 +176,10 @@ export class QuantriComponent implements OnInit {
       .subscribe((res: any) => {
         this.listCanhBao = [...this.listCanhBao, ...res.ListItem];
       });
+  }
+
+  openQuyTrinhCanXuLy() {
+    const modalRef = this._modal.open(ModalQuyTrinhCanXuLyComponent, { size: 'xl', backdrop: 'static' });
   }
 
   ngOnInit(): void {
@@ -994,36 +999,36 @@ export class QuantriComponent implements OnInit {
         visible: this.showTaiSanModule,
         items: [
           {
-              label: "Quản trị tài sản",
-              routerLink: "/quantri/quantritaisan",
-              visible: this.showTaiSanModule,
-              items: [
-                {
-                  label: "Tổng hợp tài sản",
-                  routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
-                  separator: !this.showTaiSanModule,
-                  command: () => {
-                    this.close();
-                  },
+            label: "Quản trị tài sản",
+            routerLink: "/quantri/quantritaisan",
+            visible: this.showTaiSanModule,
+            items: [
+              {
+                label: "Tổng hợp tài sản",
+                routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
+                separator: !this.showTaiSanModule,
+                command: () => {
+                  this.close();
                 },
-                {
-                  label: "Số giờ dừng máy",
-                  routerLink: "/quantri/quantritaisan/sogiodungmay",
-                  separator: !this.showTaiSanModule,
-                  command: () => {
-                    this.close();
-                  },
+              },
+              {
+                label: "Số giờ dừng máy",
+                routerLink: "/quantri/quantritaisan/sogiodungmay",
+                separator: !this.showTaiSanModule,
+                command: () => {
+                  this.close();
                 },
-                {
-                  label: "Ngân sách dự kiến và thực tế",
-                  routerLink: "/quantri/quantritaisan/ngansachdukienvathucte",
-                  separator: !this.showTaiSanModule,
-                  command: () => {
-                    this.close();
-                  },
+              },
+              {
+                label: "Ngân sách dự kiến và thực tế",
+                routerLink: "/quantri/quantritaisan/ngansachdukienvathucte",
+                separator: !this.showTaiSanModule,
+                command: () => {
+                  this.close();
                 },
-              ]
-            },
+              },
+            ]
+          },
           {
             label: "Quản lý thông tin tài sản",
             items: [
@@ -1963,11 +1968,11 @@ export class QuantriComponent implements OnInit {
             label: "Hệ thống điều không",
             routerLink: "/quantri/danhmucsanxuat/dmhethongdieukhong",
             command: () => this.close(),
-          },{
+          }, {
             label: "Khu vực điều không",
             routerLink: "/quantri/danhmucsanxuat/dmkhuvucdieukhong",
             command: () => this.close(),
-          },{
+          }, {
             label: "Cấp hút điều không",
             routerLink: "/quantri/danhmucsanxuat/dmcaphutdieukhong",
             command: () => this.close(),
@@ -1995,9 +2000,9 @@ export class QuantriComponent implements OnInit {
   }
 
   checkmenu(maaction) {
-    if(window.location.origin.includes("4200")){
+    if (window.location.origin.includes("4200")) {
       return false
-    }else{
+    } else {
       if (this.dataphanquyen == null) {
         return true;
       } else if (this.dataphanquyen[maaction] == undefined) {
