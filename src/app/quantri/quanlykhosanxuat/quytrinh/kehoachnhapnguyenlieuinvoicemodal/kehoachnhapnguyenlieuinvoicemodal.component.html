@@ -232,7 +232,7 @@
                                     [(ngModel)]="items.IddmKho"></p-dropdown>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="items.GhiChu" />
+                            <input pInputText type="text" [ngbTooltip]="items.GhiChu" [(ngModel)]="items.GhiChu" />
                         </td>
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-times"
@@ -296,7 +296,7 @@
                                     [(ngModel)]="newTableItem.IddmKho"></p-dropdown>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="newTableItem.GhiChu" />
+                            <input pInputText type="text" [ngbTooltip]="newTableItem.GhiChu" [(ngModel)]="newTableItem.GhiChu" />
                         </td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-plus"

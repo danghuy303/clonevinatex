@@ -191,7 +191,9 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr [ngStyle]="{'background-color': item.isEdited?'#f5d3ce':''}">
+                    <tr 
+                    [ngStyle]="{'background-color': item.isEdited?'#f5d3ce':''}"
+                    >
                         <td>{{i+1}}</td>
                         <td>{{item.Ten}}</td>
                         <td>{{item.Ma}}</td>
@@ -232,7 +234,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu"
+                        <td><input type="text" class="p-inputtext-sm" [ngbTooltip]="item.GhiChu" [(ngModel)]="item.GhiChu"
                                 (ngModelChange)="change(i)" pInputText /></td>
                         <!-- <td></td>
                         <td></td>
