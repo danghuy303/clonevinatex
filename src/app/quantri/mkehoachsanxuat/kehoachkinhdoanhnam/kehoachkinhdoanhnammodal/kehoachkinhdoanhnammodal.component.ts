@@ -89,7 +89,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       let checkTime = new Date(`${this.kehoach.Nam}, 0${i+1} 00:00:00`);
       this.checkThang[i] = checkTime > currentTime;
     }
-    console.log("checkThang", this.checkThang)
+    // console.log("checkThang", this.checkThang)
   }
 
   GetTongSoMayCon() {
@@ -166,7 +166,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         IdSanPham: sanpham.Id,
         Nam: 0,
         NangLucSanXuatNhaMay: 0,
-        Ne: null,
+        Ne: sanpham.Ne,
         SanLuongThang: 0,
         SanLuongThangQuyNe: null,
         Thang: i,
@@ -284,6 +284,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   SeeMonthDetail(sanpham, itemThang) {
+  
     if (this.checkThang[itemThang.Thang - 1]) {
       let modalRef = this._modal.open(ChitietthangComponent, {
         size: 'xl',
@@ -293,7 +294,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       modalRef.componentInstance.NeGoc = this.kehoach.NeGoc;
       modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
       modalRef.componentInstance.nam = this.kehoach.Nam;
-      modalRef.componentInstance.Ne = sanpham.Ne;
+      modalRef.componentInstance.Ne = itemThang.Ne;
       modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
       modalRef.componentInstance.thang = itemThang.Thang;
       modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;

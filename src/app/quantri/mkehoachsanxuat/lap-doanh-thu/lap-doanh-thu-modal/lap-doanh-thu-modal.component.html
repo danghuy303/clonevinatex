@@ -1,0 +1,129 @@
+<div class="modal-header d-flex p-jc-between">
+  <h4 class="title" style="color:#1f2779">
+    Doanh thu theo kế hoạch
+  </h4>
+  <div class="d-flex flex-column flex-lg-row">
+    <div>
+      <span style="font-weight: bold;">Số quy trình: {{kehoach.SoQuyTrinh}}</span>
+    </div>
+    <div class="ml-lg-3 mr-lg-3">
+      <span style="font-weight: bold;">TG Tạo: {{kehoach.Created | date:'dd/MM/yyyy HH:mm'}}</span>
+    </div>
+    <div>
+      <span style="font-weight: bold;">TG Duyệt: {{kehoach.Modified | date:'dd/MM/yyyy HH:mm'}}</span>
+    </div>
+  </div>
+</div>
+<div class="modal-body d-grid">
+  <div class="d-flex justify-content-between p-mb-3" style="width: 100%">
+    <div>
+      <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+        (click)="activeModal.dismiss()"></button>
+      <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="ghiLai()"
+        *ngIf="checkButton.Ghi"></button>
+      <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkButton.Xoa"
+        (click)="xoa()"></button>
+      <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="khongDuyet()"
+        *ngIf="checkButton.KhongDuyet"></button>
+      <button pButton pRipple type="button" label="Chuyển tiếp" class="p-mr-2 p-button-sm" (click)="chuyenDuyet()"
+        *ngIf="checkButton.ChuyenTiep"></button>
+    </div>
+    <div class="d-flex">
+      <label for="" class="my-auto">Chọn kế hoạch</label>
+      <div class="p-pl-3" style="width: 300px">
+        <p-dropdown 
+          [(ngModel)]="kehoach.IdLapKeHoachKinhDoanhNam" 
+          [options]="listKeHoachDaDuyet" 
+          [filter]="true"
+          [showClear]="true" 
+          [emptyFilterMessage]="'Làm gì có gì mà xem??'"
+          placeholder="Chọn kế hoạch" 
+          (onChange)="getSanPham()"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <!-- <p-table 
+  [value]="listDoanhThu"
+  styleClass="p-datatable-sm p-datatable-striped"
+  >
+    <ng-template pTemplate="colgroup">
+      <col style="width: 3rem">
+      <col>
+      <col style="width: 6rem">
+      <ng-container *ngFor="let thang of listLableThang">
+        <col>
+      </ng-container>
+      <col>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>STT</th>
+        <th>Mặt hàng</th>
+        <th>ĐVT</th>
+        <ng-container *ngFor="let thang of listLableThang">
+          <th>{{thang}}</th>
+        </ng-container>
+        <th>Cộng</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-doanhThu>
+      <tr>
+        <td>{{product.code}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.category}}</td>
+        <td>{{product.quantity}}</td>
+      </tr>
+    </ng-template>
+  </p-table> -->
+  <div class="p-col-12 p-p-0 pintable-container" style="height: 50vh;" voiPintable [pinnedCols]="3">
+    <table>
+      <thead>
+        <tr>
+          <th class="tc-w-40">STT</th>
+          <th class="tc-w-280">Mặt hàng</th>
+          <th class="tc-w-40">ĐVT</th>
+          <ng-container *ngFor="let thang of listLableThang">
+            <th class="tc-w-80">{{thang}}</th>
+          </ng-container>
+          <th class="tc-w-80">Cộng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="kehoach.lstGiaSanPham != null || kehoach.lstGiaSanPham != undefined">
+          <td [attr.colspan]="2" class="p-p-2"><b>Cộng</b></td>
+          <td class="text-center">trđ</td>
+          <ng-container *ngFor="let thang of verticalSum">
+            <td class="text-right tc-w-80">
+              <b>{{thang | number: '0.0'}}</b>
+            </td>
+          </ng-container>
+        </tr>
+        <ng-container *ngFor="let sanpham of kehoach.lstGiaSanPham; let i = index">  
+          <tr>
+            <td class="tc-w-40 text-center">{{i + 1}}</td>
+            <td class="tc-w-280">{{sanpham.TenSanPham}}</td>
+            <td class="tc-w-40 text-center">trd</td>
+            <ng-container *ngFor="let thang of sanpham.lstChiTietGia">
+              <td class="tc-w-80">
+                <p-inputNumber
+                  [(ngModel)]="thang.DonGia"
+                  [min]="0"
+                  [maxFractionDigits]="3"
+                  [minFractionDigits]="0"
+                  mode="decimal"
+                  locale="en-US"
+                  (onBlur)="countAllSum()"
+                ></p-inputNumber>
+              </td>
+            </ng-container>
+            <td class="tc-w-80 text-right">
+              <b>{{sanpham.TongDonGia | number: '0.0'}}</b>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

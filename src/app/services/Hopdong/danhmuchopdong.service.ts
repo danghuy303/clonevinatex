@@ -418,6 +418,36 @@ export class DanhMucHopDongService {
         }
     }
 
+    KeHoachDoanhThu() {
+        let url = API.KeHoach;
+        return {
+            GetNextSo: () => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetNextSoQuyTrinhKeHoachDoanhThu`);
+            },
+            GetAll: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/GetAllDoanhThu`, data);
+            },
+            GetById: (Id) => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetDoanhThuById?Id=${Id}`);
+            },
+            GetSanPhamByIdKeHoach: (IdKeHoachSanLuong) => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetSanPhamTheoKeHoachSanLuong?IdKeHoachSanLuong=${IdKeHoachSanLuong}`);
+            },
+            Set: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/SetQuyTrinhKeHoachDoanhThu`, data);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/ChuyenTiepQuyTrinhKeHoachDoanhThu`, data);
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/KhongDuyetQuyTrinhKeHoachDoanhThu`, data);
+            },
+            Delete: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/DeleteKeHoachDoanhThu`, data);
+            }
+        }
+    }
+
     KeHoachKinhDoanh_DonGia() {
         let url = API.KeHoach
         return {
