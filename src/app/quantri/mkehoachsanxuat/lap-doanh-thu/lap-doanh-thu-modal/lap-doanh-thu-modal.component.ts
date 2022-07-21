@@ -63,14 +63,14 @@ export class LapDoanhThuModalComponent implements OnInit {
   }
 
   countVerticalSum() {
-    for(let i = 0; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
       this.verticalSum[i] = 0;
       this.kehoach.lstGiaSanPham.forEach((sanpham) => {
         this.verticalSum[i] += sanpham.lstChiTietGia[i].DonGia;
       })
     }
-    this.verticalSum[12]=this.verticalSum.reduce((total, ele) => {
-      return total + ele;
+    this.verticalSum[12] = this.verticalSum.reduce((total, ele, index) => {
+      return (index < 12 ? (total + ele) : total);
     }, 0)
     console.log("this.kehoach.lstGiaSanPham", this.kehoach.lstGiaSanPham);
     console.log("this.verticalSum,", this.verticalSum);
@@ -126,9 +126,9 @@ export class LapDoanhThuModalComponent implements OnInit {
     this._danhMucHopDong.KeHoachDoanhThu()
       .Set(this.setData()).subscribe((res: any) => {
         handleHTTPResponse(res, this.toastr, () => {
-          
+
         })
-    })
+      })
   }
 
   khongDuyet() {
