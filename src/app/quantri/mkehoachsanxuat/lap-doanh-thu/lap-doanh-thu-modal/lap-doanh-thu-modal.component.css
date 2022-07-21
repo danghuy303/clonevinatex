@@ -1,6 +1,6 @@
 .tc-w-80 {
-  min-width: 90px !important;
-  max-width: 90px !important;
+  min-width: 100px !important;
+  max-width: 100px !important;
   padding: 8px;
 }
 
@@ -20,6 +20,11 @@
   padding-right: 0 !important;
 }
 
+th {
+  border: none!important;
+}
+
 td {
   background-color: #fff;
+  border: none!important;
 }

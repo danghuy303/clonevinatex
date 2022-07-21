@@ -41,7 +41,7 @@
         <tr>
           <td *ngFor="let giatri of item.listGiaTriCot" [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':'text-center bg-white']">
             <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
-            <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-3'}}</span>
+            <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-2'}}</span>
             <span *ngIf="giatri.LoaiGiaTri==='INT'">{{giatri.GiaTri_Int|number:'0.0-0'}}</span>
           </td>
         </tr>
