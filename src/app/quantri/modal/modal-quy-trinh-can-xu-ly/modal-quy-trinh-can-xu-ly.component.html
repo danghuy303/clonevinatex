@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h3 class="modal-title">Quy trình cần xử lý</h3>
+    <button type="button" class="btn btn-light" (click)="activeModal.dismiss('Cross click')">X</button>
+</div>
+<div class="modal-body">
+    <div *ngFor="let quytrinh of listQuyTrinh" (click)="quytrinh.open=!quytrinh.open">
+        <div>
+            <h4 class="quytrinh p-2">{{quytrinh.Ten}}</h4>
+            <div *ngIf="quytrinh.open">
+                <div>
+                    <!--  -->
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nội dung</th>
+                                <th scope="col">Ngày</th>
+                                <th scope="col">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let chitiet of quytrinh.listChiTiet, let i=index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{chitiet.NoiDung}}</td>
+                                <td class="text-center">{{chitiet.Ngay | date: 'dd/MM/yy, HH:mm:ss '}}</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
