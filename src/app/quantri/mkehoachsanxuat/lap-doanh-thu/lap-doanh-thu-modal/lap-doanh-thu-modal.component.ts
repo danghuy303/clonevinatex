@@ -58,15 +58,24 @@ export class LapDoanhThuModalComponent implements OnInit {
   }
 
   countAllSum() {
+    this.countDoanhThu();
     this.countVerticalSum();
     this.countHorizontalSum();
+  }
+
+  countDoanhThu() {
+    this.kehoach.lstGiaSanPham.forEach(sanpham => {
+      sanpham.lstChiTietGia.forEach(thang => {
+        thang.DoanhThu = (thang.DonGia || 0) * (thang.SanLuong || 0);
+      })
+    })
   }
 
   countVerticalSum() {
     for (let i = 0; i < 12; i++) {
       this.verticalSum[i] = 0;
       this.kehoach.lstGiaSanPham.forEach((sanpham) => {
-        this.verticalSum[i] += sanpham.lstChiTietGia[i].DonGia;
+        this.verticalSum[i] += sanpham.lstChiTietGia[i].DoanhThu;
       })
     }
     this.verticalSum[12] = this.verticalSum.reduce((total, ele, index) => {
@@ -78,8 +87,8 @@ export class LapDoanhThuModalComponent implements OnInit {
 
   countHorizontalSum() {
     this.kehoach.lstGiaSanPham.forEach((sanpham) => {
-      sanpham.TongDonGia = sanpham.lstChiTietGia.reduce((total, thang) => {
-        return total + thang.DonGia;
+      sanpham.TongDoanhThu = sanpham.lstChiTietGia.reduce((total, thang) => {
+        return total + thang.DoanhThu;
       }, 0)
     })
   }
@@ -126,7 +135,9 @@ export class LapDoanhThuModalComponent implements OnInit {
     this._danhMucHopDong.KeHoachDoanhThu()
       .Set(this.setData()).subscribe((res: any) => {
         handleHTTPResponse(res, this.toastr, () => {
-
+          this.kehoach = res.Data;
+          this.kiemTraButton();
+          this.countAllSum();
         })
       })
   }
