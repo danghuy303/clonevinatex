@@ -31,16 +31,16 @@
   </div>
 
   <div class="p-grid flex-row p-mb-2">
-    <div class="p-col-12 p-lg-6 d-flex">
-      <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tên kế hoạch:</label>
-      <div class="p-col-12 p-lg-10 p-p-0 my-auto">
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex">
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên kế hoạch:</label>
+      <div class="p-col-12 p-lg-8 p-p-0 my-auto">
         <input type="text" class="p-inputtext-sm" [(ngModel)]="kehoach.TenKeHoach" placeholder="Nhập nội dung"
           pInputText />
       </div>
     </div>
-    <div class="p-col-12 p-lg-6 d-flex">
-      <label class="p-col-12 p-lg-2 p-p-0 my-auto">Kế hoạch sản lượng:</label>
-      <div class="p-col-12 p-lg-10 p-p-0 my-auto">
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex">
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch sản lượng:</label>
+      <div class="p-col-12 p-lg-8 p-p-0 my-auto">
         <p-dropdown 
           class="p-inputtext-sm"
           [(ngModel)]="kehoach.IdLapKeHoachKinhDoanhNam" 
@@ -50,6 +50,22 @@
           placeholder="Chọn kế hoạch" 
           (onChange)="getSanPham()"
         ></p-dropdown>
+      </div>
+    </div>
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row">
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Người lập:</label>
+      <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+        <input type="text" class="p-inputtext-sm" [(ngModel)]="kehoach.TenNguoiLap" placeholder="Nhập nội dung"
+          pInputText readonly />
+      </div>
+    </div>
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row">
+      <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày lập:</label>
+      <div class="p-col-12 p-lg-9 p-p-0 my-auto">
+        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [locale]="lang"
+          [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon" [(ngModel)]="kehoach.NgayLap"
+          placeholder="dd/mm/yyyy">
+        </p-calendar>
       </div>
     </div>
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
@@ -158,7 +174,7 @@
             <tr *ngIf="kehoach.lstGiaSanPham != null || kehoach.lstGiaSanPham != undefined">
               <td [attr.colspan]="2" class="p-p-2"><b>Cộng</b></td>
               <td style="display: none"></td>
-              <td class="text-center">trđ</td>
+              <td class="text-center">VNĐ</td>
               <ng-container *ngFor="let thang of verticalSum">
                 <td class="text-right tc-w-80">
                   <b>{{thang | number: '0.0'}}</b>
