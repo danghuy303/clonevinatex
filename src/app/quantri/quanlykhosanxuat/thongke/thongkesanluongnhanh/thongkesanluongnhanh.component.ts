@@ -127,7 +127,7 @@ export class ThongkesanluongnhanhComponent implements OnInit {
       })
   }
   update(Id) {
-    this._service.ThongKeSanLuongNhanh().GetById(Id).subscribe((res1: any) => {
+    this._service.ThongKeSanLuongNhanh().Get({Id:Id}).subscribe((res1: any) => {
 
       let modalRef = this._modal.open(ThongkesanluongnhanhmodalComponent,{
         size: 'fullscreen',

@@ -13,7 +13,7 @@
             <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn ca làm việc" styleClass="p-inputtext-sm"
                 [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
         </div> -->
-        <div class="p-mr-2">
+        <!-- <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListQuyTrinh(true)">
             </p-calendar>
@@ -27,7 +27,7 @@
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.KeyWord"/>
             <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh(true)" pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- <p-tabView (onChange)="changeTab($event)" styleClass="no-content">

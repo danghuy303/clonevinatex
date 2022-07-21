@@ -1255,8 +1255,8 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'GetDanhSachThongKeSanLuongNhanh', data, httpOptions);
             },
-            GetById: (Id) => {
-                return this.http.get(url + `GetThongKeSanLuong?Id=${Id}`, httpOptions);
+            Get: (data) => {
+                return this.http.post(url + `GetThongKeSanLuongNhanh`,data, httpOptions);
             },
             Set: (data) => {
                 data.IdDuAn = this.store.getCurrent();
