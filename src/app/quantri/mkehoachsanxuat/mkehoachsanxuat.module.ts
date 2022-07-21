@@ -95,6 +95,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { LapDoanhThuComponent } from './lap-doanh-thu/lap-doanh-thu.component';
 import { LapChiPhiComponent } from './lap-chi-phi/lap-chi-phi.component';
 import { LapDoanhThuModalComponent } from './lap-doanh-thu/lap-doanh-thu-modal/lap-doanh-thu-modal.component';
+import { LapChiPhiModalComponent } from './lap-chi-phi/lap-chi-phi-modal/lap-chi-phi-modal.component';
 @NgModule({
   declarations: [
     MkehoachsanxuatComponent,
@@ -175,6 +176,7 @@ import { LapDoanhThuModalComponent } from './lap-doanh-thu/lap-doanh-thu-modal/l
     LapDoanhThuComponent,
     LapChiPhiComponent,
     LapDoanhThuModalComponent,
+    LapChiPhiModalComponent,
   ],
   imports: [
     CommonModule,
