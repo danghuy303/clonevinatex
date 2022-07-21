@@ -1244,6 +1244,35 @@ export class SanXuatService {
             }
         }
     }
+
+    ThongKeSanLuongNhanh() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhThongKeSanLuongNhanh', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetDanhSachThongKeSanLuongNhanh', data, httpOptions);
+            },
+            GetById: (Id) => {
+                return this.http.get(url + `GetThongKeSanLuong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetThongKeSanLuongNhanh', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteThongKeSanLuongNhanh', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepThongKeSanLuongNhanh', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetThongKeSanLuongNhanh', data, httpOptions)
+            },
+        }
+    }
     //Pha bông
     PhuongAnPhaBong() {
         let url = API.SCMQuanLyKho;
