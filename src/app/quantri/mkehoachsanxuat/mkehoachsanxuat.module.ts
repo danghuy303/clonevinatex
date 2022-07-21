@@ -92,6 +92,9 @@ import { KehoachdaduyetComponent } from './kehoachdaduyet/kehoachdaduyet.compone
 import { KeHoachDaDuyetModalComponent } from './kehoachdaduyet/ke-hoach-da-duyet-modal/ke-hoach-da-duyet-modal.component';
 import { BaoCaoNhuCauComponent } from './bao-cao-nhu-cau/bao-cao-nhu-cau.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { LapDoanhThuComponent } from './lap-doanh-thu/lap-doanh-thu.component';
+import { LapChiPhiComponent } from './lap-chi-phi/lap-chi-phi.component';
+import { LapDoanhThuModalComponent } from './lap-doanh-thu/lap-doanh-thu-modal/lap-doanh-thu-modal.component';
 @NgModule({
   declarations: [
     MkehoachsanxuatComponent,
@@ -169,6 +172,9 @@ import { TooltipModule } from 'primeng/tooltip';
     KehoachdaduyetComponent,
     KeHoachDaDuyetModalComponent,
     BaoCaoNhuCauComponent,
+    LapDoanhThuComponent,
+    LapChiPhiComponent,
+    LapDoanhThuModalComponent,
   ],
   imports: [
     CommonModule,
@@ -187,7 +193,8 @@ import { TooltipModule } from 'primeng/tooltip';
     SharedModule,
     NgbModule,
     InputTextareaModule,
-    TooltipModule
+    TooltipModule,
+    SharedModule
   ],
   exports: [
     KehoachkinhdoanhnamComponent

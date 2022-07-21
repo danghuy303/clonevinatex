@@ -160,7 +160,7 @@
                                     placeholder="Chọn khách hàng" [(ngModel)]="item.IddmKhachHang"></p-dropdown>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                            <input pInputText type="text" [ngbTooltip]="item.GhiChu" [(ngModel)]="item.GhiChu">
                         </td>
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-times"

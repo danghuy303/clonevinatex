@@ -493,6 +493,13 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
+            label: "Thống kê sản lượng nhanh",
+            routerLink:
+              "/quantri/theodoithongkebaocaosanxuat/thongkesanluongnhanh/0",
+            separator: this.checkmenu("THONGKESANLUONG"),
+            command: () => this.close(),
+          },
+          {
             label: "Thống kê điện",
             routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkedien/0",
             separator: this.checkmenu("THONGKEDIEN"),
@@ -1556,6 +1563,16 @@ export class QuantriComponent implements OnInit {
           {
             label: "Lập kế hoạch sản lượng",
             routerLink: "/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Lập kế hoạch doanh thu",
+            routerLink: "/quantri/mkehoachsanxuat/kehoachdoanhthu/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Lập kế hoạch chi phí",
+            routerLink: "/quantri/mkehoachsanxuat/kehoachchiphi/0",
             command: () => this.close(),
           },
           {

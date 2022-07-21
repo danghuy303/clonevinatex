@@ -37,6 +37,10 @@ export class ChitietthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log("ne", this.Ne);
+    console.log("ne foc", this.NeGoc);
+    console.log("TongSanLuong", this.itemThang.TongSanLuong);
+    
     this.itemThang.checkForAll = false;
     if (this.opt === 'add') {
       this.itemThang.SanLuongMotCa = 0;

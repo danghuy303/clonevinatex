@@ -113,6 +113,7 @@ import { DmHeThongDieuKhongComponent } from "./danhmuc/dm-he-thong-dieu-khong/dm
 import { DmKhuVucDieuKhongComponent } from "./danhmuc/dm-khu-vuc-dieu-khong/dm-khu-vuc-dieu-khong.component";
 import { DmCapHutDieuKhongComponent } from "./danhmuc/dm-cap-hut-dieu-khong/dm-cap-hut-dieu-khong.component";
 import { ThongkedieukhongComponent } from "./quanlykhosanxuat/thongke/thongkedieukhong/thongkedieukhong.component";
+import { ThongkesanluongnhanhComponent } from "./quanlykhosanxuat/thongke/thongkesanluongnhanh/thongkesanluongnhanh.component";
 
 const routes: Routes = [
   {
@@ -267,6 +268,10 @@ const routes: Routes = [
       { path: "trienkhaisanxuat/phabong/:id", component: PhabongComponent },
       { path: "trienkhaisanxuat/timbong/:id", component: TimbongComponent },
       { path: "kehoachsanxuat/sanxuat/:id", component: SanxuatComponent },
+      {
+        path: "theodoithongkebaocaosanxuat/thongkesanluongnhanh/:id",
+        component: ThongkesanluongnhanhComponent,
+      },
 
       //XepBanBong
       {

@@ -51,7 +51,7 @@
                 </colgroup>
             </ng-template>
             <ng-template pTemplate="header">
-                <tr>
+                <tr >
                     <th rowspan="2" class="text-center">STT</th>
                     <th rowspan="2">Mã</th>
                     <th rowspan="2">Tên</th>
@@ -64,7 +64,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item let-i="rowIndex">
-                <tr>
+                <tr [style.fontWeight]="item.Ma === null ? 'bold':'none'">
                     <td class="text-center">
                         {{ 50 * (paging.CurrentPage - 1) + i + 1 }}
                     </td>
