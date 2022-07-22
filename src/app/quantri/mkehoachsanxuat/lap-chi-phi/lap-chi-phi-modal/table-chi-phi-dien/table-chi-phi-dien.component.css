@@ -20,6 +20,10 @@
   padding-right: 0 !important;
 }
 
+:host::ng-deep.p-panel-content {
+  padding: 0 !important;
+}
+
 th {
   border: none!important;
 }
@@ -28,3 +32,4 @@ td {
   background-color: #fff;
   border: none!important;
 }
+

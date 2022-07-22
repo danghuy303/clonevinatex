@@ -96,6 +96,11 @@ import { LapDoanhThuComponent } from './lap-doanh-thu/lap-doanh-thu.component';
 import { LapChiPhiComponent } from './lap-chi-phi/lap-chi-phi.component';
 import { LapDoanhThuModalComponent } from './lap-doanh-thu/lap-doanh-thu-modal/lap-doanh-thu-modal.component';
 import { LapChiPhiModalComponent } from './lap-chi-phi/lap-chi-phi-modal/lap-chi-phi-modal.component';
+import { TableChiPhiBongComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-bong/table-chi-phi-bong.component';
+import { TableChiPhiXoComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-xo/table-chi-phi-xo.component';
+import { TableChiPhiDienComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-dien/table-chi-phi-dien.component';
+import { TableChiPhiVatTuPhuComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-vat-tu-phu/table-chi-phi-vat-tu-phu.component';
+import { TableChiPhiNhanCongComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-nhan-cong/table-chi-phi-nhan-cong.component';
 @NgModule({
   declarations: [
     MkehoachsanxuatComponent,
@@ -177,6 +182,11 @@ import { LapChiPhiModalComponent } from './lap-chi-phi/lap-chi-phi-modal/lap-chi
     LapChiPhiComponent,
     LapDoanhThuModalComponent,
     LapChiPhiModalComponent,
+    TableChiPhiBongComponent,
+    TableChiPhiXoComponent,
+    TableChiPhiDienComponent,
+    TableChiPhiVatTuPhuComponent,
+    TableChiPhiNhanCongComponent,
   ],
   imports: [
     CommonModule,
