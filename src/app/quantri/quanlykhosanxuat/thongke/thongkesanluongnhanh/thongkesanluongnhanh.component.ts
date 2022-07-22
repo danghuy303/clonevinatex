@@ -85,7 +85,6 @@ export class ThongkesanluongnhanhComponent implements OnInit {
       if (res.id !== '0') {
         this.update(res.id);
       }
-
     })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
@@ -129,7 +128,6 @@ export class ThongkesanluongnhanhComponent implements OnInit {
   }
   update(Id) {
     this._service.ThongKeSanLuongNhanh().Get({Id:Id}).subscribe((res1: any) => {
-
       let modalRef = this._modal.open(ThongkesanluongnhanhmodalComponent,{
         size: 'fullscreen',
         backdrop: 'static'

@@ -10,7 +10,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { LohangComponent } from '../lohang/lohang.component';
-import {fake} from './data';
+import { fake } from './data';
 @Component({
   selector: 'app-thongkesanluongnhanhmodal',
   templateUrl: './thongkesanluongnhanhmodal.component.html',
@@ -48,7 +48,18 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.item = fake
+    fake.listCongDoan.forEach(congdoan => {
+      let socot = congdoan?.listHeader[0]?.listColumn.length
+      congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
+        dulieukhac.SoCot = socot;
+      });
+      congdoan.listBongPhe.forEach(bongphe => {
+        bongphe.listCaSanXuat.forEach((ca: any) => {
+          ca.SoCot = socot;
+        })
+      })
+    });
+    this.item = fake;
     this.getListCongDoan();
     this.item.CongDoan = 'ONG'
     if (this.opt !== 'edit') {
@@ -88,14 +99,25 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
     })
   }
   GetThongKeSanLuongNhanh() {
-    let validVar = ['IddmPhanXuong', 'Ngay'];
-    if (validVariable(this.item.IddmPhanXuong)&& validVariable(this.item.Ngay)) {
+    if (validVariable(this.item.IddmPhanXuong) && validVariable(this.item.Ngay)) {
       let data =
       {
-        IddmPhanXuong:this.item.IddmPhanXuong,
-        Ngay:DateToUnix(this.item.Ngay)
+        IddmPhanXuong: this.item.IddmPhanXuong,
+        Ngay: DateToUnix(this.item.Ngay)
       }
       this.services.ThongKeSanLuongNhanh().Get(data).subscribe((res: any) => {
+        res.Ngay = UnixToDate(res.NgayUnix)
+        res.listCongDoan.forEach(congdoan => {
+          let socot = congdoan?.listHeader[0]?.listColumn.length
+          congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
+            dulieukhac.SoCot = socot;
+          });
+          congdoan.listBongPhe.forEach(bongphe => {
+            bongphe.listCaSanXuat.forEach((ca: any) => {
+              ca.SoCot = socot;
+            })
+          })
+        });
         this.item = res;
       })
     }
