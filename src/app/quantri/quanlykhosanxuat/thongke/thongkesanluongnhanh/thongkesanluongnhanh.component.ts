@@ -85,10 +85,10 @@ export class ThongkesanluongnhanhComponent implements OnInit {
       if (res.id !== '0') {
         this.update(res.id);
       }
-
     })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
+    this.add();
     // this.getListCaSanXuat();
     // this.getListPhanXuong();
   }
@@ -111,7 +111,7 @@ export class ThongkesanluongnhanhComponent implements OnInit {
   add() {
     this.changeParam(0);
     let modalRef = this._modal.open(ThongkesanluongnhanhmodalComponent,{
-      size: 'fullscreen',
+      size: 'fullscreen-100',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
@@ -127,8 +127,7 @@ export class ThongkesanluongnhanhComponent implements OnInit {
       })
   }
   update(Id) {
-    this._service.ThongKeSanLuongNhanh().GetById(Id).subscribe((res1: any) => {
-
+    this._service.ThongKeSanLuongNhanh().Get({Id:Id}).subscribe((res1: any) => {
       let modalRef = this._modal.open(ThongkesanluongnhanhmodalComponent,{
         size: 'fullscreen',
         backdrop: 'static'
