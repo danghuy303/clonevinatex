@@ -10,7 +10,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { LohangComponent } from '../lohang/lohang.component';
-
+import {fake} from './data';
 @Component({
   selector: 'app-thongkesanluongnhanhmodal',
   templateUrl: './thongkesanluongnhanhmodal.component.html',
@@ -48,7 +48,9 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.item = fake
     this.getListCongDoan();
+    this.item.CongDoan = 'ONG'
     if (this.opt !== 'edit') {
       // this.GetNextSoQuyTrinh();
     }

@@ -89,6 +89,7 @@ export class ThongkesanluongnhanhComponent implements OnInit {
     })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
+    this.add();
     // this.getListCaSanXuat();
     // this.getListPhanXuong();
   }
@@ -111,7 +112,7 @@ export class ThongkesanluongnhanhComponent implements OnInit {
   add() {
     this.changeParam(0);
     let modalRef = this._modal.open(ThongkesanluongnhanhmodalComponent,{
-      size: 'fullscreen',
+      size: 'fullscreen-100',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
