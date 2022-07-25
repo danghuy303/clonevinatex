@@ -9,6 +9,7 @@ import { UppercaseFirstletterPipe } from './../services/uppercase-firstletter.pi
 import { SumByKeyPipe } from './../services/sum.pipe';
 import { SortByKeyPipe } from './../services/sortPipe.pipe';
 import { CongDoanPipe } from './../services/congdoan.pipe';
+import { GetItemByCongDoanPipe } from './../services/getItemByCongDoan.pipe';
 import { TruncatePipe } from './../services/truncate.pipe';
 import { CaPipe } from './../services/ca.pipe';
 import { isDieuChinhPipe } from './../services/isDieuChinh.pipe';
@@ -63,6 +64,7 @@ import { NhapLieuKeHoachModalComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke
     CongDoanPipe,
     SortByKeyPipe,
     UppercaseFirstletterPipe,
+    GetItemByCongDoanPipe,
     BanGiaoTaiSanQuyTrinhComponent,
     TaiLieuDanhSachComponent,
     TraoDoiComponent,
@@ -116,6 +118,7 @@ import { NhapLieuKeHoachModalComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke
     CongDoanPipe,
     SortByKeyPipe,
     UppercaseFirstletterPipe,
+    GetItemByCongDoanPipe,
     BanGiaoTaiSanQuyTrinhComponent,
     TaiLieuDanhSachComponent,
     TraoDoiComponent,

@@ -72,9 +72,32 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số kiện:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số kiện của phiếu:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [ngModel]="listItem.length" disabled="true" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng kiện trên đợt:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [ngModel]="item.TongSoKien_PhieuNhapBong" disabled="true"
+                    pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kiện có chất lượng:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [ngModel]="item.TongSoKien_DaImportPhieuKhac+listItem.length"
+                    disabled="true" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kiện chưa có chất lượng:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm text-danger"
+                    [ngModel]="item.TongSoKien_PhieuNhapBong - (item.TongSoKien_DaImportPhieuKhac+listItem.length)"
+                    [ngClass]="{'text-danger': (item.TongSoKien_PhieuNhapBong - (item.TongSoKien_DaImportPhieuKhac+listItem.length))!==0}"
+                    disabled="true" pInputText />
             </div>
         </div>
         <div class="p-col-12  p-p-3 d-flex flex-column flex-lg-row">

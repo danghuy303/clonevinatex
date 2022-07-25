@@ -81,4 +81,9 @@ export class ThemNhaCungUngModalComponent implements OnInit {
     })
   }
 
+  ChangePage(event) {
+    this.paging.currentPage = event.page + 1;
+    this.LoadData(false);
+  }
+
 }

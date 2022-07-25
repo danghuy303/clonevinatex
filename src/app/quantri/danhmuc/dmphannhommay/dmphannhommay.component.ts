@@ -84,6 +84,7 @@ export class DmphannhommayComponent implements OnInit {
     let listDonViNangSuat = [
       { Id: 0, Ten: "M" },
       { Id: 1, Ten: "Kg" },
+      { Id: 2, Ten: "Gam/Cọc" },
     ];
     this.listDonViNangSuat = mapArrayForDropDown(listDonViNangSuat, 'Ten', 'Id');
   }

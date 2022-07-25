@@ -36,8 +36,8 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width: 3rem">
-                <col>
-                <col>
+                <col style="width: 11rem">
+                <col style="width: 20rem">
                 <col>
                 <col>
                 <col>
@@ -71,7 +71,7 @@
                 <td class="text-center">
                     {{item.SoQuyTrinh}}
                 </td>
-                <td>{{item.TenKeHoach}}</td>
+                <td class="ellipsis" [pTooltip]="item.TenKeHoach">{{item.TenKeHoach}}</td>
                 <td>
                     {{item.TenNguoiLap}}
                 </td>

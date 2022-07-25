@@ -1255,8 +1255,8 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'GetDanhSachThongKeSanLuongNhanh', data, httpOptions);
             },
-            GetById: (Id) => {
-                return this.http.get(url + `GetThongKeSanLuong?Id=${Id}`, httpOptions);
+            Get: (data) => {
+                return this.http.post(url + `GetThongKeSanLuongNhanh`,data, httpOptions);
             },
             Set: (data) => {
                 data.IdDuAn = this.store.getCurrent();
@@ -1450,7 +1450,7 @@ export class SanXuatService {
             GetListMatHang: (data) => {
                 return this.http.post(url + 'GetlistdmMatHangHoiAm', data, httpOptions)
             },
-            GetThongKeSanLuongCongDoanOng:(data)=>{
+            GetThongKeSanLuongCongDoanOng: (data) => {
                 return this.http.post(url + 'GetThongKeSanLuongCongDoanOng', data, httpOptions)
             }
         }
@@ -2951,4 +2951,9 @@ export class SanXuatService {
             }
         }
     }
+
+    GetListQuyTrinhCanXuLy() {
+        return this.http.get(API.auth + `DanhMuc/GetListQuyTrinhCanXuLy?IdDuAn=${this.store.getCurrent()}`)
+    }
+
 }

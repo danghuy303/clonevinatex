@@ -19,7 +19,7 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   trangThai: any = 1;
   checkQuyen: any = {};
-  eAction = "PHUONGANPHABONG";
+  eAction = "QUYTRINHKEHOACHSANLUONGNAM";
 
   constructor(
     public _modal: NgbModal,

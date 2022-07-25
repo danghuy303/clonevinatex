@@ -27,6 +27,8 @@ import { KeHoachSanXuatNamComponent } from './ke-hoach-san-xuat-nam/ke-hoach-san
 import { KehoachdaduyetComponent } from './kehoachdaduyet/kehoachdaduyet.component';
 import { KehoachkinhdoanhnamComponent } from './kehoachkinhdoanhnam/kehoachkinhdoanhnam.component';
 import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
+import { LapChiPhiComponent } from './lap-chi-phi/lap-chi-phi.component';
+import { LapDoanhThuComponent } from './lap-doanh-thu/lap-doanh-thu.component';
 import { MkehoachsanxuatComponent } from './mkehoachsanxuat.component';
 import { BangGiaVtpComponent } from './nhap-lieu/bang-gia-vtp/bang-gia-vtp.component';
 import { ChiPhiBangTienHangThangComponent } from './nhap-lieu/chi-phi-bang-tien-hang-thang/chi-phi-bang-tien-hang-thang.component';
@@ -70,6 +72,8 @@ const routes: Routes = [
   { path: 'baocaonhucausudungbong', component: BaoCaoNhuCauSuDungBongComponent },
   { path: 'baocaonhucau', component: BaoCaoNhuCauComponent },
   { path: 'kehoachdaduyet/:id', component: KehoachdaduyetComponent },
+  { path: 'kehoachdoanhthu/:id', component: LapDoanhThuComponent },
+  { path: 'kehoachchiphi/:id', component: LapChiPhiComponent },
 ];
 
 @NgModule({

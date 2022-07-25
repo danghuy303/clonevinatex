@@ -178,13 +178,17 @@
                                     *ngIf="item.CongDoan==='ONG'&& itemtbl.IdLoHangDao!==null "> - Đảo</span></td>
                             <td *ngIf="itemtbl.CongDoan==='ONG'">
                                 <div class="p-inputgroup">
-                                    <div style="flex:1">
+                                    <div style="flex:1; width: calc(100% - 21px);">
                                         <p-dropdown [filter]="true" [options]="listLoHang" [autofocusFilter]="true"
                                             placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
-                                            [(ngModel)]="itemtbl.IdLoHang"></p-dropdown>
+                                            [(ngModel)]="itemtbl.IdLoHang">
+                                            <ng-template let-target pTemplate="selectedItem">
+                                                <span [pTooltip]="target.label" style="vertical-align:middle">{{target.label}}</span>
+                                            </ng-template>
+                                        </p-dropdown>
                                     </div>
                                     <button pButton pRipple icon="pi pi-copy"
-                                        class="p-button-sm p-button-rounded p-button-text p-mr-2"
+                                        class="p-button-sm p-button-rounded p-button-text"
                                         (click)="ApDung(itemtbl)"></button>
                                 </div>
 
