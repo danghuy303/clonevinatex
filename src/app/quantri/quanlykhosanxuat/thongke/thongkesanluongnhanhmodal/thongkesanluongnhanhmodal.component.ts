@@ -79,6 +79,27 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
     this.getListCaThucTe();
   }
 
+  test(e, td, tr, abc?) {
+    // e.preventDefault();
+    const index = Array.from(tr.children).indexOf(td);
+    if (e.keyCode == '38' && !abc) {
+      // up arrow
+      (Array.from(tr.previousElementSibling.children)[index] as any).getElementsByTagName('input')[0].focus();
+    }
+    else if (e.keyCode == '40' && !abc) {
+      // down arrow 
+      (Array.from(tr.nextElementSibling.children)[index] as any).getElementsByTagName('input')[0].focus();
+    }
+    else if (e.keyCode == '37') {
+      // left arrow
+      td.previousElementSibling.getElementsByTagName('input')[0].focus();
+    }
+    else if (e.keyCode == '39') {
+      // right arrow
+      td.nextElementSibling.getElementsByTagName('input')[0].focus();
+    }
+  }
+
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;

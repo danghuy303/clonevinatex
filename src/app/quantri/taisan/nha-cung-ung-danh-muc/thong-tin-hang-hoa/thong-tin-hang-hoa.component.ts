@@ -126,6 +126,8 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges,AfterViewInit
       size: 'md',
       backdrop: 'static',
     })
+    modalRef.componentInstance.single = true;
+    modalRef.componentInstance.onlyExcel = true;
     modalRef.result
       .then((res: any)=>{
         data.FileName = res[0].Name;
