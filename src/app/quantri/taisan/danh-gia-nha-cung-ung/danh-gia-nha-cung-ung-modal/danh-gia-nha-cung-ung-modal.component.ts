@@ -217,12 +217,12 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
       .finally(()=>{})
   }
 
-  DeleteNhaCungUng(id: string) {
+  DeleteNhaCungUng(index) {
     this.confirmService.show({
       message: 'Bạn chắc chắn muốn xóa nhà cung ứng này?'
     }, () => {
-      let idItem = this.quyTrinh.listPhieuDanhGia.findIndex(item => item.IddmNhaCungUng === id);
-      this.quyTrinh.listPhieuDanhGia.splice(idItem, 1);
+      // let idItem = this.quyTrinh.listPhieuDanhGia.findIndex(item => item.IddmNhaCungUng === id);
+      this.quyTrinh.listPhieuDanhGia.splice(index, 1);
     })
   }
 
