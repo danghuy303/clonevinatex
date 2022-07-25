@@ -91,7 +91,7 @@
                </tr>
             </thead>
             <tbody id="bodyTable">
-               <tr *ngFor="
+               <tr #tr123 *ngFor="
                      let may of (
                         item.listCongDoan | itemByCongDoan: item.CongDoan
                      )?.listMay
@@ -103,17 +103,17 @@
                      {{ may.TenMatHang }}
                   </td>
                   <ng-container *ngFor="let ca of may.listCaSanXuat">
-                     <td *ngFor="let chiso of ca.listColumn">
+                     <td #td123 *ngFor="let chiso of ca.listColumn">
                         <ng-container *ngIf="chiso.LoaiInput === 'double'">
-                           <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="chiso.GiaTri_Double">
+                           <p-inputNumber [minFractionDigits]="3" locale="en-EN" (keydown)="chiso.GiaTri_Double = chiso.GiaTri_Double || null" (keydown)="test($event, td123, tr123)" step="0" [(ngModel)]="chiso.GiaTri_Double">
                            </p-inputNumber>
                         </ng-container>
                         <ng-container *ngIf="chiso.LoaiInput === 'string'">
-                           <input type="text" class="p-inputtext-sm" [(ngModel)]="chiso.GiaTri_String" pInputText />
+                           <input type="text" class="p-inputtext-sm" (keydown)="chiso.GiaTri_String = chiso.GiaTri_String || null" (keydown)="test($event, td123, tr123)" [(ngModel)]="chiso.GiaTri_String" pInputText />
                         </ng-container>
                         <ng-container *ngIf="chiso.LoaiInput === 'id'">
-                           <p-dropdown [filter]="true" [options]="listLoHang" placeholder="Chọn lô hàng"
-                              styleClass="p-inputtext-sm" [(ngModel)]="chiso.GiaTri_Id"></p-dropdown>
+                           <p-dropdown [filter]="true" [options]="listLoHang" (keydown)="test($event, td123, tr123)" placeholder="Chọn lô hàng"
+                           styleClass="p-inputtext-sm" [(ngModel)]="chiso.GiaTri_Id"></p-dropdown>
                         </ng-container>
                      </td>
                   </ng-container>

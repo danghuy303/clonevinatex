@@ -23,7 +23,7 @@ export class LapChiPhiComponent implements OnInit {
   };
   trangThai: any = 1;
   checkQuyen: any = {};
-  eAction = "QUYTRINHKEHOACHDOANHTHUNAM";
+  eAction = "QUYTRINHKEHOACHCHIPHINAM";
 
 
   constructor(
@@ -40,7 +40,7 @@ export class LapChiPhiComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._danhMucHopDong
-          .KeHoachDoanhThu()
+          .KeHoachChiPhi()
           .GetById(res.id)
           .subscribe((res: any) => {
             this.update(res);
@@ -52,10 +52,10 @@ export class LapChiPhiComponent implements OnInit {
   }
 
   resetFilter() {
-    this.getListKeHoachKinhDoanh(true)
+    this.getListKeHoachChiPhi(true)
   }
 
-  getListKeHoachKinhDoanh(reset?) {
+  getListKeHoachChiPhi(reset?) {
     if (reset) {
       this.paging.page = 1;
     }
@@ -68,7 +68,7 @@ export class LapChiPhiComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.denNgay),
       // IdDuAn: 0,
     };
-    this._danhMucHopDong.KeHoachDoanhThu().GetAll(data).subscribe((res: any) => {
+    this._danhMucHopDong.KeHoachChiPhi().GetAll(data).subscribe((res: any) => {
       this.listKeHoach = res.Data.Items;
       console.log("listKeHoach", this.listKeHoach);
       this.paging.TotalCount = res.Data.TotalCount;
@@ -89,12 +89,11 @@ export class LapChiPhiComponent implements OnInit {
     modalRef.componentInstance.kehoach = item;
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.kehoach = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.title = 'Cập nhật kế hoạch doanh thu';
     modalRef.result
       .then((res: any) => {})
       .catch((error: any) => {})
       .finally(() => {
-        this.getListKeHoachKinhDoanh();
+        this.getListKeHoachChiPhi();
         this.changeParam(0);
       })
   }
@@ -109,25 +108,25 @@ export class LapChiPhiComponent implements OnInit {
       .then((res: any) => {})
       .catch((error: any) => {})
       .finally(() => {
-        this.getListKeHoachKinhDoanh();
+        this.getListKeHoachChiPhi();
       })
   }
 
   KiemTraTabTrangThai() {
     this._services.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
-      this.getListKeHoachKinhDoanh();
+      this.getListKeHoachChiPhi();
     });
   }
 
   changeTab(e) {
     this.trangThai = e.index + 1;
-    this.getListKeHoachKinhDoanh(true);
+    this.getListKeHoachChiPhi(true);
   }
 
   changePage(event) {
     this.paging.page = event.page + 1;
-    this.getListKeHoachKinhDoanh()
+    this.getListKeHoachChiPhi()
   }
 
 }

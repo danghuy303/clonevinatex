@@ -132,7 +132,6 @@ export class LapDoanhThuModalComponent implements OnInit {
   setData() {
     let data = {
       ...this.kehoach,
-      Id: "",
       NgayLapUnix: DateToUnix(this.kehoach.NgayLap)
     };
     return data;
