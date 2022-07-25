@@ -6,7 +6,9 @@
 
   <div class="p-d-flex p-jc-end p-mb-3">
     <button pButton pRipple label="Xuất báo cáo" icon="fa fa-file-excel" class="p-button-sm p-mr-2"
-            (click)="exportBaoCao()"></button>
+      (click)="exportBaoCao()"></button>
+    <button pButton pRipple label="Gửi mail" icon="fa fa-envelope" class="p-button-sm p-mr-2"
+      (click)="guiMail()"></button>
     <div class="p-mr-2">
       <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
         [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetBaoCao()"></p-dropdown>
@@ -39,7 +41,8 @@
       </ng-template>
       <ng-template pTemplate="body" let-item let-columns="columns">
         <tr>
-          <td *ngFor="let giatri of item.listGiaTriCot" [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':'text-center bg-white']">
+          <td *ngFor="let giatri of item.listGiaTriCot"
+            [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':'text-center bg-white']">
             <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
             <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-2'}}</span>
             <span *ngIf="giatri.LoaiGiaTri==='INT'">{{giatri.GiaTri_Int|number:'0.0-0'}}</span>

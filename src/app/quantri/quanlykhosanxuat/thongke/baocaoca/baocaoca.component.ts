@@ -81,7 +81,11 @@ export class BaocaocaComponent extends StoreBase implements OnInit {
   }
   guiMail(){
     this._services.BaoCaoCa().GuiMail(this.filter).subscribe((res:any)=>{
-      console.log(res)
+      if(res && res.State ===1){
+        this.toastr.success(res.message);
+      }else{
+        this.toastr.error(res.message)
+      }
     },(er)=>{
       this.toastr.warning(`Có lỗi xảy ra trong quá trình xử lý!`)
     })

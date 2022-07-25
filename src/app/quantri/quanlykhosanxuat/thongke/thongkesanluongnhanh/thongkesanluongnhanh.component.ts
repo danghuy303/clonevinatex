@@ -88,7 +88,7 @@ export class ThongkesanluongnhanhComponent implements OnInit {
     })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
-    this.add();
+    // this.add();
     // this.getListCaSanXuat();
     // this.getListPhanXuong();
   }

@@ -6,7 +6,9 @@
 
   <div class="p-d-flex p-jc-end p-mb-3">
     <button pButton pRipple label="Xuất báo cáo" icon="fa fa-file-excel" class="p-button-sm p-mr-2"
-            (click)="exportBaoCao()"></button>
+      (click)="exportBaoCao()"></button>
+    <button pButton pRipple label="Gửi mail" icon="fa fa-envelope" class="p-button-sm p-mr-2"
+      (click)="guiMail()"></button>
     <div class="p-mr-2">
       <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
         [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetBaoCao()"></p-dropdown>
@@ -59,26 +61,27 @@
       </ng-template>
     </p-table> -->
 
-    <div class="p-col-12 p-p-0 pintable-container" style="height: calc(100vh - 191px) !important; background-color: #fff;" voiPintable
-        [pinnedCols]="1">
-        <table>
-            <thead>
-                <tr>
-                  <th *ngFor="let col of cols"  class="w-tc-150">
-                    {{col}}
-                  </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of items;let i = index">
-                  <td class="w-tc-150" *ngFor="let giatri of item.listGiaTriCot" [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':'text-center bg-white']">
-                    <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
-                    <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-3'}}</span>
-                    <span *ngIf="giatri.LoaiGiaTri==='INT'">{{giatri.GiaTri_Int|number:'0.0-0'}}</span>
-                  </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="p-col-12 p-p-0 pintable-container"
+      style="height: calc(100vh - 191px) !important; background-color: #fff;" voiPintable [pinnedCols]="1">
+      <table>
+        <thead>
+          <tr>
+            <th *ngFor="let col of cols" class="w-tc-150">
+              {{col}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items;let i = index">
+            <td class="w-tc-150" *ngFor="let giatri of item.listGiaTriCot"
+              [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':'text-center bg-white']">
+              <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
+              <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-3'}}</span>
+              <span *ngIf="giatri.LoaiGiaTri==='INT'">{{giatri.GiaTri_Int|number:'0.0-0'}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 

@@ -48,26 +48,28 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    fake.listCongDoan.forEach(congdoan => {
-      let socot = congdoan?.listHeader[0]?.listColumn.length
-      congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
-        dulieukhac.SoCot = socot;
-      });
-      congdoan.listBongPhe.forEach(bongphe => {
-        bongphe.listCaSanXuat.forEach((ca: any) => {
-          ca.SoCot = socot;
-        })
-      })
-    });
-    this.item = fake;
     this.getListCongDoan();
     this.item.CongDoan = 'ONG'
     if (this.opt !== 'edit') {
+
       // this.GetNextSoQuyTrinh();
     }
     else {
       this.userInfo = this._auth.currentUserValue;
       this.KiemTraButtonModal();
+      this.item.Ngay = UnixToDate(this.item.NgayUnix)
+      this.item.listCongDoan.forEach(congdoan => {
+        let socot = congdoan?.listHeader[0]?.listColumn.length;
+        console.log('socot', socot)
+        congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
+          dulieukhac.SoCot = socot;
+        });
+        congdoan.listBongPhe.forEach(bongphe => {
+          bongphe.listCaSanXuat.forEach((ca: any) => {
+            ca.SoCot = socot;
+          })
+        })
+      });
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
@@ -133,8 +135,33 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
         if (res.State === 1) {
           this.toastr.success(res.message)
           this.opt = 'edit';
+          this.item.listCongDoan.forEach(congdoan => {
+            let socot = congdoan?.listHeader[0]?.listColumn.length;
+            console.log('socot', socot)
+            congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
+              dulieukhac.SoCot = socot;
+            });
+            congdoan.listBongPhe.forEach(bongphe => {
+              bongphe.listCaSanXuat.forEach((ca: any) => {
+                ca.SoCot = socot;
+              })
+            })
+          });
           res.objectReturn.Ngay = UnixToDate(res.objectReturn.NgayUnix)
           this.item = res.objectReturn;
+          this.item.Ngay = UnixToDate(this.item.NgayUnix)
+          this.item.listCongDoan.forEach(congdoan => {
+            let socot = congdoan?.listHeader[0]?.listColumn.length;
+            console.log('socot', socot)
+            congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
+              dulieukhac.SoCot = socot;
+            });
+            congdoan.listBongPhe.forEach(bongphe => {
+              bongphe.listCaSanXuat.forEach((ca: any) => {
+                ca.SoCot = socot;
+              })
+            })
+          });
           this.listItem = [];
           this.KiemTraButtonModal();
         } else {
