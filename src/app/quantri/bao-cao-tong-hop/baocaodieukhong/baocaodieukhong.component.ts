@@ -57,4 +57,15 @@ export class BaocaodieukhongComponent extends StoreBase implements OnInit {
       this._services.download(res.TenFile)
     });
   }
+  guiMail(){
+    this._services.BaoCaoTongHop().GuiEmail_ThongKeDieuKhong(this.filter).subscribe((res:any)=>{
+      if(res && res.State ===1){
+        this.toastr.success(res.message);
+      }else{
+        this.toastr.error(res.message)
+      }
+    },(er)=>{
+      this.toastr.warning(`Có lỗi xảy ra trong quá trình xử lý!`)
+    })
+  }
 }
