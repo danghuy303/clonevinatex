@@ -185,14 +185,17 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
       backdrop: "static"
     })
     this.listPhieuDanhGia_copy = this.quyTrinh.listPhieuDanhGia || [];
+    console.log(this.listPhieuDanhGia_copy);
     let listExistedItems = this.listPhieuDanhGia_copy.map(item => item.IddmNhaCungUng) || [];
-    console.log("listExistedItems", listExistedItems);
-    modalRef.componentInstance.checkListItem = listExistedItems;
+    modalRef.componentInstance.listCheck = listExistedItems
     modalRef.result
       .then((res: any) => {
-        console.log("res", res);
+        // console.log("res", res);
+        
         this.listPhieuDanhGia_copy = merge(res, this.listPhieuDanhGia_copy || [], 'IddmNhaCungUng');
         this.quyTrinh.listPhieuDanhGia = this.listPhieuDanhGia_copy;
+        console.log("this.quyTrinh.listPhieuDanhGia", this.quyTrinh.listPhieuDanhGia);
+        
       })
       .catch(er => { })
       .finally()

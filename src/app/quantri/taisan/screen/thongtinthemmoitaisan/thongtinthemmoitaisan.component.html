@@ -35,7 +35,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-inputNumber [min]="0" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+            <p-inputNumber [min]="1" [minFractionDigits]="0" [disabled]="true" locale="en-EN" [(ngModel)]="item.SoLuong">
             </p-inputNumber>
         </div>
     </div>
