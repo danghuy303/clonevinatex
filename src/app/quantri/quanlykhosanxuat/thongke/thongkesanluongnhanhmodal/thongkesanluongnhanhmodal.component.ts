@@ -81,24 +81,34 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
     this.getListCaThucTe();
   }
 
-  test(e, td, tr, abc?) {
+  moveFocus(e, td, tr, abc?) {
     // e.preventDefault();
     const index = Array.from(tr.children).indexOf(td);
-    if (e.keyCode == '38' && !abc) {
+    if (e.keyCode == '38' && abc!=='id') {
       // up arrow
-      (Array.from(tr.previousElementSibling.children)[index] as any).getElementsByTagName('input')[0].focus();
+      (Array.from(tr.previousElementSibling.children)[index] as any)?.getElementsByTagName('input')[0]?.focus();
     }
-    else if (e.keyCode == '40' && !abc) {
+    else if (e.keyCode == '40' && abc!=='id') {
       // down arrow 
-      (Array.from(tr.nextElementSibling.children)[index] as any).getElementsByTagName('input')[0].focus();
+      (Array.from(tr.nextElementSibling.children)[index] as any)?.getElementsByTagName('input')[0]?.focus();
     }
     else if (e.keyCode == '37') {
       // left arrow
-      td.previousElementSibling.getElementsByTagName('input')[0].focus();
+      td.previousElementSibling?.getElementsByTagName('input')[0]?.focus();
     }
     else if (e.keyCode == '39') {
       // right arrow
-      td.nextElementSibling.getElementsByTagName('input')[0].focus();
+      td.nextElementSibling?.getElementsByTagName('input')[0]?.focus();
+    }
+  }
+  enter(e,td, tr){
+    e.preventDefault();
+    console.log(e)
+    const index = Array.from(tr.children).indexOf(td);
+    if(e.shiftKey){
+      (Array.from(tr.previousElementSibling.children)[index] as any).getElementsByTagName('input')[0].focus();
+    }else{
+      (Array.from(tr.nextElementSibling.children)[index] as any).getElementsByTagName('input')[0].focus();
     }
   }
 
