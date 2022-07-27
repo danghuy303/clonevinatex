@@ -1,7 +1,74 @@
-<app-danh-muc-ke-hoach-kinh-doanh 
-  [cols]="cols" 
-  [danhMucName]="'LoaiChiPhiNhanCong'"
-  [title]="'Danh mục loại chi phí nhân công'"
-  [modalName]="modal"
->
-</app-danh-muc-ke-hoach-kinh-doanh>
+<div class="p-mb-3 p-mt-3">
+  <h4 style="color:#1f2779">Danh mục loại chi phí nhân công</h4>
+</div>
+<div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+  <button pButton label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="save()"></button>
+</div>
+<div>
+  <p-table [value]="listNhanCong" styleClass="p-datatable-gridlines p-datatable-sm  p-datatable-striped">
+    <ng-template pTemplate="colgroup">
+        <colgroup>
+            <col style="width: 50px;">
+            <col>
+            <col>
+            <col>
+            <col style="width: 150px;">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="text-center">STT</th>
+            <th class="text-center">Tên chi phí</th>
+            <th class="text-center">Mã</th>
+            <th class="text-center">Đơn vị tính</th>
+            <th class="text-center">
+              <div class="d-flex p-jc-center p-ai-center">
+                <span class="p-mr-2">Thao tác</span>
+                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-secondary" (click)="addChild(listNhanCong)"></button>
+              </div>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-nhancong let-i="rowIndex">
+        <tr>
+          <td class="text-center">{{i+1}}</td>
+          <td>
+            <input type="text" pInputText [(ngModel)]="nhancong.Ten" placeholder="Nhập nội dung"/>
+          </td>
+          <td>
+            <input type="text" pInputText [(ngModel)]="nhancong.Ma" placeholder="Nhập nội dung"/>
+          </td>
+          <td>
+            <input type="text" pInputText [(ngModel)]="nhancong.DonViTinh" placeholder="Nhập nội dung"/>
+          </td>
+          <td class="text-center">
+            <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="addChild(nhancong.ListNhanCong)"></button>
+            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="deleteItem(listNhanCong, i)"></button>
+          </td>
+        </tr>
+        <ng-container *ngFor="let child of nhancong.ListNhanCong; let index = index">
+          <tr>
+            <td class="text-center">{{i+1}}.{{index+1}}</td>
+            <td class="p-pl-6">
+              <input type="text" pInputText [(ngModel)]="child.Ten" placeholder="Nhập nội dung"/>
+            </td>
+            <td>
+              <input type="text" pInputText [(ngModel)]="child.Ma" placeholder="Nhập nội dung"/>
+            </td>
+            <td>
+              <input type="text" pInputText [(ngModel)]="child.DonViTinh" placeholder="Nhập nội dung"/>
+            </td>
+            <td class="text-center">
+              <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="deleteItem(nhancong.ListNhanCong, index)"></button>
+            </td>
+          </tr>
+        </ng-container>
+    </ng-template>
+    <!-- <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.totalCount}}.
+            <p-paginator #paginator [totalRecords]="paging.totalCount" [rows]="20" (onPageChange)="changePage($event)">
+            </p-paginator>
+        </div>
+    </ng-template> -->
+</p-table>
+</div>

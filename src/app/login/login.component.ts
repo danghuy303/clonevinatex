@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { StoreService } from '../services/store.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy {
   images: any[] = [];
   account: any = {
     UserName: '',
@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   emes: any = '';
   loginState = true;
   seePass: boolean = false;
+  usA:any=[];
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -100,9 +101,9 @@ export class LoginComponent implements OnInit {
           this.loginState = true;
           this.error = 0;
           this.toastr.success('Đăng nhập thành công!');
-          this._auth.GetCurrentUser().subscribe((res:any) => {
+          const us1 = this._auth.GetCurrentUser().subscribe((res:any) => {
             console.log(res);
-            this._SXservices
+            const us2 = this._SXservices
               .GetOptions()
               .GetDanhSachDuAnByIdUser(res.Id)
               .subscribe((res: any) => {
@@ -113,7 +114,9 @@ export class LoginComponent implements OnInit {
                   this._router.navigate(['/quantri'])
                 }
               });
+              this.usA.push(us2);
           })
+          this.usA.push(us1)
         }
         else {
           this.loginState = false;
@@ -157,6 +160,12 @@ export class LoginComponent implements OnInit {
     } else {
       this.toastr.error(this.emes);
     }
+  }
+  ngOnDestroy(): void {
+    console.log(this.usA);
+      this.usA.forEach(us => {
+        us.unsubscribe();
+      }); 
   }
   revealPass() {
     this.seePass = !this.seePass;

@@ -112,7 +112,8 @@ export class ThongkesanluongnhanhComponent implements OnInit {
     this.changeParam(0);
     let modalRef = this._modal.open(ThongkesanluongnhanhmodalComponent,{
       size: 'fullscreen-100',
-      backdrop: 'static'
+      backdrop: 'static',
+      keyboard:false,
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {}
@@ -130,7 +131,8 @@ export class ThongkesanluongnhanhComponent implements OnInit {
     this._service.ThongKeSanLuongNhanh().Get({Id:Id}).subscribe((res1: any) => {
       let modalRef = this._modal.open(ThongkesanluongnhanhmodalComponent,{
         size: 'fullscreen',
-        backdrop: 'static'
+        backdrop: 'static',
+        keyboard:false,
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));

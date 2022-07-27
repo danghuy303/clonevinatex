@@ -13,6 +13,7 @@ import { DonGiaSanPhamComponent } from './danh-muc/don-gia-san-pham/don-gia-san-
 import { LoaiContainerComponent } from './danh-muc/loai-container/loai-container.component';
 import { PhuongThucVanChuyenComponent } from './danh-muc/phuong-thuc-van-chuyen/phuong-thuc-van-chuyen.component';
 import { TaiSanComponent } from './danh-muc/tai-san/tai-san.component';
+import { ThietLapLuongThangComponent } from './danh-muc/thiet-lap-luong-thang/thiet-lap-luong-thang.component';
 import { TinhLuongComponent } from './danh-muc/tinh-luong/tinh-luong.component';
 import { TyGiaNgoaiTeComponent } from './danh-muc/ty-gia-ngoai-te/ty-gia-ngoai-te.component';
 import { VatTuPhuComponent } from './danh-muc/vat-tu-phu/vat-tu-phu.component';
@@ -74,6 +75,7 @@ const routes: Routes = [
   { path: 'kehoachdaduyet/:id', component: KehoachdaduyetComponent },
   { path: 'kehoachdoanhthu/:id', component: LapDoanhThuComponent },
   { path: 'kehoachchiphi/:id', component: LapChiPhiComponent },
+  { path: 'danhmuc/thietlapluongthang', component: ThietLapLuongThangComponent },
 ];
 
 @NgModule({

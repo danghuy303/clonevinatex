@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MenuItem } from "primeng/api";
@@ -17,7 +17,7 @@ import { ModalQuyTrinhCanXuLyComponent } from "./modal/modal-quy-trinh-can-xu-ly
   templateUrl: "./quantri.component.html",
   styleUrls: ["./quantri.component.css"],
 })
-export class QuantriComponent implements OnInit {
+export class QuantriComponent implements OnInit, OnDestroy {
   userBtn: any;
   userInfo: any;
   userSub: any;
@@ -40,6 +40,7 @@ export class QuantriComponent implements OnInit {
   mapQuyTrinhRoute: any = mapQuyTrinhRoute;
   showHopDongModule: any = false;
   showTaiSanModule: any = false;
+  US: any = [];
   @ViewChild("listNoti") listNoti;
   @ViewChild("listCanhBaoComponent") listCanhBaoComponent;
   listCanhBao: any;
@@ -71,7 +72,7 @@ export class QuantriComponent implements OnInit {
     // }
   }
   getListNhaMay() {
-    this._services
+    const nm = this._services
       .GetOptions()
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
@@ -82,6 +83,7 @@ export class QuantriComponent implements OnInit {
           this.IdNhaMay = this.store.getCurrent();
         }
       });
+    this.US.push(nm);
   }
   setGlobalNhaMay(event) {
     this.store.setNhaMay(event.value);
@@ -193,11 +195,12 @@ export class QuantriComponent implements OnInit {
       window.location.origin.includes("2369");
     // this.showTaiSanModule = true;
     this.refreshNotis();
-    this._router.events
+    const rt = this._router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((res: any) => {
         this.getOSName(res.url);
       });
+    this.US.push(rt);
     this._services.GetAllQuyen().subscribe((res: any) => {
       this.dataphanquyen = res;
       this.CaiMeNu();
@@ -1662,31 +1665,42 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Danh mục container",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/loaicontainer'
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/loaicontainer',
+            command: () => this.close(),
           },
           {
             label: "Phương thức vận chuyển",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/phuongthucvanchuyen'
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/phuongthucvanchuyen',
+            command: () => this.close(),
           },
           {
             label: "Danh mục chi phí xuất hàng",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphixuathang'
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphixuathang',
+            command: () => this.close(),
           },
           {
             label: "Danh mục chi phí bằng tiền",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphibangtien'
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphibangtien',
+            command: () => this.close(),
           },
           {
             label: "Danh mục chi phí lãi vay ngắn hạn",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphilaivay'
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphilaivay',
+            command: () => this.close(),
           },
           // {
           //   label: "Loại chi phí lãi vay dài hạn",
           //   routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphilaivaydaihan'
           // },
           {
-            label: "Loại chi phí nhân công",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphinhancong'
+            label: "Danh mục chi phí nhân công",
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphinhancong',
+            command: () => this.close(),
+          },
+          {
+            label: "Thiết lập lương tháng",
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/thietlapluongthang',
+            command: () => this.close(),
           },
           {
             label: "Bảng giá vật tư phụ",
@@ -2038,5 +2052,11 @@ export class QuantriComponent implements OnInit {
       .subscribe((res: any) => {
         this._services.download(res.Link);
       });
+  }
+  ngOnDestroy(): void {
+    this._signalRService.disconnect()
+    this.US.forEach(us => {
+      us.unsubscribe();
+    });
   }
 }
