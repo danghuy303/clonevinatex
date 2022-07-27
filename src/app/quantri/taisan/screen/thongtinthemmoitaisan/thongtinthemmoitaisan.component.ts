@@ -47,7 +47,6 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
       });
       this.IdTable = this.item.IdTaiSan;
     }
-    this.LayMa(false);
   }
 
   ngOnInit() {
@@ -55,6 +54,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   }
 
   LayMa(e) {
+    this.item.listLichBaoDuong = [];
     this.item.IddmTaiSan = '';
     if (!validVariable(e.value)) {
       this.item.Ma = '';
@@ -69,7 +69,6 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
         }
       })
     }
-    // this.item.listLichBaoDuong.splice(0, this.item.listLichBaoDuong.length);
   }
 
   edit(item) {
