@@ -1662,31 +1662,42 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Danh mục container",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/loaicontainer'
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/loaicontainer',
+            command: () => this.close(),
           },
           {
             label: "Phương thức vận chuyển",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/phuongthucvanchuyen'
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/phuongthucvanchuyen',
+            command: () => this.close(),
           },
           {
             label: "Danh mục chi phí xuất hàng",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphixuathang'
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphixuathang',
+            command: () => this.close(),
           },
           {
             label: "Danh mục chi phí bằng tiền",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphibangtien'
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphibangtien',
+            command: () => this.close(),
           },
           {
             label: "Danh mục chi phí lãi vay ngắn hạn",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphilaivay'
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphilaivay',
+            command: () => this.close(),
           },
           // {
           //   label: "Loại chi phí lãi vay dài hạn",
           //   routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphilaivaydaihan'
           // },
           {
-            label: "Loại chi phí nhân công",
-            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphinhancong'
+            label: "Danh mục chi phí nhân công",
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/chiphinhancong',
+            command: () => this.close(),
+          },
+          {
+            label: "Thiết lập lương tháng",
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/thietlapluongthang',
+            command: () => this.close(),
           },
           {
             label: "Bảng giá vật tư phụ",

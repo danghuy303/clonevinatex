@@ -12,12 +12,12 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let sanpham of kehoach.listXo; let i = index">  
+        <ng-container *ngFor="let sanpham of kehoach.listXo?.listDonGia; let i = index">  
           <tr>
             <td class="tc-w-40 text-center">{{i + 1}}</td>
             <td class="tc-w-280">{{sanpham.TenDonGia}}</td>
             <td class="tc-w-40 text-center">VNĐ</td>
-            <ng-container *ngFor="let thang of sanpham.lstKH_DonGiaDinhMuc_Thang">
+            <ng-container *ngFor="let thang of sanpham.listDonGia">
               <td class="tc-w-80">
                 <p-inputNumber
                   [(ngModel)]="thang.Gia"
@@ -62,12 +62,12 @@
             </td>
           </ng-container>
         </tr>
-        <ng-container *ngFor="let sanpham of kehoach.listXo; let i = index">  
+        <ng-container *ngFor="let sanpham of kehoach.listXo?.listChiPhi; let i = index">  
           <tr>
             <td class="tc-w-40 text-center">{{i + 1}}</td>
             <td class="tc-w-280">{{sanpham.TenDonGia}}</td>
             <td class="tc-w-40 text-center">VNĐ</td>
-            <ng-container *ngFor="let thang of sanpham.lstKH_DonGiaDinhMuc_Thang">
+            <ng-container *ngFor="let thang of sanpham.listChiPhi">
               <td class="tc-w-80 text-right">
                 {{thang.ChiPhi | number: "0.0"}}
               </td>

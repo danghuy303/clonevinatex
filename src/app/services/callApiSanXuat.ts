@@ -728,6 +728,17 @@ export class SanXuatService {
     LoaiChiPhiNhanCong() {
         return this.KeHoachSanXuat('LoaiChiPhiNhanCong');
     }
+    CoCauNhanSu() {
+        let url = API.KeHoach;
+        return {
+            GetListAll: (IdDuAn) => {
+                return this.http.get(`${url}DanhMuc/GetListAlldmLoaiCoCauNhanSu?IdDuAn=${IdDuAn}`);
+            },
+            Set: (data) => {
+                return this.http.post(`${url}DanhMuc/SetdmCoCauNhanSu`, data)
+            }
+        }
+    }
 
     NhapLieuKeHoachSanXuat(endpoint) {
         let url = API.KeHoach;

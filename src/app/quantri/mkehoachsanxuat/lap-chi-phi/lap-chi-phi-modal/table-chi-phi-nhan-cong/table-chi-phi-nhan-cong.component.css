@@ -24,6 +24,11 @@
   padding: 0 !important;
 }
 
+:host::ng-deep.p-panel-header {
+  padding: 0.5rem 1rem;
+  justify-content: flex-start;
+}
+
 th {
   border: none!important;
 }
