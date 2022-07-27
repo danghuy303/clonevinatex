@@ -1,53 +1,56 @@
 <div class="p-px-3">
 
-    <div class="p-mb-3 p-mt-3">
-      <h4 style="color:#1f2779">Báo cáo ống tổng hợp</h4>
-    </div>
-  
-    <div class="p-d-flex p-jc-end p-mb-3">
-      <button pButton pRipple label="Xuất báo cáo" icon="fa fa-file-excel" class="p-button-sm p-mr-2"
-            (click)="exportBaoCao()"></button>
-      <div class="p-mr-2">
-        <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
-          [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetBaoCao()"></p-dropdown>
-      </div>
-      <div class="p-mr-2">
-        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter._tuNgay"
-          inputId="icon" placeholder="Từ ngày" (onSelect)="GetBaoCao()">
-        </p-calendar>
-      </div>
-      <div class="p-mr-2">
-        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter._denNgay"
-          inputId="icon" placeholder="Đến ngày" (onSelect)="GetBaoCao()">
-        </p-calendar>
-      </div>
-    </div>
-  
-    <div>
-      <p-table [value]="items" [columns]="cols" styleClass="p-datatable-sm p-datatable-gridlines">
-        <ng-template pTemplate="colgroup" let-columns>
-          <colgroup>
-            <col *ngFor="let col of columns" [style.width]="col.width">
-          </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-          <tr>
-            <th *ngFor="let col of columns" style="word-wrap: break-word" [style.width]="col.width">
-              {{col}}
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item let-columns="columns">
-          <tr>
-            <td *ngFor="let giatri of item.listGiaTriCot ; let i = index" [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':(i===0 ? ' text-left bg-white ' : 'text-center bg-white' )]">
-              <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
-              <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-3'}}</span>
-              <span *ngIf="giatri.LoaiGiaTri==='INT'">{{giatri.GiaTri_Int|number:'0.0-0'}}</span>
-              
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-  
+  <div class="p-mb-3 p-mt-3">
+    <h4 style="color:#1f2779">Báo cáo ống tổng hợp</h4>
   </div>
+
+  <div class="p-d-flex p-jc-end p-mb-3">
+    <button pButton pRipple label="Xuất báo cáo" icon="fa fa-file-excel" class="p-button-sm p-mr-2"
+      (click)="exportBaoCao()"></button>
+    <button pButton pRipple label="Gửi mail" icon="fa fa-envelope" class="p-button-sm p-mr-2"
+      (click)="guiMail()"></button>
+    <div class="p-mr-2">
+      <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+        [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetBaoCao()"></p-dropdown>
+    </div>
+    <div class="p-mr-2">
+      <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter._tuNgay"
+        inputId="icon" placeholder="Từ ngày" (onSelect)="GetBaoCao()">
+      </p-calendar>
+    </div>
+    <div class="p-mr-2">
+      <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter._denNgay"
+        inputId="icon" placeholder="Đến ngày" (onSelect)="GetBaoCao()">
+      </p-calendar>
+    </div>
+  </div>
+
+  <div>
+    <p-table [value]="items" [columns]="cols" styleClass="p-datatable-sm p-datatable-gridlines">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col *ngFor="let col of columns" [style.width]="col.width">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns" style="word-wrap: break-word" [style.width]="col.width">
+            {{col}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-columns="columns">
+        <tr>
+          <td *ngFor="let giatri of item.listGiaTriCot ; let i = index"
+            [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':(i===0 ? ' text-left bg-white ' : 'text-center bg-white' )]">
+            <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
+            <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-3'}}</span>
+            <span *ngIf="giatri.LoaiGiaTri==='INT'">{{giatri.GiaTri_Int|number:'0.0-0'}}</span>
+
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</div>

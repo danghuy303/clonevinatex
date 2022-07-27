@@ -21,7 +21,7 @@ export class XulysucoluachontaisanComponent implements OnInit {
   Lay_Chon: any = [];
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
-  paging: any = { CurrentPage: 0, TotalPages: 1, TotalCount: 1 };
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   Keyword: any = '';
   filter: any = {};
   listLoaiTaiSan = [];
@@ -53,7 +53,10 @@ export class XulysucoluachontaisanComponent implements OnInit {
     })
   }
 
-  GetList() {
+  GetList(reset?) {
+    if (reset) {
+      this.paging.CurrentPage = 1;
+    }
     let data = {
       Keyword: this.filter.Keyword,
       PageSize: 20,
@@ -65,6 +68,7 @@ export class XulysucoluachontaisanComponent implements OnInit {
     };
     this._serviceTaiSan.QuyTrinhXuLySuCo().GetListTaiSanQuyTrinhXulySuCo(data).subscribe((res: any) => {
       this.paging.TotalCount = res.TotalCount;
+      this.paging.CurrentPage= res.Page;
       let items = [];
       this.items = [];
       items = res.Items;
@@ -154,6 +158,12 @@ export class XulysucoluachontaisanComponent implements OnInit {
 
   GhiLai() {
     this.activeModal.close(this.FilterTree());
+  }
+
+  changePage(e) {
+    this.paging.currentPage = e.page + 1;
+    console.log(this.paging.currentPage);
+    this.GetList(false);
   }
 
 }

@@ -321,6 +321,27 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent()
                 return this.http.post(`${API.SCMBaoCao}XuatBaoCao_OngTongHop`, data, httpOptions);
             },
+            GuiEmail_BongChaiTongHop:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}GuiEmail_BongChaiTongHop`, data, httpOptions);
+            },
+            GuiEmail_GhepThoTongHop:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}GuiEmail_GhepThoTongHop`, data, httpOptions);
+            },
+            GuiEmail_SoiConTongHop:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}GuiEmail_SoiConTongHop`, data, httpOptions);
+            },
+            GuiEmail_OngTongHop:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}GuiEmail_OngTongHop`, data, httpOptions);
+            },
+            GuiEmail_ThongKeDieuKhong:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}GuiEmail_ThongKeDieuKhong`, data, httpOptions);
+            },
+
         }
     }
 

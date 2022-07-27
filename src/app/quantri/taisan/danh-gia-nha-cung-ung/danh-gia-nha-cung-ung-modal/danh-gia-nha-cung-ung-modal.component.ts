@@ -185,14 +185,17 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
       backdrop: "static"
     })
     this.listPhieuDanhGia_copy = this.quyTrinh.listPhieuDanhGia || [];
+    console.log(this.listPhieuDanhGia_copy);
     let listExistedItems = this.listPhieuDanhGia_copy.map(item => item.IddmNhaCungUng) || [];
-    console.log("listExistedItems", listExistedItems);
-    modalRef.componentInstance.checkListItem = listExistedItems;
+    modalRef.componentInstance.listCheck = listExistedItems
     modalRef.result
       .then((res: any) => {
-        console.log("res", res);
+        // console.log("res", res);
+        
         this.listPhieuDanhGia_copy = merge(res, this.listPhieuDanhGia_copy || [], 'IddmNhaCungUng');
         this.quyTrinh.listPhieuDanhGia = this.listPhieuDanhGia_copy;
+        console.log("this.quyTrinh.listPhieuDanhGia", this.quyTrinh.listPhieuDanhGia);
+        
       })
       .catch(er => { })
       .finally()
@@ -217,12 +220,12 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
       .finally(()=>{})
   }
 
-  DeleteNhaCungUng(id: string) {
+  DeleteNhaCungUng(index) {
     this.confirmService.show({
       message: 'Bạn chắc chắn muốn xóa nhà cung ứng này?'
     }, () => {
-      let idItem = this.quyTrinh.listPhieuDanhGia.findIndex(item => item.IddmNhaCungUng === id);
-      this.quyTrinh.listPhieuDanhGia.splice(idItem, 1);
+      // let idItem = this.quyTrinh.listPhieuDanhGia.findIndex(item => item.IddmNhaCungUng === id);
+      this.quyTrinh.listPhieuDanhGia.splice(index, 1);
     })
   }
 

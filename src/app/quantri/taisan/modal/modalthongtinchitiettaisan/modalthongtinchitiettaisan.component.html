@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h5 class="modal-title">
-        Thông tin chi tiết</h5>
+        Thông tin chi tiết </h5>
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
@@ -23,7 +23,8 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã tài sản <span class="text-danger">(*)</span> : </label>
+            <label *ngIf="item.IdRoot === item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto"> Mã tài sản <span class="text-danger">(*)</span> : </label>
+            <label *ngIf="item.IdRoot !== item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto"> Mã vật tư <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
             </div>
@@ -39,7 +40,8 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên tài sản <span class="text-danger">(*)</span> : </label>
+            <label *ngIf="item.IdRoot === item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto">Tên tài sản <span class="text-danger">(*)</span> : </label>
+            <label *ngIf="item.IdRoot !== item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto">Tên vật tư <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
             </div>

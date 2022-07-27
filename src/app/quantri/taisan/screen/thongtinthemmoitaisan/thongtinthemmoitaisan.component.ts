@@ -50,7 +50,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    
+    this.item.SoLuong = 1
   }
 
   LayMa(e) {

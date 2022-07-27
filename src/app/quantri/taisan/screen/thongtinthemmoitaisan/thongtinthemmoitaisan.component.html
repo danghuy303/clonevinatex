@@ -35,7 +35,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-inputNumber [min]="0" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+            <p-inputNumber [min]="1" [minFractionDigits]="0" [disabled]="true" locale="en-EN" [(ngModel)]="item.SoLuong">
             </p-inputNumber>
         </div>
     </div>
@@ -57,12 +57,12 @@
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViNangSuat" pInputText />
         </div>
     </div>
-    <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+    <!-- <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tuổi thọ (tháng) : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <p-inputNumber [min]="0" [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.TuoiTho"> </p-inputNumber>
         </div>
-    </div>
+    </div> -->
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nước sản xuất : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
@@ -86,16 +86,16 @@
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ngày sản xuất : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
-                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayNhap"
+                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayNhap" [maxDate]="item.ThoiGianDuaVaoSuDung"
                 inputId="icon" placeholder="dd/mm/yyyy">
             </p-calendar>
         </div>
     </div>
-    <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+    <div  *ngIf="item?.IdBoPhanSuDung != null" class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng <span
-                *ngIf="item?.IdBoPhanSuDung != null" class="text-danger">(*)</span>: </label>
+                class="text-danger">(*)</span>: </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [minDate]="item.NgayNhap"
                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianDuaVaoSuDung"
                 inputId="icon" placeholder="dd/mm/yyyy">
             </p-calendar>

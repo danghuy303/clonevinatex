@@ -119,4 +119,15 @@ export class BongChaiTongHopComponent extends StoreBase implements OnInit,OnDest
         this._services.download(res.TenFile)
     })
   }
+  guiMail(){
+    this._services.BaoCaoTongHop().GuiEmail_BongChaiTongHop(this.filter).subscribe((res:any)=>{
+      if(res && res.State ===1){
+        this._toastr.success(res.message);
+      }else{
+        this._toastr.error(res.message)
+      }
+    },(er)=>{
+      this._toastr.warning(`Có lỗi xảy ra trong quá trình xử lý!`)
+    })
+  }
 }
