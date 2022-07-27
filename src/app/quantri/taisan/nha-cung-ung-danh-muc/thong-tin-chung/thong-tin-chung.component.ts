@@ -31,7 +31,8 @@ export class ThongTinChungComponent implements OnInit {
     }
     this.taiSanService.NhomNhaCungUng().GetListdmNhomNhaCungung(data)
       .subscribe((res: any) => {
-        this.listNhomCungUng = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+        let data = res.Data.filter(ele => ele.HoatDong )
+        this.listNhomCungUng = mapArrayForDropDown(data, 'Ten', 'Id');
       })
   }
 

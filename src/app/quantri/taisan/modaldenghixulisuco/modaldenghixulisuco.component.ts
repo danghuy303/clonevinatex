@@ -140,7 +140,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
             else {
               this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
                 if (res.StatusCode !== 200 || !res.StatusCode) {
-                  this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+                  this.toastr.error(res.Message);
                 } else {
                   this.item = res.Data;
                   this.item.listTaiSan.forEach(ele => {

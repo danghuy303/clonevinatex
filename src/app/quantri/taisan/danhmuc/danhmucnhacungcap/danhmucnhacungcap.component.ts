@@ -157,7 +157,12 @@ export class DanhmucnhacungcapComponent implements OnInit {
       .then((res: any) => {
         this.fileUpload = res;
         this._danhMucTaiSan.DanhMucNhaCungCap().Importdm(this.fileUpload[0]).subscribe(()=>{
-          this.resetFilter();
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
+            this.resetFilter();
+          } else {
+            this._toastr.error(res.Message);
+          }
         })
       })
       .catch(er => {})
@@ -172,7 +177,12 @@ export class DanhmucnhacungcapComponent implements OnInit {
      
     };
     this._danhMucTaiSan.DanhMucNhaCungCap().Exportdm(data).subscribe((res: any) => {
-      this._danhMucTaiSan.DanhMucNhaCungCap().download(res.TenFile);
+      if (res.StatusCode === 200) {
+        this._toastr.success(res.Message);
+        this._danhMucTaiSan.DanhMucNhaCungCap().download(res.TenFile);
+      } else {
+        this._toastr.error(res.Message);
+      }
     })
   }
   changePage(event){

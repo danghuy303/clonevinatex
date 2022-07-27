@@ -186,6 +186,8 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
       size: 'md',
       backdrop: 'static',
     })
+    modalRef.componentInstance.single = true;
+    modalRef.componentInstance.onlyExcel = true;
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;

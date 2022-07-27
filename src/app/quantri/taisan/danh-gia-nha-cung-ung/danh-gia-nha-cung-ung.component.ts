@@ -119,11 +119,11 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
     modalRef.componentInstance.quyTrinh = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then((res: any) =>{
-        this.LoadData(true);
+  
       })
       .catch(er=>{})
       .finally(()=>{
-        
+        this.LoadData(true);
         this.changeParam(0);
       })
   }
