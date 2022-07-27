@@ -658,6 +658,7 @@ export class SanXuatService {
                 return this.http.get(`${API.SCMQuanLyKho}GetListMayTheoCongDoan?IddmPhanXuong=${IddmPhanXuong}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`, httpOptions)
             },
             GetDanhSachDuAnByIdUser: (IdUser) => {
+                console.trace();
                 return this.http.get(`${API.auth}DanhMuc/GetDanhSachDuAnByIdUser?IdUser=${IdUser}`, httpOptions)
             },
             GetListTinhTrangMay: (Id, IddmPhanXuong, TuNgay, DenNgay) => {

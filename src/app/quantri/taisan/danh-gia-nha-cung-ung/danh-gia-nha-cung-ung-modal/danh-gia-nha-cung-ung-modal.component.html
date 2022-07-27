@@ -115,7 +115,7 @@
           <p-dropdown [options]="listTinhTrang" [(ngModel)]="item.IdTrangThai"></p-dropdown>
         </td>
         <td>
-          <input type="text" pInputText [(ngModel)]="item.GhiChu">
+          <input type="text" [pTooltip]="item.GhiChu" tooltipPosition="top" pInputText [(ngModel)]="item.GhiChu">
         </td>
         <td class="text-center">
           <p-dropdown [options]="listPheDuyet" [(ngModel)]="item.IsPheDuyet" placeholder="Chọn phê duyệt"></p-dropdown>

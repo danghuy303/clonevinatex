@@ -30,7 +30,7 @@
       Điểm tối đa:
     </label>
     <div class="p-lg-9 p-md-9 p-sm-12">
-      <input type="text" pInputText [(ngModel)]="item.DiemToiDa"> 
+      <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.DiemToiDa"></p-inputNumber>
     </div>
   </div>
 
@@ -48,7 +48,7 @@
       Thứ tự:
     </label>
     <div class="p-lg-9 p-md-9 p-sm-12">
-      <input type="text" pInputText [(ngModel)]="item.ThuTu"> 
+      <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.ThuTu"></p-inputNumber>
     </div>
   </div>
 

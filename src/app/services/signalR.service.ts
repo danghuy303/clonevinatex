@@ -55,5 +55,8 @@ export class SignalRService {
             this.messageReceived.emit(data)
         });
     }
+    public disconnect(){
+        this.connection.stop();
+    }
 }
 

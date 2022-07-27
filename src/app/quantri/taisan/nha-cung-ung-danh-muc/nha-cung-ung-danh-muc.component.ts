@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { handleHTTPResponse, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
