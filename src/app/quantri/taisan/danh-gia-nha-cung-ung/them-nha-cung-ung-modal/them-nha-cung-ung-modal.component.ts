@@ -15,6 +15,7 @@ export class ThemNhaCungUngModalComponent implements OnInit {
   selectedList: any[] = [];
   checkListItem: any = [];
   checkedAll: boolean = false;
+  listCheck: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -32,52 +33,62 @@ export class ThemNhaCungUngModalComponent implements OnInit {
   }
 
   LoadData(reset?) {
-    if (reset) {
-      this.paging.currentPage = 1;
-    }
     let data = {
-      CurrentPage: this.paging.currentPage,
-      PageSize: 20,
+      CurrentPage: 0,
       Keyword: this.filter.keyword,
     }
     this.taiSanService.NhaCungUng().GetList(data).subscribe((res: any) => {
-      this.items = res.Data.Items;
+      this.items = res.Data;
+      // this.pushCheckList();
+      console.log(this.listCheck);
+      
+      this.items.forEach(ele => {
+        ele.checked = this.listCheck.includes(ele.Id)
+      });
       this.paging.TotalCount = res.Data.TotalCount;
-      this.CheckExistedNhaCungUng();
+      // this.CheckExistedNhaCungUng();
     })
+  }
+
+  // pushCheckList() {
+  //   this.items.forEach(ele => {
+  //     let index =  this.listCheck.findIndex(item => item.Id === ele.Id);
+  //     ele.checked = (index !== -1);
+  //   });
+  // }
+
+  Filter() {
+    let data = this.items.filter(ele => ele.checked)
+    .map(ele => {
+      return {
+        Id: null,
+        IddmNhaCungUng: ele.Id,
+        TendmNhaCungUng: ele.Ten,
+        MadmNhaCungUng: ele.Ma,
+        IdTrangThai: ele.IddmTinhTrangNhaCungung,
+      }
+    })
+    return data;
   }
 
   AddNhaCungUng() {
-    // console.log(this.checkListItem);
-    let newArr = this.checkListItem.map(item=>item.MadmNhaCungUng);
-    this.selectedList = this.items.filter(item=>{
-      return newArr.indexOf(item.Ma) === -1 && item.checked === true;
-    })
-    .map(item=> {
-      return ({
-        Id: "",
-        IddmNhaCungUng: item.Id,
-        TendmNhaCungUng: item.Ten,
-        MadmNhaCungUng: item.Ma,
-        IdTrangThai: item.IddmTinhTrangNhaCungung,
-      })
-    })
-    this.activeModal.close(this.selectedList);
+    this.activeModal.close(this.Filter());
   }
 
-  Check() {
+  Check(e, index) {
     this.checkedAll = this.items.every(item => item.checked);
+      // if (e.checked === true) {
+      //   this.listCheck.push(e)
+      // }
+      // else {
+      //   // Kiểm tra mảng tạm nhớ, nếu đã có, mà ta bỏ check thì xóa ra khỏi mảng
+      //       this.listCheck.splice(index,1, undefined)
+      // }
   }
 
   CheckAllNhaCungUng() {
     this.items.forEach(item => {
       item.checked = this.checkedAll;
-    })
-  } 
-
-  CheckExistedNhaCungUng() {
-    this.items.forEach(item => {
-      item.checked = this.checkListItem.includes(item.Id);
     })
   }
 

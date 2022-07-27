@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ChiPhiNhanCongModalComponent } from './chi-phi-nhan-cong-modal/chi-phi-nhan-cong-modal.component';
-
+import { ToastrService } from 'ngx-toastr';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ConfirmationService } from 'src/app/services/confirmation.service';
+import { handleHTTPResponse } from 'src/app/services/globalfunction';
 @Component({
   selector: 'app-chi-phi-nhan-cong',
   templateUrl: './chi-phi-nhan-cong.component.html',
@@ -8,16 +10,51 @@ import { ChiPhiNhanCongModalComponent } from './chi-phi-nhan-cong-modal/chi-phi-
 })
 export class ChiPhiNhanCongComponent implements OnInit {
 
-  modal = ChiPhiNhanCongModalComponent;
-  cols: any = [
-    {header: 'Mã', field: 'Ma', headerStyle: {}, dataStyle: {}},
-    {header: 'Tên', field: 'Ten', headerStyle: {}, dataStyle: {}},
-    {header: 'Ghi chú', field: 'GhiChu', headerStyle: {}, dataStyle: {}},
-  ];
+  listNhanCong: any = [];
+  paging: any = {};
 
-  constructor() { }
+  constructor(
+    private _service: SanXuatService,
+    private _confirmService: ConfirmationService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
+    this._service.LoaiChiPhiNhanCong()
+      .GetListAll().subscribe((res: any) => {
+        this.listNhanCong = res.Data;
+      })
+  }
+
+  addChild(list) {
+    let data = {
+      Id: "",
+      Ma: "",
+      Ten: "",
+      DonViTinh: "",
+      ListNhanCong: []
+    }
+    list.push(data);
+  }
+
+  deleteItem(list, index) {
+    this._confirmService.show({
+      message: "Bạn chắc chắn muốn xóa mục này?"
+    }, () => {
+      list.splice(index, 1);
+    })
+  }
+
+  save() {
+    this._service.LoaiChiPhiNhanCong().Set(this.listNhanCong).subscribe((res: any) => {
+      handleHTTPResponse(res, this.toastr, () => {
+        this.listNhanCong = res.Data;
+      })
+    })
   }
 
 }

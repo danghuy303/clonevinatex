@@ -13,17 +13,17 @@
       <h5 class="p-mb-0">{{tieuChi.DiemToiDa}}</h5>
     </div>
     <div class="p-lg-2 text-right p-p-0">
-      <p-inputNumber [disabled]="tieuChi.toggle" [max]="tieuChi.DiemToiDa" [(ngModel)]="tieuChi.DiemDanhGia" (onBlur)="SumDiemDanhGia()"></p-inputNumber>
+      <p-inputNumber [disabled]="tieuChi.toggle" mode="decimal" [minFractionDigits]="1"  [max]="tieuChi.DiemToiDa" [min]="0" [(ngModel)]="tieuChi.DiemDanhGia" (onBlur)="SumDiemDanhGia()"></p-inputNumber>
       <!-- <h5 class="p-mb-0">{{item.sum}}</h5> -->
     </div>
   </p-header>
-  <div *ngFor="let item of tieuChi.listItem" class="p-grid p-p-0">
+  <div *ngFor="let item of tieuChi.listItem" class="p-grid p-ai-center p-py-2">
     <div class="p-lg-8 p-p-0">{{item.Ten}}</div>
     <div class="p-lg-2 p-p-0 text-center">
       {{item.DiemToiDa}}
     </div>
     <div class="p-lg-2 p-p-0 text-center">
-      <p-inputNumber [min]="0" [max]="item.DiemToiDa" [(ngModel)]="item.DiemDanhGia" (onBlur)="SumDiemDanhGia()"></p-inputNumber>
+      <p-inputNumber [min]="0" [max]="item.DiemToiDa" mode="decimal" [minFractionDigits]="1" [(ngModel)]="item.DiemDanhGia" (onBlur)="SumDiemDanhGia()"></p-inputNumber>
     </div>
   </div>
 </p-panel>

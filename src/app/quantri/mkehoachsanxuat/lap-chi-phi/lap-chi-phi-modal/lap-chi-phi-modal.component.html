@@ -79,28 +79,28 @@
 
   <p-tabView>
     <p-tabPanel header="Bông">
-      <app-table-chi-phi-bong
+      <app-table-chung
+        [listName]="'Bong'"
         [kehoach]="kehoach"
-        [listLableThang]="listLableThang"
-      ></app-table-chi-phi-bong>
+      ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Xơ">
-      <app-table-chi-phi-xo
+      <app-table-chung
+        [listName]="'Xo'"
         [kehoach]="kehoach"
-        [listLableThang]="listLableThang"
-      ></app-table-chi-phi-xo>
+      ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Điện">
-      <app-table-chi-phi-dien
+      <app-table-chung
+        [listName]="'Dien'"
         [kehoach]="kehoach"
-        [listLableThang]="listLableThang"
-      ></app-table-chi-phi-dien>
+      ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Vật tư phụ">
-      <app-table-chi-phi-vat-tu-phu
+      <app-table-chung
+        [listName]="'VatTuPhu'"
         [kehoach]="kehoach"
-        [listLableThang]="listLableThang"
-      ></app-table-chi-phi-vat-tu-phu>
+      ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Nhân công">
       <app-table-chi-phi-nhan-cong

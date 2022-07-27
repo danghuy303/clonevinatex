@@ -5,64 +5,31 @@
       <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
         <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
           <div class="p-mr-2">
-            <p-dropdown
-              [filter]="true"
-              placeholder="Công đoạn"
-              styleClass="p-inputtext-sm"
-              [options]="CongDoan"
-              [(ngModel)]="filter.MaCongDoan"
-              (onChange)="getDataBaoCao()"
-              [showClear]="true"
-            >
+            <p-dropdown [filter]="true" placeholder="Công đoạn" styleClass="p-inputtext-sm" [options]="CongDoan"
+              [(ngModel)]="filter.MaCongDoan" (onChange)="getDataBaoCao()" [showClear]="true">
             </p-dropdown>
           </div>
           <div class="p-mr-2">
-            <p-dropdown
-              [filter]="true"
-              placeholder="Chọn bộ phận sử dụng"
-              styleClass="p-inputtext-sm"
-              [options]="PhanXuong"
-              [(ngModel)]="filter.IdBoPhanSuDung"
-              (onChange)="getDataBaoCao()"
-              [showClear]="true"
-            ></p-dropdown>
+            <p-dropdown [filter]="true" placeholder="Chọn bộ phận sử dụng" styleClass="p-inputtext-sm"
+              [options]="PhanXuong" [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()" [showClear]="true">
+            </p-dropdown>
           </div>
         </div>
 
         <div class="p-mr-2">
-          <p-calendar
-            dateFormat="dd/mm/yy"
-            inputStyleClass="p-inputtext-sm"
-            [showIcon]="true"
-            inputId="icon"
-            placeholder="Từ ngày"
-            [(ngModel)]="filter.TuNgay"
-            (onSelect)="getDataBaoCao()"
-          >
+          <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
+            placeholder="Từ ngày" [(ngModel)]="filter.TuNgay" (onSelect)="getDataBaoCao()">
           </p-calendar>
         </div>
         <div class="p-mr-2">
-          <p-calendar
-            dateFormat="dd/mm/yy"
-            inputStyleClass="p-inputtext-sm"
-            [showIcon]="true"
-            inputId="icon"
-            placeholder="Đến ngày"
-            [minDate]="filter.TuNgay"
-            [(ngModel)]="filter.DenNgay"
-            (onSelect)="getDataBaoCao()"
-          >
+          <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
+            placeholder="Đến ngày" [minDate]="filter.TuNgay" [(ngModel)]="filter.DenNgay" (onSelect)="getDataBaoCao()">
           </p-calendar>
         </div>
 
         <div>
-          <button
-            pButton
-            type="button"
-            label="Biểu đồ chi tiết theo từng máy"
-            class="p-button-sm"
-            (click)="getChart4()"
-          ></button>
+          <button pButton type="button" label="Biểu đồ chi tiết theo từng máy" class="p-button-sm"
+            (click)="getChart4()"></button>
         </div>
       </div>
     </div>
@@ -72,14 +39,7 @@
   <div class="top-charts row col-12 mx-0 p-0">
     <div class="first-chart bg-white p-3">
       <h6 class="text-center m-0" style="font-weight: bold">TỔNG HỢP</h6>
-      <p-chart
-        class="p-2"
-        type="pie"
-        [options]="optionsPie"
-        [data]="data1"
-        width="100%"
-        height="100%"
-      ></p-chart>
+      <p-chart class="p-2" type="pie" [options]="optionsPie" [data]="data1" width="100%" height="100%"></p-chart>
     </div>
 
     <div class="second-chart bg-white p-3">
@@ -97,30 +57,29 @@
       <h6 class="text-center m-0" style="font-weight: bold">
         BIỂU ĐỒ CHI TIẾT THEO TỪNG NGÀY
       </h6>
-      <p-chart
-        height="250"
-        type="bar"
-        [data]="data3"
-        [options]="options3"
-        (onDataSelect)="getChart5($event)"
-      ></p-chart>
+      <p-chart height="250" type="bar" [data]="data3" [options]="options3" (onDataSelect)="getChart5($event)"></p-chart>
     </div>
   </div>
 </div>
 
 <!-- fourth chart: Biểu đồ chi tiết từng máy -->
-<p-dialog
-  [(visible)]="displayChart4"
-  [style]="{ width: '80vw' }"
-  [modal]="true"
-  header="Từ ngày {{ filter.TuNgay | date: 'dd/MM/yyy' }} - Đến ngày {{
-    filter.DenNgay | date: 'dd/MM/yyy'
-  }}"
->
+<p-dialog [(visible)]="displayChart4" [style]="{ width: '80vw' }" [modal]="true" header="Từ ngày {{ filter.TuNgay | date: 'dd/MM/yyy' }} - Đến ngày {{
+    filter.DenNgay | date: 'dd/MM/yyy'}}">
   <div>
-    <h6 class="text-center m-0" style="font-weight: bold">
-      BIỂU ĐỒ CHI TIẾT THEO TỪNG MÁY
-    </h6>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="me-5">
+        <h6 class="mb-0" style="font-weight: bold">
+          BIỂU ĐỒ CHI TIẾT THEO TỪNG MÁY
+        </h6>
+      </div>
+
+      <div class="w-25">
+        <p-dropdown [filter]="true" placeholder="Công đoạn" styleClass="p-inputtext-sm" [style]="{width: '100%'}"
+          [options]="CongDoan" [(ngModel)]="filter.MaCongDoan" (onChange)="getChart4()" [showClear]="true">
+        </p-dropdown>
+      </div>
+    </div>
+
 
     <canvas id="chart4" style="width: 100%; height: 500px"></canvas>
     <!-- <p-chart type="bar" [data]="data4" [options]="options4"></p-chart> -->
@@ -136,14 +95,9 @@
 </p-dialog>
 
 <!-- fifth chart: Biểu đồ từng loại bảo dưỡng từng ngày -->
-<p-dialog
-  [(visible)]="displayChart5"
-  [style]="{ width: '80vw' }"
-  [modal]="true"
-  header="Loại sự cố: {{ loaiBieudochitietTungloai }} - Ngày: {{
+<p-dialog [(visible)]="displayChart5" [style]="{ width: '80vw' }" [modal]="true" header="Loại sự cố: {{ loaiBieudochitietTungloai }} - Ngày: {{
     dateBieudochitietTungloai
-  }} - Số lượng máy: {{ soLuongMay }}"
->
+  }} - Số lượng máy: {{ soLuongMay }}">
   <div>
     <h6 class="text-center m-0" style="font-weight: bold">
       BIỂU ĐỒ CHI TIẾT THEO TỪNG LOẠI SỰ CỐ TỪNG NGÀY

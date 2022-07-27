@@ -86,6 +86,8 @@ export class LapChiPhiModalComponent implements OnInit {
     this._danhMucHopDong.KeHoachChiPhi()
       .GetSanPhamByIdKeHoach(data).subscribe((res: any) => {
         this.kehoach = res;
+        console.log("this.kehoach", this.kehoach);
+        
         // this.countAllSum();
       })
   }

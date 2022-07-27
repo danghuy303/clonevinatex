@@ -474,6 +474,9 @@ export class DanhMucHopDongService {
             },
             Delete: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/DeleteKeHoachChiPhi`, data);
+            },
+            CountChiPhi: (data, tenDinhMuc) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/TinhChiPhi${tenDinhMuc}forKeHoach`, data);
             }
         }
     }
