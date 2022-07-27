@@ -36,7 +36,7 @@
               <td class="tc-w-40 text-center">VNĐ</td>
               <ng-container *ngFor="let thangChild of child.listDonGia">
                 <td class="tc-w-80">
-                  <p-inputNumber [(ngModel)]="thangChild.Gia" [min]="0" [maxFractionDigits]="3" [minFractionDigits]="0"
+                  <p-inputNumber [(ngModel)]="thangChild.Gia" [min]="0" [maxFractionDigits]="3" [minFractionDigits]="1"
                     mode="decimal" locale="en-US" (ngModelChange)="countAllSum()"></p-inputNumber>
                 </td>
               </ng-container>
@@ -106,7 +106,7 @@
             <ng-container *ngFor="let thang of sanpham.listChiPhi; let ind = index;">
               <tr>
                 <td class="tc-w-40 text-center">{{i + 1}}.{{ind + 1}}</td>
-                <td class="tc-w-280">{{sanpham.Ten}}</td>
+                <td class="tc-w-280">{{thang.Ten}}</td>
                 <td class="tc-w-80 text-right">
                   {{thang.ThongTinDanhMuc?.SoLuong | number: '0.0'}}
                 </td>
