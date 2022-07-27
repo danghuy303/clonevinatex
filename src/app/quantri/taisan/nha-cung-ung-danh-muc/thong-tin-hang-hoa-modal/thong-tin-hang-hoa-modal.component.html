@@ -10,16 +10,18 @@
       <p-button label="Chấp nhận" class="p-button-sm" (click)="SelectHangHoa()"></p-button>
     </div>
     <div class="p-inputgroup" style="width: 200px;">
-      <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="filter.keyWord"
+      <!-- <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="keyWord"
         (keyup.enter)="GetListHangHoa(true)" />
       <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text"
         (click)="GetListHangHoa(true)"></button>
       <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"
-        (click)="ResetFilter()"></button>
+        (click)="ResetFilter()"></button> -->
+          <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+          <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="keyWord">         
     </div>
   </div>
   <div>
-    <p-table [value]="items" styleClass="p-datatable-sm p-datatable-gridlines" [paginator]="true" [rows]="20">
+    <p-table [value]="items | filter:keyWord" styleClass="p-datatable-sm p-datatable-gridlines" [paginator]="true" [rows]="20">
       <ng-template pTemplate="colgroup">
         <colgroup>
           <col style="width: 50px">

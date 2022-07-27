@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { time } from '@amcharts/amcharts4/core';
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -43,7 +44,10 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
       GhiChu: "",
     }
     this.taiSanService.TieuChiDanhGia().GetList(data).subscribe((res: any) => {
-      this.listTieuChi = res.Data.Items;
+      // this.listTieuChi = res.Data.Items;
+      // this.listTieuChi= this.recursive(this.listTieuChi)
+      // this.SumDiemDanhGia();
+      this.listTieuChi = res.Data.Items.filter(ele => ele.HoatDong)
       this.listTieuChi= this.recursive(this.listTieuChi)
       this.SumDiemDanhGia();
     })

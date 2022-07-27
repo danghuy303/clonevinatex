@@ -12,6 +12,7 @@ export class ThongTinHangHoaModalComponent implements OnInit {
   items: any = [];
   filter: any = {};
   paging: any = {};
+  keyWord: any = '';
   checkListItem: any = [];
   checkedAll: boolean = false;
   selectedList: any[] = [];
@@ -39,7 +40,7 @@ export class ThongTinHangHoaModalComponent implements OnInit {
       CurrentPage: 0,
       Keyword: this.filter.keyWord,
     }
-    this.taiSanService.NhaCungUng().GetListItem(data).subscribe((res: any)=>{
+    this.taiSanService.NhaCungUng().GetListItem(data).subscribe((res: any) => {
       this.items = res.Data;
       this.paging.totalCount = res.Data.length;
       this.CheckExistedHangHoa();
@@ -49,14 +50,14 @@ export class ThongTinHangHoaModalComponent implements OnInit {
   SelectHangHoa() {
     // let newArr = this.checkListItem.map(item=>item.MadmItem);
     this.selectedList = this.items.filter(item => item.checked)
-    .map(item=> {
-      return ({
-        IddmItem: item.Id,
-        Id: '',
-        TendmItem: item.Ten,
-        MadmItem: item.Ma
+      .map(item => {
+        return ({
+          IddmItem: item.Id,
+          Id: '',
+          TendmItem: item.Ten,
+          MadmItem: item.Ma
+        })
       })
-    })
     this.activeModal.close(this.selectedList);
   }
 

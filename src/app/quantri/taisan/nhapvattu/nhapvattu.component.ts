@@ -177,6 +177,10 @@ export class NhapvattuComponent implements OnInit {
     })
   }
   ThemMoiDanhSachTaiSan() {
+    if (!validVariable(this.item.IdBoPhanSuDung)) {
+      this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
+      return false;
+    }
     let modalRef = this._modal.open(ModalnhapvattuluachontaisanComponent, {
       size: "xl",
       backdrop: "static",
