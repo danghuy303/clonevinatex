@@ -1628,11 +1628,11 @@ export class QuantriComponent implements OnInit, OnDestroy {
             routerLink: "/quantri/mkehoachsanxuat/danhmuc/vattuphu",
             command: () => this.close(),
           },
-          {
-            label: "Cơ cấu nhân sự",
-            routerLink: "/quantri/mkehoachsanxuat/danhmuc/cocaunhansu/0",
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Cơ cấu nhân sự",
+          //   routerLink: "/quantri/mkehoachsanxuat/danhmuc/cocaunhansu/0",
+          //   command: () => this.close(),
+          // },
           {
             label: "Tài sản",
             routerLink: "/quantri/mkehoachsanxuat/danhmuc/taisan/0",
