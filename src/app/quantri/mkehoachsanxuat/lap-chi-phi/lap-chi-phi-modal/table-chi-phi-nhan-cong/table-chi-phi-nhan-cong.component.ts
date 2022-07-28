@@ -76,7 +76,7 @@ export class TableChiPhiNhanCongComponent implements OnInit, OnChanges {
     }
     this._danhMucHopDong.KeHoachChiPhi()
       .CountChiPhi(data, 'NhanCong').subscribe((res: any) => {
-        
+        this.kehoach.listChiPhiNhanCong = res;
       })
   }
 }

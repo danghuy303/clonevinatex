@@ -55,6 +55,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.addItem(false);
     if (this.item.TaiSan.NgayNhapUnix !== 0 || this.item.TaiSan.NgayNhapUnix === 0) {
       this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
     }
@@ -339,6 +340,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
       })
       .catch((er) => {
       });
+  }
+
+  addItem(e) {
+    
   }
 
 }
