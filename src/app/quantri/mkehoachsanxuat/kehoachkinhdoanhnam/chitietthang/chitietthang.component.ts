@@ -98,7 +98,11 @@ export class ChitietthangComponent implements OnInit {
 
   ChapNhan() {
     this.itemThang.isEdited = true;
-    this.activeModal.close(this.itemThang);
+    let data = {
+      ...this.itemThang,
+      TongSanLuong: this.itemThang.TongSanLuong || 0
+    }
+    this.activeModal.close(data);
   }
 
   GetDate() {

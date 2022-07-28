@@ -52,6 +52,7 @@ export class LapDoanhThuComponent implements OnInit {
   }
 
   resetFilter() {
+    this.filter = {};
     this.getListKeHoachKinhDoanh(true)
   }
 
