@@ -91,7 +91,7 @@
                 </p-tabPanel>
                 <p-tabPanel header="Lịch bảo dưỡng">
                     <ng-template pTemplate="content">
-                        <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan"></app-taomoilichbaoduongcopy>
+                        <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan" ></app-taomoilichbaoduongcopy>
                         <app-taomoilichbaoduongcopy *ngIf="item.TaiSan === undefined" [item]="item"></app-taomoilichbaoduongcopy>
                     </ng-template>
                 </p-tabPanel>
