@@ -10,7 +10,7 @@
         <tr>
           <th class="tc-w-40">STT</th>
           <th class="tc-w-280 text-left">Sản phẩm</th>
-          <th class="tc-w-40">ĐVT</th>
+          <th class="tc-w-80">ĐVT</th>
           <ng-container *ngFor="let thang of listLableThang">
             <th class="tc-w-80 text-right">{{thang}}</th>
           </ng-container>
@@ -21,7 +21,7 @@
           <tr>
             <td class="tc-w-40 text-center">{{i + 1}}</td>
             <td class="tc-w-280">{{sanpham.TenDonGia}}</td>
-            <td class="tc-w-40 text-center">VNĐ</td>
+            <td class="tc-w-80 text-center">{{sanpham.DonViTinh}}</td>
             <ng-container *ngFor="let thang of sanpham.listDonGia">
               <td class="tc-w-80">
                 <p-inputNumber [(ngModel)]="thang.Gia" [min]="0" [maxFractionDigits]="3" [minFractionDigits]="1"
@@ -33,7 +33,7 @@
             <tr>
               <td class="tc-w-40 text-center">{{i + 1}}.{{ind + 1}}</td>
               <td class="tc-w-280">{{child.TenDonGia}}</td>
-              <td class="tc-w-40 text-center">VNĐ</td>
+              <td class="tc-w-40 text-center">{{child.DonViTinh}}</td>
               <ng-container *ngFor="let thangChild of child.listDonGia">
                 <td class="tc-w-80">
                   <p-inputNumber [(ngModel)]="thangChild.Gia" [min]="0" [maxFractionDigits]="3" [minFractionDigits]="1"
@@ -76,7 +76,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td class="text-center">VNĐ</td>
+            <td class="text-center">{{kehoach.DonViTinh}}</td>
             <ng-container *ngFor="let thang of verticalSum">
               <td class="text-right tc-w-80">
                 <b>{{thang | number: '0.0'}}</b>
@@ -93,7 +93,7 @@
               </td>
               <td class="tc-w-80">
               </td>
-              <td class="tc-w-80 text-center">VNĐ</td>
+              <td class="tc-w-80 text-center">{{sanpham.DonViTinh}}</td>
               <ng-container *ngFor="let thang of sanpham.listThang">
                 <td class="tc-w-80 text-right">
                   {{thang.ChiPhi | number: '0.0'}}
@@ -116,7 +116,7 @@
                 <td class="tc-w-80 text-right">
                   {{thang.ThongTinDanhMuc?.PhuCap | number: '0.0'}}
                 </td>
-                <td class="tc-w-80 text-center">VNĐ</td>
+                <td class="tc-w-80 text-center">{{thang.DonViTinh}}</td>
                 <ng-container *ngFor="let child of thang.listThang">
                   <td class="tc-w-80 text-right">
                     {{child.ChiPhi | number: '0.0'}}

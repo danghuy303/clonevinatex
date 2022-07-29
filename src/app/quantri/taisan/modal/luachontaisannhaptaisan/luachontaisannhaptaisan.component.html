@@ -50,8 +50,10 @@
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="rowData.checked" [disabled]="rowData.disabled" binary="true" inputId="binary" (onChange)="checked(rowData)">
-                    </p-checkbox>
+                    <div *ngIf="!rowData.IdTaiSan">
+                        <p-checkbox [(ngModel)]="rowData.checked" [disabled]="rowData.disabled" binary="true" inputId="binary" (onChange)="checked(rowData)">
+                        </p-checkbox>
+                    </div>
                 </td>
                 <td>
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
