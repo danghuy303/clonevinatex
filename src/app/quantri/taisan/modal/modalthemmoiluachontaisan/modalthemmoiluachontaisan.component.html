@@ -80,7 +80,8 @@
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sản lượng (tấn) : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SanLuong" pInputText />
+                <p-inputNumber [minFractionDigits]="1" mode="decimal" [minFractionDigits]="1" locale="en-EN" [min]="0" [(ngModel)]="item.SanLuong">
+                </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
