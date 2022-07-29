@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption">
+    <p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption" [paginator]="true" [rows]="10">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width:50px" class="text-center">
@@ -64,11 +64,17 @@
                 <td>{{rowData.TendmLoaiTaiSan}}</td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="summary">
+        <!-- <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
                 Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
-                    [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
+                [rows]="12" (onPageChange)="changePage($event)"></p-paginator>
             </div>
+        </ng-template> -->
+        <ng-template pTemplate="paginatorleft">
+            <span><b>
+                    Tổng số bản ghi {{paging.TotalCount}}.
+                </b></span>
+            <!-- <button type="button" pButton icon="pi-cloud-upload"></button> -->
         </ng-template>
     </p-treeTable>
 </div>

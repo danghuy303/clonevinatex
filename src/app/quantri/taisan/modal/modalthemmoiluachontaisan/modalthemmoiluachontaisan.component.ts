@@ -46,7 +46,6 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.item);
     this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
     // if (this.item.ThoiGianDuaVaoSuDungUnix !== 0 || this.item.ThoiGianDuaVaoSuDungUnix === 0) {
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
@@ -95,16 +94,16 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập tên");
       return false;
     }
-    if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.DonViNangSuat)) {
+    if (!validVariable(this.item.IddmLoaiTaiSan)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
       return false;
     }
-    if (this.IdBoPhanSuDung != null) {
-      if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {
-        this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
-        return false;
-      }
-    }
+    // if (this.IdBoPhanSuDung != null) {
+    //   if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {
+    //     this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
+    //     return false;
+    //   }
+    // }
     if (this.item?.isCanDuTru) {
       if (!validVariable(this.item?.DuTruToiThieu) || this.item?.DuTruToiThieu <= 0) {
         this.toastr.error("Yêu cầu nhập số lượng dự trữ");
