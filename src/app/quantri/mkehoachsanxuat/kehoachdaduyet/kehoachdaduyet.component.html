@@ -7,15 +7,15 @@
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Từ ngày">
-            </p-calendar>
+            <p-dropdown [(ngModel)]="filter.Nam" [filter]="true" [options]="years" placeholder="Chọn năm"
+            [showClear]="true" styleClass="p-inputtext-sm" (onChange)="getListKeHoachKinhDoanh(true)"></p-dropdown>
         </div>
-        <div class="p-mr-2">
+        <!-- <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Đến ngày">
             </p-calendar>
-        </div>
+        </div> -->
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="filter.keyword"
                 (keyup.enter)="getListKeHoachKinhDoanh(true)" />
             <button type="button" pButton pRipple icon="pi pi-search"
                 class="p-button-secondary p-button-sm p-button-text" (click)="getListKeHoachKinhDoanh(true)"></button>
