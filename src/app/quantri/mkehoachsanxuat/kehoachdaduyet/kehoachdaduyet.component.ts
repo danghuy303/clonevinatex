@@ -101,7 +101,10 @@ export class KehoachdaduyetComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         // this.changeParam(res.Data.Id);
-        this.router.navigate([`/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${res.Data.Id}`])
+        // console.log("res", res);
+        
+        // if (res)
+        // this.router.navigate([`/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${res}`], {replaceUrl: true});
       })
       .catch((error: any) => {})
       .finally(() => {
