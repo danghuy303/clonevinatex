@@ -68,6 +68,7 @@ export class TableChungComponent implements OnInit, OnChanges {
         this.verticalSum[i] += (chiphi.listChiPhi[i].ChiPhi || 0);
       })
     }
+    this.verticalSum[12] = 0;
     this.verticalSum[12] = this.verticalSum.reduce((total, ele) => {
       return total + ele;
     }, 0);
