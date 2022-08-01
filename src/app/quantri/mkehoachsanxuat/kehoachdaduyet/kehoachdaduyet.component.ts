@@ -16,6 +16,8 @@ export class KehoachdaduyetComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   listKeHoach: any = [];
+  filter: any = {};
+  years: any = [];
   keyWord: any = '';
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   trangThai: any = 1;
@@ -25,17 +27,18 @@ export class KehoachdaduyetComponent implements OnInit {
   constructor(
     public _modal: NgbModal,
     public toastr: ToastrService,
-    private activatedRoute: ActivatedRoute, 
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private _services: SanXuatService,
     private _danhMucHopDong: DanhMucHopDongService
   ) { }
 
   ngOnInit(): void {
+    this.getYearsForDropDown();
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         console.log(res);
-        
+
         this._danhMucHopDong
           .DanhSachKeHoachKinhDoanh()
           .Get(res.id)
@@ -48,9 +51,21 @@ export class KehoachdaduyetComponent implements OnInit {
   }
 
   resetFilter() {
+    this.filter = {};
     this.getListKeHoachKinhDoanh(true)
   }
-  
+
+  getYearsForDropDown() {
+    let date = new Date().getFullYear() - 1;
+    for (let i = 0; i <= 20; i++) {
+      date++;
+      this.years.push({
+        label: date,
+        value: date
+      });
+    }
+  }
+
   getListKeHoachKinhDoanh(reset?) {
     if (reset) {
       this.paging.Page = 1;
@@ -59,7 +74,8 @@ export class KehoachdaduyetComponent implements OnInit {
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.Page,
-      sFilter: this.keyWord,
+      sFilter: this.filter.keyword,
+      Nam: this.filter.Nam
       // TabTrangThai: this.trangThai
     };
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetKeHoachKinhDoanhDaDuyet(data).subscribe((res: any) => {
@@ -85,15 +101,22 @@ export class KehoachdaduyetComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         // this.changeParam(res.Data.Id);
-        this.router.navigate([`/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${res.Data.Id}`])
-      })
-      .catch((error: any) => {})
-      .finally(() => {
+        // console.log("res", res);
+        if (res) {
+          this.changeParam(res)
+        } else {
+          this.changeParam(0)
+        }
+      }).then(
+    )
+      .catch((error: any) => {
         this.changeParam(0)
+       })
+      .finally(() => {
         this.getListKeHoachKinhDoanh();
       })
   }
-  
+
   add() {
     let modalRef = this._modal.open(KeHoachDaDuyetModalComponent, {
       size: "fullscreen-100",
@@ -101,8 +124,8 @@ export class KehoachdaduyetComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.result
-      .then((res: any) => {})
-      .catch((error: any) => {})
+      .then((res: any) => { })
+      .catch((error: any) => { })
       .finally(() => {
         this.getListKeHoachKinhDoanh();
       })

@@ -1,3 +1,4 @@
+import { replace } from '@amcharts/amcharts4/.internal/core/utils/Array';
 import { formatNumber } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -208,10 +209,9 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
         handleHTTPResponse(res, this.toastr, () => {
           this.kehoach = res.Data;
           // this.router.navigate([`quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`]);
-          let url = `${window.location.origin}/#/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`;
-          console.log("url", url);
-          window.open(url);
-          this.activeModal.close();
+          // let url = `${window.location.origin}/#/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`;
+          this.activeModal.close(this.kehoach.Id);
+          // window.open(url, '_blank');
         })
       })
     }
