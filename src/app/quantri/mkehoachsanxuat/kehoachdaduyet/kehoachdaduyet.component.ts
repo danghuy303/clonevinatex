@@ -16,6 +16,8 @@ export class KehoachdaduyetComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   listKeHoach: any = [];
+  filter: any = {};
+  years: any = [];
   keyWord: any = '';
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   trangThai: any = 1;
@@ -32,6 +34,7 @@ export class KehoachdaduyetComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getYearsForDropDown();
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         console.log(res);
@@ -48,7 +51,19 @@ export class KehoachdaduyetComponent implements OnInit {
   }
 
   resetFilter() {
+    this.filter = {};
     this.getListKeHoachKinhDoanh(true)
+  }
+
+  getYearsForDropDown() {
+    let date = new Date().getFullYear() - 1;
+    for (let i = 0; i <= 20; i++) {
+      date++;
+      this.years.push({
+        label: date,
+        value: date
+      });
+    }
   }
   
   getListKeHoachKinhDoanh(reset?) {
@@ -59,7 +74,8 @@ export class KehoachdaduyetComponent implements OnInit {
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.Page,
-      sFilter: this.keyWord,
+      sFilter: this.filter.keyword,
+      Nam: this.filter.Nam
       // TabTrangThai: this.trangThai
     };
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetKeHoachKinhDoanhDaDuyet(data).subscribe((res: any) => {
