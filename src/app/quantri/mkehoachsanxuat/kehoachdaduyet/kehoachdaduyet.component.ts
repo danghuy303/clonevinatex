@@ -27,7 +27,7 @@ export class KehoachdaduyetComponent implements OnInit {
   constructor(
     public _modal: NgbModal,
     public toastr: ToastrService,
-    private activatedRoute: ActivatedRoute, 
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private _services: SanXuatService,
     private _danhMucHopDong: DanhMucHopDongService
@@ -38,7 +38,7 @@ export class KehoachdaduyetComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         console.log(res);
-        
+
         this._danhMucHopDong
           .DanhSachKeHoachKinhDoanh()
           .Get(res.id)
@@ -65,7 +65,7 @@ export class KehoachdaduyetComponent implements OnInit {
       });
     }
   }
-  
+
   getListKeHoachKinhDoanh(reset?) {
     if (reset) {
       this.paging.Page = 1;
@@ -102,17 +102,21 @@ export class KehoachdaduyetComponent implements OnInit {
       .then((res: any) => {
         // this.changeParam(res.Data.Id);
         // console.log("res", res);
-        
-        // if (res)
-        // this.router.navigate([`/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${res}`], {replaceUrl: true});
-      })
-      .catch((error: any) => {})
-      .finally(() => {
+        if (res) {
+          this.changeParam(res)
+        } else {
+          this.changeParam(0)
+        }
+      }).then(
+    )
+      .catch((error: any) => {
         this.changeParam(0)
+       })
+      .finally(() => {
         this.getListKeHoachKinhDoanh();
       })
   }
-  
+
   add() {
     let modalRef = this._modal.open(KeHoachDaDuyetModalComponent, {
       size: "fullscreen-100",
@@ -120,8 +124,8 @@ export class KehoachdaduyetComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.result
-      .then((res: any) => {})
-      .catch((error: any) => {})
+      .then((res: any) => { })
+      .catch((error: any) => { })
       .finally(() => {
         this.getListKeHoachKinhDoanh();
       })

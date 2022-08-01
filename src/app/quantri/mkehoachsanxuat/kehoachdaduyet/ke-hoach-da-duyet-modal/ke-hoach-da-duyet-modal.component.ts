@@ -209,9 +209,9 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
         handleHTTPResponse(res, this.toastr, () => {
           this.kehoach = res.Data;
           // this.router.navigate([`quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`]);
-          let url = `${window.location.origin}/#/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`;
+          // let url = `${window.location.origin}/#/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`;
           this.activeModal.close(this.kehoach.Id);
-          window.open(url, '_blank');
+          // window.open(url, '_blank');
         })
       })
     }
