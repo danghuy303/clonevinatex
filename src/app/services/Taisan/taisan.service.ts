@@ -773,6 +773,10 @@ export class TaisanService {
         data.idDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/GetlistdmTieuChiDanhGia`, data, httpOptions);
       },
+      GetlistdmTieuChiDanhGiaDangHoatDong: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/GetlistdmTieuChiDanhGiaDangHoatDong`, data, httpOptions);
+      },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmTieuChiDanhGia`, data, httpOptions);
       },
