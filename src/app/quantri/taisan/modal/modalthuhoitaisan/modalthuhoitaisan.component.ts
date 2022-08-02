@@ -66,12 +66,15 @@ export class ModalthuhoitaisanComponent implements OnInit {
   }
 
   delete(index) {
-    let item = this.item.listTaiSan.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
-    }
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.result
+      .then((res) => {
+       this.item.listTaiSan.splice(index, 1);
+      })
+      .catch((er) => console.log(er));
   }
 
   setData() {
@@ -183,5 +186,6 @@ export class ModalthuhoitaisanComponent implements OnInit {
   ChonLoaiTaiSan() {
     this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
   }
+
 }
 
