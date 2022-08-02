@@ -40,9 +40,9 @@ export class CapnhatthuvienComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan.ThuVienTaiSan().Get(res.id)
-        .subscribe((res1: any) => {
-          this.update(res1);
-        });
+          .subscribe((res1: any) => {
+            this.update(res1);
+          });
       }
     });
     this.getList();
@@ -51,13 +51,13 @@ export class CapnhatthuvienComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      res.push({Ten:"Chưa có bộ phận sử dụng",Id:"Chưa có bộ phận sử dụng"})
+      res.push({ Ten: "Chưa có bộ phận sử dụng", Id: "Chưa có bộ phận sử dụng" })
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
   resetFilter() {
-    this.filter={};
+    this.filter = {};
     this.getList(true);
   }
 
@@ -111,19 +111,24 @@ export class CapnhatthuvienComponent implements OnInit {
       IdTrangThai: "",
       TenTrangThai: "",
       isKetThuc: false,
-      TaiSan: {
-        Id: "",
-        isXoa: false,
-        listFileDinhKem: [],
-        Created: new Date(),
-        Modified: new Date(),
-        listTaiSan: [],
-        listLichBaoDuong: [],
-        listThongSoKyThuat: [],
-        listThongSoAnToan: [],
-      },
+      // TaiSan: {
+      //   Id: "",
+      //   isXoa: false,
+      //   listFileDinhKem: [],
+      //   Created: new Date(),
+      //   Modified: new Date(),
+      //   listTaiSan: [],
+      //   listLichBaoDuong: [],
+      //   listThongSoKyThuat: [],
+      //   listThongSoAnToan: [],
+      // },
+      listTaiSan: [],
+      listLichBaoDuong: [],
+      listThongSoKyThuat: [],
+      listThongSoAnToan: [],
       listFileDinhKem: [],
-     }
+      
+    }
     modalRef.result.then(res => {
 
     }).catch(er => console.log(er))
@@ -149,8 +154,8 @@ export class CapnhatthuvienComponent implements OnInit {
       })
   }
 
-  changePage(event){
-    this.paging.Page = event.page+1;
+  changePage(event) {
+    this.paging.Page = event.page + 1;
     this.getList()
   }
 }
