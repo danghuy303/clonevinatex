@@ -85,20 +85,20 @@ export class ModalchontaisanCopyComponent implements OnInit {
   checkAll(e) {
     this.items.forEach(eleCha => {
       eleCha.data.checked = e.checked;
-      this.TimCheck(eleCha);
+      // this.TimCheck(eleCha);
     })
   }
 
   checked(item) {
-    if (!item.isCha) {
-      this.items.forEach(eleCha => {
-        eleCha.data.checked = eleCha.children.every(eleCon => eleCon.data.checked)
-      })
-    } else {
-      this.items.forEach(eleCha => {
-        this.TimCheck(eleCha);
-      })
-    }
+    // if (!item.isCha) {
+    //   this.items.forEach(eleCha => {
+    //     eleCha.data.checked = eleCha.children.every(eleCon => eleCon.data.checked)
+    //   })
+    // } else {
+    //   this.items.forEach(eleCha => {
+    //     this.TimCheck(eleCha);
+    //   })
+    // }
     this.checkedAll = this.items.every(eleCha => eleCha.data.checked)
   }
 

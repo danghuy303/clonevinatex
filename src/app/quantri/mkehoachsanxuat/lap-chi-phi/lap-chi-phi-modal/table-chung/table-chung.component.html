@@ -26,9 +26,9 @@
       <tbody>
         <ng-container *ngFor="let sanpham of kehoach[dinhMucName]?.listDonGia; let i = index">  
           <tr>
-            <td class="tc-w-40 text-center">{{i + 1}}</td>
-            <td class="tc-w-280">{{sanpham.TenDonGia}}</td>
-            <td class="tc-w-40 text-center">VNĐ</td>
+            <td class="tc-w-40 text-center" style="z-index: 1">{{i + 1}}</td>
+            <td class="tc-w-280" style="z-index: 1">{{sanpham.TenDonGia}}</td>
+            <td class="tc-w-40 text-center" style="z-index: 1">VNĐ</td>
             <ng-container *ngFor="let thang of sanpham.listDonGia">
               <td class="tc-w-80">
                 <p-inputNumber

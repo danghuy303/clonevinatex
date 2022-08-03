@@ -68,7 +68,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
     });
-    
+
   }
 
   GetListdmPhanXuong() {
@@ -121,7 +121,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
       })
     }
   }
-  
+
   ThemMoiTaiSanCon() {
     let modalRef = this._modal.open(ModalthemmoiluachontaisanComponent, {
       size: "fullscreen-100",
@@ -142,14 +142,14 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.result
       .then((res: any) => {
-       this.item.TaiSan.listTaiSan.push(res);
+          this.item.listTaiSan.push(res);
       })
       .catch((er) => {
       });
   }
 
   CapNhatTaiSanCon(item, index) {
-    let item_copy = {...item};
+    let item_copy = { ...item };
     let modalRef = this._modal.open(ModalthemmoiluachontaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",

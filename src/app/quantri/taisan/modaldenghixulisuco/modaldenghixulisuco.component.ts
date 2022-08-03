@@ -186,6 +186,10 @@ export class ModaldenghixulisucoComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
+    if (!validVariable(this.item.IdBoPhanSuDung)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ bộ phận sử dụng!");
+      return false;
+    }
     let modalRef = this._modal.open(XulysucoluachontaisanComponent, {
       size: "xl",
       backdrop: "static",
