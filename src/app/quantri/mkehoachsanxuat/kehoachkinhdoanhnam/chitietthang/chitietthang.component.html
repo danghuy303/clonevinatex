@@ -22,6 +22,7 @@
             locale="en-US" 
             (onBlur)="CountTongSanLuong()"
             (onBlur)="CountSoMayCon()"
+            (ngModelChange)="itemThang.TongSanLuong = itemThang.TongSanLuong || 0"
           >
           </p-inputNumber>
         </div>
@@ -37,13 +38,19 @@
             [minFractionDigits]="1"
             [maxFractionDigits]="1"
             (onBlur)="CountTongSoCa()"
+            (ngModelChange)="itemThang.SoNgayLamViec = itemThang.SoNgayLamViec || 0"
           ></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hiệu suất ( % ):</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.HieuSuat" locale="en-US" placeholder="Nhập hiệu suất"></p-inputNumber>
+          <p-inputNumber 
+          [(ngModel)]="itemThang.HieuSuat" 
+          locale="en-US" 
+          placeholder="Nhập hiệu suất"
+          (ngModelChange)="itemThang.HieuSuat = itemThang.HieuSuat || 0"
+          ></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
@@ -56,31 +63,60 @@
             placeholder="Nhập tổng số ca" 
             (onBlur)="CountTongSanLuong()"
             (onBlur)="CountSoMayCon()"
+            (ngModelChange)="itemThang.TongSoCa = itemThang.TongSoCa || 0"
           ></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số máy con:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SoMayCon" [min]="0" [disabled]="true" [maxFractionDigits]="1" locale="en-US" placeholder="Nhập số máy con"></p-inputNumber>
+          <p-inputNumber 
+            [(ngModel)]="itemThang.SoMayCon" 
+            [min]="0" 
+            [disabled]="true" 
+            [maxFractionDigits]="1" 
+            locale="en-US" 
+            placeholder="Nhập số máy con"
+            (ngModelChange)="itemThang.SoMayCon = itemThang.SoMayCon || 0"
+          ></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số máy con bố trí:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SoMayConBoTri" [min]="0" [maxFractionDigits]="0" locale="en-US" placeholder="Nhập số máy con"></p-inputNumber>
+          <p-inputNumber 
+            [(ngModel)]="itemThang.SoMayConBoTri" 
+            [min]="0" 
+            [maxFractionDigits]="0" 
+            locale="en-US" 
+            placeholder="Nhập số máy con"
+            (ngModelChange)="itemThang.SoMayConBoTri = itemThang.SoMayConBoTri || 0"
+          ></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sản lượng một ca:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SanLuongMotCa" (ngModelChange)="CountTongSanLuong()" [disabled]="true" locale="en-US" placeholder="Nhập sản lượng một ca"></p-inputNumber>
+          <p-inputNumber 
+            [(ngModel)]="itemThang.SanLuongMotCa" 
+            (ngModelChange)="CountTongSanLuong()" 
+            [disabled]="true" 
+            locale="en-US" 
+            placeholder="Nhập sản lượng một ca"
+            (ngModelChange)="itemThang.SanLuongMotCa = itemThang.SanLuongMotCa || 0"
+          ></p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sản lượng quy đổi:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-inputNumber [(ngModel)]="itemThang.SanLuongQuyDoi" [disabled]="true" locale="en-US" placeholder="Sản lượng quy đổi">
+          <p-inputNumber 
+            [(ngModel)]="itemThang.SanLuongQuyDoi" 
+            [disabled]="true" 
+            locale="en-US" 
+            placeholder="Sản lượng quy đổi"
+            (ngModelChange)="itemThang.SanLuongQuyDoi = itemThang.SanLuongQuyDoi || 0"
+          >
           </p-inputNumber>
         </div>
       </div>

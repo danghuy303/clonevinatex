@@ -131,6 +131,7 @@ export class LapDoanhThuModalComponent implements OnInit {
           ...res,
           TenKeHoach: this.kehoach.TenKeHoach || "",
           TenNguoiLap: this.kehoach.TenNguoiLap,
+          NgayLap: this.kehoach.NgayLap
         };
         this.countAllSum();
       })
@@ -197,6 +198,13 @@ export class LapDoanhThuModalComponent implements OnInit {
             this.activeModal.close();
           })
         })
+    })
+  }
+
+  dieuChinh() {
+    this._danhMucHopDong.KeHoachDoanhThu().DieuChinh(this.kehoach.Id).subscribe((res: any) => {
+      this.kehoach = res;
+      this.kiemTraButton();
     })
   }
 
