@@ -22,10 +22,12 @@ export class LichxichthangComponent implements OnInit {
   TongSoTaiSan: '';
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
-  listLoaiTaiSan: any = [];
+  listCongDoan: any = [];
   listPhanXuong: any = [];
   labelThang: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
     '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+    MaCongDoan: any = '';
+
   constructor(public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
     private _servicesSanXuat: SanXuatService,
@@ -34,18 +36,11 @@ export class LichxichthangComponent implements OnInit {
   ngOnInit(): void {
     this.filter.Ngay = new Date();
     this.GetList();
-    
     let getFullYear = new Date().getFullYear();
     let getMonth = new Date().getMonth() + 1;
     // this.filter.Ngay = `${getMonth}/${getFullYear}`;
-    
-    let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
-      IdDuAn: 0,
-    };
-    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
     })
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -60,9 +55,9 @@ export class LichxichthangComponent implements OnInit {
       Keyword: "", 
       CurrentPage: 0, 
       PageSize: 20, 
-      MaCongDoan: '', 
+      MaCongDoan: this.filter.IddmLoaiTaiSan, 
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, 
+      IddmLoaiTaiSan: '', 
       IdUser: '', 
       Ngay: DateToUnix(new Date(this.filter.Ngay.getFullYear(), this.filter.Ngay.getMonth(), 1)), 
       LoaiKeHoach: '',

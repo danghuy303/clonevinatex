@@ -76,6 +76,7 @@
                 <col style="width:150px">
                 <col style="width:100px">
                 <col style="width:200px">
+                <col style="width:80px">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -87,6 +88,7 @@
                 <th>Giá trị còn lại (VNĐ)</th>
                 <th>Số lượng</th>
                 <th>Ghi chú</th>
+                <th>Thao tác</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -112,6 +114,11 @@
                 </td>
                 <td>
                     <input type="text" class="p-inputtext-sm" [ngbTooltip]="item.GhiChu" [(ngModel)]="item.GhiChu" pInputText />
+                </td>
+                <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-trash"
+                    class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                    (click)=" delete(i)"></button>
                 </td>
             </tr>
         </ng-template>

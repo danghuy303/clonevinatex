@@ -37,22 +37,16 @@ export class ThongTinDanhGiaNcuComponent implements OnInit, AfterViewInit, OnCha
 
   LoadListTieuChi() {
     let data = {
-      CurrentPage: 1,
+      CurrentPage: 0,
       TieuChiCha: false,
       Keyword: "",
       GhiChu: "",
     }
-    this.taiSanService.TieuChiDanhGia().GetList(data).subscribe((res: any) => {
+    this.taiSanService.TieuChiDanhGia().GetlistdmTieuChiDanhGiaDangHoatDong(data).subscribe((res: any) => {
       // this.listTieuChi = res.Data.Items;
       // this.listTieuChi= this.recursive(this.listTieuChi)
       // this.SumDiemDanhGia();
-      this.listTieuChi = res.Data.Items.filter(ele => ele.HoatDong)
-
-      // let data = res.Data.Items.filter(ele => ele.HoatDong)
-      // data.forEach(ele => {
-      //   this.listTieuChi = ele.listItem.filter(obj => obj.HoatDong);
-      // })
-
+      this.listTieuChi = res.Data;
       this.listTieuChi = this.recursive(this.listTieuChi)
       this.SumDiemDanhGia();
     })
