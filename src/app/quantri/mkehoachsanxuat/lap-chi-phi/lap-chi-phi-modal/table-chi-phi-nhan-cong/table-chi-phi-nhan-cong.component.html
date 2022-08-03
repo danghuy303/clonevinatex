@@ -25,7 +25,7 @@
             <ng-container *ngFor="let thang of sanpham.listDonGia">
               <td class="tc-w-80">
                 <p-inputNumber [(ngModel)]="thang.Gia" [min]="0" [maxFractionDigits]="3" [minFractionDigits]="1"
-                  mode="decimal" locale="en-US" [disabled]="sanpham.listNhanCong.length" (ngModelChange)="countAllSum()"></p-inputNumber>
+                  mode="decimal" locale="en-US" [disabled]="sanpham.listNhanCong?.length" (ngModelChange)="countAllSum()"></p-inputNumber>
               </td>
             </ng-container>
           </tr>
