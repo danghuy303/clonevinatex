@@ -473,7 +473,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}KeHoachKinhDoanh/ChuyenTiepQuyTrinhKeHoachChiPhi`, data);
             },
             KhongDuyet: (data) => {
-                return this.http.post(`${url}KeHoachKinhDoanh/KhongDuyetQuyTrinhKeHoachChiPhi`, data);
+                return this.http.post(`${url}KeHoachKinhDoanh/pKhongDuyetQuyTrinhKeHoachChiPhi`, data);
             },
             Delete: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/DeleteKeHoachChiPhi`, data);
