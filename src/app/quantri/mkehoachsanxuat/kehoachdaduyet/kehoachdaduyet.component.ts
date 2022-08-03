@@ -147,5 +147,4 @@ export class KehoachdaduyetComponent implements OnInit {
     this.paging.Page = event.page + 1;
     this.getListKeHoachKinhDoanh()
   }
-
 }

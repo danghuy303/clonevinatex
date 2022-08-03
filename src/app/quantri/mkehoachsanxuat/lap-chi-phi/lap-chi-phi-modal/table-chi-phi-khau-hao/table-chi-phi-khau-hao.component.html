@@ -1,4 +1,3 @@
-
 <p-panel>
   <ng-template pTemplate="header" class="p-jc-start">
     <b class="p-mr-3">Chi phí</b>
@@ -18,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="kehoach.listKhauHao != null || kehoach.listKhauHao != undefined">
+          <tr *ngIf="kehoach.listKhauHao != null &&  kehoach.listKhauHao != undefined && kehoach.listKhauHao?.length !==0">
             <td [attr.colspan]="2" class="p-p-2"><b>Cộng</b></td>
             <td style="display: none"></td>
             <td class="text-center">{{kehoach.DonViTinh}}</td>
