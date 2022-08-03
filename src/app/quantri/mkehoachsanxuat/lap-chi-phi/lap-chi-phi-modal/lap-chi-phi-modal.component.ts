@@ -29,10 +29,7 @@ export class LapChiPhiModalComponent implements OnInit {
   verticalSum: any = [];
   horizontalSum: any = 0;
   userInfo: any = {};
-  listDonViTinh: any = [
-    {value: "VND", label: "Việt Nam Đồng"},
-    {value: "USD", label: "Đô la Mẽo"},
-  ];
+
 
   constructor(
     private _danhMucHopDong: DanhMucHopDongService,
