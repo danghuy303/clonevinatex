@@ -19,13 +19,13 @@
       <tbody>
         <ng-container *ngFor="let sanpham of kehoach.listNhanCong; let i = index">
           <tr>
-            <td class="tc-w-40 text-center">{{i + 1}}</td>
-            <td class="tc-w-280">{{sanpham.TenDonGia}}</td>
-            <td class="tc-w-80 text-center">{{sanpham.DonViTinh}}</td>
+            <td class="tc-w-40 text-center" style="z-index: 1">{{i + 1}}</td>
+            <td class="tc-w-280" style="z-index: 1">{{sanpham.TenDonGia}}</td>
+            <td class="tc-w-80 text-center" style="z-index: 1">{{sanpham.DonViTinh}}</td>
             <ng-container *ngFor="let thang of sanpham.listDonGia">
               <td class="tc-w-80">
                 <p-inputNumber [(ngModel)]="thang.Gia" [min]="0" [maxFractionDigits]="3" [minFractionDigits]="1"
-                  mode="decimal" locale="en-US" [disabled]="sanpham.listNhanCong.length" (ngModelChange)="countAllSum()"></p-inputNumber>
+                  mode="decimal" locale="en-US" [disabled]="sanpham.listNhanCong?.length" (ngModelChange)="countAllSum()"></p-inputNumber>
               </td>
             </ng-container>
           </tr>

@@ -28,6 +28,10 @@ export class LapDoanhThuModalComponent implements OnInit {
   checkButton: any = {};
   verticalSum: any = [];
   horizontalSum: any = 0;
+  listDonViTinh: any = [
+    {value: "VND", label: "Việt Nam Đồng"},
+    {value: "USD", label: "Đô la Mỹ"},
+  ];
 
   constructor(
     private _danhMucHopDong: DanhMucHopDongService,
@@ -131,6 +135,7 @@ export class LapDoanhThuModalComponent implements OnInit {
           ...res,
           TenKeHoach: this.kehoach.TenKeHoach || "",
           TenNguoiLap: this.kehoach.TenNguoiLap,
+          NgayLap: this.kehoach.NgayLap
         };
         this.countAllSum();
       })
@@ -197,6 +202,13 @@ export class LapDoanhThuModalComponent implements OnInit {
             this.activeModal.close();
           })
         })
+    })
+  }
+
+  dieuChinh() {
+    this._danhMucHopDong.KeHoachDoanhThu().DieuChinh(this.kehoach.Id).subscribe((res: any) => {
+      this.kehoach = res;
+      this.kiemTraButton();
     })
   }
 

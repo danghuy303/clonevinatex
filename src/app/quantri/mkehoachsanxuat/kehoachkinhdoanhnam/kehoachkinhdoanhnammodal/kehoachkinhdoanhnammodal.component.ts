@@ -189,6 +189,16 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   ValidateData() {
+    if (!validVariable(this.kehoach.IdDuAn)) {
+      this.toastr.error("Vui lòng chọn nhà máy!")
+      return false;  
+    } else if (!validVariable(this.kehoach.Nam)) {
+      this.toastr.error("Vui lòng chọn năm kế hoạch!")
+      return false;
+    } else if (!validVariable(this.kehoach.NeGoc)) {
+      this.toastr.error("Vui lòng nhập chi số gốc Ne!")
+      return false;
+    }
     return true;
   }
 
@@ -284,7 +294,6 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   SeeMonthDetail(sanpham, itemThang) {
-  
     if (this.checkThang[itemThang.Thang - 1]) {
       let modalRef = this._modal.open(ChitietthangComponent, {
         size: 'xl',
@@ -306,7 +315,6 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
           itemThang.SanLuongThang = itemThang.ThongTinThang_SanPham.TongSanLuong;
           this.CheckForAllMonth(sanpham, itemThang);
           this.CountAll();
-          
         })
         .catch((error: any) => {
   

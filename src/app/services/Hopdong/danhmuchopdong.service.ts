@@ -444,6 +444,9 @@ export class DanhMucHopDongService {
             },
             Delete: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/DeleteKeHoachDoanhThu`, data);
+            },
+            DieuChinh: (id) => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetKeHoachDoanhThuChoDieuChinh?IdKeHoachDoanhThu=${id}`);
             }
         }
     }
@@ -470,13 +473,16 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}KeHoachKinhDoanh/ChuyenTiepQuyTrinhKeHoachChiPhi`, data);
             },
             KhongDuyet: (data) => {
-                return this.http.post(`${url}KeHoachKinhDoanh/KhongDuyetQuyTrinhKeHoachChiPhi`, data);
+                return this.http.post(`${url}KeHoachKinhDoanh/pKhongDuyetQuyTrinhKeHoachChiPhi`, data);
             },
             Delete: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/DeleteKeHoachChiPhi`, data);
             },
             CountChiPhi: (data, tenDinhMuc) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/TinhChiPhi${tenDinhMuc}forKeHoach`, data);
+            },
+            DieuChinh: (id) => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetKeHoachChiPhiChoDieuChinh?IdKeHoachChiPhi=${id}`);
             }
         }
     }

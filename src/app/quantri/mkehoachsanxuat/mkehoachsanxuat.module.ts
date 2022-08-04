@@ -104,6 +104,7 @@ import { TableChiPhiNhanCongComponent } from './lap-chi-phi/lap-chi-phi-modal/ta
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ThietLapLuongThangComponent } from './danh-muc/thiet-lap-luong-thang/thiet-lap-luong-thang.component';
 import { TableChungComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chung/table-chung.component';
+import { TableChiPhiKhauHaoComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-khau-hao/table-chi-phi-khau-hao.component';
 @NgModule({
   declarations: [
     MkehoachsanxuatComponent,
@@ -192,6 +193,7 @@ import { TableChungComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chung
     TableChiPhiNhanCongComponent,
     ThietLapLuongThangComponent,
     TableChungComponent,
+    TableChiPhiKhauHaoComponent,
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, handleHTTPResponse, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, handleHTTPResponse, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { PintableDirective } from 'voi-lib';
 
@@ -29,6 +29,7 @@ export class LapChiPhiModalComponent implements OnInit {
   verticalSum: any = [];
   horizontalSum: any = 0;
   userInfo: any = {};
+
 
   constructor(
     private _danhMucHopDong: DanhMucHopDongService,
@@ -100,6 +101,17 @@ export class LapChiPhiModalComponent implements OnInit {
       })
   }
 
+  validate() {
+    if (!validVariable(this.kehoach.IdLapKeHoachSanLuongNam)) {
+      this.toastr.error('Vui lòng chọn kế hoạch sản lượng!');
+      return false;
+    } else if (!validVariable(this.kehoach.TenKeHoach)) {
+      this.toastr.error('Vui lòng nhập tên kế hoạch!');
+      return false;
+    }
+    return true;
+  }
+
   setData() {
     let data = {
       ...this.kehoach,
@@ -109,15 +121,17 @@ export class LapChiPhiModalComponent implements OnInit {
   }
 
   ghiLai() {
-    this._danhMucHopDong.KeHoachChiPhi()
-      .Set(this.setData()).subscribe((res: any) => {
-        handleHTTPResponse(res, this.toastr, () => {
-          this.kehoach = res.Data;
-          this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix);
-          this.kiemTraButton();
-          // this.countAllSum();
+    if (this.validate()) {
+      this._danhMucHopDong.KeHoachChiPhi()
+        .Set(this.setData()).subscribe((res: any) => {
+          handleHTTPResponse(res, this.toastr, () => {
+            this.kehoach = res.Data;
+            this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix);
+            this.kiemTraButton();
+            // this.countAllSum();
+          })
         })
-      })
+    }
   }
 
   khongDuyet() {
@@ -148,6 +162,13 @@ export class LapChiPhiModalComponent implements OnInit {
             this.activeModal.close();
           })
         })
+    })
+  }
+
+  dieuChinh() {
+    this._danhMucHopDong.KeHoachChiPhi().DieuChinh(this.kehoach.Id).subscribe((res: any) => {
+      this.kehoach = res;
+      this.kiemTraButton();
     })
   }
 
