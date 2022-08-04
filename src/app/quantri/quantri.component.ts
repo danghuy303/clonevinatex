@@ -1106,7 +1106,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             ],
           },
           {
-            label: "Nhật ký sử dụng",
+            label: "Biến động tài sản",
             items: [
               {
                 label: "Bàn giao tài sản",
@@ -1176,13 +1176,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
                   this.close();
                 },
               },
-              {
-                label: "Đề nghị thay vật tư",
-                routerLink: "/quantri/taisan/quytrinhdenghithayvattu/0",
-                command: () => {
-                  this.close();
-                },
-              },
+              // {
+              //   label: "Đề nghị thay vật tư",
+              //   routerLink: "/quantri/taisan/quytrinhdenghithayvattu/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
             ],
           },
           {

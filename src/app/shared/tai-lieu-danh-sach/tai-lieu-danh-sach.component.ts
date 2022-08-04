@@ -25,7 +25,7 @@ export class TaiLieuDanhSachComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("this.item", this.item);
+   
   }
 
   ngOnInit(): void {
@@ -48,6 +48,7 @@ export class TaiLieuDanhSachComponent implements OnInit, OnChanges {
             Link: obj.Url
           }
         }));
+        console.log(this.item?.listFileDinhKem);
       }, (reason) => {
       });
   }
