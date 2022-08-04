@@ -95,6 +95,7 @@ export class DenghixulisucoComponent implements OnInit {
       Id: '', IdTrangThai: '', TenTrangThai: "", SoQuyTrinh: '',
       isKetThuc: false, listTaiSan: [], IdDuAn: 0,
       listVatTu: [], listChiPhiKhac: [], listNhanCong: [],
+      listFileDinhKem: [],
     };
     modalRef.result.then(res => {
 

@@ -80,6 +80,9 @@
                 <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.PhuongAnXuLy"></textarea>
             </div>
         </div>
+        <div class="p-mb-4">
+            <app-tai-lieu-danh-sach [item]="item"></app-tai-lieu-danh-sach>
+        </div>
     </div>
     <p-tabView>
         <p-tabPanel header="Danh sách tài sản">
