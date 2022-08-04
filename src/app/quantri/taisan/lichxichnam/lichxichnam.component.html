@@ -49,7 +49,8 @@
     <tr>
       <td (click)="ChiTietBaoDuong(item)">{{item.TendmLoaiBaoDuong}}</td>
       <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
-        <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)">
+        <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)" 
+        [ngStyle]="{'color': taisan.Mau}">
           {{taisan.TenTaiSan}},
         </a>
       </td>
