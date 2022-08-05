@@ -23,6 +23,7 @@ export class LapDoanhThuComponent implements OnInit {
   };
   trangThai: any = 1;
   checkQuyen: any = {};
+  years: any = [];
   eAction = "QUYTRINHKEHOACHDOANHTHUNAM";
 
 
@@ -37,6 +38,7 @@ export class LapDoanhThuComponent implements OnInit {
 
   ngOnInit(): void {
     // this.initData();
+    this.getYearsForDropDown();
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._danhMucHopDong
@@ -49,6 +51,17 @@ export class LapDoanhThuComponent implements OnInit {
     });
     this.resetFilter();
     this.KiemTraTabTrangThai();
+  }
+
+  getYearsForDropDown() {
+    let date = new Date().getFullYear() - 1;
+    for (let i = 0; i <= 20; i++) {
+      date++;
+      this.years.push({
+        label: date,
+        value: date
+      });
+    }
   }
 
   resetFilter() {
@@ -65,8 +78,9 @@ export class LapDoanhThuComponent implements OnInit {
       CurrentPage: this.paging.page,
       KeyWord: this.filter.keyword,
       TabTrangThai: this.trangThai,
-      TuNgay: DateToUnix(this.filter.tuNgay),
-      DenNgay: DateToUnix(this.filter.denNgay),
+      Nam: this.filter.Nam || 0
+      // TuNgay: DateToUnix(this.filter.tuNgay),
+      // DenNgay: DateToUnix(this.filter.denNgay),
       // IdDuAn: 0,
     };
     this._danhMucHopDong.KeHoachDoanhThu().GetAll(data).subscribe((res: any) => {

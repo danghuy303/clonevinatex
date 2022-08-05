@@ -75,7 +75,7 @@ export class KehoachdaduyetComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.Page,
       sFilter: this.filter.keyword,
-      Nam: this.filter.Nam
+      Nam: this.filter.Nam || 0
       // TabTrangThai: this.trangThai
     };
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetKeHoachKinhDoanhDaDuyet(data).subscribe((res: any) => {
