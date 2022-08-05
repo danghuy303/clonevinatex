@@ -53,6 +53,7 @@
             <tr>
                 <td class="text-center">
                     <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary"
+                  *ngIf="!rowData.IdTaiSan"
                         (onChange)="checked(rowData)">
                     </p-checkbox>
                 </td>
