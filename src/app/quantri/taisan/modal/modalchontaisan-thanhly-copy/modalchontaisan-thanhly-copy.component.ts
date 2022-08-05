@@ -40,70 +40,99 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
     this.GetList();
   }
 
+
   GetList() {
     let data = {
       Keyword: this.filter.Keyword,
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      IddmLoaiTaiSan: '',
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung || "",
+      // Ngay:DateToUnix(this.item.NgayThuHoi),
     }
     this._serviceTaiSan.GetListTaiSanThanhLy().GetList(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
-      this.items = res.Data.map(ele => {
-        return {
-          data: {
-            ...ele,
-          },
-          children: []
+      let items = [];
+      this.items = [];
+      items = res.Data;
+      items.forEach(obj => {
+        obj.checked = this.listItemDaChon.includes(obj.Id);
+        let obj_copy: any = {};
+        if (obj?.listTaiSan) {
+          obj.isCha = true;
+          obj_copy.children = [];
+          obj.listTaiSan.forEach(element => {
+            element.isCha = false;
+            element.checked = this.listItemDaChon.includes(element.Id);
+            obj_copy.children.push({ data: element });
+          });
+          obj.listTaiSan = undefined;
         }
+        obj_copy.data = obj;
+        this.items.push({ data: obj_copy.data, children: obj_copy.children });
       });
-      this.items = this.TreeItems(this.items)
-      this.items.forEach(ele => {
-        ele.data.isCha = true
-      })
-
-      this.listTaiSanDaChon = this.TimCheck(this.items)
-      this.listItemDaChon.forEach(ele => {
-        this.listTaiSanDaChon.forEach(obj => {
-          if (obj.data.Id === ele) {
-            this.selectedNodes.push(obj)
-          }
-        })
-      })
-    })
-    console.log(this.listItemDaChon);
+      this.checkedAll = this.items.every(obj => obj.data.checked);
+    });
+  }
+  TimCheck(eleCha) {
+    eleCha.children.forEach(eleCon => {
+      eleCon.data.checked = eleCha.data.checked
+    });
   }
 
-  TreeItems(list) {
-    list.forEach(ele => {
-      ele.children = list.filter(a => a.data.IdTaiSan === ele.data.Id)
+  checkAll(e) {
+    this.items.forEach(eleCha => {
+      eleCha.data.checked = e.checked;
+      // this.TimCheck(eleCha);
     })
-    return list.filter(ele => ele.data.IdTaiSan === null)
   }
 
-  TimCheck(list: Array<any>) {
-    let newArr = [];
-    list.forEach((ele) => {
-      newArr.push(ele);
-      if (validVariable(ele.children) && ele.children.length !== 0) {
-        newArr = [...newArr, ...this.TimCheck(ele.children)];
-      }
-    })
-    return newArr;
+  checked(item) {
+    // if (!item.isCha) {
+    //   this.items.forEach(eleCha => {
+    //     eleCha.data.checked = eleCha.children.every(eleCon => eleCon.data.checked)
+    //   })
+    // } else {
+    //   this.items.forEach(eleCha => {
+    //     this.TimCheck(eleCha);
+    //   })
+    // }
+    this.checkedAll = this.items.every(eleCha => eleCha.data.checked)
   }
+
   FilterTree() {
-    let data = [];
-    data = this.selectedNodes.map(ele => {
-      return {
-        MaTaiSan: ele.data.Ma,
-        Id: '',
-        GiaTriConLai: ele.data.GiaTriConLai,
-        SoLuong: ele.data.SoLuong,
-        TenTaiSan: ele.data.Ten,
-        IdTaiSan: ele.data.Id,
-        isCha: ele.data.isCha ? ele.data.isCha : false,
+    let data: any = [];
+    this.items.forEach(ele => {
+      if (ele.data.checked) {
+        data.push({
+          ...ele.data,
+          MaTaiSan: ele.data.Ma,
+          Id: '',
+          GiaTriConLai: ele.data.GiaTriConLai,
+          SoLuong: ele.data.SoLuong,
+          TenTaiSan: ele.data.Ten,
+          IdTaiSan: ele.data.Id,
+          isCha: ele.data.isCha ? ele.data.isCha : false,
+        });
+
       }
-    })
+      if (validVariable(ele.children) && ele.children.length > 0) {
+        ele.children.forEach(objchildren => {
+          if (objchildren.data.checked) {
+            data.push({
+              ...ele.data,
+              MaTaiSan: objchildren.data.Ma,
+              Id: '',
+              GiaTriConLai: objchildren.data.GiaTriConLai,
+              SoLuong: objchildren.data.SoLuong,
+              TenTaiSan: objchildren.data.Ten,
+              IdTaiSan: objchildren.data.Id,
+              isCha: objchildren.data.isCha ? objchildren.data.isCha : false,
+            });
+          }
+        });
+      }
+    });
     return data;
   }
   changePage(event) {
