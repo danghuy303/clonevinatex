@@ -315,7 +315,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.item = this.item;
     modalRef.result
       .then((res: any) => {
-        console.log('res', res);
         this.item = {
           SoQuyTrinh: this.item.SoQuyTrinh,
           TaiSan: {
@@ -326,7 +325,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
             // NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
             ThoiGianDuaVaoSuDung: UnixToDate(res.ThoiGianDuaVaoSuDungUnix),
             NgayNhap: UnixToDate(res.NgayNhapUnix),
-            listTaiSan: [...res.listTaiSan]
+            listTaiSan: res.listTaiSan.map((taisan: any) => {
+              return {
+                ...taisan,
+                Id: null,
+              }
+            }),
           },
         }
         this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(this.item.TaiSan.IddmLoaiTaiSan).subscribe((res: any) => {
@@ -335,6 +339,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
           }
           else {
             this.item.TaiSan.Ma = res.Data;
+            this.item.TaiSan.listTaiSan[0].Ma = res.Data + 1;
           }
         })
       })
@@ -343,7 +348,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   addItem(e) {
-    
+
   }
 
 }
