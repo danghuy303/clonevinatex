@@ -145,8 +145,13 @@ export class LapDoanhThuModalComponent implements OnInit {
     if (!validVariable(this.kehoach.IdLapKeHoachKinhDoanhNam)) {
       this.toastr.error('Vui lòng chọn kế hoạch sản lượng!');
       return false;
-    } else if (!validVariable(this.kehoach.TenKeHoach)) {
+    } 
+    else if (!validVariable(this.kehoach.TenKeHoach)) {
       this.toastr.error('Vui lòng nhập tên kế hoạch!');
+      return false;
+    }
+    else if (!validVariable(this.kehoach.DonViTinh)) {
+      this.toastr.error('Vui lòng nhập đơn vị tính!');
       return false;
     }
     return true;
