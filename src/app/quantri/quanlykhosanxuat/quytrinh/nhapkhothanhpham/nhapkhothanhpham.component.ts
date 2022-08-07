@@ -124,6 +124,7 @@ export class NhapkhothanhphamComponent extends StoreBase implements OnInit,OnDes
     this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?) {
+    if(this.validateFilter2()){
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
@@ -139,15 +140,16 @@ export class NhapkhothanhphamComponent extends StoreBase implements OnInit,OnDes
       Ten: "",
       IddmKhoThanhPham: this.filter.IddmKho,
     }
-    this._service.PhieuNhapThanhPham().GetList(data).subscribe((res: any) => {
-      this.items = res.items;
-      this.paging = res.paging;
-      // if (this.items.length > 0) {
-      //   this.items.forEach(element => {
-      //     element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
-      //   });
-      // }
-    })
+      this._service.PhieuNhapThanhPham().GetList(data).subscribe((res: any) => {
+        this.items = res.items;
+        this.paging = res.paging;
+        // if (this.items.length > 0) {
+        //   this.items.forEach(element => {
+        //     element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
+        //   });
+        // }
+      })
+    }
   }
   resetFilter() {
     this.filter = {};
@@ -158,6 +160,15 @@ export class NhapkhothanhphamComponent extends StoreBase implements OnInit,OnDes
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
+  }
+  validateFilter2() {
+    if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && DateToUnix(this.filter.DenNgay) > DateToUnix(this.filter.TuNgay)) {
+      return true
+    }else if(!validVariable(this.filter.TuNgay) || !validVariable(this.filter.DenNgay)){
+      return true
+    }
+    this._toastr.error('Vui lòng nhập khoảng thời gian hợp lệ!')
+    return false
   }
   validateFilter() {
     if (!validVariable(this.filter.TuNgay) || !validVariable(this.filter.DenNgay) || DateToUnix(this.filter.DenNgay) < DateToUnix(this.filter.TuNgay)) {

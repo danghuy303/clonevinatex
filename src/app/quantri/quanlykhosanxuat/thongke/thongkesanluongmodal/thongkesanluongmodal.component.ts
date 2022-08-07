@@ -303,7 +303,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhCongThucMoi(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0) {
-      KhoiLuong = (item.ChieuDai / item.Nm*1000) * item.SoCoc;;
+      KhoiLuong = (item.ChieuDai / item.Nm*1000) * item.SoCoc/1000;
       if (item.isM == true)
         item.ChuDongHo = item.ChieuDai / (item.Nm);
     }
@@ -334,7 +334,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhKhoiLuongChaiKy(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
-      KhoiLuong = item.ChieuDai / (item.Nm);
+      KhoiLuong = item.ChieuDai / (item.Nm)/1000;
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
