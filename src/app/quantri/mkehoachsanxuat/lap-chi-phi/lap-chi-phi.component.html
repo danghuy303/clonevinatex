@@ -4,22 +4,25 @@
 
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
   <div class="p-d-flex p-flex-row">
-      <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+      <button *ngIf="checkQuyen.ThemMoi" pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
   </div>
   <div class="p-d-flex p-flex-row">
       <div class="p-mr-2">
-          <p-calendar [(ngModel)]="filter.tuNgay" [maxDate]="filter.denNgay" dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Từ ngày" (onSelect)="getListKeHoachKinhDoanh(true)">
-          </p-calendar>
-      </div>
-      <div class="p-mr-2">
-          <p-calendar [(ngModel)]="filter.denNgay" [minDate]="filter.tuNgay" dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Đến ngày" (onSelect)="getListKeHoachKinhDoanh(true)">
-          </p-calendar>
+        <p-dropdown 
+        [(ngModel)]="filter.Nam" 
+        [filter]="true" 
+        [options]="years" 
+        placeholder="Chọn năm"
+        [showClear]="true" 
+        styleClass="p-inputtext-sm" 
+        (onChange)="getListKeHoachChiPhi(true)"
+        ></p-dropdown>
       </div>
       <div class="p-inputgroup" style="width:200px">
           <input [(ngModel)]="filter.keyword" type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-              (keyup.enter)="getListKeHoachKinhDoanh(true)" />
+              (keyup.enter)="getListKeHoachChiPhi(true)" />
           <button type="button" pButton pRipple icon="pi pi-search"
-              class="p-button-secondary p-button-sm p-button-text" (click)="getListKeHoachKinhDoanh(true)"></button>
+              class="p-button-secondary p-button-sm p-button-text" (click)="getListKeHoachChiPhi(true)"></button>
           <button type="button" pButton pRipple icon="pi pi-refresh"
               class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
       </div>
@@ -42,6 +45,7 @@
               <col>
               <col style="width: 4rem">
               <col>
+              <col style="width: 10rem">
               <col>
               <col style="width: 3rem">
           </colgroup>
@@ -54,6 +58,7 @@
               <th class="text-center">Người lập</th>
               <th class="text-center">Năm</th>
               <th class="text-center">Trạng thái</th>
+              <th class="text-center">Loại kế hoạch</th>
               <th class="text-center">Ghi chú</th>
               <th class="text-center"></th>
           </tr>
@@ -74,6 +79,7 @@
               <td class="text-center">
                   {{item.TenTrangThai}}
               </td>
+              <td>{{item.LoaiKeHoach}}</td>
               <td>
                   <div [ngbTooltip]="item.GhiChu" class="ellipsis">
                       {{item.GhiChu}}

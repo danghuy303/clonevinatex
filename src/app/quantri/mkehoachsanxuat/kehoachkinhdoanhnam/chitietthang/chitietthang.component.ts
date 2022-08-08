@@ -27,6 +27,7 @@ export class ChitietthangComponent implements OnInit {
   NeGoc: any;
   Ne: any;
   IdDuAn: any;
+  listCaSanXuat: any = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -37,10 +38,10 @@ export class ChitietthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("ne", this.Ne);
-    console.log("ne foc", this.NeGoc);
-    console.log("TongSanLuong", this.itemThang.TongSanLuong);
-    
+    // console.log("ne", this.Ne);
+    // console.log("ne foc", this.NeGoc);
+    // console.log("TongSanLuong", this.itemThang.TongSanLuong);
+    // this.getListCaSanXuat();
     this.itemThang.checkForAll = false;
     if (this.opt === 'add') {
       this.itemThang.SanLuongMotCa = 0;
@@ -50,6 +51,13 @@ export class ChitietthangComponent implements OnInit {
     this.GetListDropDown();
     this.CountTongSanLuong();
     this.GetDate();
+  }
+
+  getListCaSanXuat(){
+    this._services.GetListOptdmCaSanXuat().subscribe((res:any)=>{
+      this.listCaSanXuat = res;    
+      this.CountTongSoCa();
+    })
   }
 
   GetNangSuat() {
@@ -98,17 +106,23 @@ export class ChitietthangComponent implements OnInit {
 
   ChapNhan() {
     this.itemThang.isEdited = true;
-    this.activeModal.close(this.itemThang);
+    let data = {
+      ...this.itemThang,
+      TongSanLuong: this.itemThang.TongSanLuong || 0
+    }
+    this.activeModal.close(data);
   }
 
   GetDate() {
     this.itemThang.SoNgayLamViec = new Date(this.nam, Number(this.thang), 0).getDate();
-    this.CountTongSoCa();
+    this.getListCaSanXuat();
+    // this.CountTongSoCa();
   }
 
   CountTongSoCa() {
+    // console.log("this.listCaSanXuat", this.listCaSanXuat);
     if (validVariable(this.itemThang.SoNgayLamViec)) {
-      this.itemThang.TongSoCa = (this.itemThang.SoNgayLamViec * 3);
+      this.itemThang.TongSoCa = (this.itemThang.SoNgayLamViec * this.listCaSanXuat.length);
       this.CountTongSanLuong();
     }
   }

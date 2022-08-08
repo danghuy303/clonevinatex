@@ -54,6 +54,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   }
 
   LayMa(e) {
+    this.item.listLichBaoDuong = [];
     this.item.IddmTaiSan = '';
     if (!validVariable(e.value)) {
       this.item.Ma = '';

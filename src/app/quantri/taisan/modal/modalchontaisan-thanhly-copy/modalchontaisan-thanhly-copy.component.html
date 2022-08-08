@@ -36,12 +36,9 @@
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <!-- <th class="text-center">
-                    <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall" (onChange)="checkAll($event)"></p-checkbox>  
-                </th>                -->
-                <th >
-                    <p-treeTableHeaderCheckbox [value]="checkAll"></p-treeTableHeaderCheckbox>
-                   
+                <th style="width:50px" class="text-center">
+                    <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall"
+                        (onChange)="checkAll($event)"></p-checkbox>
                 </th>
                 <th class="text-center"> Mã</th>
                 <th class="text-center">Tên</th>
@@ -52,12 +49,11 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
-                <!-- <td class="text-center">
-                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="checked()">
+                <td class="text-center">
+                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary"
+                  *ngIf="!rowData.IdTaiSan"
+                        (onChange)="checked(rowData)">
                     </p-checkbox>
-                </td>                -->
-                <td>
-                    <p-treeTableCheckbox [value]="rowNode"></p-treeTableCheckbox>
                 </td>
                 <td>
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>

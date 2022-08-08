@@ -21,7 +21,7 @@ export class XulysucoluachontaisanComponent implements OnInit {
   Lay_Chon: any = [];
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
-  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  paging: any = {};
   Keyword: any = '';
   filter: any = {};
   listLoaiTaiSan = [];
@@ -55,20 +55,20 @@ export class XulysucoluachontaisanComponent implements OnInit {
 
   GetList(reset?) {
     if (reset) {
-      this.paging.CurrentPage = 1;
+      this.paging.CurrentPage = 0;
     }
     let data = {
       Keyword: this.filter.Keyword,
-      PageSize: 20,
-      CurrentPage: this.paging.CurrentPage,
+      PageSize: 10,
+      CurrentPage: this.paging.CurrentPage ? this.paging.CurrentPage : 0,
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       IdBoPhanSuDung: this.item.IdBoPhanSuDung,
       // isCanDuTru: false, isGiaTriCao: false, IdDuAn: 0,
       // TuNgay: 0, DenNgay: 0,
     };
     this._serviceTaiSan.QuyTrinhXuLySuCo().GetListTaiSanQuyTrinhXulySuCo(data).subscribe((res: any) => {
-      this.paging.TotalCount = res.TotalCount;
-      this.paging.CurrentPage= res.Page;
+      // this.paging.TotalCount = res.TotalCount;
+      // this.paging.CurrentPage = res.Page;
       let items = [];
       this.items = [];
       items = res.Items;
@@ -88,7 +88,9 @@ export class XulysucoluachontaisanComponent implements OnInit {
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children });
       });
+      this.paging.TotalCount = this.items.length;
       this.checkedAll = this.items.every(obj => obj.data.checked);
+
     });
   }
 
@@ -161,8 +163,7 @@ export class XulysucoluachontaisanComponent implements OnInit {
   }
 
   changePage(e) {
-    this.paging.currentPage = e.page + 1;
-    console.log(this.paging.currentPage);
+    this.paging.currentPage = e.page +1 ;
     this.GetList(false);
   }
 

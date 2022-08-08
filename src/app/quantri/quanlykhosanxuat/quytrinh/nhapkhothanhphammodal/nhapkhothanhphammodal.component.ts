@@ -179,11 +179,11 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     this.activeModal.close();
   }
   GetMatHangTheoKho() {
-    var data = {
+    let data = {
       Ngay: DateToUnix(this.item.Ngay),
       IddmKho: this.item.IddmKhoHoiAm,
     }
-    var cols: any = [
+    let cols: any = [
       {
         header: 'Tên',
         field: 'Ten',
@@ -220,6 +220,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.cols = cols;
       modalRef.componentInstance.listItem = this.item.listItem;
+      modalRef.componentInstance.kho = 'khothanhpham';
       modalRef.result.then((data) => {
         let listItem = deepCopy(this.item.listItem);
         this.item.listItem = data.data;

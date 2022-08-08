@@ -12,6 +12,7 @@
             <col>
             <col>
             <col>
+            <col>
             <col style="width: 100px;">
         </colgroup>
     </ng-template>
@@ -22,7 +23,8 @@
             </th>
             <th class="text-center ">Mã</th>
             <th class="text-center">Tên</th>
-            <th class="text-center">Số lượng </th>
+            <th class="text-center">Số lượng đề xuất</th>
+            <th class="text-center">Số lượng thay thế</th>
             <th class="text-center ">Đơn giá (VNĐ)</th>
             <th class="text-center ">Thành tiền (VNĐ)</th>
             <th class="text-center ">Ghi chú</th>
@@ -35,6 +37,7 @@
             <td class=" text-center">{{i+1}}</td>
             <td>{{item.Ma}}</td>
             <td>{{item.TenTaiSan}}</td>
+            <td class=" text-right"></td>
             <td class=" text-right"></td>
             <td class=" text-right"></td>
             <td class=" text-right">{{item.TongThanhTien | number:'0.0-0'}}</td>
@@ -53,6 +56,9 @@
                 <td style="padding-left: 50px;">{{vattu.TenTaiSan}}</td>
                 <td class=" text-right">
                     <p-inputNumber min='0' [(ngModel)]="vattu.SoLuong"  (onBlur)="sumItem(item)" mode="decimal" locale="en-US"></p-inputNumber>
+                </td>
+                <td class="text-right">
+                    {{vattu.SoLuongDeXuat | number:'0.0-0'}}
                 </td>
                 <td class=" text-right">
                     <p-inputNumber inputId="locale-us" mode="decimal" (onBlur)="sumItem(item)" min='0' locale="en-US" styleClass="p-inputtext-sm"

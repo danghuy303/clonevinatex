@@ -19,6 +19,8 @@
     <div>
       <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
         (click)="activeModal.dismiss()"></button>
+      <button pButton pRipple type="button" label="Điều chỉnh" class="p-mr-2 p-button-sm" *ngIf="kehoach.isDieuChinh"
+      (click)="dieuChinh()"></button>
       <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="ghiLai()"
         *ngIf="checkButton.Ghi"></button>
       <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkButton.Xoa"
@@ -32,14 +34,7 @@
 
   <div class="p-grid flex-row p-mb-2">
     <div class="p-col-12 p-lg-6 p-p-2 d-flex">
-      <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tên kế hoạch:</label>
-      <div class="p-col-12 p-lg-10 p-p-0 my-auto">
-        <input type="text" class="p-inputtext-sm" [(ngModel)]="kehoach.TenKeHoach" placeholder="Nhập nội dung"
-          pInputText />
-      </div>
-    </div>
-    <div class="p-col-12 p-lg-6 p-p-2 d-flex">
-      <label class="p-col-12 p-lg-2 p-p-0 my-auto">Kế hoạch sản lượng:</label>
+      <label class="p-col-12 p-lg-2 p-p-0 my-auto">Kế hoạch sản lượng<span class="required">*</span>:</label>
       <div class="p-col-12 p-lg-10 p-p-0 my-auto">
         <p-dropdown 
           class="p-inputtext-sm"
@@ -50,6 +45,26 @@
           placeholder="Chọn kế hoạch" 
           (onChange)="getSanPham()"
         ></p-dropdown>
+      </div>
+    </div>
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex">
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên kế hoạch <span class="required">*</span>:</label>
+      <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+        <input type="text" class="p-inputtext-sm" [(ngModel)]="kehoach.TenKeHoach" placeholder="Nhập nội dung"
+          pInputText />
+      </div>
+    </div>
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex">
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn đơn vị <span class="required">*</span>:</label>
+      <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+        <p-dropdown 
+        class="p-inputtext-sm"
+        [(ngModel)]="kehoach.DonViTinh" 
+        [options]="listDonViTinh" 
+        [filter]="true"
+        [showClear]="true" 
+        placeholder="Chọn đơn vị"
+      ></p-dropdown>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row">

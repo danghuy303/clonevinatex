@@ -41,21 +41,21 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bộ phận sử dụng: <span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" [showClear]="true"
-                    [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ChonLoaiTaiSan()" placeholder="Chọn bộ phận"></p-dropdown>
+                    [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ThemMoiDanhSachTaiSan()" placeholder="Chọn bộ phận"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản: <span class="required">(*)</span></label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chọn công đoạn: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [showClear]="true" (onChange)="ChonLoaiTaiSan()"
-                    [(ngModel)]="item.IddmLoaiTaiSan" placeholder="Chọn loại tài sản" [showClear]="true"></p-dropdown>
+                <p-dropdown #congdoan [filter]="true" [showClear]="true" [options]="listCongDoan"
+                [(ngModel)]="item.MaCongDoan" (onChange)="ThemMoiDanhSachTaiSan()" placeholder="Chọn công đoạn"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn năm: <span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="item.Nam" placeholder="Chọn năm"
-                    (onChange)="ChangeYear()" styleClass="p-inputtext-sm"></p-dropdown>
+                    (onChange)="ThemMoiDanhSachTaiSan()" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
@@ -88,14 +88,20 @@
             </ng-template>
             <div class="d-flex justify-content-between p-mb-3">
                 <div class="">
-                    <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "
-                        (click)="ThemMoiDanhSachTaiSan()"></button>
+                    <!-- <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "
+                        (click)="ThemMoiDanhSachTaiSan()"></button> -->
                 </div>
                 <div class="p-p-0">
                     <strong style="color: #007bff;">Tổng số: <span style="color: red;">{{item.listTaiSan?.length}}</span> thiết bị</strong>
                 </div>
             </div>
-            <p-table [value]="item.listTaiSan "
+            <div class="p-grid p-jc-end">
+                <span class="p-input-icon-left mb-3" style="width: 300px">
+                    <i class="pi pi-search"></i>
+                    <input type="text" [(ngModel)]="keyword"  pInputText placeholder="Tìm kiếm..." />
+                </span>
+            </div>
+            <p-table [value]="item.listTaiSan | filter: keyword "
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -117,7 +123,7 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="text-center">Mã - Tên tài sản</th>
+                        <th class="text-center">Tài sản</th>
                         <th class="text-center">Tháng 1</th>
                         <th class="text-center">Tháng 2</th>
                         <th class="text-center">Tháng 3</th>
@@ -142,7 +148,7 @@
                             <a href="javascript:void(0)">Chọn</a>
                         </td> -->
 
-                        <td> {{taisan.MaTaiSan}} - {{taisan.TenTaiSan}}</td>
+                        <td> {{taisan.TenVietTat}}</td>
                         <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong" >
                             <div>
                                 <p *ngFor="let chitiet of baoduong.listChiTiet">{{chitiet?.TendmLoaiBaoDuong}}</p>

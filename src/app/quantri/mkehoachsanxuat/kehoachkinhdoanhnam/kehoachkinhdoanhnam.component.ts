@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { KehoachkinhdoanhnammodalComponent } from './kehoachkinhdoanhnammodal/kehoachkinhdoanhnammodal.component';
 
@@ -14,11 +15,13 @@ import { KehoachkinhdoanhnammodalComponent } from './kehoachkinhdoanhnammodal/ke
 export class KehoachkinhdoanhnamComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
+  filter: any = {};
   listKeHoach: any = [];
   keyWord: any = '';
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   trangThai: any = 1;
   checkQuyen: any = {};
+  years: any = [];
   eAction = "QUYTRINHKEHOACHSANLUONGNAM";
 
   constructor(
@@ -32,6 +35,7 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getYearsForDropDown();
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         console.log(res);
@@ -48,27 +52,37 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
     this.KiemTraTabTrangThai();
   }
 
-  
   resetFilter() {
+    this.filter = {};
     this.getListKeHoachKinhDoanh(true)
+  }
+
+  getYearsForDropDown() {
+    let date = new Date().getFullYear() - 1;
+    for (let i = 0; i <= 20; i++) {
+      date++;
+      this.years.push({
+        label: date,
+        value: date
+      });
+    }
   }
   
   getListKeHoachKinhDoanh(reset?) {
     if (reset) {
       this.paging.Page = 1;
-      // this.paginator.changePage(0);
     }
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.Page,
-      sFilter: this.keyWord,
-      TabTrangThai: this.trangThai
-
+      sFilter: this.filter.keyword,
+      TabTrangThai: this.trangThai,
+      // TuNgay: DateToUnix(this.filter.TuNgay),
+      // DenNgay: DateToUnix(this.filter.DenNgay)
+      Nam: this.filter.Nam
     };
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetList(data).subscribe((res: any) => {
       this.listKeHoach = res.Data.Items;
-      console.log("listKeHoach", this.listKeHoach);
-      
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }

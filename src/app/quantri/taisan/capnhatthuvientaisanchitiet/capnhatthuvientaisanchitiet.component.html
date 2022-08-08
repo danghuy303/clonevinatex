@@ -73,13 +73,13 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViNangSuat" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+        <!-- <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tuổi thọ (tháng): </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TuoiTho">
                 </p-inputNumber>
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nước sản xuất : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
@@ -196,7 +196,8 @@
                                 <div class="modal-bt p-mb-4 ">
                                 </div>
                             </div>
-                            <p-table [value]="item.TaiSan?.listTaiSan"
+                            <!-- <p-table [value]="item.TaiSan?.listTaiSan" -->
+                                <p-table [value]="item.listTaiSan"
                                 styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
                                 [scrollable]="true">
                                 <ng-template pTemplate="colgroup">
@@ -246,9 +247,9 @@
                     </p-tabPanel>
                     <p-tabPanel header="Lịch bảo dưỡng">
                         <ng-template pTemplate="content">
-                            <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan">
+                            <app-taomoilichbaoduongcopy *ngIf="item !== undefined" [item]="item">
                             </app-taomoilichbaoduongcopy>
-                            <app-taomoilichbaoduongcopy *ngIf="item.TaiSan === undefined" [item]="item">
+                            <app-taomoilichbaoduongcopy *ngIf="item === undefined" [item]="item">
                             </app-taomoilichbaoduongcopy>
                         </ng-template>
                     </p-tabPanel>

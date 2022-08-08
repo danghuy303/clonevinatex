@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { validVariable } from 'src/app/services/globalfunction';
@@ -11,7 +11,7 @@ import { ModalcapnhatbaoduongcopyyComponent } from '../modalcapnhatbaoduongcopyy
   templateUrl: './taomoilichbaoduongcopy.component.html',
   styleUrls: ['./taomoilichbaoduongcopy.component.css']
 })
-export class TaomoilichbaoduongcopyComponent implements OnInit {
+export class TaomoilichbaoduongcopyComponent implements OnInit , OnChanges{
 
   @Input('item') item: any = {};
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
@@ -22,6 +22,10 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
   ) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    
+  }
 
   ngOnInit(): void {
   }
@@ -41,9 +45,7 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.item.listLichBaoDuong.push(res);
-       
-        
-        this.toastr.success(`Cập nhật thành công!`)
+        this.toastr.success(`xử lý thành công!`)
       })
       .catch((er) => {
 

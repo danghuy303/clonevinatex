@@ -7,19 +7,31 @@
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Từ ngày">
+            <p-dropdown 
+            [(ngModel)]="filter.Nam" 
+            [filter]="true" 
+            [options]="years" 
+            placeholder="Chọn năm"
+            [showClear]="true" 
+            styleClass="p-inputtext-sm" 
+            (onChange)="getListKeHoachKinhDoanh(true)"
+            ></p-dropdown>
+        </div>
+        
+        <!-- <div class="p-mr-2">
+            <p-calendar [(ngModel)]="filter.TuNgay" dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Từ ngày" (onSelect)="getListKeHoachKinhDoanh(true)" >
             </p-calendar>
         </div>
         <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Đến ngày">
+            <p-calendar [(ngModel)]="filter.DenNgay" dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" inputId="icon" placeholder="Đến ngày" (onSelect)="getListKeHoachKinhDoanh(true)">
             </p-calendar>
-        </div>
+        </div> -->
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="filter.keyword"
                 (keyup.enter)="getListKeHoachKinhDoanh(true)" />
-            <button type="button" pButton pRipple icon="pi pi-search"
+            <button type="button" pButton pRipple icon="pi pi-search" 
                 class="p-button-secondary p-button-sm p-button-text" (click)="getListKeHoachKinhDoanh(true)"></button>
-            <button type="button" pButton pRipple icon="pi pi-refresh"
+            <button type="button" pButton pRipple icon="pi pi-refresh" 
                 class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>
     </div>
@@ -89,7 +101,7 @@
                     {{item.TenTrangThai}}
                 </td>
                 <td>
-                    <div [ngbTooltip]="item.GhiChu" class="ellipsis">
+                    <div [pTooltip]="item.GhiChu" class="ellipsis">
                         {{item.GhiChu}}
                     </div>
                 </td>

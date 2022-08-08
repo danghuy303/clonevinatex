@@ -24,7 +24,7 @@ export class LapChiPhiComponent implements OnInit {
   trangThai: any = 1;
   checkQuyen: any = {};
   eAction = "QUYTRINHKEHOACHCHIPHINAM";
-
+  years: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -37,6 +37,7 @@ export class LapChiPhiComponent implements OnInit {
 
   ngOnInit(): void {
     // this.initData();
+    this.getYearsForDropDown();
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._danhMucHopDong
@@ -55,6 +56,17 @@ export class LapChiPhiComponent implements OnInit {
     this.getListKeHoachChiPhi(true)
   }
 
+  getYearsForDropDown() {
+    let date = new Date().getFullYear() - 1;
+    for (let i = 0; i <= 20; i++) {
+      date++;
+      this.years.push({
+        label: date,
+        value: date
+      });
+    }
+  }
+
   getListKeHoachChiPhi(reset?) {
     if (reset) {
       this.paging.page = 1;
@@ -64,8 +76,9 @@ export class LapChiPhiComponent implements OnInit {
       CurrentPage: this.paging.page,
       KeyWord: this.filter.keyword,
       TabTrangThai: this.trangThai,
-      TuNgay: DateToUnix(this.filter.tuNgay),
-      DenNgay: DateToUnix(this.filter.denNgay),
+      Nam: this.filter.Nam || 0
+      // TuNgay: DateToUnix(this.filter.tuNgay),
+      // DenNgay: DateToUnix(this.filter.denNgay),
       // IdDuAn: 0,
     };
     this._danhMucHopDong.KeHoachChiPhi().GetAll(data).subscribe((res: any) => {

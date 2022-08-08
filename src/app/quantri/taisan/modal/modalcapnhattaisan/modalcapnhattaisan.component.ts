@@ -55,6 +55,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.addItem(false);
     if (this.item.TaiSan.NgayNhapUnix !== 0 || this.item.TaiSan.NgayNhapUnix === 0) {
       this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
     }
@@ -320,8 +321,16 @@ export class ModalcapnhattaisanComponent implements OnInit {
             ...res,
             IdThuVien: res.Id,
             Id: null,
-            ThoiGianDuaVaoSuDung: UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix),
-            NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
+            // ThoiGianDuaVaoSuDung: UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix),
+            // NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
+            ThoiGianDuaVaoSuDung: UnixToDate(res.ThoiGianDuaVaoSuDungUnix),
+            NgayNhap: UnixToDate(res.NgayNhapUnix),
+            listTaiSan: res.listTaiSan.map((taisan: any) => {
+              return {
+                ...taisan,
+                Id: null,
+              }
+            }),
           },
         }
         this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(this.item.TaiSan.IddmLoaiTaiSan).subscribe((res: any) => {
@@ -330,11 +339,16 @@ export class ModalcapnhattaisanComponent implements OnInit {
           }
           else {
             this.item.TaiSan.Ma = res.Data;
+            this.item.TaiSan.listTaiSan[0].Ma = res.Data + 1;
           }
         })
       })
       .catch((er) => {
       });
+  }
+
+  addItem(e) {
+
   }
 
 }

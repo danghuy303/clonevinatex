@@ -43,6 +43,7 @@ export class XuatkhomathangmodalComponent implements OnInit {
   paging: any = {};
   item: any = {};
   KeyWord: any = '';
+  kho='';
   constructor(
     public activeModal: NgbActiveModal,
   ) { }

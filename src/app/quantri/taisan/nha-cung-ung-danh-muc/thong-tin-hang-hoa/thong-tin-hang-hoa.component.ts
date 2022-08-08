@@ -1,8 +1,9 @@
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
-import { deepCopy, merge, validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, handleHTTPResponse, merge, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong-tin-hang-hoa-modal.component';
 
@@ -11,18 +12,20 @@ import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong
   templateUrl: './thong-tin-hang-hoa.component.html',
   styleUrls: ['./thong-tin-hang-hoa.component.css']
 })
-export class ThongTinHangHoaComponent implements OnInit, OnChanges,AfterViewInit {
+export class ThongTinHangHoaComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() item: any = {};
   listItem_copy: any = [];
   filter: any = {};
   paging: any = {};
+  keyword: any = '';
   checkedAll: boolean = false;
   fileUpload: any;
   fileUploadHangHoa: any;
   @Input() isDisabled?: boolean = false;
 
   constructor(
+    public toast: ToastrService,
     public modal: NgbModal,
     public activeModal: NgbActiveModal,
     private taiSanService: TaisanService,
@@ -49,8 +52,8 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges,AfterViewInit
     this.LoadData(false);
     if ((validVariable(keyword)) && keyword.toString().trim() !== '') {
       this.listItem_copy = this.listItem_copy.filter(ele => {
-        return ele.MadmItem.toString().toLowerCase().includes(keyword.toString().trim().toLowerCase()) 
-        || ele.TendmItem.toString().toLowerCase().includes(keyword.toString().trim().toLowerCase());
+        return ele.MadmItem.toString().toLowerCase().includes(keyword.toString().trim().toLowerCase())
+          || ele.TendmItem.toString().toLowerCase().includes(keyword.toString().trim().toLowerCase());
       })
       this.paging.totalCount = this.listItem_copy.length;
     } else {
@@ -75,7 +78,7 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges,AfterViewInit
   AddHangHoa() {
     let existedItem = this.item.listItem.map(ele => ele.IddmItem);
     console.log("existedItem", existedItem);
-    
+
     let modalRef = this.modal.open(ThongTinHangHoaModalComponent, {
       size: "xl",
       backdrop: "static",
@@ -84,9 +87,9 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges,AfterViewInit
     modalRef.result
       .then((res: any) => {
         console.log("res", res);
-        this.item.listItem = merge(res, this.listItem_copy, 'IddmItem');
+        // this.item.listItem = merge(res, this.listItem_copy, 'IddmItem');
+        this.item.listItem = merge(res, this.item.listItem, 'IddmItem');
         console.log("this.item.listItem", this.item.listItem);
-        
         this.LoadData(true);
       })
       .catch(er => { });
@@ -113,14 +116,14 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges,AfterViewInit
     let data = {
       IdNhaCungUng: this.item.Id,
     }
-    this.taiSanService.NhaCungUng().ExportItem(data).subscribe((res: any)=>{
+    this.taiSanService.NhaCungUng().ExportItem(data).subscribe((res: any) => {
       this.taiSanService.NhaCungUng().download(res.Data);
     })
   }
 
   ImportListHangHoa() {
     let data = {
-      FileName: "" 
+      FileName: ""
     }
     let modalRef = this.modal.open(UploadmodalComponent, {
       size: 'md',
@@ -129,14 +132,15 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges,AfterViewInit
     modalRef.componentInstance.single = true;
     modalRef.componentInstance.onlyExcel = true;
     modalRef.result
-      .then((res: any)=>{
+      .then((res: any) => {
         data.FileName = res[0].Name;
-        this.taiSanService.NhaCungUng().ImportItem(data).subscribe((res: any)=>{
-          this.item.listItem = [...this.item.listItem,...res.Data];
-          this.LoadData(true);
+        this.taiSanService.NhaCungUng().ImportItem(data).subscribe((res: any) => {
+            handleHTTPResponse(res, this.toast, () => {}, () => {})
+            this.item.listItem = [...this.item.listItem, ...res.Data];
+            this.LoadData(true);
         })
       })
-      .catch(er=>{})
+      .catch(er => { })
       .finally()
   }
 }

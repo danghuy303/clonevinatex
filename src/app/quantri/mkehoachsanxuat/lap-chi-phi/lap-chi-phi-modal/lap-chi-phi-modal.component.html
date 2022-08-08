@@ -19,6 +19,8 @@
     <div>
       <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
         (click)="activeModal.dismiss()"></button>
+      <button pButton pRipple type="button" label="Điều chỉnh" class="p-mr-2 p-button-sm" *ngIf="kehoach.isDieuChinh"
+      (click)="dieuChinh()"></button>
       <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="ghiLai()"
         *ngIf="checkButton.Ghi"></button>
       <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkButton.Xoa"
@@ -32,7 +34,7 @@
 
   <div class="p-grid flex-row p-mb-2">
     <div class="p-col-12 p-lg-6 p-p-2 d-flex">
-      <label class="p-col-12 p-lg-2 p-p-0 my-auto">Kế hoạch sản lượng:</label>
+      <label class="p-col-12 p-lg-2 p-p-0 my-auto">Kế hoạch sản lượng <span class="required">*</span>:</label>
       <div class="p-col-12 p-lg-10 p-p-0 my-auto">
         <p-dropdown 
           class="p-inputtext-sm"
@@ -45,9 +47,9 @@
         ></p-dropdown>
       </div>
     </div>
-    <div class="p-col-12 p-lg-6 p-p-2 d-flex">
-      <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tên kế hoạch:</label>
-      <div class="p-col-12 p-lg-10 p-p-0 my-auto">
+    <div class="p-col-12 p-lg-3 p-p-2 d-flex">
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên kế hoạch <span class="required">*</span>:</label>
+      <div class="p-col-12 p-lg-8 p-p-0 my-auto">
         <input type="text" class="p-inputtext-sm" [(ngModel)]="kehoach.TenKeHoach" placeholder="Nhập nội dung"
           pInputText />
       </div>
@@ -79,34 +81,53 @@
 
   <p-tabView>
     <p-tabPanel header="Bông">
-      <app-table-chi-phi-bong
+      <app-table-chung
+        *ngIf="kehoach.listBong"
+        [listName]="'Bong'"
         [kehoach]="kehoach"
-        [listLableThang]="listLableThang"
-      ></app-table-chi-phi-bong>
+      ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Xơ">
-      <app-table-chi-phi-xo
+      <app-table-chung
+        *ngIf="kehoach.listXo"
+        [listName]="'Xo'"
         [kehoach]="kehoach"
-        [listLableThang]="listLableThang"
-      ></app-table-chi-phi-xo>
+      ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Điện">
-      <app-table-chi-phi-dien
+      <app-table-chung
+        *ngIf="kehoach.listDien"
+        [listName]="'Dien'"
         [kehoach]="kehoach"
-        [listLableThang]="listLableThang"
-      ></app-table-chi-phi-dien>
+      ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Vật tư phụ">
-      <app-table-chi-phi-vat-tu-phu
+      <app-table-chung
+        *ngIf="kehoach.listVatTuPhu"
+        [listName]="'VatTuPhu'"
         [kehoach]="kehoach"
-        [listLableThang]="listLableThang"
-      ></app-table-chi-phi-vat-tu-phu>
+      ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Nhân công">
       <app-table-chi-phi-nhan-cong
+        *ngIf="kehoach.listNhanCong"
         [kehoach]="kehoach"
         [listLableThang]="listLableThang"
       ></app-table-chi-phi-nhan-cong>
+    </p-tabPanel>
+    <p-tabPanel header="Khấu hao">
+      <app-table-chi-phi-khau-hao
+        *ngIf="kehoach.listKhauHao"
+        [kehoach]="kehoach"
+        [listLableThang]="listLableThang"
+        ></app-table-chi-phi-khau-hao>
+    </p-tabPanel>
+    <p-tabPanel header="Lãi vay">
+      <app-table-chung
+        *ngIf="kehoach.listLaiVayNganHang"
+        [listName]="'LaiVayNganHang'"
+        [kehoach]="kehoach"
+      ></app-table-chung>
     </p-tabPanel>
 </p-tabView>
 </div>

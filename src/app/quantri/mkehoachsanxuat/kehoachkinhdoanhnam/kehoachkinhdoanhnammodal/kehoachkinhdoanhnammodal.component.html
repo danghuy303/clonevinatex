@@ -36,21 +36,21 @@
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row">
-      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên nhà máy:</label>
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên nhà máy <span class="required">*</span>:</label>
       <div class="p-col-12 p-lg-8 p-p-0 my-auto">
         <p-dropdown [(ngModel)]="kehoach.IdDuAn" [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy"
           [showClear]="true" styleClass="p-inputtext-sm" (onChange)="GetTongSoMayCon()"></p-dropdown>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row">
-      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Năm kế hoạch:</label>
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Năm kế hoạch <span class="required">*</span>:</label>
       <div class="p-col-12 p-lg-8 p-p-0 my-auto">
         <p-dropdown [(ngModel)]="kehoach.Nam" [filter]="true" [options]="years" placeholder="Chọn năm"
           [showClear]="true" styleClass="p-inputtext-sm" (onChange)="CheckThangForWarning()"></p-dropdown>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column flex-xl-row">
-      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chi số gốc(Ne):</label>
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chi số gốc(Ne) <span class="required">*</span>:</label>
       <div class="p-col-12 p-lg-8 p-p-0 my-auto">
         <p-inputNumber class="p-inputtext-sm" [(ngModel)]="kehoach.NeGoc" inputId="minmaxfraction" locale="en-US"
           mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" [min]="0" placeholder="Nhập chi số gốc">
@@ -122,45 +122,47 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td 
-              [attr.colspan]="2" 
-              [attr.rowspan]="2" 
-              class="p-p-2"
-              style="background-color: #fff"
-            >
-              <b>Tổng</b>
-            </td>
-            <td style="display: none; background-color: #fff"></td>
-            <td [attr.rowspan]="2" class="text-right p-p-2" style="background-color: #fff">
-              <b>{{sanLuongConLaiAllMonth | number: '0.0'}}</b>
-              
-            </td>
-            <td [attr.rowspan]="2" class="text-right p-p-2" style="background-color: #fff">
-              <b>{{sanLuongForAllMonth | number: '0.0'}}</b>
-            </td>
-            <td 
-              *ngFor="let thang of sanLuongAllMonth" 
-              class="tc-w-80 text-right"
-              [pTooltip]="'Tổng sản lượng tháng'"
-            >
-            <b>{{thang | number: '0.0'}}</b>
-            </td>
-          </tr>
-          <tr>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td 
-              *ngFor="let thang of soMayConAllMonth" 
-              class="tc-w-80 text-right"
-              [style.color]="(thang>tongSoMayCon)?'red':''"
-              [pTooltip]="(thang>tongSoMayCon)?'Số máy con của tháng vượt quá cho phép':'Tổng số máy con tháng'"
-            >
-              <b>{{thang | number: '0.0'}}/{{tongSoMayCon}}</b>
-            </td>
-          </tr>
+          <ng-container *ngIf="kehoach.lstKH_KeHoachKinhDoanh_SanPham.length">
+            <tr>
+              <td 
+                [attr.colspan]="2" 
+                [attr.rowspan]="2" 
+                class="p-p-2"
+                style="background-color: #fff"
+              >
+                <b>Tổng</b>
+              </td>
+              <td style="display: none; background-color: #fff"></td>
+              <td [attr.rowspan]="2" class="text-right p-p-2" style="background-color: #fff">
+                <b>{{sanLuongConLaiAllMonth | number: '0.0'}}</b>
+                
+              </td>
+              <td [attr.rowspan]="2" class="text-right p-p-2" style="background-color: #fff">
+                <b>{{sanLuongForAllMonth | number: '0.0'}}</b>
+              </td>
+              <td 
+                *ngFor="let thang of sanLuongAllMonth" 
+                class="tc-w-80 text-right"
+                [pTooltip]="'Tổng sản lượng tháng'"
+              >
+              <b>{{thang | number: '0.0'}}</b>
+              </td>
+            </tr>
+            <tr>
+              <td style="display: none"></td>
+              <td style="display: none"></td>
+              <td style="display: none"></td>
+              <td style="display: none"></td>
+              <td 
+                *ngFor="let thang of soMayConAllMonth" 
+                class="tc-w-80 text-right"
+                [style.color]="(thang>tongSoMayCon)?'red':''"
+                [pTooltip]="(thang>tongSoMayCon)?'Số máy con của tháng vượt quá cho phép':'Tổng số máy con tháng'"
+              >
+                <b>{{thang | number: '0.0'}}/{{tongSoMayCon}}</b>
+              </td>
+            </tr>
+          </ng-container>
           <ng-container *ngFor="let sanpham of kehoach.lstKH_KeHoachKinhDoanh_SanPham; let i = index">
             <tr>
               <td class="tc-w-430 p-px-2" style="background-color: #fff;z-index: 9999;" [attr.rowspan]="2">

@@ -101,6 +101,10 @@ import { TableChiPhiXoComponent } from './lap-chi-phi/lap-chi-phi-modal/table-ch
 import { TableChiPhiDienComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-dien/table-chi-phi-dien.component';
 import { TableChiPhiVatTuPhuComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-vat-tu-phu/table-chi-phi-vat-tu-phu.component';
 import { TableChiPhiNhanCongComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-nhan-cong/table-chi-phi-nhan-cong.component';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ThietLapLuongThangComponent } from './danh-muc/thiet-lap-luong-thang/thiet-lap-luong-thang.component';
+import { TableChungComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chung/table-chung.component';
+import { TableChiPhiKhauHaoComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-khau-hao/table-chi-phi-khau-hao.component';
 @NgModule({
   declarations: [
     MkehoachsanxuatComponent,
@@ -187,6 +191,9 @@ import { TableChiPhiNhanCongComponent } from './lap-chi-phi/lap-chi-phi-modal/ta
     TableChiPhiDienComponent,
     TableChiPhiVatTuPhuComponent,
     TableChiPhiNhanCongComponent,
+    ThietLapLuongThangComponent,
+    TableChungComponent,
+    TableChiPhiKhauHaoComponent,
   ],
   imports: [
     CommonModule,
@@ -211,6 +218,7 @@ import { TableChiPhiNhanCongComponent } from './lap-chi-phi/lap-chi-phi-modal/ta
   exports: [
     KehoachkinhdoanhnamComponent
   ],
+  providers:[SanXuatService],
   entryComponents: [
 
   ]

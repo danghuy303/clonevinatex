@@ -88,6 +88,7 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
           MaTaiSan: obj.Ma,
           IddmTaiSan:obj.IddmTaiSan,
           TonKho: obj.TonKho,
+          SoLuongDeXuat:obj.SoLuongDeXuat
         })
       }
     });

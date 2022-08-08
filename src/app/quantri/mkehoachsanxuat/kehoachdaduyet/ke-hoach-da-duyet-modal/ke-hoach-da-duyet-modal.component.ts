@@ -1,3 +1,4 @@
+import { replace } from '@amcharts/amcharts4/.internal/core/utils/Array';
 import { formatNumber } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -207,11 +208,10 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.SetData()).subscribe((res: any) => {
         handleHTTPResponse(res, this.toastr, () => {
           this.kehoach = res.Data;
-          this.router.navigate([`quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`]);
-          // this.GetNhaMay();
-          // this.CountTongSanLuong();
-          // this.CountTongSanLuongConLai();
-          // this.KiemTraButton();
+          // this.router.navigate([`quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`]);
+          // let url = `${window.location.origin}/#/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`;
+          this.activeModal.close(this.kehoach.Id);
+          // window.open(url, '_blank');
         })
       })
     }
@@ -232,6 +232,7 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
   ChuyenDuyet() {
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh().ChuyenTiep(this.kehoach).subscribe((res: any) => {
       handleHTTPResponse(res, this.toastr, () => {
+        this.KiemTraButton();
         this.activeModal.close();
       })
     })
@@ -410,6 +411,10 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
   DieuChinh() {
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh().DieuChinh(this.kehoach.Id).subscribe((res: any) => {
       this.kehoach = res;
+      this.CheckThangForWarning();
+      this.GetNhaMay();
+      this.CountAll();
+      this.GetTongSoMayCon();
       this.KiemTraButton();
       this.GetNhaMay();
     })

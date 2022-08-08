@@ -1,52 +1,144 @@
-<p-panel header="Chi phí">
-  <div class="p-col-12 p-p-0 pintable-container" style="height: 30vh;" voiPintable [pinnedCols]="3">
+<p-panel>
+  <ng-template pTemplate="header" class="p-jc-start">
+    <b class="p-mr-3">Định mức</b>
+    <button class="p-button-sm p-button-info" pButton pRipple type="button" icon="pi pi-dollar" label="Tính chi phí"
+      (click)="countChiPhi()"></button>
+  </ng-template>
+  <div class="p-col-12 p-p-0 pintable-container" style="height: 50vh;" voiPintable [pinnedCols]="3">
     <table>
       <thead>
         <tr>
           <th class="tc-w-40">STT</th>
           <th class="tc-w-280 text-left">Sản phẩm</th>
-          <th class="tc-w-40">ĐVT</th>
+          <th class="tc-w-80">ĐVT</th>
           <ng-container *ngFor="let thang of listLableThang">
             <th class="tc-w-80 text-right">{{thang}}</th>
           </ng-container>
-          <th class="tc-w-80">Tổng</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngIf="kehoach.listNhanCong != null || kehoach.listNhanCong != undefined">
-          <td [attr.colspan]="2" class="p-p-2"><b>Cộng</b></td>
-          <td style="display: none"></td>
-          <td class="text-center">VNĐ</td>
-          <ng-container *ngFor="let thang of verticalSum">
-            <td class="text-right tc-w-80">
-              <b>{{thang | number: '0.0'}}</b>
-            </td>
-          </ng-container>
-        </tr>
-        <ng-container *ngFor="let sanpham of kehoach.listNhanCong; let i = index">  
+        <ng-container *ngFor="let sanpham of kehoach.listNhanCong; let i = index">
           <tr>
-            <td class="tc-w-40 text-center">{{i + 1}}</td>
-            <td class="tc-w-280">{{sanpham.TenDonGia}}</td>
-            <td class="tc-w-40 text-center">VNĐ</td>
-            <ng-container *ngFor="let thang of sanpham.lstKH_DonGiaDinhMuc_Thang">
+            <td class="tc-w-40 text-center" style="z-index: 1">{{i + 1}}</td>
+            <td class="tc-w-280" style="z-index: 1">{{sanpham.TenDonGia}}</td>
+            <td class="tc-w-80 text-center" style="z-index: 1">{{sanpham.DonViTinh}}</td>
+            <ng-container *ngFor="let thang of sanpham.listDonGia">
               <td class="tc-w-80">
-                <p-inputNumber
-                  [(ngModel)]="thang.Gia"
-                  [min]="0"
-                  [maxFractionDigits]="3"
-                  [minFractionDigits]="0"
-                  mode="decimal"
-                  locale="en-US"
-                  (ngModelChange)="countAllSum()"
-                ></p-inputNumber>
+                <p-inputNumber [(ngModel)]="thang.Gia" [min]="0" [maxFractionDigits]="3" [minFractionDigits]="1"
+                  mode="decimal" locale="en-US" [disabled]="sanpham.listNhanCong?.length" (ngModelChange)="countAllSum()"></p-inputNumber>
               </td>
             </ng-container>
-            <td class="tc-w-80 text-right">
-              <b>{{sanpham.TongChiPhi | number: '0.0'}}</b>
-            </td>
           </tr>
+          <ng-container *ngFor="let child of sanpham.listNhanCong; let ind = index">
+            <tr>
+              <td class="tc-w-40 text-center">{{i + 1}}.{{ind + 1}}</td>
+              <td class="tc-w-280">{{child.TenDonGia}}</td>
+              <td class="tc-w-40 text-center">{{child.DonViTinh}}</td>
+              <ng-container *ngFor="let thangChild of child.listDonGia">
+                <td class="tc-w-80">
+                  <p-inputNumber [(ngModel)]="thangChild.Gia" [min]="0" [maxFractionDigits]="3" [minFractionDigits]="1"
+                    mode="decimal" locale="en-US" (ngModelChange)="countAllSum()"></p-inputNumber>
+                </td>
+              </ng-container>
+            </tr>
+          </ng-container>
         </ng-container>
       </tbody>
     </table>
   </div>
+</p-panel>
+<div class="p-p-2"></div>
+<p-panel>
+  <ng-template pTemplate="header" class="p-jc-start">
+    <b class="p-mr-3">Chi phí</b>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="p-col-12 p-p-0 pintable-container" style="height: 70vh;" voiPintable [pinnedCols]="2">
+      <table>
+        <thead>
+          <tr>
+            <th class="tc-w-40">STT</th>
+            <th class="tc-w-280 text-left">Chi phí</th>
+            <th class="tc-w-80">Số lượng LĐ</th>
+            <th class="tc-w-80">Hệ số LCB</th>
+            <th class="tc-w-80">Phụ cấp</th>
+            <th class="tc-w-80 text-center">ĐVT</th>
+            <ng-container *ngFor="let thang of listLableThang">
+              <th class="tc-w-80 text-right">{{thang}}</th>
+            </ng-container>
+            <th class="tc-w-80">Tổng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngIf="kehoach.listNhanCong != null || kehoach.listNhanCong != undefined">
+            <td [attr.colspan]="2" class="p-p-2"><b>Cộng</b></td>
+            <td style="display: none"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-center">{{kehoach.DonViTinh}}</td>
+            <ng-container *ngFor="let thang of verticalSum">
+              <td class="text-right tc-w-80">
+                <b>{{thang | number: '0.0'}}</b>
+              </td>
+            </ng-container>
+          </tr> -->
+          <ng-container *ngFor="let sanpham of kehoach.listChiPhiNhanCong; let i = index">
+            <tr>
+              <td class="tc-w-40 text-center">
+                <span *ngIf="i>0">{{i}}</span>
+              </td>
+              <td class="tc-w-280">
+                <span [ngStyle]="{fontWeight: (i===0)?'bold':''}">{{sanpham.Ten}}</span>
+              </td>
+              <td class="tc-w-80">
+              </td>
+              <td class="tc-w-80">
+              </td>
+              <td class="tc-w-80">
+              </td>
+              <td class="tc-w-80 text-center">{{sanpham.DonViTinh}}</td>
+              <ng-container *ngFor="let thang of sanpham.listThang">
+                <td 
+                  class="tc-w-80 text-right"
+                  [ngStyle]="{fontWeight: (i===0)?'bold':''}"
+                  >
+                  {{thang.ChiPhi | number: '0.0'}}
+                </td>
+              </ng-container>
+              <td class="tc-w-80 text-right">
+                <b>{{sanpham.TongChiPhi | number: '0.0'}}</b>
+              </td>
+            </tr>
+            <ng-container *ngFor="let thang of sanpham.listChiPhi; let ind = index;">
+              <tr>
+                <td class="tc-w-40 text-center">{{i + 1}}.{{ind + 1}}</td>
+                <td class="tc-w-280">{{thang.Ten}}</td>
+                <td class="tc-w-80 text-right">
+                  {{thang.ThongTinDanhMuc?.SoLuong | number: '0.0'}}
+                </td>
+                <td class="tc-w-80 text-right">
+                  {{thang.ThongTinDanhMuc?.HeSoLCB | number: '0.0'}}
+                </td>
+                <td class="tc-w-80 text-right">
+                  {{thang.ThongTinDanhMuc?.PhuCap | number: '0.0'}}
+                </td>
+                <td class="tc-w-80 text-center">{{thang.DonViTinh}}</td>
+                <ng-container *ngFor="let child of thang.listThang; let e = index">
+                  <td 
+                    class="tc-w-80 text-right"
+                  >
+                    {{child.ChiPhi | number: '0.0'}}
+                  </td>
+                </ng-container>
+                <td class="tc-w-80 text-right">
+                  <b>{{thang.TongChiPhi | number: '0.0'}}</b>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
 </p-panel>
