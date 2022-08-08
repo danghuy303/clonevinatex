@@ -223,3 +223,13 @@ export function handleHTTPResponse(res, toast, onOK?, onFail?) {
         onFail && onFail();
     }
 }
+
+export function getSTT(list) {
+    list.forEach((ele, index) => {
+        ele.data.isCha = true;
+        ele.data.STT = index + 1;
+        ele.children?.forEach((child, index) => {
+          child.data.STT = `${ele.data.STT}.${index+1}`
+        })
+      }) 
+}

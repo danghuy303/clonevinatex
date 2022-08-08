@@ -91,7 +91,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       this.item.SoQuyTrinh = res.Data;
     })
   }
-
+  
   mapDataModelToView(ele, index, indexCha?) {
     return {
       data: {
@@ -238,12 +238,11 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result
       .then((res: any) => {
+
         this.listTaiSan_copy = this.MergeArr(res, this.listTaiSan_copy);
         this.listTaiSan_copy = [...this.listTaiSan_copy];
-        // this.listTaiSan_copy = this.listTaiSan_copy.map((ele, index) => {
-        //   return this.GetStt(ele, index);
-        // })
-        // this.CheckParent(this.listTaiSan_copy);
+        console.log(this.listTaiSan_copy);
+        
         this.listTaiSan_copy.forEach((ele, index) => {
           ele.data.isCha = true;
           ele.data.STT = index + 1;

@@ -5,7 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable, getSTT } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalchontaisanCopyComponent } from '../modalchontaisan-copy/modalchontaisan-copy.component';
@@ -48,6 +48,15 @@ export class ModalthuhoitaisanComponent implements OnInit {
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
     }
+    else {
+      if (validVariable(this.item.Id)) {
+        this.GetQuyTrinh(this.item.Id);
+      }
+      this.item.listTaiSan = this.item.listTaiSan?.map((ele, index) => {
+        return this.mapDataModelToView(ele, index);
+      });
+      this.CheckParent( this.item.listTaiSan);
+    }
     this.GetListdmPhanXuong();
     this.KiemTraButtonModal();
   }
@@ -65,14 +74,16 @@ export class ModalthuhoitaisanComponent implements OnInit {
     this.newitem = {}
   }
 
-  delete(index) {
+  delete(item) {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-       this.item.listTaiSan.splice(index, 1);
+        this.item.listTaiSan.splice(item.STT - 1, 1);
+        this.item.listTaiSan = [...this.item.listTaiSan];
+        getSTT(this.item.listTaiSan)
       })
       .catch((er) => console.log(er));
   }
@@ -80,7 +91,26 @@ export class ModalthuhoitaisanComponent implements OnInit {
   setData() {
     this.item.NgayThuHoiUnix = DateToUnix(this.item.NgayThuHoi);
     this.item.IdDuAn = this.store.getCurrent();
+    this.item.listTaiSan = this.item.listTaiSan?.map(ele => {
+      return this.mapDataViewToModel(ele);
+    });
     return this.item;
+  }
+
+  mapDataViewToModel(item: any) {
+    return {
+      Id: item.data?.Id || "",
+      IdTaiSan: item.data?.IdTaiSan,
+      SoLuong: item.data?.SoLuong,
+      GhiChu: item.data?.GhiChu || "",
+      MaTaiSan: item.data?.MaTaiSan,
+      TenTaiSan: item.data?.TenTaiSan,
+      listTaiSan: this.isEmpty(item.children) ? item.children.map(ele => this.mapDataViewToModel(ele)) : null
+    }
+  }
+
+  isEmpty(arr) {
+    return Array.isArray(arr) && arr.length > 0
   }
 
   ValidateData() {
@@ -104,6 +134,8 @@ export class ModalthuhoitaisanComponent implements OnInit {
           this.toastr.error(res.Message);
         } else {
           this.item = res.Data;
+          this.item.Id = res.Data.Id;
+          this.GetQuyTrinh(this.item.Id);
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
           // this.activeModal.close();
@@ -114,6 +146,42 @@ export class ModalthuhoitaisanComponent implements OnInit {
     }
   }
 
+  GetQuyTrinh(id) {
+    this._serviceTaiSan.PhieuThuHoiTaiSan().Get(id).subscribe((res:any) => {
+      this.item = res.Data;
+      this.item.NgayThuHoiUnix = UnixToDate(this.item.NgayThuHoiUnix);
+      this.item.listTaiSan = this.item.listTaiSan?.map((ele, index) => {
+        return this.mapDataModelToView(ele, index);
+      });
+      this.KiemTraButtonModal();
+      this.CheckParent(this.item.listTaiSan);
+    })
+  }
+
+  CheckParent(list) {
+    list.forEach(ele => {
+      ele.data.isCha = true;
+    })
+  }
+
+  mapDataModelToView(ele, index, indexCha?) {
+    return {
+      data: {
+        ...ele,
+        Id: ele.Id,
+        IdCha: null,
+        IdQuyTrinhBanGiao: this.item.Id,
+        STT: indexCha ? `${indexCha}.${index + 1}` : index + 1,
+        SoLuong: ele.SoLuong,
+        GhiChu: ele.GhiChu,
+      },
+      children: this.isEmpty(ele.listTaiSan) ? ele.listTaiSan.map((eleCon, indexCon) => {
+        return this.mapDataModelToView(eleCon, indexCon, index + 1)
+      }) : null,
+      expanded: true
+    }
+  }
+
   GetNextSoQuyTrinh() {
     this._serviceTaiSan.PhieuThuHoiTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
@@ -121,26 +189,58 @@ export class ModalthuhoitaisanComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
-    if(!validVariable(this.item.NgayThuHoi)) {
+    if (!validVariable(this.item.IdBoPhanSuDung)) {
+      this.toastr.error("Nhập bộ phận sử dụng!");
+      return;
+    }
+    if (!validVariable(this.item.NgayThuHoi)) {
       this.toastr.error("Nhập ngày thu hồi !");
-      return ;
+      return;
     }
     let modalRef = this._modal.open(ModalchontaisanCopyComponent, {
       size: "xl",
       backdrop: "static",
     });
-    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.data?.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = res;
-    
-      // this.item.listTaiSan.forEach(ele => {
-      //   ele.SoLuong = 1;
-      // })
+      this.item.listTaiSan = this.MergeArr(res, this.item.listTaiSan)
+      this.item.listTaiSan = [...this.item.listTaiSan];
+      this.item.listTaiSan.forEach((ele, index) => {
+        ele.data.isCha = true;
+        ele.data.STT = index + 1;
+        ele.children?.forEach((child, index) => {
+          child.data.STT = `${ele.data.STT}.${index+1}`
+        })
+      }) 
     })
       .catch((er) => {
       });
+  }
+
+  MergeArr(newArr: Array<any>, existingArr: Array<any>) {
+    let removeIndex = [];
+    newArr.forEach((newEle) => {
+      let index = existingArr.findIndex(
+        (oldEle) => newEle.data.IdTaiSan === oldEle.data.IdTaiSan
+      );
+      if (index === -1) {
+        existingArr.push(newEle);
+      }
+    });
+    existingArr.forEach((oldEle, index) => {
+      let indexCheck = newArr.findIndex(
+        (newEle) => newEle.data.IdTaiSan === oldEle.data.IdTaiSan
+      );
+      if (indexCheck === -1) {
+        removeIndex.push(index);
+      }
+    });
+    for (var i = removeIndex.length - 1; i >= 0; i--) {
+      existingArr.splice(removeIndex[i], 1);
+    }
+    return existingArr;
   }
 
   KiemTraButtonModal() {

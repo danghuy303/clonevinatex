@@ -275,4 +275,8 @@ export class ModaldenghixulisucoComponent implements OnInit {
     });
   }
 
+  chonBoPhanSD(e) {
+    this.item.listTaiSan = [];
+  }
+
 }

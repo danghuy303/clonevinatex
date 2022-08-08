@@ -101,39 +101,40 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
   }
 
   FilterTree() {
-    let data: any = [];
-    this.items.forEach(ele => {
-      if (ele.data.checked) {
-        data.push({
-          ...ele.data,
-          MaTaiSan: ele.data.Ma,
-          Id: '',
-          GiaTriConLai: ele.data.GiaTriConLai,
-          SoLuong: ele.data.SoLuong,
-          TenTaiSan: ele.data.Ten,
+    let data = this.items.filter(ele => ele.data.checked);
+     data = data.map(ele => {
+      console.log(ele);
+      return {
+        data: {
+          ...ele,
+          IdCha: ele.data.IdTaiSan,
           IdTaiSan: ele.data.Id,
-          isCha: ele.data.isCha ? ele.data.isCha : false,
-        });
-
-      }
-      if (validVariable(ele.children) && ele.children.length > 0) {
-        ele.children.forEach(objchildren => {
-          if (objchildren.data.checked) {
-            data.push({
-              ...ele.data,
-              MaTaiSan: objchildren.data.Ma,
-              Id: '',
-              GiaTriConLai: objchildren.data.GiaTriConLai,
-              SoLuong: objchildren.data.SoLuong,
-              TenTaiSan: objchildren.data.Ten,
-              IdTaiSan: objchildren.data.Id,
-              isCha: objchildren.data.isCha ? objchildren.data.isCha : false,
-            });
+          Id: "",
+          TenTaiSan: ele.data.Ten,
+          MaTaiSan: ele.data.Ma,
+          Soluong: ele.data.Soluong,
+          GiaTriConLai: ele.data.GiaTriConLai,
+          NguyenGia: ele.data.NguyenGia
+        },
+        children: ele.children.map(obj => {
+          return {
+            ...obj,
+            data: {
+              ...obj.data,
+              IdCha: obj.data.IdTaiSan,
+              IdTaiSan: obj.data.Id,
+              Id: "",
+              TenTaiSan: obj.data.Ten,
+              MaTaiSan: obj.data.Ma,
+              Soluong: obj.data.Soluong,
+              GiaTriConLai: obj.data.GiaTriConLai,
+              NguyenGia: obj.data.NguyenGia
+            }
           }
-        });
+        })
       }
-    });
-    return data;
+    })
+    return data
   }
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
