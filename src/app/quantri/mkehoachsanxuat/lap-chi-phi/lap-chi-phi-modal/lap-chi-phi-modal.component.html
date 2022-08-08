@@ -82,42 +82,49 @@
   <p-tabView>
     <p-tabPanel header="Bông">
       <app-table-chung
+        *ngIf="kehoach.listBong"
         [listName]="'Bong'"
         [kehoach]="kehoach"
       ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Xơ">
       <app-table-chung
+        *ngIf="kehoach.listXo"
         [listName]="'Xo'"
         [kehoach]="kehoach"
       ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Điện">
       <app-table-chung
+        *ngIf="kehoach.listDien"
         [listName]="'Dien'"
         [kehoach]="kehoach"
       ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Vật tư phụ">
       <app-table-chung
+        *ngIf="kehoach.listVatTuPhu"
         [listName]="'VatTuPhu'"
         [kehoach]="kehoach"
       ></app-table-chung>
     </p-tabPanel>
     <p-tabPanel header="Nhân công">
       <app-table-chi-phi-nhan-cong
+        *ngIf="kehoach.listNhanCong"
         [kehoach]="kehoach"
         [listLableThang]="listLableThang"
       ></app-table-chi-phi-nhan-cong>
     </p-tabPanel>
     <p-tabPanel header="Khấu hao">
       <app-table-chi-phi-khau-hao
+        *ngIf="kehoach.listKhauHao"
         [kehoach]="kehoach"
         [listLableThang]="listLableThang"
         ></app-table-chi-phi-khau-hao>
     </p-tabPanel>
     <p-tabPanel header="Lãi vay">
       <app-table-chung
+        *ngIf="kehoach.listLaiVayNganHang"
         [listName]="'LaiVayNganHang'"
         [kehoach]="kehoach"
       ></app-table-chung>
