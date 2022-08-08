@@ -266,6 +266,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
         listKhongHD = merge([...res], listKhongHD, 'IdSanPham');
         this.kehoach.lstKH_KeHoachKinhDoanh_SanPham = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.filter(ele => !ele.isKhongHopDong)
         this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.push(...listKhongHD);
+        console.log("this.kehoach.lstKH_KeHoachKinhDoanh_SanPham", this.kehoach.lstKH_KeHoachKinhDoanh_SanPham);
+        
         this.GetNhaMay();
         this.CountAll();
       })
@@ -294,6 +296,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   SeeMonthDetail(sanpham, itemThang) {
+    // console.log("itemThang",itemThang);
+    // console.log("sanpham",sanpham);
     if (this.checkThang[itemThang.Thang - 1]) {
       let modalRef = this._modal.open(ChitietthangComponent, {
         size: 'xl',
@@ -303,7 +307,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       modalRef.componentInstance.NeGoc = this.kehoach.NeGoc;
       modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
       modalRef.componentInstance.nam = this.kehoach.Nam;
-      modalRef.componentInstance.Ne = itemThang.Ne;
+      modalRef.componentInstance.Ne = sanpham.Ne;
       modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
       modalRef.componentInstance.thang = itemThang.Thang;
       modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;

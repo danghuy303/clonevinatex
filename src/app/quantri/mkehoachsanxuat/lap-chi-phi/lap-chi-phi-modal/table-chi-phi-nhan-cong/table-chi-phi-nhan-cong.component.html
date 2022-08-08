@@ -70,7 +70,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="kehoach.listNhanCong != null || kehoach.listNhanCong != undefined">
+          <!-- <tr *ngIf="kehoach.listNhanCong != null || kehoach.listNhanCong != undefined">
             <td [attr.colspan]="2" class="p-p-2"><b>Cộng</b></td>
             <td style="display: none"></td>
             <td></td>
@@ -82,11 +82,15 @@
                 <b>{{thang | number: '0.0'}}</b>
               </td>
             </ng-container>
-          </tr>
+          </tr> -->
           <ng-container *ngFor="let sanpham of kehoach.listChiPhiNhanCong; let i = index">
             <tr>
-              <td class="tc-w-40 text-center">{{i + 1}}</td>
-              <td class="tc-w-280">{{sanpham.Ten}}</td>
+              <td class="tc-w-40 text-center">
+                <span *ngIf="i>0">{{i}}</span>
+              </td>
+              <td class="tc-w-280">
+                <span [ngStyle]="{fontWeight: (i===0)?'bold':''}">{{sanpham.Ten}}</span>
+              </td>
               <td class="tc-w-80">
               </td>
               <td class="tc-w-80">
@@ -95,7 +99,10 @@
               </td>
               <td class="tc-w-80 text-center">{{sanpham.DonViTinh}}</td>
               <ng-container *ngFor="let thang of sanpham.listThang">
-                <td class="tc-w-80 text-right">
+                <td 
+                  class="tc-w-80 text-right"
+                  [ngStyle]="{fontWeight: (i===0)?'bold':''}"
+                  >
                   {{thang.ChiPhi | number: '0.0'}}
                 </td>
               </ng-container>
@@ -117,8 +124,10 @@
                   {{thang.ThongTinDanhMuc?.PhuCap | number: '0.0'}}
                 </td>
                 <td class="tc-w-80 text-center">{{thang.DonViTinh}}</td>
-                <ng-container *ngFor="let child of thang.listThang">
-                  <td class="tc-w-80 text-right">
+                <ng-container *ngFor="let child of thang.listThang; let e = index">
+                  <td 
+                    class="tc-w-80 text-right"
+                  >
                     {{child.ChiPhi | number: '0.0'}}
                   </td>
                 </ng-container>
