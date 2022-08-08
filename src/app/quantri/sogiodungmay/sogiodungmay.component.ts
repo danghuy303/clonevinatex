@@ -463,10 +463,70 @@ export class SogiodungmayComponent implements OnInit {
 
     this.displayChart4 = true;
   };
+  maCongDoanToFilterChart4: any;
+  filterChart4ByCongDoan() {
+    let data = {
+      ...this.filter,
+      MaCongDoan: this.maCongDoanToFilterChart4,
+      TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
+    };
+
+    this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
+      // console.log(res);
+      let labels = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          labels.push(`${i.TenTaiSan} (${i.TyLe}%)`)
+        })
+      });
+      // console.log(labels);
+      let dataSoGioDungMay = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          dataSoGioDungMay.push(i.SoGio)
+        })
+      });
+      // console.log(dataSoGioDungMay);
+
+      let dataSoGioHoatDong = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          dataSoGioHoatDong.push(i.SoGioHoatDong)
+        })
+      });
+      // console.log(dataSoGioHoatDong);
+      let loaiSoGio = ['Số giờ dừng máy', 'Số giờ hoạt động'];
+      this.data4 = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Số giờ dừng máy',
+            data: dataSoGioDungMay,
+            backgroundColor: "#4472C4",
+          },
+          {
+            label: 'Số giờ hoạt động',
+            data: dataSoGioHoatDong,
+            backgroundColor: "#ED7D31",
+          },
+        ]
+      };
+      this.chart4?.destroy();
+      this.chart4 = new Chart('chart4', {
+        type: 'bar',
+        data: this.data4,
+        plugins: [ChartDatalabels],
+        options: this.options4,
+      });
+    });
+  }
 
   dateBieudochitietTungloai: any;
   loaiBieudochitietTungloai: any;
   soLuongMay: any;
+  IddmLoaiSuCo: any;
+  Ngay: any;
+  maCongDoanToFilterChart5: any;
   getChart5($event) {//biểu đồ chi tiết từng loại sự cố từng ngày
     // console.log($event.element._model.label);
     // console.log($event.element);
@@ -475,15 +535,18 @@ export class SogiodungmayComponent implements OnInit {
     // console.log(this.SuCo);
     let indexLoaiSuCo = this.SuCo.findIndex((suco: any) => suco.ten === this.loaiBieudochitietTungloai);
     // console.log(this.SuCo[indexLoaiSuCo]?.id);
+    this.IddmLoaiSuCo = this.SuCo[indexLoaiSuCo]?.id;
 
     let date = $event.element._model.label.split("/");
-    let ngay = (new Date(date[2], date[1] - 1, date[0])).getTime() / 1000
+    let ngay = (new Date(date[2], date[1] - 1, date[0])).getTime() / 1000;
+    this.Ngay = ngay;
     // console.log(ngay);
     let data = {
       ...this.filter,
       IddmLoaiSuCo: this.SuCo[indexLoaiSuCo]?.id,
       Ngay: ngay,
-      TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
     };
     this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
       // console.log(res);
@@ -537,6 +600,68 @@ export class SogiodungmayComponent implements OnInit {
       });
     });
     this.displayChart5 = true;
+  };
+
+  filterChart5ByCongDoan() {
+    let data = {
+      ...this.filter,
+      MaCongDoan: this.maCongDoanToFilterChart5,
+      IddmLoaiSuCo: this.IddmLoaiSuCo,
+      Ngay: this.Ngay,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
+    };
+    this.taisanService.getDataBaoCao().GetDataTheoMay(data).subscribe((res: any) => {
+      // console.log(res);
+      this.soLuongMay = res.Data[0]?.listSuCoTheoNgay?.length;
+      // console.log(this.soLuongMay);
+
+      let labels = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          labels.push(i.TenTaiSan)
+        })
+      });
+      // console.log(labels);
+      let dataSoGioDungMay = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          dataSoGioDungMay.push(i.SoGio)
+        })
+      });
+      // console.log(dataSoGioDungMay);
+      let dataSoGioHoatDong = [];
+      res.Data.forEach((r) => {
+        r.listSuCoTheoNgay.forEach((i) => {
+          dataSoGioHoatDong.push(i.SoGioHoatDong)
+        })
+      });
+      // console.log(dataSoGioHoatDong);
+      let loaiSoGio = ['Số giờ dừng máy', 'Số giờ hoạt động'];
+      this.data5 = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Số giờ dừng máy',
+            data: dataSoGioDungMay,
+            backgroundColor: "#4472C4",
+          },
+          {
+            label: 'Số giờ hoạt động',
+            data: dataSoGioHoatDong,
+            backgroundColor: "#ED7D31",
+          },
+
+        ]
+      };
+      this.chart5?.destroy();
+      this.chart5 = new Chart('chart5', {
+        type: 'bar',
+        data: this.data5,
+        plugins: [ChartDatalabels],
+        options: this.options5,
+      });
+    });
   }
 
 }

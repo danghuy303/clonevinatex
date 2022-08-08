@@ -21,7 +21,9 @@ export class TableChungComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.dinhMucName = `list${this.listName}`;
-    console.log("dinhMucNam", this.dinhMucName);
+    // console.log("dinhMucNam", this.dinhMucName);
+    console.log("kehoach", this.kehoach);
+    
     this.countAll();
   }
 

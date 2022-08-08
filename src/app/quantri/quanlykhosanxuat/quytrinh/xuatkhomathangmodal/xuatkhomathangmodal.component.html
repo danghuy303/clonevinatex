@@ -44,8 +44,15 @@
                         <th class="text-center">Tên</th>
                         <th class="text-center">Mã</th>
                         <th class="text-center" *ngIf="loai !== 'dmMatHang'">Tên lô hàng</th>
-                        <th class="text-center" *ngIf="loai !== 'dmMatHang'">Số kiện</th>
-                        <th class="text-center" *ngIf="loai !== 'dmMatHang'">Khối lượng /kiện (kg)</th>
+                        <th class="text-center" *ngIf="loai !== 'dmMatHang'">
+                            <ng-container *ngIf="kho!=='khothanhpham'">Số kiện</ng-container>
+                            <ng-container *ngIf="kho==='khothanhpham'">Số quả</ng-container>
+                            
+                        </th>
+                        <th class="text-center" *ngIf="loai !== 'dmMatHang'">
+                            <ng-container *ngIf="kho!=='khothanhpham'">Khối lượng /kiện (kg)</ng-container>
+                            <ng-container *ngIf="kho==='khothanhpham'">Khối lượng 1 quả (kg/Cone)</ng-container>
+                        </th>
                         <!-- <th class="text-center" *ngFor="let header of cols">
                             {{header.header}}
                         </th> -->
