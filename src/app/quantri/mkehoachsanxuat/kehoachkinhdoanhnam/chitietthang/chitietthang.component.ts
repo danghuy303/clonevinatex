@@ -65,8 +65,8 @@ export class ChitietthangComponent implements OnInit {
       .GetNangSuatTrungBinh(this.IdDuAn)
       .subscribe((res: any) => {
         this.itemThang.NangSuat = res;
-        if (validVariable(this.itemThang.TongSanLuong) && validVariable(this.NeGoc) && validVariable(this.Ne)) {
-          this.itemThang.SanLuongQuyDoi = (this.Ne*this.itemThang.TongSanLuong)/(this.NeGoc);
+        if (validVariable(this.NeGoc) && validVariable(this.Ne)) {
+          this.itemThang.SanLuongQuyDoi = (this.Ne*(this.itemThang.TongSanLuong || 0))/(this.NeGoc);
         }
       })
   }
@@ -100,8 +100,8 @@ export class ChitietthangComponent implements OnInit {
     this.itemThang.SanLuongMotCa = 0;
     if (this.itemThang.TongSoCa && this.itemThang.TongSanLuong) {
       this.itemThang.SanLuongMotCa = this.itemThang.TongSanLuong / this.itemThang.TongSoCa;
-      this.GetNangSuat();
     }
+    this.GetNangSuat();
   }
 
   ChapNhan() {

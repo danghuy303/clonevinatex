@@ -8,7 +8,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, handleHTTPResponse, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, handleHTTPResponse, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
@@ -208,10 +208,7 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.SetData()).subscribe((res: any) => {
         handleHTTPResponse(res, this.toastr, () => {
           this.kehoach = res.Data;
-          // this.router.navigate([`quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`]);
-          // let url = `${window.location.origin}/#/quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${this.kehoach.Id}`;
           this.activeModal.close(this.kehoach.Id);
-          // window.open(url, '_blank');
         })
       })
     }
@@ -252,6 +249,7 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       backdrop: 'static',
     });
     let listIdSanPham = this.kehoach.lstKH_KeHoachKinhDoanh_SanPham.filter(ele => ele.isKhongHopDong).map(ele => ele.IdSanPham) || [];
+    modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
     modalRef.componentInstance.listIdSanPham = listIdSanPham;
     modalRef.result
       .then((res: any) => {
@@ -271,7 +269,7 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       size: 'xl',
       backdrop: 'static',
     })
-    modalRef.componentInstance.listHopDong = [...sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong];
+    modalRef.componentInstance.listHopDong = deepCopy(sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong)
     modalRef.componentInstance.tenSanPham = sanpham.TenSanPham
     modalRef.componentInstance.nam = this.kehoach.Nam
     modalRef.result
@@ -296,7 +294,7 @@ export class KeHoachDaDuyetModalComponent implements OnInit {
       modalRef.componentInstance.NeGoc = this.kehoach.NeGoc;
       modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
       modalRef.componentInstance.nam = this.kehoach.Nam;
-      modalRef.componentInstance.Ne = itemThang.Ne;
+      modalRef.componentInstance.Ne = itemThang.Ne || sanpham.Ne;
       modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
       modalRef.componentInstance.thang = itemThang.Thang;
       modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;
