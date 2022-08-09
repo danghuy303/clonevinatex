@@ -79,7 +79,7 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
       TabTrangThai: this.trangThai,
       // TuNgay: DateToUnix(this.filter.TuNgay),
       // DenNgay: DateToUnix(this.filter.DenNgay)
-      Nam: this.filter.Nam
+      Nam: this.filter.Nam || 0
     };
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetList(data).subscribe((res: any) => {
       this.listKeHoach = res.Data.Items;

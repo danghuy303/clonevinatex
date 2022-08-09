@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-    <p-table [value]="item.listTaiSan" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" >
+    <p-treeTable [value]="item.listTaiSan" styleClass="p-treetable p-treetable-caption">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width: 50px;">
@@ -88,7 +88,7 @@
                 <col>
 
                 <col>
-                <!-- <col style="width: 100px;"> -->
+                <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -101,35 +101,41 @@
                 <th>Giá trị còn lại (VNĐ)</th>
                 <th>Giá trị thanh lý (VNĐ)</th>
                 <th>Ghi chú</th>
-                <!-- <th style="width: 100px;">Thao tác</th> -->
+                <th style="width: 100px;">Thao tác</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
-                <td class="text-center"> {{ i + 1 }}</td>
+                <td class="text-center"> {{rowData.STT}}</td>
                 <td class="text-center">
-                    {{item.MaTaiSan}}
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    {{rowData.MaTaiSan}}
                 </td>
                 <td>
-                    {{item.TenTaiSan}}
+                    {{rowData.TenTaiSan}}
                 </td>
                 <td>
-                    <p-inputNumber [disabled]="!item.isCha" [min]="0" placeholder="Số lượng" [(ngModel)]="item.SoLuong"
+                    <p-inputNumber [disabled]="!rowData.isCha" [min]="0" placeholder="Số lượng" [(ngModel)]="rowData.SoLuong"
                         (onBlur)="Tong()"></p-inputNumber>
                 </td>
                 <td style="text-align: right;">
-                    {{item.GiaTriConLai | number:'0.0'}}
+                    {{rowData.GiaTriConLai | number:'0.0'}}
                 </td>
                 <td style="text-align: right;">
-                    <p-inputNumber [disabled]="!item.isCha" [min]="0" [minFractionDigits]="0" locale="en-EN"
-                        [(ngModel)]="item.GiaTriThanhLy" (onBlur)="Tong()">
+                    <p-inputNumber [disabled]="!rowData.isCha" [min]="0" [minFractionDigits]="0" locale="en-EN"
+                        [(ngModel)]="rowData.GiaTriThanhLy" (onBlur)="Tong()">
                     </p-inputNumber>
                 </td>
                 <td class="text-center">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" [ngbTooltip]="item.GhiChu"
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="rowData.GhiChu" [ngbTooltip]="rowData.GhiChu"
                         pInputText />
+                </td>
+                <td class="text-center">
+                    <button *ngIf="rowData.isCha" pButton pRipple type="button" icon="pi pi-trash"
+                    class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                    (click)=" delete(rowData)"></button>
                 </td>
             </tr>
         </ng-template>
-    </p-table>
+    </p-treeTable>
 </div>

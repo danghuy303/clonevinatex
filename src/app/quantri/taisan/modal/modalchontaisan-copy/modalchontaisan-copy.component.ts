@@ -1,4 +1,4 @@
-import { dataLoader } from '@amcharts/amcharts4/core';
+import { dataLoader, List } from '@amcharts/amcharts4/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -32,6 +32,8 @@ export class ModalchontaisanCopyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.listItemDaChon);
+
     this.GetList();
   }
   resetFilter() {
@@ -46,23 +48,19 @@ export class ModalchontaisanCopyComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       IddmLoaiTaiSan: '',
       IdBoPhanSuDung: this.item.IdBoPhanSuDung,
-      Ngay:DateToUnix(this.item.NgayThuHoi),
+      Ngay: DateToUnix(this.item.NgayThuHoi),
     }
     this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanThuHoi(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
       let items = [];
       this.items = [];
       items = res.Data.Items;
-
-
       items.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.Id);
-
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj.isCha = true;
           obj_copy.children = [];
-
           obj.listTaiSan.forEach(element => {
             element.isCha = false;
             element.checked = this.listItemDaChon.includes(element.Id);
@@ -102,46 +100,76 @@ export class ModalchontaisanCopyComponent implements OnInit {
     this.checkedAll = this.items.every(eleCha => eleCha.data.checked)
   }
 
-  FilterTree() {
-    let data: any = [];
-    this.items.forEach(obj => {
-      if (obj.data.checked) {
-        data.push({
-          ...obj.data,
-          IdTaiSan: obj.data.Id,
-          Id: '',
-          TenTaiSan: obj.data.Ten,
-          MaTaiSan: obj.data.Ma,
-          isCha: true,
-        });
-
-      }
-      if (validVariable(obj.children) && obj.children.length > 0) {
-        obj.children.forEach(objchildren => {
-          if (objchildren.data.checked) {
-            data.push({
-              ...obj.data,
-              IdTaiSan: objchildren.data.Id,
-              Id: '',
-              TenTaiSan: objchildren.data.Ten,
-              MaTaiSan: objchildren.data.Ma,
-              isCha: false,
-            });
-          }
-        });
-      }
-    });
-    return data;
-  }
-
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetList()
   }
 
+  setData() {
+    let data = this.items.filter(ele => ele.data.checked)
+    data = this.mapDeQuy(data);
+    // data = data.map(ele => {
+    //   console.log(ele);
+    //   return {
+    //     data: {
+    //       ...ele,
+    //       IdCha: ele.data.IdTaiSan,
+    //       IdTaiSan: ele.data.Id,
+    //       Id: "",
+    //       TenTaiSan: ele.data.Ten,
+    //       MaTaiSan: ele.data.Ma,
+    //       Soluong: ele.data.Soluong,
+    //       GiaTriConLai: ele.data.GiaTriConLai,
+    //       NguyenGia: ele.data.NguyenGia
+    //     },
+    //     children: ele.children.map(obj => {
+    //       return {
+    //         ...obj,
+    //         data: {
+    //           ...obj.data,
+    //           IdCha: obj.data.IdTaiSan,
+    //           IdTaiSan: obj.data.Id,
+    //           Id: "",
+    //           TenTaiSan: obj.data.Ten,
+    //           MaTaiSan: obj.data.Ma,
+    //           Soluong: obj.data.Soluong,
+    //           GiaTriConLai: obj.data.GiaTriConLai,
+    //           NguyenGia: obj.data.NguyenGia
+    //         }
+    //       }
+    //     })
+    //   }
+    // })
+    return data
+  }
+
+  mapDeQuy(lits) {
+    let newItem = lits.map(ele => {
+      return {
+        data: {
+          ...ele.data,
+          IdCha: ele.data.IdTaiSan,
+          IdTaiSan: ele.data.Id,
+          Id: "",
+          TenTaiSan: ele.data.Ten,
+          MaTaiSan: ele.data.Ma,
+          Soluong: ele.data.Soluong,
+          GiaTriConLai: ele.data.GiaTriConLai,
+          NguyenGia: ele.data.NguyenGia
+        },
+        children: ele.children || []
+      }
+    })
+    newItem.forEach(obj => {
+      if(obj.children && obj.children.length) {
+        obj.children = this.mapDeQuy(obj.children)
+      }
+    })
+    return newItem; 
+  }
+
   GhiLai() {
-    // console.log("this.FilterTree()", this.FilterTree());
-    this.activeModal.close(this.FilterTree());
+    this.activeModal.close(this.setData())
   }
 
 }
