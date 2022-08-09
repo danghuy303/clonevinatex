@@ -16,9 +16,15 @@
             styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="filter.IdBoPhanSuDung"
             (onChange)="loadData(true)"></p-dropdown>
     </div>
-    <div class="p-mr-2">
+    <!-- <div class="p-mr-2">
         <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản "
             styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiTaiSan" [showClear]="true" [filter]="true"
+            (onChange)="loadData(true)">
+        </p-dropdown>
+    </div> -->
+    <div class="p-mr-2">
+        <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
+            styleClass="p-inputtext-sm" [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true"
             (onChange)="loadData(true)">
         </p-dropdown>
     </div>

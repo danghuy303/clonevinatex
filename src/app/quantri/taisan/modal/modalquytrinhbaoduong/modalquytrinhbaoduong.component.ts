@@ -39,8 +39,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
-    if (this.opt=== 'add') {
+
+    if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
     } else {
     }
@@ -77,6 +77,10 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     })
   }
 
+  chonBoPhan(e) {
+    this.item.listTaiSan = [];
+  }
+
   ThemMoiDanhSachTaiSan() {
     if (!validVariable(this.item.IdBoPhanSuDung)) {
       this.toastr.error("Vui lòng nhập bộ phận sử dụng")
@@ -102,7 +106,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
 
   setData() {
     this.item.NgayBaoDuongUnix = DateToUnix(this.item.NgayBaoDuong);
-    this.item.listTaiSan = this.item.listTaiSan.map(ele => { 
+    this.item.listTaiSan = this.item.listTaiSan.map(ele => {
       return {
         ...ele,
         Id: ele.Id || "",
@@ -127,7 +131,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     } else if (!validVariable(this.item.listTaiSan)) {
       this.toastr.error("Yêu cầu thêm tài sản!");
       return false
-    } 
+    }
     // else if (!this.ValidateTaiSan()) {
     //   return false
     // }
