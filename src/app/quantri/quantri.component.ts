@@ -1030,6 +1030,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
                   this.close();
                 },
               },
+              {
+                label: "Lịch sử sử dụng tài sản",
+                routerLink: "/quantri/taisan/lichsusudungtaisan/0",
+                command: () => {
+                  this.close();
+                },
+              },
             ]
           },
           {
@@ -1139,13 +1146,6 @@ export class QuantriComponent implements OnInit, OnDestroy {
               {
                 label: "Tính Khấu hao tài sản",
                 routerLink: "/quantri/taisan/khauhaotaisan/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Lịch sử sử dụng tài sản",
-                routerLink: "/quantri/taisan/lichsusudungtaisan/0",
                 command: () => {
                   this.close();
                 },

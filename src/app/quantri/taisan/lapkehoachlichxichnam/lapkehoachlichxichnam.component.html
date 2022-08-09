@@ -92,7 +92,7 @@
                         (click)="ThemMoiDanhSachTaiSan()"></button> -->
                 </div>
                 <div class="p-p-0">
-                    <strong style="color: #007bff;">Tổng số: <span style="color: red;">{{item.listTaiSan?.length}}</span> thiết bị</strong>
+                    <strong style="color: #007bff;">Tổng số: <span style="color: red;">{{(item.listTaiSan | filter: keyword)?.length}}</span> thiết bị</strong>
                 </div>
             </div>
             <div class="p-grid p-jc-end">

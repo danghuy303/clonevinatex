@@ -15,7 +15,7 @@
         <tbody>
             <ng-container *ngFor="let item of listTaiSan, let i=index">
                 <tr>
-                    <td class="tc-w-300 p-py-3" style="background-color: white;z-index: 999;"> {{item.TenTaiSan}}</td>
+                    <td class="tc-w-300 p-py-3" style="background-color: white;z-index: 999;"> {{item.TenVietTat}}</td>
                     <td class="text-center" *ngFor="let chiPhi of item?.listChiPhi" class="text-center tc-w-250 p-p-2">
                         <!-- <div *ngIf="chiPhi.ChiTietChiPhi.length" class="p-d-flex p-flex-column"> -->
                         <!-- <div  *ngFor="let item of chiPhi.ChiTietChiPhi; let i = index" class="p-d-flex p-ai-center">

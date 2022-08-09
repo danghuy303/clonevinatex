@@ -25,6 +25,7 @@ export class LichxichnamComponent implements OnInit {
   filter: any = {};
   listLoaiTaiSan: any = [];
   listPhanXuong: any = [];
+  listCongDoan: any = [];
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   constructor(
@@ -53,14 +54,22 @@ export class LichxichnamComponent implements OnInit {
     })
     this.filter.isChon = 'theoBaoDuong'
     this.loadData();
+    this.getListCongDoan();
   }
+
+  getListCongDoan() {
+    this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+    })
+  }
+
   resetFilter() {
     this.filter = {};
     this.loadData();
   }
   loadData() {
     let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: this.filter.Ma, IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '',Ngay: DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)),LoaiKeHoach: '',
       IdDuAn: 0,
     };

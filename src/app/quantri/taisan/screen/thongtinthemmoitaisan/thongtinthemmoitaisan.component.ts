@@ -53,6 +53,12 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
     this.item.SoLuong = 1
   }
 
+  chonBoPhan(e) {
+    if (!validVariable(e.value)) {
+      this.item.listTaiSan[0].ThoiGianDuaVaoSuDung = '';
+    }
+  }
+
   LayMa(e) {
     this.item.listLichBaoDuong = [];
     this.item.IddmTaiSan = '';

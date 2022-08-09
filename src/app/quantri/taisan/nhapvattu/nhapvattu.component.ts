@@ -58,6 +58,11 @@ export class NhapvattuComponent implements OnInit {
     this.ListNhaCungUng();
     this.getList();
   }
+
+  chonBoPhan(e) {
+    this.item.listTaiSan = [];
+  }
+
   ListNhaCungUng() {
     this.item.listTaiSan.forEach(ele => {
       this._serviceTaiSan.ThoiHanCungCap().GetListNhaCungUng(ele.IdTaiSan).subscribe((res: any) => {
@@ -130,7 +135,7 @@ export class NhapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-       this.item.listTaiSan.splice(index, 1)[0];
+      this.item.listTaiSan.splice(index, 1)[0];
       this.Tong();
     }).catch(er => console.log(er))
   }
@@ -142,7 +147,7 @@ export class NhapvattuComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item.Ngay)) { 
+    if (!validVariable(this.item.Ngay)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
       return false;
     }

@@ -75,7 +75,11 @@
                                     <td >{{item.Ma}}</td>
                                     <td >{{item.Ten}}</td>
                                     <td >{{item.HangSanXuat}}</td>
-                                    <td class="text-center">{{item.ThoiGianDuaVaoSuDung|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">
+                                        <div>
+                                            {{item.ThoiGianDuaVaoSuDung|date:'dd/MM/yyyy'}}
+                                        </div>
+                                    </td>
                                     <td class="text-center">
                                         <button pButton pRipple type="button" icon="pi pi-pencil"
                                             class="p-button-text p-button-sm p-button-secondary p-mr-2"

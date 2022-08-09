@@ -50,6 +50,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   itemsLichXichThang: any = [];
   tongGiaTriVatTu: 0;
   tongGiaTriChiPhi: 0;
+  listCongDoan: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -85,6 +86,13 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.loadData();
+    this.getListCongDoan();
+  }
+
+  getListCongDoan() {
+    this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+    })
   }
 
   ngAfterViewInit(): void {
@@ -112,7 +120,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       Keyword: "",
       CurrentPage: this.paging.CurrentPage,
       PageSize: 20,
-      MaCongDoan: '',
+      MaCongDoan: this.filter.Ma,
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       IdUser: '',
