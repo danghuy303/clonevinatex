@@ -88,7 +88,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
     });
-    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa tài sản này chứ?";
     modalRef.result
       .then((res) => {
         this.item.listTaiSan.splice(item.STT - 1, 1);
@@ -121,6 +121,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
       GhiChu: item.data?.GhiChu || "",
       MaTaiSan: item.data?.MaTaiSan,
       TenTaiSan: item.data?.TenTaiSan,
+      GiaTriConLai:item.data?.GiaTriConLai,
       listTaiSan: this.isEmpty(item.children) ? item.children.map(ele => this.mapDataViewToModel(ele)) : null
     }
   }
@@ -211,13 +212,39 @@ export class ModalthanhlytaisanComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
+      console.log(res);
+      this.item.listTaiSan = this.MergeArr(res, this.item.listTaiSan);
       this.item.listTaiSan = [...this.item.listTaiSan];
       getSTT(this.item.listTaiSan);
     })
       .catch((er) => {
       });
   }
+
+  MergeArr(newArr: Array<any>, existingArr: Array<any>) {
+    let removeIndex = [];
+    newArr.forEach((newEle) => {
+      let index = existingArr.findIndex(
+        (oldEle) => newEle.data.IdTaiSan === oldEle.data.IdTaiSan
+      );
+      if (index === -1) {
+        existingArr.push(newEle);
+      }
+    });
+    existingArr.forEach((oldEle, index) => {
+      let indexCheck = newArr.findIndex(
+        (newEle) => newEle.data.IdTaiSan === oldEle.data.IdTaiSan
+      );
+      if (indexCheck === -1) {
+        removeIndex.push(index);
+      }
+    });
+    for (var i = removeIndex.length - 1; i >= 0; i--) {
+      existingArr.splice(removeIndex[i], 1);
+    }
+    return existingArr;
+  }
+
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
       this.checkbutton = res;
@@ -260,7 +287,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
   Tong() {
     this.item.TongGiaTriThanhLy = 0;
     this.item.listTaiSan.forEach(item => {
-      this.item.TongGiaTriThanhLy += (item.GiaTriThanhLy || 0) * (item.SoLuong || 0);
+      this.item.TongGiaTriThanhLy += (item.data.GiaTriThanhLy || 0) * (item.data.SoLuong || 0);
     })
   }
   getList() {

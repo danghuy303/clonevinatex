@@ -46,6 +46,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('item', this.item);
     this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
     // if (this.item.ThoiGianDuaVaoSuDungUnix !== 0 || this.item.ThoiGianDuaVaoSuDungUnix === 0) {
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
