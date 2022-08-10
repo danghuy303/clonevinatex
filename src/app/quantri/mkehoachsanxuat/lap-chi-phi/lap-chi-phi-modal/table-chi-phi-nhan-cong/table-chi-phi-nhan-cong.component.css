@@ -16,6 +16,12 @@
   padding: 8px;
 }
 
+.tc-w-150 {
+  min-width: 150px !important;
+  max-width: 150px !important;
+  padding: 8px;
+}
+
 :host::ng-deep.p-inputnumber-input {
   padding-right: 0 !important;
 }
