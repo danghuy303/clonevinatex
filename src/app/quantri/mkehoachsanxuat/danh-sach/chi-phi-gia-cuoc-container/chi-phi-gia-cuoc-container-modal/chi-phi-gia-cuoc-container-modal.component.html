@@ -1,0 +1,92 @@
+<div class="modal-header">
+  <h5>
+    {{title}}
+  </h5>
+</div>
+<div class="modal-body">
+  <div class="p-d-flex p-jc-between p-ai-center">
+    <div class="">
+      <button 
+        pButton 
+        pRipple 
+        type="button" 
+        label="Quay lại" 
+        class="p-mr-2 p-button-sm "
+        (click)="activeModal.dismiss()"
+      ></button>
+      <button 
+        pButton 
+        pRipple 
+        type="button" 
+        label="Ghi lại" 
+        class="p-mr-2 p-button-sm " 
+      (click)="saveItem()"
+      ></button>
+    </div>
+    <div style="width: 200px">
+      <p-dropdown 
+        [filter]="true" 
+        [options]="years" 
+        placeholder="Chọn năm" 
+        styleClass="p-inputtext-sm"
+        [(ngModel)]="selectedYear" 
+        (onChange)="getMonthsThroughYear()"
+      ></p-dropdown>
+    </div>
+  </div>
+  <div class="p-my-3" style="width: 100%">
+    <p-table 
+      styleClass="p-datatable-sm p-datatable-gridlines"
+      [value]="item.lstContainers"
+    >
+      <ng-template pTemplate="colgroup">
+        <col style="width: 50px">
+        <col>
+        <col style="width: 150px">
+        <col style="width: 200px">
+        <col style="width: 200px">
+      </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+              <th>STT</th>
+              <th>Tên container</th>
+              <th>Quốc gia</th>
+              <th>Cước vận chuyển</th>
+              <th>Phí hãng tàu</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-container let-i="rowIndex">
+        <ng-container *ngFor="let item of container.lstGiaCuoc; let ind = index;">
+          <tr>
+              <td 
+                class="text-center"
+                [attr.rowspan]="container.lstGiaCuoc.length"
+                *ngIf="ind === 0"
+              >{{i + 1}}</td>
+              <td 
+                [attr.rowspan]="container.lstGiaCuoc.length"
+                *ngIf="ind === 0"
+              >{{container.TenLoaiContainer}}</td>
+              <td>{{item.TenNuoc}}</td>
+              <td>
+                <p-inputNumber 
+                  [minFractionDigits]="0" 
+                  locale="en-EN" 
+                  [(ngModel)]="item.GiaCuocVanChuyen"
+                  placeholder="Nhập giá trị"
+                ></p-inputNumber>
+              </td>
+              <td>
+                <p-inputNumber 
+                  [minFractionDigits]="0" 
+                  locale="en-EN" 
+                  [(ngModel)]="item.GiaCuocHangTau"
+                  placeholder="Nhập giá trị"
+                ></p-inputNumber>
+              </td>
+          </tr>
+        </ng-container>
+      </ng-template>
+  </p-table>
+  </div>
+</div>

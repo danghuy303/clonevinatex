@@ -430,7 +430,6 @@ const routes: Routes = [
         path: "quanlykhosanxuat/tonkhodanhsachchitiet/:id",
         component: TonkhodanhsachchitietComponent,
       },
-
       { path: "kehoachsanxuat/lohang", component: LohangComponent },
       { path: "phanquyensanxuat/dmkhachhang", component: DmkhachhangComponent },
       { path: "phanquyensanxuat/lobong", component: LobongComponent },

@@ -1,0 +1,64 @@
+<div>
+  <h4 class="title" style="color:#1f2779">
+    Chi phí giá cước container
+  </h4>
+</div>
+
+<div class="p-d-flex p-flex-row p-jc-between">
+  <div class="modal-bt p-mb-3 ">
+    <button 
+      pButton 
+      pRipple 
+      type="button" 
+      label="Thêm mới" 
+      class="p-mr-2 p-button-sm"
+      (click)="addChiPhi()"
+    ></button>
+  </div>
+</div>
+<p-table 
+  [value]="items" 
+  styleClass="p-datatable-sm wrap-text p-datatable-gridlines p-datatable-striped" 
+  [paginator]="true" 
+  [rows]="10"
+>
+  <ng-template pTemplate="colgroup">
+    <col style="width: 100px">
+    <col style="">
+    <col style="width: 200px;">
+    <!-- <col style="width: 100px;"> -->
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="text-center">STT</th>
+      <th>Nhà máy</th>
+      <th>Năm</th>
+      <!-- <th> </th> -->
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item let-i="rowIndex">
+    <tr>
+      <td class="text-center">
+        {{ i + 1 }}
+      </td>
+      <td class="text-left">{{item.TenDuAn}}</td>
+      <td class="text-center">{{item.Nam}}</td>
+      <!-- <td class="text-center date">
+        <button 
+          pButton 
+          pRipple 
+          type="button" 
+          icon="pi pi-pencil"
+          class="p-button-text p-button-sm p-button-secondary p-mr-2" 
+          pTooltip="Sửa"
+          showDelay="1000" 
+          tooltipPosition="bottom"
+          (click)="edit(item)" 
+        ></button>
+      </td> -->
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="paginatorleft">
+    <b>Tổng số bản ghi {{items.length}}</b>
+  </ng-template>
+</p-table>

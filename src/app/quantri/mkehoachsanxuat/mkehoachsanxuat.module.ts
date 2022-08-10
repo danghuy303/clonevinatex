@@ -105,6 +105,10 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ThietLapLuongThangComponent } from './danh-muc/thiet-lap-luong-thang/thiet-lap-luong-thang.component';
 import { TableChungComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chung/table-chung.component';
 import { TableChiPhiKhauHaoComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-khau-hao/table-chi-phi-khau-hao.component';
+import { ChiPhiGiaCuocContainerComponent } from './danh-sach/chi-phi-gia-cuoc-container/chi-phi-gia-cuoc-container.component';
+import { ChiPhiGiaCuocContainerModalComponent } from './danh-sach/chi-phi-gia-cuoc-container/chi-phi-gia-cuoc-container-modal/chi-phi-gia-cuoc-container-modal.component';
+import { NuocXuatKhauComponent } from './danh-muc/nuoc-xuat-khau/nuoc-xuat-khau.component';
+import { NuocXuatKhauComponentComponent } from './danh-muc/nuoc-xuat-khau/nuoc-xuat-khau-component/nuoc-xuat-khau-component.component';
 @NgModule({
   declarations: [
     MkehoachsanxuatComponent,
@@ -194,6 +198,10 @@ import { TableChiPhiKhauHaoComponent } from './lap-chi-phi/lap-chi-phi-modal/tab
     ThietLapLuongThangComponent,
     TableChungComponent,
     TableChiPhiKhauHaoComponent,
+    ChiPhiGiaCuocContainerComponent,
+    ChiPhiGiaCuocContainerModalComponent,
+    NuocXuatKhauComponent,
+    NuocXuatKhauComponentComponent,
   ],
   imports: [
     CommonModule,

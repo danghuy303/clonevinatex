@@ -296,15 +296,15 @@ export class DanhMucHopDongService {
             },
             GetTongSoMayCon: (IdDuAn) => {
                 return this.http.get(`${url}GetTongSoMayCon?IdDuAn=${IdDuAn}`)
-            }   
-        } 
+            }
+        }
     }
 
     DanhSachKeHoachKinhDoanh() {
         let url = API.KeHoach
         //http://103.130.212.45:2269/KeHoachAPI/
         return {
-            GetChiPhi: (Id)=>{
+            GetChiPhi: (Id) => {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetChiPhiSanPhamKeHoachKinhDoanh?IdKeHoachKinhDoanh=${Id}`, httpOptions)
             },
             Get: (Id) => {
@@ -331,7 +331,7 @@ export class DanhMucHopDongService {
             },
             Delete: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/DeleteQuyTrinh`, data, httpOptions)
-            }, 
+            },
             DieuChinh: (IdKeHoachKinhDoanh) => {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetKeHoachKinhDoanhChoDieuChinh?IdKeHoachKinhDoanh=${IdKeHoachKinhDoanh}`, httpOptions)
             },
@@ -487,7 +487,21 @@ export class DanhMucHopDongService {
         }
     }
 
-
+    GiaCuocContainer() {
+        let url = API.KeHoach;
+        let IdDuAn = this.store.getCurrent();
+        return {
+            GetAll: () => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetAll_ChiPhiGiaCuocContainer?IdDuAn=${IdDuAn}`);
+            },
+            GetByNam: (Nam: number) => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetByNam_ChiPhiGiaCuocContainer?IdDuAn=${IdDuAn}&&Nam=${Nam}`);
+            },
+            Set: (data: any) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/Set_ChiPhiGiaCuocContainer`, data);
+            }
+        }
+    }
 
     KeHoachKinhDoanh_DonGia() {
         let url = API.KeHoach
@@ -588,7 +602,7 @@ export class DanhMucHopDongService {
             Set: (data) => {
                 return this.http.post(`${url}DanhMuc/SetdmTyGia`, data, httpOptions)
             },
-            Delete:(data)=>{
+            Delete: (data) => {
                 return this.http.post(`${url}DanhMuc/DeletedmTyGia`, data, httpOptions)
             }
         }
@@ -605,7 +619,7 @@ export class DanhMucHopDongService {
             Set: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/CapNhatBangGiaSanPham`, data, httpOptions)
             },
-            GoiYGia:(data)=>{
+            GoiYGia: (data) => {
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}KeHoachKinhDoanh/GetGoiYGiaSanPham`, data, httpOptions)
             }
@@ -618,7 +632,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetDoanhThuKeHoachKinhDoanh?IdKeHoachKinhDoanh=${IdKeHoachKinhDoanh}`, httpOptions)
             },
             GetThang: (data) => {
-                return this.http.post(`${url}KeHoachKinhDoanh/GetDoanhThuKeHoachKinhDoanhSanPhamTheoThang`,data, httpOptions)
+                return this.http.post(`${url}KeHoachKinhDoanh/GetDoanhThuKeHoachKinhDoanhSanPhamTheoThang`, data, httpOptions)
             },
             Set: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/CapNhatDoanhThuKeHoachKinhDoanhSanPhamTheoThang`, data, httpOptions)
@@ -626,26 +640,26 @@ export class DanhMucHopDongService {
         }
     }
 
-    KeHoachKinhDoanh_DonGiaDinhMuc(){
+    KeHoachKinhDoanh_DonGiaDinhMuc() {
         let url = API.KeHoach;
-        return{
-            ChiPhi:(opt)=>{
+        return {
+            ChiPhi: (opt) => {
                 return this.CPAll(opt);
             },
-            Set:(data)=>{
+            Set: (data) => {
                 data.IdDuAn = this.store.getCurrent()
-                return this.http.post(`${url}DonGiaDinhMuc/Set_DonGiaDinhMucNam`,data,httpOptions);
+                return this.http.post(`${url}DonGiaDinhMuc/Set_DonGiaDinhMucNam`, data, httpOptions);
             }
         }
     }
-    CPAll(opt){
+    CPAll(opt) {
         let url = API.KeHoach;
-        return{
-            GetList:()=>{
-                return this.http.get(`${url}DonGiaDinhMuc/GetAll_${opt}?IdDuAn=${this.store.getCurrent()}`,httpOptions);
+        return {
+            GetList: () => {
+                return this.http.get(`${url}DonGiaDinhMuc/GetAll_${opt}?IdDuAn=${this.store.getCurrent()}`, httpOptions);
             },
-            Get:(Nam)=>{
-                return this.http.get(`${url}DonGiaDinhMuc/GetByNam_${opt}?IdDuAn=${this.store.getCurrent()}&Nam=${Nam}`,httpOptions);
+            Get: (Nam) => {
+                return this.http.get(`${url}DonGiaDinhMuc/GetByNam_${opt}?IdDuAn=${this.store.getCurrent()}&Nam=${Nam}`, httpOptions);
             }
         }
     }
