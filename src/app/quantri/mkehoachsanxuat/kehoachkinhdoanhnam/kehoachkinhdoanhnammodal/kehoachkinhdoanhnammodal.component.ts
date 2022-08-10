@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, handleHTTPResponse, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, handleHTTPResponse, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
@@ -280,7 +280,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       size: 'xl',
       backdrop: 'static',
     })
-    modalRef.componentInstance.listHopDong = [...sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong];
+    modalRef.componentInstance.listHopDong = deepCopy(sanpham.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong)
     modalRef.componentInstance.tenSanPham = sanpham.TenSanPham
     modalRef.componentInstance.nam = this.kehoach.Nam
     modalRef.result
@@ -307,7 +307,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       modalRef.componentInstance.NeGoc = this.kehoach.NeGoc;
       modalRef.componentInstance.IdDuAn = this.kehoach.IdDuAn;
       modalRef.componentInstance.nam = this.kehoach.Nam;
-      modalRef.componentInstance.Ne = sanpham.Ne;
+      modalRef.componentInstance.Ne = sanpham.Ne || itemThang.Ne;
       modalRef.componentInstance.idSanPham = sanpham.IdSanPham;
       modalRef.componentInstance.thang = itemThang.Thang;
       modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;

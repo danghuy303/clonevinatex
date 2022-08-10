@@ -53,6 +53,7 @@ export class LapChiPhiComponent implements OnInit {
   }
 
   resetFilter() {
+    this.filter = {}
     this.getListKeHoachChiPhi(true)
   }
 

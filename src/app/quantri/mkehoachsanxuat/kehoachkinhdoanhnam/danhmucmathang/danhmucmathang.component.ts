@@ -28,6 +28,8 @@ export class DanhmucmathangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log("IdDuAn", this.IdDuAn);
+    
     this.LoadData();
   }
 
