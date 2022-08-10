@@ -750,6 +750,9 @@ export class SanXuatService {
     LoaiChiPhiNhanCong() {
         return this.KeHoachSanXuat('LoaiChiPhiNhanCong');
     }
+    NuocXuatKhau() {
+        return this.KeHoachSanXuat('NuocXuatKhau');
+    }
     CoCauNhanSu() {
         let url = API.KeHoach;
         return {

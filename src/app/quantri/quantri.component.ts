@@ -1624,6 +1624,11 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
           {
+            label: "Chi phí giá cước container",
+            routerLink: "/quantri/mkehoachsanxuat/danhsach/chiphigiacuoccontainer",
+            command: () => this.close(),
+          },
+          {
             label: "Vật tư phụ",
             routerLink: "/quantri/mkehoachsanxuat/danhmuc/vattuphu",
             command: () => this.close(),
@@ -1671,6 +1676,11 @@ export class QuantriComponent implements OnInit, OnDestroy {
           {
             label: "Phương thức vận chuyển",
             routerLink: '/quantri/mkehoachsanxuat/danhmuc/phuongthucvanchuyen',
+            command: () => this.close(),
+          },
+          {
+            label: "Danh mục nước xuất khẩu",
+            routerLink: '/quantri/mkehoachsanxuat/danhmuc/nuocxuatkhau',
             command: () => this.close(),
           },
           {
