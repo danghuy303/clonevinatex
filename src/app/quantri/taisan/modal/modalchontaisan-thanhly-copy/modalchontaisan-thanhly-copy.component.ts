@@ -103,7 +103,6 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
   FilterTree() {
     let data = this.items.filter(ele => ele.data.checked);
      data = data.map(ele => {
-      console.log(ele);
       return {
         data: {
           ...ele,
@@ -112,7 +111,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
           Id: "",
           TenTaiSan: ele.data.Ten,
           MaTaiSan: ele.data.Ma,
-          Soluong: ele.data.Soluong,
+          SoLuong: ele.data.SoLuong,
           GiaTriConLai: ele.data.GiaTriConLai,
           NguyenGia: ele.data.NguyenGia
         },
@@ -126,7 +125,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
               Id: "",
               TenTaiSan: obj.data.Ten,
               MaTaiSan: obj.data.Ma,
-              Soluong: obj.data.Soluong,
+              SoLuong: obj.data.SoLuong,
               GiaTriConLai: obj.data.GiaTriConLai,
               NguyenGia: obj.data.NguyenGia
             }
@@ -143,5 +142,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
 
   GhiLai() {
     this.activeModal.close(this.FilterTree());
+    console.log(this.FilterTree());
+    
   }
 }

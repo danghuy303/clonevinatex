@@ -78,7 +78,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
     });
-    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa tài sản này chứ?";
     modalRef.result
       .then((res) => {
         this.item.listTaiSan.splice(item.STT - 1, 1);
