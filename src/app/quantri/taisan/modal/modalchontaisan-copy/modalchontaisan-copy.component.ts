@@ -32,8 +32,6 @@ export class ModalchontaisanCopyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.listItemDaChon);
-
     this.GetList();
   }
   resetFilter() {

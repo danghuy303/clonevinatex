@@ -55,7 +55,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
       this.item.listTaiSan = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele, index);
       });
-      this.CheckParent( this.item.listTaiSan);
+      this.CheckParent(this.item.listTaiSan);
     }
     this.GetListdmPhanXuong();
     this.KiemTraButtonModal();
@@ -105,6 +105,8 @@ export class ModalthuhoitaisanComponent implements OnInit {
       GhiChu: item.data?.GhiChu || "",
       MaTaiSan: item.data?.MaTaiSan,
       TenTaiSan: item.data?.TenTaiSan,
+      GiaTriConLai: item.data?.GiaTriConLai,
+      NguyenGia: item.data?.NguyenGia,
       listTaiSan: this.isEmpty(item.children) ? item.children.map(ele => this.mapDataViewToModel(ele)) : null
     }
   }
@@ -147,7 +149,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   }
 
   GetQuyTrinh(id) {
-    this._serviceTaiSan.PhieuThuHoiTaiSan().Get(id).subscribe((res:any) => {
+    this._serviceTaiSan.PhieuThuHoiTaiSan().Get(id).subscribe((res: any) => {
       this.item = res.Data;
       this.item.NgayThuHoiUnix = UnixToDate(this.item.NgayThuHoiUnix);
       this.item.listTaiSan = this.item.listTaiSan?.map((ele, index) => {
@@ -174,6 +176,8 @@ export class ModalthuhoitaisanComponent implements OnInit {
         STT: indexCha ? `${indexCha}.${index + 1}` : index + 1,
         SoLuong: ele.SoLuong,
         GhiChu: ele.GhiChu,
+        GiaTriConLai: ele.GiaTriConLai,
+        NguyenGia: ele.NguyenGia,
       },
       children: this.isEmpty(ele.listTaiSan) ? ele.listTaiSan.map((eleCon, indexCon) => {
         return this.mapDataModelToView(eleCon, indexCon, index + 1)
@@ -211,9 +215,9 @@ export class ModalthuhoitaisanComponent implements OnInit {
         ele.data.isCha = true;
         ele.data.STT = index + 1;
         ele.children?.forEach((child, index) => {
-          child.data.STT = `${ele.data.STT}.${index+1}`
+          child.data.STT = `${ele.data.STT}.${index + 1}`
         })
-      }) 
+      })
     })
       .catch((er) => {
       });

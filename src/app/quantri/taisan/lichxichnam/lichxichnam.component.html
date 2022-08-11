@@ -61,7 +61,7 @@
 </ng-template>
 </p-table>
 
-<p-table [value]="itemMay.listTaiSan" *ngIf="filter.isChon === 'theoMay'" [paginator]="true" [rows]="20"
+<p-table [value]="items.listTaiSan" *ngIf="filter.isChon === 'theoMay'" [paginator]="true" [rows]="20"
   styleClass="p-datatable-sm wrap-text p-datatable-striped">
   <ng-template pTemplate="colgroup">
     <colgroup>
@@ -85,6 +85,6 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="paginatorleft">
-    Tổng số bản ghi {{itemMay.listTaiSan?.length}}.
+    Tổng số bản ghi {{items.listTaiSan?.length}}.
 </ng-template>
 </p-table>
