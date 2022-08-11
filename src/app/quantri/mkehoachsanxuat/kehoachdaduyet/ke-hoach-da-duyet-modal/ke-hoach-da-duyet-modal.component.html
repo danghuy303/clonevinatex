@@ -99,7 +99,9 @@
   </div>
 
   <!-- table -->
-  <div class="d-flex justify-content-end p-mt-3" style="width: 100%;"><b>Đơn vị: <span>Tấn</span></b>
+  <div class="d-flex justify-content-end p-mt-3" style="width: 100%;">
+    <span class="p-mr-3">Năng lực sản xuất: <b>{{nangLucSanXuatNam | number: '0.0'}}</b></span>
+    <span>Đơn vị: <b>Tấn</b></span>
   </div>
   <div class="p-mt-3">
     <div class="p-col-12 p-p-0 pintable-container" style="height: 50vh;" voiPintable [pinnedCols]="4">
@@ -131,11 +133,23 @@
               <b>{{sanLuongConLaiAllMonth | number: '0.0'}}</b>
 
             </td>
-            <td [attr.rowspan]="2" class="text-right p-p-2" style="background-color: #fff">
+            <td 
+              [attr.rowspan]="2" 
+              class="text-right p-p-2" 
+              [style.color]="(sanLuongForAllMonth > nangLucSanXuatNam)?'red':''"
+              [tooltipDisabled]="!(sanLuongForAllMonth > nangLucSanXuatNam)"
+              [pTooltip]="(sanLuongForAllMonth > nangLucSanXuatNam)?'Vượt quá năng lực sản xuât năm':''"
+            >
               <b>{{sanLuongForAllMonth | number: '0.0'}}</b>
             </td>
-            <td *ngFor="let thang of sanLuongAllMonth" class="tc-w-80 text-right" [pTooltip]="'Tổng sản lượng tháng'">
-              <b>{{thang | number: '0.0'}}</b>
+            <td 
+              *ngFor="let thang of sanLuongAllMonth" 
+              class="tc-w-80 text-right"
+              [style.color]="(thang > nangLucSanXuatThang)?'red':''"
+              [tooltipDisabled]="!(thang > nangLucSanXuatThang)"
+              [pTooltip]="(thang > nangLucSanXuatThang)?'Vượt quá năng lực sản xuât tháng':'Tổng sản lượng tháng'"
+            >
+            <b>{{thang | number: '0.0'}}</b>
             </td>
           </tr>
           <tr>

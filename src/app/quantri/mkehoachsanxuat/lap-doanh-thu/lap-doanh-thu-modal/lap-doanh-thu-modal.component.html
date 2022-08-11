@@ -189,7 +189,7 @@
             <tr *ngIf="kehoach.lstGiaSanPham != null || kehoach.lstGiaSanPham != undefined">
               <td [attr.colspan]="2" class="p-p-2"><b>Cộng</b></td>
               <td style="display: none"></td>
-              <td class="text-center">VNĐ</td>
+              <td class="text-center">Trđ</td>
               <ng-container *ngFor="let thang of verticalSum">
                 <td class="text-right tc-w-80">
                   <b>{{thang | number: '0.0'}}</b>
@@ -200,7 +200,7 @@
               <tr>
                 <td class="tc-w-40 text-center">{{i + 1}}</td>
                 <td class="tc-w-280">{{sanpham.TenSanPham}}</td>
-                <td class="tc-w-40 text-center">VNĐ</td>
+                <td class="tc-w-40 text-center">Trđ</td>
                 <ng-container *ngFor="let thang of sanpham.lstChiTietGia">
                   <td class="tc-w-80 text-right">
                     {{thang.DoanhThu | number: "0.0"}}
