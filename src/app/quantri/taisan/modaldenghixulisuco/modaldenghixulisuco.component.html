@@ -32,15 +32,15 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng  <span class="required">(*)</span> :</label>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng" (onChange)="chonBoPhanSD($event)"
                     styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdBoPhanSuDung">
                 </p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại sự cố  <span class="required">(*)</span> :</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiSuCo" placeholder="Loại sự cố "
@@ -48,7 +48,7 @@
                 </p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mức độ ưu tiên  <span class="required">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listDoUuTien" placeholder="Mức độ ưu tiên"
@@ -56,27 +56,27 @@
                 </p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đánh giá tình trạng:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.DanhGiaTinhTrang"></textarea>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nguyên nhân:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.NguyenNhan"></textarea>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Phương án xử lý:</label>
-            <div class="p-col-12 p-xl-8 p-p-0">
+        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Phương án xử lý:</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
                 <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.PhuongAnXuLy"></textarea>
             </div>
         </div>

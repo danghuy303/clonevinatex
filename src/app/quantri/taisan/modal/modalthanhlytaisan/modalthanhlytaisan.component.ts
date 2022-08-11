@@ -122,6 +122,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
       MaTaiSan: item.data?.MaTaiSan,
       TenTaiSan: item.data?.TenTaiSan,
       GiaTriConLai:item.data?.GiaTriConLai,
+      GiaTriThanhLy:item.data?.GiaTriThanhLy,
       listTaiSan: this.isEmpty(item.children) ? item.children.map(ele => this.mapDataViewToModel(ele)) : null
     }
   }
