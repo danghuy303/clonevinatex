@@ -57,3 +57,7 @@
   color: rgb(87, 148, 255);
   cursor: pointer;
 }
+
+td {
+  background-color: #fff;
+}

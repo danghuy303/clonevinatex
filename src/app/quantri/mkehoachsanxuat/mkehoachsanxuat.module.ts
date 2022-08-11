@@ -109,6 +109,7 @@ import { ChiPhiGiaCuocContainerComponent } from './danh-sach/chi-phi-gia-cuoc-co
 import { ChiPhiGiaCuocContainerModalComponent } from './danh-sach/chi-phi-gia-cuoc-container/chi-phi-gia-cuoc-container-modal/chi-phi-gia-cuoc-container-modal.component';
 import { NuocXuatKhauComponent } from './danh-muc/nuoc-xuat-khau/nuoc-xuat-khau.component';
 import { NuocXuatKhauComponentComponent } from './danh-muc/nuoc-xuat-khau/nuoc-xuat-khau-component/nuoc-xuat-khau-component.component';
+import { TableChiPhiBanHangComponent } from './lap-chi-phi/lap-chi-phi-modal/table-chi-phi-ban-hang/table-chi-phi-ban-hang.component';
 @NgModule({
   declarations: [
     MkehoachsanxuatComponent,
@@ -202,6 +203,7 @@ import { NuocXuatKhauComponentComponent } from './danh-muc/nuoc-xuat-khau/nuoc-x
     ChiPhiGiaCuocContainerModalComponent,
     NuocXuatKhauComponent,
     NuocXuatKhauComponentComponent,
+    TableChiPhiBanHangComponent,
   ],
   imports: [
     CommonModule,
