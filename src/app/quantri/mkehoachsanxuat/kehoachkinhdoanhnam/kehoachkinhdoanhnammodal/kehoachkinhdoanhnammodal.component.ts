@@ -46,6 +46,8 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   sanLuongForAllMonth: any;
   sanLuongConLaiAllMonth: any;
   tongSoMayCon: any;
+  nangLucSanXuatThang: any;
+  nangLucSanXuatNam: any;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -74,6 +76,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
     } else {
       this.kehoach.NgayLap = UnixToDate(this.kehoach.NgayLapUnix);
     }
+    this.getDinhMucSanXuat();
     this.CheckThangForWarning();
     this.GetNhaMay();
     this.CountAll();
@@ -101,6 +104,17 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   GetNhaMay() {
     this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
       this.listNhaMay = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+    })
+  }
+
+  getDinhMucSanXuat() {
+    this._danhMucHopDong.DinhMucSanXuat().GetList().subscribe((res:any)=>{
+      this.nangLucSanXuatThang = (res.reduce((sum, item) => {
+        return sum + item.DinhMucSanXuat;
+      }, 0)/1000) || 0;
+      this.nangLucSanXuatNam = this.nangLucSanXuatThang * 12;
+      console.log("nangLucSanXuatNam", this.nangLucSanXuatNam, "nangLucSanXuatThang", this.nangLucSanXuatThang);
+      
     })
   }
 

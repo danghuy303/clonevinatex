@@ -77,8 +77,6 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
       CurrentPage: this.paging.Page,
       sFilter: this.filter.keyword,
       TabTrangThai: this.trangThai,
-      // TuNgay: DateToUnix(this.filter.TuNgay),
-      // DenNgay: DateToUnix(this.filter.DenNgay)
       Nam: this.filter.Nam || 0
     };
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetList(data).subscribe((res: any) => {
@@ -86,7 +84,7 @@ export class KehoachkinhdoanhnamComponent implements OnInit {
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
-
+  
   changeParam(id) {
     this.router.navigate([`quantri/mkehoachsanxuat/kehoachkinhdoanhnam/${id}`], {
       replaceUrl: true,

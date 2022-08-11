@@ -11,6 +11,7 @@ import { ChiPhiXuatHangComponent } from './danh-muc/chi-phi-xuat-hang/chi-phi-xu
 import { CoCauNhanSuComponent } from './danh-muc/co-cau-nhan-su/co-cau-nhan-su.component';
 import { DonGiaSanPhamComponent } from './danh-muc/don-gia-san-pham/don-gia-san-pham.component';
 import { LoaiContainerComponent } from './danh-muc/loai-container/loai-container.component';
+import { NuocXuatKhauComponent } from './danh-muc/nuoc-xuat-khau/nuoc-xuat-khau.component';
 import { PhuongThucVanChuyenComponent } from './danh-muc/phuong-thuc-van-chuyen/phuong-thuc-van-chuyen.component';
 import { TaiSanComponent } from './danh-muc/tai-san/tai-san.component';
 import { ThietLapLuongThangComponent } from './danh-muc/thiet-lap-luong-thang/thiet-lap-luong-thang.component';
@@ -20,6 +21,7 @@ import { VatTuPhuComponent } from './danh-muc/vat-tu-phu/vat-tu-phu.component';
 import { ChiPhiBanHangTheoNamComponent } from './danh-sach/chi-phi-ban-hang-theo-nam/chi-phi-ban-hang-theo-nam.component';
 import { ChiPhiBongComponent } from './danh-sach/chi-phi-bong/chi-phi-bong.component';
 import { ChiPhiDienComponent } from './danh-sach/chi-phi-dien/chi-phi-dien.component';
+import { ChiPhiGiaCuocContainerComponent } from './danh-sach/chi-phi-gia-cuoc-container/chi-phi-gia-cuoc-container.component';
 import { ChiPhiXoComponent } from './danh-sach/chi-phi-xo/chi-phi-xo.component';
 import { MucLuongCoCauNhanSuComponent } from './danh-sach/muc-luong-co-cau-nhan-su/muc-luong-co-cau-nhan-su.component';
 import { DinhMucSanXuatComponent } from './dinh-muc-san-xuat/dinh-muc-san-xuat.component';
@@ -76,6 +78,8 @@ const routes: Routes = [
   { path: 'kehoachdoanhthu/:id', component: LapDoanhThuComponent },
   { path: 'kehoachchiphi/:id', component: LapChiPhiComponent },
   { path: 'danhmuc/thietlapluongthang', component: ThietLapLuongThangComponent },
+  { path: 'danhmuc/nuocxuatkhau', component: NuocXuatKhauComponent },
+  { path: 'danhsach/chiphigiacuoccontainer', component: ChiPhiGiaCuocContainerComponent },
 ];
 
 @NgModule({
