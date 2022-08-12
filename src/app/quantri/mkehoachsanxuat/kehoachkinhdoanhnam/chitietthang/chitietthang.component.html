@@ -151,7 +151,7 @@
           <p-checkbox [(ngModel)]="itemThang.checkForAll" [binary]="true"></p-checkbox>
         </div>
       </div>
-      <div *ngIf="isKhongHopDong && itemThang.CachThuc" class="p-col-12 p-lg-3 d-flex flex-column flex-xl-row">
+      <div *ngIf="isKhongHopDong && itemThang.CachThuc !== 'noiDia' && itemThang.CachThuc" class="p-col-12 p-lg-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-5 p-p-0 my-auto">Chọn nước:</label>
         <div class="p-col-12 p-lg-7 p-p-0 my-auto">
           <p-dropdown  [(ngModel)]="itemThang.MaNuoc" [options]="listNuocXuatKhau" [showClear]="true"
