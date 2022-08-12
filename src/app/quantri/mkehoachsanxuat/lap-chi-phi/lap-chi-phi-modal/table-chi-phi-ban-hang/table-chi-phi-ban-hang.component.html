@@ -67,7 +67,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngIf="(kehoach.listChiPhiBanHang != null || kehoach.listChiPhiBanHang != undefined)">
+        <!-- <tr *ngIf="(kehoach.listChiPhiBanHang != null || kehoach.listChiPhiBanHang != undefined)">
           <td [attr.colspan]="2" class="p-p-2"><b>Cộng</b></td>
           <td style="display: none"></td>
           <td class="text-center">VNĐ</td>
@@ -76,7 +76,7 @@
               <b>{{thang | number: '0.0'}}</b>
             </td>
           </ng-container>
-        </tr>
+        </tr> -->
         <ng-container *ngFor="let sanpham of kehoach.listChiPhiBanHang.ChiPhi.listChiPhi; let i = index">  
           <tr>
             <td class="tc-w-40 text-center">{{i + 1}}</td>
@@ -91,6 +91,21 @@
               <b>{{sanpham.TongChiPhi | number: '0.0'}}</b>
             </td>
           </tr>
+          <ng-container *ngFor="let child of sanpham.listSanPham; let e = index;">
+            <tr>
+              <td class="tc-w-40 text-center">{{i + 1}}.{{ e + 1 }}</td>
+              <td class="tc-w-280">{{child.Ten}}</td>
+              <td class="tc-w-40 text-center">{{child.DonViTinh}}</td>
+              <ng-container *ngFor="let thang of child.listThang">
+                <td class="tc-w-150 text-right">
+                  {{thang.ChiPhi | number: "0.0"}}
+                </td>
+              </ng-container>
+              <td class="tc-w-150 text-right">
+                <b>{{child.TongChiPhi | number: '0.0'}}</b>
+              </td>
+            </tr>
+          </ng-container>
         </ng-container>
       </tbody>
     </table>

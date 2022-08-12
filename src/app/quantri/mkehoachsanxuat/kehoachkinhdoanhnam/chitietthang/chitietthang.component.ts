@@ -21,6 +21,7 @@ export class ChitietthangComponent implements OnInit {
     { value: 'xuatKhau', label: 'Xuất khẩu' }];
   listContainer: any = [];
   listPhuongThucVanChuyen: any = [];
+  listNuocXuatKhau: any = [];
   thang: string = "";
   nam: any = "";
   tenSanPham: string = "";
@@ -28,6 +29,7 @@ export class ChitietthangComponent implements OnInit {
   Ne: any;
   IdDuAn: any;
   listCaSanXuat: any = [];
+  isKhongHopDong: boolean = false;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -47,6 +49,7 @@ export class ChitietthangComponent implements OnInit {
       this.itemThang.SanLuongMotCa = 0;
       this.GetHieuSuat();
     }
+    this.getNuocXuatKhau();
     this.GetNangSuat();
     this.GetListDropDown();
     this.CountTongSanLuong();
@@ -58,6 +61,13 @@ export class ChitietthangComponent implements OnInit {
       this.listCaSanXuat = res;    
       this.CountTongSoCa();
     })
+  }
+
+  getNuocXuatKhau() {
+    this._services.NuocXuatKhau()
+      .GetListAll().subscribe((res: any) => {
+        this.listNuocXuatKhau = mapArrayForDropDown(res.Data, 'Ten', 'Ma');
+      })
   }
 
   GetNangSuat() {
