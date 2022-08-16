@@ -122,7 +122,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
+    if ( !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       return false;
     }

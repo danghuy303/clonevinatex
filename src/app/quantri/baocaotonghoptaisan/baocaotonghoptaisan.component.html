@@ -95,6 +95,7 @@
                         <td (click)="ChiTietBaoDuong(item)">{{item.TendmLoaiBaoDuong}}</td>
                         <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
                             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"
+                            [ngStyle]="{'color': taisan.Mau}"
                                 (click)="ChiTietThongTin(taisan)">
                                 {{taisan.TenTaiSan}},
                             </a>
@@ -150,6 +151,7 @@
                         <td (click)="ChiTietThongTin(item)">{{item.TenTaiSan}}</td>
                         <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
                             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"
+                            [ngStyle]="{'color': taisan.Mau}"
                                 (click)="ChiTietBaoDuong(taisan)">
                                 {{taisan.TendmLoaiBaoDuong}}
                             </a>
@@ -186,7 +188,7 @@
                             (click)="ChiTietBaoDuongLichXIchThang(lichXichThang)">{{lichXichThang.TendmLoaiBaoDuong}}</td>
                         <td style="min-width: 150px;max-width: 150px;background-color: white;" class="text-center"
                             *ngFor="let newItem of lichXichThang.listItemTheoThoiGian">
-                            <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"
+                            <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"  [ngStyle]="{'color': taisan.Mau}"
                                 (click)="ChiTietThongTinLichXIchThang(taisan)">
                                 {{taisan.TenTaiSan}}<br>
                             </a>

@@ -32,6 +32,8 @@ export class ModalthuhoitaisanComponent implements OnInit {
   listTaiSan_copy: any = [];
   NameFile: string;
   title: any = '';
+  Continue: any;
+
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -97,6 +99,16 @@ export class ModalthuhoitaisanComponent implements OnInit {
     return this.item;
   }
 
+  setDataCV() {
+    this.item.NgayThuHoiUnix = DateToUnix(this.item.NgayThuHoi);
+    this.item.IdDuAn = this.store.getCurrent();
+    this.item.Continue = true;
+    this.item.listTaiSan = this.item.listTaiSan?.map(ele => {
+      return this.mapDataViewToModel(ele);
+    });
+    return this.item;
+  }
+
   mapDataViewToModel(item: any) {
     return {
       Id: item.data?.Id || "",
@@ -132,15 +144,44 @@ export class ModalthuhoitaisanComponent implements OnInit {
   GhiLai() {
     if (this.ValidateData()) {
       this._serviceTaiSan.PhieuThuHoiTaiSan().Set(this.setData()).subscribe((res: any) => {
-        if (res.StatusCode !== 200 || !res.StatusCode) {
+        if (res.StatusCode === 500 || !res.StatusCode) {
           this.toastr.error(res.Message);
-        } else {
+        }
+        else if (res.StatusCode === 201) {
+          this.item = res.Data;
+          this.item.NgayThuHoiUnix = UnixToDate(this.item.NgayThuHoiUnix);
+          this.item.listTaiSan = this.item.listTaiSan?.map((ele, index) => {
+            return this.mapDataModelToView(ele, index);
+          });
+          this.KiemTraButtonModal();
+          this.CheckParent(this.item.listTaiSan);
+          let modalRef = this._modal.open(ModalthongbaoComponent, {
+            backdrop: "static",
+          });
+          modalRef.componentInstance.message = "Tài Sản đang có lịch bảo dưỡng trong tháng bạn có muốn thu hồi";
+          modalRef.result
+            .then((res) => {
+              this._serviceTaiSan.PhieuThuHoiTaiSan().Set(this.setDataCV()).subscribe((res: any) => {
+                if (res.StatusCode === 500 || !res.StatusCode) {
+                  this.toastr.error(res.Message);
+                }
+                else {
+                  this.item = res.Data;
+                  this.item.Id = res.Data.Id;
+                  this.GetQuyTrinh(this.item.Id);
+                  this.toastr.success(res.Message);
+                  this.KiemTraButtonModal();
+                }
+              })
+            })
+            .catch((er) => console.log(er));
+        }
+        else {
           this.item = res.Data;
           this.item.Id = res.Data.Id;
           this.GetQuyTrinh(this.item.Id);
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
-          // this.activeModal.close();
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -288,7 +329,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   }
 
   ChonLoaiTaiSan() {
-    this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
+    this.item.listTaiSan = [];
   }
 
 }
