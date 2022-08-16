@@ -127,28 +127,35 @@
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại Container:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-dropdown [(ngModel)]="itemThang.IdLoaiContainer" [filter]="true" [options]="listContainer" placeholder="Chọn loại Container" [showClear]="true"
+          <p-dropdown [(ngModel)]="itemThang.IdLoaiContainer" [options]="listContainer" [showClear]="true"
             styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phương thức vận chuyển:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-dropdown [(ngModel)]="itemThang.IdLoaiPhuongThucVanChuyen" [filter]="true" [options]="listPhuongThucVanChuyen" placeholder="Chọn loại phương thức vận chuyển" [showClear]="true"
+          <p-dropdown [(ngModel)]="itemThang.IdLoaiPhuongThucVanChuyen" [options]="listPhuongThucVanChuyen" [showClear]="true"
             styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Xuất khẩu/Nội địa:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-dropdown [(ngModel)]="itemThang.CachThuc" [filter]="true" [options]="listCachThuc" placeholder="Chọn hình thức" [showClear]="true"
+          <p-dropdown [(ngModel)]="itemThang.CachThuc" [options]="listCachThuc" [showClear]="true"
             styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>
-      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-lg-5 p-p-0 my-auto">Sử dụng cho tất cả các tháng:</label>
-        <div class="p-col-12 p-lg-7 p-p-0 my-auto">
+      <div class="p-col-12 p-lg-3 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-10 p-p-0 my-auto">Sử dụng cho tất cả các tháng:</label>
+        <div class="p-col-12 p-lg-2 p-p-0 my-auto">
           <p-checkbox [(ngModel)]="itemThang.checkForAll" [binary]="true"></p-checkbox>
+        </div>
+      </div>
+      <div *ngIf="isKhongHopDong && itemThang.CachThuc !== 'noiDia' && itemThang.CachThuc" class="p-col-12 p-lg-3 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-5 p-p-0 my-auto">Chọn nước:</label>
+        <div class="p-col-12 p-lg-7 p-p-0 my-auto">
+          <p-dropdown  [(ngModel)]="itemThang.MaNuoc" [options]="listNuocXuatKhau" [showClear]="true"
+            styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>
     </div>

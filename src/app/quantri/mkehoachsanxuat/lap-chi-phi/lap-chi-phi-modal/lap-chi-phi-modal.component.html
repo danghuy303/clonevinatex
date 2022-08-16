@@ -129,5 +129,12 @@
         [kehoach]="kehoach"
       ></app-table-chung>
     </p-tabPanel>
+    <p-tabPanel header="Bán hàng">
+      <app-table-chi-phi-ban-hang
+        *ngIf="kehoach.listChiPhiBanHang"
+        [kehoach]="kehoach"
+        [listLableThang]="listLableThang"
+      ></app-table-chi-phi-ban-hang>
+    </p-tabPanel>
 </p-tabView>
 </div>

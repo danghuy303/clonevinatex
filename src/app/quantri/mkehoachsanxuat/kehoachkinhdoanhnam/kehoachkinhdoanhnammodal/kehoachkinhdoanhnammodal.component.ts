@@ -326,6 +326,7 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
       modalRef.componentInstance.thang = itemThang.Thang;
       modalRef.componentInstance.tenSanPham = sanpham.TenSanPham;
       modalRef.componentInstance.itemThang = {...itemThang.ThongTinThang_SanPham};
+      modalRef.componentInstance.isKhongHopDong = sanpham.isKhongHopDong;
       modalRef.componentInstance.itemThang.TongSanLuong = itemThang.SanLuongThang || 0;
       modalRef.result
         .then((res: any) => {
