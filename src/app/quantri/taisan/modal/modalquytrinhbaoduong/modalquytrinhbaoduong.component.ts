@@ -84,6 +84,10 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   ThemMoiDanhSachTaiSan() {
     if (!validVariable(this.item.IdBoPhanSuDung)) {
       this.toastr.error("Vui lòng nhập bộ phận sử dụng")
+    }
+    else if (!validVariable(this.item.IdDmLoaiTaiSan)) {
+      this.toastr.error("Yêu cầu nhập loại tài sản!");
+      return false;
     } else {
       let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
         size: "xl",

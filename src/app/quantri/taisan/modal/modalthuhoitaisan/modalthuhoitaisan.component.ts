@@ -158,7 +158,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
           let modalRef = this._modal.open(ModalthongbaoComponent, {
             backdrop: "static",
           });
-          modalRef.componentInstance.message = "Tài Sản đang có lịch bảo dưỡng trong tháng bạn có muốn thu hồi";
+          modalRef.componentInstance.message = res.Message;
           modalRef.result
             .then((res) => {
               this._serviceTaiSan.PhieuThuHoiTaiSan().Set(this.setDataCV()).subscribe((res: any) => {

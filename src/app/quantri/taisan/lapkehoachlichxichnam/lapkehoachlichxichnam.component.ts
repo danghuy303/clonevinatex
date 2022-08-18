@@ -346,4 +346,17 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     })
   }
 
+  delete(index:any) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa chứ?";
+    modalRef.result
+      .then((res) => {
+       this.item.listTaiSan.splice(index,1);
+       this.item.IdBoPhanSuDung = null;
+      })
+      .catch((er) => console.log(er));
+  }
+
 }

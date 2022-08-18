@@ -325,7 +325,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
             // NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
             ThoiGianDuaVaoSuDung: UnixToDate(res.ThoiGianDuaVaoSuDungUnix),
             NgayNhap: UnixToDate(res.NgayNhapUnix),
-            listTaiSan: res.listTaiSan.map((taisan: any) => {
+            listTaiSan : res.listTaiSan.map((taisan: any) => {
               return {
                 ...taisan,
                 Id: null,
@@ -339,7 +339,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
           }
           else {
             this.item.TaiSan.Ma = res.Data;
-            this.item.TaiSan.listTaiSan[0].Ma = res.Data + 1;
+            // this.item.TaiSan.listTaiSan[0].Ma = res.Data + 1;
           }
         })
       })

@@ -58,7 +58,7 @@ export class LapkehoachthangComponent implements OnInit {
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
       this.item.ThoiGian = new Date();
-      this.ThemMoiDanhSachTaiSan('MOI');
+      // this.ThemMoiDanhSachTaiSan('MOI');
     } else {
       this.chonThang(this.item.ThoiGian);
     }
