@@ -127,14 +127,14 @@
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại Container:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-dropdown [(ngModel)]="itemThang.IdLoaiContainer" [options]="listContainer" [showClear]="true"
+          <p-dropdown [options]="listContainer" [showClear]="true" [(ngModel)]="itemThang.IdLoaiContainer"
             styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phương thức vận chuyển:</label>
         <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-          <p-dropdown [(ngModel)]="itemThang.IdLoaiPhuongThucVanChuyen" [options]="listPhuongThucVanChuyen" [showClear]="true"
+          <p-dropdown [(ngModel)]="itemThang.IdLoaiPhuongThucVanChuyen" [options]="listPhuongThucVanChuyen" [showClear]="true" 
             styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>

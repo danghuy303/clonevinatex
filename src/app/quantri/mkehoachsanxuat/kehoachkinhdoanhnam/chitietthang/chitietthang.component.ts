@@ -103,6 +103,7 @@ export class ChitietthangComponent implements OnInit {
     Promise.all([ls1, ls2]).then((values: any) => {
       this.listPhuongThucVanChuyen = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listContainer = mapArrayForDropDown(values[1].Data, "Ten", "Id");
+      // this.itemThang.IdLoaiContainer = values[1].Data[0].Id;
     });
   }
 
@@ -115,6 +116,7 @@ export class ChitietthangComponent implements OnInit {
   }
 
   ChapNhan() {
+    console.log('this.itemThang',this.itemThang);
     this.itemThang.isEdited = true;
     let data = {
       ...this.itemThang,

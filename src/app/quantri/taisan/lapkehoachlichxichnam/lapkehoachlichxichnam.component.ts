@@ -354,7 +354,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.result
       .then((res) => {
        this.item.listTaiSan.splice(index,1);
-       this.item.IdBoPhanSuDung = null;
+      //  this.item.IdBoPhanSuDung = null;
+      this.item.listTaiSan = [...this.item.listTaiSan]
       })
       .catch((er) => console.log(er));
   }
