@@ -676,7 +676,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       })
       datasets.push({
         type: 'line',
-        label: 'Tiêu hao điện bình quân theo NE',
+        label: 'Tiêu hao điện bình quân theo NE (30)',
         borderColor: '#ff6530',
         yAxisID: 'KK',
         fill: false,
@@ -684,7 +684,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       })
       datasets.push({
         type: 'line',
-        label: 'Tiêu hao điện bình quân',
+        label: 'Tiêu hao điện bình quân thực tế theo NE (30)',
         borderColor: '#006666',
         yAxisID: 'KK',
         fill: false,

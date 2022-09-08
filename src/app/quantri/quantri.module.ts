@@ -610,6 +610,7 @@ import { ModalQuyTrinhCanXuLyComponent } from './modal/modal-quy-trinh-can-xu-ly
     NgbProgressbarModule,
     ColorPickerModule,
     QRCodeModule,
+    SharedModule,
     NgxMaskModule.forRoot(),
   ],
   entryComponents: [

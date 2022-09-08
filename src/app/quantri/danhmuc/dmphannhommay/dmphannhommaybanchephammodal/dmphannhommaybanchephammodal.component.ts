@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { PintableDirective } from 'voi-lib';
 import { DmphannhommayChonmathangmodalComponent } from '../../dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
 
 @Component({
@@ -11,6 +12,7 @@ import { DmphannhommayChonmathangmodalComponent } from '../../dmphannhommay-chon
   styleUrls: ['./dmphannhommaybanchephammodal.component.css']
 })
 export class DmphannhommaybanchephammodalComponent implements OnInit {
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
   public item: any = {};
   public title: any = '';
   public type = '';
@@ -62,6 +64,11 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
     this.GetListPhanXuong();
     this.GetListCongDoan();
   }
+
+  ngAfterViewInit(): void {
+    this.voiPintable.active()
+  }
+
   GetListdmTieuChiChatLuongBanChePham(CongDoan){
     this.sanXuatService.dmTieuChiChatLuongsoi().GetListdmTieuChiBanChePham(CongDoan).subscribe((res: any) => {
       this.listdmTieuChiBanChePham = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -70,7 +77,6 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
                           IddmTieuChiBanChePham: dmTieuChi.value }
           this.newTableItem.listdmTieuChiBanChePham.push(data);
       });
-      
     })
   }
   mapHienThi(array: Array<any>) {
@@ -153,6 +159,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       this.item.lstdmItem = this.item.lstdmItem.concat(listdatapush);
       this.item.lstdmItem.filter(obj => obj.isDelete = obj.isXoa);
     }).catch(er => console.log(er))
+    this.voiPintable.active();
   }
 
   changeCongDoan(e) {

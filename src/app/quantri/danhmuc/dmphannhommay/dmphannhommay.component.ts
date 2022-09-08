@@ -9,6 +9,7 @@ import { ImportdanhmucmodelComponent } from '../danhmucsanxuat/modals/importdanh
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 import { DmphannhommaymodalComponent } from '../dmphannhommaymodal/dmphannhommaymodal.component';
 import { DmphannhommaybanchephammodalComponent } from './dmphannhommaybanchephammodal/dmphannhommaybanchephammodal.component';
+import { PintableDirective } from 'voi-lib';
 
 @Component({
   selector: 'app-dmphannhommay',
@@ -120,7 +121,7 @@ export class DmphannhommayComponent implements OnInit {
       if (this.items.length > 0 && this.listDonViNangSuat.length > 0) {
         this.items.forEach(el => {
           el.TenDonViNangSuat = this.listDonViNangSuat.filter(obj => obj.value == el.DonViNangSuat)[0].label;
-          el.TenCongDoan = this.listCongDoan.filter(obj => obj.value == el.CongDoan)[0].label;
+          el.TenCongDoan = this.listCongDoan.filter(obj => obj.value == el.CongDoan)[0]?.label;
         });
       }
     })
