@@ -49,6 +49,8 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
     CHAIKY: ''
   }
   listdmTieuChiBanChePham : any = [];
+  lita = ['hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj',];
+  litb = [1,2,3,4,5,6,7,8,9,10,11,12]
 
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) {
   }

@@ -239,64 +239,66 @@
 
         <!--  -->
 
-        <div class="p-col-12 p-p-0 pintable-container bg-white" style="height: 60vh;" voiPintable [pinnedCols]="2">
+        <div class="p-col-12 p-p-0 pintable-container bg-white" style="height: 60vh;" voiPintable [pinnedCols]="6">
             <table>
                 <thead>
                     <tr>
-                        <th style="width:50px">STT</th>
-                        <th style="width:440px" *ngIf="childModalOpt!==''">{{childModalOpt==='MATHANG'?'Mặt hàng':'Loại sợi'}}</th>
-                        <th style="width:200px">Chi số Ne</th>
-                        <th style="width:200px">Chi số mét Nm</th>
-                        <th style="width:200px">Độ săn</th>
-                        <th style="width:200px">Tốc độ (v/f, m/f, Nips/p)</th>
+                        <th class="tc-w-50">STT</th>
+                        <th class="tc-w-500" *ngIf="childModalOpt!==''">{{childModalOpt==='MATHANG'?'Mặt hàng':'Loại sợi'}}</th>
+                        <th class="tc-w-150">Chi số Ne</th>
+                        <th class="tc-w-150">Chi số mét Nm</th>
+                        <th class="tc-w-150">Độ săn</th>
+                        <th class="tc-w-150">Tốc độ (v/f, m/f, Nips/p)</th>
                         <ng-container *ngFor="let col of listdmTieuChiBanChePham">
-                            <th style="width:200px">{{col.label}}</th>
+                            <th class="tc-w-150">{{col.label}}</th>
                         </ng-container>
-                        <th style="width:150px">Ghi chú</th>
-                        <th style="width:100px">Thao tác</th>
+                        <th class="tc-w-150">Ghi chú</th>
+                        <th class="tc-w-50">Thao tác</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let itemT of item.lstdmItem, let i=index">
+                    <ng-container *ngFor="let item of item.lstdmItem, let i=index">
                         <tr>
-                            <td style="width:50px">
+                    
+                            <td class="tc-w-50">
                                 {{ i + 1 }}
                             </td>
-                            <td style="width:440px" *ngIf="childModalOpt!==''">
+                            <td class="tc-w-500" *ngIf="childModalOpt!==''">
                                 <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang"
-                                    placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm" [(ngModel)]="itemT.Iditem"
+                                    placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm" [(ngModel)]="item.Iditem"
                                     (onChange)="changeLoaiSoiHoacMatHang($event,itemT)"></p-dropdown>
                             </td>
-                            <td style="width:200px">
-                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemT.Ne"
+                            <td class="tc-w-150">
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.Ne"
                                     (onBlur)="tinhNangSuatLyThuyet()">
                                 </p-inputNumber>
                             </td>
-                            <td style="width:200px">
-                                <p-inputNumber [minFractionDigits]="5" locale="en-EN" [(ngModel)]="itemT.Nm"
+                            <td class="tc-w-150">
+                                <p-inputNumber [minFractionDigits]="5" locale="en-EN" [(ngModel)]="item.Nm"
                                     (onBlur)="tinhNangSuatLyThuyet()">
                                 </p-inputNumber>
                             </td>
-                            <td style="width:200px">
-                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemT.DoSan"
+                            <td class="tc-w-150">
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.DoSan"
                                     [disabled]="childModalOpt==='MATHANG'">
                                 </p-inputNumber>
                             </td>
-                            <td style="width:200px">
-                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="itemT.TocDo"
+                            <td class="tc-w-150">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TocDo"
                                     (onBlur)="tinhNangSuatLyThuyet()">
                                 </p-inputNumber>
                             </td>
-                            <ng-container *ngFor="let col of itemT.listdmTieuChiBanChePham">
-                                <td style="width:200px">
+                            <ng-container *ngFor="let col of item.listdmTieuChiBanChePham">
+                                <td class="tc-w-150"> 
                                     <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="col.GiaTri">
                                     </p-inputNumber>
                                 </td>
                             </ng-container>
-                            <td style="width:150px">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="itemT.GhiChu" pInputText />
+                            <td class="tc-w-150">
+                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                             </td>
-                            <td style="width:100px">
+                            <td class="tc-w-50">
                                 <button pButton pRipple icon="pi pi-trash"
                                     class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                     (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
@@ -304,7 +306,53 @@
                             </td>
                         </tr>
                     </ng-container>
+                    <ng-container *ngIf="item.CongDoan !== 'CON' && item.CongDoan !== 'ONG'">
+                        <tr >
+                            <td class="text-center tc-w-50">
+                                #
+                            </td>
+                            <td class="tc-w-500" *ngIf="childModalOpt!==''">
+                                <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
+                                    [(ngModel)]="newTableItem.Iditem"
+                                    (onChange)="changeLoaiSoiHoacMatHang($event,newTableItem)"></p-dropdown>
+                            </td>
+                            <td class="tc-w-150">
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.Ne"
+                                    (onBlur)="item_tinhNangSuatLyThuyet()">
+                                </p-inputNumber>
+                            </td>
+                            <td class="tc-w-150">
+                                <p-inputNumber [minFractionDigits]="5" locale="en-EN" [(ngModel)]="newTableItem.Nm"
+                                    (onBlur)="item_tinhNangSuatLyThuyet()">
+                                </p-inputNumber>
+                            </td>
+                            <td class="tc-w-150">
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.DoSan"
+                                    [disabled]="childModalOpt==='MATHANG'">
+                                </p-inputNumber>
+                            </td>
+                            <td class="tc-w-150">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.TocDo"
+                                    (onBlur)="item_tinhNangSuatLyThuyet()">
+                                </p-inputNumber>
+                            </td>
+                            <ng-container *ngFor="let col of newTableItem.listdmTieuChiBanChePham">
+                                <td class="tc-w-150">
+                                    <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="col.GiaTri">
+                                    </p-inputNumber>
+                                </td>
+                            </ng-container>
+                            <td class="tc-w-150">
+                                <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.GhiChu" pInputText />
+                            </td>
+                            <td class="text-center tc-w-50" >
+                                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
+                                    (click)="add()"></button>
+                            </td>
+                        </tr>
+                    </ng-container>
                 </tbody>
+               
             </table>
         </div> 
 
