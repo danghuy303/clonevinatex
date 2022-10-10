@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
 import { BaocaocaModalComponent } from '../baocaoca-modal/baocaoca-modal.component';
@@ -71,7 +71,11 @@ export class BaocaocaComponent extends StoreBase implements OnInit {
     let data = {}
     this._services.BaoCaoCa().Export(this.filter).subscribe((res:any)=>{
       if(res){
-        this._services.download(res.TenFile);
+        if(validVariable(res.TenFile)){
+          this._services.download(res.TenFile);
+        }else{
+          this.toastr.error(res.message);
+        }
       }else{
         this.toastr.error(`Có lỗi xảy ra trong quá trình xử lý!`)
       }

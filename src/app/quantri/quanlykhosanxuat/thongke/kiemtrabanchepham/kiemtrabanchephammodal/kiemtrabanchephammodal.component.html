@@ -72,20 +72,25 @@
                 <table>
                     <thead>
                         <tr>
-                            <th rowspan="2" class="bcp-w-50">#</th>
-                            <th rowspan="2" class="bcp-w-200">Số máy</th>
-                            <th rowspan="2" class="bcp-w-80">Ne</th>
-                            <th rowspan="2" class="bcp-w-200">Mặt hàng</th>
-                            <ng-container *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">
+                            <th class="bcp-w-50">#</th>
+                            <th class="bcp-w-200">Số máy</th>
+                            <th class="bcp-w-80">Ne</th>
+                            <th class="bcp-w-200">Mặt hàng</th>
+                            <!-- <ng-container *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">
                                 <th *ngFor="let col of listdmTieuChiBanChePham" colspan="1" class="bcp-w-100">
+                                    {{col.label}}</th>
+                            </ng-container> -->
+                            <ng-container *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">
+                                <th *ngFor="let col of listdmTieuChiBanChePham" class="bcp-w-100">
                                     {{col.label}}</th>
                             </ng-container>
                             <ng-container *ngIf="item.CongDoan === 'ONG' || item.CongDoan === 'CON'">
                                 <th *ngFor="let col of listdmTieuChiBanChePham" class="bcp-w-100">{{col.label}}</th>
                             </ng-container>
-                            <th rowspan="2" class="bcp-w-100">Ghi chú</th>
+                            <!-- <th rowspan="1" class="bcp-w-100">Ghi chú</th> -->
+                            <th class="bcp-w-100">Ghi chú</th>
                         </tr>
-                        <tr *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">
+                        <!-- <tr *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">
                             <th style="display: none;"></th>
                             <th style="display: none;"></th>
                             <th style="display: none;"></th>
@@ -93,7 +98,7 @@
                             <ng-container *ngFor="let col of listdmTieuChiBanChePham">
                                 <th class="bcp-w-100">Sau CM</th>
                             </ng-container>
-                        </tr>
+                        </tr> -->
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let itemtbl of item.listItem;let i =index">

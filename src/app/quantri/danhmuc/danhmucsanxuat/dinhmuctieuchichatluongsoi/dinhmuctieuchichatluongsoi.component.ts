@@ -67,6 +67,7 @@ export class DinhmuctieuchichatluongsoiComponent implements OnInit {
       Ma: "",
       Ten: "",
       Loai: "1",
+      HoatDong :1
     };
     this._services.GetListdmItem(data).subscribe((res: any) => {
       this.items = res.items;

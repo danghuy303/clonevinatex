@@ -535,6 +535,11 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'GetListdmLoaiSoi';
         return this.http.get(url, httpOptions);
     }
+    GetListdmLoaiSoiBanThanhPham(data) {
+        // let url = API.SCMDanhMuc + 'GetListdmLoaiSoi';
+           let url = API.SCMDanhMuc + 'GetListdmLoaiSoiBanThanhPham';
+        return this.http.post(url, data, httpOptions);
+    }
     GetListdmLoaiSoi(data) {
         let url = API.SCMDanhMuc + 'GetListdmLoaiSoi';
         return this.http.post(url, data, httpOptions);
@@ -2789,14 +2794,24 @@ export class SanXuatService {
                 return this.http.post(a, data, httpOptions);
             },
             GetThongKe: (data) => {
-                return this.http.post(`${url}GetBaoCaoThongKeKiemTraChatLuongLoiCat`, data, httpOptions);
+                return this.http.post(`${url}GetThongKeKiemTraChatLuongLoiCat`, data, httpOptions);
+            },
+            GetThongKeClasimat: (data) => {
+                return this.http.post(`${url}GetThongKeKiemTraChatLuongClasimat`, data, httpOptions);
             },
             GetBieuDoDuongKiemTraChatLuongLoiCat: (data) => {
                 return this.http.get(`${url}GetBieuDoDuongKiemTraChatLuongLoiCat?NgayDauKyUnix=${data.NgayDauKyUnix}&NgayCuoiKyUnix=${data.NgayCuoiKyUnix}&IddmPhanXuong=${data.IddmPhanXuong}&IddmChiTieu=${data.IddmChiTieu}&IddmItem=${data.IddmItem}`, httpOptions)
             },
             XuatBaoCao: (data) => {
                 return this.http.post(`${url}XuatBaoCaoThongKeKiemTraChatLuongLoiCat`, data, httpOptions);
-            }
+            },
+            XuatThongKeKiemTraChatLuongClasimatThang: (data) => {
+                return this.http.post(`${url}XuatThongKeKiemTraChatLuongClasimatThang`, data, httpOptions);
+            },
+            XuatThongKeKiemTraChatLuongLoiCatThang: (data) => {
+                return this.http.post(`${url}XuatThongKeKiemTraChatLuongLoiCatThang`, data, httpOptions);
+            },
+
         }
     }
 
@@ -2970,6 +2985,7 @@ export class SanXuatService {
             },
             Export: (data) => {
                 // return this.http.post(url + 'SetQuyTrinhBaoCaoCa', data, httpOptions);
+                  return this.http.post(API.SCM +'BaoCao/XuatQuyTrinhBaoCaoDieuKhong', data, httpOptions);
             }
             // GetThongKe: (data) => {
             //     return this.http.post(`${url}GetThongKeThoiGianDungMayVaTocDo`, data, httpOptions)

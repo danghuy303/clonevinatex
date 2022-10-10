@@ -59,6 +59,9 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         this.item.IdDuAn = this._store.getCurrent();
       }
     }
+    else {
+      this.item.listItem =this.item.listItem.sort((a, b) => a.Ne-b.Ne);
+    }
   }
   ngDoCheck(): void {
     this.Calculate();
@@ -280,6 +283,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     modalRef.result.then(res => {
       if (res.length > 0) {
         res.forEach(obj => this.item.listItem.push(obj))
+        this.item.listItem = this.item.listItem.sort((a, b) => a.Ne-b.Ne);
       }
       // merge(res, this.item.listItem, 'IddmItem')
     }).catch(er => {
@@ -367,6 +371,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
                 });
               });
             }
+            this.item.listItem =this.item.listItem.sort((a, b) => a.Ne-b.Ne);
             this.KiemTraButtonModal();
             this.Calculate();
           } else {

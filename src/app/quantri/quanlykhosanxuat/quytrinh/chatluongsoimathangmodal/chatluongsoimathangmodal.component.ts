@@ -16,6 +16,11 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
     width: 'unset'
   },
   {
+    header: 'Mã mặt hàng',
+    field: 'Ma',
+    width: 'unset'
+  },
+  {
     header: 'Tên mặt hàng',
     field: 'Ten',
     width: 'unset'
@@ -71,7 +76,8 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
         data: itemFind.map(ele => {
           return {
             ...ele,
-            Ten: `${ele.TenLoHang} - ${ele.Ten}`
+            Ten: `${ele.TenLoHang} - ${ele.Ten}`,
+            Ma: ele.Ma
           }
         })
       }

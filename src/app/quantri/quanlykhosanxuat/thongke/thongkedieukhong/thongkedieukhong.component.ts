@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown, DateToUnix } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, DateToUnix, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
 import { PintableDirective } from 'voi-lib';
@@ -67,7 +67,18 @@ export class ThongkedieukhongComponent extends StoreBase implements OnInit {
     })
   }
   exportDieuKhong() {
-    let data = {}
-    this._services.ThongKeDieuKhong().Export(data);
+    let data = {
+      NgayChon: this.filter.NgayChon,
+      IddmPhanXuong:this.filter.IddmPhanXuong || '',
+      IddmCaSanXuat:this.filter.IddmCaSanXuat || '',
+      Ngay: DateToUnix(this.filter.NgayChon),
+    }
+    this._services.ThongKeDieuKhong().Export(data).subscribe((res: any) => {
+      if(validVariable(res.TenFile)){
+        this._services.download(res.TenFile);
+      }else{
+        this.toastr.error(res.message);
+      }
+    });
   }
 }

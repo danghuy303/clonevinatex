@@ -14,13 +14,13 @@
         [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetBaoCao()"></p-dropdown>
     </div>
     <div class="p-mr-2">
-      <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter._tuNgay"
-        inputId="icon" placeholder="Từ ngày" (onSelect)="GetBaoCao()">
+      <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter._tuNgay" 
+        inputId="icon" placeholder="Từ ngày" (onSelect)="GetBaoCao_tuNgay()">
       </p-calendar>
     </div>
     <div class="p-mr-2">
       <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter._denNgay"
-        inputId="icon" placeholder="Đến ngày" (onSelect)="GetBaoCao()">
+        inputId="icon" placeholder="Đến ngày" (onSelect)="GetBaoCao_denNgay()">
       </p-calendar>
     </div>
     <!-- <div class="p-mr-3">
@@ -74,7 +74,8 @@
         <tbody>
           <tr *ngFor="let item of items;let i = index">
             <td class="w-tc-150" *ngFor="let giatri of item.listGiaTriCot"
-              [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':'text-center bg-white']">
+              [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':'text-center bg-white']"
+              [style.color]="giatri.TextColor === 'Red'?giatri.TextColor:''">
               <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
               <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-3'}}</span>
               <span *ngIf="giatri.LoaiGiaTri==='INT'">{{giatri.GiaTri_Int|number:'0.0-0'}}</span>

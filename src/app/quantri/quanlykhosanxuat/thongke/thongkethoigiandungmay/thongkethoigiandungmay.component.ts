@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
@@ -28,8 +29,9 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
     this.filter.NgayChon = new Date();
     this.getAllOpt();
     this._services.GetListCongDoan().subscribe((res:any[])=>{
-      console.log('listCongDoan',res);
+      // console.log('listCongDoan',res);
       this.listCongDoan = mapArrayForDropDown(res,'Ten','Ma');
+      this.filter.MaCongDoan = this.listCongDoan[0].value;
     })
   }
   ngAfterViewInit(): void {
@@ -76,4 +78,5 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   TinhTong(item) {
     item.TongThoiGianDungMay = item.lstSuCoDungMay.reduce((total, ele) => total += (ele.ThoiGianDungMay || 0), 0)
   }
+
 }

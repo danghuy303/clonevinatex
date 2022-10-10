@@ -413,8 +413,20 @@ export class DmphannhommaymodalComponent implements OnInit {
   }
 
   changeDMApDung(item) {
-    this.item.lstdmItem.forEach(element => {
-      if (element.Iditem != undefined && element.Iditem.Id == item.Iditem.Id) {
+    // this.item.lstdmItem.forEach(element => {
+    //   if (element.Iditem != undefined && element.Iditem.Id == item.Iditem.Id) {
+    //     if (element.Id != item.Id) {
+    //       if (item.Nm != element.Nm) {
+    //         item.isApDung = true;
+    //       }
+    //       else {
+    //         element.isApDung = false;
+    //       }
+    //     }
+    //   }
+    // });
+     this.item.lstdmItem.forEach(element => {
+      if (element.Iditem != undefined && element.Iditem== item.Iditem) {
         if (element.Id != item.Id) {
           if (item.Nm != element.Nm) {
             item.isApDung = true;
@@ -423,6 +435,9 @@ export class DmphannhommaymodalComponent implements OnInit {
             element.isApDung = false;
           }
         }
+      }
+      else if(element.Iditem != undefined && element.Iditem != item.Iditem) {
+        item.isApDung = true;
       }
     });
   }

@@ -1792,15 +1792,15 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
           {
-            label: "Báo cáo tổng hợp lỗi cắt",
+            label: "Báo cáo TH lỗi cắt/classimat",
             routerLink: "/quantri/baocaotonghop/loicat",
             command: () => this.close(),
           },
-          {
-            label: "Báo cáo tổng hợp classimat",
-            routerLink: "/quantri/baocaotonghop/classimat",
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Báo cáo tổng hợp classimat",
+          //   routerLink: "/quantri/baocaotonghop/classimat",
+          //   command: () => this.close(),
+          // },
           {
             label: "Báo cáo điều không",
             routerLink: "/quantri/baocaotonghop/dieukhong",

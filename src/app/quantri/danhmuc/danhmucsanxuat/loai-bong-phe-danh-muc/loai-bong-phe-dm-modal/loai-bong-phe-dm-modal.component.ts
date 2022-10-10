@@ -27,6 +27,7 @@ export class LoaiBongPheDmModalComponent implements OnInit {
       this.listCongDoan = mapArrayForDropDown(res,'Ten','Id')
     })
   }
+
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {

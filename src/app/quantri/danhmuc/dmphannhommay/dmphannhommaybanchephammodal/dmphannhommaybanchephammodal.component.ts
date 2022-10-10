@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
@@ -49,6 +50,8 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
     CHAIKY: ''
   }
   listdmTieuChiBanChePham : any = [];
+  lita = ['hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj',];
+  litb = [1,2,3,4,5,6,7,8,9,10,11,12]
 
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) {
   }
@@ -191,7 +194,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       Ma: "",
       Ten: ""
     };
-    this.sanXuatService.GetListdmLoaiSoi(dataSearch).subscribe((res: any) => {
+    this.sanXuatService.GetListdmLoaiSoiBanThanhPham(dataSearch).subscribe((res: any) => {
       this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -205,7 +208,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       Ma: "",
       Ten: "",
     };
-    this.sanXuatService.GetListdmLoaiSoi(data).subscribe((res: any) => {
+    this.sanXuatService.GetListdmLoaiSoiBanThanhPham(data).subscribe((res: any) => {
       console.table(this.mapHienThi(res));
       this.listLoaiSoiHoacMatHang = this.mapHienThi(res);
     })
@@ -255,13 +258,22 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
   }
 
   delete(index) {
-    let item = this.item.lstdmItem.splice(index, 1)[0];
-    if (item.Id === '' && item.Id === null && item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      item.isDelete = true;
-      this.item.lstdmItem.push(JSON.parse(JSON.stringify(item)));
-    }
+
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+      this.item.lstdmItem.splice(index, 1);
+    }).catch(er => console.log(er))
+
+    // let item = this.item.lstdmItem.splice(index, 1)[0];
+    // if (item.Id === '' && item.Id === null && item.Id === undefined) {
+    // } else {
+    //   item.isXoa = true;
+    //   item.isDelete = true;
+    //   this.item.lstdmItem.push(JSON.parse(JSON.stringify(item)));
+    // }
   }
   getBanChePham() {
     this.sanXuatService.dmPhanNhomMaySanXuat().GetdmPhanNhomMayBanChePham(this.item.Id).subscribe((res: any) => {
@@ -276,7 +288,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
           Ma: "",
           Ten: "",
         };
-        this.sanXuatService.GetListdmLoaiSoi(data1).subscribe((res: any) => {
+        this.sanXuatService.GetListdmLoaiSoiBanThanhPham(data1).subscribe((res: any) => {
           let listLoaiSoiHoacMatHang1 = this.mapHienThi(res);
           this.item.lstdmItem.forEach(element => {
             if (this.childModalOpt === 'SOI') {

@@ -19,6 +19,7 @@ export class ChonhanghoamodalComponent implements OnInit {
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.items = this.items.sort((a, b) => a.Ne-b.Ne);
     this.items.forEach(item => {
       item.checked = false;
     });

@@ -42,6 +42,7 @@
       <ng-template pTemplate="body" let-item let-columns="columns">
         <tr>
           <td *ngFor="let giatri of item.listGiaTriCot ; let i = index"
+          [style.color]="giatri.TextColor === 'Red'?giatri.TextColor:''"
             [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':(i===0 ? ' text-left bg-white ' : 'text-center bg-white' )]">
             <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
             <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-3'}}</span>

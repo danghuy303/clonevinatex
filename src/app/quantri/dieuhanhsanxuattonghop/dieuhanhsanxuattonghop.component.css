@@ -1,28 +1,56 @@
 .p-grid>div {
     text-align: center;
-    padding:5px;
+    padding: 5px;
     /* background-color: white; */
 }
 
 @media (min-width: 769px) {
-    .p-grid>div>div.chart{
-        padding:5px;
+    .p-grid>div>div.chart {
+        padding: 5px;
         height: calc((100vh - 192.5px)/2);
         border-radius: 5px;
         background-color: white;
         position: relative;
     }
 }
+
 @media (max-width: 769px) {
-    .p-grid>div>div.chart{
-        padding:5px;
-        /* min-height: calc((100vh - 192.5px)/2); */
+    .p-grid>div>div.chart {
+        padding: 5px;
+        min-height: calc((100vh - 192.5px)/2);
         border-radius: 5px;
         background-color: white;
         position: relative;
     }
 }
-.responsiveChart *{
+
+.responsiveChart * {
     min-height: 500px !important;
     height: auto;
+}
+
+::ng-deep .p-tooltip .p-tooltip-text {
+    background: #212529;
+    color: #ffffff;
+    padding: 0.5rem 0.75rem;
+    box-shadow: none;
+    min-width: 400px;
+    border-radius: 4px;
+    z-index: 9999;
+}
+
+::ng-deep .p-inputswitch .p-inputswitch-slider {
+    background: #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 30px;
+}
+
+::ng-deep .p-inputswitch .p-inputswitch-slider:before {
+    background: #ffffff;
+    width: 1.25rem;
+    height: 1.25rem;
+    left: 0.25rem;
+    margin-top: -0.625rem;
+    border-radius: 50%;
+    transition-duration: 0.2s;
 }

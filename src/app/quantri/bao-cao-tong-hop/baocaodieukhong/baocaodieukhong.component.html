@@ -44,7 +44,9 @@
         </thead>
         <tbody>
             <tr *ngFor="let body of casanxuat.listRow">
-                <td *ngFor="let cell of body.listCell" [attr.rowspan]="cell.MergeRow" [attr.colspan]="cell.MergeCollum" [ngClass]="{'text-right':cell.LoaiGiaTri==='DOUBLE'}">
+                <td *ngFor="let cell of body.listCell" [attr.rowspan]="cell.MergeRow" [attr.colspan]="cell.MergeCollum"
+                
+                [ngClass]="{'text-right':cell.LoaiGiaTri==='DOUBLE'}">
                     <span *ngIf="cell.LoaiGiaTri==='STRING'">{{cell.GiaTri_String}}</span>
                     <span *ngIf="cell.LoaiGiaTri==='DOUBLE'">{{cell.GiaTri_Double|number:'0.2-2'}}</span>
                 </td>

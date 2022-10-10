@@ -5,7 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { maskOption, vn } from 'src/app/services/const';
-import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable, merge } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoimathangmodal/chatluongsoimathangmodal.component';
 
@@ -159,7 +159,8 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
       modalRef.componentInstance.loai = 'loicat';
       modalRef.result.then((data) => {
         console.log(data);
-        this.item.lstSanPham = data.data;
+        // this.item.lstSanPham = data.data;
+        this.item.lstSanPham = merge(data.data,this.item.lstSanPham, 'IddmItem') // huy nhỏ sửa, khi thêm mặt hàng giữ số liệu đã chọn
       }, (reason) => {
         // không
       });
