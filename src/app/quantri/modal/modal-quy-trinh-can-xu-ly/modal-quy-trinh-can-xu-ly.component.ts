@@ -13,8 +13,8 @@ export class ModalQuyTrinhCanXuLyComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.GetListQuyTrinhCanXuLy().subscribe((res: any) => {
-      console.log(res);
-      this.listQuyTrinh = res;
+      // console.log(res);
+      this.listQuyTrinh = res.Items;
     })
   }
 

@@ -62,6 +62,24 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
       this.userInfo = this._auth.currentUserValue;
       this.KiemTraButtonModal();
       this.item.Ngay = UnixToDate(this.item.NgayUnix)
+
+      
+      this.item.listCongDoan.forEach(congdoan => {
+          let socot = congdoan?.listHeader[0]?.listColumn.length
+          this.socot_Copy = socot
+          congdoan.listBongPhe.forEach(bongphe => {
+            bongphe.listCaSanXuat.forEach((ca: any) => {
+              ca.SoCot = socot;
+            })
+          })
+        });
+        this.chon(
+          {
+            value: this.item.listCongDoan[2].MaCongDoan
+          }
+        );
+     
+        
       // this.item.listCongDoan.forEach(congdoan => {
       //   let socot = congdoan?.listHeader[0]?.listColumn.length;
       //   console.log('socot', socot)
@@ -119,7 +137,7 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if (this.item.CreatedBy == this.userInfo.Id)
+      if (this.item.CreatedBy == this.userInfo?.Id)
         this.checkbutton.Ghi = true;
     })
   }
@@ -192,11 +210,14 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
   }
 
   chon(e: any) {
-    console.log(e);
+    console.log('e',e);
+    
     this.listCongDoan_Copy = [...this.item.listCongDoan];
     let opp = this.listCongDoan_Copy.filter(ele => ele.MaCongDoan === e.value);
     opp.forEach(obj => {
       this.socot_Copy = obj.listHeader[0].listColumn.length;
+      console.log('this.socot_Copy',this.socot_Copy);
+      
     })
 
     // let opp = [...this.item.listCongDoan];
@@ -224,10 +245,10 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
           this.item.listCongDoan.forEach(congdoan => {
             let socot = congdoan?.listHeader[0]?.listColumn.length;
             console.log('socot', socot)
-            congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
+            congdoan?.listDuLieuCaSanXuatKhac?.forEach((dulieukhac: any) => {
               dulieukhac.SoCot = socot;
             });
-            congdoan.listBongPhe.forEach(bongphe => {
+            congdoan?.listBongPhe?.forEach(bongphe => {
               bongphe.listCaSanXuat.forEach((ca: any) => {
                 ca.SoCot = socot;
               })
@@ -238,17 +259,20 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
           this.item.Ngay = UnixToDate(this.item.NgayUnix)
           this.item.listCongDoan.forEach(congdoan => {
             let socot = congdoan?.listHeader[0]?.listColumn.length;
-            console.log('socot', socot)
-            congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
+            congdoan?.listDuLieuCaSanXuatKhac?.forEach((dulieukhac: any) => {
               dulieukhac.SoCot = socot;
             });
-            congdoan.listBongPhe.forEach(bongphe => {
+            congdoan?.listBongPhe?.forEach(bongphe => {
               bongphe.listCaSanXuat.forEach((ca: any) => {
                 ca.SoCot = socot;
               })
             })
           });
+          console.log(1);
+          
           this.listItem = [];
+          console.log('d',4);
+          
           this.KiemTraButtonModal();
         } else {
           this.toastr.error(res.message);
@@ -278,6 +302,8 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
     this.services.GetlistCongDoanBoDayBongDayPE().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
       this.item.CongDoan = this.listCongDoan[0].value;
+      console.log(this.item.CongDoan);
+      
     })
   }
 

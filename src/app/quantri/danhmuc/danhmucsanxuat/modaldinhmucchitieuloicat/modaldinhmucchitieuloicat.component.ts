@@ -25,13 +25,16 @@ export class ModaldinhmucchitieuloicatComponent implements OnInit {
       this.item?.lstdmChiTieuChatLuong.forEach(element => {
         let indexOf = element.Ten.indexOf('Chi số thực tế (Ne)');
         if(indexOf > -1){
-          element.disable = true;
+          // element.disable = true;
+          element.isDisable = true;
         }
         else{
-          element.disable = false;
+          // element.disable = false;
+          element.isDisable = false;
         }       
       });
     }
+    console.log(this.item);
   }
 
   accept() {

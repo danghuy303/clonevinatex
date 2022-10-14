@@ -5,7 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { maskOption, vn } from 'src/app/services/const';
-import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable, merge, MergeArr } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoimathangmodal/chatluongsoimathangmodal.component';
 
@@ -55,7 +55,7 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
     this.getListdmPhanXuong();
   }
   ngAfterViewInit(): void {
-    this.voiPintable.active();
+    this.voiPintable?.active();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -101,7 +101,7 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
             res.objectReturn.NgayKiemTra = UnixToDate(res.objectReturn.NgayKiemTraUnix);
             this.item = res.objectReturn;
             this.KiemTraButtonModal();
-            this.voiPintable.active();
+            this.voiPintable?.active();
           } else {
             this.toastr.error(res.message);
           }
@@ -154,7 +154,8 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
       modalRef.componentInstance.loai = 'classimat';
       modalRef.result.then((data) => {
         console.log(data);
-        this.item.lstSanPham = data.data;
+        // this.item.lstSanPham = data.data;
+        this.item.lstSanPham = MergeArr(data.data, this.item.lstSanPham || [], "IddmItem"); // huy nhỏ sửa, khi thêm mặt hàng giữ số liệu đã chọn
       }, (reason) => {
         // không
       });

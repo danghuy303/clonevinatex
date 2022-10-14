@@ -372,7 +372,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         {
           Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat,
           tollTip: '[Khối lượng sợi cắt / (Khối lượng sợi cắt + sản lượng công đoạn ống)] (Lấy theo thống kê công đoạn ống)',
-          DinhMuc: res.TyLeSoiCat, isRed: (res.TyLeSoiCat < res.TyLeSoiCat_DinhMuc)
+          DinhMuc: res.TyLeSoiCat_DinhMuc, isRed: (res.TyLeSoiCat < res.TyLeSoiCat_DinhMuc)
         },
         {
           Ten: 'Tỷ lệ sợi Con / Ống:', GiaTri: res.TyLeSoiCon,
@@ -381,7 +381,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         },
         {
           Ten: 'Tỷ lệ chênh lệch Con - Ống:', GiaTri: res.TyLeChenhLechConOng,
-          DinhMuc: res.TyLeChenhLechConOng, isRed: (res.TyLeChenhLechConOng < res.TyLeChenhLechConOng_DinhMuc),
+          DinhMuc: res.TyLeChenhLechConOng_DinhMuc, isRed: (res.TyLeChenhLechConOng < res.TyLeChenhLechConOng_DinhMuc),
           tollTip: '[((SL sợi con - KL bông hút mối) - (SL ống + KL sợi cắt + KL sợi loại 2)) / (SL con - KL bông hút mối)] * 100 '
         },
 

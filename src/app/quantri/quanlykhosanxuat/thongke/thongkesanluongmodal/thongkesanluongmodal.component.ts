@@ -76,7 +76,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
 
   GetTyLeThongKeSanLuongBongPhe() {
-    this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((res: any) => {
+    this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe('',this.item.IddmPhanXuong,this.item.IddmCaSanXuatThucTe,DateToUnix(this.item.Ngay)).subscribe((res: any) => {
       // this.item.SoQuyTrinh = res.SoQuyTrinh;
       this.item.listTyLeBongPhe = res;
     })
@@ -249,6 +249,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   getMatHangThongKeSanLuong() {
+   
     if (this.item.IddmCaSanXuat != undefined
       && this.item.IddmPhanXuong != undefined
       && this.item.Ngay != undefined) {
@@ -277,6 +278,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
         this.getItemTheoCongDoan();
       })
     }
+    this.GetTyLeThongKeSanLuongBongPhe();
   }
   editChiTiet(item, index) {
     this.item.listItem.forEach(element => {
@@ -335,7 +337,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhKhoiLuongChaiKy(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
-      KhoiLuong = item.ChieuDai / (item.Nm)/1000;
+      KhoiLuong = item.ChieuDai / (item.Nm) / 1000;
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }

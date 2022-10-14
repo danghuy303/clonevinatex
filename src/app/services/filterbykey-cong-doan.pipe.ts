@@ -1,15 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-        name: 'filterByKey', pure: false
+  name: 'filterbykeyCongDoan'
 })
-export class FilterByKeyPipe implements PipeTransform {
-        transform(value: any, Key: string, keyWord: string): Array<any> {
+export class FilterbykeyCongDoanPipe implements PipeTransform {
+
+        transform(value: any, Key: string, keyWord: string): Array<any> {   
                 if (!!value) {
                         if (keyWord !== null && keyWord !== undefined && keyWord.trim() !== '') {
-                                return value.filter(ele => ele[Key].toString()
-                                        .toLowerCase()
-                                        .includes(keyWord.toLowerCase() ) 
+                                return value.filter(ele => ele.MaCongDoan === keyWord       
                                 );
                         }
                         else {

@@ -15,9 +15,12 @@ export class ModaldmloicatComponent implements OnInit {
   public type = '';
   opt: any = "";
   khongclicknhieu: any = false;
+  listPhanXuong:any = [];
+
   constructor(public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getListPhanXuong();
   }
 
   accept() {
@@ -47,6 +50,12 @@ export class ModaldmloicatComponent implements OnInit {
       this.khongclicknhieu = !this.khongclicknhieu;
       this.toastr.error(res.message)
     }
+  }
+
+  getListPhanXuong() {
+    this.sanXuatService.GetListdmPhanXuongOpt().subscribe((res: any[]) => {
+      this.listPhanXuong = mapArrayForDropDown(res, "Ten", "Id");
+    })
   }
 
 }

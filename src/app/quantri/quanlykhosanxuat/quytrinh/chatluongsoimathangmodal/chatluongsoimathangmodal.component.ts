@@ -56,7 +56,8 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
       for (let i = 0; i < this.listItem.length; i++) {
         console.log(this.listItem[i])
         let itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang === this.listItem[i].IdLoHang)
+          // ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang === this.listItem[i].IdLoHang)
+          ele => (ele.IddmItem === this.listItem[i].IddmItem )
         );
         if (validVariable(itemFind)) {
           itemFind.checked = true;

@@ -288,8 +288,11 @@ export class TimbongmodalComponent implements OnInit {
     this.TongKhoiLuongDung = tempTongKhoiLuongDung;
     this.item.listLoBong.forEach(lobong => {
       if (validVariable(lobong.SoLuongDung)) {
-        lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
-        lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
+        // lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
+        // lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
+        // huy nho chinh sua copy theo yeu cau mong muon!!!
+        lobong.TyLe = (lobong.SoLuongDung * (lobong.IdLoBong !== null ? lobong.TrongLuong : (this.item.TrongLuongBongHoi / this.item.SoKienBongHoi))) / tempTongKhoiLuongDung * 100;
+        lobong.TongTrongLuong = lobong.SoLuongDung * (lobong.IdLoBong !== null ? lobong.TrongLuong : (this.item.TrongLuongBongHoi / this.item.SoKienBongHoi));
       }
       if (validVariable(lobong.Mic) || lobong.isLoBongTuongLai) {
         if (validVariable(lobong.Mic) && validVariable(lobong.tempBanBong[`${x}`].SoKien)) {

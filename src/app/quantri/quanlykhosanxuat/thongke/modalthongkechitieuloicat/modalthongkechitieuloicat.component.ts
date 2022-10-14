@@ -5,7 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { maskOption, vn } from 'src/app/services/const';
-import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable, merge } from 'src/app/services/globalfunction';
+import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable, merge, MergeArr } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoimathangmodal/chatluongsoimathangmodal.component';
 
@@ -14,8 +14,8 @@ import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoima
   templateUrl: './modalthongkechitieuloicat.component.html',
   styleUrls: ['./modalthongkechitieuloicat.component.css']
 })
-export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit {
-  @ViewChild('voiPintable') voiPintable:PintableDirective;
+export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit {
+  @ViewChild('voiPintable') voiPintable: PintableDirective;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -24,7 +24,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
     ChuyenTiep: false,
     Xoa: false,
   }
-  MO:any = maskOption;
+  MO: any = maskOption;
   listdmKho: any = [];
   editTableItem: any = {};
   newTableItem: any = {};
@@ -32,11 +32,11 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
   listdmPhanXuong: any = [];
   lang: any = vn;
   lstSanPham: any = [];
-  userInfo: any ;
+  userInfo: any;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, 
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
-    public _modal: NgbModal, ) {
+    public _modal: NgbModal,) {
 
   }
 
@@ -46,8 +46,8 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
       this.GetNextSoQuyTrinh();
       this.getDanhSachChiTieuChatLuong();
     }
-    else{
-    this.KiemTraButtonModal();
+    else {
+      this.KiemTraButtonModal();
     }
     if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
       this.item.NgayKiemTra = UnixToDate(this.item.NgayKiemTraUnix);
@@ -55,12 +55,12 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
     this.getListdmPhanXuong();
   }
   ngAfterViewInit(): void {
-      this.voiPintable.active();
+    this.voiPintable.active();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if(this.item.CreatedBy == this.userInfo.Id){
+      if (this.item.CreatedBy == this.userInfo?.Id) {
         this.checkbutton.Ghi = true;
       }
     })
@@ -115,7 +115,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
     }
   }
   XoaQuyTrinh() {
-    let modalRef = this._modal.open(ModalthongbaoComponent, { 
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
@@ -145,7 +145,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
     let data = {
       IddmPhanXuong: this.item.IddmPhanXuong,
       Ngay: DateToUnix(this.item.NgayKiemTra),
-      TuNgay: DateToUnix(this.item.TuNgay) ,
+      TuNgay: DateToUnix(this.item.TuNgay),
       DenNgay: DateToUnix(this.item.DenNgay),
     };
     this.services.QuyTrinhLoiCat().GetListMatHang(data).subscribe((res1: any) => {
@@ -158,14 +158,15 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
       modalRef.componentInstance.listItem = this.item.lstSanPham;
       modalRef.componentInstance.loai = 'loicat';
       modalRef.result.then((data) => {
-        console.log(data);
         // this.item.lstSanPham = data.data;
-        this.item.lstSanPham = merge(data.data,this.item.lstSanPham, 'IddmItem') // huy nhỏ sửa, khi thêm mặt hàng giữ số liệu đã chọn
+        this.item.lstSanPham = MergeArr(data.data, this.item.lstSanPham || [], "IddmItem");
+         // huy nhỏ sửa, khi thêm mặt hàng giữ số liệu đã chọn
       }, (reason) => {
         // không
       });
     })
   }
+
   getListKho() {
     var data: any = {}
     data.Loai = 10;
@@ -191,12 +192,12 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
   Onclose() {
     this.activeModal.close();
   }
-  tinhTong(list,nhom){
-    let chitieuCon = list.filter(ele=>ele.NhomChiTieu===nhom&&!ele.isTong);
-    let chitieuTong = list.filter(ele=>ele.NhomChiTieu===nhom&&ele.isTong);
-    if(validVariable(chitieuCon)&& chitieuCon?.length!==0&& validVariable(chitieuTong)&& chitieuTong?.length!==0){
-      let TongChiTieuCon = chitieuCon.reduce((a,b)=>a+(b.ChiTieuThucTe||0),0);
-      chitieuTong.forEach(ele=>{ele.ChiTieuThucTe=TongChiTieuCon});
+  tinhTong(list, nhom) {
+    let chitieuCon = list.filter(ele => ele.NhomChiTieu === nhom && !ele.isTong);
+    let chitieuTong = list.filter(ele => ele.NhomChiTieu === nhom && ele.isTong);
+    if (validVariable(chitieuCon) && chitieuCon?.length !== 0 && validVariable(chitieuTong) && chitieuTong?.length !== 0) {
+      let TongChiTieuCon = chitieuCon.reduce((a, b) => a + (b.ChiTieuThucTe || 0), 0);
+      chitieuTong.forEach(ele => { ele.ChiTieuThucTe = TongChiTieuCon });
     }
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-modaldmclassimat',
@@ -14,10 +15,12 @@ export class ModaldmclassimatComponent implements OnInit {
   public title: any = '';
   public type = '';
   opt: any = "";
+  listPhanXuong:any = [];
   khongclicknhieu: any = false;
   constructor(public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getListPhanXuong();
   }
 
   accept() {
@@ -47,6 +50,12 @@ export class ModaldmclassimatComponent implements OnInit {
       this.khongclicknhieu = !this.khongclicknhieu;
       this.toastr.error(res.message)
     }
+  }
+
+  getListPhanXuong() {
+    this.sanXuatService.GetListdmPhanXuongOpt().subscribe((res: any[]) => {
+      this.listPhanXuong = mapArrayForDropDown(res, "Ten", "Id");
+    })
   }
 
 }

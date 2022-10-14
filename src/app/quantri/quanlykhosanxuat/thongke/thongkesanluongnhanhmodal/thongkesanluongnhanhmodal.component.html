@@ -1,6 +1,9 @@
 <div class="modal-header">
    <h5 class="modal-title">Thống kê sản lượng</h5>
    <div class="d-flex flex-column flex-lg-row">
+      <div>
+         <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+     </div>
       <div class="ml-lg-3 mr-lg-3">
          <span style="font-weight: bold">TG Tạo:</span>
          {{ item.Created | date: 'dd/MM/yyyy HH:mm' }}
@@ -28,8 +31,8 @@
    </div>
    <div class="p-grid">
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày:</label>
-         <div class="p-col-12 p-lg-8 p-p-0">
+         <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày:</label>
+         <div class="p-col-12 p-lg-9 p-pl-3">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true"
                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.Ngay" inputId="icon"
                placeholder="dd/mm/yyyy" (onSelect)="GetThongKeSanLuongNhanh()">
@@ -37,30 +40,30 @@
          </div>
       </div>
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
-         <div class="p-col-12 p-lg-8 p-p-0">
+         <label class="p-col-12 p-lg-3 p-p-0 my-auto">Phân xưởng:</label>
+         <div class="p-col-12 p-lg-9 p-p-0 ">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong">
             </p-dropdown>
          </div>
       </div>
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
-         <div class="p-col-12 p-lg-8 p-p-0">
+         <label class="p-col-12 p-lg-3 p-p-0 my-auto">Công đoạn:</label>
+         <div class="p-col-12 p-lg-9 p-p-0">
             <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
                styleClass="p-inputtext-sm" [(ngModel)]="item.CongDoan" (onChange)="chon($event)">
             </p-dropdown>
          </div>
       </div>
-      <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
-         <div class="p-col-12 p-lg-8 p-p-0">
+      <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+         <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
+         <div class="p-col-12 p-lg-11 p-pl-2">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
          </div>
       </div>
       <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
          <label class="p-col-12 p-lg-1 p-p-0 my-auto">Nội dung:</label>
-         <div class="p-col-12 p-lg-11 p-pt-0 p-pr-0 p-pb-0 p-pl-5">
+         <div class="p-col-12 p-lg-11 p-pt-0 p-pr-0 p-pb-0 ">
             <textarea pInputTextarea [(ngModel)]="item.NoiDung"></textarea>
          </div>
       </div>

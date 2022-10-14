@@ -38,12 +38,14 @@ import { DecimalPipe } from "@angular/common";
 import { LoaderInterceptor } from "./services/loader.interceptor";
 import { LoaderService } from "./services/loader.service";
 // import { LoaderComponent } from './loader/loader.component';
-import 'chartjs-plugin-zoom'
+import 'chartjs-plugin-zoom';
+// import { FilterbykeyCongDoanPipe } from './services/filterbykey-cong-doan.pipe'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    // FilterbykeyCongDoanPipe,
 
     // LoaderComponent
   ],

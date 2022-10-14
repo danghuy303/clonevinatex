@@ -50,7 +50,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let may of item.lstMay | filterByKey : 'MaCongDoan' : filter.MaCongDoan ;let i = index">
+                <tr *ngFor="let may of item.lstMay | filterbykeyCongDoan : 'MaCongDoan' : filter.MaCongDoan ;let i = index">
 
                     <td class="w-tc-50 bg-white text-center z-100">{{i+1}}</td>
                     <td class="w-tc-250 bg-white z-100">{{may.TendmMay}}</td>
