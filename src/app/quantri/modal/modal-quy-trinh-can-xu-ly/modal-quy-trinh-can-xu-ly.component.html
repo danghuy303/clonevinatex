@@ -1,13 +1,13 @@
 <div class="modal-header">
     <h3 class="modal-title">Quy trình cần xử lý</h3>
-    <button type="button" class="btn btn-light" (click)="activeModal.dismiss('Cross click')">X</button>
+    <button type="button" class="btn btn-light" (click)="close()">X</button>
 </div>
-<div class="modal-body">
+<div class="modal-body" style="overflow-y:scroll; height: 500px;">
     <div *ngFor="let quytrinh of listQuyTrinh" (click)="quytrinh.open=!quytrinh.open">
         <div>
             <h4 class="quytrinh p-2">{{quytrinh.Ten}}</h4>
             <div *ngIf="quytrinh.open">
-                <div>
+                <div [ngStyle]="{'height': quytrinh.SoLuong < 6 ? '200px':'300px','overflow-y':'scroll'}">
                     <!--  -->
                     <table class="table table-hover">
                         <thead>
@@ -19,7 +19,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let chitiet of quytrinh.listChiTiet, let i=index">
+                            <tr *ngFor="let chitiet of quytrinh.listChiTiet, let i=index"
+                            (click)="readOne(chitiet)">
                                 <th scope="row">{{i+1}}</th>
                                 <td>{{chitiet.NoiDung}}</td>
                                 <td class="text-center">{{chitiet.Ngay | date: 'dd/MM/yy, HH:mm:ss '}}</td>

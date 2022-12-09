@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -16,6 +16,8 @@ import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoima
 })
 export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit {
   @ViewChild('voiPintable') voiPintable: PintableDirective;
+  @ViewChildren('inputNumber') inputNumbers: any;
+  @ViewChildren('inputKhoiLuong') inputKhoiLuongs: any;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -44,7 +46,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit
     this.userInfo = this._auth.currentUserValue;
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-      this.getDanhSachChiTieuChatLuong();
+      this.getDanhSachChiTieuChatLuong(true);
     }
     else {
       this.KiemTraButtonModal();
@@ -160,7 +162,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit
       modalRef.result.then((data) => {
         // this.item.lstSanPham = data.data;
         this.item.lstSanPham = MergeArr(data.data, this.item.lstSanPham || [], "IddmItem");
-         // huy nhỏ sửa, khi thêm mặt hàng giữ số liệu đã chọn
+        // huy nhỏ sửa, khi thêm mặt hàng giữ số liệu đã chọn
       }, (reason) => {
         // không
       });
@@ -180,10 +182,11 @@ export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  getDanhSachChiTieuChatLuong() {
+  getDanhSachChiTieuChatLuong(value) {
     let data = {
       CurrentPage: 0,
       KeyWord: "",
+      IddmPhanXuong: value || "",
     }
     this.services.DanhMucLoiCat().GetList(data).subscribe((res: any) => {
       this.item.lstDanhMuc = res;
@@ -199,5 +202,26 @@ export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit
       let TongChiTieuCon = chitieuCon.reduce((a, b) => a + (b.ChiTieuThucTe || 0), 0);
       chitieuTong.forEach(ele => { ele.ChiTieuThucTe = TongChiTieuCon });
     }
+  }
+
+  chonPhanXuong(e) {
+    this.getDanhSachChiTieuChatLuong(e.value);
+  }
+
+  moveToNext(event) {
+    let next = event.target.nextElementSibling;
+    if (next) {
+      next.focus();
+    } else {
+      event.target.blur();
+    }
+  }
+  xuongDong(i,length,indexcon) {
+    let nextIndex = i * length + indexcon+1;
+    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex+length);
+      if (validVariable(nextFocus)) {
+        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].focus();
+        this.inputNumbers.toArray()[(indexcon+1>=length?0:nextIndex)].el.nativeElement.children[0].children[0].select();
+      } 
   }
 }

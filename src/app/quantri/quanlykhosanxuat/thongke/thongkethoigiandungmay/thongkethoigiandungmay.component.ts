@@ -1,9 +1,9 @@
 import { filter } from 'rxjs/operators';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
 import { PintableDirective } from 'voi-lib';
@@ -15,6 +15,9 @@ import { PintableDirective } from 'voi-lib';
 })
 export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit, AfterViewInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective | any;
+  @ViewChildren('inputNumber') inputNumbers: any;
+  @ViewChildren('inputKhoiLuong') inputKhoiLuongs: any;
+  @ViewChildren('inputTocDoTrungBinh') inputTocDoTrungBinhs: any;
   filter: any = {CongDoan:null};
   listPhanXuong: any = [];
   listCongDoan: any = [];
@@ -77,6 +80,34 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   }
   TinhTong(item) {
     item.TongThoiGianDungMay = item.lstSuCoDungMay.reduce((total, ele) => total += (ele.ThoiGianDungMay || 0), 0)
+  }
+
+  xuongDong(i,length,indexcon){
+    let nextIndex = i * length + indexcon+1
+    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex+length);
+      if (validVariable(nextFocus)) {
+        nextFocus.el.nativeElement.children[0].children[0].focus();
+        nextFocus.el.nativeElement.children[0].children[0].select();
+      } else {
+        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].focus();
+        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].select();
+      }
+  }
+
+  nextFocus(index) {
+    let length = this.inputKhoiLuongs.toArray().length;
+    this.inputKhoiLuongs.toArray()[(index + 1 < length ? index + 1 : 0)].el.nativeElement.children[0].children[0].focus();
+    setTimeout(() => {
+      this.inputKhoiLuongs.toArray()[(index + 1 < length ? index + 1 : 0)].el.nativeElement.children[0].children[0].focus();
+    }, 400)
+  }
+
+  nextFocus_inputTocDoTrungBinhs(index) {
+    let length = this.inputTocDoTrungBinhs.toArray().length;
+    this.inputTocDoTrungBinhs.toArray()[(index + 1 < length ? index + 1 : 0)].el.nativeElement.children[0].children[0].focus();
+    setTimeout(() => {
+      this.inputTocDoTrungBinhs.toArray()[(index + 1 < length ? index + 1 : 0)].el.nativeElement.children[0].children[0].focus();
+    }, 400)
   }
 
 }

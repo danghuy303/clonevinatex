@@ -191,7 +191,18 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   //   })
   // }
   changePage(event) {
-    console.log(event)
+    console.log(this.item.listItem);
+    this.listItem = [...this.item.listItem,...this.listItem];
+    console.log(this.listItem);
+    this.listItem =  this.listItem.reduce((total, ele) =>{
+      if(!total.some((x) => x.Id === ele.Id) )
+      {
+          total.push(ele)
+      }
+      return total
+      }, [])
+      console.log(this.listItem);
+      this.listItem = this.listItem.sort((a, b) => a.ThuTu-b.ThuTu);
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
     var end = start + 15;

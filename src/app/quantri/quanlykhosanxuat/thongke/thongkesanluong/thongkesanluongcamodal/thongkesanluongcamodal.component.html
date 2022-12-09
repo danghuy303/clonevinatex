@@ -236,7 +236,7 @@
                                 <div class="p-inputgroup">
                                     <div style="flex:1">
                                         <p-dropdown [filter]="true" [options]="listLoHang" [autofocusFilter]="true"
-                                            placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
+                                            placeholder="Chọn lô hàng" styleClass="p-inputtext-sm w-full"
                                             [(ngModel)]="col.listItem[i].IdLoHang"></p-dropdown>
                                     </div>
                                     <button pButton pRipple icon="pi pi-copy"
@@ -320,7 +320,8 @@
                                 <ng-container
                                     *ngFor="let CongDoan of col.listTyLeBongPhe | equalByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
                                     <td class="text-right p-d-flex p-flex-row">
-                                        <p-inputNumber [minFractionDigits]="3" locale="en-EN" #inputKhoiLuong [data-index]="i*row.listKhoiLuongBongPhe.length+indexLoai" (keyup.enter)="nextFocus(i*row.listKhoiLuongBongPhe.length+indexLoai)"
+                                        <p-inputNumber [minFractionDigits]="3" locale="en-EN" #inputKhoiLuong [data-index]="i*row.listKhoiLuongBongPhe.length+indexLoai"
+                                         (keyup.enter)="nextFocus(i*row.listKhoiLuongBongPhe.length+indexLoai)"
                                             [(ngModel)]="CongDoan.listKhoiLuongBongPhe[indexLoai].KhoiLuong" (onBlur)="TinhTongKhoiLuongBong(i)">
                                         </p-inputNumber>
                                         <button pButton pRipple icon="pi pi-ellipsis-v"

@@ -59,3 +59,21 @@
     background-color: #ccc !important;
 }
 
+.badgeQuyTrinhCanXuLy {
+    position: absolute;
+    font-size: 10px;
+    color: white;
+    background-color: red;
+    border-radius: 50%;
+    top: 10px;
+    left: 128px;
+    cursor: pointer;
+    max-width: 30px;
+    min-width: 19px;
+    height: 19px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+

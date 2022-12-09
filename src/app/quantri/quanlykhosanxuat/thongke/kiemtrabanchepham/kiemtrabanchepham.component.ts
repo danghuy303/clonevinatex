@@ -37,6 +37,11 @@ export class KiemtrabanchephamComponent extends StoreBase implements OnInit, OnD
       width: '150px'
     },
     {
+      header: 'Công đoạn',
+      field: 'TenCongDoan',
+      width: '150px'
+    },
+    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: '150px'

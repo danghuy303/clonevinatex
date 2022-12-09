@@ -217,12 +217,12 @@
                 </div>
                 <div class="p-mr-2">
                     <p-dropdown [filter]="true" [options]="listChiTieu" placeholder="Chọn chỉ tiêu"
-                        [(ngModel)]="filterBieuDo.IddmChiTieu" styleClass="p-inputtext-sm" (onChange)="getBieuDo()"
+                        [(ngModel)]="filterBieuDo.IddmChiTieu" styleClass="p-inputtext-sm" (onChange)="isLoiCat? getBieuDo() : getBieuDoClasimat()"
                         [showClear]="false" [filter]="true"></p-dropdown>
                 </div>
                 <div class="p-mr-2">
                     <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
-                        [(ngModel)]="filterBieuDo.IddmItem" styleClass="p-inputtext-sm" (onChange)="getBieuDo()"
+                        [(ngModel)]="filterBieuDo.IddmItem" styleClass="p-inputtext-sm" (onChange)="isLoiCat? getBieuDo() : getBieuDoClasimat()"
                         [showClear]="false" [filter]="true"></p-dropdown>
                 </div>
             </div>

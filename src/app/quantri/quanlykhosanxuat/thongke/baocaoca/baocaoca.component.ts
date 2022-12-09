@@ -25,6 +25,8 @@ export class BaocaocaComponent extends StoreBase implements OnInit {
     itemCongDoan_Ong:{},
     itemCongDoan_Con:{},
     itemCongDoan_ThayTho:{},
+    itemCongDoan_Con2:{},
+    itemCongDoan_DauXe:{}
   };
   constructor(public store: StoreService, public _services: SanXuatService, public toastr: ToastrService) {
     super(store)

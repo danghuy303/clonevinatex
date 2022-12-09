@@ -44,7 +44,8 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Chọn phân xưởng"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong" (onChange)="chonPhanXuong($event)">
+                </p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -112,10 +113,16 @@
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
                                 <td class="tc-w-150 bg-white">Hôm Nay</td>
-                                <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham" class="text-right tc-w-100">
-                                    <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
+                                <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham ;let indexcon=index" class="text-right tc-w-100">
+                                    <!-- <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
                                         locale="en-EN" [(ngModel)]="homnay.ChiTieuThucTe"
                                         (onBlur)="tinhTong(loaisoi.lstChatLuongSanPham,homnay.NhomChiTieu)"
+                                        [disabled]="homnay.isTong"></p-inputNumber> -->
+                                    <p-inputNumber #inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
+                                        locale="en-EN" [(ngModel)]="homnay.ChiTieuThucTe"
+                                        (onBlur)="tinhTong(loaisoi.lstChatLuongSanPham,homnay.NhomChiTieu)"
+                                        [tabindex]="i * loaisoi.lstChatLuongSanPham.length+indexcon+1" 
+                                        (keyup.enter)="xuongDong(i, loaisoi.lstChatLuongSanPham.length,indexcon)" 
                                         [disabled]="homnay.isTong"></p-inputNumber>
                                 </td>
                             </tr>
@@ -123,7 +130,8 @@
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
                                 <td class="tc-w-150 bg-white">So Sánh</td>
-                                <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham" class="text-right tc-w-100">
+                                <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham"
+                                    class="text-right tc-w-100">
                                     <td class="text-center"
                                         [ngStyle]="{'background-color': sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet?'#a7d1a7':'#f59999'}">
                                         <span *ngIf="sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet">Đạt</span>

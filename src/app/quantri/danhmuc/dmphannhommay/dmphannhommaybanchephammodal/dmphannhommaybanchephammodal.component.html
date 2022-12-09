@@ -246,9 +246,9 @@
                         <th class="tc-w-50">STT</th>
                         <th class="tc-w-500" *ngIf="childModalOpt!==''">{{childModalOpt==='MATHANG'?'Mặt hàng':'Loại sợi'}}</th>
                         <th class="tc-w-150">Chi số Ne</th>
-                        <th class="tc-w-150">Chi số mét Nm</th>
+                        <!-- <th class="tc-w-150">Chi số mét Nm</th>
                         <th class="tc-w-150">Độ săn</th>
-                        <th class="tc-w-150">Tốc độ (v/f, m/f, Nips/p)</th>
+                        <th class="tc-w-150">Tốc độ (v/f, m/f, Nips/p)</th> -->
                         <ng-container *ngFor="let col of listdmTieuChiBanChePham">
                             <th class="tc-w-150">{{col.label}}</th>
                         </ng-container>
@@ -266,7 +266,7 @@
                             </td>
                             <td class="tc-w-500" *ngIf="childModalOpt!==''">
                                 <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang"
-                                    placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm" [(ngModel)]="item.Iditem"
+                                    placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm" [(ngModel)]="item.IddmItem"
                                     (onChange)="changeLoaiSoiHoacMatHang($event,itemT)"></p-dropdown>
                             </td>
                             <td class="tc-w-150">
@@ -274,7 +274,7 @@
                                     (onBlur)="tinhNangSuatLyThuyet()">
                                 </p-inputNumber>
                             </td>
-                            <td class="tc-w-150">
+                            <!-- <td class="tc-w-150">
                                 <p-inputNumber [minFractionDigits]="5" locale="en-EN" [(ngModel)]="item.Nm"
                                     (onBlur)="tinhNangSuatLyThuyet()">
                                 </p-inputNumber>
@@ -288,7 +288,7 @@
                                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TocDo"
                                     (onBlur)="tinhNangSuatLyThuyet()">
                                 </p-inputNumber>
-                            </td>
+                            </td> -->
                             <ng-container *ngFor="let col of item.listdmTieuChiBanChePham">
                                 <td class="tc-w-150"> 
                                     <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="col.GiaTri">
@@ -313,7 +313,7 @@
                             </td>
                             <td class="tc-w-500" *ngIf="childModalOpt!==''">
                                 <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
-                                    [(ngModel)]="newTableItem.Iditem"
+                                    [(ngModel)]="newTableItem.IddmItem"
                                     (onChange)="changeLoaiSoiHoacMatHang($event,newTableItem)"></p-dropdown>
                             </td>
                             <td class="tc-w-150">
@@ -321,7 +321,7 @@
                                     (onBlur)="item_tinhNangSuatLyThuyet()">
                                 </p-inputNumber>
                             </td>
-                            <td class="tc-w-150">
+                            <!-- <td class="tc-w-150">
                                 <p-inputNumber [minFractionDigits]="5" locale="en-EN" [(ngModel)]="newTableItem.Nm"
                                     (onBlur)="item_tinhNangSuatLyThuyet()">
                                 </p-inputNumber>
@@ -335,7 +335,7 @@
                                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.TocDo"
                                     (onBlur)="item_tinhNangSuatLyThuyet()">
                                 </p-inputNumber>
-                            </td>
+                            </td> -->
                             <ng-container *ngFor="let col of newTableItem.listdmTieuChiBanChePham">
                                 <td class="tc-w-150">
                                     <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="col.GiaTri">

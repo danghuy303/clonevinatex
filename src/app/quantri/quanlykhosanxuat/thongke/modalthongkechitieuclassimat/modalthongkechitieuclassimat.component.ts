@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -16,6 +16,7 @@ import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoima
 })
 export class ModalthongkechitieuclassimatComponent implements OnInit {
   @ViewChild('voiPintable') voiPintable: PintableDirective;
+  @ViewChildren('inputNumber') inputNumbers: any;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -43,7 +44,7 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
   ngOnInit(): void {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-      this.getDanhSachChiTieuChatLuong();
+      this.getDanhSachChiTieuChatLuong(true);
     }
     else {
       this.userInfo = this._auth.currentUserValue;
@@ -174,10 +175,11 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  getDanhSachChiTieuChatLuong() {
+  getDanhSachChiTieuChatLuong(value) {
     let data = {
       CurrentPage: 0,
       KeyWord: "",
+      IddmPhanXuong: value || "",
     }
     this.services.DanhMucClassimat().GetList(data).subscribe((res: any) => {
       this.item.lstDanhMuc = res;
@@ -193,5 +195,17 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
       let TongChiTieuCon = chitieuCon.reduce((a, b) => a + (b.ChiTieuThucTe || 0), 0);
       chitieuTong.forEach(ele => { ele.ChiTieuThucTe = TongChiTieuCon });
     }
+  }
+  chonPhanXuong(e) {
+    this.getDanhSachChiTieuChatLuong(e.value);
+  }
+
+  xuongDong(i,length,indexcon) {
+    let nextIndex = i * length + indexcon+1;
+    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex+length);
+      if (validVariable(nextFocus)) {
+        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].focus();
+        this.inputNumbers.toArray()[(indexcon+1>=length?0:nextIndex)].el.nativeElement.children[0].children[0].select();
+      } 
   }
 }

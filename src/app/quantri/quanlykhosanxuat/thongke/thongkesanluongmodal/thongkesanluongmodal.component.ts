@@ -76,7 +76,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
 
   GetTyLeThongKeSanLuongBongPhe() {
-    this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe('',this.item.IddmPhanXuong,this.item.IddmCaSanXuatThucTe,DateToUnix(this.item.Ngay)).subscribe((res: any) => {
+    this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe('',this.item.IddmPhanXuong,this.item.IddmCaSanXuat,DateToUnix(this.item.Ngay)).subscribe((res: any) => {
       // this.item.SoQuyTrinh = res.SoQuyTrinh;
       this.item.listTyLeBongPhe = res;
     })

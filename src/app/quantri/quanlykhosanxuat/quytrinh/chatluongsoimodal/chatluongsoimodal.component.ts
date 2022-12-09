@@ -304,7 +304,7 @@ export class ChatluongsoimodalComponent implements OnInit {
         str = str.replaceAll(',', '')
         console.log(str);
       }
-      item.ChiTieuThucTe = parseFloat(str) ? parseFloat(str) : null;
+      item.ChiTieuThucTe = parseFloat(str) ? parseFloat(str) : 0; //12/8/2022 huy sửa, để enter xuống dòng vẫn còn số 0. bugs 380
       // console.log(item.ChiTieuThucTe)
     }
     let arr = 'Thin50Thick50Neps200';

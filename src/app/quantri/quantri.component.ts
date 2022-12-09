@@ -40,6 +40,8 @@ export class QuantriComponent implements OnInit, OnDestroy {
   mapQuyTrinhRoute: any = mapQuyTrinhRoute;
   showHopDongModule: any = false;
   showTaiSanModule: any = false;
+  listQuyTrinh: any;
+  SluongListQuyTrinhCanXuLy: any;
   US: any = [];
   @ViewChild("listNoti") listNoti;
   @ViewChild("listCanhBaoComponent") listCanhBaoComponent;
@@ -70,7 +72,16 @@ export class QuantriComponent implements OnInit, OnDestroy {
     //   this.showDropDown = false;
     //   this.OSName = "HỆ THỐNG Quản lý Nhà – Đất";
     // }
+    this.GetListQuyTrinhCanXuLy();
   }
+
+  GetListQuyTrinhCanXuLy() {
+    this._services.GetListQuyTrinhCanXuLy().subscribe((res: any) => {
+      this.SluongListQuyTrinhCanXuLy = res.SoLuong;
+      this.listQuyTrinh = res.Items;
+    })
+  };
+
   getListNhaMay() {
     const nm = this._services
       .GetOptions()
@@ -182,6 +193,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
 
   openQuyTrinhCanXuLy() {
     const modalRef = this._modal.open(ModalQuyTrinhCanXuLyComponent, { size: 'xl', backdrop: 'static' });
+    modalRef.componentInstance.listQuyTrinh = this.listQuyTrinh;
+    modalRef.result.then((res: any) => {
+      // console.log(res);
+      if (res) {
+        this.GetListQuyTrinhCanXuLy()
+      }
+    })
   }
 
   ngOnInit(): void {

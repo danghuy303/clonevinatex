@@ -3014,4 +3014,8 @@ export class SanXuatService {
         return this.http.get(API.auth + `DanhMuc/GetListQuyTrinhCanXuLy?IdDuAn=${this.store.getCurrent()}`)
     }
 
+    XuatBaoCao_KeHoachNhapNguyenLieu(Id:string) {
+        return this.http.get(API.SCM + `BaoCao/XuatBaoCao_KeHoachNhapNguyenLieu?Id=${Id}`)
+    }
+
 }

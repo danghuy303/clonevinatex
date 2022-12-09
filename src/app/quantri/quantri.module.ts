@@ -311,6 +311,8 @@ import { BaocaotonghoptaisanchiphiComponent } from './baocaotonghoptaisan/baocao
 import { ThongkesanluongnhanhComponent } from './quanlykhosanxuat/thongke/thongkesanluongnhanh/thongkesanluongnhanh.component';
 import { ThongkesanluongnhanhmodalComponent } from './quanlykhosanxuat/thongke/thongkesanluongnhanhmodal/thongkesanluongnhanhmodal.component';
 import { ModalQuyTrinhCanXuLyComponent } from './modal/modal-quy-trinh-can-xu-ly/modal-quy-trinh-can-xu-ly.component';
+import { Con2BaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/con2-baocaoca/con2-baocaoca.component';
+import { DauxeBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/dauxe-baocaoca/dauxe-baocaoca.component';
 
 @NgModule({
   declarations: [
@@ -568,6 +570,8 @@ import { ModalQuyTrinhCanXuLyComponent } from './modal/modal-quy-trinh-can-xu-ly
     ThongkesanluongnhanhComponent,
     ThongkesanluongnhanhmodalComponent,
     ModalQuyTrinhCanXuLyComponent,
+    Con2BaocaocaComponent,
+    DauxeBaocaocaComponent,
   ],
   imports: [
     HttpClientModule,

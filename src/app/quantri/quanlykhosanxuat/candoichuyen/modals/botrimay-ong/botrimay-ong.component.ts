@@ -53,7 +53,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     }).map(mathang => {
       return {
         // Ten:`${mathang.Ten}${mathang.TenLoHang?(' - '+mathang.TenLoHang):''}`,
-        Ten: `${mathang.Ten}${mathang.IdLoHang ? (' - Đảo') : ''}`,
+        Ten: `${mathang.Ten} - ${mathang.Ma}${mathang.IdLoHang ? (' - Đảo') : ''}`, 
         Id: mathang.Id
       }
     })

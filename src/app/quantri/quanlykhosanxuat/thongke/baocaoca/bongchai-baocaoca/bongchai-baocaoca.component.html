@@ -55,14 +55,14 @@
                     <th>Định mức</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template pTemplate="body" let-product let-i="rowIndex">
                 <tr>
                     <td>{{product.TendmLoaiBongPhe}}</td>
                     <td>{{product.TendmCongDoan}}</td>
                     <td class="text-right">{{product.KhoiLuongLuyKeThang|number:'0.2-2'}}</td>
                     <td>
-                        <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"
-                            [(ngModel)]="product.KhoiLuong"></p-inputNumber>
+                        <p-inputNumber #inputKhoiLuong mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"
+                            [(ngModel)]="product.KhoiLuong" (keyup.enter)="nextFocus(i)"></p-inputNumber>
                     </td>
                     <td class="text-right">{{((product.KhoiLuongLuyKeThang||0)+(product.KhoiLuong||0))|number:'0.2-2'}}
                     </td>

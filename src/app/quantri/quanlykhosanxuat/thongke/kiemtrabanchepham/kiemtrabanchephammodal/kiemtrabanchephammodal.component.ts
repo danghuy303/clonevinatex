@@ -16,7 +16,7 @@ import { ChonmathangkiemtrabanchephammodalComponent } from '../chonmathangkiemtr
 })
 export class KiemtrabanchephammodalComponent implements OnInit {
   @ViewChildren('inputNumber') inputNumbers: any;
-  @ViewChild('voiPintable') voiPintable:PintableDirective;
+  @ViewChild('voiPintable') voiPintable: PintableDirective;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -26,17 +26,20 @@ export class KiemtrabanchephammodalComponent implements OnInit {
     Xoa: false,
   }
   listCongDoan: any = [];
+  congdoan: any;
+  listThamSo: any = [];
+  listCongThuc: any = [];
   listPhanXuong: any = [];
   editTableItem: any = {};
   lang: any = vn;
   listLoHang: any = [];
   TongKhoiLuong: any = 0;
-  userInfo: any ;
+  userInfo: any;
   listdmTieuChiBanChePham: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, 
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
-    public _modal: NgbModal, ) {
+    public _modal: NgbModal,) {
 
   }
 
@@ -50,9 +53,10 @@ export class KiemtrabanchephammodalComponent implements OnInit {
     }
     else {
       this.services.dmTieuChiChatLuongsoi().GetListdmTieuChiBanChePham(this.item.CongDoan).subscribe((res: any) => {
+        this.listCongThuc = res;
         this.listdmTieuChiBanChePham = mapArrayForDropDown(res, 'Ten', 'Id');
       })
-    this.userInfo = this._auth.currentUserValue;
+      this.userInfo = this._auth.currentUserValue;
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
@@ -63,21 +67,21 @@ export class KiemtrabanchephammodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if(this.item.CreatedBy == this.userInfo.Id)
+      if (this.item.CreatedBy == this.userInfo.Id)
         this.checkbutton.Ghi = true;
     })
   }
   ChuyenDuyet() {
-      this.services.KiemTraBanChePham().ChuyenTiep(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message);
-            this.activeModal.close();
-          } else {
-            this.toastr.error(res.message);
-          }
+    this.services.KiemTraBanChePham().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
         }
-      })
+      }
+    })
   }
 
   GetNextSoQuyTrinh() {
@@ -86,20 +90,20 @@ export class KiemtrabanchephammodalComponent implements OnInit {
     })
   }
   GhiLai() {
-      this.services.KiemTraBanChePham().Set(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.item = res.objectReturn;
-            this.KiemTraButtonModal();
-          } else {
-            this.toastr.error(res.message);
-          }
+    this.services.KiemTraBanChePham().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message)
+          this.opt = 'edit';
+          this.item = res.objectReturn;
+          this.KiemTraButtonModal();
+        } else {
+          this.toastr.error(res.message);
         }
-      })
+      }
+    })
   }
-  
+
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
@@ -123,7 +127,7 @@ export class KiemtrabanchephammodalComponent implements OnInit {
 
     })
   }
-  
+
   GetPhanXuongTheoUser() {
     this.services.GetListPhanXuongTheoUser().subscribe((res: any) => {
       if (res != null && res.length > 0)
@@ -146,7 +150,7 @@ export class KiemtrabanchephammodalComponent implements OnInit {
         })
         modalRef.componentInstance.opt = 'edit';
         modalRef.componentInstance.listMatHang = res;
-        modalRef.componentInstance.listItem = deepCopy( this.item.listItem);
+        modalRef.componentInstance.listItem = deepCopy(this.item.listItem);
         modalRef.result.then((data) => {
           this.item.listItem = data.data;
           this.voiPintable.active();
@@ -154,27 +158,51 @@ export class KiemtrabanchephammodalComponent implements OnInit {
       })
     }
   }
-  
+
   onClose() {
     this.activeModal.close();
   }
- 
+
   changeCongDoan() {
     this.item.listItem = [];
     this.services.dmTieuChiChatLuongsoi().GetListdmTieuChiBanChePham(this.item.CongDoan).subscribe((res: any) => {
       this.listdmTieuChiBanChePham = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  xuongDong(i,length,indexcon){
-    let nextIndex = i * length + indexcon+1
-    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex+length);
-      if (validVariable(nextFocus)) {
-        nextFocus.el.nativeElement.children[0].children[0].focus();
-        nextFocus.el.nativeElement.children[0].children[0].select();
-        // this.item.listItem[i+1].listdmTieuChiBanChePham[indexcon]
-      } else {
-        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].focus();
-        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].select();
-      }
+  xuongDong(i, length, indexcon) {
+    let nextIndex = i * length + indexcon + 1
+    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex + length);
+    if (validVariable(nextFocus)) {
+      nextFocus.el.nativeElement.children[0].children[0].focus();
+      nextFocus.el.nativeElement.children[0].children[0].select();
+      // this.item.listItem[i+1].listdmTieuChiBanChePham[indexcon]
+    } else {
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 1)].el.nativeElement.children[0].children[0].focus();
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 1)].el.nativeElement.children[0].children[0].select();
+    }
   }
+
+  Tinh(index) {
+    this.listCongThuc.forEach((ele) => {
+      this.item.listItem[index].listdmTieuChiBanChePham.forEach((obj) => {
+        if (obj.IddmTieuChiChatLuong === ele.Id) {
+          obj.Ma = ele.Ma;
+           if(ele.CongThuc) {
+            obj.Disabled = true;
+            let substrings = ele.CongThuc.split("|");
+            substrings.forEach((sub, index_con) => {
+              this.item.listItem[index]?.listdmTieuChiBanChePham.forEach((thamso) => {
+              if (sub === thamso.Ma) {  
+                substrings[index_con] = thamso.GiaTri;
+              }
+              })
+            });
+            let text = substrings.join('');
+            obj.GiaTri=eval(text);
+           }
+        }
+      });
+    });
+  }
+
 }
