@@ -439,6 +439,70 @@ export class TaisanService {
     };
   }
 
+  KiemDinhTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}BaoDuongTaiSan/GetNextQuyTrinhKiemDinh`, httpOptions);
+      },
+      GetList: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}BaoDuongTaiSan/GetListQuyTrinhKiemDinh`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}BaoDuongTaiSan/GetQuyTrinhKiemDinhById?Id=${Id}`, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/SetQuyTrinhKiemDinh`, data, httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/KhongDuyetQuyTrinhKiemDinh`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/ChuyenTiepQuyTrinhKiemDinh`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}BaoDuongTaiSan/DeleteQuyTrinhKiemDinhById?Id=${Id}`, httpOptions);
+      },
+      GetListTaiSanQuyTrinhKiemDinh: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanQuyTrinhKiemDinh`, data, httpOptions);
+      }
+    };
+  }
+
+  QuyTrinhBaoHiem() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}BaoDuongTaiSan/GetNextQuyTrinhBaoHiem`, httpOptions);
+      },
+      GetList: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}BaoDuongTaiSan/GetListQuyTrinhBaoHiem`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}BaoDuongTaiSan/GetQuyTrinhBaoHiemById?Id=${Id}`, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/SetQuyTrinhBaoHiem`, data, httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/KhongDuyetQuyTrinhBaoHiem`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/ChuyenTiepQuyTrinhBaoHiem`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}BaoDuongTaiSan/DeleteQuyTrinhBaoHiemById?Id=${Id}`, httpOptions);
+      },
+      GetListTaiSanQuyTrinhBaoHiem: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanQuyTrinhBaoHiem`, data, httpOptions);
+      }
+    };
+  }
+
   BienDongTaiSan() {
     let url = API.TaiSan;
     return {

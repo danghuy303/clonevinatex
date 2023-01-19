@@ -1,0 +1,50 @@
+
+<p-table [value]="listBaoHanh" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+    <ng-template pTemplate="colgroup">
+      <colgroup>
+        <col style="width:50px">
+        <col >
+        <col >
+        <col >
+        <col style="width:100px">
+        <col>
+        <col>
+        <col style="width:100px">
+      </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>STT</th>
+        <th>Số phiếu</th>
+        <th>Ngày bắt đầu</th>
+        <th>Ngày hết hạn</th>
+        <th>Nhắc hết hạn</th>
+        <th>Đơn vị bảo hành</th>
+        <th>Ghi chú</th>
+        <th style="width: 100px;"> <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
+          (click)="add()">
+        </button></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+      <tr>
+      <td class="text-center">{{i+1}}</td>
+      <td >{{item.SoPhieu}}</td>
+      <td class="text-center">{{item.NgayBatDau | date:'dd/MM/yyyy'}}</td>
+      <td class="text-center">{{item.NgayHetHan | date:'dd/MM/yyyy'}}</td>
+      <td class="text-center">   <p-checkbox [(ngModel)]="item.isNhacHetHan" binary="true"></p-checkbox></td>
+      <td>{{item.TenDonViBaoHanh}}</td>
+      <td>{{item.GhiChu}}</td>
+        <td class="text-center">
+          <button pButton pRipple type="button" icon="pi pi-pencil" pTooltip="Chỉnh sửa" tooltipPosition="top"
+          class="p-button-rounded p-button-secondary p-button-text"
+          (click)="edit(item,i)"></button>
+          <button pButton pRipple icon="pi pi-trash"
+            class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2" (click)="delete(i)"
+            pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+    </ng-template>
+  </p-table>

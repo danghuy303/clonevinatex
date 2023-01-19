@@ -25,7 +25,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   }
-  canDieuChinh:boolean = false;
+  canDieuChinh: boolean = false;
   newTableItem: any = {
     "Id": "",
     "idKeHoachXuatNguyenLieu": this.item.Id,
@@ -46,7 +46,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
   listQuyCachDongGoi: any = [];
   listdmPhanXuong: any = []
   constructor(public activeModal: NgbActiveModal,
-    public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService,private _auth:AuthenticationService) {
+    public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService, private _auth: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -84,13 +84,13 @@ export class KehoachxuathangmodalComponent implements OnInit {
     })
   }
   KiemTraButtonModal() {
-    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res:any) => {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
       this.checkbutton = res;
-        if(!res.Ghi && this.item.CreatedBy===this._auth.currentUserValue.Id){
-          this.canDieuChinh = true;
-        }else{
-          this.canDieuChinh =false;
-        }
+      if (!res.Ghi && this.item.CreatedBy === this._auth.currentUserValue.Id) {
+        this.canDieuChinh = true;
+      } else {
+        this.canDieuChinh = false;
+      }
     })
   }
   GetQuyCachDongGoi() {
@@ -327,8 +327,11 @@ export class KehoachxuathangmodalComponent implements OnInit {
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
+      console.log(res.listItem);
+      
       res.listItem.forEach(item => {
-        item.label = item.objQuyCachDongGoi.label;
+        // item.label = item.objQuyCachDongGoi.label;
+        item.label = item.label ? item.label: item.objQuyCachDongGoi?.label;
       });
       item.listItem = res.listItem;
       // if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
@@ -351,17 +354,17 @@ export class KehoachxuathangmodalComponent implements OnInit {
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt]=res;
+      item[opt] = res;
       console.log(res)
       console.log(item[opt]);
     })
   }
-  exportExcel(){
-    if(validVariable(this.item.Id)){
+  exportExcel() {
+    if (validVariable(this.item.Id)) {
       this._services.KeHoachXuatHang().ExportThongBaoXuatHang(this.item.Id).subscribe((res: any) => {
         this._services.download(res.TenFile);
       })
-    }else{
+    } else {
       this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
     }
   }

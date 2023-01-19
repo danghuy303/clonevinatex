@@ -214,10 +214,19 @@
                                     [disabled]="col.listItem[i].DonViNangSuat===1">
                                 </p-inputNumber>
                             </td>
-                            <td *ngIf="item.CongDoan==='THO'"
+                            <!-- <td *ngIf="item.CongDoan==='THO'"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*6+(indexCa*2)+3, indexCa)"
                                     [tabindex]="i*6+(indexCa*2)+3" [minFractionDigits]="0" locale="en-EN"
+                                    [(ngModel)]="col.listItem[i].CocChet"
+                                    (ngModelChange)="TinhKhoiLuongTho(col.listItem[i], indexCa)"
+                                    [disabled]="col.listItem[i].DonViNangSuat===1">
+                                </p-inputNumber>
+                            </td> -->
+                            <td *ngIf="item.CongDoan==='THO'"
+                                [ngStyle]="{'min-width':item.width,'max-width':item.width}">
+                                <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*6+(indexCa*2)+2, indexCa)"
+                                    [tabindex]="i*6+(indexCa*2)+2" [minFractionDigits]="0" locale="en-EN"
                                     [(ngModel)]="col.listItem[i].CocChet"
                                     (ngModelChange)="TinhKhoiLuongTho(col.listItem[i], indexCa)"
                                     [disabled]="col.listItem[i].DonViNangSuat===1">

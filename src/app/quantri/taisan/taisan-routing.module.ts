@@ -1,3 +1,4 @@
+import { BaoHiemComponent } from './bao-hiem/bao-hiem.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BangiaotaisanComponent } from './bangiaotaisan/bangiaotaisan.component';
@@ -43,6 +44,7 @@ import { DieuChuyenTaiSanComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai
 import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungcapvattu.component';
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
 import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
+import { KiemDinhTaiSanComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san.component';
 
 const routes: Routes = [
   {path:'',component:TaisanComponent},
@@ -86,6 +88,8 @@ const routes: Routes = [
   {path:'thoihancungcapvattu/:id',component:ThoihancungcapvattuComponent},
   {path:'lichsusudungtaisan/:id', component:LichSuSuDungComponent},
   {path:'capnhatthuvien/:id', component:CapnhatthuvienComponent},
+  {path:'kiem-dinh-tai-san/:id', component:KiemDinhTaiSanComponent},
+  {path:'bao-hiem/:id', component:BaoHiemComponent},
 ];
 
 @NgModule({

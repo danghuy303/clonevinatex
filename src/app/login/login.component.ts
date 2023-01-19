@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit,OnDestroy {
           this.error = 0;
           this.toastr.success('Đăng nhập thành công!');
           const us1 = this._auth.GetCurrentUser().subscribe((res:any) => {
-            console.log(res);
+            console.log('res',res);
             const us2 = this._SXservices
               .GetOptions()
               .GetDanhSachDuAnByIdUser(res.Id)

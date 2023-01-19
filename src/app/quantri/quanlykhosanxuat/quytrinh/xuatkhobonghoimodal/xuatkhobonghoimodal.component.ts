@@ -15,7 +15,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   opt: any = ''
   Id: any = ''
-  item: any = {};
+  item: any = {listItem:[]};
   checkbutton: any = {
     Ghi: true,
     KhongDuyet: false,

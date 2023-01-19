@@ -225,7 +225,7 @@
                 </ng-template> -->
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Tổng số bản ghi {{item.listItem.length}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
+                        Tổng số bản ghi {{item.listItem?.length}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
                             [rows]="15" (onPageChange)="changePage($event)"></p-paginator>
                     </div>
                 </ng-template>

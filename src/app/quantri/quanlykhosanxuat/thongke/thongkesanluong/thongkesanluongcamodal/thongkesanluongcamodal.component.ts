@@ -690,6 +690,8 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       //   this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
       // }
     } else {
+      console.log(1);
+      
       let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i + 6);
       if (validVariable(nextFocus)) {
         nextFocus.el.nativeElement.children[0].children[0].focus()

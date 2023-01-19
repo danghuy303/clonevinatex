@@ -138,6 +138,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
       listLichBaoDuong: [],
       listThongSoKyThuat: [],
       listThongSoAnToan: [],
+      listBaoHanh: [],
     };
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.result

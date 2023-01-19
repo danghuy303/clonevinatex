@@ -89,7 +89,6 @@
                                 <th *ngFor="let col of listdmTieuChiBanChePham" class="bcp-w-200" colspan="2">
                                     {{col.label}}</th>
                             </ng-container>
-                            <!-- <th rowspan="1" class="bcp-w-100">Ghi chú</th> -->
                             <th class="bcp-w-100" rowspan="2">Ghi chú</th>
                         </tr>
                         <!-- <tr *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">
@@ -102,7 +101,12 @@
                             </ng-container>
                         </tr> -->
                         <tr>
-                            <ng-container *ngFor="let col of listdmTieuChiBanChePham">
+                            <th style="display: none"></th>
+                            <th style="display: none"></th>
+                            <th style="display: none"></th>
+                            <th style="display: none"></th>
+                            <th style="display: none"></th>
+                            <ng-container *ngFor="let col of listdmTieuChiBanChePham" colspan="2">
                                 <th class="bcp-w-100">Tiêu chuẩn</th>
                                 <th class="bcp-w-100">Thực tế</th>
                             </ng-container>
@@ -112,22 +116,18 @@
                         <ng-container *ngFor="let itemtbl of item.listItem;let i =index">
                             <tr>
                                 <td class="bcp-w-50 bg-white text-center">{{i+1}}</td>
-                                <td class="bcp-w-200 bg-white text-left" >{{itemtbl.TendmMay}}</td>
-                                <td class="bcp-w-80 bg-white text-left" >{{itemtbl.Ne}}</td>
-                                <td class="bcp-w-80 bg-white text-left" >{{itemtbl.Nm}}</td>
-                                <td class="bcp-w-200 bg-white text-left" >{{itemtbl.Ten}}</td>
+                                <td class="bcp-w-200 bg-white text-left">{{itemtbl.TendmMay}}</td>
+                                <td class="bcp-w-80 bg-white text-left">{{itemtbl.Ne}}</td>
+                                <td class="bcp-w-80 bg-white text-left">{{itemtbl.Nm | number:'1.2-3'}}</td>
+                                <td class="bcp-w-200 bg-white text-left">{{itemtbl.Ten}}</td>
                                 <ng-container *ngFor="let col of itemtbl.listdmTieuChiBanChePham;let indexcon=index">
-                                    <td class="text-right bcp-w-100">
+                                    <td class="text-center bcp-w-100">
                                         {{
-                                            itemtbl.Ma !== 'DAT'
-                                        ? col.ChiTieuLyThuyet === 0
-                                        ? ''
-                                        : col.ChiTieuLyThuyet
-                                        : ''
+                                        col.LyThuyet?col.LyThuyet: null
                                         }}
-                                        
+
                                     </td>
-                                    <td class="bcp-w-100"
+                                    <td class="bcp-w-100 "
                                         [ngStyle]="{'background-color': col.GiaTri > col.LyThuyet?'#B63232':'#99c199'}">
                                         <!-- {{i * itemtbl.listdmTieuChiBanChePham.length + indexcon+1}} -->
                                         <p-inputNumber #inputNumber [disabled]="col.Disabled"
@@ -136,9 +136,11 @@
                                             inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2"
                                             [(ngModel)]="col.GiaTri" (onBlur)="Tinh(i)">
                                         </p-inputNumber>
-                                        <!-- <p-inputNumber #inputNumber [tabindex]="i * itemtbl.listdmTieuChiBanChePham.length+indexcon+1" (keyup.enter)="xuongDong(i, itemtbl.listdmTieuChiBanChePham.length,indexcon)" 
-                                        inputId="minmaxfraction" mask="separator.2"  [(ngModel)]="col.GiaTri">
-                                        </p-inputNumber> -->
+                                        <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="col.GiaTri"
+                                            mask="separator.2" thousandSeparator="," (change)="Tinh(i)"
+                                            [tabindex]="i * itemtbl.listdmTieuChiBanChePham.length+indexcon+1"
+                                            (keyup.enter)="xuongDong(i, itemtbl.listdmTieuChiBanChePham.length,indexcon)"
+                                            pInputText /> -->
                                     </td>
                                 </ng-container>
                                 <td class="bcp-w-100">

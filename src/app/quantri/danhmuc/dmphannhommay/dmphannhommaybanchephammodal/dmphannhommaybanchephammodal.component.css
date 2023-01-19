@@ -12,3 +12,9 @@
     min-width: 300px !important;
     max-width: 300px !important;
   }
+
+  ::ng-deep .p-component:disabled {
+    cursor: not-allowed;
+    background-color: #fff;
+    opacity: 1;
+  }

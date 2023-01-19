@@ -1168,6 +1168,20 @@ export class QuantriComponent implements OnInit, OnDestroy {
                   this.close();
                 },
               },
+              {
+                label: "Quy trình kiểm định tài sản",
+                routerLink: "/quantri/taisan/kiem-dinh-tai-san/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Quy trình bảo hiểm",
+                routerLink: "/quantri/taisan/bao-hiem/0",
+                command: () => {
+                  this.close();
+                },
+              },
             ],
           },
           {
@@ -1236,6 +1250,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
               },
             ],
           },
+
           {
             label: "Danh mục ",
             items: [

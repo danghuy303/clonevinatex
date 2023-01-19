@@ -3018,4 +3018,10 @@ export class SanXuatService {
         return this.http.get(API.SCM + `BaoCao/XuatBaoCao_KeHoachNhapNguyenLieu?Id=${Id}`)
     }
 
+    GetALLdmNhaCungUngHienHang(data) {
+        let url = API.CungUng;
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(url + "DanhMuc/GetALLdmNhaCungUngHienHang", data, httpOptions)
+    }
+
 }

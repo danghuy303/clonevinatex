@@ -126,6 +126,7 @@ export class CapnhatthuvienComponent implements OnInit {
       listLichBaoDuong: [],
       listThongSoKyThuat: [],
       listThongSoAnToan: [],
+      listBaoHanh: [],
       listFileDinhKem: [],
       
     }

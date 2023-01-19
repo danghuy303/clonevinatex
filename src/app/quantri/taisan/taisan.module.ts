@@ -179,6 +179,14 @@ import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchit
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TestQuyTrinhComponent } from './bangiaotaisan/test-quy-trinh/test-quy-trinh.component';
 import { NhapvattumodalthemvattuComponent } from './nhapvattu/nhapvattumodalthemvattu/nhapvattumodalthemvattu.component';
+import { KiemDinhTaiSanComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san.component';
+import { KiemDinhTaiSanModalComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san-modal/kiem-dinh-tai-san-modal.component';
+import { KiemDinhTaiSanPopupThemMoiComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san-popup-them-moi/kiem-dinh-tai-san-popup-them-moi.component';
+import { BaoHanhComponent } from './screen/bao-hanh/bao-hanh.component';
+import { BaoHiemComponent } from './bao-hiem/bao-hiem.component';
+import { BaoHiemModalComponent } from './bao-hiem/bao-hiem-modal/bao-hiem-modal.component';
+import { BaoHiemPopupThemmoiComponent } from './bao-hiem/bao-hiem-popup-themmoi/bao-hiem-popup-themmoi.component';
+import { BaoHanhPopupComponent } from './screen/bao-hanh/bao-hanh-popup/bao-hanh-popup.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -308,6 +316,14 @@ import { NhapvattumodalthemvattuComponent } from './nhapvattu/nhapvattumodalthem
     ThemMoiVatTuModalComponent,
     TestQuyTrinhComponent,
     NhapvattumodalthemvattuComponent,
+    KiemDinhTaiSanComponent,
+    KiemDinhTaiSanModalComponent,
+    KiemDinhTaiSanPopupThemMoiComponent,
+    BaoHanhComponent,
+    BaoHiemComponent,
+    BaoHiemModalComponent,
+    BaoHiemPopupThemmoiComponent,
+    BaoHanhPopupComponent,
   ],
   imports: [
     CommonModule,

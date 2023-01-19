@@ -21,6 +21,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
   childModalOpt: any = null;
   listPhanXuong: any = [];
   listCongDoan: any = [];
+  listCongThuc: any = [];
   listloaisoi: any = [];
   listDonViNangSuat: any = [];
   khongclicknhieu: any = false;
@@ -33,6 +34,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
   filter: any = {
     KeyWord: ''
   };
+  lstdmItem_Copy: any = [];
   mapCongDoan: any = {
     THO: 'SOI',
     GHEPDAURA: 'SOI',
@@ -74,12 +76,14 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
 
   GetListdmTieuChiChatLuongBanChePham(CongDoan){
     this.sanXuatService.dmTieuChiChatLuongsoi().GetListdmTieuChiBanChePham(CongDoan).subscribe((res: any) => {
+      this.listCongThuc = res;
       this.listdmTieuChiBanChePham = mapArrayForDropDown(res, 'Ten', 'Id');
       this.listdmTieuChiBanChePham.forEach(dmTieuChi => {
           let data: any = {Id: "",
                           IddmTieuChiBanChePham: dmTieuChi.value }
           this.newTableItem.listdmTieuChiBanChePham.push(data);
       });
+      this.look(this.listCongThuc);
     })
   }
   mapHienThi(array: Array<any>) {
@@ -90,6 +94,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       }
     }))
   }
+
   GetListPhanXuong() {
     this.sanXuatService.GetOptions().GetPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
@@ -161,6 +166,8 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       });
       this.item.lstdmItem = this.item.lstdmItem.concat(listdatapush);
       this.item.lstdmItem.filter(obj => obj.isDelete = obj.isXoa);
+      this.lstdmItem_Copy = [...this.item.lstdmItem];
+      this.look(this.listCongThuc);
     }).catch(er => console.log(er))
     this.voiPintable.active();
   }
@@ -278,6 +285,8 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
   getBanChePham() {
     this.sanXuatService.dmPhanNhomMaySanXuat().GetdmPhanNhomMayBanChePham(this.item.Id).subscribe((res: any) => {
       this.item = res;
+      this.lstdmItem_Copy = [...this.item.lstdmItem];
+      this.look(this.listCongThuc);
       if (this.childModalOpt === 'SOI') {
         this.GetListLoaiSoi();
         let data1 = {
@@ -320,4 +329,55 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       }
     })
   }
+
+  Search() {
+    if (this.filter.Keyword !== null && this.filter.Keyword !== undefined && this.filter.Keyword.trim() !== '') {
+      this.item.lstdmItem = (this.lstdmItem_Copy.filter((ele: any) => ele.Ne !== null && 
+      (
+        ele.Ne.toString().toLowerCase().includes(this.filter.Keyword.toLowerCase()) |
+        ele.TendmLoaiSoi.toString().toLowerCase().includes(this.filter.Keyword.toLowerCase()) 
+      )
+      ));
+    }
+    else this.item.lstdmItem = this.lstdmItem_Copy;
+  }
+
+  resetFilter() {
+    this.filter = {};
+    this.Search();
+  }
+
+  Tinh(index) {
+    this.listCongThuc.forEach((ele) => {
+      let obj = this.item.lstdmItem[index].listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === ele.Id)
+      if (obj && ele.CongThuc) {
+        obj.Disabled = true;
+        obj.substrings = ele.CongThuc.split("|");
+        obj.substrings.forEach((sub, index_con) => {
+          let opp = this.listCongThuc.find((thamso) => thamso.Ma === sub)
+          if (opp) {
+            let ItemGiaTri = this.item.lstdmItem[index].listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === opp.Id)
+            if (ItemGiaTri)
+              obj.substrings[index_con] = ItemGiaTri.GiaTri;
+          }
+        });
+        obj.text = obj.substrings.join('');
+        obj.GiaTri = eval(obj.text);
+      }
+    });
+  }
+
+  look(list) {
+    console.log(this.item);
+    
+    list.forEach((ele) => {
+      this.item.lstdmItem.forEach(item => {
+        let obj =item.listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === ele.Id);
+        if (obj && ele.CongThuc) {
+          obj.Disabled = true;
+        }
+      });
+    })
+  }
+
 }

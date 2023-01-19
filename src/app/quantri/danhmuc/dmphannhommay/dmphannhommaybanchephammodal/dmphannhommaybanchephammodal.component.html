@@ -101,13 +101,15 @@
                 </div>
                 <div class="p-d-flex p-flex-row">
                     <div class="p-inputgroup">
-                        <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.KeyWord"
-                            (keyup.enter)="TimKiem(true)" class="p-inputtext-sm" pInputText />
+                        <!-- <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.KeyWord"
+                            (keyup.enter)="TimKiem(true)" class="p-inputtext-sm" pInputText /> -->
+                            <input #inputtt2 type="text" [(ngModel)]="filter.Keyword" pInputText placeholder="Tìm kiếm"
+                        (keyup.enter)="Search()" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
                             class="p-button-secondary p-button-text" (click)="resetFilter()" pTooltip="Làm mới"
                             showDelay="1000" tooltipPosition="bottom"></button>
                         <button type="button" pButton pRipple icon="pi pi-search"
-                            class="p-button-secondary p-button-sm p-button-text" pTooltip="Tìm kiếm" showDelay="1000"
+                            class="p-button-secondary p-button-sm p-button-text" (click)="Search()" pTooltip="Tìm kiếm" showDelay="1000"
                             tooltipPosition="bottom"></button>
                     </div>
                 </div>
@@ -239,7 +241,7 @@
 
         <!--  -->
 
-        <div class="p-col-12 p-p-0 pintable-container bg-white" style="height: 60vh;" voiPintable [pinnedCols]="7">
+        <div class="p-col-12 p-p-0 pintable-container bg-white" style="height: 60vh;" voiPintable [pinnedCols]="3">
             <table>
                 <thead>
                     <tr>
@@ -291,7 +293,8 @@
                             </td> -->
                             <ng-container *ngFor="let col of item.listdmTieuChiBanChePham">
                                 <td class="tc-w-150"> 
-                                    <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="col.GiaTri">
+                                    <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="col.GiaTri"
+                                    [disabled]="col.Disabled" (onBlur)="Tinh(i)">
                                     </p-inputNumber>
                                 </td>
                             </ng-container>
