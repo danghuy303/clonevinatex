@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
@@ -26,12 +27,19 @@ export class DenghixulisucoComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "BAOCAOSUCOSUACHUA";
   listPhanXuong: any = [];
+  $sub!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
-    private activatedRoute: ActivatedRoute, private router: Router,) { }
+    private activatedRoute: ActivatedRoute, private router: Router,) {
+      this.$sub = this.store.getNhaMay().subscribe(res => {
+        if (res) {
+            this.ngOnInit()
+        }
+    })
+     }
 
   ngOnInit(): void {
     this.GetListdmPhanXuong();
@@ -77,7 +85,7 @@ export class DenghixulisucoComponent implements OnInit {
     })
   }
   GetListdmPhanXuong() {
-    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

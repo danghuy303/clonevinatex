@@ -80,6 +80,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       this.SluongListQuyTrinhCanXuLy = res.SoLuong;
       this.listQuyTrinh = res.Items;
     })
+    this.IdNhaMay = this.store.getCurrent();
   };
 
   getListNhaMay() {
@@ -98,6 +99,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   }
   setGlobalNhaMay(event) {
     this.store.setNhaMay(event.value);
+    this.GetListQuyTrinhCanXuLy();
   }
   open(event) {
     this.listNoti.toggle(event);
@@ -1169,14 +1171,14 @@ export class QuantriComponent implements OnInit, OnDestroy {
                 },
               },
               {
-                label: "Quy trình kiểm định tài sản",
+                label: "Thông tin kiểm định",
                 routerLink: "/quantri/taisan/kiem-dinh-tai-san/0",
                 command: () => {
                   this.close();
                 },
               },
               {
-                label: "Quy trình bảo hiểm",
+                label: "Thông tin bảo hiểm",
                 routerLink: "/quantri/taisan/bao-hiem/0",
                 command: () => {
                   this.close();

@@ -3,8 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { CapnhatthuvientaisanchitietComponent } from '../capnhatthuvientaisanchitiet/capnhatthuvientaisanchitiet.component';
@@ -16,7 +18,7 @@ import { ModalthongtinchitiettaisanComponent } from '../modal/modalthongtinchiti
   styleUrls: ['./capnhatthuvien.component.css']
 })
 export class CapnhatthuvienComponent implements OnInit {
-
+  $sub!: Subscription;
   filter: any = {};
   Keyword: any = '';
   eAction: any = "";
@@ -34,7 +36,14 @@ export class CapnhatthuvienComponent implements OnInit {
     private _servicesSanXuat: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { }
+    private store: StoreService
+  ) { 
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
@@ -50,7 +59,7 @@ export class CapnhatthuvienComponent implements OnInit {
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       res.push({ Ten: "Chưa có bộ phận sử dụng", Id: "Chưa có bộ phận sử dụng" })
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })

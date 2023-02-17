@@ -7,6 +7,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaoHiemModalComponent } from './bao-hiem-modal/bao-hiem-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-bao-hiem',
@@ -14,7 +15,7 @@ import { BaoHiemModalComponent } from './bao-hiem-modal/bao-hiem-modal.component
   styleUrls: ['./bao-hiem.component.css']
 })
 export class BaoHiemComponent implements OnInit {
-
+  $sub!: Subscription;
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
@@ -33,7 +34,11 @@ export class BaoHiemComponent implements OnInit {
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { }
+  ) { this.$sub = this.store.getNhaMay().subscribe(res => {
+    if (res) {
+        this.ngOnInit()
+    }
+}) }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {

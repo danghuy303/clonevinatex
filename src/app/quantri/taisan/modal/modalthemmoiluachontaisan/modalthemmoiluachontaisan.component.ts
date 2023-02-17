@@ -71,7 +71,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     this.item.isCanDuTru = false;
   }
   GetListdmPhanXuong() {
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

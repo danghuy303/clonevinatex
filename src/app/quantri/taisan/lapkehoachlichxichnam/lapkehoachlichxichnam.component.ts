@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
@@ -35,6 +36,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   currentYear: any = 0;
   checkBtnChonTaiSan: boolean;
   keyword:any = '';
+  $sub!: Subscription;
 
   constructor(
     private _modal: NgbModal,
@@ -44,7 +46,13 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
-  ) { }
+  ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+   }
 
   ngOnInit(): void {
     this.currentYear = new Date().getFullYear();
@@ -81,7 +89,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listCongDoan = mapArrayForDropDown(values[1], "Ten", "Ma");
     });
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.KiemTraButtonModal();

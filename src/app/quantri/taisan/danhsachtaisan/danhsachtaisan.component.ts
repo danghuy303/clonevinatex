@@ -11,6 +11,8 @@ import { TreeNode } from 'primeng/api';
 // import { ModalthongtinchitiettaisanComponent } from "../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component";
 import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
 import { ModalthongtinchitiettaisanComponent } from "../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component";
+import { Subscription } from "rxjs";
+import { StoreService } from "src/app/services/store.service";
 // import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
 
 @Component({
@@ -29,6 +31,7 @@ export class DanhsachtaisanComponent implements OnInit {
   items: TreeNode[];
   listLoaiTaiSan: any = [];
   listPhanXuong: any = [];
+  $sub!: Subscription;
 
   constructor(
     public _modal: NgbModal,
@@ -37,15 +40,22 @@ export class DanhsachtaisanComponent implements OnInit {
     private _serviceTaiSan: TaisanService,
     private _servicesSanXuat: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private store: StoreService
+  ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+   }
 
   ngOnInit(): void {
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       let nhaMay = [
         {
           Id: 'Chưa có bộ phận sử dụng',

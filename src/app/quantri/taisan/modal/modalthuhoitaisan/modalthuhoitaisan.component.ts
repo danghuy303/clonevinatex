@@ -64,7 +64,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   }
 
   GetListdmPhanXuong() {
-    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

@@ -3024,4 +3024,9 @@ export class SanXuatService {
         return this.http.post(url + "DanhMuc/GetALLdmNhaCungUngHienHang", data, httpOptions)
     }
 
+    GetListdmPhanXuongForIdDuAn (IdDuAn?) {
+        return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn ? IdDuAn : this.store.getCurrent()}`, httpOptions)
+    }
+
+
 }

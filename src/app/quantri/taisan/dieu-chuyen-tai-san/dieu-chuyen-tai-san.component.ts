@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
@@ -26,6 +27,7 @@ export class DieuChuyenTaiSanComponent implements OnInit {
   idUser: string = '';
   listdmPhanXuong: any = [];
   IdDuAn: any;
+  $sub!: Subscription;
 
   constructor(
     public _modal: NgbModal,
@@ -36,6 +38,11 @@ export class DieuChuyenTaiSanComponent implements OnInit {
     private _serviceAuth: AuthenticationService,
     private store: StoreService,
   ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
     this.idUser = this._serviceAuth.currentUserValue.Id;
     this.IdDuAn = this.store.getCurrent();
   }

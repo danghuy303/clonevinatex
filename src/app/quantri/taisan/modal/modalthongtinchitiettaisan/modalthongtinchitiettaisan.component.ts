@@ -55,7 +55,7 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
      
     });
 
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

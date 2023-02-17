@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
+import { StoreService } from 'src/app/services/store.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
@@ -12,11 +14,19 @@ export class BaocaotonghoptaisanchiphivattuComponent implements OnInit, OnChange
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   listVatTu: any = [];
   tongGiaTriVatTu: 0;
+  $sub!: Subscription;
 
   constructor(
     public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
-  ) { }
+    private store: StoreService
+  ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.GetListChiPhiVatTu();

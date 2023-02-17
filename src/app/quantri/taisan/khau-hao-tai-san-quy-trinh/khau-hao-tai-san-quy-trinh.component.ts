@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
@@ -25,6 +26,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
   idUser: string = '';
   listdmPhanXuong: any = [];
   checkKhauHaoAll: boolean;
+  $sub!: Subscription;
 
   constructor(
     public _modal: NgbModal,
@@ -34,7 +36,13 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
     private activatedRoute: ActivatedRoute, private router: Router,
     private _serviceAuth: AuthenticationService,
     private store: StoreService,
-  ) { }
+  ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+   }
 
   ngOnInit(): void {
     this.idUser = this._serviceAuth.currentUserValue.Id;

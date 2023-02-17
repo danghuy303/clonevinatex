@@ -67,7 +67,7 @@ ThoihancungcapvattumodalComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
     });
 
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.ListNhaCungUng();

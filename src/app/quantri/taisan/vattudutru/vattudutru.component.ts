@@ -9,6 +9,8 @@ import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
 import { ModalthongtinchitiettaisanComponent } from "../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component";
+import { Subscription } from "rxjs";
+import { StoreService } from "src/app/services/store.service";
 
 @Component({
   selector: 'app-vattudutru',
@@ -24,6 +26,7 @@ export class VattudutruComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: TreeNode[];
   listLoaiTaiSan: any = [];
+  $sub!: Subscription;
 
   constructor(
     public _modal: NgbModal,
@@ -32,8 +35,15 @@ export class VattudutruComponent implements OnInit {
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private store: StoreService
+  ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+   }
 
   ngOnInit(): void {
     // if (this.item.NgayThuHoiUnix !== 0) {

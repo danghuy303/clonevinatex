@@ -3,9 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { PintableDirective } from 'voi-lib';
@@ -51,13 +53,21 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   tongGiaTriVatTu: 0;
   tongGiaTriChiPhi: 0;
   listCongDoan: any = [];
+  $sub!: Subscription;
 
   constructor(
     public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
     private _servicesSanXuat: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,
-  ) { }
+    private store: StoreService
+  ) { 
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+  }
 
   ngOnInit(): void {
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
@@ -82,7 +92,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
     })
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.loadData();

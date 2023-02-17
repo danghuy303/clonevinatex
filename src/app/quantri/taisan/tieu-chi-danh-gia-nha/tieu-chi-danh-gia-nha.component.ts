@@ -8,6 +8,8 @@ import { TieuChiDanhGiaModalComponent } from './tieu-chi-danh-gia-modal/tieu-chi
 import {TreeTableModule} from 'primeng/treetable';
 import {TreeNode} from 'primeng/api';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
+import { Subscription } from 'rxjs';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-tieu-chi-danh-gia-nha',
@@ -25,13 +27,21 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
   fileUpload: any;
   index: any;
   selectedNodes: TreeNode[];
+  $sub!: Subscription;
 
   constructor(
     private taiSanService: TaisanService,
     public modal: NgbModal,
     public toast: ToastrService,
-    public confirmService: ConfirmationService
-  ) { }
+    public confirmService: ConfirmationService,
+    private store: StoreService
+  ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+   }
 
   ngOnInit(): void {
     this.ResetListTieuChi();

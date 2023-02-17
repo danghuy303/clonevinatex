@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { QuyTrinh } from './quy-trinh';
@@ -19,13 +21,21 @@ export class LichSuSuDungComponent implements OnInit {
   listdmPhanXuong: any = [];
   listdmLoaiTaiSan: any = [];
   quyTrinh: any = QuyTrinh;
+  $sub!: Subscription;
 
   constructor(
     private _serviceTaiSan: TaisanService,
     private _serviceDungChung: SanXuatService,
     public _modal: NgbModal,
-    private _serviceDmTaiSan: DanhmuctaisanService
-  ) { }
+    private _serviceDmTaiSan: DanhmuctaisanService,
+    private store: StoreService
+  ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+   }
 
   ngOnInit(): void {
     this.ResetData();

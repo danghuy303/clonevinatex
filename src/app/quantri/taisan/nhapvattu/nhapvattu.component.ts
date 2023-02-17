@@ -2,6 +2,7 @@ import { Validatable } from '@amcharts/amcharts4/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -36,6 +37,8 @@ export class NhapvattuComponent implements OnInit {
   NameFile: string;
   title: any = '';
   tongThanhTien: any = 0;
+  $sub!: Subscription;
+
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -44,7 +47,14 @@ export class NhapvattuComponent implements OnInit {
     public store: StoreService,
     public _modal: NgbModal,
     private _danhMucTaiSan: DanhmuctaisanService,
-  ) { }
+  ) { 
+
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+  }
 
   ngOnInit(): void {
     if (this.item.NgayUnix !== 0) {
@@ -119,7 +129,7 @@ export class NhapvattuComponent implements OnInit {
     this.Tong();
   }
   GetListdmPhanXuong() {
-    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

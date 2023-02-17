@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { PintableDirective } from 'voi-lib';
@@ -27,11 +29,19 @@ export class LichxichthangComponent implements OnInit {
   labelThang: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
     '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
     MaCongDoan: any = '';
+    $sub!: Subscription;
 
   constructor(public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
     private _servicesSanXuat: SanXuatService,
-    private _danhMucTaiSan: DanhmuctaisanService,) { }
+    private _danhMucTaiSan: DanhmuctaisanService,
+    private store: StoreService) { 
+      this.$sub = this.store.getNhaMay().subscribe(res => {
+        if (res) {
+            this.ngOnInit()
+        }
+    })
+    }
 
   ngOnInit(): void {
     this.filter.Ngay = new Date();
@@ -42,7 +52,7 @@ export class LichxichthangComponent implements OnInit {
     this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
     })
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

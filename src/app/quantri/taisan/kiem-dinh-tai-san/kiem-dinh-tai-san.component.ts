@@ -7,6 +7,7 @@ import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KiemDinhTaiSanModalComponent } from './kiem-dinh-tai-san-modal/kiem-dinh-tai-san-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-kiem-dinh-tai-san',
@@ -27,13 +28,19 @@ export class KiemDinhTaiSanComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "QUYTRINHKIEMDINH";
   listKiemDinh: any = [];
+  $sub!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { }
+  ) { this.$sub = this.store.getNhaMay().subscribe(res => {
+    if (res) {
+        this.ngOnInit()
+    }
+}) }
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
