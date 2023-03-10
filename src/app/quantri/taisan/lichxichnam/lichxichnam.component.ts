@@ -48,7 +48,7 @@ export class LichxichnamComponent implements OnInit {
 
   ngOnInit(): void {
 
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+    for (let i = new Date().getFullYear()-10; i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
     this.filter.Ngay = new Date().getFullYear();
