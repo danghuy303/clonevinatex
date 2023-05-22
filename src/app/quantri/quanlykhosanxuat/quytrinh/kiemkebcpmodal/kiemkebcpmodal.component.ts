@@ -182,10 +182,10 @@ export class KiemkebcpmodalComponent implements OnInit {
           });
         })
       }
-      // if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') {
-      //   this.check = false;
-      //   this.getListCanDoiChuyenKiemKe();
-      // }
+      if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') { // mở ra cho c giang test
+        this.check = false;
+        this.getListCanDoiChuyenKiemKe();
+      }
     }
   }
   getListdmHangMuc() {

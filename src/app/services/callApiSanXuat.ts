@@ -3028,5 +3028,28 @@ export class SanXuatService {
         return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn ? IdDuAn : this.store.getCurrent()}`, httpOptions)
     }
 
+    // Bán chế phẩm tô hiệu
+    KiemKeBanChePham() {
+        let url = API.SCM;
+        return {
+            // GetList: (data) => {
+            //     data.IdDuAn = this.store.getCurrent();
+            //     return this.http.post(url + 'GetListPhieuNhapHoiAm', data, httpOptions);
+            // },
+            // Get: (Id) => {
+            //     return this.http.get(url + `GetPhieuNhapHoiAm?Id=${Id}`, httpOptions);
+            // },
+            // Set: (data) => {
+            //     data.IdDuAn = this.store.getCurrent();
+            //     return this.http.post(url + 'SetPhieuNhapHoiAm', data, httpOptions);
+            // },
+            GetListMayCongDoanKiemKeBanChePhamToHieu: () => {
+                return this.http.get(url +'KiemKeBanChePham/'+'GetListMayCongDoanKiemKeBanChePhamToHieu', httpOptions);
+            },
+            GetKhoiTaoPhieuKiemKeBanChePhamToHieu: (data) => {
+                return this.http.post(url +'KiemKeBanChePham/'+'GetKhoiTaoPhieuKiemKeBanChePhamToHieu',data, httpOptions);
+            },
+        }
+    }
 
 }

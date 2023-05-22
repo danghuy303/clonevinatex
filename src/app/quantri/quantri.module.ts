@@ -313,6 +313,8 @@ import { ThongkesanluongnhanhmodalComponent } from './quanlykhosanxuat/thongke/t
 import { ModalQuyTrinhCanXuLyComponent } from './modal/modal-quy-trinh-can-xu-ly/modal-quy-trinh-can-xu-ly.component';
 import { Con2BaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/con2-baocaoca/con2-baocaoca.component';
 import { DauxeBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/dauxe-baocaoca/dauxe-baocaoca.component';
+import { KiemTraBanChePhamToHieuComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/kiem-tra-ban-che-pham-to-hieu/kiem-tra-ban-che-pham-to-hieu.component';
+import { KiemTraBanChePhamToHieuModalComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/modal/kiem-tra-ban-che-pham-to-hieu-modal/kiem-tra-ban-che-pham-to-hieu-modal.component';
 
 @NgModule({
   declarations: [
@@ -572,6 +574,8 @@ import { DauxeBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/daux
     ModalQuyTrinhCanXuLyComponent,
     Con2BaocaocaComponent,
     DauxeBaocaocaComponent,
+    KiemTraBanChePhamToHieuComponent,
+    KiemTraBanChePhamToHieuModalComponent,
   ],
   imports: [
     HttpClientModule,
