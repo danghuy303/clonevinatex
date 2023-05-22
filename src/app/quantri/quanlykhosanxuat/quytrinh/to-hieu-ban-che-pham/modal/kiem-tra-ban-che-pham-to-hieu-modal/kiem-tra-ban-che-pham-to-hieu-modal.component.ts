@@ -13,7 +13,6 @@ import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
 
   opt = '';
-  number:number = 2;
   Nam:any;
   kiemke: any = {};
   item: any = {};
