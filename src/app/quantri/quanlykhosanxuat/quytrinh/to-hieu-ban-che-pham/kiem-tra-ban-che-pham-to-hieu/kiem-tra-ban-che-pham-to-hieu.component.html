@@ -3,51 +3,47 @@
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
-            ></button>
+        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList()">
-            </p-calendar>
+            <p-dropdown [filter]="true" [options]="listMay" placeholder="Công đoạn" [(ngModel)]="filter.CongDoan"
+                (onChange)="GetList(true)" [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetList(true)">
+            <p-calendar inputStyleClass="p-inputtext-sm" view="month" dateFormat="mm/yy" [locale]="lang"
+                [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" [showIcon]="true" inputId="icon"
+                [(ngModel)]="filter.Nam" placeholder="Tháng/Năm" (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                (keyup.enter)="GetList()" [(ngModel)]="filter.KeyWord" />
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="filter.Keyword"
+                (keyup.enter)="GetList(true)" />
             <button type="button" pButton pRipple icon="pi pi-search"
-                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)" pTooltip="Tìm kiếm"
-                showDelay="1000" tooltipPosition="bottom"></button>
+                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh"
                 class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>
     </div>
 </div>
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" >
+    <p-tabPanel header="Chi tiết">
     </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" >
-    </p-tabPanel>
-    <p-tabPanel header="Tổng hợp" >
+    <p-tabPanel header="Tổng hợp">
     </p-tabPanel>
 </p-tabView>
 <div class="p-mt-3">
-    <p-table styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
+    <p-table [value]="items" styleClass="p-datatable-sm p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
             <colgroup>
+                <col style="width: 50px;">
+                <col style="width: 200px;">
+                <col style="width: 200px;">
+                <col style="width: 100px;">
+                <col style="width: 200px;" *ngIf="TabTrangThai===0">
                 <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
+                <!-- <col style="width: 150px;"> -->
+                <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -56,37 +52,42 @@
                 <th class="text-center">Số phiếu</th>
                 <th class="text-center">Phân xưởng</th>
                 <th class="text-center">Tháng /Năm</th>
-                <th class="text-center">Máy</th>
-                <th class="text-center">Ghi chú</th>
-                <th class="text-center">Trang thái</th>
+                <th class="text-center" *ngIf="TabTrangThai===0">Máy</th>
+                <th class="text-center">Nội dung</th>
+                <!-- <th class="text-center">Trạng thái</th> -->
                 <th class="text-center">Thao tác</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <!-- <tr>
+            <tr>
                 <td class="text-center">
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center">
                     {{item.SoQuyTrinh}}
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                    {{item.TendmPhanXuong}}
+                </td>
+                <td class="text-center"> {{item.Thang}}/{{item.Nam}}</td>
+                <td *ngIf="TabTrangThai===0"> {{item.TenCongDoan}}</td>
+                <td> {{item.GhiChu}}</td>
+                <!-- <td class="text-center"> {{item.TenTrangThai}}</td> -->
+                <td class="text-center">
+                    <button *ngIf="TabTrangThai===0" pButton pRipple type="button" icon="pi pi-pencil"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2"
                         (click)="changeParam(item.Id)"></button>
+                    <button *ngIf="TabTrangThai===1" pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                        (click)="ViewTongHop(item)"></button>
                 </td>
-            </tr> -->
+            </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <!-- <div class="p-d-flex p-ai-center p-jc-between">
+            <div class="p-d-flex p-ai-center p-jc-between">
                 Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
                     [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
-            </div> -->
+            </div>
         </ng-template>
     </p-table>
 </div>

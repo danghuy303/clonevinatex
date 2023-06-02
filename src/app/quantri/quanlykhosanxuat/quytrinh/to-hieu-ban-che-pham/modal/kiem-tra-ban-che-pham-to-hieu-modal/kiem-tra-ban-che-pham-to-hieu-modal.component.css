@@ -1,0 +1,4 @@
+.noidung :host ::ng-deep .p-inputtext, .p-inputtext-sm.p-inputtext {
+    width: 98.4% !important;
+} 
+
