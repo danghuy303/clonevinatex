@@ -57,8 +57,7 @@ export class ImportdanhmucmodelComponent implements OnInit {
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
   }
   accept() {
-    console.log(this.TepImport)
-    if(this.Name == 'dinhmuctieuchichatluongsoi'){
+    if (this.Name == 'dinhmuctieuchichatluongsoi') {
       this.service.ImportDanhSachChiTieuChatLuongTheoSanPham(this.IdDuAn, '', this.TepImport.TenGui).subscribe((res: any) => {
         if (res.State === 1) {
           this._modalActive.close({ mess: 'Cập nhật thành công!' })
@@ -67,7 +66,20 @@ export class ImportdanhmucmodelComponent implements OnInit {
         }
       })
     }
-    else{
+    else if (this.Name == 'BCP') { //Import BÁn chế phẩm tô hiệu
+      let data = {
+        Id:this.importFunc,
+        FileName:this.TepImport.TenGui
+      }
+      this.service.KiemKeBanChePham().ImportKiemKeBanChePhamToHieu(data).subscribe((res: any) => {
+        if (res.State === 1) {
+          this._modalActive.close(res)
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
+    }
+    else {
       this.service.Importdm(this.importFunc, this.TepImport.TenGui).subscribe((res: any) => {
         if (res.State === 1) {
           this._modalActive.close({ mess: 'Cập nhật thành công!' })
@@ -75,10 +87,10 @@ export class ImportdanhmucmodelComponent implements OnInit {
           this._toastr.error(res.message);
         }
       })
-    }    
+    }
   }
   acceptThongSoChatLuong() {
-    if(this.Loai == 'MIC'){
+    if (this.Loai == 'MIC') {
       this.service.PhieuNhapLoBong_ChatLuong().Import_Mic(this.data.Id, this.TepImport.TenGui).subscribe((res: any) => {
         if (res.State === 1) {
           this._modalActive.close({ mess: 'Cập nhật thành công!' })
@@ -87,16 +99,16 @@ export class ImportdanhmucmodelComponent implements OnInit {
         }
       })
     }
-    else{
+    else {
       this.service.PhieuNhapLoBong_ChatLuong().Import(this.data.Id, this.TepImport.TenGui).subscribe((res: any) => {
-      if (res.State === 1) {
-        this._modalActive.close({ mess: 'Cập nhật thành công!' })
-      } else {
-        this._toastr.error(res.message);
-      }
-    })
+        if (res.State === 1) {
+          this._modalActive.close({ mess: 'Cập nhật thành công!' })
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
     }
-  } 
+  }
 
   taiTepMau() {
     window.open(API.baseUrl + this.mapTepMauURL[this.importFunc]);

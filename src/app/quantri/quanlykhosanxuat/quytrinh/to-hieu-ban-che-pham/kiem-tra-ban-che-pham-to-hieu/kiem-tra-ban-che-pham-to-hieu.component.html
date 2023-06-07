@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Kiểm kê kho bán chế phẩm tô hiệu</h4>
+    <h4 style="color:#1f2779">Kiểm kê kho bán chế phẩm </h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -53,7 +53,7 @@
                 <th class="text-center">Phân xưởng</th>
                 <th class="text-center">Tháng /Năm</th>
                 <th class="text-center" *ngIf="TabTrangThai===0">Máy</th>
-                <th class="text-center">Nội dung</th>
+                <th class="text-center" *ngIf="TabTrangThai===0">Nội dung</th>
                 <!-- <th class="text-center">Trạng thái</th> -->
                 <th class="text-center">Thao tác</th>
             </tr>
@@ -71,7 +71,7 @@
                 </td>
                 <td class="text-center"> {{item.Thang}}/{{item.Nam}}</td>
                 <td *ngIf="TabTrangThai===0"> {{item.TenCongDoan}}</td>
-                <td> {{item.GhiChu}}</td>
+                <td *ngIf="TabTrangThai===0"> {{item.GhiChu}}</td>
                 <!-- <td class="text-center"> {{item.TenTrangThai}}</td> -->
                 <td class="text-center">
                     <button *ngIf="TabTrangThai===0" pButton pRipple type="button" icon="pi pi-pencil"

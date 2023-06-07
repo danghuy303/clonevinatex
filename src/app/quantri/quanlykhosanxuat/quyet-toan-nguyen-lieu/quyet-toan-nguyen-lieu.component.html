@@ -56,50 +56,9 @@
     </div>
 
     <!-- third chart: Biểu đồ Chi tiết từng ngày -->
-    <div class="third-chart row col-12 p-0 ml-0 mr-0">
-        <div class="col-12 bg-white m-0 p-3">
-            <h6 class="text-center m-0" style="font-weight: bold">
-                TỶ LỆ CHẾ THÀNH (Tháng {{thang}})
-            </h6>
-            <!-- <div class="p-col-12 p-p-0 pintable-container" style="height: calc(36vh) !important" voiPintable
-                [pinnedCols]="pin">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="tc-w-150" *ngFor="let kiemkehead of item.listHeader3"
-                                [attr.rowspan]="kiemkehead.rowspan" [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'
-                    }">
-                                {{ kiemkehead.name }}
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="tc-w-150" *ngFor="let kiemkehead of item.listHeader3" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''
-                    }">
-                                {{ kiemkehead.name }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ng-container *ngFor="let item1 of item.listData3;let i = index">
-                            <tr [style]="{fontWeight:item1.bold,color:item1.color}">
-                                <td class="text-center tc-w-150" style="background-color: white;z-index: 999">{{
-                                    item1.STT }}</td>
-                                <td class="tc-w-150 " style="background-color: white;z-index: 999">{{ item1.ThanhPhan }}
-                                </td>
-                                <td class="tc-w-150" *ngFor="let data of item1?.listGiaTri"
-                                    style="background-color: white;z-index: 999">
-                                    <div>
-                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
-                                            [(ngModel)]="data.GiaTri" [disabled]="data.isDisable"></p-inputNumber>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-container>
-                    </tbody>
-                </table>
-            </div> -->
+    <div class="top-charts row col-12 mx-0 p-0">
+        <div class="first-chart bg-white p-3">
+            <h6 class="text-center m-0" style="font-weight: bold"> TỶ LỆ CHẾ THÀNH (Tháng {{thang}})</h6>
             <div class="pt-3 ">
                 <p-table [value]="item?.listData3" [scrollable]="true" scrollHeight="400px"
                     styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
@@ -140,11 +99,9 @@
                 </p-table>
             </div>
         </div>
-    </div>
-    <div class="row col-12 p-0 ml-0 mr-0">
-        <div class="col-12 bg-white m-0 p-3">
+        <div class="second-chart bg-white p-3">
             <h6 class="text-center m-0" style="font-weight: bold">
-                SẢN LƯỢNG BÔNG PHẾ NHẬP KHO
+                TỶ LỆ BÔNG PHẾ
             </h6>
             <div class="pt-3">
                 <p-table [value]="itemBongPhe?.listData1" [scrollable]="true" scrollHeight="400px"

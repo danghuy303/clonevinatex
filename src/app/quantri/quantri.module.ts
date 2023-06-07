@@ -315,6 +315,8 @@ import { Con2BaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/con2-
 import { DauxeBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/dauxe-baocaoca/dauxe-baocaoca.component';
 import { KiemTraBanChePhamToHieuComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/kiem-tra-ban-che-pham-to-hieu/kiem-tra-ban-che-pham-to-hieu.component';
 import { KiemTraBanChePhamToHieuModalComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/modal/kiem-tra-ban-che-pham-to-hieu-modal/kiem-tra-ban-che-pham-to-hieu-modal.component';
+import { BanChePhamToHieuTongHopComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/modal/ban-che-pham-to-hieu-tong-hop/ban-che-pham-to-hieu-tong-hop.component';
+import { QuyetToanNguyenLieuComponent } from './quanlykhosanxuat/quyet-toan-nguyen-lieu/quyet-toan-nguyen-lieu.component';
 
 @NgModule({
   declarations: [
@@ -576,6 +578,8 @@ import { KiemTraBanChePhamToHieuModalComponent } from './quanlykhosanxuat/quytri
     DauxeBaocaocaComponent,
     KiemTraBanChePhamToHieuComponent,
     KiemTraBanChePhamToHieuModalComponent,
+    BanChePhamToHieuTongHopComponent,
+    QuyetToanNguyenLieuComponent,
   ],
   imports: [
     HttpClientModule,

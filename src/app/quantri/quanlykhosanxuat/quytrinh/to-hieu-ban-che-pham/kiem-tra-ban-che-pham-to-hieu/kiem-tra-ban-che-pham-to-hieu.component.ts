@@ -47,7 +47,7 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.GetListMayCongDoanKiemKeBanChePhamToHieu();
     this.GetList();
     this.activatedRoute.params.subscribe((res: any) => {
@@ -76,7 +76,7 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
     this.GetList(true);
   }
 
-  GetList(reset?) {
+  GetList(reset?: boolean) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
@@ -113,29 +113,28 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
     modalRef.componentInstance.title = 'Chọn máy kiểm kê';
     modalRef.componentInstance.isKiemKe = true;
     modalRef.result.then(res => {
-
     }).catch(er => console.log(er))
       .finally(() => {
-        this.GetList();
+        this.GetList(false);
         this.changeParam(0);
       })
   }
   update(item) {
     let modalRef = this._modal.open(KiemTraBanChePhamToHieuModalComponent, {
-      size: "fullscreen-100",
+      size: "lg",
       backdrop: "static",
       keyboard: false,
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.title = 'Kiểm kê bán chế phẩm tô hiệu';
-    modalRef.componentInstance.item = item.objectReturn;
+    modalRef.componentInstance.title = 'Kiểm kê kho bán chế phẩm';
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.objectReturn));
     modalRef.result
-      .then(data => {
+      .then(res => {
+
       })
-      .catch(er => {
-      })
+      .catch(er => { })
       .finally(() => {
-        this.GetList();
+        // this.GetList(false);
         this.changeParam(0);
       });
   }
@@ -149,7 +148,7 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
           keyboard: false,
         });
         modalRef.componentInstance.opt = "edit";
-        modalRef.componentInstance.title = 'Tổng hợp kiểm kê bán chế phẩm tô hiệu';
+        modalRef.componentInstance.title = 'Tổng hợp kiểm kê kho bán chế phẩm';
         modalRef.componentInstance.item = res.objectReturn;
         modalRef.result
           .then(data => {
@@ -165,11 +164,11 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
 
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
-    this.GetList()
+    this.GetList(true)
   }
 
   changeTab(event) {
     this.TabTrangThai = event.index;
-    this.GetList();
+    this.GetList(true);
   }
 }

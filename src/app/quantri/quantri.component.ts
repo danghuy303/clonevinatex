@@ -313,8 +313,17 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
+          // {
+          //   label: "Quyết toán nguyên liệu",
+          //   routerLink: "/quantri/quantrisanxuat/quyettoannguyenlieu",
+          //   separator: this.checkmenu("DASHBOARD_TONGHOP"),
+          //   icon: "fas fa-circle",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
           {
-            label: "Thống kê bán chế phẩm",
+            label: "Báo cáo chất lượng bán chế phẩm",
             routerLink: "/quantri/quantrisanxuat/dashboardbanchepham",
             separator: this.checkmenu("DASHBOARD_TONGHOP"),
             icon: "fas fa-circle",
@@ -324,7 +333,30 @@ export class QuantriComponent implements OnInit, OnDestroy {
           },
         ],
       },
-
+      {
+        label: "Quyết toán nguyên liệu",
+        routerLink: "/quantri/quyettoannguyenlieu",
+        icon: "fas fa-warehouse",
+        // visible: !this.checkmenu("P_QUANTRISANXUAT"),
+        items: [
+          {
+            label: "Tổng hợp",
+            routerLink: "/quantri/quyettoannguyenlieu/quyettoannguyenlieu",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Kiểm kê bán chế phẩm",
+            routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham-tohieu/0",
+            icon: "fas fa-circle",
+            separator: this.checkmenu("KIEMKEBANCHEPHAMTOHIEU"),
+            command: () => this.close(),
+          },
+        ]
+      },
       // {
       //   label: "Quản trị tài sản",
       //   routerLink: "/quantri/quantritaisan",
@@ -495,12 +527,6 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Kiểm tra bán chế phẩm",
             routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham/0",
             separator: this.checkmenu("KIEMTRABANCHEPHAM"),
-            command: () => this.close(),
-          },
-          {
-            label: "Kiểm tra bán chế phẩm Tô Hiệu",
-            routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham-tohieu/0",
-            separator: this.checkmenu("KIEMKEBANCHEPHAMTOHIEU"),
             command: () => this.close(),
           },
         ],

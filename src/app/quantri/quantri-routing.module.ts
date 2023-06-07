@@ -115,6 +115,7 @@ import { DmCapHutDieuKhongComponent } from "./danhmuc/dm-cap-hut-dieu-khong/dm-c
 import { ThongkedieukhongComponent } from "./quanlykhosanxuat/thongke/thongkedieukhong/thongkedieukhong.component";
 import { ThongkesanluongnhanhComponent } from "./quanlykhosanxuat/thongke/thongkesanluongnhanh/thongkesanluongnhanh.component";
 import { KiemTraBanChePhamToHieuComponent } from "./quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/kiem-tra-ban-che-pham-to-hieu/kiem-tra-ban-che-pham-to-hieu.component";
+import { QuyetToanNguyenLieuComponent } from "./quanlykhosanxuat/quyet-toan-nguyen-lieu/quyet-toan-nguyen-lieu.component";
 
 const routes: Routes = [
   {
@@ -148,7 +149,10 @@ const routes: Routes = [
         path: "quantrisanxuat/tiendien",
         component: BaocaothongketiendienComponent,
       },
-
+      {
+        path: "quyettoannguyenlieu/quyettoannguyenlieu",
+        component: QuyetToanNguyenLieuComponent,
+      },
       {
         path: "quantrisanxuat/dashboardbanchepham",
         component: DashboardbanchephamComponent,

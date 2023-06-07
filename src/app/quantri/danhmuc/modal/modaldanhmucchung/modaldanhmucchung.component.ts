@@ -149,4 +149,5 @@ export class ModaldanhmucchungComponent implements OnInit {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Loai');
     })
   }
+
 }

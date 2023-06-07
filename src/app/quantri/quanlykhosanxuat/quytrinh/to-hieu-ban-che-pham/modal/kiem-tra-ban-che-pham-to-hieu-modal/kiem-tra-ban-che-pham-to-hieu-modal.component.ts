@@ -1,5 +1,6 @@
 import { number } from '@amcharts/amcharts4/core';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
@@ -34,6 +35,7 @@ export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
     private _services: SanXuatService,
     private _modal: NgbModal,
     private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -80,88 +82,93 @@ export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
         return false;
       }
     }
-      return true;
-    }
-
-    ChapNhan() {
-      if (this.ValidateData()) {
-        let data = {
-          CongDoan: this.kiemke.CongDoan,
-          // Thang: this.kiemke.Nam.getMonth() + 1,
-          // Nam: this.kiemke.Nam.getFullYear(),
-          Ngay: DateToUnix(this.kiemke.Nam),
-          IddmCaSanXuat: this.kiemke.IddmCaSanXuat,
-          IddmPhanXuong: this.kiemke.IddmPhanXuong,
-        }
-        this._services.KiemKeBanChePham().GetKhoiTaoPhieuKiemKeBanChePhamToHieu(data).subscribe((res: any) => {
-          this.toastr.success(res.message);
-          if (res.objectReturn) {
-            this.isKiemKe = !this.isKiemKe;
-            this.title = 'Kiểm kê bán chế phẩm tô hiệu';
-            this.item = res.objectReturn;
-            this.Nam = `${this.item.Thang}/${this.item.Nam}`
-          }
-          else this.item = {}
-        })
-      }
-    }
-
-    setData() {
-      let data = {
-        ...this.item,
-      };
-      return data
-    }
-
-    GhiLai() {
-      this._services.KiemKeBanChePham().Set(this.setData()).subscribe((res: any) => {
-        this.item = res.objectReturn;
-        this.toastr.success(res.message);
-      })
-      this.isKiemKeXoa = true
-    }
-
-    XoaQuyTrinh() {
-      let modalRef = this._modal.open(ModalthongbaoComponent, {
-        backdrop: "static",
-      });
-      modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
-      modalRef.result
-        .then((res) => {
-          this._services.KiemKeBanChePham().Delete(this.item).subscribe((res: any) => {
-            if (res.State === 1) {
-              this.toastr.success(res.message);
-              this.activeModal.close();
-            } else {
-              this.toastr.error('Có lỗi xảy ra!');
-            }
-          })
-        })
-        .catch((er) => console.log(er));
-    }
-
-    TinhBCP() {
-      this._services.KiemKeBanChePham().TinhPhieuKiemKeBanChePhamToHieu(this.item).subscribe((res: any) => {
-        this.item = res.objectReturn;
-        this.toastr.success(res.message);
-      })
-    }
-    NhapDuLieu() {
-      let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
-        backdrop: 'static',
-      })
-      modalRef.componentInstance.importFunc = this.item.Id;
-      modalRef.componentInstance.Name = "BCP";
-      modalRef.result.then(res => {
-        this.item = res.objectReturn;
-        this.toastr.success(res.message);
-      })
-        .catch(er => console.log(er))
-    }
-    XuatDuLieu() {
-      this._services.KiemKeBanChePham().ExportKiemKeBanChePham(this.item.Id).subscribe((res: any) => {
-        this._services.download(res.TenFile);
-      })
-    }
-
+    return true;
   }
+
+  ChapNhan() {
+    if (this.ValidateData()) {
+      let data = {
+        CongDoan: this.kiemke.CongDoan,
+        // Thang: this.kiemke.Nam.getMonth() + 1,
+        // Nam: this.kiemke.Nam.getFullYear(),
+        Ngay: DateToUnix(this.kiemke.Nam),
+        IddmCaSanXuat: this.kiemke.IddmCaSanXuat,
+        IddmPhanXuong: this.kiemke.IddmPhanXuong,
+      }
+      this._services.KiemKeBanChePham().GetKhoiTaoPhieuKiemKeBanChePhamToHieu(data).subscribe((res: any) => {
+        this.toastr.success(res.message);
+        if (res.objectReturn) {
+          this.isKiemKe = !this.isKiemKe;
+          this.title = 'Kiểm kê kho bán chế phẩm';
+          this.item = res.objectReturn;
+          this.Nam = `${this.item.Thang}/${this.item.Nam}`
+        }
+        else this.item = {}
+      })
+    }
+  }
+
+  setData() {
+    let data = {
+      ...this.item,
+    };
+    return data
+  }
+
+  GhiLai() {
+    this._services.KiemKeBanChePham().Set(this.setData()).subscribe((res: any) => {
+      this.item = res.objectReturn;
+      this.toastr.success(res.message);
+    })
+    this.isKiemKeXoa = true
+  }
+
+  XoaQuyTrinh() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.result
+      .then((res) => {
+        this._services.KiemKeBanChePham().Delete(this.item).subscribe((res: any) => {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error('Có lỗi xảy ra!');
+          }
+        })
+      })
+      .catch((er) => console.log(er));
+  }
+
+  TinhBCP() {
+    this._services.KiemKeBanChePham().TinhPhieuKiemKeBanChePhamToHieu(this.item).subscribe((res: any) => {
+      this.item = res.objectReturn;
+      this.toastr.success(res.message);
+    })
+  }
+  NhapDuLieu() {
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
+      backdrop: 'static',
+    })
+    modalRef.componentInstance.importFunc = this.item.Id;
+    modalRef.componentInstance.Name = "BCP";
+    modalRef.result.then(res => {
+      this.item = res.objectReturn;
+      this.toastr.success(res.message);
+    })
+      .catch(er => console.log(er))
+  }
+  XuatDuLieu() {
+    this._services.KiemKeBanChePham().ExportKiemKeBanChePham(this.item.Id).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
+  }
+
+  QuayLai() {
+    this.activeModal.dismiss();
+    console.log('tại sao chưa clock');
+  }
+
+}

@@ -663,7 +663,7 @@ export class SanXuatService {
                 return this.http.get(`${API.SCMQuanLyKho}GetListMayTheoCongDoan?IddmPhanXuong=${IddmPhanXuong}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`, httpOptions)
             },
             GetDanhSachDuAnByIdUser: (IdUser) => {
-                console.trace();
+                // console.trace();
                 return this.http.get(`${API.auth}DanhMuc/GetDanhSachDuAnByIdUser?IdUser=${IdUser}`, httpOptions)
             },
             GetListTinhTrangMay: (Id, IddmPhanXuong, TuNgay, DenNgay) => {
@@ -3014,7 +3014,7 @@ export class SanXuatService {
         return this.http.get(API.auth + `DanhMuc/GetListQuyTrinhCanXuLy?IdDuAn=${this.store.getCurrent()}`)
     }
 
-    XuatBaoCao_KeHoachNhapNguyenLieu(Id:string) {
+    XuatBaoCao_KeHoachNhapNguyenLieu(Id: string) {
         return this.http.get(API.SCM + `BaoCao/XuatBaoCao_KeHoachNhapNguyenLieu?Id=${Id}`)
     }
 
@@ -3024,7 +3024,7 @@ export class SanXuatService {
         return this.http.post(url + "DanhMuc/GetALLdmNhaCungUngHienHang", data, httpOptions)
     }
 
-    GetListdmPhanXuongForIdDuAn (IdDuAn?) {
+    GetListdmPhanXuongForIdDuAn(IdDuAn?) {
         return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn ? IdDuAn : this.store.getCurrent()}`, httpOptions)
     }
 
@@ -3032,24 +3032,65 @@ export class SanXuatService {
     KiemKeBanChePham() {
         let url = API.SCM;
         return {
-            // GetList: (data) => {
-            //     data.IdDuAn = this.store.getCurrent();
-            //     return this.http.post(url + 'GetListPhieuNhapHoiAm', data, httpOptions);
-            // },
-            // Get: (Id) => {
-            //     return this.http.get(url + `GetPhieuNhapHoiAm?Id=${Id}`, httpOptions);
-            // },
-            // Set: (data) => {
-            //     data.IdDuAn = this.store.getCurrent();
-            //     return this.http.post(url + 'SetPhieuNhapHoiAm', data, httpOptions);
-            // },
+            GetListPhieuKiemKeBanChePhamToHieuTongHop: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + `KiemKeBanChePham/GetListPhieuKiemKeBanChePhamToHieuTongHop`, data, httpOptions);
+            },
+            GetPhieuKiemKeBanChePhamToHieuTongHop: (Id) => {
+                return this.http.get(url + `KiemKeBanChePham/GetPhieuKiemKeBanChePhamToHieuTongHop?id=${Id}`, httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + `KiemKeBanChePham/GetListPhieuKiemKeBanChePhamToHieu`, data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `KiemKeBanChePham/GetPhieuKiemKeBanChePhamToHieu?id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/SetPhieuKiemKeBanChePhamToHieu', data, httpOptions);
+            },
             GetListMayCongDoanKiemKeBanChePhamToHieu: () => {
-                return this.http.get(url +'KiemKeBanChePham/'+'GetListMayCongDoanKiemKeBanChePhamToHieu', httpOptions);
+                return this.http.get(url + 'KiemKeBanChePham/' + 'GetListMayCongDoanKiemKeBanChePhamToHieu', httpOptions);
             },
             GetKhoiTaoPhieuKiemKeBanChePhamToHieu: (data) => {
-                return this.http.post(url +'KiemKeBanChePham/'+'GetKhoiTaoPhieuKiemKeBanChePhamToHieu',data, httpOptions);
+                return this.http.post(url + 'KiemKeBanChePham/' + 'GetKhoiTaoPhieuKiemKeBanChePhamToHieu', data, httpOptions);
+            },
+            Delete: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/DeletePhieuKiemKeBanChePhamToHieu', data, httpOptions);
+            },
+            TinhPhieuKiemKeBanChePhamToHieu: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/TinhPhieuKiemKeBanChePhamToHieu', data, httpOptions);
+            },
+            ExportKiemKeBanChePham: (Id) => {
+                return this.http.get(url + `KiemKeBanChePham/ExportPhieuKiemKeBanChePhamToHieu?id=${Id}`, httpOptions);
+            },
+            ImportKiemKeBanChePhamToHieu : (data) => {
+                return this.http.post(url + 'KiemKeBanChePham/ImportPhieuKiemKeBanChePhamToHieu ', data, httpOptions);
+            },
+            ExportPhieuKiemKeBanChePhamToHieuTongHop: (Id) => {
+                return this.http.get(url + `KiemKeBanChePham/ExportPhieuKiemKeBanChePhamToHieuTongHop?id=${Id}`, httpOptions);
             },
         }
     }
-
+    // quyết toán nguyên liệu
+    QuyetToan() {
+        let url = API.SCM;
+        return {
+            BieuDoTiLeCheThanhToHieu: (data) => {
+                return this.http.post(url + `KiemKeBanChePham/BieuDoTiLeCheThanhToHieu`, data, httpOptions);
+            },
+            BieuDoTiLeBongPhe: (data) => {
+                return this.http.post(url + `KiemKeBanChePham/BieuDoTiLeBongPhe`, data, httpOptions);
+            },
+            BieuDoTiLeTieuHaoBong: (data) => {
+                return this.http.post(url + `KiemKeBanChePham/BieuDoTiLeTieuHaoBong`, data, httpOptions);
+            },
+            BieuDoTiLeTieuHaoXo: (data) => {
+                return this.http.post(url + `KiemKeBanChePham/BieuDoTiLeTieuHaoXo`, data, httpOptions);
+            },
+        }
+    }
 }

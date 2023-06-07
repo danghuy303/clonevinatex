@@ -1,8 +1,10 @@
 import { formatNumber } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
 
 @Component({
@@ -66,12 +68,20 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
     obj_data: any = {};
     payload: any = {};
     itemBongPhe: any = { listData1: [] };
-    chart5: any
+    chart5: any;
+    $sub!: Subscription;
 
     constructor(
         private _services: SanXuatService,
         private toastr: ToastrService,
-    ) { }
+        private store: StoreService,
+    ) { 
+        this.$sub = this.store.getNhaMay().subscribe(res => {
+            if (res) {   
+              this.ngOnInit()
+            }
+          })
+    }
 
     ngOnInit(): void {
         for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
