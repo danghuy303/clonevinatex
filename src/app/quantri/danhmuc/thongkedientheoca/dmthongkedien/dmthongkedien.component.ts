@@ -93,7 +93,8 @@ export class DmthongkedienComponent  extends StoreBase implements OnInit,OnDestr
       sFilter: this.filter.KeyWord,
       TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
       DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
-      IdDuAn: parseInt(this.store.getCurrent())
+      // IdDuAn: parseInt(this.store.getCurrent())
+      IdDuAn: (this.store.getCurrent())
     }
     this._service.ThongKeDien().GetList(data).subscribe((res: any) => {
       this.items = res;

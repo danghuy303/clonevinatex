@@ -6,6 +6,7 @@ import { LoaderService } from '../services/loader.service';
 import { AuthenticationService } from './auth.service';
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
+        private totalRequests = 0;
         constructor(public loaderService: LoaderService, private authServices: AuthenticationService) { }
         intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
                 // console.log(req)
@@ -18,5 +19,13 @@ export class LoaderInterceptor implements HttpInterceptor {
                 return next.handle(req).pipe(
                         finalize(() => setTimeout(() => this.loaderService.hide(), 100)),
                 );
+                // return next.handle(req).pipe(
+                //         finalize(() => {
+                //           this.totalRequests--;
+                //           if (this.totalRequests === 0) {
+                //             this.loaderService.hide();
+                //           }
+                //         })
+                //       );
         }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +15,7 @@ import { BanChePhamToHieuTongHopComponent } from '../modal/ban-che-pham-to-hieu-
   templateUrl: './kiem-tra-ban-che-pham-to-hieu.component.html',
   styleUrls: ['./kiem-tra-ban-che-pham-to-hieu.component.css']
 })
-export class KiemTraBanChePhamToHieuComponent implements OnInit {
+export class KiemTraBanChePhamToHieuComponent implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
@@ -32,6 +32,7 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
   listMay: any = [];
   TabTrangThai: any = 0;
   $sub!: Subscription;
+  routeSub!: Subscription;
 
   constructor(
     private _modal: NgbModal,
@@ -42,23 +43,27 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
     private router: Router,) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-        this.ngOnInit()
+        this.ngOnInit();
       }
     })
   }
 
   ngOnInit() {
     this.GetListMayCongDoanKiemKeBanChePhamToHieu();
-    this.GetList();
-    this.activatedRoute.params.subscribe((res: any) => {
-      if (res.id !== "0") {
-        this._services.KiemKeBanChePham()
-          .Get(res.id)
-          .subscribe((res: any) => {
-            this.update(res);
-          });
-      }
-    });
+    this.GetList(); 
+    if (this.routeSub) {
+    } else {
+      this.routeSub = this.activatedRoute.params.subscribe((res: any) => {
+        if (res.id !== "0") {
+          this._services.KiemKeBanChePham()
+            .Get(res.id)
+            .subscribe((res: any) => {
+              this.update(res);
+            });
+        }
+      })
+    }
+
   }
   GetListMayCongDoanKiemKeBanChePhamToHieu() {
     this._services.KiemKeBanChePham().GetListMayCongDoanKiemKeBanChePhamToHieu().subscribe((res: any) => {
@@ -87,7 +92,8 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
       CongDoan: this.filter.CongDoan,
       Thang: this.filter.Nam ? this.filter.Nam.getMonth() + 1 : null,
       Nam: this.filter.Nam ? this.filter.Nam.getFullYear() : null,
-      Keyword: this.filter.Keyword
+      Keyword: this.filter.Keyword,
+      IdDuAn: this.store.getCurrent()
     };
     if (this.TabTrangThai === 0) {
       this._services.KiemKeBanChePham().GetList(data).subscribe((res: any) => {
@@ -121,7 +127,7 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
   }
   update(item) {
     let modalRef = this._modal.open(KiemTraBanChePhamToHieuModalComponent, {
-      size: "lg",
+      size: "fullscreen-100",
       backdrop: "static",
       keyboard: false,
     });
@@ -134,7 +140,7 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
       })
       .catch(er => { })
       .finally(() => {
-        // this.GetList(false);
+        this.GetList(false);
         this.changeParam(0);
       });
   }
@@ -169,6 +175,10 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit {
 
   changeTab(event) {
     this.TabTrangThai = event.index;
-    this.GetList(true);
+    this.GetList();
+  }
+  ngOnDestroy(): void {
+    console.log('ondestroy');
+    this.$sub.unsubscribe();
   }
 }

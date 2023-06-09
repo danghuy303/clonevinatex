@@ -8,6 +8,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, UnixToDate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-kiem-tra-ban-che-pham-to-hieu-modal',
@@ -35,7 +36,7 @@ export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
     private _services: SanXuatService,
     private _modal: NgbModal,
     private toastr: ToastrService,
-    private router: Router
+    private store: StoreService,
   ) { }
 
   ngOnInit(): void {
@@ -168,7 +169,6 @@ export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
 
   QuayLai() {
     this.activeModal.dismiss();
-    console.log('tại sao chưa clock');
   }
 
 }

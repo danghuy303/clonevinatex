@@ -16,7 +16,7 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
-            (click)="activeModal.dismiss('Cross click')"></button>
+                (click)="QuayLai()"></button>
             <button pButton pRipple type="button" *ngIf="isKiemKe" label="Chấp nhận" class="p-mr-2 p-button-sm"
                 (click)="ChapNhan()"></button>
             <button pButton pRipple type="button" *ngIf="!isKiemKe" label="Ghi lại" class="p-mr-2 p-button-sm"
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="p-col-12 p-lg-8 d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-lg-2 p-pl-3 my-auto" >Nội dung</label>
+                <label class="p-col-12 p-lg-2 p-pl-3 my-auto">Nội dung</label>
                 <div class="p-col-12 p-lg-10 p-p-0 p-ml-1 p-mt-3">
                     <input type="text" class="p-inputtext-sm noidung" [(ngModel)]="item.GhiChu" pInputText />
                 </div>
@@ -98,23 +98,24 @@
                 <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca sản xuất:</label>
                 <div class="p-col-12 p-lg-8 p-p-0">
                     <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn"
-                        [(ngModel)]="item.IddmCaSanXuat" [disabled]="true" styleClass="p-inputtext-sm" [showClear]="false"
-                        [filter]="true"></p-dropdown>
+                        [(ngModel)]="item.IddmCaSanXuat" [disabled]="true" styleClass="p-inputtext-sm"
+                        [showClear]="false" [filter]="true"></p-dropdown>
                 </div>
             </div>
-        </div>       
+        </div>
         <p-tabView>
             <p-tabPanel header="Kiểm kê" *ngIf="item.listHeader1">
                 <div *ngIf="item.listHeader1">
                     <p-table [value]="item.listData1" [scrollable]="true" scrollHeight="400px"
-                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines" >
+                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                         <ng-template pTemplate="colgroup">
                             <col [style.width]="item.CongDoan === 'DAY'?'100px':'200px' ">
                             <col style="min-width: 200px;">
-                            <col [style.width]="item.CongDoan === 'DAY'?'250px':'100px' " *ngFor="let col of item.listData1[0]?.listGiaTri">
+                            <col [style.width]="item.CongDoan === 'DAY'?'250px':'100px' "
+                                *ngFor="let col of item.listData1[0]?.listGiaTri">
                         </ng-template>
                         <ng-template pTemplate="header">
-                            <tr >
+                            <tr>
                                 <th *ngFor="let kiemkehead of item.listHeader1" [attr.rowspan]="kiemkehead.rowspan"
                                     [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
                         display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'
@@ -132,11 +133,12 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-item1 let-i="rowIndex">
                             <tr [style]="{fontWeight:item1.bold,color:item1.color}">
-                                <td class="text-center">{{ item1.TendmMay }}</td>
+                                <td>{{ item1.TendmMay }}</td>
                                 <td>{{ item1.ThanhPhan }}</td>
                                 <td *ngFor="let data of item1?.listGiaTri">
                                     <div>
-                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
+                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay"
+                                            [maxFractionDigits]="data.SoSauDauPhay" mode="decimal"
                                             [(ngModel)]="data.GiaTri" [disabled]="data.isDisable"></p-inputNumber>
                                     </div>
                                 </td>
@@ -152,7 +154,8 @@
                         <ng-template pTemplate="colgroup">
                             <col [style.minWidth]="item.CongDoan === 'ONG'?'80px':'200px' ">
                             <!-- <col style="width:200px"> -->
-                            <col [style.width]="item.CongDoan === 'ONG'?'135px':'100px' " *ngFor="let col of item.listData2[0].listGiaTri">
+                            <col [style.width]="item.CongDoan === 'ONG'?'135px':'100px' "
+                                *ngFor="let col of item.listData2[0].listGiaTri">
                         </ng-template>
                         <ng-template pTemplate="header">
                             <tr>
@@ -174,10 +177,11 @@
                         <ng-template pTemplate="body" let-item1 let-i="rowIndex">
                             <tr [style]="{fontWeight:item1.bold,color:item1.color}">
                                 <!-- <td>{{ item1.TendmMay }}</td> -->
-                                <td class="text-center">{{ item1.ThanhPhan }}</td>
+                                <td>{{ item1.ThanhPhan }}</td>
                                 <td *ngFor="let data of item1.listGiaTri">
                                     <div>
-                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
+                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay"
+                                            [maxFractionDigits]="data.SoSauDauPhay" mode="decimal"
                                             [(ngModel)]="data.GiaTri" [disabled]="data.isDisable"></p-inputNumber>
                                     </div>
                                 </td>
@@ -186,9 +190,9 @@
                     </p-table>
                 </div>
             </p-tabPanel>
-            <p-tabPanel header="TH sợi trên MB" *ngIf="item.listHeader3">
-                <div *ngIf="item.listHeader3" class="pt-3">
-                    <p-table [value]="item.listData3" [scrollable]="true" scrollHeight="400px"
+            <p-tabPanel header="TH sợi trên MB" *ngIf="item.listHeader3" >
+                <div *ngIf="item.listHeader2" class="pt-3">
+                    <p-table [value]="item.listData3"
                         styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                         <ng-template pTemplate="colgroup">
                             <col style="width:50px">
@@ -197,7 +201,7 @@
                             <col style="width:100px" *ngFor="let col of item.listData3[0]?.listGiaTri">
                         </ng-template>
                         <ng-template pTemplate="header">
-                            <tr >
+                            <tr>
                                 <th *ngFor="let kiemkehead of item.listHeader3" [attr.rowspan]="kiemkehead.rowspan"
                                     [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
                               display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'
@@ -220,13 +224,50 @@
                                 <td>{{ item1.ThanhPhan }}</td>
                                 <td *ngFor="let data of item1?.listGiaTri">
                                     <div>
-                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
+                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay"
+                                            [maxFractionDigits]="data.SoSauDauPhay" mode="decimal"
                                             [(ngModel)]="data.GiaTri" [disabled]="data.isDisable"></p-inputNumber>
                                     </div>
                                 </td>
                             </tr>
                         </ng-template>
                     </p-table>
+
+                    <!-- custom -->
+                    <!-- <table>
+                        <thead>
+                            <tr>
+                                <th *ngFor="let kiemkehead of item.listHeader3" [attr.rowspan]="kiemkehead.rowspan"
+                                    [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
+                                     display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'}">
+                                    {{ kiemkehead.name }}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let kiemkehead of item.listHeader3" [ngStyle]="{
+                                    display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : '' }">
+                                    {{ kiemkehead.name }}
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item1 of item.listData3, let i=index"
+                                [style]="{fontWeight:item1.bold,color:item1.color}">
+                                <td class="text-center tc-w-50">{{ item1.STT }}</td>
+                                <td class="text-center tc-w-600">{{ item1.TendmMay }}</td>
+                                <td class="text-center tc-w-200">{{ item1.ThanhPhan }}</td>
+                                <td class="text-center tc-w-100" *ngFor="let data of item1?.listGiaTri">
+                                    <div>
+                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay"
+                                            [maxFractionDigits]="data.SoSauDauPhay" mode="decimal"
+                                            [(ngModel)]="data.GiaTri" [disabled]="data.isDisable"></p-inputNumber>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+
                 </div>
             </p-tabPanel>
             <p-tabPanel header="Tổng hợp" *ngIf="item.listHeader4 && item.listHeader4.length">
@@ -262,7 +303,8 @@
                                 <td *ngFor="let data of item1?.listGiaTri">
                                     <div>
                                         <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
-                                            [(ngModel)]="data.GiaTri" [disabled]="data.isDisable"></p-inputNumber>
+                                            [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
+                                            [disabled]="data.isDisable"></p-inputNumber>
                                     </div>
                                 </td>
                             </tr>

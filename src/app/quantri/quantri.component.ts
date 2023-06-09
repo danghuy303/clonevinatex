@@ -34,7 +34,8 @@ export class QuantriComponent implements OnInit, OnDestroy {
   menuQLNS: MenuItem[];
   dataphanquyen: any = {};
   listNhaMay: Array<any> = [];
-  IdNhaMay: string = "";
+  // IdNhaMay: string = "";
+  IdNhaMay: number = 0;
   showDropDown: boolean = false;
   canSendMessage: any;
   mapQuyTrinhRoute: any = mapQuyTrinhRoute;

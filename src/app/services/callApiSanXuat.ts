@@ -1344,7 +1344,8 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhuongAnPhaBong?Id=${Id}&isDieuChinh=true`, httpOptions);
             },
             Set: (data) => {
-                data.IdDuAn = parseInt(this.store.getCurrent());
+                // data.IdDuAn = parseInt(this.store.getCurrent());
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhuongAnPhaBong', data, httpOptions);
             },
             Delete: (data) => {
@@ -1366,7 +1367,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetListItemDieuChinhTimBong?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}&ThuTu=${ThuTu}`, httpOptions);
             },
             GetLoBongTrongKho_DieuChinh: (Mic, IdLoBong) => {
-                let IdDuAn = parseInt(this.store.getCurrent());
+                let IdDuAn =this.store.getCurrent();
                 return this.http.get(url + `GetLoBongTrongKho_DieuChinh?IdDuAn=${IdDuAn}&Mic=${Mic}&IdLoBong=${IdLoBong}`, httpOptions);
             },
             GetListdmLoaiBong_PAPB: () => {
@@ -3040,7 +3041,7 @@ export class SanXuatService {
                 return this.http.get(url + `KiemKeBanChePham/GetPhieuKiemKeBanChePhamToHieuTongHop?id=${Id}`, httpOptions);
             },
             GetList: (data) => {
-                data.IdDuAn = this.store.getCurrent();
+                // data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + `KiemKeBanChePham/GetListPhieuKiemKeBanChePhamToHieu`, data, httpOptions);
             },
             Get: (Id) => {

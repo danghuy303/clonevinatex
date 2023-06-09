@@ -39,7 +39,7 @@
 
         <div class="second-chart bg-white p-3">
             <h6 class="text-center m-0" style="font-weight: bold">
-                TIÊU HAO XƠ:
+                TIÊU HAO XƠ
             </h6>
             <p-chart type="bar" [data]="dataXo" [options]="options" (onDataSelect)="getChart($event)"></p-chart>
             <div class="d-flex p-ai-center p-jc-center">
@@ -101,7 +101,7 @@
         </div>
         <div class="second-chart bg-white p-3">
             <h6 class="text-center m-0" style="font-weight: bold">
-                TỶ LỆ BÔNG PHẾ
+                TỶ LỆ BÔNG PHẾ (Tháng {{thang}})
             </h6>
             <div class="pt-3">
                 <p-table [value]="itemBongPhe?.listData1" [scrollable]="true" scrollHeight="400px"
