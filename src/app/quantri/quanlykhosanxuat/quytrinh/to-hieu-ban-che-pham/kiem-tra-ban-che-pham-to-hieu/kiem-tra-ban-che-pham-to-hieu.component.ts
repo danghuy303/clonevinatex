@@ -50,7 +50,7 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.GetListMayCongDoanKiemKeBanChePhamToHieu();
-    this.GetList(); 
+    this.GetList();
     if (this.routeSub) {
     } else {
       this.routeSub = this.activatedRoute.params.subscribe((res: any) => {
@@ -126,8 +126,9 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit, OnDestroy {
       })
   }
   update(item) {
+    console.log(item.objectReturn.isDialogBig);
     let modalRef = this._modal.open(KiemTraBanChePhamToHieuModalComponent, {
-      size: "fullscreen-100",
+      size: item.objectReturn.isDialogBig ? "fullscreen-100" : "lg",
       backdrop: "static",
       keyboard: false,
     });

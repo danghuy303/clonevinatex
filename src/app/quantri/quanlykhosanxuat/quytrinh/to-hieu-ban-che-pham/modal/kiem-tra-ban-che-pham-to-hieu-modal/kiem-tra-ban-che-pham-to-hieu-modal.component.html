@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="p-grid" *ngIf="isKiemKe">
-        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row kiemke">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày<span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" dateFormat="dd/mm/yy" [locale]="lang"
@@ -41,7 +41,7 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row kiemke">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn "
@@ -49,14 +49,14 @@
                     [filter]="true"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row kiemke">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listMay" placeholder="Chọn" [(ngModel)]="kiemke.CongDoan"
                     styleClass="p-inputtext-sm" [showClear]="false" [filter]="true"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row" *ngIf="kiemke.CongDoan === 'ONG'">
+        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row kiemke" *ngIf="kiemke.CongDoan === 'ONG'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca sản xuất <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn"
@@ -67,14 +67,14 @@
     </div>
     <div *ngIf="!isKiemKe">
         <div class="p-grid">
-            <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tháng/Năm:</label>
+            <!-- <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
+                <label class="p-col-12 p-lg-4 p-p-0 ">Tháng/Năm:</label>
                 <div class="p-col-12 p-lg-8 p-p-0">
                     <input type="text" class="p-inputtext-sm" [(ngModel)]="Nam" [disabled]="true" pInputText />
                 </div>
             </div>
             <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
+                <label class="p-col-12 p-lg-4 p-p-0">Phân xưởng:</label>
                 <div class="p-col-12 p-lg-8 p-p-0">
                     <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn "
                         [(ngModel)]="item.IddmPhanXuong" styleClass="p-inputtext-sm" [showClear]="false" [filter]="true"
@@ -82,14 +82,14 @@
                 </div>
             </div>
             <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
+                <label class="p-col-12 p-lg-4 p-p-0">Công đoạn:</label>
                 <div class="p-col-12 p-lg-8 p-p-0">
                     <p-dropdown [filter]="true" [options]="listMay" placeholder="Chọn" [(ngModel)]="item.CongDoan"
                         styleClass="p-inputtext-sm" [showClear]="false" [filter]="true" [disabled]="true"></p-dropdown>
                 </div>
             </div>
             <div class="p-col-12 p-lg-8 d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-lg-2 p-pl-3 my-auto">Nội dung</label>
+                <label class="p-col-12 p-lg-2 p-pl-3">Nội dung</label>
                 <div class="p-col-12 p-lg-10 p-p-0 p-ml-1 p-mt-3">
                     <input type="text" class="p-inputtext-sm noidung" [(ngModel)]="item.GhiChu" pInputText />
                 </div>
@@ -100,6 +100,42 @@
                     <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn"
                         [(ngModel)]="item.IddmCaSanXuat" [disabled]="true" styleClass="p-inputtext-sm"
                         [showClear]="false" [filter]="true"></p-dropdown>
+                </div>
+            </div> -->
+
+            <div class="p-col-12 p-md-1 p-lg-1 p-d-flex p-flex-column kiemke">
+                <label class="p-pl-3">Tháng/Năm:</label>
+                <div class="">
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="Nam" [disabled]="true" pInputText />
+                </div>
+            </div>
+            <div class="p-col-12 p-md-2 p-lg-2 p-d-flex p-flex-column kiemke">
+                <label class="p-pl-3">Phân xưởng:</label>
+                <div class="">
+                    <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn "
+                        [(ngModel)]="item.IddmPhanXuong" styleClass="p-inputtext-sm" [showClear]="false" [filter]="true"
+                        [disabled]="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 p-md-2 p-lg-2 p-d-flex p-flex-column kiemke">
+                <label class="p-pl-3">Công đoạn:</label>
+                <div class="">
+                    <p-dropdown [filter]="true" [options]="listMay" placeholder="Chọn" [(ngModel)]="item.CongDoan"
+                        styleClass="p-inputtext-sm" [showClear]="false" [filter]="true" [disabled]="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 p-md-2 p-lg-2 p-d-flex p-flex-column kiemke" *ngIf="item.CongDoan === 'ONG'">
+                <label class="p-pl-3">Ca sản xuất:</label>
+                <div class="">
+                    <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn"
+                        [(ngModel)]="item.IddmCaSanXuat" [disabled]="true" styleClass="p-inputtext-sm"
+                        [showClear]="false" [filter]="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 p-md-5 p-lg-5 p-d-flex p-flex-column kiemke">
+                <label class="p-pl-3">Nội dung:</label>
+                <div class="">
+                    <input type="text" class="p-inputtext-sm noidung" [(ngModel)]="item.GhiChu" pInputText />
                 </div>
             </div>
         </div>
@@ -190,9 +226,9 @@
                     </p-table>
                 </div>
             </p-tabPanel>
-            <p-tabPanel header="TH sợi trên MB" *ngIf="item.listHeader3" >
-                <div *ngIf="item.listHeader2" class="pt-3">
-                    <p-table [value]="item.listData3"
+            <p-tabPanel header="TH sợi trên MB" *ngIf="item.listHeader3">
+                <div *ngIf="item.listHeader3" class="pt-3">
+                    <p-table [value]="item.listData3" [scrollable]="true" scrollHeight="400px"
                         styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                         <ng-template pTemplate="colgroup">
                             <col style="width:50px">
