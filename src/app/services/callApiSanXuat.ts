@@ -3094,4 +3094,14 @@ export class SanXuatService {
             },
         }
     }
+    // Dm BCP
+    GetListLoaiTheoCongDoanKiemKeBanChePhamToHieu(CongDoan) {
+        return this.http.get(`${API.SCMKiemKeBanChePham}GetListLoaiTheoCongDoanKiemKeBanChePhamToHieu?CongDoan=${CongDoan}`, httpOptions)
+    }
+    GetListdmKiemKeBanChePham(CongDoan,Loai) {
+        return this.http.get(`${API.SCMKiemKeBanChePham}GetListdmKiemKeBanChePham?CongDoan=${CongDoan}&Loai=${Loai}`, httpOptions)
+    }
+    SetdmKiemKeBanChePham(data) {
+        return this.http.post(`${API.SCMKiemKeBanChePham}SetdmKiemKeBanChePham`, data, httpOptions)
+    }
 }

@@ -183,6 +183,29 @@ export class KiemkekhomodalComponent implements OnInit {
 
     }
 
+    KhongDuyet() {
+        let modalRef = this._modal.open(ModalthongbaoComponent, {
+            backdrop: "static",
+        });
+        modalRef.componentInstance.message =
+            "Bạn có chắc chắn muốn không duyệt quy trình này chứ?";
+        modalRef.result
+            .then((res) => {
+                this.services
+                    .PhieuKiemKeKho()
+                    .KhongDuyet(this.item)
+                    .subscribe((res: any) => {
+                        if (res?.State === 1) {
+                            this.toastr.success(res.message);
+                            this.activeModal.close();
+                        } else {
+                            this.toastr.error(res.message);
+                        }
+                    });
+            })
+            .catch((er) => console.log(er));
+    }
+
     GetNextSoQuyTrinh() {
         this.services
             .PhieuKiemKeKho()

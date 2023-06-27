@@ -676,12 +676,12 @@ export class QuantriComponent implements OnInit, OnDestroy {
             routerLink: "/quantri/quanlykhosanxuat/tonkho/khothanhpham/0",
             command: () => this.close(),
           },
-          {
-            label: "Kiểm kê bán chế phẩm",
-            routerLink: "/quantri/quanlykhosanxuat/kiemkeBCP/0",
-            separator: this.checkmenu("KIEMKEBANCHEPHAM"),
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Kiểm kê bán chế phẩm",
+          //   routerLink: "/quantri/quanlykhosanxuat/kiemkeBCP/0",
+          //   separator: this.checkmenu("KIEMKEBANCHEPHAM"),
+          //   command: () => this.close(),
+          // },
         ],
       },
       {
@@ -2017,9 +2017,14 @@ export class QuantriComponent implements OnInit, OnDestroy {
             routerLink: "/quantri/danhmucsanxuat/dmkhunggio",
             command: () => this.close(),
           },
+          // {
+          //   label: "Bán chế phẩm",
+          //   routerLink: "/quantri/danhmucsanxuat/dmbanchepham",
+          //   command: () => this.close(),
+          // },
           {
-            label: "Bán chế phẩm",
-            routerLink: "/quantri/danhmucsanxuat/dmbanchepham",
+            label: "Kiểm kê bán chế phẩm",
+            routerLink: "/quantri/danhmucsanxuat/dmkiemkebcp",
             command: () => this.close(),
           },
           {

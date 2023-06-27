@@ -116,6 +116,7 @@ import { ThongkedieukhongComponent } from "./quanlykhosanxuat/thongke/thongkedie
 import { ThongkesanluongnhanhComponent } from "./quanlykhosanxuat/thongke/thongkesanluongnhanh/thongkesanluongnhanh.component";
 import { KiemTraBanChePhamToHieuComponent } from "./quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/kiem-tra-ban-che-pham-to-hieu/kiem-tra-ban-che-pham-to-hieu.component";
 import { QuyetToanNguyenLieuComponent } from "./quanlykhosanxuat/quyet-toan-nguyen-lieu/quyet-toan-nguyen-lieu.component";
+import { DmKiemKeBanChePhamComponent } from "./danhmuc/dm-kiem-ke-ban-che-pham/dm-kiem-ke-ban-che-pham.component";
 
 const routes: Routes = [
   {
@@ -186,6 +187,7 @@ const routes: Routes = [
       { path: "danhmucsanxuat/loaidienkv", component: LoaidienkvComponent },
       { path: "danhmucsanxuat/dmnhomcongto", component: DmnhomcongtoComponent },
       { path: "danhmucsanxuat/dmcongto", component: DmcongtoComponent },
+      { path: "danhmucsanxuat/dmkiemkebcp", component: DmKiemKeBanChePhamComponent },
       {
         path: "danhmucsanxuat/dmtieuchichatluongsoi",
         component: DmtieuchichatluongsoiComponent,

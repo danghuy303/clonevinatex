@@ -1,0 +1,116 @@
+<div class="p-mb-3 p-mt-3">
+    <h4 style="color:#1f2779">Kiểm kê kho bán chế phẩm </h4>
+</div>
+<div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+    <div class="p-d-flex p-flex-row">
+    </div>
+    <div class="p-d-flex p-flex-row">
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listMay" placeholder="Công đoạn" [(ngModel)]="filter.CongDoan"
+                (onChange)="GetListLoaiTheoCongDoan($event.value)" [showClear]="true"
+                styleClass="p-inputtext-sm"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listLoai" placeholder="Loại" [(ngModel)]="filter.Loai"
+                (onChange)="ChonLoai($event.value)" [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
+        </div>
+        <!-- <div class="p-inputgroup" style="width:200px">
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="filter.Keyword"
+                (keyup.enter)="GetList()" />
+            <button type="button" pButton pRipple icon="pi pi-search"
+                class="p-button-secondary p-button-sm p-button-text" (click)="GetList()"></button>
+            <button type="button" pButton pRipple icon="pi pi-refresh"
+                class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+        </div> -->
+    </div>
+</div>
+<div class="p-mt-3">
+    <p-table [value]="items" styleClass="p-datatable-sm p-datatable-gridlines" [paginator]="true" [rows]="20">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width: 50px;">
+                <col style="width: 200px;">
+                <col>
+                <col style="width: 50px;"
+                    *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104">
+                <col style="width: 100px;"
+                    *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 ">
+                <col
+                    *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 ">
+                <col style="width: 80px;"
+                    *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 || filter.Loai === 11 || filter.Loai === 3">
+                <col style="width: 100px;" *ngIf="filter.Loai === 2">
+                <col style="width: 100px;" *ngIf="filter.Loai === 0">
+                <col style="width: 200px;" *ngIf="filter.Loai === 0">
+                <col style="width: 100px;">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Mã</th>
+                <th class="text-center">Tên</th>
+                <th class="text-center"
+                    *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 ">
+                    Được sửa</th>
+                <th class="text-center"
+                    *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 ">Số
+                    thập phân</th>
+                <th class="text-center"
+                    *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 ">
+                    Cha</th>
+                <th class="text-center"
+                    *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 || filter.Loai === 11 || filter.Loai === 3">
+                    Thứ tự</th>
+                <th class="text-center" *ngIf="filter.Loai === 2">Hệ số</th>
+                <th class="text-center" *ngIf="filter.Loai === 0">Tỉ lệ(PE)</th>
+                <th class="text-center" *ngIf="filter.Loai === 0">Công đoạn</th>
+                <th class="text-center">Thao tác</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center">{{i+1}}</td>
+                <td>
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
+                </td>
+                <td>
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
+                </td>
+                <td class="text-center"
+                    *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 ">
+                    <p-checkbox binary="true" [(ngModel)]="item.isDuocSua" inputId="binary"></p-checkbox>
+                </td>
+                <td *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 ">
+                    <p-inputNumber locale="en-US" [(ngModel)]="item.SoThapPhan" mode="decimal"
+                        [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
+                </td>
+                <td *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 ">
+                    <p-dropdown [filter]="true" [options]="listLoaiCha" placeholder="Chọn" [(ngModel)]="item.IdParent"
+                        [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
+                </td>
+                <td
+                    *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 || filter.Loai === 11 || filter.Loai === 3">
+                    <p-inputNumber locale="en-US" [(ngModel)]="item.ThuTu" mode="decimal"
+                        [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
+                </td>
+                <td *ngIf="filter.Loai === 2">
+                    <p-inputNumber locale="en-US" [(ngModel)]="item.HeSo" mode="decimal"
+                        [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
+                </td>
+                <td *ngIf="filter.Loai === 0">{{item.TyLe}}</td>
+                <td *ngIf="filter.Loai === 0">
+                    <p-dropdown [filter]="true" [options]="listMay" placeholder="Loại" [(ngModel)]="item.CongDoan"
+                        [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
+                </td>
+                <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-save"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="save(item)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            Tổng số bản ghi {{items.length}}.
+        </ng-template>
+    </p-table>
+</div>
