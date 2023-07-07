@@ -424,7 +424,7 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'DeletedmCaSanXuat';
         return this.http.post(url, data, httpOptions);
     }
-
+  
 
     // Loại bông
     GetListdmLoaiBongOnly(data) {
@@ -3073,6 +3073,10 @@ export class SanXuatService {
             },
             ExportPhieuKiemKeBanChePhamToHieuTongHop: (Id) => {
                 return this.http.get(url + `KiemKeBanChePham/ExportPhieuKiemKeBanChePhamToHieuTongHop?id=${Id}`, httpOptions);
+            },
+            SetPhieuKiemKeBanChePhamToHieuTongHop: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/SetPhieuKiemKeBanChePhamToHieuTongHop', data, httpOptions);
             },
         }
     }

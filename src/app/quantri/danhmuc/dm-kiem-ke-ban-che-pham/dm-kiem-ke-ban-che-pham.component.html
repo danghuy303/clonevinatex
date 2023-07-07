@@ -82,7 +82,7 @@
                     <p-checkbox binary="true" [(ngModel)]="item.isDuocSua" inputId="binary"></p-checkbox>
                 </td>
                 <td *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 ">
-                    <p-inputNumber locale="en-US" [(ngModel)]="item.SoThapPhan" mode="decimal"
+                    <p-inputNumber locale="en-US" [(ngModel)]="item.HeSo " mode="decimal"
                         [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                 </td>
                 <td *ngIf="filter.Loai === 101 || filter.Loai === 102 || filter.Loai === 103 || filter.Loai === 104 ">

@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h5 class="modal-title">{{title}}</h5>
-    <div  class="d-flex flex-column flex-lg-row p-ai-center">
+    <div class="d-flex flex-column flex-lg-row p-ai-center">
         <div>
             <span style="font-weight: bold">Số quy trình:</span> {{item.SoQuyTrinh}}
         </div>
@@ -17,7 +17,9 @@
         <div class="modal-bt p-mb-4">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="activeModal.dismiss()"></button>
-            <button pButton pRipple type="button"  label="Xuất dữ liệu" class="p-mr-2 p-button-sm"
+            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm"
+                (click)="GhiLai()"></button>
+            <button pButton pRipple type="button" label="Xuất dữ liệu" class="p-mr-2 p-button-sm"
                 (click)="XuatDuLieu()"></button>
         </div>
     </div>
@@ -71,7 +73,8 @@
                                     <div (click)="Link(item1.IddmItem)" style="cursor: pointer;">{{item1.STT}}</div>
                                 </td>
                                 <td>
-                                    <div (click)="Link(item1.IddmMay)" style="cursor: pointer;">{{item1.ThanhPhan}}</div>
+                                    <div (click)="Link(item1.IddmMay)" style="cursor: pointer;">{{item1.ThanhPhan}}
+                                    </div>
                                 </td>
                                 <td *ngFor="let data of item1?.listGiaTri">
                                     <div>

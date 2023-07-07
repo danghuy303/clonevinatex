@@ -45,6 +45,7 @@ export class KiemkekhomodalComponent implements OnInit {
     // item_new: any = {};
     title: any = "";
     newItem: any = {};
+    listKgCone: any = [];
     constructor(
         public activeModal: NgbActiveModal,
         private services: SanXuatService,
@@ -72,9 +73,9 @@ export class KiemkekhomodalComponent implements OnInit {
                 this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
             });
         this.services.GetListdmKho(data).subscribe((res: any) => {
-                this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
-                this.listdmKhoFull = res;
-            });
+            this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
+            this.listdmKhoFull = res;
+        });
         if (this.opt !== "edit") {
             this.GetNextSoQuyTrinh();
             this.item.listItem = [];
@@ -97,11 +98,15 @@ export class KiemkekhomodalComponent implements OnInit {
         data.Loai = 11;
         this.item.Loai = 11;
         // }
-        
+
         this.services.GetListdmViTriOpt().subscribe((res: any) => {
             this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
         });
-        
+
+        this.services.GetListKgCone().subscribe((res: any) => {
+            this.listKgCone = mapArrayForDropDown(res, "GiaTri", "GiaTri");
+        });
+
         this.services
             .dmQuyCachDongGoi()
             .GetList()
@@ -112,7 +117,7 @@ export class KiemkekhomodalComponent implements OnInit {
             .PhieuKiemKeKho()
             .GetlistdmMatHangThanhPhamKiemKe()
             .subscribe((res: any) => {
-                this.listNewMatHang = mapArrayForDropDown(res.map(ele=>{return{...ele,Ten:`${ele.Ma} - ${ele.Ten}`}}), "Ten", "Id");
+                this.listNewMatHang = mapArrayForDropDown(res.map(ele => { return { ...ele, Ten: `${ele.Ma} - ${ele.Ten}` } }), "Ten", "Id");
                 this.listNewMatHang_ref = res;
             });
     }
@@ -283,38 +288,39 @@ export class KiemkekhomodalComponent implements OnInit {
     }
 
     delete(index) {
-        let item = this.item.listItem.splice((this.paging.CurrentPage-1)*10+index, 1)[0];
+        let item = this.item.listItem.splice((this.paging.CurrentPage - 1) * 10 + index, 1)[0];
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
         } else {
             this.toastr.warning("Thao tác này đồng nghĩa việc không kiểm kê, không đồng nghĩa việc xóa khỏi kho");
             item.isXoa = true;
             this.item.listItem.push(JSON.parse(JSON.stringify(item)));
         }
-        this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage-1)*10,10);
+        this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage - 1) * 10, 10);
         this.paging.TotalItem = Math.ceil(this.item.listItem.filter(ele => ele.isXoa !== true).length);
     }
 
     GetMatHangTheoKho() {
         if (this.item.IddmKho !== undefined && this.item.IddmKho !== null
             && this.item.IdLoHang !== undefined && this.item.IdLoHang !== null) {
-                this.item.listItem = [];
+            this.item.listItem = [];
             this.services.getLuuKhoKiemKeThanhPham(
-                    this.item.IddmKho,
-                    this.item.IdLoBong,
-                    "",
-                    this.item.IdLoHang
-                ).subscribe((res1: any) => {
-                    res1.forEach((mathang) => {
-                        // mathang.SoLuong = mathang.TonSoLuong;
-                        mathang.SoQuaSoi = mathang.TonSoLuong;
-                        mathang.TongTrongLuong = mathang.TonTongTrongLuong;
-                    });
-                    this.item.listItem = res1;
-                    this.listItem = this.item.listItem.slice(0, 10);
-                    this.paging.CurrentPage = 1;
-                    this.paging.TotalPage = 5;
-                    this.paging.TotalItem = res1.length;
+                this.item.IddmKho,
+                this.item.IdLoBong,
+                "",
+                this.item.IdLoHang
+            ).subscribe((res1: any) => {
+                res1.forEach((mathang) => {
+                    // mathang.SoLuong = mathang.TonSoLuong;
+                    mathang.SoQuaSoi = mathang.TonSoLuong;
+                    mathang.TongTrongLuong = mathang.TonTongTrongLuong;
+                    mathang.TrongLuongQuaSoi = mathang.TonTrongLuong;
                 });
+                this.item.listItem = res1;
+                this.listItem = this.item.listItem.slice(0, 10);
+                this.paging.CurrentPage = 1;
+                this.paging.TotalPage = 5;
+                this.paging.TotalItem = res1.length;
+            });
         }
     }
     changePage(event) {
@@ -330,7 +336,7 @@ export class KiemkekhomodalComponent implements OnInit {
         let selected = this.listNewMatHang_ref.find(
             (ele) => ele.Id === event.value
         );
-        this.newItem.Ten = `${selected?.Ma} - ${selected?.Ten}` ;
+        this.newItem.Ten = `${selected?.Ma} - ${selected?.Ten}`;
         this.newItem.Ma = selected?.Ma;
     }
     add() {
@@ -362,16 +368,23 @@ export class KiemkekhomodalComponent implements OnInit {
         })
             .catch(er => console.log(er))
     }
+    // TinhTongKhoiLuong(item) {
+    //     if (item.SoQuaSoi > 0)
+    //         item.TongTrongLuong = (item.SoQuaSoi ?? 0) * (item.TonTrongLuong ?? 0) + (item.TongTrongLuongChenhLech ?? 0);
+    // }
     TinhTongKhoiLuong(item) {
-        if (item.SoQuaSoi > 0)
-            item.TongTrongLuong = (item.SoQuaSoi ?? 0) * (item.TonTrongLuong ?? 0) + (item.TongTrongLuongChenhLech ?? 0);
+        item.TongTrongLuong = (item.SoQuaSoi ?? 0) * (item.TrongLuongQuaSoi ?? 0);
+        item.TongTrongLuongChenhLech = (item.TongTrongLuong ?? 0) - ((item.SoQuaSoi ?? 0) * (item.TrongLuongQuaSoi ?? 0))
+    }
+    TinhChenhLech(item) {
+        item.TongTrongLuongChenhLech = (item.TongTrongLuong ?? 0) - ((item.SoQuaSoi ?? 0) * (item.TrongLuongQuaSoi ?? 0))
     }
     checkQuyCach() {
         let isCheck: any = false;
         this.item.listItem.forEach(element => {
             if (element.IddmQuyCachDongGoi === null || element.IddmQuyCachDongGoi === undefined) {
                 isCheck = true;
-                return ;
+                return;
             }
         });
         return isCheck;

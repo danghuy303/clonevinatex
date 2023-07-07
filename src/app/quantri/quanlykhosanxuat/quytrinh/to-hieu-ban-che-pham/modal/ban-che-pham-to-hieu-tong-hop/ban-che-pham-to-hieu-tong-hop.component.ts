@@ -72,7 +72,7 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
   }
 
   GhiLai() {
-    this._services.KiemKeBanChePham().Set(this.setData()).subscribe((res: any) => {
+    this._services.KiemKeBanChePham().SetPhieuKiemKeBanChePhamToHieuTongHop(this.setData()).subscribe((res: any) => {
       this.item = res.objectReturn;
       this.toastr.success(res.message);
     })
