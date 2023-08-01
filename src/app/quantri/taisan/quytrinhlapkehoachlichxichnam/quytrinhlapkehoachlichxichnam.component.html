@@ -14,7 +14,7 @@
             </p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" [(ngModel)]="filter.Ngay"
+            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" [showClear]="true" [(ngModel)]="filter.Ngay"
                 (onChange)="GetList(true)" styleClass="p-inputtext-sm">
             </p-dropdown>
         </div>
