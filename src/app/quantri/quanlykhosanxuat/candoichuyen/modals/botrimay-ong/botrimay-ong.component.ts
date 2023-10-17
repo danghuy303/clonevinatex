@@ -32,19 +32,20 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   listCanBoTri: any = {};
   arrCa: any = [];
   tocDoMay: any = [];
+  listKgcone: any = [];
   lang: any = vn;
-  userInfo: any ;
+  userInfo: any;
 
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
     private _auth: AuthenticationService,
-    ) {
+  ) {
     super(activeModal);
   }
 
   ngOnInit(): void {
-    if(this.item.listCanBoTri.length > 0){
+    if (this.item.listCanBoTri.length > 0) {
       this.userInfo = this._auth.currentUserValue;
-      if(this.item.listCanBoTri[0].CreatedBy !== this.userInfo.Id)
+      if (this.item.listCanBoTri[0].CreatedBy !== this.userInfo.Id)
         this.checkbutton.Ghi = false;
     }
 
@@ -53,16 +54,16 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     }).map(mathang => {
       return {
         // Ten:`${mathang.Ten}${mathang.TenLoHang?(' - '+mathang.TenLoHang):''}`,
-        Ten: `${mathang.Ten} - ${mathang.Ma}${mathang.IdLoHang ? (' - Đảo') : ''}`, 
+        Ten: `${mathang.Ten} - ${mathang.Ma}${mathang.IdLoHang ? (' - Đảo') : ''}`,
         Id: mathang.Id
       }
     })
     this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id');
-    console.log(this.listHangHoa);
-    console.log(this.item.listDaBoTri.map(ele => ele.IdCanDoiChuyen_CanBoTri))
     // .sort((a,b)=>{
     //   return parseInt(a.label.split(' ')[0])-parseInt(b.label.split(' ')[0]);
     // })
+    this.getKgcone();
+
     this.sort();
     this.initSpeedOption();
     this.mapCa_Id = {};
@@ -87,11 +88,18 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     // console.log(this.listCanBoTri);
     this.inputChange()
   }
+
+  getKgcone() {
+    this.services.GetListKgCone().subscribe((res: any) => {
+      this.listKgcone = mapArrayForDropDown(res, "GiaTri", "GiaTri");
+    });
+  }
+
   sort() {
     this.item.listDaBoTri = this.item.listDaBoTri.sort((a: any, b: any) => {
-      if(a.TenMay===b.TenMay){
-        return a.SoCocTu-b.SoCocTu;
-      }else{
+      if (a.TenMay === b.TenMay) {
+        return a.SoCocTu - b.SoCocTu;
+      } else {
         return a.TenMay.localeCompare(b.TenMay);
       }
     })
@@ -201,6 +209,21 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     }
     this.inputChange();
   }
+
+  handleCopy(_item, ca) {
+    let temp = this.item.listDaBoTri;
+    temp = temp.map(x => {
+      if (x.IddmCaSanXuat === ca && x.IdCanDoiChuyen_CanBoTri === _item.IdCanDoiChuyen_CanBoTri) {
+        x.Kgcone = _item.Kgcone;
+      }
+      return x;
+    })
+    console.log('item', this.item);
+    console.log('_item', _item);
+    console.log('ca', ca);
+    this.item.listDaBoTri = temp;
+  }
+
   GhiLai() {
     this.sort();
     this.services.CanDoiChuyen().SetCanDoiChuyen({ ...this.item, ...this.addonData }).subscribe((res: any) => {
@@ -293,13 +316,13 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     }
   }
   ThemMatHangDao() {
-    this.services.CanDoiChuyen().GetlistdmMatHangDao(this.addonData.IddmPhanXuong).subscribe((res:Array<any>) => {
+    this.services.CanDoiChuyen().GetlistdmMatHangDao(this.addonData.IddmPhanXuong).subscribe((res: Array<any>) => {
       console.log(res);
       let modalRef = this._modal.open(MathangdaomodalComponent, {
         backdrop: 'static',
         size: 'lg'
       });
-      modalRef.componentInstance.items = deepCopy(res.map(ele=>{return{...ele,SoLuong:ele.TonSoLuong}}));
+      modalRef.componentInstance.items = deepCopy(res.map(ele => { return { ...ele, SoLuong: ele.TonSoLuong } }));
       modalRef.result.then((res: Array<any>) => {
         let data = res.map(ele => {
           return {
@@ -326,8 +349,8 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   boMatHangDao(item) {
     let exist = this.item.listDaBoTri.some(ele => ele.IdCanDoiChuyen_CanBoTri === item.Id);
     if (exist) {
-      let listMay = this.item.listDaBoTri.filter(ele=>ele.IdCanDoiChuyen_CanBoTri ===item.Id);
-      let message = `Mặt hàng này đã được bố trí vào ${listMay?.length>1?'các':''} máy ${listMay.map(ele=>ele.TenMay).join(', ')}!`
+      let listMay = this.item.listDaBoTri.filter(ele => ele.IdCanDoiChuyen_CanBoTri === item.Id);
+      let message = `Mặt hàng này đã được bố trí vào ${listMay?.length > 1 ? 'các' : ''} máy ${listMay.map(ele => ele.TenMay).join(', ')}!`
       this.toastr.warning(message)
     } else {
       this.services.CanDoiChuyen().XoaMatHangDao(item.Id).subscribe((res: any) => {

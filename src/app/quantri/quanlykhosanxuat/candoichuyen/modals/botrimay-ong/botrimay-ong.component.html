@@ -9,7 +9,7 @@
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm "  *ngIf="checkbutton.Ghi"
+            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " *ngIf="checkbutton.Ghi"
                 (click)="GhiLai()"></button>
             <button pButton pRipple type="button" label="<<<<<" class="p-mr-2 p-button-sm" (click)="Previous()"
                 *ngIf="checkbutton.Previous"></button>
@@ -27,13 +27,11 @@
     <div class="p-d-flex p-flex-row">
         <div class="d-flex flex-row">
             <label class="mr-3">Áp dụng trong khoảng:</label>
-            <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                [yearNavigator]="false" [(ngModel)]="filter.TuNgay"
-                placeholder="Từ ngày">
+            <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [yearNavigator]="false"
+                [(ngModel)]="filter.TuNgay" placeholder="Từ ngày">
             </p-calendar>
-            <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                [yearNavigator]="false" [(ngModel)]="filter.DenNgay"
-                placeholder="Đến ngày">
+            <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [yearNavigator]="false"
+                [(ngModel)]="filter.DenNgay" placeholder="Đến ngày">
             </p-calendar>
             <button pButton pRipple type="button" label="Áp dụng" class="p-mr-2 p-button-sm "
                 (click)="ApDungDenNgay()"></button>
@@ -44,8 +42,8 @@
         </div>
     </div>
     <ng-container *ngFor="let ca of arrCa">
-        <h5>{{ca.Name}}</h5><span><button pButton pRipple type="button" label="Áp dụng ca"
-                class="p-button-sm" (click)="ChonCaApDung(ca.prop)"></button></span>
+        <h5>{{ca.Name}}</h5><span><button pButton pRipple type="button" label="Áp dụng ca" class="p-button-sm"
+                (click)="ChonCaApDung(ca.prop)"></button></span>
         <div class="p-grid">
             <div class="p-col-12 p-p-0 d-flex flex-column flex-lg-row">
                 <div class="p-col-12 p-lg-8 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
@@ -57,6 +55,7 @@
                                 <col style="width:100px">
                                 <col>
                                 <col style="width:100px">
+                                <col style="width:150px">
                                 <col style="width:200px">
                                 <col style="width:70px">
                             </colgroup>
@@ -67,6 +66,7 @@
                                 <th>Số cọc/máy</th>
                                 <th>Mặt hàng</th>
                                 <th>Tốc độ</th>
+                                <th>Kg/cone</th>
                                 <th>Màu</th>
                                 <th></th>
                             </tr>
@@ -93,6 +93,17 @@
                                     <p-dropdown [options]="item.listTocDo" placeholder="Chọn tốc độ máy"
                                         styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanNhomMay_Item"
                                         (onChange)="chonTocDo(item,$event)"></p-dropdown>
+                                </td>
+                                <td>
+                                    <div class="p-inputgroup w-full">
+                                        <p-dropdown [options]="listKgcone" placeholder="Chọn"
+                                            styleClass="p-inputtext-sm" [(ngModel)]="item.Kgcone"
+                                            style="width: 80%;"></p-dropdown>
+                                        <button pButton pRipple type="button" icon="pi pi-copy"
+                                            class="p-button-rounded p-button-sm p-button-text"
+                                            (click)="handleCopy(item, this.mapCa_Id[ca.prop])" style="width: 20%;"
+                                            [disabled]="!item.Kgcone"></button>
+                                    </div>
                                 </td>
                                 <td>
                                     <div style="display: flex; flex-direction: row;"
@@ -156,13 +167,18 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item let-i="rowIndex">
-                            <tr >
-                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" >{{i+1}}</td>
-                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" >{{item.Ten}} <a *ngIf="item.IdLoHang!==null" href="javascript:void(0)" style="color: red;" (click)="boMatHangDao(item)"><i class="fas fa-times-circle"></i></a></td>
+                            <tr>
+                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}">{{i+1}}</td>
+                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}">{{item.Ten}} <a
+                                        *ngIf="item.IdLoHang!==null" href="javascript:void(0)" style="color: red;"
+                                        (click)="boMatHangDao(item)"><i class="fas fa-times-circle"></i></a></td>
                                 <!-- <td></td> -->
-                                <td  [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" class="text-right">{{item.SoMayCon|number:'0.0-2'}}</td>
-                                <td  [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" class="text-right">{{item.SoCocOng}}</td>
-                                <td  [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" class="text-right">{{item.OngTrenCon|number:'0.0-2'}}</td>
+                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}"
+                                    class="text-right">{{item.SoMayCon|number:'0.0-2'}}</td>
+                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}"
+                                    class="text-right">{{item.SoCocOng}}</td>
+                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}"
+                                    class="text-right">{{item.OngTrenCon|number:'0.0-2'}}</td>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="footer">

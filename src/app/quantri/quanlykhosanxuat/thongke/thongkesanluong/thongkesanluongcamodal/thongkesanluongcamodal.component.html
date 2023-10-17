@@ -100,8 +100,10 @@
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">Sản lượng màn hình (kg)</th>
                             <th *ngIf="item.CongDoan!=='ONG'"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">Khối lượng (kg)</th>
-                            <th *ngIf="item.CongDoan!=='CON'"
+                            <th *ngIf="item.CongDoan!=='CON' && item.CongDoan !== 'ONG'"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">Chiều dài (m)</th>
+                            <th *ngIf="item.CongDoan==='ONG'"
+                                [ngStyle]="{'min-width':item.width,'max-width':item.width}">Số quả sợi</th>
                             <th *ngIf="item.CongDoan==='CON'" class="tc-w-100">Chữ đồng hồ (g/cọc)
                                 <p-checkbox (onChange)="checkAll($event, i)" binary="true" inputId="binary">
                                 </p-checkbox>
@@ -142,9 +144,13 @@
                                     (ngModelChange)="TinhTongKhoiLuongBong(indexCa)">
                                 </p-inputNumber>
                             </td>
-                            <td *ngIf="col.listItem[i].DonViNangSuat===1 && item.CongDoan!=='CON'"
+                            <td *ngIf="col.listItem[i].DonViNangSuat===1 && item.CongDoan!=='CON' && item.CongDoan!=='ONG'"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 {{col.listItem[i].ChieuDai |number:'0.3-3'}}
+                            </td>
+                            <td *ngIf="col.listItem[i].DonViNangSuat===1 && item.CongDoan==='ONG'"
+                                [ngStyle]="{'min-width':item.width,'max-width':item.width}">
+                                {{col.listItem[i].SoQuaSoi |number:'0.3-3'}}
                             </td>
                             <td *ngIf="col.listItem[i].DonViNangSuat===0 && item.CongDoan!=='CON'"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">
@@ -296,64 +302,6 @@
                             <td *ngIf="item.CongDoan==='CON'"></td>
                             <td *ngIf="item.CongDoan==='THO'"></td>
                             <td *ngIf="item.CongDoan==='ONG'"></td>
-                        </ng-container>
-                    </tr>
-                </tbody>
-            </table>
-            <br />
-        </div>
-
-        <div class="p-col-12 p-p-0 d-flex flex-column table-bongphe">
-            <table>
-                <thead>
-                    <tr>
-                        <th rowspan="2" style="width: 10rem;">Tên</th>
-                        <ng-container *ngFor="let col of listCaSanXuat">
-                            <th colspan="2">{{col.Ten}}</th>
-                        </ng-container>
-                    </tr>
-                    <tr>
-                        <ng-container *ngFor="let col of listCaSanXuat">
-                            <th style="width: 10rem;">Khối lượng</th>
-                            <th style="width: 10rem;">Tỷ lệ</th>
-                        </ng-container>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- <ng-container *ngIf="item.CongDoan==='CHAICOTTON'"> -->
-                    <ng-container
-                        *ngFor="let row of item.listThongKeSanLuong[0].listTyLeBongPhe | equalByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
-                        <tr *ngFor="let loaibong of row.listKhoiLuongBongPhe ;let indexLoai = index">
-                            <td class="text-left">{{loaibong.TenLoaiBongPhe}}</td>
-                            <ng-container *ngFor="let col of item.listThongKeSanLuong; let i = index">
-                                <ng-container
-                                    *ngFor="let CongDoan of col.listTyLeBongPhe | equalByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
-                                    <td class="text-right p-d-flex p-flex-row">
-                                        <p-inputNumber [minFractionDigits]="3" locale="en-EN" #inputKhoiLuong [data-index]="i*row.listKhoiLuongBongPhe.length+indexLoai"
-                                         (keyup.enter)="nextFocus(i*row.listKhoiLuongBongPhe.length+indexLoai)"
-                                            [(ngModel)]="CongDoan.listKhoiLuongBongPhe[indexLoai].KhoiLuong" (onBlur)="TinhTongKhoiLuongBong(i)">
-                                        </p-inputNumber>
-                                        <button pButton pRipple icon="pi pi-ellipsis-v"
-                                            class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                            title="Nhập theo biểu thức" (click)="tinhToan(CongDoan.listKhoiLuongBongPhe[indexLoai],'KhoiLuong')"
-                                            pTooltip="Tính toán" showDelay="1000" tooltipPosition="bottom"></button>
-                                    </td>
-                                    <td class="text-right">
-                                        {{CongDoan.listKhoiLuongBongPhe[indexLoai].TyLe|number:'0.3-3'}}
-                                    </td>
-                                </ng-container>
-                            </ng-container>
-                        </tr>
-                    </ng-container>
-                    <!-- </ng-container> -->
-                    <tr>
-                        <td class="text-left">Trừ vào sản lượng gian máy:</td>
-                        <ng-container *ngFor="let col of item.listThongKeSanLuong; let i = index">
-                            <td class="text-center p-d-flex p-flex-row">
-                                <input type="checkbox" class="p-inputtext-sm text-left"
-                                    [(ngModel)]="col.isTruVaoSanLuong" (change)="TinhTongKhoiLuongBong(i)" />
-                            </td>
-                            <td></td>
                         </ng-container>
                     </tr>
                 </tbody>

@@ -68,7 +68,8 @@
                             {{PoolMaySanXuat[labelProp.CongDoan.value][may.prop].Ten}}
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="1" [maxFractionDigits]="1" [min]="0" [max]='1' locale="en-EN" [(ngModel)]="PoolMaySanXuat[labelProp.CongDoan.value][may.prop].HeSo">
+                            <p-inputNumber [minFractionDigits]="1" [maxFractionDigits]="1" [min]="0" [max]='1'
+                                locale="en-EN" [(ngModel)]="PoolMaySanXuat[labelProp.CongDoan.value][may.prop].HeSo">
                             </p-inputNumber>
                         </td>
                         <!-- <td>
@@ -77,11 +78,10 @@
                         <td *ngFor="let date of listDate" style="padding:0px;height: 1px;">
                             <app-trangthaimaysanxuat
                                 [(ngModel)]="PoolMaySanXuat[labelProp.CongDoan.value][may.prop][date.prop]"
-                                [HeSo]="PoolMaySanXuat[labelProp.CongDoan.value][may.prop].HeSo"
-                                [IdMatHang]="item.Id">
+                                [HeSo]="PoolMaySanXuat[labelProp.CongDoan.value][may.prop].HeSo" [IdMatHang]="item.Id">
                             </app-trangthaimaysanxuat>
-                               <!--  (ChangeTrangThaiMay)="ChangeMay($event)" [SoMayBoTriConLai]="PoolMaySanXuat[labelProp.CongDoan.value][may.prop].SoMayConLai"-->
-                                 
+                            <!--  (ChangeTrangThaiMay)="ChangeMay($event)" [SoMayBoTriConLai]="PoolMaySanXuat[labelProp.CongDoan.value][may.prop].SoMayConLai"-->
+
                         </td>
                     </tr>
                 </tbody>
