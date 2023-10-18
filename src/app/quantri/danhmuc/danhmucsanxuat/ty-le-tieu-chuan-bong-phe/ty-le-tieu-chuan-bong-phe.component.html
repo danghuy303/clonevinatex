@@ -1,22 +1,28 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Tỷ lệ tiêu chuẩn bông phế</h4>
-  </div>
+    <h4 style="color:#1f2779">Tỷ lệ tiêu chuẩn bông phế/hồi</h4>
+</div>
 <div class="p-d-flex">
     <div class="p-d-flex flex-column flex-lg-row p-pl-3" style="width: 100%;">
         <div>
+            <p-dropdown [options]="listDmLoaiBong" styleClass="p-inputtext-sm" [(ngModel)]="LoaiBong"
+                (onChange)="GetTyLeTieuChuan()"></p-dropdown>
+        </div>
+        <!-- <div>
             <p-dropdown [options]="listThang" styleClass="p-inputtext-sm" [(ngModel)]="Thang"
                 (onChange)="GetTyLeTieuChuan()"></p-dropdown>
         </div>
         <div>
             <p-dropdown [options]="listNam" styleClass="p-inputtext-sm" [(ngModel)]="Nam"
                 (onChange)="GetTyLeTieuChuan()"></p-dropdown>
-        </div>
-        <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()"></button>
+        </div> -->
+        <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm ml-2"
+            (click)="GhiLai()"></button>
     </div>
 </div>
 <div class="p-grid">
     <div class="p-col-12">
-        <p-table [value]="items.listLoaiBongPhe" styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font">
+        <p-table [value]="items.listLoaiBongPhe"
+            styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font">
             <ng-template pTemplate="colgroup">
 
             </ng-template>

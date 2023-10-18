@@ -13,7 +13,7 @@ import { NhapkhohoiammodalComponent } from '../nhapkhohoiammodal/nhapkhohoiammod
   templateUrl: './nhapkhohoiam.component.html',
   styleUrls: ['./nhapkhohoiam.component.css']
 })
-export class NhapkhohoiamComponent extends StoreBase implements OnInit,OnDestroy {
+export class NhapkhohoiamComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -56,7 +56,7 @@ export class NhapkhohoiamComponent extends StoreBase implements OnInit,OnDestroy
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   isCheckModal: any = false;
   listdmPhanXuong: any = [];
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {super(store) }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) { super(store) }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -100,7 +100,7 @@ export class NhapkhohoiamComponent extends StoreBase implements OnInit,OnDestroy
 
   update(Id) {
     this._service.PhieuNhapHoiAm().Get(Id).subscribe((res1: any) => {
-      let modalRef = this._modal.open(  NhapkhohoiammodalComponent, {
+      let modalRef = this._modal.open(NhapkhohoiammodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
@@ -134,8 +134,8 @@ export class NhapkhohoiamComponent extends StoreBase implements OnInit,OnDestroy
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
-      TuNgay:  DateToUnix(this.filter.TuNgay),
-      DenNgay:  DateToUnix(this.filter.DenNgay),
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
       IddmPhanXuong: this.filter.IddmPhanXuong
@@ -155,7 +155,7 @@ export class NhapkhohoiamComponent extends StoreBase implements OnInit,OnDestroy
       this.GetListQuyTrinh();
     })
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }

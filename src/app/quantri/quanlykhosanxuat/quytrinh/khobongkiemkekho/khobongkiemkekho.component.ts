@@ -24,26 +24,36 @@ export class KhobongkiemkekhoComponent extends StoreBase implements OnInit, OnDe
             header: "Tên kho",
             field: "TendmKho",
             width: "200px",
+            ellipsis: false,
+            class: `text-center`
         },
         {
             header: "Tên lô bông",
             field: "TenLoBong",
             width: "200px",
+            ellipsis: false,
+            class: `text-center`
         },
         {
             header: "Nội dung",
             field: "NoiDung",
             width: "200px",
+            ellipsis: true,
+            class: `text-left`
         },
         {
             header: "Ghi chú",
             field: "GhiChu",
             width: "200px",
+            ellipsis: true,
+            class: `text-left`
         },
         {
             header: "Trạng thái",
             field: "TenTrangThai",
             width: "150px",
+            ellipsis: false,
+            class: `text-center`
         },
     ];
     checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };

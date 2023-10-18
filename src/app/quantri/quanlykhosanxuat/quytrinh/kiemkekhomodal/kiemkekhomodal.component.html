@@ -37,7 +37,8 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmKho" (onChange)="getdmKhoFunc()"></p-dropdown>
+                    [(ngModel)]="item.IddmKho" (onChange)="getdmKhoFunc()"
+                    [tooltip]="getTooltip(item.IddmKho, listdmKho)" tooltipPosition="top"></p-dropdown>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -170,7 +171,9 @@
                         <td>
                             <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
                                 placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
-                                [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
+                                [(ngModel)]="item.IddmQuyCachDongGoi"
+                                [tooltip]="getTooltip(item.IddmQuyCachDongGoi, listQuyCachDongGoi)"
+                                tooltipPosition="top"></p-dropdown>
                         </td>
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
@@ -264,7 +267,7 @@
                             {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-0'}}
                         </td>
                         <td></td>
-                      
+
                         <!-- <td></td> -->
                         <td class="text-center"></td>
                         <td class="text-center"></td>

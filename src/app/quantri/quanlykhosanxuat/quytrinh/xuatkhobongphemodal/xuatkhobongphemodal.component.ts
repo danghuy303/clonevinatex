@@ -238,12 +238,21 @@ export class XuatkhobongphemodalComponent implements OnInit {
     }
   }
   exportHoaDon() {
-    if(validVariable(this.item.Id)){
+    if (validVariable(this.item.Id)) {
       this.services.PhieuXuatBongPhe().ExportHoaDonXuatKhoBongPhe(this.item.Id).subscribe((res: any) => {
         this.services.download(res.TenFile);
       })
-    }else{
+    } else {
       this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
     }
+  }
+
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }

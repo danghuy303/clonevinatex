@@ -24,13 +24,13 @@
                 styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
+                        <col style="width:45px">
                         <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:10rem;">
+                        <col style="width:15rem;">
                         <col style="width: 15rem;">
                         <col *ngIf="loai !== 'dmMatHang'">
-                        <col *ngIf="loai !== 'dmMatHang'">
-                        <col *ngIf="loai !== 'dmMatHang'">
+                        <col *ngIf="loai !== 'dmMatHang'" style="width: 150px;">
+                        <col *ngIf="loai !== 'dmMatHang'" style="width: 150px;">
                         <!-- <col *ngFor="let header of cols" [ngStyle]="{'width': header.width}"> -->
                     </colgroup>
                 </ng-template>
@@ -47,7 +47,7 @@
                         <th class="text-center" *ngIf="loai !== 'dmMatHang'">
                             <ng-container *ngIf="kho!=='khothanhpham'">Số kiện</ng-container>
                             <ng-container *ngIf="kho==='khothanhpham'">Số quả</ng-container>
-                            
+
                         </th>
                         <th class="text-center" *ngIf="loai !== 'dmMatHang'">
                             <ng-container *ngIf="kho!=='khothanhpham'">Khối lượng /kiện (kg)</ng-container>

@@ -37,7 +37,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   IddmPhanXuong: string = '';
   PoolMaySanXuat: any = {};
   mapCongDoan_TinhTrangMay: any = {};
-  listCaSanXuat:any[]=[];
+  listCaSanXuat: any[] = [];
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private datepipe: DatePipe) {
   }
 
@@ -52,9 +52,9 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   validVariable(e) {
     return validVariable(e);
   }
-  getListCaSanXuat(){
-    this._services.GetListOptdmCaSanXuat().subscribe((res:any)=>{
-      this.listCaSanXuat = res;    
+  getListCaSanXuat() {
+    this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      this.listCaSanXuat = res;
     })
   }
   getListPhanXuong() {
@@ -497,5 +497,14 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     this._services.TrienKhaiKeHoachSanXuat().Export(this.item.Id).subscribe((res: any) => {
       this._services.download(res.TenFile);
     })
+  }
+
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }

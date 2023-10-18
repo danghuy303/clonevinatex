@@ -264,7 +264,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt] =  Math.round(res);
+      item[opt] = Math.round(res);
       this.TongKhoiLuong(item);
     })
   }
@@ -305,5 +305,14 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
   TinhKgCone(item) {
     item.KgCone = (item.TongKhoiLuong || 0) / (item.SoQuaSoiThanhPham || 1);
+  }
+
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }

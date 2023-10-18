@@ -47,14 +47,17 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho xuất:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmKho"></p-dropdown>
+                    [(ngModel)]="item.IddmKho" [tooltip]="getTooltip(item.IddmKho, listKho)"
+                    tooltipPosition="top"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch triển khai: </label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listTrienKhaiKeHoachSanXuat" placeholder="Chọn kế hoạch"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdGiaoKeHoachSanXuat_TrienKhai"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdGiaoKeHoachSanXuat_TrienKhai"
+                    [tooltip]="getTooltip(item.IdGiaoKeHoachSanXuat_TrienKhai, listTrienKhaiKeHoachSanXuat)"
+                    tooltipPosition="top"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">

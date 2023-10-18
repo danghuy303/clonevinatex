@@ -86,23 +86,26 @@
                                 <td>
                                     <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
                                         placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
-                                        [(ngModel)]="item.IdCanDoiChuyen_CanBoTri"
-                                        (onChange)="chonMatHang(item,$event)"></p-dropdown>
+                                        [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="chonMatHang(item,$event)"
+                                        [tooltip]="getTooltip(item.IdCanDoiChuyen_CanBoTri, listHangHoa)"
+                                        tooltipPosition="top"></p-dropdown>
                                 </td>
                                 <td>
                                     <p-dropdown [options]="item.listTocDo" placeholder="Chọn tốc độ máy"
                                         styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanNhomMay_Item"
-                                        (onChange)="chonTocDo(item,$event)"></p-dropdown>
+                                        (onChange)="chonTocDo(item,$event)"
+                                        [tooltip]="getTooltip(item.IdPhanNhomMay_Item, item.listTocDo)"
+                                        tooltipPosition="top"></p-dropdown>
                                 </td>
                                 <td>
                                     <div class="p-inputgroup w-full">
                                         <p-dropdown [options]="listKgcone" placeholder="Chọn"
-                                            styleClass="p-inputtext-sm" [(ngModel)]="item.Kgcone"
+                                            styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone"
                                             style="width: 80%;"></p-dropdown>
                                         <button pButton pRipple type="button" icon="pi pi-copy"
                                             class="p-button-rounded p-button-sm p-button-text"
                                             (click)="handleCopy(item, this.mapCa_Id[ca.prop])" style="width: 20%;"
-                                            [disabled]="!item.Kgcone"></button>
+                                            [disabled]="!item.KgCone"></button>
                                     </div>
                                 </td>
                                 <td>

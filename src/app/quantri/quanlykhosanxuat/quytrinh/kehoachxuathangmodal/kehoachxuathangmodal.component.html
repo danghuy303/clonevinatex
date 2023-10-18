@@ -24,9 +24,10 @@
                 *ngIf="checkbutton.KhongDuyet"></button> -->
             <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenTiep()"
                 *ngIf="checkbutton.ChuyenTiep"></button>
-                <button pButton pRipple type="button" label="Điều chỉnh" class="p-mr-2 p-button-sm " (click)="GhiLai()"
+            <button pButton pRipple type="button" label="Điều chỉnh" class="p-mr-2 p-button-sm " (click)="GhiLai()"
                 *ngIf="canDieuChinh"></button>
-            <button pButton pRipple type="button" label="Kết xuất" (click)="exportExcel()" class="p-mr-2 p-button-sm"></button>
+            <button pButton pRipple type="button" label="Kết xuất" (click)="exportExcel()"
+                class="p-mr-2 p-button-sm"></button>
         </div>
     </div>
     <div class="p-grid">
@@ -68,8 +69,8 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px !important">
-                        <col style="width: 200px;">
-                        <col style="width: 120px;">
+                        <col style="width: 180px;">
+                        <col style="width: 150px;">
                         <col style="width: 80px;">
                         <col style="width: 80px;">
                         <col style="width: 100px;">
@@ -78,7 +79,7 @@
                         <col style="width: 200px;">
                         <col>
                         <col style="width: 120px;">
-                        <col style="width:30px">
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -94,7 +95,7 @@
                         <th>Người nhận hàng</th>
                         <th>Khách hàng</th>
                         <th>Ghi chú</th>
-                        <th style="width: 50px;"></th>
+                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -104,7 +105,7 @@
                             {{item.Ten}}
                         </td>
                         <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="item.SoHopDong">
+                            <input pInputText type="text" [ngbTooltip]="item.SoHopDong" [(ngModel)]="item.SoHopDong">
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.DonGia">
@@ -116,13 +117,12 @@
                         </td>
                         <td class="text-center">
                             <div style="display: inline-flex;">
-                                    <p-inputNumber [minFractionDigits]="2" locale="en-EN"
-                                        [(ngModel)]="item.SoLuongXuat">
-                                    </p-inputNumber>
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoLuongXuat">
+                                </p-inputNumber>
                                 <button pButton pRipple icon="pi pi-ellipsis-v"
                                     class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'SoLuongXuat')" pTooltip="Tính toán"
-                                    showDelay="1000" tooltipPosition="bottom"></button>
+                                    (click)="tinhToan(item,'SoLuongXuat')" pTooltip="Tính toán" showDelay="1000"
+                                    tooltipPosition="bottom"></button>
                             </div>
 
                             <!-- pi-ellipsis-v -->
@@ -153,11 +153,13 @@
                             </p-calendar>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="item.NguoiNhan">
+                            <input pInputText type="text" [ngbTooltip]="item.NguoiNhan" [(ngModel)]="item.NguoiNhan">
                         </td>
                         <td>
-                                <p-dropdown [filter]="false" [options]="listKhachHang" styleClass="p-inputtext-sm"
-                                    placeholder="Chọn khách hàng" [(ngModel)]="item.IddmKhachHang"></p-dropdown>
+                            <p-dropdown [filter]="false" [options]="listKhachHang" styleClass="p-inputtext-sm"
+                                placeholder="Chọn khách hàng" [(ngModel)]="item.IddmKhachHang"
+                                [tooltip]="getTooltipKH(item.IddmKhachHang)" showDelay="1000"
+                                tooltipPosition="top"></p-dropdown>
                         </td>
                         <td>
                             <input pInputText type="text" [ngbTooltip]="item.GhiChu" [(ngModel)]="item.GhiChu">

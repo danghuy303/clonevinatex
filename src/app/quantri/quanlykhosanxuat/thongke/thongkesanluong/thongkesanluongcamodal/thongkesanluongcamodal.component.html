@@ -71,14 +71,14 @@
                 <textarea pInputTextarea [(ngModel)]="item.NoiDung"></textarea>
             </div>
         </div>
-        <div class="p-col-12 p-p-0 d-flex flex-column table-bongphe">
+        <div class="p-col-12 p-p-0 d-flex flex-column table-bongphe" style="max-width: 100%;overflow: auto;">
             <table>
                 <thead>
                     <tr>
                         <th rowspan="2" class="tc-w-30">#</th>
-                        <th rowspan="2">Số máy</th>
-                        <th rowspan="2" class="tc-w-30">Ne</th>
-                        <th rowspan="2">Mặt hàng</th>
+                        <th rowspan="2" style="min-width: 250px;">Số máy</th>
+                        <!-- <th rowspan="2" class="tc-w-30">Ne</th>
+                        <th rowspan="2">Mặt hàng</th> -->
                         <th *ngFor="let col of listCaSanXuat; let i = index" [attr.colspan]="col.SoCot">
                             <div class="d-flex flex-column flex-lg-row">
                                 <label class="p-col-12 p-lg-9 p-p-0 my-auto">{{col.Ten}}</label>
@@ -93,8 +93,8 @@
                     <tr>
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
-                        <th style="display: none;"></th>
-                        <th style="display: none;"></th>
+                        <!-- <th style="display: none;"></th>
+                        <th style="display: none;"></th> -->
                         <ng-container *ngFor="let col of listCaSanXuat; let i = index">
                             <th *ngIf="item.CongDoan==='ONG'"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">Sản lượng màn hình (kg)</th>
@@ -121,10 +121,10 @@
                     <tr *ngFor="let itemtbl of thongKeFull[0]?.listItem; let i = index">
                         <td class="tc-w-30" style="background-color: #fff;">{{i+1}}</td>
                         <td class="text-left" style="background-color: #fff;">{{itemtbl.TendmMay}}</td>
-                        <td class="text-left tc-w-30" style="background-color: #fff;">{{itemtbl.Ne}}</td>
+                        <!-- <td class="text-left tc-w-30" style="background-color: #fff;">{{itemtbl.Ne}}</td>
                         <td class="text-left" style="background-color: #fff;">{{itemtbl.Ten}}
                             <span *ngIf="item.CongDoan==='ONG'&& itemtbl.IdLoHangDao!==null "> - Đảo</span>
-                        </td>
+                        </td> -->
                         <ng-container *ngFor="let col of thongKeFull; let indexCa = index">
                             <td td class="text-right" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 <span *ngIf="col.listItem[i].DonViNangSuat=== 0">
@@ -248,13 +248,11 @@
                                 </p-inputNumber>
                             </td> -->
                             <td *ngIf="item.CongDoan==='ONG'" class="tc-w-150">
-                                <div class="p-inputgroup">
-                                    <div style="flex:1">
-                                        <p-dropdown [filter]="true" [options]="listLoHang" [autofocusFilter]="true"
-                                            placeholder="Chọn lô hàng" styleClass="p-inputtext-sm w-full"
-                                            [(ngModel)]="col.listItem[i].IdLoHang"></p-dropdown>
-                                    </div>
-                                    <button pButton pRipple icon="pi pi-copy"
+                                <div class="p-inputgroup w-full">
+                                    <p-dropdown style="width: 80%;" [filter]="true" [options]="listLoHang"
+                                        [autofocusFilter]="true" placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
+                                        [(ngModel)]="col.listItem[i].IdLoHang"></p-dropdown>
+                                    <button style="width: 20%;" pButton pRipple icon="pi pi-copy"
                                         class="p-button-sm p-button-rounded p-button-text p-mr-2"
                                         (click)="ApDung(col.listItem[i], indexCa)"></button>
                                 </div>
@@ -263,8 +261,8 @@
                     </tr>
                     <tr>
                         <td class="tc-w-30" style="background-color: #fff;">&nbsp;</td>
-                        <td tyle="background-color: #fff;"></td>
-                        <td class="text-left tc-w-30" style="background-color: #fff;"></td>
+                        <!-- <td tyle="background-color: #fff;"></td>
+                        <td class="text-left tc-w-30" style="background-color: #fff;"></td> -->
                         <td style="background-color: #fff;">TỔNG</td>
                         <ng-container *ngFor="let col of thongKeFull;let i = index">
                             <td class="text-right" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
@@ -290,7 +288,7 @@
                             </td>
                         </ng-container>
                     </tr>
-                    <tr *ngFor="let col of listItemTable">
+                    <!-- <tr *ngFor="let col of listItemTable">
                         <td style="background-color: #fff;">&nbsp;</td>
                         <td style="background-color: #fff;"></td>
                         <td style="background-color: #fff;"></td>
@@ -303,7 +301,7 @@
                             <td *ngIf="item.CongDoan==='THO'"></td>
                             <td *ngIf="item.CongDoan==='ONG'"></td>
                         </ng-container>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
             <br />

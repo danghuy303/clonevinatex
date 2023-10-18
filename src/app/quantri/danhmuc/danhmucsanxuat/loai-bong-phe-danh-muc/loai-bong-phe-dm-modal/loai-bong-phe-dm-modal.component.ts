@@ -23,15 +23,15 @@ export class LoaiBongPheDmModalComponent implements OnInit {
     this.GetListCongDoan()
   }
   GetListCongDoan() {
-    this.sanXuatService.GetListCongDoan().subscribe((res:any[])=>{
-      this.listCongDoan = mapArrayForDropDown(res,'Ten','Id')
+    this.sanXuatService.GetListCongDoan().subscribe((res: any[]) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Id')
     })
   }
 
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
-      this.sanXuatService.DanhMucLoaiBongPhe().Set(this.item).subscribe((res:any)=>{
+      this.sanXuatService.DanhMucLoaiBongPhe().Set(this.item).subscribe((res: any) => {
         this.resAction(res);
       })
     } else {
@@ -39,7 +39,7 @@ export class LoaiBongPheDmModalComponent implements OnInit {
       this.toastr.warning('Vui lòng nhập đầy đủ trường thông tin bắt buộc!')
     }
   }
-  
+
 
   resAction(res: any) {
     if (res.State === 1) {

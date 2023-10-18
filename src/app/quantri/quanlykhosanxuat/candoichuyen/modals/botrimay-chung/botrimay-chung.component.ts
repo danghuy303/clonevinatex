@@ -30,7 +30,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   lang: any = vn;
   listItemDieuChinh: any = [];
   optionMatHang: string = '';
-  userInfo: any ;
+  userInfo: any;
 
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
     private _auth: AuthenticationService,) {
@@ -38,9 +38,9 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   }
 
   ngOnInit(): void {
-    if(this.item.listCanBoTri.length > 0){
+    if (this.item.listCanBoTri.length > 0) {
       this.userInfo = this._auth.currentUserValue;
-      if(this.item.listCanBoTri[0].CreatedBy !== this.userInfo.Id)
+      if (this.item.listCanBoTri[0].CreatedBy !== this.userInfo.Id)
         this.checkbutton.Ghi = false;
     }
 
@@ -55,10 +55,10 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
       return parseInt(a.Ten.split(' ')[0]) - parseInt(b.Ten.split(' ')[0]);
     }).map(mathang => {
       return {
-        Ten:  this.addonData.CongDoan === "ONG"?`${mathang.Ten} - ${mathang.Ma}`:`${mathang.Ten}`, 
+        Ten: this.addonData.CongDoan === "ONG" ? `${mathang.Ten} - ${mathang.Ma}` : `${mathang.Ten}`,
         Id: mathang.Id
       }
-      }), 'Ten', 'Id')
+    }), 'Ten', 'Id')
     this.item.listCanBoTri.forEach(mathang => {
       mathang.SoMayDaBoTri = 0;
     });
@@ -219,5 +219,14 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   }
   HuyDieuChinh() {
     this.activeModal.close({ respawn: true });
+  }
+
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }

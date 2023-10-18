@@ -1933,15 +1933,15 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
           {
-            label: "Tỷ lệ tiêu chuẩn bông phế",
+            label: "Tỷ lệ tiêu chuẩn bông phế/hồi",
             routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbongphe",
             command: () => this.close(),
           },
-          {
-            label: "Tỷ lệ tiêu chuẩn bông hồi",
-            routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbonghoi",
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Tỷ lệ tiêu chuẩn bông hồi",
+          //   routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbonghoi",
+          //   command: () => this.close(),
+          // },
           {
             label: "Cấp bông",
             routerLink: "/quantri/danhmucsanxuat/dmcapbong",

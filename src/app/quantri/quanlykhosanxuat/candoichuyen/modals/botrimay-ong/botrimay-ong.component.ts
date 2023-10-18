@@ -214,7 +214,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     let temp = this.item.listDaBoTri;
     temp = temp.map(x => {
       if (x.IddmCaSanXuat === ca && x.IdCanDoiChuyen_CanBoTri === _item.IdCanDoiChuyen_CanBoTri) {
-        x.Kgcone = _item.Kgcone;
+        x.KgCone = _item.KgCone;
       }
       return x;
     })
@@ -362,5 +362,14 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
         }
       })
     }
+  }
+
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }
