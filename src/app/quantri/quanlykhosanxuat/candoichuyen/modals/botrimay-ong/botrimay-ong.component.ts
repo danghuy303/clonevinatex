@@ -33,6 +33,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   arrCa: any = [];
   tocDoMay: any = [];
   listKgcone: any = [];
+  listKgconeWithId: any = [];
   lang: any = vn;
   userInfo: any;
 
@@ -92,7 +93,22 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   getKgcone() {
     this.services.GetListKgCone().subscribe((res: any) => {
       this.listKgcone = mapArrayForDropDown(res, "GiaTri", "GiaTri");
+      this.listKgconeWithId = res;
     });
+  }
+
+  changeKgCone(_item: any, ca: any) {
+    let temp = this.item.listDaBoTri;
+    temp = temp.map((x: any) => {
+      if (x.IddmCaSanXuat === ca && x.IdCanDoiChuyen_CanBoTri === _item.IdCanDoiChuyen_CanBoTri && _item.Id === x.Id) {
+        let _thisKgCone = this.listKgconeWithId.find((y: any) => y.GiaTri === x.KgCone);
+        if (_thisKgCone) {
+          x.IddmKgCone = _thisKgCone.Id;
+        }
+      }
+      return x;
+    })
+    this.item.listDaBoTri = temp;
   }
 
   sort() {
@@ -210,17 +226,14 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     this.inputChange();
   }
 
-  handleCopy(_item, ca) {
+  handleCopy(_item: any, ca: any) {
     let temp = this.item.listDaBoTri;
-    temp = temp.map(x => {
+    temp = temp.map((x: any) => {
       if (x.IddmCaSanXuat === ca && x.IdCanDoiChuyen_CanBoTri === _item.IdCanDoiChuyen_CanBoTri) {
         x.KgCone = _item.KgCone;
       }
       return x;
     })
-    console.log('item', this.item);
-    console.log('_item', _item);
-    console.log('ca', ca);
     this.item.listDaBoTri = temp;
   }
 

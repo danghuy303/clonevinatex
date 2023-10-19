@@ -100,8 +100,8 @@
                                 <td>
                                     <div class="p-inputgroup w-full">
                                         <p-dropdown [options]="listKgcone" placeholder="Chọn"
-                                            styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone"
-                                            style="width: 80%;"></p-dropdown>
+                                            styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone" style="width: 80%;"
+                                            (onChange)="changeKgCone(item, this.mapCa_Id[ca.prop])"></p-dropdown>
                                         <button pButton pRipple type="button" icon="pi pi-copy"
                                             class="p-button-rounded p-button-sm p-button-text"
                                             (click)="handleCopy(item, this.mapCa_Id[ca.prop])" style="width: 20%;"
