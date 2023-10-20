@@ -125,7 +125,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       }
     })
     if (_bool) {
-      let msg = `Lô ${arr.map(x => x.TenLoHang).join(', ')} có số quả nhập lớn hơn số quả hồi ẩm!`
+      let msg = `${arr.map(x => x.Ten).join(', ')} có số quả nhập lớn hơn số quả hồi ẩm!`
       this.toastr.error(msg);
     }
     return _bool

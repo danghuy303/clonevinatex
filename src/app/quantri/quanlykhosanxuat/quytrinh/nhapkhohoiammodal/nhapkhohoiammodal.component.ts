@@ -174,7 +174,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
       })
 
       if (!bool) {
-        let msg = `Lô hàng ${arr.map(x => x.TenLoHang).join(', ')} có số quả thực tế không khớp với số quả màn hình!`
+        let msg = `${arr.map(x => x.Ten).join(', ')} có số quả thực tế không khớp với số quả màn hình!`
         this.toastr.error(msg);
         return;
       }
