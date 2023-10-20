@@ -25,6 +25,11 @@ export class NhaphoiammathangmodalComponent implements OnInit {
       field: 'TenLoHang',
       width: 'unset'
     },
+    {
+      header: 'Số quả sợi MH',
+      field: 'SoQuaSoiManHinh',
+      width: '100px'
+    },
   ];
   loai = '';
   checkedAll: boolean = false;

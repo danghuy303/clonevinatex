@@ -187,7 +187,7 @@ export class KiemtrabanchephammodalComponent implements OnInit {
   look(list) {
     list.forEach((ele) => {
       this.item.listItem.forEach(item => {
-        let obj =item.listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === ele.Id);
+        let obj = item.listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === ele.Id);
         if (obj && ele.CongThuc) {
           obj.Disabled = true;
         }

@@ -60,24 +60,28 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-4 p-d-flex p-flex-row" *ngIf="item.CongDoan==='THO'||item.CongDoan ==='CON'||item.CongDoan ==='ONG'">
+        <div class="p-col-4 p-d-flex p-flex-row"
+            *ngIf="item.CongDoan==='THO'||item.CongDoan ==='CON'||item.CongDoan ==='ONG'">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số cọc:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoCoc" (onBlur)="item_tinhNangSuatLyThuyet()">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoCoc"
+                    (onBlur)="item_tinhNangSuatLyThuyet()">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số phút/1 ca:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TocDoQuay" (onBlur)="tinhNangSuatLyThuyet()">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TocDoQuay"
+                    (onBlur)="tinhNangSuatLyThuyet()">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Hệ số:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" [maxFractionDigits]="5" locale="en-EN" [(ngModel)]="item.HeSo" (onBlur)="tinhNangSuatLyThuyet()">
+                <p-inputNumber [minFractionDigits]="2" [maxFractionDigits]="5" locale="en-EN" [(ngModel)]="item.HeSo"
+                    (onBlur)="tinhNangSuatLyThuyet()">
                 </p-inputNumber>
             </div>
         </div>
@@ -109,7 +113,7 @@
                 </div>
             </div>
         </div>
-        <p-table [value]="item.lstdmItem|isXoa|filter:filter.KeyWord" 
+        <p-table [value]="item.lstdmItem|isXoa|filter:filter.KeyWord"
             styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="false"
             scrollHeight="300px">
             <ng-template pTemplate="colgroup">
@@ -159,9 +163,11 @@
                     <td *ngIf="childModalOpt!==''">
                         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText
                         [disabled]="true" /> -->
-                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn loại sợi" styleClass="p-inputtext-sm"
-                            [(ngModel)]="item.Iditem"
-                            (onChange)="changeLoaiSoiHoacMatHang($event,item)"></p-dropdown>
+                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn loại sợi"
+                            styleClass="p-inputtext-sm" [(ngModel)]="item.Iditem"
+                            (onChange)="changeLoaiSoiHoacMatHang($event,item)"
+                            [tooltip]="getTooltip(item.Iditem, listLoaiSoiHoacMatHang)"
+                            tooltipPosition="top"></p-dropdown>
                     </td>
                     <td>
                         <!-- [disabled]="childModalOpt==='MATHANG'" -->
@@ -200,7 +206,8 @@
                         </p-inputNumber>
                     </td>
                     <td class="text-center">
-                        <p-checkbox [(ngModel)]="item.isApDung" binary="true" inputId="binary" (onChange)="changeDMApDung(item)"></p-checkbox>
+                        <p-checkbox [(ngModel)]="item.isApDung" binary="true" inputId="binary"
+                            (onChange)="changeDMApDung(item)"></p-checkbox>
                     </td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
@@ -223,9 +230,11 @@
                     <td *ngIf="childModalOpt!==''">
                         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.Ten" pInputText
                         [disabled]="true" /> -->
-                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
-                            [(ngModel)]="newTableItem.Iditem"
-                            (onChange)="changeLoaiSoiHoacMatHang($event,newTableItem)"></p-dropdown>
+                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn mặt hàng"
+                            styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.Iditem"
+                            (onChange)="changeLoaiSoiHoacMatHang($event,newTableItem)"
+                            [tooltip]="getTooltip(newTableItem.Iditem, listLoaiSoiHoacMatHang)"
+                            tooltipPosition="top"></p-dropdown>
                     </td>
                     <td>
                         <!-- [disabled]="childModalOpt==='MATHANG'" -->
@@ -264,7 +273,8 @@
                         </p-inputNumber>
                     </td>
                     <td class="text-center">
-                        <p-checkbox [(ngModel)]="newTableItem.isApDung" binary="true" inputId="binary" (onChange)="changeDMApDung(newTableItem)"></p-checkbox>
+                        <p-checkbox [(ngModel)]="newTableItem.isApDung" binary="true" inputId="binary"
+                            (onChange)="changeDMApDung(newTableItem)"></p-checkbox>
                     </td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.GhiChu" pInputText />

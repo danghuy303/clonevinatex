@@ -150,7 +150,11 @@
                             </td>
                             <td *ngIf="col.listItem[i].DonViNangSuat===1 && item.CongDoan==='ONG'"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">
-                                {{col.listItem[i].SoQuaSoi |number:'0.3-3'}}
+                                <p-inputNumber #inputNumber [tabindex]="i*15+(indexCa*5)+1" locale="en-EN"
+                                    [(ngModel)]="col.listItem[i].SoQuaSoi"
+                                    (ngModelChange)="TinhTongKhoiLuongBong(indexCa)">
+                                </p-inputNumber>
+                                <!-- {{col.listItem[i].SoQuaSoi |number:'0.3-3'}} -->
                             </td>
                             <td *ngIf="col.listItem[i].DonViNangSuat===0 && item.CongDoan!=='CON'"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">
@@ -269,9 +273,13 @@
                                 <!-- {{col.listItem|isXoa|SumByKey:'KhoiLuong'|number:'0.3-3'}} -->
                                 {{KhoiLuongCa[i]|number:'0.3-3'}}
                             </td>
-                            <td *ngIf="item.CongDoan!=='CON'" class="text-right"
+                            <td *ngIf="item.CongDoan==='THO'" class="text-right"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 {{col.listItem|isXoa|SumByKey:'ChieuDai'|number:'0.3-3'}}
+                            </td>
+                            <td *ngIf="item.CongDoan==='ONG'" class="text-right"
+                                [ngStyle]="{'min-width':item.width,'max-width':item.width}">
+                                {{col.listItem|isXoa|SumByKey:'SoQuaSoi'}}
                             </td>
                             <td *ngIf="item.CongDoan==='CON'" class="text-right tc-w-100">
                                 {{col.listItem|isXoa|SumByKey:'ChuDongHo'|number:'0.3-3'}}

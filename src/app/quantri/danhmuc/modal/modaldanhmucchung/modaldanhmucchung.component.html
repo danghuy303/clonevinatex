@@ -62,6 +62,12 @@
                     [(ngModel)]="item.Loai"></p-dropdown>
             </div>
         </div>
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'&& (item?.Loai===7 || item?.Loai===6)">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Pha :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-checkbox [(ngModel)]="item.isPha" binary="true" inputId="binary"></p-checkbox>
+            </div>
+        </div>
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">

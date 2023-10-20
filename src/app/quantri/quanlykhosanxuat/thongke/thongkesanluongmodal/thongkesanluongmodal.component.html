@@ -124,11 +124,11 @@
                         <col *ngIf="item.CongDoan!=='ONG'" style="width: 10rem;">
 
                         <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
-                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 5rem;">
 
                         <col *ngIf="item.CongDoan!=='ONG'" style="width: 10rem;">
 
-                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 5rem;">
 
 
                         <col *ngIf="item.CongDoan=='CON'" style="width: 9rem;">
@@ -148,7 +148,7 @@
                         <th>Mặt hàng</th>
 
                         <th *ngIf="item.CongDoan==='ONG'">Lô hàng</th>
-                        <th *ngIf="item.CongDoan==='ONG'">Sản lượng màn hình (kg)</th>
+                        <th *ngIf="item.CongDoan==='ONG'">SL màn hình (kg)</th>
                         <th *ngIf="item.CongDoan!=='ONG'">Khối lượng (kg)</th>
 
                         <th *ngIf="item.CongDoan!=='ONG'">Sản lượng định mức</th>
@@ -208,8 +208,7 @@
                                 {{itemtbl.KhoiLuongTinhToan |number:'0.2-2'}}
                             </td>
                             <td class="text-right" *ngIf="item.CongDoan==='ONG'">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.SoQuaSoi"
-                                    #inputNumber>
+                                <p-inputNumber locale="en-EN" [(ngModel)]="itemtbl.SoQuaSoi" #inputNumber>
                                 </p-inputNumber>
                             </td>
                             <td *ngIf="itemtbl.DonViNangSuat===1 && item.CongDoan!=='ONG'" class="text-right">
@@ -296,7 +295,7 @@
                             </td>
                         </tr>
                     </ng-container>
-                    <ng-container *ngIf="itemtbl==='clone' && item.CongDoan==='ONG'">
+                    <!-- <ng-container *ngIf="itemtbl==='clone' && item.CongDoan==='ONG'">
                         <tr style="height: 40px;">
                             <td></td>
                             <td></td>
@@ -307,7 +306,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                    </ng-container>
+                    </ng-container> -->
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <tr>
@@ -321,10 +320,16 @@
                         <td class="text-right" *ngIf="item.CongDoan!=='ONG'">
                             {{TongKhoiLuong |number:'0.3-3'}}
                         </td>
-                        <td class="text-right">
+                        <td class="text-right" *ngIf="item.CongDoan==='ONG'">
+                            {{listItem|isXoa|SumByKey:'KhoiLuong'|number:'0.3-3'}}
+                        </td>
+                        <td class="text-right" *ngIf="item.CongDoan==='ONG'">
+                            {{listItem|isXoa|SumByKey:'SoQuaSoi'}}
+                        </td>
+                        <td class="text-right" *ngIf="item.CongDoan!=='ONG'">
                             {{listItem|isXoa|SumByKey:'KhoiLuongTinhToan'|number:'0.3-3'}}
                         </td>
-                        <td class="text-right">
+                        <td class="text-right" *ngIf="item.CongDoan!=='ONG'">
                             {{listItem|isXoa|SumByKey:'ChieuDai'|number:'0.3-3'}}
                         </td>
 

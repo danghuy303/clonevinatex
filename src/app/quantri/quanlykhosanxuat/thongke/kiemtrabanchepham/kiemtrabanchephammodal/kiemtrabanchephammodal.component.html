@@ -133,8 +133,8 @@
                                         <p-inputNumber #inputNumber [disabled]="col.Disabled"
                                             [tabindex]="i * itemtbl.listdmTieuChiBanChePham.length+indexcon+1"
                                             (keyup.enter)="xuongDong(i, itemtbl.listdmTieuChiBanChePham.length,indexcon)"
-                                            inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2"
-                                            [(ngModel)]="col.GiaTri" (onBlur)="Tinh(i)">
+                                            inputId="minmaxfraction" [(ngModel)]="col.GiaTri" (onBlur)="Tinh(i)"
+                                            mode="decimal" locale="en-US" [minFractionDigits]="2">
                                         </p-inputNumber>
                                         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="col.GiaTri"
                                             mask="separator.2" thousandSeparator="," (change)="Tinh(i)"

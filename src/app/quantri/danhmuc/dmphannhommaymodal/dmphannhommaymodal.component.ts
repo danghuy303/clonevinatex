@@ -291,7 +291,7 @@ export class DmphannhommaymodalComponent implements OnInit {
           }
         });
       }
-      else if (this.item.CongDoan == "GHEPSOBO"|| this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
+      else if (this.item.CongDoan == "GHEPSOBO" || this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(obj.Nm))) {
             obj.NangSuat = obj.TocDo * this.item.SoDauRa * (this.item.TocDoQuay || 0) / obj.Nm / 1000 * (this.item.HeSo || 0);
@@ -343,7 +343,7 @@ export class DmphannhommaymodalComponent implements OnInit {
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
-      else if (this.item.CongDoan == "GHEPSOBO"|| this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
+      else if (this.item.CongDoan == "GHEPSOBO" || this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(this.newTableItem.Nm))) {
           this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoDauRa * (this.item.TocDoQuay || 0) / this.newTableItem.Nm / 1000 * (this.item.HeSo || 0);
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
@@ -425,8 +425,8 @@ export class DmphannhommaymodalComponent implements OnInit {
     //     }
     //   }
     // });
-     this.item.lstdmItem.forEach(element => {
-      if (element.Iditem != undefined && element.Iditem== item.Iditem) {
+    this.item.lstdmItem.forEach(element => {
+      if (element.Iditem != undefined && element.Iditem == item.Iditem) {
         if (element.Id != item.Id) {
           if (item.Nm != element.Nm) {
             item.isApDung = true;
@@ -436,9 +436,18 @@ export class DmphannhommaymodalComponent implements OnInit {
           }
         }
       }
-      else if(element.Iditem != undefined && element.Iditem != item.Iditem) {
+      else if (element.Iditem != undefined && element.Iditem != item.Iditem) {
         item.isApDung = true;
       }
     });
+  }
+
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }

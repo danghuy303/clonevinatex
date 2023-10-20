@@ -97,7 +97,10 @@ export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
         IddmPhanXuong: this.kiemke.IddmPhanXuong,
       }
       this._services.KiemKeBanChePham().GetKhoiTaoPhieuKiemKeBanChePhamToHieu(data).subscribe((res: any) => {
-        this.toastr.success(res.message);
+        if (res.State === 1)
+          this.toastr.success(res.message);
+        else
+          this.toastr.error(res.message);
         if (res.objectReturn) {
           this.isKiemKe = !this.isKiemKe;
           this.title = 'Kiểm kê kho bán chế phẩm';
@@ -119,7 +122,10 @@ export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
   GhiLai() {
     this._services.KiemKeBanChePham().Set(this.setData()).subscribe((res: any) => {
       this.item = res.objectReturn;
-      this.toastr.success(res.message);
+      if (res.State === 1)
+        this.toastr.success(res.message);
+      else
+        this.toastr.error(res.message);
     })
     this.isKiemKeXoa = true
   }

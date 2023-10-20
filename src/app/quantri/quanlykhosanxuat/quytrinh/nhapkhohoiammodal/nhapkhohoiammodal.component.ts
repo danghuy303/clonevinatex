@@ -59,7 +59,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
     else {
       this.KiemTraButtonModal();
     }
-    console.log(this.item)
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
@@ -114,7 +113,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
       if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {
         this.add();
       }
-      this.checkQuaSoiKhacThucTe();
+      this.checkQuaSoiKhacThucTe(() => this.afterChuyenTiep());
     }
   }
 
@@ -135,7 +134,27 @@ export class NhapkhohoiammodalComponent implements OnInit {
     })
   }
 
-  checkQuaSoiKhacThucTe() {
+  afterGhiLai() {
+    this.item.NgayUnix = DateToUnix(this.item.Ngay);
+    this.item.listItem.forEach(element => {
+      element.IddmKho = this.item.IddmKho
+    });
+    this._services.PhieuNhapHoiAm().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message)
+          this.opt = 'edit';
+          this.item = res.objectReturn;
+          this.TinhAllKLTT();
+          this.KiemTraButtonModal();
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
+
+  checkQuaSoiKhacThucTe(func: any) {
     let arr = []
     let bool = true;
     let itemSearch: any = {};
@@ -143,10 +162,12 @@ export class NhapkhohoiammodalComponent implements OnInit {
     if (this.item.Ngay !== undefined)
       itemSearch.Ngay = DateToUnix(this.item.Ngay);
     itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
+    itemSearch.IddmCaSanXuat = this.item.IddmCaSanXuat;
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res: any) => {
       res.forEach((x: any) => {
         let _thisMatHang = this.item.listItem.find((y: any) => y.IdLoHang === x.IdLoHang)
-        if (_thisMatHang && _thisMatHang.SoQuaSoiThucTe !== x.SoQuaSoiThucTe) {
+
+        if (_thisMatHang && _thisMatHang.SoQuaSoiThucTe !== x.SoQuaSoiManHinh) {
           arr.push(_thisMatHang)
           bool = false;
         }
@@ -157,7 +178,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
         this.toastr.error(msg);
         return;
       }
-      this.afterChuyenTiep();
+      func();
     })
   }
 
@@ -181,23 +202,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
       if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {
         this.add();
       }
-      this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this.item.listItem.forEach(element => {
-        element.IddmKho = this.item.IddmKho
-      });
-      this._services.PhieuNhapHoiAm().Set(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.item = res.objectReturn;
-            this.TinhAllKLTT();
-            this.KiemTraButtonModal();
-          } else {
-            this.toastr.error(res.message);
-          }
-        }
-      })
+      this.checkQuaSoiKhacThucTe(() => this.afterGhiLai());
     }
   }
 
@@ -210,7 +215,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
       this._services.PhieuNhapHoiAm().Delete(this.item).subscribe((res: any) => {
-        console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
         } else {
@@ -251,6 +255,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     if (this.item.Ngay !== undefined)
       itemSearch.Ngay = DateToUnix(this.item.Ngay);
     itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
+    itemSearch.IddmCaSanXuat = this.item.IddmCaSanXuat;
     let listItem: any = (this.item.listItem || []).filter(ele => ele.isXoa !== true)
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhaphoiammathangmodalComponent, {
@@ -264,7 +269,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
         this.item.listItem.forEach(element => {
           element.isXoa = true;
         });
-        console.log(data.data)
         for (let i = 0; i < data.data.length; i++) {
           for (let j = 0; j < listItem.length; j++) {
             if (data.data[i].IddmItem === listItem[j].IddmItem && data.data[i].IdLoBong === listItem[j].IdLoBong) {
@@ -274,7 +278,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
           }
         }
         this.item.listItem = this.item.listItem.concat(data.data);
-        console.log(this.item.listItem)
         this.TinhAllKLTT()
       }, (reason) => {
         // không
