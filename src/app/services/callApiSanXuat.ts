@@ -2818,7 +2818,18 @@ export class SanXuatService {
             XuatThongKeKiemTraChatLuongLoiCatThang: (data) => {
                 return this.http.post(`${url}XuatThongKeKiemTraChatLuongLoiCatThang`, data, httpOptions);
             },
-
+            ImportPhieuNhapChiTieuLoiCat: (FileName, IddmPhanXuong, NgayKiemTraUnix) => {
+                return this.http.get(url + `ImportPhieuNhapChiTieuLoiCat?FileName=${FileName}&IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}`, httpOptions);
+            },
+            ExportPhieuNhapChiTieuLoiCat: (IddmPhanXuong, NgayKiemTraUnix) => {
+                return this.http.get(url + `ExportPhieuNhapChiTieuLoiCat?IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}`, httpOptions);
+            },
+            ImportPhieuNhapChiTieuClasimat: (FileName, IddmPhanXuong, NgayKiemTraUnix) => {
+                return this.http.get(url + `ImportPhieuNhapChiTieuClasimat?FileName=${FileName}&IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}`, httpOptions);
+            },
+            ExportPhieuNhapChiTieuClasimat: (IddmPhanXuong, NgayKiemTraUnix) => {
+                return this.http.get(url + `ExportPhieuNhapChiTieuClasimat?IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}`, httpOptions);
+            },
         }
     }
 

@@ -209,6 +209,26 @@ export class KiemtrabanchephammodalComponent implements OnInit {
     // this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 2)].el.nativeElement.children[0].children[0].select();
   }
 
+  autoFocus(i, length, indexcon) {
+    let _thisIndex = i * length + indexcon
+    let _thisFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === _thisIndex + length - 1);
+    if (validVariable(_thisFocus)) {
+      const _value = _thisFocus.el.nativeElement.children[0].children[0].value
+      let arr = []
+      if (_value.length > 1) {
+        arr = _value.split('.');
+      }
+      let _length = 0;
+      if (arr.length > 0) {
+        _length = arr[0].length;
+        let num = parseInt(arr[1]);
+        if (num === 0) {
+          _thisFocus.el.nativeElement.children[0].children[0].setSelectionRange(_length, _length);
+        }
+      }
+    }
+  }
+
   // Tinh(index) {
   //   this.listCongThuc.forEach((ele) => {
   //     this.item.listItem[index].listdmTieuChiBanChePham.forEach((obj) => {

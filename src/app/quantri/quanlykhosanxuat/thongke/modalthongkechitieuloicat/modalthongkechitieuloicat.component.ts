@@ -8,6 +8,8 @@ import { maskOption, vn } from 'src/app/services/const';
 import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable, merge, MergeArr } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoimathangmodal/chatluongsoimathangmodal.component';
+import { API, host1 } from 'src/app/services/host';
+import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-modalthongkechitieuloicat',
@@ -18,6 +20,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit
   @ViewChild('voiPintable') voiPintable: PintableDirective;
   @ViewChildren('inputNumber') inputNumbers: any;
   @ViewChildren('inputKhoiLuong') inputKhoiLuongs: any;
+  @ViewChildren('buttonUploader') buttonUploader;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -36,6 +39,15 @@ export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit
   lstSanPham: any = [];
   userInfo: any;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+
+  // Uploader
+  fileInput: string;
+  TepImport: any = {
+    TenGoc: ''
+  }
+  uploader: FileUploader;
+  // End uploader
+
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
     public _modal: NgbModal,) {
@@ -55,7 +67,42 @@ export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit
       this.item.NgayKiemTra = UnixToDate(this.item.NgayKiemTraUnix);
     }
     this.getListdmPhanXuong();
+    this.initUploader();
   }
+
+  // Uploader
+  initUploader() {
+    let option: FileUploaderOptions = {
+      url: `${API.uploadURLalt}`,
+      headers: [{ name: 'Accept', value: 'application/json' }],
+      autoUpload: true,
+    }
+
+    this.uploader = new FileUploader(option);
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = true;
+    };
+
+    this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
+    this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
+    this.uploader.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
+  }
+
+  onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+  }
+
+  onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+    let res = JSON.parse(response);
+    this.TepImport.TenGui = res[0].Name;
+    this.TepImport.TenGoc = res[0].NameLocal;
+    this.TepImport.DuongDan = res[0].Url;
+    this.fileInput = '';
+    this.ImportPhieuNhap()
+  };
+  onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+  }
+  // End uploader
+
   ngAfterViewInit(): void {
     this.voiPintable.active();
   }
@@ -216,12 +263,53 @@ export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit
       event.target.blur();
     }
   }
-  xuongDong(i,length,indexcon) {
-    let nextIndex = i * length + indexcon+1;
-    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex+length);
-      if (validVariable(nextFocus)) {
-        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].focus();
-        this.inputNumbers.toArray()[(indexcon+1>=length?0:nextIndex)].el.nativeElement.children[0].children[0].select();
-      } 
+  xuongDong(i, length, indexcon) {
+    let nextIndex = i * length + indexcon + 1;
+    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex + length);
+    if (validVariable(nextFocus)) {
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 1)].el.nativeElement.children[0].children[0].focus();
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : nextIndex)].el.nativeElement.children[0].children[0].select();
+    }
+  }
+
+  ImportPhieuNhap() {
+    let { obj, _bool } = this.validBefore();
+    if (!_bool) {
+      return;
+    }
+    this.services.QuyTrinhLoiCat().ImportPhieuNhapChiTieuLoiCat(this.TepImport.TenGui, obj.IddmPhanXuong, obj.NgayKiemTraUnix).subscribe((imp: any) => {
+      this.item.lstSanPham = imp
+    })
+  }
+  ExportPhieuNhap() {
+    let { obj, _bool } = this.validBefore();
+    if (!_bool) {
+      return;
+    }
+    this.services.QuyTrinhLoiCat().ExportPhieuNhapChiTieuLoiCat(obj.IddmPhanXuong, obj.NgayKiemTraUnix).subscribe((res: any) => {
+      const _url = host1 + res.TenFile
+      window.open(_url);
+      this.toastr.error(`Xuất file thành công`);
+    })
+  }
+
+  validBefore() {
+    let _bool = true
+    let obj = {
+      IddmPhanXuong: this.item.IddmPhanXuong,
+      NgayKiemTraUnix: DateToUnix(this.item.NgayKiemTra)
+    }
+    if (!obj.IddmPhanXuong) {
+      this.toastr.error(`Vui lòng chọn phân xưởng`);
+      _bool = false
+    }
+    else if (!obj.NgayKiemTraUnix) {
+      this.toastr.error(`Vui lòng chọn ngày kiểm tra`);
+      _bool = false
+    }
+    return {
+      obj: obj,
+      _bool: _bool
+    }
   }
 }
