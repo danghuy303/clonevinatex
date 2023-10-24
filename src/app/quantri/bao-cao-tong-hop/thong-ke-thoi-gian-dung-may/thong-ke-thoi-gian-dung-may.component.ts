@@ -29,7 +29,7 @@ export class ThongKeThoiGianDungMayComponent extends StoreBase implements OnInit
     this.getListCongDoan();
   }
   ngAfterViewInit(): void {
-      this.voiPintable.active()
+    this.voiPintable.active()
   }
   getListPhanXuong() {
     this._services.GetListdmPhanXuongOpt().subscribe((res: any[]) => {
@@ -49,5 +49,15 @@ export class ThongKeThoiGianDungMayComponent extends StoreBase implements OnInit
     this._services.ThongKeThoiGianDungMay().GetThongKe(this.filter).subscribe(res => {
       this.item = res;
     })
+  }
+  calculateTong(list: any, index: number) {
+    let result = 0
+    list.forEach((x: any) => {
+      let _this = x.lstSuCoDungMay[index];
+      if (_this) {
+        result += _this.ThoiGianDungMay;
+      }
+    })
+    return result
   }
 }
