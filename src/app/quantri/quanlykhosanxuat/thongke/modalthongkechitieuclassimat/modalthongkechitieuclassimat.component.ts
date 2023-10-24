@@ -127,6 +127,20 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
       }
     })
   }
+  KhongDuyet() {
+    if (this.item.NgayKiemTra !== null && this.item.NgayKiemTra !== undefined)
+      this.item.NgayKiemTraUnix = DateToUnix(this.item.NgayKiemTra);
+    this.services.QuyTrinhClassimat().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.activeModal.close();
+          this.toastr.success(res.message);
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
 
   GetNextSoQuyTrinh() {
     this.services.QuyTrinhClassimat().GetNextSo().subscribe((res: any) => {

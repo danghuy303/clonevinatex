@@ -86,14 +86,14 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
         this.listDieuKhoanThanhToanFull = res.data;
 
-        var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
-        if(data !== undefined){
+        var data = this.listDieuKhoanThanhToanFull.filter(e => e.id == this.item.idThanhToanDieuKhoan);
+        if (data !== undefined) {
           this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
         }
       })
       this.item.listThanhToanMatHang = []
       this.item.listThanhToanDotGiaoNhan = []
-      this.listIdThanhToanInvoice=[]
+      this.listIdThanhToanInvoice = []
     }
     else if (this.item.loaiThanhToan === 2) {
       this._hopdong.QuyTrinhThanhToan().getListInvoice(this.item.idHopDong).subscribe((res: any) => {
@@ -137,11 +137,58 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
         }
       }).catch()
     }
-    else{
-      if(this.CheckTruocKhiLuu()){
+    else {
+      if (this.CheckTruocKhiLuu()) {
         if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
           this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
         this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
+          if (res) {
+            if (res.statusCode === 200) {
+              this.activeModal.close();
+              this.toastr.success(res.message)
+            } else {
+              this.toastr.error(res.message);
+            }
+          }
+        })
+      }
+    }
+  }
+  KhongDuyet() {
+    let isChuaNopDu: any = false;
+    for (let i = 0; i < this.item.listHoSoDinhKem.length; i++) {
+      if (this.item.listHoSoDinhKem[i].isNopDu !== true) {
+        isChuaNopDu = true;
+        break;
+      }
+    }
+    if (isChuaNopDu === true) {
+      let modalRef = this._modal.open(ModalthongbaoComponent, {
+        backdrop: 'static'
+      });
+      modalRef.componentInstance.message = "Bạn chưa nộp đủ tài liệu bạn chắc chắn muốn lưu quy trình này chứ?"
+      modalRef.result.then(res => {
+        if (this.CheckTruocKhiLuu()) {
+          if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
+            this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+          this._hopdong.QuyTrinhThanhToan().KhongDuyet(this.item).subscribe((res: any) => {
+            if (res) {
+              if (res.statusCode === 200) {
+                this.activeModal.close();
+                this.toastr.success(res.message)
+              } else {
+                this.toastr.error(res.message);
+              }
+            }
+          })
+        }
+      }).catch()
+    }
+    else {
+      if (this.CheckTruocKhiLuu()) {
+        if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
+          this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+        this._hopdong.QuyTrinhThanhToan().KhongDuyet(this.item).subscribe((res: any) => {
           if (res) {
             if (res.statusCode === 200) {
               this.activeModal.close();
@@ -307,13 +354,13 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     })
   }
   XuatExcel() {
-      this._hopdong.QuyTrinhThanhToan().XuatExcel(this.item.id).subscribe((res: any) => {
-        if (res) {
-          if (res.statusCode === 200) {
-              this._services.download(res.data);
-          }
+    this._hopdong.QuyTrinhThanhToan().XuatExcel(this.item.id).subscribe((res: any) => {
+      if (res) {
+        if (res.statusCode === 200) {
+          this._services.download(res.data);
         }
-      })
+      }
+    })
   }
 
 }

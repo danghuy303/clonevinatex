@@ -131,6 +131,29 @@ export class ThongkesanluongmodalComponent implements OnInit {
       })
     }
   }
+  KhongDuyet() {
+    let isCheck: any = false;
+    this.item.listItem.forEach(element => {
+      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
+        isCheck = true;
+      }
+    });
+    if (isCheck === true) {
+      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
+    }
+    else {
+      this.services.ThongKeSanLuong().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
 
   GetNextSoQuyTrinh() {
     this.services.ThongKeSanLuong().GetNextSo().subscribe((res: any) => {

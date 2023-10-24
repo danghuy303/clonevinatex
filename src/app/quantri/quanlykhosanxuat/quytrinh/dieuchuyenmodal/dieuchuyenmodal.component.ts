@@ -16,17 +16,17 @@ export class DieuchuyenmodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
-    Ghi:true,
-    KhongDuyet:true,
-    ChuyenTiep:true,
-    Xoa:true,
+    Ghi: true,
+    KhongDuyet: true,
+    ChuyenTiep: true,
+    Xoa: true,
   }
   listdmKho: any = [];
   editTableItem: any = {};
-  newTableItem:any={};
-  filter:any = {};
+  newTableItem: any = {};
+  filter: any = {};
   listPhuongAnSapXep: any = [];
-  listLoHang:any= [];
+  listLoHang: any = [];
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
@@ -44,14 +44,14 @@ export class DieuchuyenmodalComponent implements OnInit {
     }
   }
   KiemTraButtonModal() {
-    this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {
+    this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
- 
+
   ChuyenDuyet() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-    this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
     this.services.PhieuDieuChuyen().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
@@ -65,7 +65,23 @@ export class DieuchuyenmodalComponent implements OnInit {
       }
     })
   }
- 
+  KhongDuyet() {
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+
+    this.services.PhieuDieuChuyen().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.activeModal.close();
+          this.item = res.objectReturn;
+          this.KiemTraButtonModal();
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
+
   GetNextSoQuyTrinh() {
     this.services.PhieuDieuChuyen().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -73,12 +89,12 @@ export class DieuchuyenmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.item.IddmKho === this.item.IddmKhoKhac){
+    if (this.item.IddmKho === this.item.IddmKhoKhac) {
       this.toastr.error("Kho điều chuyển và kho nhập trùng nhau");
     }
-    else{
+    else {
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
       this.services.PhieuDieuChuyen().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -93,7 +109,7 @@ export class DieuchuyenmodalComponent implements OnInit {
         }
       })
     }
-    
+
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -111,7 +127,7 @@ export class DieuchuyenmodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
- 
+
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -122,7 +138,7 @@ export class DieuchuyenmodalComponent implements OnInit {
   }
 
   GetMatHangTheoKho() {
-    this.services.getLuuKho(this.item.IddmKho,'', 0, '').subscribe((res1: any) => {
+    this.services.getLuuKho(this.item.IddmKho, '', 0, '').subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -144,12 +160,12 @@ export class DieuchuyenmodalComponent implements OnInit {
     this.item.listItem[index].editField = true;
     this.editTableItem = deepCopy(item);
   }
-  
-  saveEdit(item, index){
+
+  saveEdit(item, index) {
     this.item.listItem[index] = item;
     this.item.listItem[index].editField = false;
   }
-  cancelEdit(item, index){
+  cancelEdit(item, index) {
     this.item.listItem[index].editField = false;
   }
 }

@@ -23,10 +23,10 @@ export class ThongsochatluongmodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   }
-  filter:any={
-    KeyWord:''
+  filter: any = {
+    KeyWord: ''
   }
-  loading:boolean = false;
+  loading: boolean = false;
   listItem = [];
   newTableItem: any = {};
   listLoBong: any = [];
@@ -91,6 +91,19 @@ export class ThongsochatluongmodalComponent implements OnInit {
   ChuyenDuyet() {
 
     this.services.PhieuNhapLoBong_ChatLuong().ChuyenTiep(this.SetData()).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
+  KhongDuyet() {
+
+    this.services.PhieuNhapLoBong_ChatLuong().KhongDuyet(this.SetData()).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.toastr.success(res.message);
@@ -187,13 +200,13 @@ export class ThongsochatluongmodalComponent implements OnInit {
     var start = 15 * (event.page);
     var end = start + 15;
     if (validVariable(this.filter.KeyWord)) {
-      if ((start + 15) > this.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).length){
-        end = this.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).length;
+      if ((start + 15) > this.listItem.filter(ele => ele.Ten.includes(this.filter.KeyWord)).length) {
+        end = this.listItem.filter(ele => ele.Ten.includes(this.filter.KeyWord)).length;
       }
-      this.paging.TotalItem = this.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).length
-      this.item.listItem = this.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).slice(start, end);
+      this.paging.TotalItem = this.listItem.filter(ele => ele.Ten.includes(this.filter.KeyWord)).length
+      this.item.listItem = this.listItem.filter(ele => ele.Ten.includes(this.filter.KeyWord)).slice(start, end);
     } else {
-      if ((start + 15) > this.listItem.length){
+      if ((start + 15) > this.listItem.length) {
         end = this.listItem.length;
       }
       this.paging.TotalItem = this.listItem.length;
@@ -201,9 +214,9 @@ export class ThongsochatluongmodalComponent implements OnInit {
     }
 
   }
-  refreshFilter(){
+  refreshFilter() {
     this.filter.KeyWord = null;
-    this.changePage({page:0})
+    this.changePage({ page: 0 })
   }
   importExcelMic() {
     let modalRef = this._modal.open(ImportdanhmucmodelComponent, {

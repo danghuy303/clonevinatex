@@ -6,13 +6,13 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
-  selector: 'app-hoiamkiemkekhomodal',
-  templateUrl: './hoiamkiemkekhomodal.component.html',
-  styleUrls: ['./hoiamkiemkekhomodal.component.css']
+    selector: 'app-hoiamkiemkekhomodal',
+    templateUrl: './hoiamkiemkekhomodal.component.html',
+    styleUrls: ['./hoiamkiemkekhomodal.component.css']
 })
 export class HoiamkiemkekhomodalComponent implements OnInit {
 
-  @ViewChild("paginator") paginator: any;
+    @ViewChild("paginator") paginator: any;
     opt: any = "";
     Id: any = "";
     item: any = {};
@@ -57,15 +57,15 @@ export class HoiamkiemkekhomodalComponent implements OnInit {
                 this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
             });
         this.services.GetListdmKho(data).subscribe((res: any) => {
-                this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
-                this.listdmKhoFull = res;
-            });
+            this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
+            this.listdmKhoFull = res;
+        });
         if (this.opt !== "edit") {
             this.GetNextSoQuyTrinh();
             this.item.listItem = [];
             this.listItem = this.item.listItem;
 
-        } 
+        }
         else {
             this.GetQuyTrinh();
         }
@@ -73,7 +73,7 @@ export class HoiamkiemkekhomodalComponent implements OnInit {
         this.services.GetListdmViTriOpt().subscribe((res: any) => {
             this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
         });
-        
+
         // this.services
         //     .PhieuKiemKeKho()
         //     .GetlistdmMatHangThanhPhamKiemKe()
@@ -132,6 +132,30 @@ export class HoiamkiemkekhomodalComponent implements OnInit {
             this.services
                 .PhieuKiemKeHoiAm()
                 .ChuyenTiep(this.item)
+                .subscribe((res: any) => {
+                    if (res) {
+                        if (res.State === 1) {
+                            this.activeModal.close();
+                        } else {
+                            this.toastr.error(res.message);
+                        }
+                    }
+                });
+        }
+
+    }
+    KhongDuyet() {
+        if (validVariable(this.newItem.IddmItem)) {
+            this.item.listItem.push(deepCopy(this.newItem));
+            this.newItem = {};
+        }
+        if (this.item.IdLoHang === null || this.item.IdLoHang === undefined) {
+            this.toastr.error("Bạn chưa chọn lô hàng");
+        }
+        else {
+            this.services
+                .PhieuKiemKeHoiAm()
+                .KhongDuyet(this.item)
                 .subscribe((res: any) => {
                     if (res) {
                         if (res.State === 1) {
@@ -216,8 +240,8 @@ export class HoiamkiemkekhomodalComponent implements OnInit {
     }
 
     GetMatHangTheoKho() {
-      this.item.listItem = []
-      this.listItem = []
+        this.item.listItem = []
+        this.listItem = []
         if (this.item.IddmKho !== undefined && this.item.IddmKho !== null
             && this.item.IdLoHang !== undefined && this.item.IdLoHang !== null) {
             this.services
@@ -254,7 +278,7 @@ export class HoiamkiemkekhomodalComponent implements OnInit {
         let selected = this.listNewMatHang_ref.find(
             (ele) => ele.Id === event.value
         );
-        this.newItem.Ten = `${selected?.Ma} - ${selected?.Ten}` ;
+        this.newItem.Ten = `${selected?.Ma} - ${selected?.Ten}`;
         this.newItem.Ma = selected?.Ma;
     }
     add() {
@@ -275,7 +299,7 @@ export class HoiamkiemkekhomodalComponent implements OnInit {
             this.toastr.error("Vui lòng chọn mặt hàng cần thêm!");
         }
     }
-   
+
     TinhTongKhoiLuong(item) {
         if (item.SoQuaSoi > 0)
             item.TongTrongLuong = (item.SoQuaSoi ?? 0) * (item.TonTrongLuong ?? 0) + (item.TongTrongLuongChenhLech ?? 0);

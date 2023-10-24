@@ -133,6 +133,24 @@ export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit
       }
     })
   }
+  KhongDuyet() {
+    if (this.item.NgayKiemTra !== null && this.item.NgayKiemTra !== undefined)
+      this.item.NgayKiemTraUnix = DateToUnix(this.item.NgayKiemTra);
+    if (this.item.TuNgay !== null && this.item.TuNgay !== undefined)
+      this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
+    if (this.item.DenNgay !== null && this.item.DenNgay !== undefined)
+      this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
+    this.services.QuyTrinhLoiCat().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.activeModal.close();
+          this.toastr.success(res.message);
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
 
   GetNextSoQuyTrinh() {
     this.services.QuyTrinhLoiCat().GetNextSo().subscribe((res: any) => {

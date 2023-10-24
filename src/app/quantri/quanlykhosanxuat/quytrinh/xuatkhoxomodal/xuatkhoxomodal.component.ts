@@ -115,6 +115,29 @@ export class XuatkhoxomodalComponent implements OnInit {
 
 
   }
+  KhongDuyet() {
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+        this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
+      this.services.PhieuXuatKhoXo().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+    else {
+      this.toastr.error('Vui lòng nhập ngày chứng từ!');
+    }
+    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+      this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
+
+
+  }
   GetNextSoQuyTrinh() {
     this.services.PhieuXuatKhoXo().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;

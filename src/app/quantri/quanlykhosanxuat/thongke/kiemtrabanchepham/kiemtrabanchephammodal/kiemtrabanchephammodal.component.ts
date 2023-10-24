@@ -89,6 +89,18 @@ export class KiemtrabanchephammodalComponent implements OnInit {
       }
     })
   }
+  KhongDuyet() {
+    this.services.KiemTraBanChePham().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
 
   GetNextSoQuyTrinh() {
     this.services.KiemTraBanChePham().GetNextSo().subscribe((res: any) => {

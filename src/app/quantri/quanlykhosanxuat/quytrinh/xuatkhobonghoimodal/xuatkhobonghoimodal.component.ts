@@ -118,6 +118,27 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       })
     }
   }
+  KhongDuyet() {
+    if (this.checkTruocKhiLuu()) {
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      if (validVariable(this.newTableItem.IddmItem)) {
+        if (this.item.listItem === undefined || this.item.listItem === null)
+          this.item.listItem = [];
+        this.item.listItem.push(deepCopy(this.newTableItem));
+        this.newTableItem = {};
+      }
+      this.services.PhieuXuatSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
   GetNextSoQuyTrinh() {
     this.services.PhieuXuatSanXuat().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;

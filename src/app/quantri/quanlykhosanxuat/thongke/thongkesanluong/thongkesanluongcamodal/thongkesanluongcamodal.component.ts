@@ -97,6 +97,28 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       })
     }
   }
+  KhongDuyet() {
+    let isCheck: any = false;
+    this.item.listThongKeSanLuong.forEach(element => {
+      if (element.IddmCaSanXuatThucTe == undefined || element.IddmCaSanXuatThucTe == null)
+        isCheck = true;
+    });
+    if (isCheck === true) {
+      this.toastr.error("Bạn chưa chọn ca sản xuất thực tế!!");
+    }
+    else {
+      this.services.ThongKeSanLuongNhieuCa().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
 
   GetNextSoQuyTrinh() {
     this.services.ThongKeSanLuongNhieuCa().GetNextSo().subscribe((res: any) => {

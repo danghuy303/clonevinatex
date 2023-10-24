@@ -109,6 +109,22 @@ export class NhapkhomodalComponent implements OnInit {
     }
   }
 
+  KhongDuyet() {
+    if (this.CheckTruocKhiLuu()) {
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this._services.QuyTrinhPhieuNhapLoBong().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
+
   GetNextSoQuyTrinh() {
     this._services.QuyTrinhPhieuNhapLoBong().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -379,7 +395,7 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  ngày!");
       return false;
     }
-    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong === undefined || this.item.IddmCapBong === "") && this.type === 'bong' ) {
+    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong === undefined || this.item.IddmCapBong === "") && this.type === 'bong') {
       this.toastr.error("Bạn chưa chọn  danh mục cấp bông!");
       return false;
     }
