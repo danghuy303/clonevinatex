@@ -208,7 +208,8 @@
                                 {{itemtbl.KhoiLuongTinhToan |number:'0.2-2'}}
                             </td>
                             <td class="text-right" *ngIf="item.CongDoan==='ONG'">
-                                <p-inputNumber locale="en-EN" [(ngModel)]="itemtbl.SoQuaSoi" #inputNumber>
+                                <p-inputNumber locale="en-EN" [(ngModel)]="itemtbl.SoQuaSoi" #inputNumber
+                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2">
                                 </p-inputNumber>
                             </td>
                             <td *ngIf="itemtbl.DonViNangSuat===1 && item.CongDoan!=='ONG'" class="text-right">
@@ -317,10 +318,8 @@
                         <td *ngIf="item.CongDoan==='ONG'" class="text-right">
                         </td>
 
-                        <td class="text-right" *ngIf="item.CongDoan!=='ONG'">
-                            {{TongKhoiLuong |number:'0.3-3'}}
-                        </td>
-                        <td class="text-right" *ngIf="item.CongDoan==='ONG'">
+
+                        <td class="text-right">
                             {{listItem|isXoa|SumByKey:'KhoiLuong'|number:'0.3-3'}}
                         </td>
                         <td class="text-right" *ngIf="item.CongDoan==='ONG'">

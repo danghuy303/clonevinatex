@@ -165,8 +165,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     itemSearch.IddmCaSanXuat = this.item.IddmCaSanXuat;
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res: any) => {
       res.forEach((x: any) => {
-        let _thisMatHang = this.item.listItem.find((y: any) => y.IdLoHang === x.IdLoHang)
-
+        let _thisMatHang = this.item.listItem.find((y: any) => y.IddmItem === x.IddmItem)
         if (_thisMatHang && _thisMatHang.SoQuaSoiThucTe !== x.SoQuaSoiManHinh) {
           arr.push(_thisMatHang)
           bool = false;
@@ -180,6 +179,19 @@ export class NhapkhohoiammodalComponent implements OnInit {
       }
       func();
     })
+    // this.item.listItem.forEach((x: any) => {
+    //   if (x.SoQuaSoiManHinh !== x.SoQuaSoiThucTe) {
+    //     arr.push(x)
+    //     bool = false;
+    //   }
+    // })
+
+    // if (!bool) {
+    //   let msg = `${arr.map(x => x.Ten).join(', ')} có số quả thực tế không khớp với số quả màn hình!`
+    //   this.toastr.error(msg);
+    //   return;
+    // }
+    // func();
   }
 
   GetNextSoQuyTrinh() {
