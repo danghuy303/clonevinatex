@@ -1286,7 +1286,6 @@ export class SanXuatService {
                 return this.http.get(url + `GetTyLeThongKeSanLuongBongPheNhieuCa?NgayUnix=${NgayUnix}&IddmPhanXuong=${IddmPhanXuong}`, httpOptions)
             },
             TinhTyLeThongKeSanLuongBongPhe: (data) => {
-                console.log('service', data);
                 return this.http.post(`${url}TinhTyLeThongKeSanLuongBongPhe`, data, httpOptions)
             }
         }
@@ -2024,7 +2023,6 @@ export class SanXuatService {
         let url = API.auth + 'Notification/'
         return {
             GetListNotification: () => {
-                console.warn(this.auth.currentUserValue)
                 return this.http.get(`${url}GetListNotificationLoaiBoLoai?Loai=TraoDoiCongViec,TraoDoiGroup,ThongBaoGroup,TRAODOIQUYTRINH,CANHBAOTHONGKECONGDOAN&IdUser=${this.auth.currentUserValue.Id}&idIdLast=0`, httpOptions)
             },
             GetMoreNotification: (lastId) => {
@@ -2045,7 +2043,6 @@ export class SanXuatService {
         let url = API.auth + 'Notification/'
         return {
             GetListNotification: () => {
-                console.warn(this.auth.currentUserValue)
                 return this.http.get(`${url}GetListNotificationTheoLoai?Loai=CANHBAOTHONGKECONGDOAN&IdUser=${this.auth.currentUserValue.Id}&idIdLast=0`, httpOptions)
             },
             GetMoreNotification: (lastId) => {

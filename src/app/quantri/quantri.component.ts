@@ -1883,6 +1883,20 @@ export class QuantriComponent implements OnInit, OnDestroy {
           },
         ],
       },
+      {
+        label: "Lập kế hoạch",
+        icon: "fas fa-circle",
+        // routerLink: "/",
+        // visible: this.showHopDongModule,
+        items: [
+          {
+            label: "Danh sách kế hoạch năm",
+            routerLink: "/quantri/lap-ke-hoach/danhsachkehoachnam",
+            command: () => this.close(),
+          },
+
+        ],
+      },
 
       {
         label: "Danh mục dùng chung",

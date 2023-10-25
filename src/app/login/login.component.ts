@@ -12,7 +12,7 @@ import { StoreService } from '../services/store.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit,OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
   images: any[] = [];
   account: any = {
     UserName: '',
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   emes: any = '';
   loginState = true;
   seePass: boolean = false;
-  usA:any=[];
+  usA: any = [];
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -102,8 +102,7 @@ export class LoginComponent implements OnInit,OnDestroy {
           this.loginState = true;
           this.error = 0;
           this.toastr.success('Đăng nhập thành công!');
-          const us1 = this._auth.GetCurrentUser().subscribe((res:any) => {
-            console.log('res',res);
+          const us1 = this._auth.GetCurrentUser().subscribe((res: any) => {
             const us2 = this._SXservices
               .GetOptions()
               .GetDanhSachDuAnByIdUser(res.Id)
@@ -115,7 +114,7 @@ export class LoginComponent implements OnInit,OnDestroy {
                   this._router.navigate(['/quantri'])
                 }
               });
-              this.usA.push(us2);
+            this.usA.push(us2);
           })
           this.usA.push(us1)
         }
@@ -152,21 +151,20 @@ export class LoginComponent implements OnInit,OnDestroy {
         //   this.toastr.error('Đăng nhập thất bại!');
         // }
       },
-      (er)=>{
-        this.loginState = false;
+        (er) => {
+          this.loginState = false;
           this.error = 0;
           // console.log(er.error.error);
           this.toastr.error(er.error.error_description);
-      });
+        });
     } else {
       this.toastr.error(this.emes);
     }
   }
   ngOnDestroy(): void {
-    console.log(this.usA);
-      this.usA.forEach(us => {
-        us.unsubscribe();
-      }); 
+    this.usA.forEach(us => {
+      us.unsubscribe();
+    });
   }
   revealPass() {
     this.seePass = !this.seePass;
