@@ -200,12 +200,26 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
     this.getDanhSachChiTieuChatLuong(e.value);
   }
 
-  xuongDong(i,length,indexcon) {
-    let nextIndex = i * length + indexcon+1;
-    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex+length);
-      if (validVariable(nextFocus)) {
-        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].focus();
-        this.inputNumbers.toArray()[(indexcon+1>=length?0:nextIndex)].el.nativeElement.children[0].children[0].select();
-      } 
+  // xuongDong(i,length,indexcon) {
+  //   let nextIndex = i * length + indexcon+1;
+  //   let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex+length);
+  //     if (validVariable(nextFocus)) {
+  //       this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].focus();
+  //       this.inputNumbers.toArray()[(indexcon+1>=length?0:nextIndex)].el.nativeElement.children[0].children[0].select();
+  //     } 
+  // }
+
+  xuongDong(i, length, indexcon) {
+    let nextIndex = i * length + indexcon + 1
+    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex + length);
+    if (validVariable(nextFocus)) {
+      nextFocus.el.nativeElement.children[0].children[0].focus();
+      nextFocus.el.nativeElement.children[0].children[0].select();
+    } else {
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 1)].el.nativeElement.children[0].children[0].focus();
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 1)].el.nativeElement.children[0].children[0].select();
+    }
+    // this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 2)].el.nativeElement.children[0].children[0].focus();
+    // this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 2)].el.nativeElement.children[0].children[0].select();
   }
 }

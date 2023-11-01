@@ -21,7 +21,7 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
     item: any = { listData3: [] };
     listPhanXuong: any = [];
     listNam: any = [];
-    thang:any;
+    thang: any;
     options: any = {
         plugins: {
             labels: {
@@ -30,15 +30,15 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
             datalabels: {
                 color: 'black',
                 font: {
-                  weight: 'bold'
+                    weight: 'bold'
                 },
                 formatter: (value, context) => {
-                if(context.dataset.label) {
-                       return formatNumber(parseFloat(value), 'en-US', '0.0-3')
-                }
-                return null
+                    if (context.dataset.label) {
+                        return formatNumber(parseFloat(value), 'en-US', '0.0-3')
+                    }
+                    return null
                 },
-              }
+            }
         },
         legend: {
             position: 'bottom',
@@ -75,12 +75,12 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
         private _services: SanXuatService,
         private toastr: ToastrService,
         private store: StoreService,
-    ) { 
+    ) {
         this.$sub = this.store.getNhaMay().subscribe(res => {
-            if (res) {   
-              this.ngOnInit()
+            if (res) {
+                this.ngOnInit()
             }
-          })
+        })
     }
 
     ngOnInit(): void {
@@ -89,6 +89,17 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
         }
         this.GetListdmPhanXuong();
         this.filter.Nam = this.listNam[0].value;
+    }
+
+    XuatDuLieu() {
+        let data = {
+            Nam: this.filter.Nam ? this.filter.Nam : null,
+            IddmPhanXuong: this.filter.IddmPhanXuong,
+            Thang: this.thang ? this.thang : new Date().getMonth()+1 
+        }
+        this._services.QuyetToan().ExportDashbroadKiemKeBanChePhamToHieu(data).subscribe((res: any) => {
+            this._services.download(res.TenFile);
+        })
     }
 
     BieuDoTiLeTieuHaoBong(data) {
@@ -164,7 +175,7 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
     }
 
     getChart(data?: any) {
-         this.thang = this.obj_data.listThoiGian ? this.obj_data.listThoiGian[data.element._index] : ((new Date()).getMonth() + 1);
+        this.thang = this.obj_data.listThoiGian ? this.obj_data.listThoiGian[data.element._index] : ((new Date()).getMonth() + 1);
         this.payload = {
             ... this.payload,
             Nam: this.filter.Nam ? this.filter.Nam : null,

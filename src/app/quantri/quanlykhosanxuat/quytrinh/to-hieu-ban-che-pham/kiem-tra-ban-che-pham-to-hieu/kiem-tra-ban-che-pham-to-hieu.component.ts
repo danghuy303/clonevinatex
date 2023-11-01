@@ -126,7 +126,6 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit, OnDestroy {
       })
   }
   update(item) {
-    console.log(item.objectReturn.isDialogBig);
     let modalRef = this._modal.open(KiemTraBanChePhamToHieuModalComponent, {
       size: item.objectReturn.isDialogBig ? "fullscreen-100" : "lg",
       backdrop: "static",

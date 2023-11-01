@@ -6,7 +6,8 @@ import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanx
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { MergeArr, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DanhSachMatHangComponent } from '../danh-sach-mat-hang/danh-sach-mat-hang.component';
 
 @Component({
   selector: 'app-ban-che-pham-to-hieu-tong-hop',
@@ -20,7 +21,7 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
   title: any = '';
   kiemke: any = {};
   item: any = {};
-  checkbutton = {};
+  checkbutton:any = {};
   listPhanXuong: any = [];
   listMay: any = [];
   listCaSanXuat: any = [];
@@ -42,9 +43,16 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
     this.GetListdmCaSanXuatThucTe();
     this.GetListMayCongDoanKiemKeBanChePhamToHieu();
     if (this.opt === 'edit') {
+      this.KiemTraButtonModal();
       this.isKiemKeXoa = true;
       this.Nam = `${this.item.Thang}/${this.item.Nam}`
     }
+  }
+
+  KiemTraButtonModal() {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
+      this.checkbutton = res;
+    })
   }
 
   GetListdmPhanXuong() {
@@ -79,6 +87,27 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
     this.isKiemKeXoa = true
   }
 
+  KhongDuyet() {
+    this._services.KiemKeBanChePham().KhongDuyet(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
+  }
+  ChuyenTiep() {
+    this._services.KiemKeBanChePham().ChuyenTiep(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
+  }
+
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
@@ -108,6 +137,24 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
     this.router.navigate([`/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham-tohieu/${id}`], {
       replaceUrl: true,
     });
+  }
+
+  chonHangHoa() {
+    let modalRef = this._modal.open(DanhSachMatHangComponent, {
+      size: 'xl'
+    })
+    modalRef.componentInstance.listDaChon = this.item.listData3 ? this.item.listData3.map(ele => ele.IddmItem) : [];
+    modalRef.result.then(res => {
+      let arr = res.map(ele => {
+        return {
+          ...ele,
+          listGiaTri: this.item.listData3[0].listGiaTri
+        }
+      });
+      this.item.listData3 = MergeArr(arr, this.item.listData3 , "IddmItem");
+    }).catch(er => {
+      console.log(er);
+    })
   }
 
 

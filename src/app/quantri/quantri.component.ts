@@ -1209,20 +1209,20 @@ export class QuantriComponent implements OnInit, OnDestroy {
                   this.close();
                 },
               },
-              {
-                label: "Thông tin kiểm định",
-                routerLink: "/quantri/taisan/kiem-dinh-tai-san/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Thông tin bảo hiểm",
-                routerLink: "/quantri/taisan/bao-hiem/0",
-                command: () => {
-                  this.close();
-                },
-              },
+              // {
+              //   label: "Thông tin kiểm định",
+              //   routerLink: "/quantri/taisan/kiem-dinh-tai-san/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
+              // {
+              //   label: "Thông tin bảo hiểm",
+              //   routerLink: "/quantri/taisan/bao-hiem/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
             ],
           },
           {

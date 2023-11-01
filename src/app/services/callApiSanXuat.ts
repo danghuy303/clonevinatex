@@ -3078,6 +3078,14 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'KiemKeBanChePham/SetPhieuKiemKeBanChePhamToHieuTongHop', data, httpOptions);
             },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/ChuyenTiepPhieuKiemKeBanChePhamToHieu', data, httpOptions);
+            },
+            KhongDuyet: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/KhongDuyetPhieuKiemKeBanChePhamToHieu', data, httpOptions);
+            },
         }
     }
     // quyết toán nguyên liệu
@@ -3095,6 +3103,9 @@ export class SanXuatService {
             },
             BieuDoTiLeTieuHaoXo: (data) => {
                 return this.http.post(url + `KiemKeBanChePham/BieuDoTiLeTieuHaoXo`, data, httpOptions);
+            },
+            ExportDashbroadKiemKeBanChePhamToHieu: (data) => {
+                return this.http.post(url + `KiemKeBanChePham/ExportDashbroadKiemKeBanChePhamToHieu`, data, httpOptions);
             },
         }
     }

@@ -22,7 +22,7 @@ export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
   title: any = '';
   kiemke: any = {};
   item: any = {};
-  checkbutton = {};
+  checkbutton :any= {};
   listPhanXuong: any = [];
   listMay: any = [];
   listCaSanXuat: any = [];
@@ -44,9 +44,16 @@ export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
     this.GetListdmCaSanXuatThucTe();
     this.GetListMayCongDoanKiemKeBanChePhamToHieu();
     if (this.opt === 'edit') {
+      this.KiemTraButtonModal();
       this.isKiemKeXoa = true;
       this.Nam = `${this.item.Thang}/${this.item.Nam}`
     }
+  }
+
+  KiemTraButtonModal() {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
+      this.checkbutton = res;
+    })
   }
 
   GetListdmPhanXuong() {
@@ -104,7 +111,8 @@ export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
           this.item = res.objectReturn;
           this.Nam = `${this.item.Thang}/${this.item.Nam}`
         }
-        else this.item = {}
+        else this.item = {};
+        this.KiemTraButtonModal();
       })
     }
   }
@@ -119,9 +127,31 @@ export class KiemTraBanChePhamToHieuModalComponent implements OnInit {
   GhiLai() {
     this._services.KiemKeBanChePham().Set(this.setData()).subscribe((res: any) => {
       this.item = res.objectReturn;
+      this.KiemTraButtonModal();
       this.toastr.success(res.message);
     })
     this.isKiemKeXoa = true
+  }
+
+  KhongDuyet() {
+    this._services.KiemKeBanChePham().KhongDuyet(this.setData()).subscribe((res: any) => {
+      if (res.State !== 1) {
+        this.toastr.error(res.message);
+      } else {
+        this.toastr.success(res.message);
+        this.activeModal.close();
+      }
+    })
+  }
+  ChuyenTiep() {
+    this._services.KiemKeBanChePham().ChuyenTiep(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 1) {
+        this.toastr.error(res.message);
+      } else {
+        this.toastr.success(res.message);
+        this.activeModal.close();
+      }
+    })
   }
 
   XoaQuyTrinh() {
