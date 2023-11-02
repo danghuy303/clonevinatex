@@ -97,11 +97,11 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  checkValidate(){
-    if(this.item.listItem.length > 0 && this.item.listItem.length !== undefined){
-      for(let i = 0; i < this.item.listItem.length ; i ++){
-        if(this.item.listItem[i].IdLoHang !== null && this.item.listItem[i].IdLoHang !== undefined){
-          if(this.item.listItem[i].IddmQuyCachDongGoi === null || this.item.listItem[i].IddmQuyCachDongGoi === undefined){
+  checkValidate() {
+    if (this.item.listItem.length > 0 && this.item.listItem.length !== undefined) {
+      for (let i = 0; i < this.item.listItem.length; i++) {
+        if (this.item.listItem[i].IdLoHang !== null && this.item.listItem[i].IdLoHang !== undefined) {
+          if (this.item.listItem[i].IddmQuyCachDongGoi === null || this.item.listItem[i].IddmQuyCachDongGoi === undefined) {
             return false;
           }
         }
@@ -110,7 +110,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     return true;
   }
   ChuyenTiep() {
-    if(!this.checkValidate())
+    if (!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày chứng từ!");
@@ -158,7 +158,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if(!this.checkValidate())
+    if (!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày chứng từ!");
@@ -206,7 +206,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt]=res;
+      item[opt] = res;
       this.TinhTongKhoiLuong();
     })
   }
@@ -257,7 +257,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
- 
+
   Onclose() {
     this.activeModal.close();
   }
@@ -267,8 +267,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       IddmKho: this.item.IddmKho,
       // IddmPhanXuong: this.item.IddmPhanXuong,
     }
-    let listItem : any = []
-    if(this.item.listItem !== undefined && this.item.listItem !== null){
+    let listItem: any = []
+    if (this.item.listItem !== undefined && this.item.listItem !== null) {
       listItem = this.item.listItem.filter((e: any) => e.isXoa !== true);
     }
     this._services.GetlistdmMatHangXuatThanhPham(data).subscribe((res1: any) => {
@@ -280,12 +280,12 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
-        if( this.item.listItem !== undefined &&  this.item.listItem.length > 0){
+        if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
           this.item.listItem.forEach(element => {
             element.isXoa = true;
           });
         }
-        
+
         let listdatapush = [];
         data.data.forEach(element => {
           let datapush: any = {
@@ -298,11 +298,10 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
             TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
           };
-          var isCheck : any = false
+          var isCheck: any = false
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
-            for(let i =0 ; i < this.item.listItem.length; i++){
-              if(this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi)
-              {
+            for (let i = 0; i < this.item.listItem.length; i++) {
+              if (this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi) {
                 this.item.listItem[i].isXoa = false;
                 this.item.listItem[i].Ten = element.Ten;
                 this.item.listItem[i].IddmItem = element.IddmItem;
@@ -316,16 +315,16 @@ export class XuatkhothanhphammodalComponent implements OnInit {
                 break;
               }
             }
-            if(isCheck === false)
-            listdatapush.push(datapush);
+            if (isCheck === false)
+              listdatapush.push(datapush);
           }
           else
             listdatapush.push(datapush);
         });
-        if(this.item.listItem !== undefined && this.item.listItem !== null){
-          this.item.listItem =this.item.listItem.concat(listdatapush);
+        if (this.item.listItem !== undefined && this.item.listItem !== null) {
+          this.item.listItem = this.item.listItem.concat(listdatapush);
         }
-        else{
+        else {
           this.item.listItem = listdatapush
         }
       }, (reason) => {
@@ -333,7 +332,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       });
     })
   }
-  TinhTongKhoiLuong(){ 
+  TinhTongKhoiLuong() {
     this.TongKhoiLuong = 0;
     this.TongThanhTien = 0;
     this.item.listItem.forEach(element => {
@@ -341,16 +340,16 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.TongThanhTien += (element.DonGia ?? 0) * ((element.SoLuong ?? 0) * (element.KhoiLuong ?? 0) + (element.TongTrongLuongChenhLech ?? 0));
     });
   }
-  TinhTongThanhTien(){
+  TinhTongThanhTien() {
     this.TongThanhTien = 0;
     this.item.listItem.forEach(element => {
       let thanhTien = (element.DonGia ?? 0) * ((element.SoLuong ?? 0) * (element.KhoiLuong ?? 0) + (element.TongTrongLuongChenhLech ?? 0));
       this.TongThanhTien = this.TongThanhTien + thanhTien;
     });
   }
-  ExportExcel(){
-    if(validVariable(this.item.Id)){
-      this._services.BaoCao().ExportPhieuXuatKhoThanhPham_Bieu6({IdPhieuXuatKho:this.item.Id}).subscribe((res:any)=>{
+  ExportExcel() {
+    if (validVariable(this.item.Id)) {
+      this._services.BaoCao().ExportPhieuXuatKhoThanhPham_Bieu6({ IdPhieuXuatKho: this.item.Id }).subscribe((res: any) => {
         if (res) {
           if (validVariable(res.State)) {
             this.toastr.error(res.message);
@@ -359,8 +358,16 @@ export class XuatkhothanhphammodalComponent implements OnInit {
           }
         }
       })
-    }else{
+    } else {
       this.toastr.error('Vui lòng ghi lại phiếu sau đó xuất!')
     }
+  }
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }

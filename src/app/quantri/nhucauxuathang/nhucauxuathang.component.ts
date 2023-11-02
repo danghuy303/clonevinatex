@@ -116,7 +116,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     },
     legend: {
       position: 'left',
-      display:false
+      display: false
     },
     tooltips: {
       callbacks: {
@@ -187,10 +187,10 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
           // res.labels= this.mapIndex_Ma.map(lb=>lb.split(' - ')[1]);
           res.labels = this.mapIndex_Ma.map(lb => {
             let arr = lb.split(' - ')
-            if(arr.length===1){
+            if (arr.length === 1) {
               return arr[0]
             }
-            if(arr.length>1){
+            if (arr.length > 1) {
               arr.shift()
               return arr.join(' - ')
             }
@@ -199,7 +199,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
           this.dataPie = res;
         });
       }
-    }0
+    } 0
   }
 
   getAllOptions() {
@@ -227,7 +227,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     setTimeout(
       () => {
         this._services.GetdmKhoThanhPhamHoiAm_DashBoard({ IdDuAn: this.store.getCurrent() }).subscribe((res: any) => {
-          res.unshift({ Id: '', Ten: 'Tất cả kho' });
+          res.unshift({ Id: '', Ten: 'Tất cả kho thành phẩm' });
           this.listKhoAll = mapArrayForDropDown(res, "Ten", 'Id');
           this.getMatHangAll()
         })

@@ -81,6 +81,10 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     else {
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
         this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      let _isValid = this.checkValidBeforeSubmit();
+      if (_isValid) {
+        return;
+      }
       this._services.PhieuNhapThanhPham().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -110,6 +114,23 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     }
     return true;
   }
+
+  checkValidBeforeSubmit() {
+    let arr = [];
+    let _bool = false;
+    this.item.listItem.map((x: any) => {
+      if (x.SoQuaSoiThanhPham > x.SoQuaSoiHoiAm) {
+        arr.push(x);
+        _bool = true;
+      }
+    })
+    if (_bool) {
+      let msg = `${arr.map(x => x.Ten).join(', ')} có số quả nhập lớn hơn số quả hồi ẩm!`
+      this.toastr.error(msg);
+    }
+    return _bool
+  }
+
   GhiLai() {
     if (!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
@@ -119,6 +140,10 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     else {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
+      let _isValid = this.checkValidBeforeSubmit();
+      if (_isValid) {
+        return;
+      }
       this._services.PhieuNhapThanhPham().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -264,7 +289,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt] =  Math.round(res);
+      item[opt] = Math.round(res);
       this.TongKhoiLuong(item);
     })
   }
@@ -305,5 +330,14 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
   TinhKgCone(item) {
     item.KgCone = (item.TongKhoiLuong || 0) / (item.SoQuaSoiThanhPham || 1);
+  }
+
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }

@@ -15,7 +15,7 @@ import { NhaphoiammathangmodalComponent } from '../nhaphoiammathangmodal/nhaphoi
   styleUrls: ['./nhapkhohoiammodal.component.css']
 })
 export class NhapkhohoiammodalComponent implements OnInit {
-  @ViewChildren('inputNumber') inputNumbers:any;
+  @ViewChildren('inputNumber') inputNumbers: any;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -38,7 +38,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   checkedAll: boolean = false;
   listCaSanXuat: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  mapData:any={};
+  mapData: any = {};
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
 
@@ -59,7 +59,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
     else {
       this.KiemTraButtonModal();
     }
-    console.log(this.item)
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
@@ -71,17 +70,17 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this.getListKgCone();
     this.getListCaSanXuat();
   }
-  getListSanLuongOng(){
-    if(validVariable(this.item.Ngay)&&validVariable(this.item.IddmPhanXuong)&&validVariable(this.item.IddmCaSanXuatThucTe)){
+  getListSanLuongOng() {
+    if (validVariable(this.item.Ngay) && validVariable(this.item.IddmPhanXuong) && validVariable(this.item.IddmCaSanXuatThucTe)) {
       let data = { "Ngay": DateToUnix(this.item.Ngay), "IddmPhanXuong": this.item.IddmPhanXuong, "IddmCaSanXuat": this.item.IddmCaSanXuat }
-      this._services.PhieuNhapHoiAm().GetThongKeSanLuongCongDoanOng(data).subscribe((res:any)=>{
-        this.mapData ={};
-        res.forEach(ele=>{
+      this._services.PhieuNhapHoiAm().GetThongKeSanLuongCongDoanOng(data).subscribe((res: any) => {
+        this.mapData = {};
+        res.forEach(ele => {
           this.mapData[ele.IddmItem] = ele.KhoiLuong;
         })
       })
     }
-    else{
+    else {
       this.toastr.warning("Vui lòng nhập đầy đủ các trường Ngày chứng từ, Phân xưởng, Thời điểm để có chức năng cảnh báo!")
     }
   }
@@ -107,28 +106,92 @@ export class NhapkhohoiammodalComponent implements OnInit {
     }
     else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
       this.toastr.error("Bạn chưa chọn danh mục kho!");
-    }else if(!this.item.listItem.every(ele=>validVariable(ele.KgCone))){
+    } else if (!this.item.listItem.every(ele => validVariable(ele.KgCone))) {
       this.toastr.error("Vui lòng chọn Kg/cone ở tất cả các mặt hàng!")
     }
     else {
       if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {
         this.add();
       }
-      this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this.item.listItem.forEach(element => {
-        element.IddmKho = this.item.IddmKho
-      });
-      this._services.PhieuNhapHoiAm().ChuyenTiep(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            // this.activeModal.close();
-            this.Onclose();
-          } else {
-            this.toastr.error(res.message);
-          }
+      this.checkQuaSoiKhacThucTe(() => this.afterChuyenTiep());
+    }
+  }
+
+  afterChuyenTiep() {
+    this.item.NgayUnix = DateToUnix(this.item.Ngay);
+    this.item.listItem.forEach(element => {
+      element.IddmKho = this.item.IddmKho
+    });
+    this._services.PhieuNhapHoiAm().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          // this.activeModal.close();
+          this.Onclose();
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
+
+  afterGhiLai() {
+    this.item.NgayUnix = DateToUnix(this.item.Ngay);
+    this.item.listItem.forEach(element => {
+      element.IddmKho = this.item.IddmKho
+    });
+    this._services.PhieuNhapHoiAm().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message)
+          this.opt = 'edit';
+          this.item = res.objectReturn;
+          this.TinhAllKLTT();
+          this.KiemTraButtonModal();
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
+
+  checkQuaSoiKhacThucTe(func: any) {
+    let arr = []
+    let bool = true;
+    let itemSearch: any = {};
+    itemSearch.IddmCaSanXuatThucTe = this.item.IddmCaSanXuatThucTe;
+    if (this.item.Ngay !== undefined)
+      itemSearch.Ngay = DateToUnix(this.item.Ngay);
+    itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
+    itemSearch.IddmCaSanXuat = this.item.IddmCaSanXuat;
+    this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res: any) => {
+      res.forEach((x: any) => {
+        let _thisMatHang = this.item.listItem.find((y: any) => y.IddmItem === x.IddmItem)
+        if (_thisMatHang && _thisMatHang.SoQuaSoiThucTe !== x.SoQuaSoiManHinh) {
+          arr.push(_thisMatHang)
+          bool = false;
         }
       })
-    }
+
+      if (!bool) {
+        let msg = `${arr.map(x => x.Ten).join(', ')} có số quả thực tế không khớp với số quả màn hình!`
+        this.toastr.error(msg);
+        return;
+      }
+      func();
+    })
+    // this.item.listItem.forEach((x: any) => {
+    //   if (x.SoQuaSoiManHinh !== x.SoQuaSoiThucTe) {
+    //     arr.push(x)
+    //     bool = false;
+    //   }
+    // })
+
+    // if (!bool) {
+    //   let msg = `${arr.map(x => x.Ten).join(', ')} có số quả thực tế không khớp với số quả màn hình!`
+    //   this.toastr.error(msg);
+    //   return;
+    // }
+    // func();
   }
 
   GetNextSoQuyTrinh() {
@@ -144,33 +207,18 @@ export class NhapkhohoiammodalComponent implements OnInit {
     else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
       this.toastr.error("Bạn chưa chọn danh mục kho!");
     }
-    else if(!this.item.listItem.filter(ele=>!ele.isXoa).every(ele=> validVariable(ele.KgCone))){
-      console.log(this.item.listItem)
+    else if (!this.item.listItem.filter(ele => !ele.isXoa).every(ele => validVariable(ele.KgCone))) {
       this.toastr.error("Vui lòng chọn Kg/cone ở tất cả các mặt hàng!")
     }
     else {
       if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {
         this.add();
       }
-      this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this.item.listItem.forEach(element => {
-        element.IddmKho = this.item.IddmKho
-      });
-      this._services.PhieuNhapHoiAm().Set(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.item = res.objectReturn;
-            this.TinhAllKLTT();
-            this.KiemTraButtonModal();
-          } else {
-            this.toastr.error(res.message);
-          }
-        }
-      })
+      this.checkQuaSoiKhacThucTe(() => this.afterGhiLai());
     }
   }
+
+
 
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -179,7 +227,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
       this._services.PhieuNhapHoiAm().Delete(this.item).subscribe((res: any) => {
-        console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
         } else {
@@ -193,7 +240,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this.data.Loai = 10;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
-      if(!validVariable(this.item.IddmKho)){
+      if (!validVariable(this.item.IddmKho)) {
         this.item.IddmKho = res[0]?.Id
       }
     })
@@ -215,13 +262,13 @@ export class NhapkhohoiammodalComponent implements OnInit {
     })
   }
   GetMatHangTheoKho() {
-    
     let itemSearch: any = {};
     itemSearch.IddmCaSanXuatThucTe = this.item.IddmCaSanXuatThucTe;
     if (this.item.Ngay !== undefined)
       itemSearch.Ngay = DateToUnix(this.item.Ngay);
     itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
-    let listItem : any = (this.item.listItem || []).filter(ele => ele.isXoa !== true)
+    itemSearch.IddmCaSanXuat = this.item.IddmCaSanXuat;
+    let listItem: any = (this.item.listItem || []).filter(ele => ele.isXoa !== true)
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhaphoiammathangmodalComponent, {
         backdrop: 'static',
@@ -234,7 +281,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
         this.item.listItem.forEach(element => {
           element.isXoa = true;
         });
-        console.log(data.data)
         for (let i = 0; i < data.data.length; i++) {
           for (let j = 0; j < listItem.length; j++) {
             if (data.data[i].IddmItem === listItem[j].IddmItem && data.data[i].IdLoBong === listItem[j].IdLoBong) {
@@ -244,18 +290,17 @@ export class NhapkhohoiammodalComponent implements OnInit {
           }
         }
         this.item.listItem = this.item.listItem.concat(data.data);
-        console.log(this.item.listItem)
         this.TinhAllKLTT()
       }, (reason) => {
         // không
       });
     })
-    
+
   }
-  enter(i){
-    if(i+1<this.inputNumbers.toArray().length){
-      this.inputNumbers.toArray()[i+1].el.nativeElement.children[0].children[0].focus();
-    }else{
+  enter(i) {
+    if (i + 1 < this.inputNumbers.toArray().length) {
+      this.inputNumbers.toArray()[i + 1].el.nativeElement.children[0].children[0].focus();
+    } else {
       this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
     }
   }
@@ -286,17 +331,17 @@ export class NhapkhohoiammodalComponent implements OnInit {
     })
   }
   tinhKLTT(item) {
-    item.KLTT = (item.SoQuaSoiThucTe||0) * (item.KgCone||0);
+    item.KLTT = (item.SoQuaSoiThucTe || 0) * (item.KgCone || 0);
   }
-  TinhAllKLTT(){
+  TinhAllKLTT() {
     this.item.listItem.forEach(mh => {
-      mh.KLTT = (mh.SoQuaSoiThucTe||0) * (mh.KgCone||0);
+      mh.KLTT = (mh.SoQuaSoiThucTe || 0) * (mh.KgCone || 0);
     });
   }
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt]=res;
+      item[opt] = res;
       this.tinhKLTT(item);
     })
   }

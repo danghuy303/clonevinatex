@@ -319,6 +319,7 @@ import { BanChePhamToHieuTongHopComponent } from './quanlykhosanxuat/quytrinh/to
 import { QuyetToanNguyenLieuComponent } from './quanlykhosanxuat/quyet-toan-nguyen-lieu/quyet-toan-nguyen-lieu.component';
 import { DmKiemKeBanChePhamComponent } from './danhmuc/dm-kiem-ke-ban-che-pham/dm-kiem-ke-ban-che-pham.component';
 import { DanhSachMatHangComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/modal/danh-sach-mat-hang/danh-sach-mat-hang.component';
+import { LapKeHoachComponent } from './lap-ke-hoach/lap-ke-hoach.component';
 
 @NgModule({
   declarations: [
@@ -584,6 +585,7 @@ import { DanhSachMatHangComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ba
     QuyetToanNguyenLieuComponent,
     DmKiemKeBanChePhamComponent,
     DanhSachMatHangComponent,
+    LapKeHoachComponent,
   ],
   imports: [
     HttpClientModule,

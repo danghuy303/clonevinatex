@@ -1,14 +1,15 @@
-
 <div class="p-mb-3 p-mt-3">
     <h4 style="color:#1f2779">Quy trình kiểm kê kho bông</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
+    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
+        *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <p-dropdown [options]="listLoBong" placeholder="Chọn lô bông" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.IdLoBong" [showClear]="true" (onChange)="GetListQuyTrinh(true)" [filter]="true"></p-dropdown>
+                [(ngModel)]="filter.IdLoBong" [showClear]="true" (onChange)="GetListQuyTrinh(true)"
+                [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
@@ -21,10 +22,13 @@
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.KeyWord"/>
-            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh(true)"></button>
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+                (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.KeyWord" />
+            <button type="button" pButton pRipple icon="pi pi-search"
+                class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh(true)"></button>
 
-            <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+            <button type="button" pButton pRipple icon="pi pi-refresh"
+                class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>
         <div class="p-mr-2">
             <button pButton pRipple type="button" label="Xuất bảng kê" class="p-mr-2 p-button-sm"
@@ -69,19 +73,25 @@
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
                 <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center" *ngFor="let col of cols">
-                    {{item[col.field]}}
+                <td [class]="col.class" *ngFor="let col of cols">
+                    <div *ngIf="col.ellipsis" class="ellipsis" [pTooltip]="item[col.field]" tooltipPosition="top">
+                        {{item[col.field] | truncate: 50}}
+                    </div>
+                    <div *ngIf="col.ellipsis === false">
+                        {{item[col.field]}}
+                    </div>
                 </td>
                 <td class="text-center">
-      <button pButton pRipple type="button" icon="pi pi-pencil" 
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                        (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
-                    (onPageChange)="changePage($event)"></p-paginator>
+                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
+                    [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>
     </p-table>

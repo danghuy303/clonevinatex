@@ -16,16 +16,16 @@ export class HacapmodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
-    Ghi:true,
-    KhongDuyet:false,
-    ChuyenTiep:false,
-    Xoa:false,
+    Ghi: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
   }
   listdmKho: any = [];
-  newTableItem:any={};
-  filter:any = {};
-  listLoHang:any= [];
-  listHangHoaSauHaCap:any= [];
+  newTableItem: any = {};
+  filter: any = {};
+  listLoHang: any = [];
+  listHangHoaSauHaCap: any = [];
   lang: any = vn;
   editTableItem: any = {};
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -45,14 +45,14 @@ export class HacapmodalComponent implements OnInit {
     this.getListHangHoaSauHaCap();
   }
   KiemTraButtonModal() {
-    this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {
+    this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
-  
+
   ChuyenDuyet() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-    this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
     this.services.PhieuHaCap().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -63,28 +63,42 @@ export class HacapmodalComponent implements OnInit {
       }
     })
   }
+  KhongDuyet() {
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+    this.services.PhieuHaCap().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
+
   GetNextSoQuyTrinh() {
     this.services.PhieuHaCap().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
-  
- 
+
+
   GhiLai() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-    this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
     this.services.PhieuHaCap().Set(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.item = res.objectReturn;
-            this.KiemTraButtonModal();
-          } else {
-            this.toastr.error(res.message);
-          }
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message)
+          this.opt = 'edit';
+          this.item = res.objectReturn;
+          this.KiemTraButtonModal();
+        } else {
+          this.toastr.error(res.message);
         }
-      })
+      }
+    })
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -138,17 +152,17 @@ export class HacapmodalComponent implements OnInit {
     this.item.listItem[index].editField = true;
     this.editTableItem = deepCopy(item);
   }
-  
-  saveEdit(item, index){
+
+  saveEdit(item, index) {
     this.item.listItem[index] = item;
     this.item.listItem[index].editField = false;
   }
-  cancelEdit(item, index){
+  cancelEdit(item, index) {
     this.item.listItem[index].editField = false;
   }
-  getListHangHoaSauHaCap(){
-     this.services.GetListLoaiSoiTietKiem().subscribe((res:any)=>{
-      this.listHangHoaSauHaCap =  mapArrayForDropDown(res, 'Ten', 'Id');;
+  getListHangHoaSauHaCap() {
+    this.services.GetListLoaiSoiTietKiem().subscribe((res: any) => {
+      this.listHangHoaSauHaCap = mapArrayForDropDown(res, 'Ten', 'Id');;
     })
   }
 }

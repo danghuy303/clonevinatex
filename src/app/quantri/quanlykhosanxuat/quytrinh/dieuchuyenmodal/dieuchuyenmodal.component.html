@@ -8,16 +8,16 @@
         </div>
     </div> -->
     <div class="d-flex flex-column flex-lg-row">
-            <div>
-               <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
-            </div>
-            <div class="ml-lg-3 mr-lg-3">
-                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
-            </div>
-            <div>
-                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
-            </div>
+        <div>
+            <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
         </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+    </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -31,8 +31,8 @@
                 *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
                 (click)="XoaQuyTrinh()"></button>
-            <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
-                *ngIf="checkbutton.KhongDuyet"></button> -->
+            <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
+                *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()"
                 *ngIf="checkbutton.ChuyenTiep"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
@@ -43,16 +43,16 @@
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Kho điều chuyển:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho điều chuyển" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmKho" (onChange)="item.listItem=[]"></p-dropdown>
-                
+                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho điều chuyển"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmKho" (onChange)="item.listItem=[]"></p-dropdown>
+
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho nhập:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho nhập" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmKhoKhac"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho nhập"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmKhoKhac"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
@@ -73,9 +73,8 @@
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <div>
-                    <button
-                       pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
-                       (click)="GetMatHangTheoKho()"></button>
+                    <button pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
+                        (click)="GetMatHangTheoKho()"></button>
                 </div>
                 <!-- <div>
                     <div class="p-inputgroup">
@@ -85,7 +84,7 @@
                         class="p-button-secondary p-button-sm p-button-text" (click)="chonThuaDat()"></button>
                 </div>
                 </div> -->
-                
+
             </div>
             <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
@@ -142,8 +141,7 @@
                                 tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
                         </td>
                     </tr>
                 </ng-template>

@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Thống kê thời gian dừng máy</h4>
+    <h4 style="color:#1f2779">Thống kê thời gian dừng máy (Phút)</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -69,14 +69,13 @@
                     </td>
                     <td class="w-tc-150">
                         <p-inputNumber #inputKhoiLuong [minFractionDigits]="3" [maxFractionDigits]="3"
-                            styleClass="p-inputtext-sm" 
-                            (keyup.enter)="nextFocus(i)"
-                            [(ngModel)]="may.TocDoMax">
+                            styleClass="p-inputtext-sm" (keyup.enter)="nextFocus(i)" [(ngModel)]="may.TocDoMax">
                         </p-inputNumber>
                     </td>
                     <td class="w-tc-150">
-                        <p-inputNumber #inputTocDoTrungBinh [minFractionDigits]="3" [maxFractionDigits]="3" styleClass="p-inputtext-sm"
-                            [(ngModel)]="may.TocDoTrungBinh" (keyup.enter)="nextFocus_inputTocDoTrungBinhs(i)">
+                        <p-inputNumber #inputTocDoTrungBinh [minFractionDigits]="3" [maxFractionDigits]="3"
+                            styleClass="p-inputtext-sm" [(ngModel)]="may.TocDoTrungBinh"
+                            (keyup.enter)="nextFocus_inputTocDoTrungBinhs(i)">
                         </p-inputNumber>
                     </td>
                     <td class="w-tc-150">

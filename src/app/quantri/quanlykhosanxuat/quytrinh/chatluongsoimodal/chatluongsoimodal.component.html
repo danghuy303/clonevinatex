@@ -34,8 +34,8 @@
             *ngIf="checkbutton.Ghi"></button>
          <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
             (click)="XoaQuyTrinh()"></button>
-         <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
-                *ngIf="checkbutton.KhongDuyet"></button> -->
+         <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
+            *ngIf="checkbutton.KhongDuyet"></button>
          <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()"
             *ngIf="checkbutton.ChuyenTiep"></button>
          <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
@@ -162,7 +162,7 @@
                            (blur)="rebind($event.target.value,itemsanpham,iC,itemindex.Ma)"
                            [thousandSeparator]="MO.thousand" [ngModelOptions]="{standalone: true}"
                            [disabled]="itemindex.Ma==='IPI'"> -->
-                           <input *ngIf="itemindex.Ma!=='DAT'" class="text-right dat09focus"
+                        <input *ngIf="itemindex.Ma!=='DAT'" class="text-right dat09focus"
                            style="width: 100%; text-align: right; border: transparent; color:#495057" type="text"
                            [tabindex]="itemsanpham.tabIndex" [ngModel]="itemsanpham.ChiTieuThucTe" [mask]="MO.mask"
                            [allowNegativeNumbers]="true" (keydown)="move($event,itemsanpham.tabIndex)"

@@ -32,8 +32,8 @@
                 *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
                 (click)="XoaQuyTrinh()"></button>
-            <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
-                *ngIf="checkbutton.KhongDuyet"></button> -->
+            <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
+                *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()"
                 *ngIf="checkbutton.ChuyenTiep"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
@@ -119,33 +119,26 @@
                         <col style="width: 10rem;">
                         <col style="width: 5rem;">
                         <col style="width: 10rem;">
-                        <col style="width: 10rem;">
-                        <col style="width: 10rem;">
-                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
-                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
+
                         <col *ngIf="item.CongDoan!=='ONG'" style="width: 10rem;">
-                        <col *ngIf="item.CongDoan==='CON'" style="width: 9rem;">
+                        <col *ngIf="item.CongDoan!=='ONG'" style="width: 10rem;">
+
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 5rem;">
+
+                        <col *ngIf="item.CongDoan!=='ONG'" style="width: 10rem;">
+
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 5rem;">
+
+
+                        <col *ngIf="item.CongDoan=='CON'" style="width: 9rem;">
+                        <col *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" style="width: 5rem;">
                         <col *ngIf="item.CongDoan==='CON'" style="width: 5rem;">
-                        <col *ngIf="item.CongDoan==='CON'" style="width: 5rem;">
-                        <col *ngIf="item.CongDoan==='THO'" style="width: 6rem;">
+
+                        <!-- <col *ngIf="item.CongDoan==='THO'" style="width: 6rem;"> -->
+
                         <col style="width: 10rem;">
                     </colgroup>
-                    <!-- <colgroup>
-                        <col style="width:50px">
-                        <col style="width: 10rem;">
-                        <col>
-                        <col style="width: 10rem;">
-                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
-                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
-                        <col *ngIf="item.CongDoan!=='ONG'" style="width: 10rem;">
-                        <col>
-                        <col>
-                        <col *ngIf="item.CongDoan==='CON'" style="width: 10rem;">
-                        <col *ngIf="item.CongDoan==='CON'">
-                        <col *ngIf="item.CongDoan==='CON'">
-                        <col *ngIf="item.CongDoan==='THO'">
-                        <col>
-                    </colgroup> -->
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
@@ -153,11 +146,16 @@
                         <th>Số máy</th>
                         <th>Ne</th>
                         <th>Mặt hàng</th>
+
                         <th *ngIf="item.CongDoan==='ONG'">Lô hàng</th>
-                        <th *ngIf="item.CongDoan==='ONG'">Sản lượng màn hình (kg)</th>
+                        <th *ngIf="item.CongDoan==='ONG'">SL màn hình (kg)</th>
                         <th *ngIf="item.CongDoan!=='ONG'">Khối lượng (kg)</th>
-                        <th>Sản lượng định mức</th>
-                        <th>Chiều dài (m)</th>
+
+                        <th *ngIf="item.CongDoan!=='ONG'">Sản lượng định mức</th>
+                        <th *ngIf="item.CongDoan!=='ONG'">Chiều dài (m)</th>
+
+                        <th *ngIf="item.CongDoan==='ONG'">Số quả sợi</th>
+
                         <!-- <th *ngIf="item.CongDoan==='GHEPSOBOCOTTON'">Cúi hồi (kg)</th> -->
                         <th *ngIf="item.CongDoan==='CON'">Chữ đồng hồ (g/cọc)
                             <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
@@ -165,6 +163,7 @@
                         </th>
                         <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">Cọc chết (cọc)</th>
                         <th *ngIf="item.CongDoan==='CON'">Hút mối (kg)</th>
+
                         <th>Ghi chú</th>
                     </tr>
                 </ng-template>
@@ -183,7 +182,8 @@
                                             placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
                                             [(ngModel)]="itemtbl.IdLoHang">
                                             <ng-template let-target pTemplate="selectedItem">
-                                                <span [pTooltip]="target.label" style="vertical-align:middle">{{target.label}}</span>
+                                                <span [pTooltip]="target.label"
+                                                    style="vertical-align:middle">{{target.label}}</span>
                                             </ng-template>
                                         </p-dropdown>
                                     </div>
@@ -203,10 +203,16 @@
                                     (ngModelChange)="TinhTongKhoiLuongBong()">
                                 </p-inputNumber>
                             </td>
-                            <td class="text-right">
+
+                            <td class="text-right" *ngIf="item.CongDoan!=='ONG'">
                                 {{itemtbl.KhoiLuongTinhToan |number:'0.2-2'}}
                             </td>
-                            <td *ngIf="itemtbl.DonViNangSuat===1" class="text-right">
+                            <td class="text-right" *ngIf="item.CongDoan==='ONG'">
+                                <p-inputNumber locale="en-EN" [(ngModel)]="itemtbl.SoQuaSoi" #inputNumber
+                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2">
+                                </p-inputNumber>
+                            </td>
+                            <td *ngIf="itemtbl.DonViNangSuat===1 && item.CongDoan!=='ONG'" class="text-right">
                                 {{itemtbl.ChieuDai |number:'0.3-3'}}
                                 <div style="display:none">
                                     <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
@@ -215,10 +221,8 @@
                                     </p-inputNumber>
                                 </div>
                             </td>
+
                             <td *ngIf="itemtbl.DonViNangSuat===0">
-                                <!-- <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'" 
-                                [minFractionDigits]="3" locale="en-EN"
-                                    [(ngModel)]="itemtbl.ChieuDai" -->
                                 <p-inputNumber
                                     *ngIf="item.CongDoan==='CHAIPC' || item.CongDoan==='GHEPSOBOPC' || item.CongDoan==='ONG' "
                                     [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
@@ -257,13 +261,6 @@
                                     [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
                                 </p-inputNumber>
                             </td>
-
-                            <!-- <td *ngIf="item.CongDoan==='GHEPSOBOCOTTON'">
-                                <p-inputNumber #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="3" locale="en-EN"
-                                    [(ngModel)]="itemtbl.KhoiLuongCuiHoi" (ngModelChange)="KhoiLuongBongTheoCuiHoi(itemtbl)">
-                                </p-inputNumber>
-                            </td> -->
-
                             <td *ngIf="item.CongDoan==='CON'" class="p-d-flex p-flex-row ">
                                 <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+3)" [tabindex]="i*5+3"
                                     [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChuDongHo"
@@ -299,7 +296,7 @@
                             </td>
                         </tr>
                     </ng-container>
-                    <ng-container *ngIf="itemtbl==='clone' && item.CongDoan==='ONG'">
+                    <!-- <ng-container *ngIf="itemtbl==='clone' && item.CongDoan==='ONG'">
                         <tr style="height: 40px;">
                             <td></td>
                             <td></td>
@@ -309,9 +306,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
                         </tr>
-                    </ng-container>
+                    </ng-container> -->
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <tr>
@@ -321,18 +317,21 @@
                         <td></td>
                         <td *ngIf="item.CongDoan==='ONG'" class="text-right">
                         </td>
+
+
                         <td class="text-right">
-                            {{TongKhoiLuong |number:'0.3-3'}}
+                            {{listItem|isXoa|SumByKey:'KhoiLuong'|number:'0.3-3'}}
                         </td>
-                        <td class="text-right">
+                        <td class="text-right" *ngIf="item.CongDoan==='ONG'">
+                            {{listItem|isXoa|SumByKey:'SoQuaSoi'}}
+                        </td>
+                        <td class="text-right" *ngIf="item.CongDoan!=='ONG'">
                             {{listItem|isXoa|SumByKey:'KhoiLuongTinhToan'|number:'0.3-3'}}
                         </td>
-                        <td class="text-right">
+                        <td class="text-right" *ngIf="item.CongDoan!=='ONG'">
                             {{listItem|isXoa|SumByKey:'ChieuDai'|number:'0.3-3'}}
                         </td>
-                        <!-- <td *ngIf="item.CongDoan==='GHEPSOBOCOTTON'" class="text-right">
-                            {{listItem|isXoa|SumByKey:'KhoiLuongCuiHoi'|number:'0.3-3'}}
-                        </td> -->
+
                         <td *ngIf="item.CongDoan==='CON'" class="text-right">
                             {{listItem|isXoa|SumByKey:'ChuDongHo'|number:'0.3-3'}}
                         </td>
@@ -346,59 +345,12 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
-                    <!-- <tr>
-                        <td colspan="11">Không tìm thấy dữ liệu nào phù hợp điều kiện.</td>
-                    </tr> -->
+
                 </ng-template>
             </p-table>
-            <br />
-            <div class="p-col-12 p-p-0 d-flex flex-column p-jc-end">
-                <ng-container *ngFor="let CongDoan of item.listTyLeBongPhe|equalByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
-                    <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end"
-                        *ngFor="let bongphe of CongDoan.listKhoiLuongBongPhe;let i = index">
-                        <div class="p-grid" style="width:100%">
-                            <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng
-                                    {{bongphe.TenLoaiBongPhe}}</label>
-                                <div class="p-col-12 p-lg-7 p-p-0">
-                                    <p-inputNumber #inputKhoiLuong [minFractionDigits]="3" locale="en-EN"
-                                        [(ngModel)]="bongphe.KhoiLuong" (keyup.enter)="nextFocus(i)" (onBlur)="Typing($event)">
-                                    </p-inputNumber>
-                                </div>
-                                <div class="p-col-12 p-lg-1 p-p-0">
-                                    <button pButton pRipple icon="pi pi-ellipsis-v"
-                                        class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                        title="Nhập theo biểu thức" (click)="tinhToan(bongphe,'KhoiLuong')"
-                                        pTooltip="Tính toán" showDelay="1000" tooltipPosition="bottom"></button>
-                                </div>
-                            </div>
-                            <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ {{bongphe.TenLoaiBongPhe}}
-                                    (%):</label>
-                                <div class="p-col-12 p-lg-8 p-p-0">
-                                    {{bongphe.TyLe|number:'0.3-3'}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-container>
-                <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end">
-                    <div class="p-grid" style="width:100%">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Trừ vào sản lượng gian máy:</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                <input type="checkbox" class="p-inputtext-sm text-left"
-                                    [(ngModel)]="item.isTruVaoSanLuong" (change)="TinhTongKhoiLuongBong()" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <!-- <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-        (click)="activeModal.dismiss()"></button> -->
+
 </div>

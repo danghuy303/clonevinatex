@@ -99,6 +99,28 @@ export class XuatkhobongphemodalComponent implements OnInit {
       })
     }
   }
+  KhongDuyet() {
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn chọn ngày chứng từ!");
+    }
+    else {
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+        this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
+
+      this.services.PhieuXuatBongPhe().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
   GetNextSoQuyTrinh() {
     this.services.PhieuXuatBongPhe().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -238,12 +260,21 @@ export class XuatkhobongphemodalComponent implements OnInit {
     }
   }
   exportHoaDon() {
-    if(validVariable(this.item.Id)){
+    if (validVariable(this.item.Id)) {
       this.services.PhieuXuatBongPhe().ExportHoaDonXuatKhoBongPhe(this.item.Id).subscribe((res: any) => {
         this.services.download(res.TenFile);
       })
-    }else{
+    } else {
       this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
     }
+  }
+
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }

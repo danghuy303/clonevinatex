@@ -108,12 +108,12 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
             this.data = {
                 labels: res.objectReturn.listThoiGian.map(ele => `T${ele}`),
                 datasets: [
-                    {
-                        label: 'Định mức',
-                        backgroundColor: '#42A5F5',
-                        borderColor: '#1E88E5',
-                        data: res.objectReturn.listDinhMuc.map(ele => ele.KhoiLuong),
-                    },
+                    // {
+                    //     label: 'Định mức',
+                    //     backgroundColor: '#42A5F5',
+                    //     borderColor: '#1E88E5',
+                    //     data: res.objectReturn.listDinhMuc.map(ele => ele.KhoiLuong),
+                    // },
                     {
                         type: 'line',
                         borderColor: '#1E88E5',
@@ -127,11 +127,17 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
                         data: res.objectReturn.listThucTe.map(ele => ele.KhoiLuong)
                     },
                     {
-                        label: 'Thực tế',
-                        backgroundColor: '#9CCC65',
-                        borderColor: '#7CB342',
-                        data: res.objectReturn.listThucTe.map(ele => ele.KhoiLuong),
-                    }
+                        type: 'line',
+                        borderColor: '#cc65c5',
+                        fill: false,
+                        data: res.objectReturn.listSoSach.map(ele => ele.KhoiLuong)
+                    },
+                    // {
+                    //     label: 'Thực tế',
+                    //     backgroundColor: '#9CCC65',
+                    //     borderColor: '#7CB342',
+                    //     data: res.objectReturn.listThucTe.map(ele => ele.KhoiLuong),
+                    // }
                 ]
             }
         })
@@ -143,12 +149,12 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
             this.dataXo = {
                 labels: res.objectReturn.listThoiGian.map(ele => `T${ele}`),
                 datasets: [
-                    {
-                        label: 'Định mức',
-                        backgroundColor: '#42A5F5',
-                        borderColor: '#1E88E5',
-                        data: res.objectReturn.listDinhMuc.map(ele => ele.KhoiLuong),
-                    },
+                    // {
+                    //     label: 'Định mức',
+                    //     backgroundColor: '#42A5F5',
+                    //     borderColor: '#1E88E5',
+                    //     data: res.objectReturn.listDinhMuc.map(ele => ele.KhoiLuong),
+                    // },
                     {
                         type: 'line',
                         label: '',
@@ -163,12 +169,19 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
                         fill: false,
                         data: res.objectReturn.listThucTe.map(ele => ele.KhoiLuong)
                     },
+                    // {
+                    //     label: 'Thực tế',
+                    //     backgroundColor: '#9CCC65',
+                    //     borderColor: '#7CB342',
+                    //     data: res.objectReturn.listThucTe.map(ele => ele.KhoiLuong),
+                    // }
                     {
-                        label: 'Thực tế',
-                        backgroundColor: '#9CCC65',
-                        borderColor: '#7CB342',
-                        data: res.objectReturn.listThucTe.map(ele => ele.KhoiLuong),
-                    }
+                        type: 'line',
+                        label: '',
+                        borderColor: '#cc65c5',
+                        fill: false,
+                        data: res.objectReturn.listSoSach.map(ele => ele.KhoiLuong)
+                    },
                 ]
             }
         })

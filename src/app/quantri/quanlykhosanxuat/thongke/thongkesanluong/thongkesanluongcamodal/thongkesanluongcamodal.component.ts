@@ -97,6 +97,28 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       })
     }
   }
+  KhongDuyet() {
+    let isCheck: any = false;
+    this.item.listThongKeSanLuong.forEach(element => {
+      if (element.IddmCaSanXuatThucTe == undefined || element.IddmCaSanXuatThucTe == null)
+        isCheck = true;
+    });
+    if (isCheck === true) {
+      this.toastr.error("Bạn chưa chọn ca sản xuất thực tế!!");
+    }
+    else {
+      this.services.ThongKeSanLuongNhieuCa().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
 
   GetNextSoQuyTrinh() {
     this.services.ThongKeSanLuongNhieuCa().GetNextSo().subscribe((res: any) => {
@@ -187,7 +209,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
           this.KhoiLuongCa = res.map((_, index) => 0)
           if (this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null) {
             this.item.listThongKeSanLuong = [];
-            this.listCaSanXuat.forEach((element,index_Tinh) => {
+            this.listCaSanXuat.forEach((element, index_Tinh) => {
               let itemFind = {
                 IddmCaSanXuat: element.Id,
                 listItem: [],
@@ -201,7 +223,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
           }
           if (this.opt === 'edit') {
             this.getItemTheoCongDoan();
-           
+
           }
           else {
             this.listCaSanXuat.forEach(element => {
@@ -220,18 +242,18 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       }
 
       // }
-  // huy hyyyyyyyyyyyyyyyyy
-  this.listCaSanXuat.forEach(element => {
-    if (this.item.CongDoan === "ONG")
-      element.SoCot = 3;
-    else if (this.item.CongDoan === "CON")
-      element.SoCot = 3;
-    else if (this.item.CongDoan === "THO")
-      element.SoCot = 3;
-    else
-      element.SoCot = 2;
-  });
-  // 
+      // huy hyyyyyyyyyyyyyyyyy
+      this.listCaSanXuat.forEach(element => {
+        if (this.item.CongDoan === "ONG")
+          element.SoCot = 3;
+        else if (this.item.CongDoan === "CON")
+          element.SoCot = 3;
+        else if (this.item.CongDoan === "THO")
+          element.SoCot = 3;
+        else
+          element.SoCot = 2;
+      });
+      // 
     })
   }
   GetPhanXuongTheoUser() {
@@ -691,7 +713,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       // }
     } else {
       console.log(1);
-      
+
       let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i + 6);
       if (validVariable(nextFocus)) {
         nextFocus.el.nativeElement.children[0].children[0].focus()

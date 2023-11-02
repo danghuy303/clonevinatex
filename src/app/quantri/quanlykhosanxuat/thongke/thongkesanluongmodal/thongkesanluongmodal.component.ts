@@ -76,7 +76,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
 
   GetTyLeThongKeSanLuongBongPhe() {
-    this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe('',this.item.IddmPhanXuong,this.item.IddmCaSanXuat,DateToUnix(this.item.Ngay)).subscribe((res: any) => {
+    this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe('', this.item.IddmPhanXuong, this.item.IddmCaSanXuat, DateToUnix(this.item.Ngay)).subscribe((res: any) => {
       // this.item.SoQuyTrinh = res.SoQuyTrinh;
       this.item.listTyLeBongPhe = res;
     })
@@ -120,6 +120,29 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
     else {
       this.services.ThongKeSanLuong().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
+  KhongDuyet() {
+    let isCheck: any = false;
+    this.item.listItem.forEach(element => {
+      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
+        isCheck = true;
+      }
+    });
+    if (isCheck === true) {
+      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
+    }
+    else {
+      this.services.ThongKeSanLuong().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message);
@@ -249,7 +272,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   getMatHangThongKeSanLuong() {
-   
+
     if (this.item.IddmCaSanXuat != undefined
       && this.item.IddmPhanXuong != undefined
       && this.item.Ngay != undefined) {
@@ -387,6 +410,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     });
   }
   getItemTheoCongDoan() {
+    console.log(this.item.listItem)
     if (this.item.CongDoan != undefined && this.item.listItem != undefined && this.item.listItem != null) {
       this.listItem = []
       this.item.listItem.forEach(element => {

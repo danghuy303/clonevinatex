@@ -18,16 +18,31 @@ export class ModaldanhmucchungComponent implements OnInit {
   listLoaiBong: any = [];
   listLoaiNhomKho: any = [];
   listLoaiBongPhe: any = [];
+  listCongDoan: any = [];
+  listCachTinh: any = [{
+    label: `Tất cả công đoạn`,
+    value: false
+  }, {
+    label: `Sợi con`,
+    value: true
+  }];
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if(this.type === 'loaibong'){
+    if (this.type === 'loaibong') {
       this.GetListLoaiBong();
       this.GetListLoaiBongPhe();
+      this.GetListCongDoan()
     }
-    if(this.type === 'dmnhomkho'){
+    if (this.type === 'dmnhomkho') {
       this.GetListLoaiNhomKho();
     }
+  }
+
+  GetListCongDoan() {
+    this.sanXuatService.GetListCongDoan().subscribe((res: any[]) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Id')
+    })
   }
   GetListLoaiNhomKho() {
     this.sanXuatService.GetListLoaiNhomKho().subscribe((res: any) => {
@@ -35,7 +50,7 @@ export class ModaldanhmucchungComponent implements OnInit {
     })
   }
   GetListLoaiBongPhe() {
-    this.sanXuatService.DanhMucLoaiBongPhe().GetList({CurrentPage:0}).subscribe((res: any) => {
+    this.sanXuatService.DanhMucLoaiBongPhe().GetList({ CurrentPage: 0 }).subscribe((res: any) => {
       this.listLoaiBongPhe = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
@@ -70,7 +85,7 @@ export class ModaldanhmucchungComponent implements OnInit {
       this.toastr.warning('Vui lòng nhập đầy đủ trường thông tin bắt buộc!')
     }
   }
-  
+
   quycachdonggoi() {
     this.sanXuatService.dmQuyCachDongGoi().Set(this.item).subscribe((res: any) => {
       if (res) {

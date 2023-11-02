@@ -118,8 +118,7 @@
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
                             [(ngModel)]="filter.KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
-                            class="p-button-secondary p-button-sm p-button-text"
-                            ></button>
+                            class="p-button-secondary p-button-sm p-button-text"></button>
                     </div>
                 </div>
             </div>
@@ -160,8 +159,7 @@
                         <td>
                             <div style="display: flex;">
                                 <div style="flex:1">
-                                    <p-inputNumber [minFractionDigits]="2" locale="en-EN"
-                                        [(ngModel)]="item.khoiLuong"
+                                    <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.khoiLuong"
                                         (ngModelChange)="changeKeHoachSanXuat(item)">
                                     </p-inputNumber>
                                 </div>
@@ -193,9 +191,10 @@
                             </div>
                         </td>
                         <td>
-                            <input pInputText type="text" class="p-inputtext-sm" [ngbTooltip]="item.GhiChu" [pTooltip]="item.GhiChu" [(ngModel)]="item.GhiChu" 
-                                (ngModelChange)="change(i)" pInputText />
-                            </td>
+                            <input pInputText type="text" class="p-inputtext-sm" [ngbTooltip]="item.GhiChu"
+                                [pTooltip]="item.GhiChu" [(ngModel)]="item.GhiChu" (ngModelChange)="change(i)"
+                                pInputText />
+                        </td>
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text"

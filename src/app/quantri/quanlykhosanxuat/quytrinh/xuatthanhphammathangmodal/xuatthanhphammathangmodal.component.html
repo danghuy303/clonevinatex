@@ -56,8 +56,10 @@
                         <td class="text-left">
                             {{item.Ma}}
                         </td>
-                        <td class="text-left" *ngIf="loai !== 'dmMatHang'">
-                            {{item.TenLoHang}}
+                        <td class="text-left " *ngIf="loai !== 'dmMatHang'">
+                            <div class="ellipsis" [pTooltip]="item.TenLoHang" tooltipPosition="top">
+                                {{item.TenLoHang | truncate: 30}}
+                            </div>
                         </td>
                         <td class="text-center" *ngIf="loai !== 'dmMatHang'">
                             {{item.TendmQuyCachDongGoi}}

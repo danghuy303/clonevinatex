@@ -546,20 +546,20 @@ export class QuantriComponent implements OnInit, OnDestroy {
             separator: this.checkmenu("THONGKESANLUONG"),
             command: () => this.close(),
           },
-          {
-            label: "Thống kê sản lượng ca",
-            routerLink:
-              "/quantri/theodoithongkebaocaosanxuat/thongkesanluongca/0",
-            separator: this.checkmenu("THONGKESANLUONG"),
-            command: () => this.close(),
-          },
-          {
-            label: "Thống kê sản lượng nhanh",
-            routerLink:
-              "/quantri/theodoithongkebaocaosanxuat/thongkesanluongnhanh/0",
-            separator: this.checkmenu("THONGKESANLUONG"),
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Thống kê sản lượng ca",
+          //   routerLink:
+          //     "/quantri/theodoithongkebaocaosanxuat/thongkesanluongca/0",
+          //   separator: this.checkmenu("THONGKESANLUONG"),
+          //   command: () => this.close(),
+          // },
+          // {
+          //   label: "Thống kê sản lượng nhanh",
+          //   routerLink:
+          //     "/quantri/theodoithongkebaocaosanxuat/thongkesanluongnhanh/0",
+          //   separator: this.checkmenu("THONGKESANLUONG"),
+          //   command: () => this.close(),
+          // },
           {
             label: "Thống kê điện",
             routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkedien/0",
@@ -1883,6 +1883,20 @@ export class QuantriComponent implements OnInit, OnDestroy {
           },
         ],
       },
+      {
+        label: "Lập kế hoạch",
+        icon: "fas fa-circle",
+        // routerLink: "/",
+        // visible: this.showHopDongModule,
+        items: [
+          {
+            label: "Danh sách kế hoạch năm",
+            routerLink: "/quantri/lap-ke-hoach/danhsachkehoachnam",
+            command: () => this.close(),
+          },
+
+        ],
+      },
 
       {
         label: "Danh mục dùng chung",
@@ -1933,15 +1947,15 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
           {
-            label: "Tỷ lệ tiêu chuẩn bông phế",
+            label: "Tỷ lệ tiêu chuẩn bông phế/hồi",
             routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbongphe",
             command: () => this.close(),
           },
-          {
-            label: "Tỷ lệ tiêu chuẩn bông hồi",
-            routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbonghoi",
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Tỷ lệ tiêu chuẩn bông hồi",
+          //   routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbonghoi",
+          //   command: () => this.close(),
+          // },
           {
             label: "Cấp bông",
             routerLink: "/quantri/danhmucsanxuat/dmcapbong",

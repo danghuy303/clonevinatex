@@ -45,14 +45,14 @@
             </div>
         </div>
         <p-tabView>
-            <p-tabPanel header="Sợi thô" *ngIf="item.listHeader1 && item.listHeader1.length">
+            <p-tabPanel header="Tồn chuyền" *ngIf="item.listHeader1 && item.listHeader1.length">
                 <div class="pt-3">
                     <p-table [value]="item.listData1" [scrollable]="true" scrollHeight="400px"
                         styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                         <ng-template pTemplate="colgroup">
                             <col style="width:50px">
                             <col style="min-width:200px">
-                            <col style="width:180px" *ngFor="let col of item.listData1[0]?.listGiaTri">
+                            <col style="width:120px" *ngFor="let col of item.listData1[0]?.listGiaTri">
                         </ng-template>
                         <ng-template pTemplate="header">
                             <tr>
@@ -65,8 +65,7 @@
                             </tr>
                             <tr>
                                 <th *ngFor="let kiemkehead of item.listHeader1" [ngStyle]="{
-                          display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''
-                        }">
+                          display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''}">
                                     {{ kiemkehead.name }}
                                 </th>
                             </tr>
@@ -83,7 +82,8 @@
                                 <td *ngFor="let data of item1?.listGiaTri">
                                     <div>
                                         <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
-                                            [(ngModel)]="data.GiaTri" [disabled]="data.isDisable"></p-inputNumber>
+                                            [(ngModel)]="data.GiaTri" [disabled]="data.isDisable"
+                                            [inputStyle]="{color: data.Color}"></p-inputNumber>
                                     </div>
                                 </td>
                             </tr>

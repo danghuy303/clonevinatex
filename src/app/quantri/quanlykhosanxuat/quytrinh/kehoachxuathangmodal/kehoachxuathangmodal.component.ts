@@ -120,6 +120,15 @@ export class KehoachxuathangmodalComponent implements OnInit {
     })
   }
 
+  getTooltipKH(id: string) {
+    let text = ``
+    let _thisKH = this.listKhachHang.find((x: any) => x.value === id);
+    if (_thisKH) {
+      text = _thisKH.label
+    }
+    return text;
+  }
+
   ChuyenTiep() {
     var isCheck: any = false;
     this.item.listItem.filter(obj => {
@@ -328,10 +337,10 @@ export class KehoachxuathangmodalComponent implements OnInit {
     modalRef.result.then(res => {
       // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
       console.log(res.listItem);
-      
+
       res.listItem.forEach(item => {
         // item.label = item.objQuyCachDongGoi.label;
-        item.label = item.label ? item.label: item.objQuyCachDongGoi?.label;
+        item.label = item.label ? item.label : item.objQuyCachDongGoi?.label;
       });
       item.listItem = res.listItem;
       // if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0

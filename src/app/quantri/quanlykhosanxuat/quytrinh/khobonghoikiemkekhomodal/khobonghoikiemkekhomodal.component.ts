@@ -31,7 +31,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
     listNewMatHang_ref: any = [];
     isKhoThanhPham: any = false;
     paging: any = {
-        CurrentPage:1
+        CurrentPage: 1
     };
     listItem: any = [];
     item_new: any = {};
@@ -84,15 +84,15 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
                 this.listNewMatHang_ref = res;
             });
     }
-    getListMatHangKiemKe(){
+    getListMatHangKiemKe() {
         this.services
-        .PhieuKiemKeKhoBongPhe()
-        .GetlistdmMatHangKiemKeBongPhe(6)
-        .subscribe((res: any) => {
-            this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
-            this.listNewMatHang_ref = res;
-            this.checklistMatHangTheoKho();
-        });
+            .PhieuKiemKeKhoBongPhe()
+            .GetlistdmMatHangKiemKeBongPhe(6)
+            .subscribe((res: any) => {
+                this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
+                this.listNewMatHang_ref = res;
+                this.checklistMatHangTheoKho();
+            });
     }
     GetQuyTrinh() {
         this.services
@@ -108,16 +108,16 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
                 this.item_new = res1;
                 this.KiemTraButtonModal();
                 //
-                if(this.item.IddmLoaiBong != undefined ){
+                if (this.item.IddmLoaiBong != undefined) {
                     this.services
-                    .PhieuKiemKeKhoBongPhe()
-                    .GetlistdmMatHangKiemKeBongPhe(6)
-                    .subscribe((res: any) => {
-                        this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
-                        this.listNewMatHang_ref = res;
-                    });
+                        .PhieuKiemKeKhoBongPhe()
+                        .GetlistdmMatHangKiemKeBongPhe(6)
+                        .subscribe((res: any) => {
+                            this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
+                            this.listNewMatHang_ref = res;
+                        });
                 }
-            this.getListMatHangKiemKe();
+                this.getListMatHangKiemKe();
             });
     }
     KiemTraButtonModal() {
@@ -138,6 +138,26 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         this.services
             .PhieuKiemKeKhoBong()
             .ChuyenTiep(this.item)
+            .subscribe((res: any) => {
+                if (res) {
+                    if (res.State === 1) {
+                        this.activeModal.close();
+                    } else {
+                        this.toastr.error(res.message);
+                    }
+                }
+            });
+    }
+    KhongDuyet() {
+        if (validVariable(this.newItem.IddmItem)) {
+            this.listItem.push(deepCopy(this.newItem));
+            this.newItem = {};
+        }
+
+        this.item.listItem = deepCopy(this.listItem);
+        this.services
+            .PhieuKiemKeKhoBong()
+            .KhongDuyet(this.item)
             .subscribe((res: any) => {
                 if (res) {
                     if (res.State === 1) {
@@ -217,16 +237,16 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
 
     delete(index) {
         console.log(index);
-        console.log((this.paging.CurrentPage-1)*10+index);
-        console.log((this.paging.CurrentPage-1)*10);
-        let item = this.item.listItem.splice((this.paging.CurrentPage-1)*10+index, 1)[0];
+        console.log((this.paging.CurrentPage - 1) * 10 + index);
+        console.log((this.paging.CurrentPage - 1) * 10);
+        let item = this.item.listItem.splice((this.paging.CurrentPage - 1) * 10 + index, 1)[0];
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
         } else {
             this.toastr.warning("Thao tác này đồng nghĩa việc không kiểm kê, không đồng nghĩa việc xóa khỏi kho");
             item.isXoa = true;
             this.item.listItem.push(JSON.parse(JSON.stringify(item)));
         }
-        this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage-1)*10,10);
+        this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage - 1) * 10, 10);
         this.paging.TotalItem = Math.ceil(this.item.listItem.filter(ele => ele.isXoa !== true).length);
     }
 
@@ -296,23 +316,22 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         })
             .catch(er => console.log(er))
     }
-    checklistMatHang(item){
-        if(this.listNewMatHang !== undefined && this.listNewMatHang !== null){
-            for(let i = 0; i < this.listNewMatHang.length ; i ++){
-                if(this.listNewMatHang[i].label ===item.Ten){
+    checklistMatHang(item) {
+        if (this.listNewMatHang !== undefined && this.listNewMatHang !== null) {
+            for (let i = 0; i < this.listNewMatHang.length; i++) {
+                if (this.listNewMatHang[i].label === item.Ten) {
                     this.listNewMatHang.splice(i, 1);
                     break;
                 }
             }
         }
     }
-    checklistMatHangTheoKho(){
-        if(this.listNewMatHang !== undefined && this.listNewMatHang !== null && this.listNewMatHang.length > 0){
-            if(this.listItem !== undefined && this.listItem !== null  && this.listItem.length > 0)
-            {
-                for(let i = 0; i < this.listNewMatHang.length ; i ++){
-                    for(let j = 0; j < this.listItem.length ; j ++){
-                        if(this.listNewMatHang[i].label === this.listItem[j].Ten){
+    checklistMatHangTheoKho() {
+        if (this.listNewMatHang !== undefined && this.listNewMatHang !== null && this.listNewMatHang.length > 0) {
+            if (this.listItem !== undefined && this.listItem !== null && this.listItem.length > 0) {
+                for (let i = 0; i < this.listNewMatHang.length; i++) {
+                    for (let j = 0; j < this.listItem.length; j++) {
+                        if (this.listNewMatHang[i].label === this.listItem[j].Ten) {
                             this.listNewMatHang.splice(i, 1);
                             break;
                         }

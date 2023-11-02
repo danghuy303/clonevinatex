@@ -89,6 +89,18 @@ export class KiemtrabanchephammodalComponent implements OnInit {
       }
     })
   }
+  KhongDuyet() {
+    this.services.KiemTraBanChePham().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
 
   GetNextSoQuyTrinh() {
     this.services.KiemTraBanChePham().GetNextSo().subscribe((res: any) => {
@@ -187,7 +199,7 @@ export class KiemtrabanchephammodalComponent implements OnInit {
   look(list) {
     list.forEach((ele) => {
       this.item.listItem.forEach(item => {
-        let obj =item.listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === ele.Id);
+        let obj = item.listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === ele.Id);
         if (obj && ele.CongThuc) {
           obj.Disabled = true;
         }
@@ -207,6 +219,32 @@ export class KiemtrabanchephammodalComponent implements OnInit {
     }
     // this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 2)].el.nativeElement.children[0].children[0].focus();
     // this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 2)].el.nativeElement.children[0].children[0].select();
+  }
+
+  autoFocus(i: number, length: number, indexcon: number) {
+    let _thisIndex = i * length + indexcon + 1;
+
+    let _thisFocus = this.inputNumbers.toArray().find((ele: any) => ele.tabindex === _thisIndex);
+
+    const func = (_thisFocus: any) => {
+      const _value = _thisFocus.el.nativeElement.children[0].children[0].value;
+      let arr = []
+      if (_value.length > 1) {
+        arr = _value.split('.');
+      }
+      let _length = 0;
+      if (arr.length > 0) {
+        _length = arr[0].length;
+        let num = parseInt(arr[1]);
+        if (num === 0) {
+          _thisFocus.el.nativeElement.children[0].children[0].setSelectionRange(_length, _length);
+        }
+      }
+    }
+
+    if (validVariable(_thisFocus)) {
+      func(_thisFocus);
+    }
   }
 
   // Tinh(index) {

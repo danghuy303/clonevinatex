@@ -55,21 +55,19 @@ export class
         //     }
         //     return user;
         // }));
-        console.log(data);
         return this.http.post(this.loginJWTurl, `username=${data.UserName}&password=${data.Password}&grant_type=password&tokenfirebase=a`, httpOptions).pipe(map((user: any) => {
-                console.log(user);
-                if (user.access_token) {
-                    // if (user.Error === 4) {
-                        this.currentAccess_Token.next(user.access_token);
-                        if (data.RememberMe) {
-                            localStorage.setItem('loginData', JSON.stringify(data));
-                        }
-                        this.currentUserSubject.next(user.Value);
-                        this.GetCurrentUser();
-                    // }
+            if (user.access_token) {
+                // if (user.Error === 4) {
+                this.currentAccess_Token.next(user.access_token);
+                if (data.RememberMe) {
+                    localStorage.setItem('loginData', JSON.stringify(data));
                 }
-                return user;
-            }));
+                this.currentUserSubject.next(user.Value);
+                this.GetCurrentUser();
+                // }
+            }
+            return user;
+        }));
     }
     public logout() {
         // this.services.LogOut().subscribe((res: any) => {

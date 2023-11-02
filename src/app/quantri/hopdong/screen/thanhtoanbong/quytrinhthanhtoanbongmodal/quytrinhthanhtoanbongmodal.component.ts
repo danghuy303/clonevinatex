@@ -37,58 +37,58 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   listThanhToanInvoiceFull: any = [];
   listIdThanhToanInvoice: any = [];
   IdDuAn: any = 0;
-  listLoaiThanhToan: any = [{label: 'Thanh toán theo kế hoạch thanh toán',value: 1},
-  {label: 'Thanh toán theo invoice', value: 2}];
+  listLoaiThanhToan: any = [{ label: 'Thanh toán theo kế hoạch thanh toán', value: 1 },
+  { label: 'Thanh toán theo invoice', value: 2 }];
   userInfo: any;
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService, private _auth: AuthenticationService,
-    private _servicesdmHopDong: DanhMucHopDongService,private _hopdong: HopDongService,) {
-      this.userInfo = this._auth.currentUserValue;
+    private _servicesdmHopDong: DanhMucHopDongService, private _hopdong: HopDongService,) {
+    this.userInfo = this._auth.currentUserValue;
   }
 
   ngOnInit(): void {
     if (this.opt !== 'edit') {
       this.item = {
         id: '',
-        listHoSoDinhKem : [],
-        listThanhToanMatHang  : [],
-        listThanhToanThuHoi  : [],
-        listThanhToanInvoice  : [],
+        listHoSoDinhKem: [],
+        listThanhToanMatHang: [],
+        listThanhToanThuHoi: [],
+        listThanhToanInvoice: [],
         idDuAn: this.IdDuAn,
         loai: 2,
       }
       this.GetNextSoQuyTrinh();
     }
-    else{
+    else {
       this.getQuyTrinh(this.item.id);
     }
     this.getListHopDong();
 
   }
-  getListHopDong(){
+  getListHopDong() {
     this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 0).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
     })
   }
-  
-  getListDieuKhoanThanhToan(){
+
+  getListDieuKhoanThanhToan() {
     // this.item.giaTriThanhToan = 0;
-    if(this.item.loaiThanhToan === 1){
+    if (this.item.loaiThanhToan === 1) {
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
         this.listDieuKhoanThanhToanFull = res.data;
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
-        var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
-        if(data !== undefined){
+        var data = this.listDieuKhoanThanhToanFull.filter(e => e.id == this.item.idThanhToanDieuKhoan);
+        if (data !== undefined) {
           this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
         }
       })
       this.item.listThanhToanMatHang = []
       this.item.listThanhToanDotGiaoNhan = []
-      this.listIdThanhToanInvoice=[]
+      this.listIdThanhToanInvoice = []
     }
-    else if(this.item.loaiThanhToan === 2){
+    else if (this.item.loaiThanhToan === 2) {
       this._hopdong.QuyTrinhThanhToan().getListInvoice(this.item.idHopDong).subscribe((res: any) => {
         this.listThanhToanInvoice = mapArrayForDropDown(res.data, 'soQuyTrinh', 'ma');
         this.listThanhToanInvoiceFull = res.data;
@@ -107,8 +107,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if(this.CheckTruocKhiLuu())
-    {
+    if (this.CheckTruocKhiLuu()) {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
       this._hopdong.QuyTrinhThanhToan().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -144,12 +143,12 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
 
   getQuyTrinh(Id) {
     this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
-      this.item=res1.data;
+      this.item = res1.data;
       this.listIdThanhToanInvoice = []
       if (this.item.ngayThanhToanUnix !== null && this.item.ngayThanhToanUnix !== undefined) {
         this.item.ngayThanhToan = UnixToDate(this.item.ngayThanhToanUnix);
       }
-      if(this.item.listThanhToanDotGiaoNhan.length> 0){
+      if (this.item.listThanhToanDotGiaoNhan.length > 0) {
         this.item.listThanhToanDotGiaoNhan.forEach(element => {
           this.listIdThanhToanInvoice.push(element.ma)
         });
@@ -163,7 +162,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       this.item.listItem = [];
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
-    
+
   }
 
   delete(index) {
@@ -178,7 +177,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   Onclose() {
     this.activeModal.close();
   }
-  CheckTruocKhiLuu(){
+  CheckTruocKhiLuu() {
     if (this.newTableItem.Ten != undefined || this.newTableItem.SoCan != undefined || this.newTableItem.SoKien != undefined || this.newTableItem.IddmViTri != undefined) {
       this.add();
     }
@@ -193,11 +192,11 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
     return true;
   }
   getListItem() {
-    this.item.listThanhToanMatHang=[];
-    this.item.listThanhToanDotGiaoNhan=[];
+    this.item.listThanhToanMatHang = [];
+    this.item.listThanhToanDotGiaoNhan = [];
     this.listIdThanhToanInvoice.forEach(element => {
-      let item: any = this.listThanhToanInvoiceFull.filter(e=> e.ma == element)
-      if(item!== undefined){
+      let item: any = this.listThanhToanInvoiceFull.filter(e => e.ma == element)
+      if (item !== undefined) {
         let itempush: any = {
           ma: element,
         }
@@ -209,7 +208,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
     this._hopdong.QuyTrinhThanhToan().GetListInvoiceHopDongChiTiet(data).subscribe((res: any) => {
       res.data.forEach(element => {
         let itempush: any = {
-          id:'',
+          id: '',
           ma: element.soInvoice,
           soContainer: element.soContainer,
           tongSoKien: element.tongSoKien,
@@ -221,30 +220,29 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       });
     })
   }
-  layGiaTri(){
-    var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
-    if(data !== undefined){
+  layGiaTri() {
+    var data = this.listDieuKhoanThanhToanFull.filter(e => e.id == this.item.idThanhToanDieuKhoan);
+    if (data !== undefined) {
       this.item.giaTriThanhToan = data[0].giaTri || 0;
       this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
     }
   }
-  TinhThanhTien(){
+  TinhThanhTien() {
     this.item.giaTriThanhToan = 0;
     this.item.giaTriDaThanhToan = 0;
-    if(this.item.listThanhToanMatHang === null || this.item.listThanhToanMatHang === undefined)
+    if (this.item.listThanhToanMatHang === null || this.item.listThanhToanMatHang === undefined)
       this.item.listThanhToanMatHang = []
     this.item.listThanhToanMatHang.forEach(element => {
       this.item.giaTriThanhToan += (element.soLuong || 0) * (element.donGia || 0);
       this.item.giaTriDaThanhToan += (element.soLuongDaThanhToan || 0) * (element.donGia || 0);
     });
-    this.item.giaTriThanhToan = Math.round(this.item.giaTriThanhToan *100)/100;
-    this.item.giaTriDaThanhToan = Math.round(this.item.giaTriDaThanhToan*100)/100;
+    this.item.giaTriThanhToan = Math.round(this.item.giaTriThanhToan * 100) / 100;
+    this.item.giaTriDaThanhToan = Math.round(this.item.giaTriDaThanhToan * 100) / 100;
   }
-  ChuyenTiep(){
+  ChuyenTiep() {
     let isChuaNopDu: any = false;
-    for(let i = 0; i < this.item.listHoSoDinhKem.length; i++ ){
-      if(this.item.listHoSoDinhKem[i].isNopDu !== true)
-      {
+    for (let i = 0; i < this.item.listHoSoDinhKem.length; i++) {
+      if (this.item.listHoSoDinhKem[i].isNopDu !== true) {
         isChuaNopDu = true;
         break;
       }
@@ -255,7 +253,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       });
       modalRef.componentInstance.message = "Bạn chưa nộp đủ tài liệu bạn chắc chắn muốn lưu quy trình này chứ?"
       modalRef.result.then(res => {
-        if(this.CheckTruocKhiLuu()){
+        if (this.CheckTruocKhiLuu()) {
           if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
             this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
           this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
@@ -271,11 +269,58 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
         }
       }).catch()
     }
-    else{
-      if(this.CheckTruocKhiLuu()){
+    else {
+      if (this.CheckTruocKhiLuu()) {
         if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
           this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
         this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
+          if (res) {
+            if (res.statusCode === 200) {
+              this.activeModal.close();
+              this.toastr.success(res.message)
+            } else {
+              this.toastr.error(res.message);
+            }
+          }
+        })
+      }
+    }
+  }
+  KhongDuyet() {
+    let isChuaNopDu: any = false;
+    for (let i = 0; i < this.item.listHoSoDinhKem.length; i++) {
+      if (this.item.listHoSoDinhKem[i].isNopDu !== true) {
+        isChuaNopDu = true;
+        break;
+      }
+    }
+    if (isChuaNopDu === true) {
+      let modalRef = this._modal.open(ModalthongbaoComponent, {
+        backdrop: 'static'
+      });
+      modalRef.componentInstance.message = "Bạn chưa nộp đủ tài liệu bạn chắc chắn muốn lưu quy trình này chứ?"
+      modalRef.result.then(res => {
+        if (this.CheckTruocKhiLuu()) {
+          if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
+            this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+          this._hopdong.QuyTrinhThanhToan().KhongDuyet(this.item).subscribe((res: any) => {
+            if (res) {
+              if (res.statusCode === 200) {
+                this.activeModal.close();
+                this.toastr.success(res.message)
+              } else {
+                this.toastr.error(res.message);
+              }
+            }
+          })
+        }
+      }).catch()
+    }
+    else {
+      if (this.CheckTruocKhiLuu()) {
+        if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
+          this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+        this._hopdong.QuyTrinhThanhToan().KhongDuyet(this.item).subscribe((res: any) => {
           if (res) {
             if (res.statusCode === 200) {
               this.activeModal.close();
@@ -298,7 +343,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       modalRef.componentInstance.listThanhToanThuTuc = res1;
       modalRef.componentInstance.listHangHoa = this.item.listHoSoDinhKem || [];
       modalRef.result.then(res => {
-        this.item.listHoSoDinhKem= res;  
+        this.item.listHoSoDinhKem = res;
       }).catch(er => { console.log(er) });
     })
   }

@@ -71,14 +71,17 @@
                                 <td [ngStyle]="{'background-color': item.MaMau}">
                                     <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
                                         placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
-                                        [(ngModel)]="item.IdCanDoiChuyen_CanBoTri"
-                                        (onChange)="chonMatHang(item,$event)">
+                                        [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="chonMatHang(item,$event)"
+                                        [tooltip]="getTooltip(item.IdCanDoiChuyen_CanBoTri, listHangHoa)"
+                                        tooltipPosition="top">
                                     </p-dropdown>
                                 </td>
                                 <td [ngStyle]="{'background-color': item.isDieuChinh?'red':''}">
                                     <p-dropdown [options]="item.listTocDo" placeholder="Chọn tốc độ máy"
                                         styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanNhomMay_Item"
-                                        (onChange)="chonTocDo(item,$event)"></p-dropdown>
+                                        (onChange)="chonTocDo(item,$event)"
+                                        [tooltip]="getTooltip(item.IdPhanNhomMay_Item, item.listTocDo)"
+                                        tooltipPosition="top"></p-dropdown>
                                 </td>
                                 <td class="text-right" [ngStyle]="{'background-color': item.isDieuChinh?'red':''}">
                                     {{item.SanLuongCa|number:'0.2-2'}}

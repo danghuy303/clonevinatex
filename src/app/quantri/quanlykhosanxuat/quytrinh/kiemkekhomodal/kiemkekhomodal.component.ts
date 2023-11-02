@@ -389,4 +389,12 @@ export class KiemkekhomodalComponent implements OnInit {
         });
         return isCheck;
     }
+    getTooltip(id: string, arr: any) {
+        let text = ``
+        let _thisObj = arr.find((x: any) => x.value === id);
+        if (_thisObj) {
+            text = _thisObj.label
+        }
+        return text;
+    }
 }

@@ -23,8 +23,8 @@
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="getBaoCao()" [showClear]="true"
-                [filter]="true"></p-dropdown>
+                [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="getBaoCao()"
+                [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
@@ -34,32 +34,75 @@
     </div>
 </div>
 <div>
-    <div class="p-col-12 p-p-0 pintable-container" style="height: calc(100vh - 191px) !important; background-color: #fff;" voiPintable
-        [pinnedCols]="2">
+    <div class="p-col-12 p-p-0 pintable-container"
+        style="height: calc(100vh - 191px) !important; background-color: #fff;" voiPintable [pinnedCols]="2">
         <table style="table-layout: fixed;">
             <thead>
                 <tr>
-                    <th class="w-tc-50" >STT</th>
-                    <th class="w-tc-250" >Máy</th>
+                    <th class="w-tc-50">STT</th>
+                    <th class="w-tc-250">Máy</th>
                     <th *ngFor="let suco of item.lstdmSuCoMay" class="w-tc-100">{{suco.Ten}}</th>
                     <th class="w-tc-150">Tổng thời gian dừng</th>
                     <th class="w-tc-150">Tốc độ max</th>
                     <th class="w-tc-150">Tốc độ trung bình</th>
                     <th class="w-tc-150">Chênh lệch</th>
                 </tr>
+                <tr>
+                    <th></th>
+                    <th>Tổng</th>
+
+
+                    <th class="text-right" *ngFor="let suco of item.lstdmSuCoMay; let i = index">
+                        {{ calculateTong(item.lstMay, i) | number: '0.0-3' }}
+                    </th>
+
+
+                    <th class="text-right">
+                        {{
+                        item.lstMay
+                        | SumByKey: 'TongThoiGianDungMay'
+                        | number: '0.0-3'
+                        }}
+                    </th>
+                    <th class="text-right">
+                        {{
+                        item.lstMay
+                        | SumByKey: 'TocDoMax'
+                        | number: '0.0-3'
+                        }}
+                    </th>
+                    <th class="text-right">
+                        {{
+                        item.lstMay
+                        | SumByKey: 'TocDoTrungBinh'
+                        | number: '0.0-3'
+                        }}
+                    </th>
+                    <th class="text-right">
+                        {{
+                        item.lstMay
+                        | SumByKey: 'TocDoMax-may.TocDoTrungBinh'
+                        | number: '0.0-3'
+                        }}
+                    </th>
+                </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let may of item.lstMay|filterByKey:'MaCongDoan':filter.MaCongDoan;let i = index">
-                    <td class="w-tc-50 bg-white text-center" >{{i+1}}</td>
-                    <td class="w-tc-250 bg-white" >{{may.TendmMay}}</td>
+                    <td class="w-tc-50 bg-white text-center">{{i+1}}</td>
+                    <td class="w-tc-250 bg-white">{{may.TendmMay}}</td>
+
+
                     <td class="text-right w-tc-100" *ngFor="let suco of may.lstSuCoDungMay">
                         {{suco.ThoiGianDungMay|number:'0.1-1'}}
                     </td>
+
+
                     <td class="text-right w-tc-150">
                         {{may.TongThoiGianDungMay|number:'0.1-1'}}
                     </td>
                     <td class="text-right w-tc-150">
-                        
+
                         {{may.TocDoMax|number:'0.0-0'}}
                     </td>
                     <td class="text-right w-tc-150">

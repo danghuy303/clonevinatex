@@ -14,19 +14,19 @@ import { LohangmodalComponent } from '../lohangmodal/lohangmodal.component';
   templateUrl: './lohang.component.html',
   styleUrls: ['./lohang.component.css']
 })
-export class LohangComponent extends StoreBase implements OnInit,OnDestroy {
+export class LohangComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [
   ];
-  filter:any={};
-  listLoaiPhuongAn:any=[];
-  trangThai:any=1;
+  filter: any = {};
+  listLoaiPhuongAn: any = [];
+  trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
       header: 'Mã',
       field: 'Ma',
-      width: '150px'
+      width: '100px'
     },
     {
       header: 'Tên',
@@ -36,18 +36,18 @@ export class LohangComponent extends StoreBase implements OnInit,OnDestroy {
     {
       header: 'Ngày',
       field: 'Ngay',
-      width: '150px',
-      type:'date'
+      width: '100px',
+      type: 'date'
     },
     {
       header: 'Giao kế hoạch sản xuất',
       field: 'TenGiaoKeHoachSanXuat',
-      width: '200px'
+      width: '270px'
     },
     {
       header: 'Giao kế hoạch sản xuất triển khai',
       field: 'TenGiaoKeHoachSanXuat_TrienKhai',
-      width: '200px'
+      width: '270px'
     },
     {
       header: 'Ghi chú',
@@ -55,10 +55,10 @@ export class LohangComponent extends StoreBase implements OnInit,OnDestroy {
       width: '200px'
     },
   ];
-  checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
+  checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listdmPhanXuong: any = [];
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
-    private activatedRoute: ActivatedRoute,private router:Router,public store:StoreService) {super(store) }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService,
+    private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) { super(store) }
 
   ngOnInit(): void {
     this._service.GetListdmPhanXuong({}).subscribe((res: any) => {
@@ -67,7 +67,7 @@ export class LohangComponent extends StoreBase implements OnInit,OnDestroy {
       this.GetListQuyTrinh()
     })
   }
-  add(){
+  add() {
     let modalRef = this._modal.open(LohangmodalComponent, {
       size: 'lg',
       backdrop: 'static'
@@ -78,21 +78,21 @@ export class LohangComponent extends StoreBase implements OnInit,OnDestroy {
       this.GetListQuyTrinh();
     })
   }
-  update(Id){
+  update(Id) {
     this._service.LoHang().Get(Id).subscribe((res1: any) => {
-    let modalRef = this._modal.open(LohangmodalComponent, {
-      size: 'lg',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
+      let modalRef = this._modal.open(LohangmodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+      modalRef.result.then((res: any) => {
+        this.GetListQuyTrinh();
+      })
+        .catch(er => { console.log(er) })
     })
   }
-  delete(Id){
+  delete(Id) {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
@@ -109,40 +109,40 @@ export class LohangComponent extends StoreBase implements OnInit,OnDestroy {
       })
     }).catch(er => console.log(er))
   }
-  changeTab(e){
-    this.trangThai = e.index+1;
+  changeTab(e) {
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
-  changePage(event){
+  changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?){
+  GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data={
+    let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
-      sFilter:this.filter.KeyWord,
-      TuNgay:DateToUnix(this.filter.TuNgay),
-      DenNgay:DateToUnix(this.filter.DenNgay),
+      sFilter: this.filter.KeyWord,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
       IddmPhanXuong: this.filter.IddmPhanXuong,
     }
-    this._service.LoHang().GetList(data).subscribe((res:any)=>{
+    this._service.LoHang().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
   }
-  resetFilter(){
-    this.filter={};
+  resetFilter() {
+    this.filter = {};
     this.GetListQuyTrinh(true);
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }
