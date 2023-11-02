@@ -22,9 +22,8 @@
         (onChange)="loadData(true)"></p-dropdown>
     </div>
     <div class="p-mr-2">
-      <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
-        styleClass="p-inputtext-sm" [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true"
-        (onChange)="loadData(true)"></p-dropdown>
+      <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
+        [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true" (onChange)="loadData(true)"></p-dropdown>
     </div>
   </div>
 </div>
@@ -49,8 +48,8 @@
     <tr>
       <td (click)="ChiTietBaoDuong(item)">{{item.TendmLoaiBaoDuong}}</td>
       <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
-        <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)" 
-        [ngStyle]="{'color': taisan.Mau}">
+        <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)"
+          [ngStyle]="{'color': taisan.Mau}">
           {{taisan.TenTaiSan}},
         </a>
       </td>
@@ -58,7 +57,7 @@
   </ng-template>
   <ng-template pTemplate="paginatorleft">
     Tổng số bản ghi {{items.listBaoDuong?.length}}.
-</ng-template>
+  </ng-template>
 </p-table>
 
 <p-table [value]="items.listTaiSan" *ngIf="filter.isChon === 'theoMay'" [paginator]="true" [rows]="20"
@@ -78,7 +77,7 @@
       <td (click)="ChiTietThongTin(item)">{{item.MaTaiSan}} - {{item.TenTaiSan}}</td>
       <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
         <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietBaoDuong(taisan)"
-        [ngStyle]="{'color': taisan.Mau}">
+          [ngStyle]="{'color': taisan.Mau}">
           {{taisan.TendmLoaiBaoDuong}}
         </a>
       </td>
@@ -86,5 +85,5 @@
   </ng-template>
   <ng-template pTemplate="paginatorleft">
     Tổng số bản ghi {{items.listTaiSan?.length}}.
-</ng-template>
+  </ng-template>
 </p-table>
