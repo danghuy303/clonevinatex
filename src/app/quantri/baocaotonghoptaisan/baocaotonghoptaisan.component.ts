@@ -61,16 +61,16 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     private _servicesSanXuat: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,
     private store: StoreService
-  ) { 
+  ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
+    })
   }
 
   ngOnInit(): void {
-    for (let i = new Date().getFullYear()-10; i <= (new Date().getFullYear() + 20); i++) {
+    for (let i = new Date().getFullYear() - 10; i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
     this.filter.LoaiKeHoach = this.listThoiGian[0].value;
@@ -121,7 +121,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     this.thangDaChon = new Date(year, month, 0).getDate();
     this.labelThang = [];
 
-    this.filter.Ngay = (this.filter.LoaiKeHoach === 'NAM')?DateToUnix(new Date (this.filter.nam, 1, 1)): DateToUnix(this.filter.namThang);
+    this.filter.Ngay = (this.filter.LoaiKeHoach === 'NAM') ? DateToUnix(new Date(this.filter.nam, 1, 1)) : DateToUnix(this.filter.namThang);
     for (let i = 1; i <= this.thangDaChon; i++) {
       this.labelThang.push(i);
     }
@@ -138,6 +138,12 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       LoaiKeHoach: this.filter.LoaiKeHoach,
       IdDuAn: 0,
     };
+
+    if (this.filter.LoaiKeHoach === 'NAM') {
+
+    } else {
+
+    }
 
     if (this.filter.isChon === 'theoBaoDuong') {
       this._serviceTaiSan.ListLichXichNam().GetListBaoDuong(data).subscribe((res: any) => {
@@ -193,9 +199,27 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   // }
 
   GetListLichXichThang(data) {
-    this._serviceTaiSan.ListLichXichThang().GetList(data).subscribe((res: any) => {
-      this.itemsLichXichThang = res.Data;
-    })
+    if (this.filter.isChon === 'theoBaoDuong') {
+      this._serviceTaiSan.ListLichXichThang().GetList(data).subscribe((res: any) => {
+        this.itemsLichXichThang = res.Data
+        // {
+        //   ...res.Data,
+        //   listBaoDuong: [{
+        //     listItemTheoThoiGian: [
+        //       {
+        //         listChiTiet: { TenTaiSan: `1`, Mau: `#fff` }
+        //         , ColorLabel: `red`
+        //       }
+        //     ],
+
+        //   }]
+        // }
+      })
+    } else {
+      this._serviceTaiSan.ListLichXichThang().GetLichXichThangLoaiTaiSan(data).subscribe((res: any) => {
+        this.itemsLichXichThang = res.Data;
+      })
+    }
   }
 
   ChiTietThongTin(item) {
