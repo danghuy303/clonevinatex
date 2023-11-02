@@ -40,12 +40,16 @@
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
+      <th style="width: 2%;min-width: 50px; ">STT</th>
       <th class="text-center">Loại bảo dưỡng</th>
       <th class="text-center" *ngFor="let label of items.listThoiGian">Tháng {{label}}</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-item let-i="rowIndex">
     <tr>
+      <td class="text-center" style="width: 2%;min-width: 50px;">
+        {{i+ 1}}
+      </td>
       <td (click)="ChiTietBaoDuong(item)">{{item.TendmLoaiBaoDuong}}</td>
       <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
         <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)"
@@ -68,12 +72,16 @@
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
+      <th style="width: 2%;min-width: 50px; ">STT</th>
       <th class="text-center">Mã, tên tài sản</th>
       <th class="text-center" *ngFor="let label of items.listThoiGian">Tháng {{label}}</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-item let-i="rowIndex">
     <tr>
+      <td class="text-center" style="width: 2%;min-width: 50px;">
+        {{i+ 1}}
+      </td>
       <td (click)="ChiTietThongTin(item)">{{item.MaTaiSan}} - {{item.TenTaiSan}}</td>
       <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
         <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietBaoDuong(taisan)"
