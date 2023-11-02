@@ -91,6 +91,17 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
         this.filter.Nam = this.listNam[0].value;
     }
 
+    XuatDuLieu() {
+        let data = {
+            Nam: this.filter.Nam ? this.filter.Nam : null,
+            IddmPhanXuong: this.filter.IddmPhanXuong,
+            Thang: this.thang ? this.thang : new Date().getMonth()+1 
+        }
+        this._services.QuyetToan().ExportDashbroadKiemKeBanChePhamToHieu(data).subscribe((res: any) => {
+            this._services.download(res.TenFile);
+        })
+    }
+
     BieuDoTiLeTieuHaoBong(data) {
         this._services.QuyetToan().BieuDoTiLeTieuHaoBong(data).subscribe((res: any) => {
             this.obj_data = res.objectReturn;
