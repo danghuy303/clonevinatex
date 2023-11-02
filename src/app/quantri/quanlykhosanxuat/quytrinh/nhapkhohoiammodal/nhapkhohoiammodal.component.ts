@@ -165,7 +165,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     itemSearch.IddmCaSanXuat = this.item.IddmCaSanXuat;
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res: any) => {
       res.forEach((x: any) => {
-        let _thisMatHang = this.item.listItem.find((y: any) => y.IddmItem === x.IddmItem)
+        let _thisMatHang = this.item.listItem.find((y: any) => y.IddmItem === x.IddmItem && y.IdLoHang === x.IdLoHang)
         if (_thisMatHang && _thisMatHang.SoQuaSoiThucTe !== x.SoQuaSoiManHinh) {
           arr.push(_thisMatHang)
           bool = false;
