@@ -28,6 +28,11 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Ngày chứng từ',
+      field: 'NgayNhapKho',
+      width: 'unset'
+    },
+    {
       header: 'Quy cách đóng gói',
       field: 'TendmQuyCachDongGoi',
       width: 'unset'
@@ -71,15 +76,20 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
           itemFind.checked = true;
       }
     }
-    let _listIdLoHang = [...new Set(this.listMatHang.map((x: any) => x.IdLoHang))]
+
+    let _listIdLoHang = [...new Set(this.listMatHang.map((x: any) => x.Ma))]
     let results = [];
     _listIdLoHang.forEach((x: any) => {
-      let _arr = this.listMatHang.filter((y: any) => y.IdLoHang === x)
+      let _arr = this.listMatHang.filter((y: any) => y.Ma === x)
       let newObj = {
         isParent: true,
         expanded: false,
-        IdLoHang: x,
-        TenLoHang: _arr[0].TenLoHang,
+        Ma: x,
+        Ten: _arr[0].Ten,
+        // TenLoHang: _arr[0].TenLoHang,
+        // IdLoHang: _arr[0].IdLoHang,
+        SoLuong: _arr.map((y: any) => y.SoLuong).reduce((cur, next) => cur + next, 0),
+        // TrongLuong: _arr.map((y: any) => y.TrongLuong).reduce((cur, next) => cur + next, 0),
         listChild: _arr
       }
       results.push(newObj);
@@ -97,7 +107,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
       if (this.KeyWord) {
         _listChild = _listChild.filter((y: any) => y.Ten.toLowerCase().trim().includes(this.KeyWord.toLowerCase().trim()))
       }
-      if (x.IdLoHang === data.IdLoHang || x.expanded) {
+      if (x.Ma === data.Ma || x.expanded) {
         if (_listChild.length > 0) {
           _listChild = [x, ..._listChild]
         }

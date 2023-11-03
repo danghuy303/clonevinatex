@@ -27,11 +27,18 @@
                     [(ngModel)]="item.Loai"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'&& (item?.Loai===7 || item?.Loai===6)">
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="(type==='loaibong'&& (item?.Loai===7 || item?.Loai===6))">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-multiSelect [options]="listCongDoan" [(ngModel)]="item.listCongDoan"
                     selectedItemsLabel="{0} Công đoạn đã chọn" defaultLabel="Chọn công đoạn"></p-multiSelect>
+            </div>
+        </div>
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='nhomcongto'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.LoaiCongDoan" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'&& (item?.Loai===7 || item?.Loai===6)">
@@ -62,8 +69,17 @@
                     [(ngModel)]="item.Loai"></p-dropdown>
             </div>
         </div>
+
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='nhomcongto'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [options]="listLoaiCongTo" placeholder="Chọn loại" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.LoaiCongTo" [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+
         <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'&& (item?.Loai===7 || item?.Loai===6)">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Pha :</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Pha:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-checkbox [(ngModel)]="item.isPha" binary="true" inputId="binary"></p-checkbox>
             </div>

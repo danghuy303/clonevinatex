@@ -129,6 +129,9 @@
                     <col>
                     <col>
                     <col>
+                    <col>
+                    <col>
+                    <col>
                     <col style="width: 50px;" *ngIf="childModalOpt!==''">
                 </colgroup>
             </ng-template>
@@ -149,6 +152,9 @@
                     <th>Năng suất LT</th>
                     <th>Hiệu suất (%)</th>
                     <th>Định mức năng suất</th>
+                    <th>Tiêu thụ điện (kWh)</th>
+                    <th>Nhân công (Vnđ)</th>
+                    <th>Khấu hao (Vnđ)</th>
                     <th>ĐM áp dụng</th>
                     <th>Ghi chú</th>
                     <th></th>
@@ -205,6 +211,20 @@
                             [disabled]="true">
                         </p-inputNumber>
                     </td>
+
+                    <td>
+                        <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.DinhMucTieuHaoDien">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.DinhMucNhanCong">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.DinhMucKhauHao">
+                        </p-inputNumber>
+                    </td>
+
                     <td class="text-center">
                         <p-checkbox [(ngModel)]="item.isApDung" binary="true" inputId="binary"
                             (onChange)="changeDMApDung(item)"></p-checkbox>
@@ -272,6 +292,22 @@
                             [disabled]="true">
                         </p-inputNumber>
                     </td>
+
+                    <td>
+                        <p-inputNumber [minFractionDigits]="3" locale="en-EN"
+                            [(ngModel)]="newTableItem.DinhMucTieuHaoDien">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="3" locale="en-EN"
+                            [(ngModel)]="newTableItem.DinhMucNhanCong">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="newTableItem.DinhMucKhauHao">
+                        </p-inputNumber>
+                    </td>
+
                     <td class="text-center">
                         <p-checkbox [(ngModel)]="newTableItem.isApDung" binary="true" inputId="binary"
                             (onChange)="changeDMApDung(newTableItem)"></p-checkbox>
