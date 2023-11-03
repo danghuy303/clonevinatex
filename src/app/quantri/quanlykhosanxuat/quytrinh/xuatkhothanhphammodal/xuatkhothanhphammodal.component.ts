@@ -280,6 +280,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
+        console.log("data", data);
+
         if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
           this.item.listItem.forEach(element => {
             element.isXoa = true;
@@ -302,7 +304,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
           var isCheck: any = false
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
             for (let i = 0; i < this.item.listItem.length; i++) {
-              if (this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi) {
+              if (this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi && this.item.listItem[i].IdNhapKho == element.IdNhapKho) {
                 this.item.listItem[i].isXoa = false;
                 this.item.listItem[i].Ten = element.Ten;
                 this.item.listItem[i].IddmItem = element.IddmItem;
@@ -329,6 +331,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
         else {
           this.item.listItem = listdatapush
         }
+        console.log("this.item.listItem", this.item.listItem);
+
       }, (reason) => {
         // không
       });
