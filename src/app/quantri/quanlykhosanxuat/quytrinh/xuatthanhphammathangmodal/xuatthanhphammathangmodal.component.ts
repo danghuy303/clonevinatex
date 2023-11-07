@@ -103,7 +103,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     data.expanded = true;
     let newArr = []
     this.listRoot.forEach((x: any) => {
-      let _listChild = x.listChild;
+      let _listChild = x.listChild.sort((a: any, b: any) => a.NgayNhapKho < b.NgayNhapKho ? -1 : 1);
       if (this.KeyWord) {
         _listChild = _listChild.filter((y: any) => y.Ten.toLowerCase().trim().includes(this.KeyWord.toLowerCase().trim()))
       }
@@ -123,7 +123,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     data.expanded = false;
     let newArr = []
     this.listRoot.forEach((x: any) => {
-      let _listChild = x.listChild;
+      let _listChild = x.listChild.sort((a: any, b: any) => a.NgayNhapKho < b.NgayNhapKho ? -1 : 1);
       if (this.KeyWord) {
         _listChild = _listChild.filter((y: any) => y.Ten.toLowerCase().trim().includes(this.KeyWord.toLowerCase().trim()))
       }
@@ -138,6 +138,30 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
       }
     })
     this.item.listItem = newArr
+  }
+
+  handleParentCheck(item: any, checked: any) {
+    let _parent = this.item.listItem.find((x: any) => x.Ma === item.Ma && x.isParent);
+    if (!checked) {
+      if (_parent) {
+        _parent.checked = false
+      }
+    } else {
+      let _listChild = _parent.listChild;
+      let _lengthChild = _listChild.filter((x: any) => x.checked).length + 1;
+      if (_listChild.length === _lengthChild) {
+        if (_parent) {
+          _parent.checked = true
+        }
+      }
+    }
+  }
+
+  handleSelectAll(item: any) {
+    item.listChild = item.listChild.map((x: any) => {
+      x.checked = !item.checked;
+      return x;
+    })
   }
 
   firstInitial() {
@@ -224,7 +248,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     // this.paging.TotalItem = this.item.listItem.length;
     let newArr = []
     this.listRoot.forEach((x: any) => {
-      let _listChild = x.listChild;
+      let _listChild = x.listChild.sort((a: any, b: any) => a.NgayNhapKho < b.NgayNhapKho ? -1 : 1);
       if (this.KeyWord) {
         _listChild = _listChild.filter((y: any) => y.Ten.toLowerCase().trim().includes(this.KeyWord.toLowerCase().trim()));
       }

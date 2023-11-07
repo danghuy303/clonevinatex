@@ -61,12 +61,16 @@
                             <button pButton type="button" icon="pi pi-angle-down" class="p-button-text"
                                 style="height: 25px;" (click)="handleCollapse(item)"
                                 *ngIf="item.isParent && item.expanded"></button>
-                            <input type="checkbox" [(ngModel)]="item.checked" *ngIf="!item.isParent">
+
                         </td>
                         <!-- <td>
                             {{ 15 * (paging.CurrentPage - 1) + i + 1 }}
                         </td> -->
                         <td class="text-left">
+                            <input type="checkbox" [(ngModel)]="item.checked" *ngIf="!item.isParent"
+                                (click)="handleParentCheck(item, !item.checked)">
+                            <input type="checkbox" [(ngModel)]="item.checked" *ngIf="item.isParent"
+                                (click)="handleSelectAll(item)">
                             {{item.Ten}}
                         </td>
                         <td class="text-left">
