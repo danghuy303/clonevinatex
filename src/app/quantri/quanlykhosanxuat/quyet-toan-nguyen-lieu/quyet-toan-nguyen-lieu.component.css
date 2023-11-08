@@ -1,6 +1,7 @@
 .options {
   margin-bottom: 20px;
 }
+
 .sogiodungmay {
   /* height: calc(100vh - 171px); */
 }
@@ -45,7 +46,7 @@
 }
 :host ::ng-deep .first-chart canvas {
   height: calc((100vh - 211px) / 2 - 45px) !important;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .tc-w-150 {
