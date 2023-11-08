@@ -80,7 +80,8 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     let _listIdLoHang = [...new Set(this.listMatHang.map((x: any) => x.Ma))]
     let results = [];
     _listIdLoHang.forEach((x: any) => {
-      let _arr = this.listMatHang.filter((y: any) => y.Ma === x)
+      let _arr = this.listMatHang.filter((y: any) => y.Ma === x);
+
       let newObj = {
         isParent: true,
         expanded: false,
@@ -88,8 +89,9 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
         Ten: _arr[0].Ten,
         // TenLoHang: _arr[0].TenLoHang,
         // IdLoHang: _arr[0].IdLoHang,
-        SoLuong: _arr.map((y: any) => y.SoLuong).reduce((cur, next) => cur + next, 0),
+        SoLuong: _arr.map((y: any) => y.SoLuong).reduce((cur: any, next: any) => cur + next, 0),
         // TrongLuong: _arr.map((y: any) => y.TrongLuong).reduce((cur, next) => cur + next, 0),
+        checked: _arr.filter((x: any) => x.checked).length === _arr.length,
         listChild: _arr
       }
       results.push(newObj);
