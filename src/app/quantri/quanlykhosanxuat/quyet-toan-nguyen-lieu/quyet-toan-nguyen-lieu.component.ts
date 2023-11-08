@@ -60,7 +60,52 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
             callbacks: {
                 label: function (tooltipItem, data) {
                     return `${formatNumber(tooltipItem.yLabel, 'en-EN')}`
+                },
+            }
+        },
+        responsive: true,
+    };
+    ops: any = {
+        plugins: {
+            labels: {
+                fontSize: 0,
+            },
+            datalabels: {
+                color: 'black',
+                font: {
+                    weight: 'bold'
+                },
+                formatter: (value, context) => {
+                    if (context.dataset.label) {
+                        return formatNumber(parseFloat(value), 'en-US', '0.0-3')
+                    }
+                    return null
+                },
+            }
+        },
+        legend: {
+            position: 'bottom',
+            display: false
+        },
+        scales: {
+            xAxes: [{
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    callback: function (label, index, labels) {
+                        return formatNumber(label, 'en-EN', '0.3-3');
+                    }
                 }
+            }]
+        },
+        tooltips: {
+            bodyFontSize: 20,
+            titleFontSize: 22,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    return `${formatNumber(tooltipItem.yLabel, 'en-EN')}`
+                },
             }
         },
         responsive: true,
