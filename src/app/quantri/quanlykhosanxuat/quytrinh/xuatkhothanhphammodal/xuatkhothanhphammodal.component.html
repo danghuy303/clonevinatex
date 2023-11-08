@@ -100,10 +100,10 @@
                     <colgroup>
                         <col style="width:50px">
                         <col style="width: 15rem;">
-                        <col style="width: 15rem;">
+                        <col style="width: 12rem;">
                         <col>
                         <col>
-                        <col>
+                        <col style="width:150px">
                         <col style="width:120px">
                         <col>
                         <col>
@@ -170,8 +170,7 @@
                             </div>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien"
-                                (onBlur)="TinhTongKhoiLuong()">
+                            <p-inputNumber locale="en-EN" [(ngModel)]="item.SoKien" (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
 

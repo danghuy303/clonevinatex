@@ -154,6 +154,10 @@ export class TaisanService {
         data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetLichXichThangLoaiBaoDuong`, data, httpOptions);
       },
+      GetLichXichThangLoaiTaiSan: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}BaoDuongTaiSan/GetLichXichThangLoaiTaiSan`, data, httpOptions);
+      },
     };
   }
   ChiTietTaiSanLichBaoDuong() {

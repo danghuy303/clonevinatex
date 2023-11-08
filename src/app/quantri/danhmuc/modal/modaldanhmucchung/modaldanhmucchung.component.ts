@@ -17,6 +17,7 @@ export class ModaldanhmucchungComponent implements OnInit {
   khongclicknhieu: any = false;
   listLoaiBong: any = [];
   listLoaiNhomKho: any = [];
+  listLoaiCongTo: any = [];
   listLoaiBongPhe: any = [];
   listCongDoan: any = [];
   listCachTinh: any = [{
@@ -37,6 +38,10 @@ export class ModaldanhmucchungComponent implements OnInit {
     if (this.type === 'dmnhomkho') {
       this.GetListLoaiNhomKho();
     }
+    if (this.type === 'nhomcongto') {
+      this.GetDanhSachLoaiCongTo();
+      this.GetListCongDoan()
+    }
   }
 
   GetListCongDoan() {
@@ -44,6 +49,13 @@ export class ModaldanhmucchungComponent implements OnInit {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Id')
     })
   }
+  GetDanhSachLoaiCongTo() {
+    this.sanXuatService.GetDanhSachLoaiCongTo().subscribe((res: any) => {
+      this.listLoaiCongTo = mapArrayForDropDown(res, "Ten", 'Id');
+    })
+  }
+
+
   GetListLoaiNhomKho() {
     this.sanXuatService.GetListLoaiNhomKho().subscribe((res: any) => {
       this.listLoaiNhomKho = mapArrayForDropDown(res, "Ten", 'Loai');

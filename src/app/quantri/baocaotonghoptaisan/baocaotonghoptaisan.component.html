@@ -4,12 +4,13 @@
             placeholder="Chọn tháng năm" (onChange)="loadData(true)" styleClass="p-inputtext-sm"></p-dropdown>
     </div>
     <div class="p-mr-2">
-        <p-calendar *ngIf="filter.LoaiKeHoach !== 'NAM'" dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
-            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.namThang" [locale]="lang"
-            (onSelect)="loadData(true)" inputId="icon" placeholder="mm/yyyy">
+        <p-calendar *ngIf="filter.LoaiKeHoach !== 'NAM'" dateFormat="mm/yy" view="month"
+            inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"
+            [showIcon]="true" [(ngModel)]="filter.namThang" [locale]="lang" (onSelect)="loadData(true)" inputId="icon"
+            placeholder="mm/yyyy">
         </p-calendar>
-        <p-dropdown *ngIf="filter.LoaiKeHoach === 'NAM'" [filter]="true" [options]="listNam" [(ngModel)]="filter.nam" placeholder="Chọn năm"
-            styleClass="p-inputtext-sm" (onChange)="loadData(true)"></p-dropdown>
+        <p-dropdown *ngIf="filter.LoaiKeHoach === 'NAM'" [filter]="true" [options]="listNam" [(ngModel)]="filter.nam"
+            placeholder="Chọn năm" styleClass="p-inputtext-sm" (onChange)="loadData(true)"></p-dropdown>
     </div>
     <div class="p-mr-2">
         <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
@@ -23,9 +24,8 @@
         </p-dropdown>
     </div> -->
     <div class="p-mr-2">
-        <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
-            styleClass="p-inputtext-sm" [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true"
-            (onChange)="loadData(true)">
+        <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
+            [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true" (onChange)="loadData(true)">
         </p-dropdown>
     </div>
 </div>
@@ -51,8 +51,8 @@
                     bị</strong></div>
         </div>
         <div class=" bg-white p-mb-4">
-            <p-table [value]="items.listBaoDuong" *ngIf="filter.isChon === 'theoBaoDuong'" [paginator]="true" [rows]="20"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+            <p-table [value]="items.listBaoDuong" *ngIf="filter.isChon === 'theoBaoDuong'" [paginator]="true"
+                [rows]="20" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:30px">
@@ -95,8 +95,7 @@
                         <td (click)="ChiTietBaoDuong(item)">{{item.TendmLoaiBaoDuong}}</td>
                         <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
                             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"
-                            [ngStyle]="{'color': taisan.Mau}"
-                                (click)="ChiTietThongTin(taisan)">
+                                [ngStyle]="{'color': taisan.Mau}" (click)="ChiTietThongTin(taisan)">
                                 {{taisan.TenTaiSan}},
                             </a>
 
@@ -108,7 +107,7 @@
                 </ng-template>
             </p-table>
             <p-table [value]="items.listTaiSan" *ngIf="filter.isChon === 'theoMay'" [paginator]="true" [rows]="20"
-            styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:30px">
@@ -151,8 +150,7 @@
                         <td (click)="ChiTietThongTin(item)">{{item.TenTaiSan}}</td>
                         <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
                             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"
-                            [ngStyle]="{'color': taisan.Mau}"
-                                (click)="ChiTietBaoDuong(taisan)">
+                                [ngStyle]="{'color': taisan.Mau}" (click)="ChiTietBaoDuong(taisan)">
                                 {{taisan.TendmLoaiBaoDuong}}
                             </a>
                         </td>
@@ -169,31 +167,39 @@
         <div class="p-mb-3 p-mt-3">
             <h4 style="color:#1f2779">Lịch xích tháng</h4>
         </div>
+        <div class="p-d-flex p-flex-row p-jc-start">
+            <div class="field-radiobutton p-mr-2">
+                <p-radioButton value="theoBaoDuong" [(ngModel)]="filter.isChon" (onClick)="loadData()"></p-radioButton>
+                <label>Theo loại bảo dưỡng</label>
+            </div>
+            <div class="field-radiobutton p-mr-2">
+                <p-radioButton value="theoMay" [(ngModel)]="filter.isChon" (onClick)="loadData()"></p-radioButton>
+                <label>Theo máy</label>
+            </div>
+        </div>
         <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
             <div></div>
-            <div class="p-mr-2"><strong>Tổng số: <span style="color: red;"> {{itemsLichXichThang.TongSoTaiSan}}</span> thiết bị</strong></div>
+            <div class="p-mr-2"><strong>Tổng số: <span style="color: red;"> {{itemsLichXichThang.TongSoTaiSan}}</span>
+                    thiết bị</strong></div>
         </div>
-        <div class="p-col-12 p-mb-4 pintable-container bg-white" style="height: calc(100vh - 250px); z-index: 999;" voiPintable
-            [pinnedCols]="1">
-            <table >
+        <div class="p-col-12 p-mb-4 pintable-container bg-white" style="height: calc(100vh - 250px); z-index: 999;"
+            voiPintable [pinnedCols]="2">
+            <table>
                 <thead>
-                    <tr >
-                        <th style="min-width: 200px;max-width: 200px; padding: 0.5rem 0" >Loại bảo dưỡng</th>
-                        <th style="min-width: 150px;max-width: 150px;"  *ngFor="let label of itemsLichXichThang.listThoiGian">{{label}}</th>
+                    <tr>
+                        <th style="min-width: 50px;max-width: 50px; padding: 0.5rem 0">STT</th>
+                        <th style="min-width: 200px;max-width: 200px; padding: 0.5rem 0"
+                            *ngIf="filter.isChon !== 'theoMay'">Loại bảo dưỡng</th>
+                        <th style="min-width: 200px;max-width: 200px; padding: 0.5rem 0"
+                            *ngIf="filter.isChon === 'theoMay'">Mã, tên tài sản</th>
+
+                        <th style="min-width: 150px;max-width: 150px;"
+                            *ngFor="let label of itemsLichXichThang.listThoiGian">{{label}}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let lichXichThang of itemsLichXichThang.listBaoDuong">
-                        <td style="min-width: 200px;; padding: 0.5rem 0 ; max-width: 200px;background-color: white; cursor: pointer; z-index: 999;"
-                            (click)="ChiTietBaoDuongLichXIchThang(lichXichThang)">{{lichXichThang.TendmLoaiBaoDuong}}</td>
-                        <td style="min-width: 150px;max-width: 150px;background-color: white;" class="text-center"
-                            *ngFor="let newItem of lichXichThang.listItemTheoThoiGian">
-                            <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"  [ngStyle]="{'color': taisan.Mau}"
-                                (click)="ChiTietThongTinLichXIchThang(taisan)">
-                                {{taisan.TenTaiSan}}<br>
-                            </a>
-                        </td>
-                    </tr>
+                    <ng-container *ngTemplateOutlet="filter.isChon !== 'theoMay' ? listBaoDuong : listTaiSan;">
+                    </ng-container>
                 </tbody>
             </table>
         </div>
@@ -289,3 +295,46 @@
         </div>
     </div>
 </div>
+
+
+
+<ng-template #listBaoDuong>
+    <tr *ngFor="let lichXichThang of itemsLichXichThang.listBaoDuong; let i = index">
+        <td class="text-center"
+            style="min-width: 50px;; padding: 0.5rem 0 ; max-width: 50px;background-color: white; cursor: pointer; z-index: 999;">
+            {{i+ 1}}
+        </td>
+        <td style="min-width: 200px;; padding: 0.5rem 0 ; max-width: 200px;background-color: white; cursor: pointer; z-index: 999;"
+            (click)="ChiTietBaoDuongLichXIchThang(lichXichThang)">
+            {{lichXichThang.TendmLoaiBaoDuong}}
+        </td>
+        <td style="min-width: 150px;max-width: 150px;background-color: white;" class="text-center"
+            *ngFor="let newItem of lichXichThang.listItemTheoThoiGian"
+            [ngStyle]="{'background-color': newItem.ColorLabel}">
+            <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" [ngStyle]="{'color': taisan.Mau}"
+                (click)="ChiTietThongTinLichXIchThang(taisan)">
+                {{taisan.TenTaiSan}}<br>
+            </a>
+        </td>
+    </tr>
+</ng-template>
+<ng-template #listTaiSan>
+    <tr *ngFor="let lichXichThang of itemsLichXichThang.listTaiSan; let i = index">
+        <td class="text-center"
+            style="min-width: 50px;; padding: 0.5rem 0 ; max-width: 50px;background-color: white; cursor: pointer; z-index: 999;">
+            {{i+ 1}}
+        </td>
+        <td style="min-width: 200px;; padding: 0.5rem 0 ; max-width: 200px;background-color: white; cursor: pointer; z-index: 999;"
+            (click)="ChiTietBaoDuongLichXIchThang(lichXichThang)">
+            {{lichXichThang.TendmLoaiBaoDuong}}
+        </td>
+        <td style="min-width: 150px;max-width: 150px;background-color: white;" class="text-center"
+            *ngFor="let newItem of lichXichThang.listItemTheoThoiGian"
+            [ngStyle]="{'background-color': newItem.ColorLabel}">
+            <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" [ngStyle]="{'color': taisan.Mau}"
+                (click)="ChiTietThongTinLichXIchThang(taisan)">
+                {{taisan.TenTaiSan}}<br>
+            </a>
+        </td>
+    </tr>
+</ng-template>

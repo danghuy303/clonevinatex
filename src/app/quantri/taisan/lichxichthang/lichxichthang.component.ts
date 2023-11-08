@@ -28,23 +28,24 @@ export class LichxichthangComponent implements OnInit {
   listPhanXuong: any = [];
   labelThang: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
     '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
-    MaCongDoan: any = '';
-    $sub!: Subscription;
+  MaCongDoan: any = '';
+  $sub!: Subscription;
 
   constructor(public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
     private _servicesSanXuat: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,
-    private store: StoreService) { 
-      this.$sub = this.store.getNhaMay().subscribe(res => {
-        if (res) {
-            this.ngOnInit()
-        }
+    private store: StoreService) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+        this.ngOnInit()
+      }
     })
-    }
+  }
 
   ngOnInit(): void {
     this.filter.Ngay = new Date();
+    this.filter.isChon = 'theoBaoDuong'
     this.GetList();
     let getFullYear = new Date().getFullYear();
     let getMonth = new Date().getMonth() + 1;
@@ -62,25 +63,33 @@ export class LichxichthangComponent implements OnInit {
   }
   GetList(reset?) {
     let data = {
-      Keyword: "", 
-      CurrentPage: 0, 
-      PageSize: 20, 
-      MaCongDoan: this.filter.IddmLoaiTaiSan, 
+      Keyword: "",
+      CurrentPage: 0,
+      PageSize: 20,
+      MaCongDoan: this.filter.IddmLoaiTaiSan,
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-      IddmLoaiTaiSan: '', 
-      IdUser: '', 
-      Ngay: DateToUnix(new Date(this.filter.Ngay.getFullYear(), this.filter.Ngay.getMonth(), 1)), 
+      IddmLoaiTaiSan: '',
+      IdUser: '',
+      Ngay: DateToUnix(new Date(this.filter.Ngay.getFullYear(), this.filter.Ngay.getMonth(), 1)),
       LoaiKeHoach: '',
       IdDuAn: 0,
     };
-    this._serviceTaiSan.ListLichXichThang().GetList(data).subscribe((res: any) => {
-      this.items = res.Data;
-      this.TongSoTaiSan = res.Data.TongSoTaiSan;
-    })
+
+    if (this.filter.isChon === 'theoBaoDuong') {
+      this._serviceTaiSan.ListLichXichThang().GetList(data).subscribe((res: any) => {
+        this.items = res.Data;
+        this.TongSoTaiSan = res.Data.TongSoTaiSan;
+      })
+    } else {
+      this._serviceTaiSan.ListLichXichThang().GetLichXichThangLoaiTaiSan(data).subscribe((res: any) => {
+        this.items = res.Data;
+      })
+    }
+
   }
   ChiTietThongTin(item) {
     console.log(item);
-    
+
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
       backdrop: "static",

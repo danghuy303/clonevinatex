@@ -2249,6 +2249,10 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'GetListLoaiNhomKho';
         return this.http.get(url, httpOptions);
     }
+    GetDanhSachLoaiCongTo() {
+        let url = API.SCM + 'ThongKeDien/GetDanhSachLoaiCongTo';
+        return this.http.get(url, httpOptions);
+    }
     PhieuKiemKeKhoBong() {
         let url = API.SCMQuanLyKho;
         return {
