@@ -51,7 +51,7 @@ export class ModaldanhmucchungComponent implements OnInit {
   }
   GetDanhSachLoaiCongTo() {
     this.sanXuatService.GetDanhSachLoaiCongTo().subscribe((res: any) => {
-      this.listLoaiCongTo = mapArrayForDropDown(res, "Ten", 'Id');
+      this.listLoaiCongTo = mapArrayForDropDown(res, "Ten", 'Ma');
     })
   }
 
