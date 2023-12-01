@@ -298,6 +298,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             KhoiLuong: element.TrongLuong,
             IdLoHang: element.IdLoHang,
             IdNhapKho: element.IdNhapKho,
+            IdNhapKhoGoc: element.IdNhapKhoGoc,
             IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
             TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
           };
@@ -313,6 +314,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
                 this.item.listItem[i].KhoiLuong = element.TrongLuong;
                 this.item.listItem[i].IdLoHang = element.IdLoHang;
                 this.item.listItem[i].IdNhapKho = element.IdNhapKho;
+                this.item.listItem[i].IdNhapKhoGoc = element.IdNhapKhoGoc;
                 this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
                 this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
                 isCheck = true;

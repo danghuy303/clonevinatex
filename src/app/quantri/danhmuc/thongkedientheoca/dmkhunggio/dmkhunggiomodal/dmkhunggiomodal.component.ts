@@ -18,6 +18,7 @@ export class DmkhunggiomodalComponent implements OnInit {
   listmaybienap: any = [];
   khongclicknhieu: any = false;
   listLoaiKhungGio: any = [];
+  listLoaiKhungGioFull: any = [];
   listCaLamViec: any = [];
   listKhungGioRef: any = [];
   nhomKhungGioSelected: any = [];
@@ -27,11 +28,12 @@ export class DmkhunggiomodalComponent implements OnInit {
   ngOnInit(): void {
     let data: any = {};
     this.sanXuatService.ThongKeDien().GetDanhSachLoaiKhungGio(data).subscribe((res: any) => {
-      this.listLoaiKhungGio =  mapArrayForDropDown(res,'Ten', 'Id');
+      this.listLoaiKhungGio = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listLoaiKhungGioFull = res;
     })
     this.sanXuatService.GetListOptdmCaSanXuat().subscribe((res: any) => {
       console.log(res);
-      this.listCaLamViec =  mapArrayForDropDown(res,'Ten', 'Id');
+      this.listCaLamViec = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
@@ -47,9 +49,9 @@ export class DmkhunggiomodalComponent implements OnInit {
   }
 
   Save() {
-    this.item.lstIdKhungGioApDung=[];
+    this.item.lstIdKhungGioApDung = [];
     this.listKhungGioRef.forEach(khungGio => {
-      if(this.nhomKhungGioSelected.includes(khungGio.MaNhomKhungGio)){
+      if (this.nhomKhungGioSelected.includes(khungGio.MaNhomKhungGio)) {
         this.item.lstIdKhungGioApDung.push(khungGio.Id)
       }
     });
@@ -58,6 +60,13 @@ export class DmkhunggiomodalComponent implements OnInit {
         this.resAction(res)
       }
     })
+  }
+
+  handleChangeKhungGio(e: any) {
+    let _LoaiKhungGio = this.listLoaiKhungGioFull.find((x: any) => x.Id === e.value);
+    if (_LoaiKhungGio) {
+      this.item.DonGia = _LoaiKhungGio.DonGia;
+    }
   }
 
   resAction(res: any) {
