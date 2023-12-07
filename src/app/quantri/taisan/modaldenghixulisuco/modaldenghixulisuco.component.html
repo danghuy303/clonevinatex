@@ -32,60 +32,76 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Chọn máy <span class="required">(*)</span>:</label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listMay" placeholder="Chọn" (onChange)="ChonMay($event.value)"
+                    styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdTaiSan">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng" (onChange)="chonBoPhanSD($event)"
-                    styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdBoPhanSuDung">
+                <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"
+                    (onChange)="chonBoPhanSD($event)" styleClass="p-inputtext-sm" [showClear]="true" [filter]="true"
+                    [(ngModel)]="item.IdBoPhanSuDung">
                 </p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại sự cố  <span class="required">(*)</span> :</label>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại sự cố <span class="required">(*)</span> :</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiSuCo" placeholder="Loại sự cố "
-                    styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdDmLoaiSuCo">
+                    styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IddmLoaiSuCo">
                 </p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mức độ ưu tiên  <span class="required">(*)</span> : </label>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mức độ ưu tiên <span class="required">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listDoUuTien" placeholder="Mức độ ưu tiên"
                     styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdDoUuTien">
                 </p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+        <div *ngIf="checkbutton.KhoiTao" class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đánh giá tình trạng:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.DanhGiaTinhTrang"></textarea>
+                <textarea pInputTextarea [rows]="1" class="p-inputtext-sm"
+                    [(ngModel)]="item.DanhGiaTinhTrang"></textarea>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+        <div *ngIf="checkbutton.KhoiTao" class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nguyên nhân:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.NguyenNhan"></textarea>
+                <textarea pInputTextarea [rows]="1" class="p-inputtext-sm" [(ngModel)]="item.NguyenNhan"></textarea>
             </div>
         </div>
-        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
+        <div *ngIf="checkbutton.KhoiTao" class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Người thực hiện:</label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <textarea pInputTextarea [rows]="1" class="p-inputtext-sm"></textarea>
+            </div>
+        </div>
+        <div *ngIf="checkbutton.KhoiTao" class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Phương án xử lý:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.PhuongAnXuLy"></textarea>
+                <textarea pInputTextarea [rows]="1" class="p-inputtext-sm" [(ngModel)]="item.PhuongAnXuLy"></textarea>
             </div>
         </div>
-        <div class="p-mb-4">
+        <!-- <div class="p-mb-4">
             <app-tai-lieu-danh-sach [item]="item"></app-tai-lieu-danh-sach>
-        </div>
+        </div> -->
     </div>
-    <p-tabView>
-        <p-tabPanel header="Danh sách tài sản">
+    <p-tabView (onChange)="ChangeTab($event)">
+        <!-- <p-tabPanel header="Danh sách tài sản">
             <ng-template pTemplate="content">
                 <div class="p-d-flex p-flex-row p-jc-between">
                     <div class="modal-bt p-mb-2 ">
@@ -169,6 +185,118 @@
             <ng-template pTemplate="content">
                 <app-denghixulysucochiphikhac [items]="item.listTaiSan"></app-denghixulysucochiphikhac>
             </ng-template>
+        </p-tabPanel> -->
+
+        <p-tabPanel header="Công việc xử lý">
+            <p-table [value]="item.listTaiSan" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col style="width: 50px;">
+                        <col>
+                        <col>
+                        <col style="width: 180px;">
+                        <col style="width: 180px;">
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
+                        <col style="width: 50px;">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="text-center">
+                            STT
+                        </th>
+                        <th class="text-center">Nội dung</th>
+                        <th class="text-center">Công việc</th>
+                        <th class="text-center">TG sửa chữa từ ngày</th>
+                        <th class="text-center">Đến ngày</th>
+                        <th class="text-center">Đã xử lý</th>
+                        <th class="text-center">Thao tác</th>
+                        <th class="text-center">
+                            <p-button icon="pi pi-plus" pTooltip="Thêm" tooltipPosition="top"
+                                (click)="add()"></p-button>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-suco let-i="rowIndex">
+                    <tr>
+                        <td class="text-center">{{i + 1}}</td>
+                        <td> <textarea pInputTextarea [rows]="1" class="p-inputtext-sm"
+                                [(ngModel)]="suco.NoiDung"></textarea></td>
+                        <td>
+                            <p-dropdown [filter]="true" [options]="listNoiDungVatTu" placeholder="Chọn"
+                                (onChange)="ChonVatTu($event.value,i)" [(ngModel)]="suco.IddmCongViecThucHien"
+                                styleClass="p-inputtext-sm" showClear="true">
+                            </p-dropdown>
+                        </td>
+                        <td class="text-center">
+                            <p-calendar dateFormat="dd/mm/yy" [showTime]="true" inputStyleClass="p-inputtext-sm"
+                                [showIcon]="true" [locale]="lang" [(ngModel)]="suco.TuGio" inputId="icon">
+                            </p-calendar>
+                        </td>
+                        <td class="text-center">
+                            <p-calendar dateFormat="dd/mm/yy" [showTime]="true" inputStyleClass="p-inputtext-sm"
+                                [showIcon]="true" [locale]="lang" [(ngModel)]="suco.DenGio" inputId="icon">
+                            </p-calendar>
+                        </td>
+                        <td class="text-center">
+                            <p-checkbox [(ngModel)]="suco.IsXuLy" binary="true"></p-checkbox>
+                        </td>
+                        <td class="text-center">
+                            <button pButton pRipple icon="pi pi-list"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                (click)="ChonVatTuThayThe(suco,i)" pTooltip="Thay thế" showDelay="1000"
+                                tooltipPosition="top"></button>
+                        </td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-trash"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Vật tư">
+            <button pButton pRipple type="button" label="Đề xuất cấp vật tư" class="p-mr-2 p-button-sm"
+                (click)="DeXuatVatTu()"></button>
+            <div class="p-pt-2">
+                <p-table [value]="listVatTu" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+                    <ng-template pTemplate="colgroup">
+                        <colgroup>
+                            <col style="width: 50px;">
+                            <col>
+                            <col style="width: 100px;">
+                            <col style="width: 150px;">
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center">
+                                STT
+                            </th>
+                            <th class="text-center">Nội dung</th>
+                            <th class="text-center">ĐVT</th>
+                            <th class="text-center">Số lượng</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-baoduong let-i="rowIndex">
+                        <tr>
+                            <td class="text-center">{{i + 1}}</td>
+                            <td>
+                                <p-dropdown [filter]="true" [options]="listVatTuThayThe" placeholder="Chọn"
+                                    [disabled]="true" [(ngModel)]="baoduong.IdVatTuCanThayThe" styleClass="p-inputtext-sm"
+                                    showClear="true">
+                                </p-dropdown>
+                            </td>
+                            <td class="text-center">Cái</td>
+                            <td>
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="baoduong.SoLuong">
+                                </p-inputNumber>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
         </p-tabPanel>
     </p-tabView>
-    

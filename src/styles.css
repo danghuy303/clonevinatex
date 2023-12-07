@@ -164,7 +164,7 @@ p-calendar button.p-datepicker-trigger {
 
 .p-calendar {
   display: flex !important;
-  min-width: 110px;
+  /* min-width: 110px; */
 }
 
 p-calendar > span > button {

@@ -11,6 +11,8 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalbaoduongComponent } from '../modal/modalbaoduong/modalbaoduong.component';
 import { ModalthongtinchitiettaisanComponent } from '../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+import { BaoDuongPopupComponent } from '../modal/bao-duong-popup/bao-duong-popup.component';
+import { ModalquytrinhbaoduongComponent } from '../modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
 
 @Component({
   selector: 'app-lichxichnam',
@@ -31,7 +33,7 @@ export class LichxichnamComponent implements OnInit {
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   $sub!: Subscription;
-  
+
   constructor(
     public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
@@ -41,16 +43,17 @@ export class LichxichnamComponent implements OnInit {
   ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
-   }
+    })
+  }
 
   ngOnInit(): void {
-
-    for (let i = new Date().getFullYear()-10; i <= (new Date().getFullYear() + 20); i++) {
-      this.listNam.push({ value: i, label: i });
+    let arr = [];
+    for (let i = new Date().getFullYear() - 10; i <= (new Date().getFullYear() + 5); i++) {
+      arr.push({ value: i, label: i });
     }
+    this.listNam =arr.slice().reverse();
     this.filter.Ngay = new Date().getFullYear();
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
@@ -81,35 +84,30 @@ export class LichxichnamComponent implements OnInit {
   loadData() {
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: this.filter.Ma, IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '',Ngay: DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)),LoaiKeHoach: '',
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '', Ngay: DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)), LoaiKeHoach: '',
       IdDuAn: 0,
     };
     if (this.filter.isChon === 'theoBaoDuong') {
       this._serviceTaiSan.ListLichXichNam().GetListBaoDuong(data).subscribe((res: any) => {
-          this.items = res.Data;
-        })
+        this.items = res.Data;
+      })
     } else {
       this._serviceTaiSan.ListLichXichNam().GetListMay(data).subscribe((res: any) => {
         this.items = res.Data;
-          })
+      })
     }
-    
+
   }
   ChiTietThongTin(item) {
-    let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
+    let modalRef = this._modal.open(ModalquytrinhbaoduongComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
-    modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.getId = item.IdTaiSan;
-    // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.opt = "add";
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
-      .then((res: any) => {
-
-      })
-      .catch((er) => {
-
-      });
+      .then((res: any) => { })
+      .catch((er) => { });
   }
   ChiTietBaoDuong(item) {
     this._serviceTaiSan.ListLichXichNam().Get(item.IddmLoaiBaoDuong).subscribe((res1: any) => {

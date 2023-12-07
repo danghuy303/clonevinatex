@@ -45,6 +45,8 @@ import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungc
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
 import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
 import { KiemDinhTaiSanComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san.component';
+import { LoaiCongViecBaoDuongComponent } from './danhmuc/loai-cong-viec-bao-duong/loai-cong-viec-bao-duong.component';
+import { XuatKhoVatTuDanhSachComponent } from './xuat-kho-vat-tu-danh-sach/xuat-kho-vat-tu-danh-sach.component';
 
 const routes: Routes = [
   {path:'',component:TaisanComponent},
@@ -55,6 +57,7 @@ const routes: Routes = [
   {path:'danhsachvattudutru',component:VattudutruComponent},
   {path:'danhsachvattugiatricao',component:VattugiatricaoComponent},
   {path:'danhmuc/danhmucloaibaoduong',component:DanhmucloaibaoduongComponent},
+  {path:'danhmuc/danhmucloaicongviecbaoduong',component:LoaiCongViecBaoDuongComponent},
   {path:'danhmuc/danhmucdonvitinh',component:DanhmucdonvitinhComponent},
   {path:'danhmuc/danhmucloaitaisan',component:DanhmucloaitaisanComponent},
   {path:'danhmuc/donvinangsuat',component:DonvinangsuatComponent},
@@ -90,6 +93,7 @@ const routes: Routes = [
   {path:'capnhatthuvien/:id', component:CapnhatthuvienComponent},
   {path:'kiem-dinh-tai-san/:id', component:KiemDinhTaiSanComponent},
   {path:'bao-hiem/:id', component:BaoHiemComponent},
+  {path:'xuat-kho/:id', component:XuatKhoVatTuDanhSachComponent},
 ];
 
 @NgModule({

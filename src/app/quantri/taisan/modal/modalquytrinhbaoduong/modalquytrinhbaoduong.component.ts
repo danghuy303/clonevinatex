@@ -24,9 +24,14 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   // lang: any = 'vn';
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
-  listPhanXuong = [];
-  listLoaiTaiSan = [];
   store: any;
+  listLoaiTaiSan: any = [];
+  listPhanXuong: any = [];
+  listCVBaoDuong: any = [];
+  listDoiBaoDuong: any = [];
+  listLoaiTaiSanDeep: any = [];
+  listNoiDungVatTuDeep: any = [];
+  listNoiDungVatTu: any = [];
 
   constructor(
     private _modal: NgbModal,
@@ -39,36 +44,39 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // if (this.opt === 'add') {
+    //   this.GetNextSoQuyTrinh();
+    // } else {
+    // }
+    // if (this.item.listTaiSan.length) {
+    //   this.item.listTaiSan.forEach(ele => {
+    //     ele.TuGio = UnixToDate(ele.TuGioUnix);
+    //     ele.DenGio = UnixToDate(ele.DenGioUnix);
+    //   })
+    // }
+    // if (this.item.NgayBaoDuongUnix !== 0) {
+    //   this.item.NgayBaoDuong = UnixToDate(this.item.NgayBaoDuongUnix);
+    // }
+    // for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+    //   this.listNam.push({ value: i, label: i });
+    // }
+    // let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
+    // let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
+    // Promise.all([ls1]).then((values: any) => {
+    //   this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+    // });
+    // this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    //   this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    // })
+    // this.KiemTraButtonModal();
+    // this.item.NgayBaoDuong = this.item.NgayBaoDuong || new Date();
 
+    this.item.listVatTu = this.item.listVatTu ? this.item.listVatTu : [];
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
-    } else {
-    }
-    if (this.item.listTaiSan.length) {
-      this.item.listTaiSan.forEach(ele => {
-        ele.TuGio = UnixToDate(ele.TuGioUnix);
-        ele.DenGio = UnixToDate(ele.DenGioUnix);
-      })
-    }
-    if (this.item.NgayBaoDuongUnix !== 0) {
-      this.item.NgayBaoDuong = UnixToDate(this.item.NgayBaoDuongUnix);
-    }
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
-      this.listNam.push({ value: i, label: i });
-    }
-
-    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
-    let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
-
-    Promise.all([ls1]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-    });
-
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
+    } else { }
     this.KiemTraButtonModal();
-    this.item.NgayBaoDuong = this.item.NgayBaoDuong || new Date();
+    this.GetNews();
   }
 
   GetNextSoQuyTrinh() {
@@ -94,13 +102,10 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
         backdrop: "static",
       });
       modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan_BaoDuong) : []
-      // modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
       modalRef.componentInstance.opt = this.opt;
       modalRef.componentInstance.Lay_Chon = this.item;
       modalRef.componentInstance.item = this.item;
       modalRef.result.then((res: any) => {
-        // this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
-        // this.item.listTaiSan = merge(res, this.item.listTaiSan, 'Id');
         this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan_BaoDuong').filter(ele => !ele.isXoa);
       })
         .catch((er) => {
@@ -109,23 +114,30 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   }
 
   setData() {
-    this.item.NgayBaoDuongUnix = DateToUnix(this.item.NgayBaoDuong);
-    this.item.listTaiSan = this.item.listTaiSan.map(ele => {
-      return {
-        ...ele,
-        Id: ele.Id || "",
-        TuGioUnix: DateToUnix(ele.TuGio),
-        DenGioUnix: DateToUnix(ele.DenGio),
-      }
-    })
-    return this.item;
+    // this.item.NgayBaoDuongUnix = DateToUnix(this.item.NgayBaoDuong);
+    // this.item.listTaiSan = this.item.listTaiSan.map(ele => {
+    //   return {
+    //     ...ele,
+    //     Id: ele.Id || "",
+    //     TuGioUnix: DateToUnix(ele.TuGio),
+    //     DenGioUnix: DateToUnix(ele.DenGio),
+    //   }
+    // })
+    let data = {
+      ...this.item,
+      ThoiGianBatDauUnix: DateToUnix(this.item.ThoiGianBatDau),
+      ThoiGianKetThucUnix: DateToUnix(this.item.ThoiGianKetThuc),
+      listCongViec: this.item.listCongViec.map(ele => {
+        return {
+          ...ele,
+          isThucHien: ele.isThucHien ? ele.isThucHien : false
+        }
+      })
+    }
+    return data;
   }
 
   ValidateData() {
-    // if (!validVariable(this.item.NgayBaoDuong)) {
-    //   this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
-    //   return false;
-    // } else 
     if (!validVariable(this.item.IdBoPhanSuDung)) {
       this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
       return false;
@@ -136,9 +148,6 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.toastr.error("Yêu cầu thêm tài sản!");
       return false
     }
-    // else if (!this.ValidateTaiSan()) {
-    //   return false
-    // }
     return true;
   }
 
@@ -152,8 +161,6 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       }
     })
     checkDateTimeAll = this.item.listTaiSan.every(taisan => taisan.checkDateTime);
-    // console.log("this.item", this.item);
-    // console.log("checkDateTimeAll", checkDateTimeAll);
     if (!checkDateTimeAll) {
       this.toastr.error('Vui lòng nhập đầy đủ thời gian bảo dưỡng của tài sản nếu tài sản đã bảo dưỡng!');
       return false;
@@ -231,6 +238,115 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
         })
       })
       .catch((er) => console.log(er));
+  }
+  // làm mới
+
+  GetNews() {
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+    this._danhMucTaiSan.LoaiThucHienBaoDuong().GetList(data).subscribe((res: any) => {
+      this.listCVBaoDuong = res.Data;
+    });
+    this.GetDanhSachCongViecByIddmLoaiBaoDuong(this.item.IddmLoaiBaoDuong, this.item.IdTaiSan);
+    this.GetListVatTuByIdTaiSan_BaoDuong(this.item.IdTaiSan_BaoDuong);
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res1: any) => {
+      this.listLoaiTaiSanDeep = res1.Data;
+      this.listLoaiTaiSan = mapArrayForDropDown(res1.Data, "Ten", "Id");
+      this.GetDoiThiCong(this.item.IddmLoaiTaiSan ? this.item.IddmLoaiTaiSan : '')
+    })
+  }
+
+  GetDaTa(value) {
+    this.GetDoiThiCong(value);
+  }
+
+  GetListVatTuByIdTaiSan_BaoDuong(IdTaiSan_LoaiBaoDuong) {
+    this._serviceTaiSan.GetListVatTuByIdTaiSan_BaoDuong(IdTaiSan_LoaiBaoDuong).subscribe((vattu: any) => {
+      this.listNoiDungVatTuDeep = vattu.Data;
+      this.listNoiDungVatTu = mapArrayForDropDown(vattu.Data, 'TenTaiSan', 'IdVatTuThayThe');
+    })
+  }
+
+  GetDanhSachCongViecByIddmLoaiBaoDuong(IddmLoaiBaoDuong, IdTaiSan) {
+    this._serviceTaiSan.GetDanhSachCongViecByIddmLoaiBaoDuong(IddmLoaiBaoDuong, IdTaiSan).subscribe((baoduong: any) => {
+      this.item.listCongViec = baoduong.Data;
+    })
+  }
+
+  GetDoiThiCong(value: any) {
+    let data = {
+      CurrentPage: 0,
+      MaCongDoan: this.listLoaiTaiSanDeep.find(obj => obj.Id === value)?.MaCongDoan
+    }
+    this._danhMucTaiSan.GetListdmCongDoan_DoiBaoDuong(data).subscribe((res: any) => {
+      this.listDoiBaoDuong = mapArrayForDropDown(res.Data, "Ten", "Id");
+    })
+  }
+
+  MapUnix(data) {
+    this.item = {
+      ...data,
+      ThoiGianBatDau: UnixToDate(data.ThoiGianBatDauUnix),
+      ThoiGianKetThuc: UnixToDate(data.ThoiGianKetThucUnix),
+    }
+  }
+
+  XacNhan() {
+    this.item.ThoiGianBatDau = new Date();
+    this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200 || !res.StatusCode) {
+        this.toastr.error(res.Message);
+      } else {
+        this.MapUnix(res.Data);
+        this.toastr.success(res.Message);
+        this.KiemTraButtonModal();
+      }
+    }, (er) => {
+      this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+    })
+  }
+
+  HoanThanh() {
+    this.item.ThoiGianKetThuc = new Date();
+    this._serviceTaiSan.QuyTrinhBaoDuong().ChuyenTiep(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
+  }
+
+  add() {
+    this.item.listVatTu.push({})
+  }
+
+  delete(index: any) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa?';
+    modalRef.result.then(res => {
+      this.item.listVatTu.splice(index, 1)
+    })
+  }
+
+  ChonVatTu(value: any, idx: number) {
+    this.item.listVatTu[idx] = this.listNoiDungVatTuDeep.find((ele: any) => ele.IdVatTuThayThe === value);
+  }
+
+  CapVatTu() {
+    this._serviceTaiSan.SetYeuCauXuatKho(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
   }
 
 }

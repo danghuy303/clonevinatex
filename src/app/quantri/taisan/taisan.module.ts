@@ -187,6 +187,14 @@ import { BaoHiemComponent } from './bao-hiem/bao-hiem.component';
 import { BaoHiemModalComponent } from './bao-hiem/bao-hiem-modal/bao-hiem-modal.component';
 import { BaoHiemPopupThemmoiComponent } from './bao-hiem/bao-hiem-popup-themmoi/bao-hiem-popup-themmoi.component';
 import { BaoHanhPopupComponent } from './screen/bao-hanh/bao-hanh-popup/bao-hanh-popup.component';
+import { LoaiCongViecBaoDuongComponent } from './danhmuc/loai-cong-viec-bao-duong/loai-cong-viec-bao-duong.component';
+import { LoaiCongViecBaoDuongModalComponent } from './modal/loai-cong-viec-bao-duong-modal/loai-cong-viec-bao-duong-modal.component';
+import { AccordionModule } from 'primeng/accordion';
+import { BaoDuongPopupComponent } from './modal/bao-duong-popup/bao-duong-popup.component';
+import { ChonVatTuThayTheComponent } from './screen/chon-vat-tu-thay-the/chon-vat-tu-thay-the.component';
+import { XuatKhoVatTuComponent } from './modal/xuat-kho-vat-tu/xuat-kho-vat-tu.component';
+import { XuatKhoVatTuDanhSachComponent } from './xuat-kho-vat-tu-danh-sach/xuat-kho-vat-tu-danh-sach.component';
+import { ChonVatTuPopupComponent } from './modal/xuat-kho-vat-tu/chon-vat-tu-popup/chon-vat-tu-popup.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -324,6 +332,13 @@ import { BaoHanhPopupComponent } from './screen/bao-hanh/bao-hanh-popup/bao-hanh
     BaoHiemModalComponent,
     BaoHiemPopupThemmoiComponent,
     BaoHanhPopupComponent,
+    LoaiCongViecBaoDuongComponent,
+    LoaiCongViecBaoDuongModalComponent,
+    BaoDuongPopupComponent,
+    ChonVatTuThayTheComponent,
+    XuatKhoVatTuComponent,
+    XuatKhoVatTuDanhSachComponent,
+    ChonVatTuPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -366,7 +381,8 @@ import { BaoHanhPopupComponent } from './screen/bao-hanh/bao-hanh-popup/bao-hanh
     SharedModule,
     QRCodeModule,
     SelectButtonModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    AccordionModule
   ],
   providers: [
     LoaderService,

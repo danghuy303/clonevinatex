@@ -1226,7 +1226,14 @@ export class QuantriComponent implements OnInit, OnDestroy {
             ],
           },
           {
-            label: "Quản lý vật tư dự trù",
+            label: "Kế hoạch mua vật tư",
+            routerLink: "/quantri/taisan/thoihancungcapvattu/0",
+            command: () => {
+              this.close();
+            }
+          },
+          {
+            label: "Quản lý kho vật tư",
             items: [
               {
                 label: "Danh sách nhập vật tư",
@@ -1235,16 +1242,23 @@ export class QuantriComponent implements OnInit, OnDestroy {
                   this.close();
                 },
               },
+              // {
+              //   label: "Kế hoạch mua vật tư",
+              //   routerLink: "/quantri/taisan/thoihancungcapvattu/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
               {
-                label: "Kế hoạch mua vật tư",
-                routerLink: "/quantri/taisan/thoihancungcapvattu/0",
+                label: "Nhập kho vật tư",
+                routerLink: "/quantri/taisan/quytrinhnhapvattu/0",
                 command: () => {
                   this.close();
                 },
               },
               {
-                label: "Quy trình nhập vật tư",
-                routerLink: "/quantri/taisan/quytrinhnhapvattu/0",
+                label: "Xuất kho vật tư",
+                routerLink: "/quantri/taisan/xuat-kho/0",
                 command: () => {
                   this.close();
                 },
@@ -1326,6 +1340,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
               {
                 label: "Loại bảo dưỡng ",
                 routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Loại công việc bảo dưỡng ",
+                routerLink: "/quantri/taisan/danhmuc/danhmucloaicongviecbaoduong",
                 command: () => {
                   this.close();
                 },
