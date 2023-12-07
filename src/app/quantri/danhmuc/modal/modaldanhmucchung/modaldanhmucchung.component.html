@@ -79,9 +79,24 @@
         </div>
 
         <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'&& (item?.Loai===7 || item?.Loai===6)">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Pha:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto"></label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-checkbox [(ngModel)]="item.isPha" binary="true" inputId="binary"></p-checkbox>
+
+                <div class="p-d-flex p-flex-row  align-items-center justify-content-between">
+                    <div class="field-radiobutton p-mr-2 d-flex align-items-center">
+                        <p-checkbox [(ngModel)]="item.isPha" binary="true" inputId="binary"></p-checkbox>
+                        <!-- <p-radioButton value="PHA" [(ngModel)]="item.PHACDCM"></p-radioButton> -->
+                        <label class="ml-1 mb-0">Pha</label>
+                    </div>
+                    <div class="field-radiobutton p-mr-2">
+                        <p-radioButton value="CD" [(ngModel)]="item.PHACDCM"></p-radioButton>
+                        <label class="ml-1 mb-0">CD</label>
+                    </div>
+                    <div class="field-radiobutton p-mr-2">
+                        <p-radioButton value="CM" [(ngModel)]="item.PHACDCM"></p-radioButton>
+                        <label class="ml-1 mb-0">CM</label>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row">

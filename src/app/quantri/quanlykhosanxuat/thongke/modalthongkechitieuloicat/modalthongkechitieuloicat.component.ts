@@ -307,7 +307,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit
     this.services.QuyTrinhLoiCat().ExportPhieuNhapChiTieuLoiCat(obj.IddmPhanXuong, obj.NgayKiemTraUnix).subscribe((res: any) => {
       const _url = host1 + res.TenFile
       window.open(_url);
-      this.toastr.error(`Xuất file thành công`);
+      this.toastr.success(`Xuất file thành công`);
     })
   }
 

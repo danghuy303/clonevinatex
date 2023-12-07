@@ -288,7 +288,7 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
     this.services.QuyTrinhLoiCat().ExportPhieuNhapChiTieuClasimat(obj.IddmPhanXuong, obj.NgayKiemTraUnix).subscribe((res: any) => {
       const _url = host1 + res.TenFile
       window.open(_url);
-      this.toastr.error(`Xuất file thành công`);
+      this.toastr.success(`Xuất file thành công`);
     })
   }
 

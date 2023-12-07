@@ -298,13 +298,14 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             KhoiLuong: element.TrongLuong,
             IdLoHang: element.IdLoHang,
             IdNhapKho: element.IdNhapKho,
+            IdNhapKhoGoc: element.IdNhapKhoGoc,
             IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
             TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
           };
           var isCheck: any = false
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
             for (let i = 0; i < this.item.listItem.length; i++) {
-              if (this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi && this.item.listItem[i].IdNhapKho == element.IdNhapKho) {
+              if (this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi && this.item.listItem[i].IdNhapKhoGoc == element.IdNhapKhoGoc) {
                 this.item.listItem[i].isXoa = false;
                 this.item.listItem[i].Ten = element.Ten;
                 this.item.listItem[i].IddmItem = element.IddmItem;
@@ -313,6 +314,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
                 this.item.listItem[i].KhoiLuong = element.TrongLuong;
                 this.item.listItem[i].IdLoHang = element.IdLoHang;
                 this.item.listItem[i].IdNhapKho = element.IdNhapKho;
+                this.item.listItem[i].IdNhapKhoGoc = element.IdNhapKhoGoc;
                 this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
                 this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
                 isCheck = true;
@@ -325,6 +327,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
           else
             listdatapush.push(datapush);
         });
+        console.log("listdatapush", listdatapush);
+
         if (this.item.listItem !== undefined && this.item.listItem !== null) {
           this.item.listItem = this.item.listItem.concat(listdatapush);
         }
