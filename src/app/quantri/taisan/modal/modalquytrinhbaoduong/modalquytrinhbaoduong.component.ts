@@ -32,6 +32,9 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   listLoaiTaiSanDeep: any = [];
   listNoiDungVatTuDeep: any = [];
   listNoiDungVatTu: any = [];
+  listTaiSan: any = [];
+  listTaiSanDeep: any = [];
+  listLoaiBaoDuong: any = [];
 
   constructor(
     private _modal: NgbModal,
@@ -85,10 +88,6 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     })
   }
 
-  chonBoPhan(e) {
-    this.item.listTaiSan = [];
-  }
-
   ThemMoiDanhSachTaiSan() {
     if (!validVariable(this.item.IdBoPhanSuDung)) {
       this.toastr.error("Vui lòng nhập bộ phận sử dụng")
@@ -127,7 +126,9 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       ...this.item,
       ThoiGianBatDauUnix: DateToUnix(this.item.ThoiGianBatDau),
       ThoiGianKetThucUnix: DateToUnix(this.item.ThoiGianKetThuc),
-      listCongViec: this.item.listCongViec.map(ele => {
+      NgayKeHoachUnix: DateToUnix(this.item.NgayKeHoach),
+      NgayBaoDuongUnix: DateToUnix(this.item.NgayBaoDuong),
+      listCongViec: this.item?.listCongViec?.map(ele => {
         return {
           ...ele,
           isThucHien: ele.isThucHien ? ele.isThucHien : false
@@ -141,12 +142,9 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     if (!validVariable(this.item.IdBoPhanSuDung)) {
       this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
       return false;
-    } else if (!validVariable(this.item.IdDmLoaiTaiSan)) {
+    } else if (!validVariable(this.item.IdTaiSan_BaoDuong)) {
       this.toastr.error("Yêu cầu nhập loại tài sản!");
       return false;
-    } else if (!validVariable(this.item.listTaiSan)) {
-      this.toastr.error("Yêu cầu thêm tài sản!");
-      return false
     }
     return true;
   }
@@ -242,6 +240,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   // làm mới
 
   GetNews() {
+    this.item.NgayBaoDuong = new Date();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
     this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -256,10 +255,45 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(res1.Data, "Ten", "Id");
       this.GetDoiThiCong(this.item.IddmLoaiTaiSan ? this.item.IddmLoaiTaiSan : '')
     })
+    this.GetListdmLoaiBaoDuongForDanhMuc();
+    this.chonBoPhan(this.item.IdBoPhanSuDung);
+  }
+
+  GetListdmLoaiBaoDuongForDanhMuc() {
+    let data = {
+      PageSize: 20,
+      CurrentPage: 0,
+      Keyword: '',
+    };
+    this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetListdmLoaiBaoDuongForDanhMuc(data).subscribe((res: any) => {
+      this.listLoaiBaoDuong = mapArrayForDropDown(res.Data, "Ten", "Id");
+    })
+  }
+
+
+  chonBoPhan(value) {
+    this.GetListTaiSanBaoDuong();
+  }
+
+  GetListTaiSanBaoDuong() {
+    let data = {
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung
+    }
+    this._serviceTaiSan.GetListTaiSanBaoDuong(data).subscribe((res: any) => {
+      this.listTaiSanDeep = res.Data;
+      this.listTaiSan = mapArrayForDropDown(res.Data, 'NoiDung', 'IdTaiSan_BaoDuong')
+
+    })
   }
 
   GetDaTa(value) {
-    this.GetDoiThiCong(value);
+    let obj = this.listTaiSanDeep.find(ele => ele.IdTaiSan_BaoDuong === value);
+    this.item = {
+      ...obj,
+      NgayBaoDuong: new Date(this.item.NgayBaoDuong),
+      NgayKeHoach: UnixToDate(obj.ThoiGianKeHoachUnix)
+    }
+    this.GetDoiThiCong(this.item.IddmLoaiTaiSan);
   }
 
   GetListVatTuByIdTaiSan_BaoDuong(IdTaiSan_LoaiBaoDuong) {
@@ -290,6 +324,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       ...data,
       ThoiGianBatDau: UnixToDate(data.ThoiGianBatDauUnix),
       ThoiGianKetThuc: UnixToDate(data.ThoiGianKetThucUnix),
+      NgayKeHoach: UnixToDate(data.NgayKeHoachUnix),
+      NgayBaoDuong: UnixToDate(data.NgayBaoDuongUnix),
     }
   }
 

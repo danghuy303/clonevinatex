@@ -1091,4 +1091,8 @@ export class TaisanService {
     return this.http.post(`${API.CungUng}DanhMuc/GetlistdmItem`,data, httpOptions);
   }
 
+  GetListTaiSanBaoDuong(data:any) {
+    return this.http.post(`${API.TaiSan}BaoDuongTaiSan/GetListTaiSanBaoDuong`,data, httpOptions);
+  }
+
 }
