@@ -8,12 +8,6 @@
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
-        <!-- <div class="modal-bt p-mb-4 ">
-            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
-                (click)="activeModal.dismiss()"></button>
-            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm "
-                (click)="GhiLai()"></button>
-        </div> -->
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-xl-row">
@@ -28,15 +22,145 @@
                 <input locale="en-EN" [(ngModel)]="item.Ten" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span>:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn loại tài sản"
-                    [(ngModel)]="item.IddmLoaiTaiSan" styleClass="p-inputtext-sm" showClear="true">
+                    [(ngModel)]="item.IddmLoaiTaiSan" (onChange)="GetListVatTuTheoLoaiTaiSan($event.value)" styleClass="p-inputtext-sm" showClear="true">
                 </p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Lịch bảo dưỡng <span class="text-danger">(*)</span> :</label>
+            <div class="p-col-12 p-lg-10 p-p-0 flex-column flex-xl-row">
+                <div class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-xl-row">
+                    <div class="p-col-12 p-lg-2 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton value="NGAY" inputId="ngay"
+                                [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <label for="Ngay">Ngày</label>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-lg-2 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton value="TUAN" inputId="tuan"
+                                [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <label>Tuần</label>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-lg-2 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton value="THANG" inputId="thang"
+                                [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <label>Tháng</label>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-lg-2 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton value="NAM" inputId="nam" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <label>Năm</label>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-xl-row">
+                        <p-inputNumber [minFractionDigits]="0" min="0" locale="en-EN"
+                            placeholder="Nhập lịch bảo dưỡng (*)" [(ngModel)]="item.ThoiGianBaoDuong">
+                        </p-inputNumber>
+                        <p class="tan">({{Time[item.MaLoaiThoiGian]}})</p>
+                    </div>
+                </div>
+                <div *ngIf="item.MaLoaiThoiGian === 'NGAY'"
+                    class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-xl-row">
+                    <div class="p-col-12 p-lg-2 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton [value]="1" [(ngModel)]="item.LoaiThoiGian"></p-radioButton>
+                            <label>Sáng</label>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-lg-2 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton [value]="2" [(ngModel)]="item.LoaiThoiGian"></p-radioButton>
+                            <label>Chiều</label>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-lg-2 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton [value]="3" [(ngModel)]="item.LoaiThoiGian"></p-radioButton>
+                            <label>Tối</label>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="item.MaLoaiThoiGian === 'NGAY'"
+                    class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-xl-row" style="margin-top: 20px">
+                    <div class="d-flex p-col-12 p-lg-3 p-p-0">
+                        <div class="check-pt p-pr-2">Từ thứ:</div>
+                        <div>
+                            <p-dropdown [filter]="true" [options]="listTuan" placeholder="Chọn" [(ngModel)]="item.TuThu"
+                                styleClass="p-inputtext-sm" showClear="true">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="d-flex p-col-12 p-lg-3 p-p-0">
+                        <div class="check-pt p-pr-2">Đến thứ:</div>
+                        <div>
+                            <p-dropdown [filter]="true" [options]="listTuan" placeholder="Chọn"
+                                [(ngModel)]="item.DenThu" styleClass="p-inputtext-sm" showClear="true">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="d-flex p-col-12 p-lg-3 p-p-0">
+                        <div class="check-pt p-pr-2">Từ giờ:</div>
+                        <div class="">
+                            <p-calendar [timeOnly]="true" [(ngModel)]="item.TuGio" inputId="timeonly"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="d-flex p-col-12 p-lg-3 p-p-0">
+                        <div class="check-pt p-pr-2">Đến giờ:</div>
+                        <div class="">
+                            <p-calendar [timeOnly]="true" [(ngModel)]="item.DenGio" inputId="timeonly"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Sản lượng:</label>
+            <div class="p-col-12 p-lg-7 p-p-0 d-flex flex-column flex-xl-row">
+                <p-inputNumber [minFractionDigits]="1" locale="en-EN" min="0" [(ngModel)]="item.NangSuat">
+                </p-inputNumber>
+                <p class="tan">(tấn)</p>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Độ ưu tiên <span class="text-danger">(*)</span> :</label>
+            <div class="p-col-12 p-lg-7 p-p-0 d-flex flex-column flex-xl-row">
+                <p-dropdown [filter]="true" [options]="listMucDoUuTien" placeholder="Chọn mức độ ưu tiên"
+                    [(ngModel)]="item.IddmMucDoUuTien" styleClass="p-inputtext-sm">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số lượng:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoMay">
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn vị tính:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listDonViTinh" placeholder="Chọn " [(ngModel)]="item.DonViTinh"
+                    styleClass="p-inputtext-sm" showClear="true">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Thời gian định mức( phút):</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.ThoiGianDinhMuc">
+                </p-inputNumber>
+            </div>
+        </div>
+        <!-- <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thời gian và số người thực hiện theo NCC:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input locale="en-EN" [(ngModel)]="item.ThoiGianVaSoNguoiTheoNCC" pInputText />
@@ -47,73 +171,20 @@
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input locale="en-EN" [(ngModel)]="item.ThoiGianVaSoNguoiThucTe" pInputText />
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <textarea pInputTextarea [(ngModel)]="item.NoiDung"></textarea>
             </div>
         </div>
-        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+        <div class="p-col-12 p-lg-8 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-3 p-pl-1 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-9 p-p-0">
                 <input locale="en-EN" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Lịch bảo dưỡng  <span class="text-danger">(*)</span> :</label>
-            <div class="p-col-12 p-lg-9 p-p-0 d-flex flex-column flex-xl-row">
-                <div class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-xl-row">
-                    <div class="p-col-12 p-lg-2 p-p-0">
-                        <div class="field-radiobutton check-pt" >
-                            <p-radioButton value="NGAY" inputId="ngay" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
-                            <label for="Ngay">Ngày</label>
-                        </div>
-                    </div>
-                    
-                    <div class="p-col-12 p-lg-2 p-p-0">
-                        <div class="field-radiobutton check-pt">
-                            <p-radioButton value="TUAN" inputId="tuan" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
-                            <label>Tuần</label>
-                        </div>
-                    </div>
-                    <div class="p-col-12 p-lg-2 p-p-0">
-                        <div class="field-radiobutton check-pt">
-                            <p-radioButton value="THANG" inputId="thang" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
-                            <label>Tháng</label>
-                        </div>
-                    </div>
-                    <div class="p-col-12 p-lg-2 p-p-0">
-                        <div class="field-radiobutton check-pt">
-                            <p-radioButton value="NAM" inputId="nam" [(ngModel)]="item.MaLoaiThoiGian" ></p-radioButton>
-                            <label>Năm</label>
-                        </div>
-                    </div>
-                    <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-xl-row">
-                            <p-inputNumber [minFractionDigits]="0" min="0" locale="en-EN" placeholder="Nhập lịch bảo dưỡng (*)"  [(ngModel)]="item.ThoiGianBaoDuong">
-                            </p-inputNumber> 
-                            <p class="tan">({{Time[item.MaLoaiThoiGian]}})</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Sản lượng:</label>
-            <div class="p-col-12 p-lg-7 p-p-0 d-flex flex-column flex-xl-row">
-                <p-inputNumber [minFractionDigits]="1" locale="en-EN" min="0" [(ngModel)]="item.NangSuat">
-                </p-inputNumber>
-                <p class="tan">(tấn)</p>    
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Độ ưu tiên <span class="text-danger">(*)</span> :</label>
-            <div class="p-col-12 p-lg-7 p-p-0 d-flex flex-column flex-xl-row">
-                <!-- <input locale="en-EN" [(ngModel)]="item.DoUuTien" pInputText /> -->
-                <p-dropdown [filter]="true" [options]="listMucDoUuTien" placeholder="Chọn mức độ ưu tiên"
-                [(ngModel)]="item.IddmMucDoUuTien" styleClass="p-inputtext-sm">
-            </p-dropdown>
-            </div>
-        </div>
+
         <div class="p-col-12 p-lg-3  p-p-3 d-flex flex-column flex-xl-row">
             <div class="p-col-12 p-lg-2 p-p-0 my-auto"></div>
             <div class="p-field-checkbox p-col-12 p-lg-10 p-p-0 my-auto">
@@ -122,8 +193,53 @@
             </div>
         </div>
     </div>
+    <p-accordion>
+        <p-accordionTab header="Hạng mục" [selected]="true">
+            <p-table [value]="item.listCongViec" styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col style="width:50px">
+                        <col>
+                        <col>
+                        <col style="width:50px">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Hạng mục bảo dưỡng</th>
+                        <th class="text-center">Công việc bảo dưỡng</th>
+                        <th class="text-center">
+                            <p-button icon="pi pi-plus" pTooltip="Thêm" tooltipPosition="top"
+                                (click)="add()"></p-button>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-hangmuc let-i="rowIndex">
+                    <tr>
+                        <td class="text-center">{{i+1}}</td>
+                        <td>
+                            <p-dropdown [filter]="true" [options]="listVatTu" placeholder="Chọn"
+                                [(ngModel)]="hangmuc.IdVatTu" styleClass="p-inputtext-sm" showClear="true">
+                            </p-dropdown>
+                        </td>
+                        <td>
+                            <p-dropdown [filter]="true" [options]="listLoaiThucHienBaoDuong" placeholder="Chọn"
+                                [(ngModel)]="hangmuc.IddmLoaiThucHienBaoDuong" styleClass="p-inputtext-sm"
+                                showClear="true">
+                            </p-dropdown>
+                        </td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-trash"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordionTab>
+    </p-accordion>
     <div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
-        <button pButton pRipple label="Đóng"  class="p-button-sm p-mr-2"
-            (click)="activeModal.dismiss()"></button>
-        <button pButton pRipple label="Chấp nhận" [style.visibility]="bool?'visible':'hidden'" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
+        <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2" (click)="activeModal.dismiss()"></button>
+        <button pButton pRipple label="Chấp nhận" [style.visibility]="bool?'visible':'hidden'" icon="pi pi-save"
+            class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
     </div>

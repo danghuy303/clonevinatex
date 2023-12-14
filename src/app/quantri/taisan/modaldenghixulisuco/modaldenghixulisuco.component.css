@@ -1,0 +1,3 @@
+::ng-deep .modal-fullscreen .modal-body {
+    overflow-y: initial !important;
+}

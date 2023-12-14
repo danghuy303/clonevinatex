@@ -11,6 +11,7 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalbaoduongluachontaisanComponent } from '../modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
 import { XulysucoluachontaisanComponent } from '../modal/xulysucoluachontaisan/xulysucoluachontaisan.component';
+import { ChonVatTuThayTheComponent } from '../screen/chon-vat-tu-thay-the/chon-vat-tu-thay-the.component';
 
 
 @Component({
@@ -36,6 +37,14 @@ export class ModaldenghixulisucoComponent implements OnInit {
   listTaiSan: any = [];
   NameFile: string;
   title: any = '';
+  listLoaiBaoDuong: any = [];
+  listNoiDungVatTu: any = [];
+  listNoiDungVatTuDeep: any = [];
+  listMay: any = [];
+  listMayDeep: any = [];
+  listVatTu: any = [];
+  listVatTuThayThe: any = [];
+
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -52,12 +61,15 @@ export class ModaldenghixulisucoComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     else {
+      this.GetListVatTuByIdTaiSan(this.item.IdTaiSan);
       this.item.listTaiSan.forEach(ele => {
         ele.DenGio = UnixToDate(ele.DenGioUnix);
         ele.TuGio = UnixToDate(ele.TuGioUnix);
       })
     }
     this.KiemTraButtonModal();
+    this.LoaiThucHienBaoDuong();
+    this.GetListTaiSanDangSuDung();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucLoaiSuCo().GetList(data).toPromise();
@@ -67,40 +79,23 @@ export class ModaldenghixulisucoComponent implements OnInit {
       this.listLoaiSuCo = mapArrayForDropDown(values[1].Data, "Ten", "Id");
     })
   }
-  add() {
-    if (this.item.listTaiSan == undefined || this.item.listTaiSan == null)
-      this.item.listTaiSan = [];
-    this.item.listTaiSan.push(this.newitem);
-    this.newitem = {}
-  }
-
-  delete(index) {
-    // let item = this.item.listTaiSan.splice(index, 1)[0];
-    // if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    // } else {
-    //   item.isXoa = true;
-    //   this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
-    // }
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
-      backdrop: 'static'
-    });
-    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res => {
-      this.item.listTaiSan.splice(index, 1)[0];
-    }).catch(er => console.log(er))
-  }
 
   setData() {
-    this.item.NgayDeNghiUnix = DateToUnix(this.item.NgayDeNghi);
-    this.item.listTaiSan.forEach(item => {
-      item.DenGioUnix = DateToUnix(item.DenGio);
-      item.TuGioUnix = DateToUnix(item.TuGio);
-    })
-    return this.item;
+    let data = {
+      ...this.item,
+      listTaiSan: this.item.listTaiSan.map(item => {
+        return {
+          ...item,
+          DenGioUnix: DateToUnix(item.DenGio),
+          TuGioUnix: DateToUnix(item.TuGio)
+        }
+      })
+    }
+    return data;
   }
 
   ValidateData() {
-    if (!validVariable(this.item.IdDmLoaiSuCo) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.IdDoUuTien)) {
+    if (!validVariable(this.item.IddmLoaiSuCo) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.IdDoUuTien)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       return false;
     }
@@ -112,70 +107,65 @@ export class ModaldenghixulisucoComponent implements OnInit {
   }
 
   GhiLai() {
-    // if (this.ValidateData()) {
-    //   this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
-    //     if (res.StatusCode !== 200 || !res.StatusCode) {
-    //       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-    //     } else {
-    //       this.item = res.Data;
-    //       this.item.listTaiSan.forEach(ele => {
-    //         ele.DenGio = UnixToDate(ele.DenGioUnix);
-    //         ele.TuGio = UnixToDate(ele.TuGioUnix);
-    //       })
-    //       this.toastr.success(res.Message);
-    //       this.KiemTraButtonModal();
-    //       // this.activeModal.close();
-    //     }
-    //   }, (er) => {
-    //     this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-    //   })
-    // }
     if (this.ValidateData()) {
-      if (validVariable(this.item.listTaiSan[0]?.listVatTu)) {
-        this.item.listTaiSan.forEach(ele => {
-          ele.listVatTu.forEach(vattu => {
-            if (vattu.SoLuong > vattu.TonKho) {
-              this.toastr.error("Số lượng lớn hơn tồn kho!!!");
-            }
-            else {
-              this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
-                if (res.StatusCode !== 200 || !res.StatusCode) {
-                  this.toastr.error(res.Message);
-                } else {
-                  this.item = res.Data;
-                  this.item.listTaiSan.forEach(ele => {
-                    ele.DenGio = UnixToDate(ele.DenGioUnix);
-                    ele.TuGio = UnixToDate(ele.TuGioUnix);
-                  })
-                  this.toastr.success(res.Message);
-                  this.KiemTraButtonModal();
-                  // this.activeModal.close();
-                }
-              }, (er) => {
-                this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-              })
-            }
-          })
-        })
-      }
-      else {
-        this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
-          if (res.StatusCode !== 200 || !res.StatusCode) {
-            this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-          } else {
-            this.item = res.Data;
-            this.item.listTaiSan.forEach(ele => {
-              ele.DenGio = UnixToDate(ele.DenGioUnix);
-              ele.TuGio = UnixToDate(ele.TuGioUnix);
-            })
-            this.toastr.success(res.Message);
-            this.KiemTraButtonModal();
-            // this.activeModal.close();
-          }
-        }, (er) => {
+      // if (validVariable(this.item.listTaiSan[0]?.listVatTu)) {
+      //   this.item.listTaiSan.forEach(ele => {
+      //     ele.listVatTu.forEach(vattu => {
+      //       if (vattu.SoLuong > vattu.TonKho) {
+      //         this.toastr.error("Số lượng lớn hơn tồn kho!!!");
+      //       }
+      //       else {
+      //         this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
+      //           if (res.StatusCode !== 200 || !res.StatusCode) {
+      //             this.toastr.error(res.Message);
+      //           } else {
+      //             this.item = res.Data;
+      //             this.item.listTaiSan.forEach(ele => {
+      //               ele.DenGio = UnixToDate(ele.DenGioUnix);
+      //               ele.TuGio = UnixToDate(ele.TuGioUnix);
+      //             })
+      //             this.toastr.success(res.Message);
+      //             this.KiemTraButtonModal();
+      //           }
+      //         }, (er) => {
+      //           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+      //         })
+      //       }
+      //     })
+      //   })
+      // }
+      // else {
+      //   this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
+      //     if (res.StatusCode !== 200 || !res.StatusCode) {
+      //       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+      //     } else {
+      //       this.item = res.Data;
+      //       this.item.listTaiSan.forEach(ele => {
+      //         ele.DenGio = UnixToDate(ele.DenGioUnix);
+      //         ele.TuGio = UnixToDate(ele.TuGioUnix);
+      //       })
+      //       this.toastr.success(res.Message);
+      //       this.KiemTraButtonModal();
+      //     }
+      //   }, (er) => {
+      //     this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+      //   })
+      // }
+      this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
+        if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-        })
-      }
+        } else {
+          this.item = res.Data;
+          this.item.listTaiSan.forEach(ele => {
+            ele.DenGio = UnixToDate(ele.DenGioUnix);
+            ele.TuGio = UnixToDate(ele.TuGioUnix);
+          })
+          this.toastr.success(res.Message);
+          this.KiemTraButtonModal();
+        }
+      }, (er) => {
+        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+      })
     }
   }
 
@@ -277,6 +267,85 @@ export class ModaldenghixulisucoComponent implements OnInit {
 
   chonBoPhanSD(e) {
     this.item.listTaiSan = [];
+  }
+
+  // new 
+
+  LoaiThucHienBaoDuong() {
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '' };
+    this._danhMucTaiSan.LoaiThucHienBaoDuong().GetList(data).subscribe((res: any) => {
+      this.listNoiDungVatTuDeep = res.Data;
+      this.listNoiDungVatTu = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    });
+  }
+
+  GetListTaiSanDangSuDung() {
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, IdDuAn: 0 };
+    this._serviceTaiSan.GetListTaiSanDangSuDung(data).subscribe((res: any) => {
+      this.listMayDeep = res.Data;
+      this.listMay = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    });
+  }
+
+  ChonMay(value) {
+    this.item.IdBoPhanSuDung = this.listMayDeep.find(ele => ele.Id === value)?.IdBoPhanSuDung;
+    this.GetListVatTuByIdTaiSan(value);
+  }
+
+  add() {
+    this.item.listTaiSan.push({})
+  }
+
+  delete(index: any) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa?';
+    modalRef.result.then(res => {
+      this.item.listTaiSan.splice(index, 1)
+    })
+  }
+
+  ChonVatTuThayThe(data: any, index: any) {
+    let modalRef = this._modal.open(ChonVatTuThayTheComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.title = 'Chọn vật tư thay thế';
+    modalRef.componentInstance.IdTaiSan = this.item.IdTaiSan;
+    modalRef.componentInstance.listVatTu = data.listVatTu ? JSON.parse(JSON.stringify(data.listVatTu)) : [];
+    modalRef.result.then(res => {
+      data.listVatTu = JSON.parse(JSON.stringify(res));;
+    })
+  }
+
+  GetListVatTuByIdTaiSan(IdTaiSan) {
+    this._serviceTaiSan.GetListVatTuByIdTaiSan(IdTaiSan).subscribe((vattu: any) => {
+      this.listVatTuThayThe = mapArrayForDropDown(vattu.Data, 'TenTaiSan', 'IdVatTuThayThe');
+    })
+  }
+
+  ChangeTab(e) {
+    let listVatTuThayThe = [];
+    if (e.index === 1) {
+      let arr = this.item.listTaiSan.filter(ele =>
+        this.listNoiDungVatTuDeep.find(obj => obj.Id === ele.IddmCongViecThucHien).Ma === 'THAYTHE');
+      arr.forEach(obj => {
+        listVatTuThayThe = [...obj.listVatTu, ...listVatTuThayThe];
+      })
+      this.listVatTu = [...listVatTuThayThe];
+      console.log( this.listVatTuThayThe);
+      
+      console.log( this.listVatTu);
+      
+    }
+  }
+
+  DeXuatVatTu() {
+    this._serviceTaiSan.SetYeuCauXuatKhoXulySuCo(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200 || !res.StatusCode) {
+        this.toastr.error(res.Message);
+      } else this.toastr.success(res.Message);
+    })
   }
 
 }

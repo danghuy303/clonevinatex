@@ -10,6 +10,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { PintableDirective } from 'voi-lib';
 import { ModalbaoduongComponent } from '../modal/modalbaoduong/modalbaoduong.component';
 import { ModalthongtinchitiettaisanComponent } from '../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+import { ModalquytrinhbaoduongComponent } from '../modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
 
 @Component({
   selector: 'app-lichxichthang',
@@ -87,24 +88,37 @@ export class LichxichthangComponent implements OnInit {
     }
 
   }
-  ChiTietThongTin(item) {
-    console.log(item);
+  // ChiTietThongTin(item) {
+  //   console.log(item);
 
-    let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
+  //   let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
+  //     size: "fullscreen",
+  //     backdrop: "static",
+  //   });
+  //   modalRef.componentInstance.opt = "edit";
+  //   modalRef.componentInstance.getId = item.IdTaiSan;
+  //   // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+  //   modalRef.result
+  //     .then((res: any) => {
+
+  //     })
+  //     .catch((er) => {
+
+  //     });
+  // }
+
+  ChiTietThongTin(item) {
+    let modalRef = this._modal.open(ModalquytrinhbaoduongComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
-    modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.getId = item.IdTaiSan;
-    // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.opt = "add";
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
-      .then((res: any) => {
-
-      })
-      .catch((er) => {
-
-      });
+      .then((res: any) => { })
+      .catch((er) => { });
   }
+  
   ChiTietBaoDuong(item) {
     this._serviceTaiSan.ListLichXichNam().Get(item.IddmLoaiBaoDuong).subscribe((res1: any) => {
       let modalRef = this._modal.open(ModalbaoduongComponent, {

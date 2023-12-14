@@ -89,6 +89,35 @@ export class DanhmuctaisanService {
     }
   }
 
+  LoaiThucHienBaoDuong() {
+    let url = API.TaiSan
+    return {
+      GetList: (data) => {
+        return this.http.post(`${url}DanhMuc/GetListdmLoaiThucHienBaoDuong`, data, httpOptions)
+      },
+      Set: (data) => {
+        return this.http.post(`${url}DanhMuc/SetdmLoaiThucHienBaoDuong`, data, httpOptions)
+      },
+      Delete: (id) => {
+        return this.http.get(`${url}DanhMuc/DeletedmLoaiThucHienBaoDuong?id=${id}`, httpOptions)
+      },
+      DeleteList: (data) => {
+        return this.http.post(`${url}DanhMuc/DeleteListdmLoaiThucHienBaoDuong`, data, httpOptions)
+      },
+      Importdm: ( FileName) => {
+        return this.http.get(`${url}DanhMuc/ImportdmLoaiThucHienBaoDuong?FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmLoaiThucHienBaoDuong`, data, httpOptions)
+      },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
+    }
+  }
+  
+
   DanhMucLoaiTaiSan() {
     let url = API.TaiSan
     return {
@@ -246,5 +275,13 @@ export class DanhmuctaisanService {
         return this.http.get(`${url}DanhMuc/GetListCongDoan`, httpOptions)
       },
     }
+  }
+
+  GetListdmCongDoan_DoiBaoDuong(data) {
+    return this.http.post(`${API.TaiSan}DanhMuc/GetListdmCongDoan_DoiBaoDuong`,data, httpOptions)
+  }
+
+  GetDanhSachCongViecByIddmLoaiBaoDuong (data) {
+    return this.http.post(`${API.TaiSan}DanhMuc/GetDanhSachCongViecByIddmLoaiBaoDuong `,data, httpOptions)
   }
 }
