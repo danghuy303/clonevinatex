@@ -67,7 +67,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   getOSName(url) {
     // if (url.includes("sanxuat")) {
     this.showDropDown = true;
-    this.OSName = "Hệ thống quản trị ngành sợi";
+    this.OSName = "Hệ thống quản trị ngành sợi hhh";
     this.getListNhaMay();
     // } else {
     //   this.showDropDown = false;
@@ -209,11 +209,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
     this.showHopDongModule =
       window.location.origin.includes("4200") ||
       window.location.origin.includes("2269") ||
-      window.location.origin.includes("2369");
+      window.location.origin.includes("2369") ||
+      window.location.origin.includes("2371");
     this.showTaiSanModule =
       window.location.origin.includes("4200") ||
       window.location.origin.includes("2269") ||
-      window.location.origin.includes("2369");
+      window.location.origin.includes("2369") ||
+      window.location.origin.includes("2371");
     // this.showTaiSanModule = true;
     this.refreshNotis();
     const rt = this._router.events
@@ -354,6 +356,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
             routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham-tohieu/0",
             icon: "fas fa-circle",
             separator: this.checkmenu("KIEMKEBANCHEPHAMTOHIEU"),
+            command: () => this.close(),
+          },
+          {
+            label: "Kiểm kê bán chế phẩm Huế",
+            routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham-hue/0",
+            icon: "fas fa-circle",
+            separator: this.checkmenu("KIEMKEBANCHEPHAMHUE"),
             command: () => this.close(),
           },
         ]
@@ -2169,6 +2178,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       this.refreshNotis();
     });
   }
+
   downloadHDSD() {
     this._services
       .HDSD()

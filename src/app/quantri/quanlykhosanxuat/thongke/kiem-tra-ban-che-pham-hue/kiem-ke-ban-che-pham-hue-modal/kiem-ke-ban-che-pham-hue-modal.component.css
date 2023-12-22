@@ -1,0 +1,82 @@
+/* .noidung :host ::ng-deep .p-inputtext, .p-inputtext-sm.p-inputtext {
+    width: 98.4% !important;
+} */
+
+/* :host ::ng-deep .p-lg-4 {
+    padding: 0rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+} */
+
+thead, tbody, tfoot, tr, td, th {
+  padding: 0.5rem 0.5rem;
+  border: 1px solid #e9ecef;
+}
+
+thead, th {
+  color: white;
+  font-weight: 500;
+  height: 50px;
+}
+
+table th {
+  background: #828282;
+}
+
+table td {
+  background-color: white;
+}
+
+table {
+  width: 100%;
+}
+.sticky-table {
+  height: 200px;
+  overflow: auto;
+}
+.sticky-table thead th:first-child,
+.sticky-table tbody td:first-child
+{
+  position: sticky;
+  left: 0;
+  z-index: 999;
+  padding: 0.5rem 0.5rem;
+  border: 1px solid #e9ecef;
+}
+.sticky-table thead th:nth-child(2),
+.sticky-table tbody td:nth-child(2)
+{
+  position: sticky;
+  left: 50px;
+  z-index: 999;
+}
+.tc-w-600{
+  /* max-width: 600px !important; */
+  min-width: 200px !important;
+}
+.tc-w-100{
+  /* max-width: 100px !important;
+  min-width: 100px !important; */
+  width: 100px !important;
+  min-width: 100px !important;
+}
+.tc-w-50{
+  /* max-width: 50px !important;
+  min-width: 50px !important; */
+  width: 50px !important;
+  min-width: 50px !important;
+}
+
+.tc-w-200{
+  /* max-width: 200px !important;
+  min-width: 200px !important; */
+  width: 200px !important;
+  min-width: 200px !important;
+}
+
+.kiemke {
+  padding: 9px !important;
+}
+:host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th {
+  padding: 0.3rem 0.5rem;
+}

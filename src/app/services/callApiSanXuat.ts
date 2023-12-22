@@ -3100,6 +3100,65 @@ export class SanXuatService {
             },
         }
     }
+
+    KiemKeBanChePhamHue() {
+        let url = API.SCM;
+        return {
+            GetListPhieuKiemKeBanChePhamToHieuTongHop: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + `KiemKeBanChePham/GetListPhieuKiemKeBanChePhamToHieuTongHop`, data, httpOptions);
+            },
+            GetPhieuKiemKeBanChePhamToHieuTongHop: (Id) => {
+                return this.http.get(url + `KiemKeBanChePham/GetPhieuKiemKeBanChePhamToHieuTongHop?id=${Id}`, httpOptions);
+            },
+            GetList: (data) => {
+                // data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + `KiemKeBanChePham/GetListPhieuKiemKeBanChePhamHue`, data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `KiemKeBanChePham/GetPhieuKiemKeBanChePhamHue?id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/SetPhieuKiemKeBanChePhamHue', data, httpOptions);
+            },
+            GetListMayCongDoanKiemKeBanChePhamToHieu: () => {
+                return this.http.get(url + 'KiemKeBanChePham/' + 'GetListMayCongDoanKiemKeBanChePhamHue', httpOptions);
+            },
+            GetKhoiTaoPhieuKiemKeBanChePhamToHieu: (data) => {
+                return this.http.post(url + 'KiemKeBanChePham/' + 'GetKhoiTaoPhieuKiemKeBanChePhamHue', data, httpOptions);
+            },
+            Delete: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/DeletePhieuKiemKeBanChePhamHue', data, httpOptions);
+            },
+            TinhPhieuKiemKeBanChePhamToHieu: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/TinhPhieuKiemKeBanChePhamHue', data, httpOptions);
+            },
+            ExportKiemKeBanChePham: (Id) => {
+                return this.http.get(url + `KiemKeBanChePham/ExportPhieuKiemKeBanChePhamHue?id=${Id}`, httpOptions);
+            },
+            ImportKiemKeBanChePhamToHieu: (data) => {
+                return this.http.post(url + 'KiemKeBanChePham/ImportPhieuKiemKeBanChePhamHue', data, httpOptions);
+            },
+            ExportPhieuKiemKeBanChePhamToHieuTongHop: (Id) => {
+                return this.http.get(url + `KiemKeBanChePham/ExportPhieuKiemKeBanChePhamToHieuTongHop?id=${Id}`, httpOptions);
+            },
+            SetPhieuKiemKeBanChePhamToHieuTongHop: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/SetPhieuKiemKeBanChePhamToHieuTongHop', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/ChuyenTiepPhieuKiemKeBanChePhamHue', data, httpOptions);
+            },
+            KhongDuyet: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'KiemKeBanChePham/KhongDuyetPhieuKiemKeBanChePhamHue', data, httpOptions);
+            },
+        }
+    }
     // quyết toán nguyên liệu
     QuyetToan() {
         let url = API.SCM;

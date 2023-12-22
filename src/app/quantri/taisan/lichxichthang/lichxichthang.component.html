@@ -108,7 +108,7 @@
             *ngFor="let newItem of item.listItemTheoThoiGian" [ngStyle]="{'background-color': newItem.ColorLabel}">
             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)"
                 [ngStyle]="{'color': taisan.Mau}">
-                {{taisan.TenTaiSan}}<br>
+                {{taisan.TendmLoaiBaoDuong}}<br>
             </a>
         </td>
     </tr>
