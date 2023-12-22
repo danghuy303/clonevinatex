@@ -97,7 +97,7 @@
                         <th rowspan="2">#</th>
                         <!-- <th rowspan="2">Mã</th> -->
                         <th rowspan="2">Tên</th>
-                        <th colspan="2">Tồn sổ sách</th>
+                        <th colspan="3">Tồn sổ sách</th>
                         <th colspan="6">Tồn thực tế</th>
                         <th rowspan="2">Ghi chú</th>
                         <th rowspan="2"></th>
@@ -105,6 +105,7 @@
                     <tr>
                         <th>Tổng khối lượng</th>
                         <th>Số quả sợi</th>
+                        <th>Ngày chứng từ nhập</th>
                         <th>Số quả sợi</th>
                         <th>Trọng lượng quả sợi</th>
                         <th>Trọng lượng chênh lệch</th>
@@ -132,6 +133,9 @@
                             <!-- <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TonSoLuong"
                                 disabled>
                             </p-inputNumber> -->
+                        </td>
+                        <td style="text-align: right;">
+                            {{item.NgayNhapKho| date:'dd/MM/yyyy'}}
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoi"
@@ -199,6 +203,8 @@
                         <td class="text-right">
                         </td>
                         <td class="text-right">
+                        </td>
+                        <td class="text-right">
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newItem.SoQuaSoi"
                                 (onBlur)="TinhTongKhoiLuong(newItem)">
                             </p-inputNumber>
@@ -251,6 +257,9 @@
                         </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+
                         </td>
                         <td class="text-right" *ngIf="isKhoThanhPham">
                             {{item.listItem|isXoa|SumByKey:'SoQuaSoi'|number:'0.0-0'}}
