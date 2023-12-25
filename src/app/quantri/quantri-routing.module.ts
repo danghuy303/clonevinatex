@@ -118,6 +118,7 @@ import { KiemTraBanChePhamToHieuComponent } from "./quanlykhosanxuat/quytrinh/to
 import { QuyetToanNguyenLieuComponent } from "./quanlykhosanxuat/quyet-toan-nguyen-lieu/quyet-toan-nguyen-lieu.component";
 import { DmKiemKeBanChePhamComponent } from "./danhmuc/dm-kiem-ke-ban-che-pham/dm-kiem-ke-ban-che-pham.component";
 import { LapKeHoachComponent } from "./lap-ke-hoach/lap-ke-hoach.component";
+import { KiemTraBanChePhamHueComponent } from "./quanlykhosanxuat/thongke/kiem-tra-ban-che-pham-hue/kiem-tra-ban-che-pham-hue.component";
 
 const routes: Routes = [
   {
@@ -528,6 +529,10 @@ const routes: Routes = [
       {
         path: "quanlykhosanxuat/khobong/kiemtrabanchepham-tohieu/:id",
         component: KiemTraBanChePhamToHieuComponent,
+      },
+      {
+        path: "quanlykhosanxuat/khobong/kiemtrabanchepham-hue/:id",
+        component: KiemTraBanChePhamHueComponent,
       },
 
       //..................................

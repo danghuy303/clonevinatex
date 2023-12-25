@@ -320,6 +320,8 @@ import { QuyetToanNguyenLieuComponent } from './quanlykhosanxuat/quyet-toan-nguy
 import { DmKiemKeBanChePhamComponent } from './danhmuc/dm-kiem-ke-ban-che-pham/dm-kiem-ke-ban-che-pham.component';
 import { DanhSachMatHangComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/modal/danh-sach-mat-hang/danh-sach-mat-hang.component';
 import { LapKeHoachComponent } from './lap-ke-hoach/lap-ke-hoach.component';
+import { KiemTraBanChePhamHueComponent } from './quanlykhosanxuat/thongke/kiem-tra-ban-che-pham-hue/kiem-tra-ban-che-pham-hue.component';
+import { KiemKeBanChePhamHueModalComponent } from './quanlykhosanxuat/thongke/kiem-tra-ban-che-pham-hue/kiem-ke-ban-che-pham-hue-modal/kiem-ke-ban-che-pham-hue-modal.component';
 
 @NgModule({
   declarations: [
@@ -586,6 +588,8 @@ import { LapKeHoachComponent } from './lap-ke-hoach/lap-ke-hoach.component';
     DmKiemKeBanChePhamComponent,
     DanhSachMatHangComponent,
     LapKeHoachComponent,
+    KiemTraBanChePhamHueComponent,
+    KiemKeBanChePhamHueModalComponent,
   ],
   imports: [
     HttpClientModule,

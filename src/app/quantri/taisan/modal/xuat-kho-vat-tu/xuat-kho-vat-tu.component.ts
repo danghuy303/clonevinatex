@@ -84,7 +84,7 @@ export class XuatKhoVatTuComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập ngày");
       return false;
     }
-    if (!validVariable(this.item.IddmKhachHang)) {
+    if (!validVariable(this.item.IdNguoiYeuCau)) {
       this.toastr.error("Yêu cầu nhập người yêu cầu");
       return false;
     }
@@ -125,10 +125,11 @@ export class XuatKhoVatTuComponent implements OnInit {
   ChuyenTiep() {
     this._services.QuyTrinhXuatKho().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res) {
-        if (res.State === 1) {
+        if (res.StatusCode === 200) {
+          this.toastr.success(res.Message);
           this.activeModal.close();
         } else {
-          this.toastr.error(res.message);
+          this.toastr.error(res.Message);
         }
       }
     })
@@ -137,10 +138,11 @@ export class XuatKhoVatTuComponent implements OnInit {
   KhongDuyet() {
     this._services.QuyTrinhXuatKho().KhongDuyet(this.setData()).subscribe((res: any) => {
       if (res) {
-        if (res.State === 1) {
+        if (res.StatusCode === 200) {
+          this.toastr.success(res.Message);
           this.activeModal.close();
         } else {
-          this.toastr.error(res.message);
+          this.toastr.error(res.Message);
         }
       }
     })
@@ -152,11 +154,12 @@ export class XuatKhoVatTuComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.QuyTrinhXuatKho().Delete(this.setData()).subscribe((res: any) => {
-        if (res?.State === 1) {
+      this._services.QuyTrinhXuatKho().Delete(this.item.Id).subscribe((res: any) => {
+        if (res.StatusCode === 200) {
+          this.toastr.success(res.Message);
           this.activeModal.close();
         } else {
-          this.toastr.error(res.message);
+          this.toastr.error(res.Message);
         }
       })
     }).catch(er => console.log(er))

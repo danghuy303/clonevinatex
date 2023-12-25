@@ -34,21 +34,6 @@ export class XuatKhoVatTuDanhSachComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Tên kho',
-      field: 'TendmKho',
-      width: '20rem'
-    },
-    {
-      header: 'Tổng số quả sợi',
-      field: 'TongSoLuong',
-      width: 'unset'
-    },
-    {
-      header: 'Tổng khối lượng',
-      field: 'TongKhoiLuong',
-      width: 'unset'
-    },
-    {
       header: 'Nội dung',
       field: 'NoiDung',
       width: 'unset'

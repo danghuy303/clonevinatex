@@ -380,7 +380,6 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
         this.toastr.error(res.Message);
       } else {
         this.toastr.success(res.Message);
-        this.activeModal.close();
       }
     })
   }
