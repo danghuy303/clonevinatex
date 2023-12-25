@@ -36,6 +36,8 @@ export class NhapkhobongphemodalComponent implements OnInit {
   nametype: any = '';
   listPhanXuong: any = []
   listCongDoan: any = []
+  listCaSanXuat: any = [];
+  listCaThucTe: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -46,7 +48,7 @@ export class NhapkhobongphemodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
-    else{
+    else {
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
@@ -56,20 +58,47 @@ export class NhapkhobongphemodalComponent implements OnInit {
     this.getListLoaiBong();
     this.getListKho();
     this.getListCongDoan();
+    this.getListCaSanXuat();
+    this.getListCaThucTe();
     // this.getListCapBong();
   }
+
+  getListCaSanXuat() {
+    this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListCaThucTe() {
+    this._services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
+      this.listCaThucTe = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
-  
-  ChuyenTiep() {
+
+  validate() {
+    let result = false;
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
+      result = true;
+    }
+    if (!this.item.IddmCaSanXuat || !this.item.IddmCaSanXuatThucTe) {
+      this.toastr.error("Vui lòng điền đầy đủ thông tin cần thiết");
+      result = true;
+    }
+    return result
+  }
+
+  ChuyenTiep() {
+    if (this.validate()) {
+      return;
     }
     else {
-      if (this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined) {
+      if (this.newTableItem.SoKien != undefined && this.newTableItem.SoCan != undefined) {
         this.addBongHoi();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
@@ -88,11 +117,11 @@ export class NhapkhobongphemodalComponent implements OnInit {
     }
   }
   KhongDuyet() {
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày");
+    if (this.validate()) {
+      return;
     }
     else {
-      if (this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined) {
+      if (this.newTableItem.SoKien != undefined && this.newTableItem.SoCan != undefined) {
         this.addBongHoi();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
@@ -121,13 +150,13 @@ export class NhapkhobongphemodalComponent implements OnInit {
   }
 
   GhiLai() {
-   if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày");
+    if (this.validate()) {
+      return;
     }
     else {
-      if ( this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined)
-          this.addBongHoi();
-          this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      if (this.newTableItem.SoKien != undefined && this.newTableItem.SoCan != undefined)
+        this.addBongHoi();
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuBongPhe().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -164,13 +193,13 @@ export class NhapkhobongphemodalComponent implements OnInit {
     }).catch(er => console.log(er))
   }
   getListCongDoan() {
-  this._services.GetListCongDoan().subscribe((res: any) => {
-    this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
-  })
-}
+    this._services.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+    })
+  }
   getListKho() {
-      // else  if (this.type === 'bongphe'){
-        this.data.Loai = 7;
+    // else  if (this.type === 'bongphe'){
+    this.data.Loai = 7;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
@@ -178,26 +207,26 @@ export class NhapkhobongphemodalComponent implements OnInit {
   getListLoaiBong() {
     this.data.Loai = 7;
     this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
-      res.sort((a,b)=>{
+      res.sort((a, b) => {
         return a.Ten.localeCompare(b.Ten);
       })
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  
+
   addBongHoi() {
-    if(validVariable(this.newTableItem.IddmLoaiBong) && validVariable(this.newTableItem.SoKien) && validVariable(this.newTableItem.SoCan)){
+    if (validVariable(this.newTableItem.IddmLoaiBong) && validVariable(this.newTableItem.SoKien) && validVariable(this.newTableItem.SoCan)) {
       if (this.item.listItem == undefined || this.item.listItem == null)
-      this.item.listItem = [];
-    this.item.listItem.push(deepCopy(this.newTableItem));
-    this.newTableItem = {}
+        this.item.listItem = [];
+      this.item.listItem.push(deepCopy(this.newTableItem));
+      this.newTableItem = {}
     }
-    else{
+    else {
       this.toastr.warning('Bạn cần nhập đầy đủ thông tin!')
 
     }
   }
- 
+
   deleteBongHoi(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -206,16 +235,16 @@ export class NhapkhobongphemodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  
+
   Onclose() {
     this.activeModal.close();
   }
-  exportHoaDon(){
-    if(validVariable(this.item.Id)){
+  exportHoaDon() {
+    if (validVariable(this.item.Id)) {
       this._services.QuyTrinhPhieuBongPhe().ExportHoaDonNhapKhoBongPhe(this.item.Id).subscribe((res: any) => {
         this._services.download(res.TenFile);
       })
-    }else{
+    } else {
       this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
     }
   }
