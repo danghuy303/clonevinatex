@@ -67,7 +67,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   getOSName(url) {
     // if (url.includes("sanxuat")) {
     this.showDropDown = true;
-    this.OSName = "Hệ thống quản trị ngành sợi hhh";
+    this.OSName = "Hệ thống quản trị ngành sợi";
     this.getListNhaMay();
     // } else {
     //   this.showDropDown = false;
