@@ -13,12 +13,12 @@ import { ThongkesanluongmodalComponent } from '../thongkesanluongmodal/thongkesa
   templateUrl: './thongkesanluong.component.html',
   styleUrls: ['./thongkesanluong.component.css']
 })
-export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDestroy {
+export class ThongkesanluongComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
-  items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
-  filter:any={};
-  listLoaiPhuongAn:any=[];
-  trangThai:any=1;
+  items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
+  filter: any = {};
+  listLoaiPhuongAn: any = [];
+  trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
@@ -32,12 +32,12 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
       width: '100px'
     },
     {
-      header: 'Thời điểm',
+      header: 'Ca',
       field: 'TendmCaSanXuat',
       width: '150px'
     },
     {
-      header: 'Ca',
+      header: 'Kíp',
       field: 'TendmCaSanXuatThucTe',
       width: '150px'
     },
@@ -67,19 +67,20 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
       width: '150px'
     },
   ];
-  checkQuyen:any={ChuaXuLy:false,DaXyLy:false,ThemMoi:false};
+  checkQuyen: any = { ChuaXuLy: false, DaXyLy: false, ThemMoi: false };
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
   eAction = 'THONGKESANLUONG'
-  constructor(public _modal:NgbModal,public store:StoreService,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { super(store)
+  constructor(public _modal: NgbModal, public store: StoreService, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
+    super(store)
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== '0') {
         this.update(res.id);
       }
-    
+
     })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
@@ -96,13 +97,13 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  changeParam(id){
-    if(this._modal.hasOpenModals()){
+  changeParam(id) {
+    if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/theodoithongkebaocaosanxuat/thongkesanluong/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/theodoithongkebaocaosanxuat/thongkesanluong/${id}`], { replaceUrl: true })
   }
-  add(){
+  add() {
     this.changeParam(0);
     let modalRef = this._modal.open(ThongkesanluongmodalComponent, {
       size: 'fullscreen',
@@ -112,71 +113,75 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
-    this.changeParam(0);
+      this.changeParam(0);
     })
-    .catch(er => { console.log(er)
-      this.GetListQuyTrinh();
-      this.changeParam(0); })
-  }
-  update(Id){
-    this._service.ThongKeSanLuong().Get(Id).subscribe((res1: any) => {
-      
-    let modalRef = this._modal.open(ThongkesanluongmodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    this.changeParam(0);
-    })
-      .catch(er => { console.log(er)
+      .catch(er => {
+        console.log(er)
         this.GetListQuyTrinh();
-        this.changeParam(0); })
+        this.changeParam(0);
+      })
+  }
+  update(Id) {
+    this._service.ThongKeSanLuong().Get(Id).subscribe((res1: any) => {
+
+      let modalRef = this._modal.open(ThongkesanluongmodalComponent, {
+        size: 'fullscreen',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+      modalRef.result.then((res: any) => {
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      })
+        .catch(er => {
+          console.log(er)
+          this.GetListQuyTrinh();
+          this.changeParam(0);
+        })
     })
   }
-  changeTab(e){
-    this.trangThai = e.index+1;
+  changeTab(e) {
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
-  changePage(event){
+  changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?){
+  GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data={
+    let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
-      sFilter:this.filter.KeyWord,
-      TuNgay:DateToUnix(this.filter.TuNgay),
-      DenNgay:DateToUnix(this.filter.DenNgay),
+      sFilter: this.filter.KeyWord,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
       IddmPhanXuong: this.filter.IddmPhanXuong,
       IddmCaSanXuatThucTe: this.filter.IddmCaSanXuatThucTe,
     }
-    this._service.ThongKeSanLuong().GetList(data).subscribe((res:any)=>{
+    this._service.ThongKeSanLuong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
   }
-  resetFilter(){
-    this.filter={};
+  resetFilter() {
+    this.filter = {};
     this.GetListQuyTrinh(true);
   }
-  KiemTraTabTrangThai(){
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+  KiemTraTabTrangThai() {
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }

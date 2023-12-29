@@ -28,12 +28,12 @@ export class NhapkhohoiamComponent extends StoreBase implements OnInit, OnDestro
       width: 'unset'
     },
     {
-      header: 'Ca',
+      header: 'Kíp',
       field: 'TendmCaSanXuatThucTe',
       width: 'unset'
     },
     {
-      header: 'Thời điểm',
+      header: 'Ca',
       field: 'TendmCaSanXuat',
       width: 'unset'
     },

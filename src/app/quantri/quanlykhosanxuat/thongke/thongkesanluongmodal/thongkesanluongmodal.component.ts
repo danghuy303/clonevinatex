@@ -29,12 +29,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   listCongDoan: any = [];
   listCaSanXuat: any = [];
+  listCaThucTe: any = [];
   listPhanXuong: any = [];
   listItem: any = [];
   editTableItem: any = {};
   lang: any = vn;
   listLoHang: any = [];
-  listCaThucTe: any = [];
   TongKhoiLuong: any = 0;
   userInfo: any;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -64,8 +64,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.getListPhanXuong();
-    this.getListCaSanXuat();
     this.getListLoHang();
+    this.getListCaSanXuat();
     this.getListCaThucTe();
     this.$typing = this.typing.asObservable().pipe(debounceTime(200)).subscribe(_ => { this.TinhTyLeThongKeSanLuongBongPhe() });
   }

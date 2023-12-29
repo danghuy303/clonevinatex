@@ -59,9 +59,9 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca làm việc:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kíp làm việc:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listCaMay" placeholder="Chọn ca"
+                <p-dropdown [filter]="true" [options]="listCaMay" placeholder="Chọn kíp"
                     [(ngModel)]="item.IddmCaSanXuatThucTe" (onChange)="getListSanLuongOng()"
                     styleClass="p-inputtext-sm"></p-dropdown>
             </div>
@@ -75,11 +75,10 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Thời điểm:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Thời điểm"
-                    (onChange)="getListSanLuongOng()" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmCaSanXuat"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Ca" (onChange)="getListSanLuongOng()"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmCaSanXuat"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -91,7 +90,7 @@
         <div class="p-col-12 d-flex flex-column">
             <div class="p-col-12">
                 <span class="text-danger" style="font-size: 14px;">Lưu ý(*): Vui lòng nhập đầy đủ các trường <b>Ngày
-                        chứng từ, Phân xưởng, Thời điểm</b> để có chức năng cảnh báo! </span>
+                        chứng từ, Phân xưởng, Ca</b> để có chức năng cảnh báo! </span>
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">

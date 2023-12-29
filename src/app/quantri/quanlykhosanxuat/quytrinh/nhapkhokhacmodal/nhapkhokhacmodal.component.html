@@ -67,8 +67,22 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn ca" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmCaSanXuat"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kíp <span class="text-danger">*</span>:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listCaThucTe" placeholder="Chọn kíp" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmCaSanXuatThucTe"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
