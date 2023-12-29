@@ -146,239 +146,250 @@
             </div>
         </div>
         <p-tabView (onChange)="ChangeTab($event)">
-            <p-tabPanel *ngFor="let label of item.listHeaderlabel" [header]="label">
-                <div *ngIf="TabView === 0">
-                    <p-table [value]="item.listData1" [scrollable]="true" scrollHeight="400px"
-                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader1" [attr.rowspan]="kiemkehead.rowspan"
-                                    [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader1" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-item1 let-i="rowIndex">
-                            <tr [style]="{fontWeight:item1.bold,color:item1.color}">
-                                <td class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay }}
-                                </td>
-                                <td *ngIf="item1.ThanhPhan" >{{ item1.ThanhPhan }}</td>
-                                <td *ngFor="let data of item1?.listGiaTri">
-                                    <div>
-                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
-                                            [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                            [disabled]="data.isDisable"></p-inputNumber>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-                <div *ngIf="TabView === 1">
-                    <p-table [value]="item.listData2" [scrollable]="true" scrollHeight="400px"
-                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader2" [attr.rowspan]="kiemkehead.rowspan"
-                                    [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader2" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-item1 let-i="rowIndex">
-                            <tr [style]="{fontWeight:item1.bold,color:item1.color}">
-                                <td class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay }}</td>
-                                <td *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
-                                <td *ngFor="let data of item1?.listGiaTri">
-                                    <div>
-                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
-                                            [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                            [disabled]="data.isDisable"></p-inputNumber>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-                <div *ngIf="TabView === 2">
-                    <p-table [value]="item.listData3" [scrollable]="true" scrollHeight="400px"
-                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
-                        <ng-template pTemplate="colgroup">
-                            <col style="width:50px">
-                            <col style="min-width:200px">
-                            <col style="width:100px" *ngFor="let col of item.listData3[0]?.listGiaTri">
-                        </ng-template>
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader3" [attr.rowspan]="kiemkehead.rowspan"
-                                    [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader3" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-item1 let-i="rowIndex">
-                            <tr [style]="{fontWeight:item1.bold,color:item1.color}">
-                                <td class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay }}</td>
-                                <td *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
-                                <td *ngFor="let data of item1?.listGiaTri">
-                                    <div>
-                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
-                                            [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                            [disabled]="data.isDisable"></p-inputNumber>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-                <div *ngIf="TabView === 3">
-                    <p-table [value]="item.listData1" [scrollable]="true" scrollHeight="400px"
-                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
-                        <ng-template pTemplate="colgroup">
-                            <col style="width:50px">
-                            <col style="min-width:200px">
-                            <col style="width:100px" *ngFor="let col of item.listData1[0]?.listGiaTri">
-                        </ng-template>
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader1" [attr.rowspan]="kiemkehead.rowspan"
-                                    [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader1" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-item1 let-i="rowIndex">
-                            <tr [style]="{fontWeight:item1.bold,color:item1.color}">
-                                <td class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay }}</td>
-                                <td *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
-                                <td *ngFor="let data of item1?.listGiaTri">
-                                    <div>
-                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
-                                            [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                            [disabled]="data.isDisable"></p-inputNumber>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-                <div *ngIf="TabView === 4">
-                    <p-table [value]="item.listData5" [scrollable]="true" scrollHeight="400px"
-                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
-                        <ng-template pTemplate="colgroup">
-                            <col style="width:50px">
-                            <col style="min-width:200px">
-                            <col style="width:100px" *ngFor="let col of item.listData5[0]?.listGiaTri">
-                        </ng-template>
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader5" [attr.rowspan]="kiemkehead.rowspan"
-                                    [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader5" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-item1 let-i="rowIndex">
-                            <tr [style]="{fontWeight:item1.bold,color:item1.color}">
-                                <td class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay }}</td>
-                                <td *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
-                                <td *ngFor="let data of item1?.listGiaTri">
-                                    <div>
-                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
-                                            [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                            [disabled]="data.isDisable"></p-inputNumber>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-                <div *ngIf="TabView === 5">
-                    <p-table [value]="item.listData6" [scrollable]="true" scrollHeight="400px"
-                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
-                        <ng-template pTemplate="colgroup">
-                            <col style="width:50px">
-                            <col style="min-width:200px">
-                            <col style="width:100px" *ngFor="let col of item.listData6[0]?.listGiaTri">
-                        </ng-template>
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader6" [attr.rowspan]="kiemkehead.rowspan"
-                                    [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th *ngFor="let kiemkehead of item.listHeader6" [ngStyle]="{
-                      display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''
-                    }">
-                                    {{ kiemkehead.name }}
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-item1 let-i="rowIndex">
-                            <tr [style]="{fontWeight:item1.bold,color:item1.color}">
-                                <td class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay }}</td>
-                                <td *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
-                                <td *ngFor="let data of item1?.listGiaTri">
-                                    <div>
-                                        <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
-                                            [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                            [disabled]="data.isDisable"></p-inputNumber>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
+            <p-tabPanel *ngFor="let label of item.listHeaderlabel" [header]="label" [selected]="i == 0">
             </p-tabPanel>
         </p-tabView>
+        <div>
+            <div *ngIf="TabView === 0">
+                <p-table [value]="item.listData1" [scrollable]="true" scrollHeight="400px"
+                    styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+                    <ng-template pTemplate="colgroup">
+                        <col *ngIf="item.listData1[0].TendmMay" style="width:200px">
+                        <col *ngIf="item.listData1[0].ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData1[0].listGiaTri">
+                            <col style="width:150px">
+                        </ng-container>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr *ngFor="let kiemkehead of item.listHeader1New; let i=index">
+                            <th [ngClass]="'text-center'" *ngFor="let x of kiemkehead.listHeader"
+                                [attr.rowspan]="x.rowspan" [attr.colspan]="x.colspan">
+                                {{x.name}}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item1 let-i="rowIndex">
+                        <tr [style]="{fontWeight:item1.bold,color:item1.color}">
+                            <td class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay }}
+                            </td>
+                            <td class="text-center" *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
+                            <td *ngFor="let data of item1?.listGiaTri">
+                                <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
+                                    mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
+                                    [disabled]="data.isDisable"></p-inputNumber>
+                                <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
+                                    [(ngModel)]="data.NoiDung" pInputText />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+
+                <!-- <div class="pintable-container" voiPintable [pinnedCols]="1">
+                    <table>
+                        <thead>
+                            <tr *ngFor="let kiemkehead of item.listHeader1New; let i=index">
+                                <th [ngClass]="'text-center tc-w-200'" *ngFor="let x of kiemkehead.listHeader"
+                                     [attr.rowspan]="x.rowspan"
+                                    [attr.colspan]="x.colspan">
+                                    {{x.name}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let item1 of item.listData1; let i = index">
+                                <tr>
+                                    <td style="background-color: white;z-index: 999;" class="text-center tc-w-200" *ngIf="item1.TendmMay">{{ item1.TendmMay }}
+                                    </td>
+                                    <td class="text-center tc-w-200" *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
+                                    <td class="text-center  tc-w-200" *ngFor="let data of item1?.listGiaTri">
+                                        <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
+                                            mode="decimal" [maxFractionDigits]="data.SoSauDauPhay"
+                                            [(ngModel)]="data.GiaTri" [disabled]="data.isDisable"></p-inputNumber>
+                                        <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
+                                            [(ngModel)]="data.NoiDung" pInputText />
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div> -->
+
+            </div>
+            <div *ngIf="TabView === 1">
+                <p-table [value]="item.listData2" [scrollable]="true" scrollHeight="400px"
+                    styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+                    <ng-template pTemplate="colgroup">
+                        <col *ngIf="item.listData2[0].TendmMay" style="width:200px">
+                        <col *ngIf="item.listData2[0].ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData2[0].listGiaTri">
+                            <col style="width:150px">
+                        </ng-container>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr *ngFor="let kiemkehead of item.listHeader2New; let i=index">
+                            <th [ngClass]="'text-center'" *ngFor="let x of kiemkehead.listHeader"
+                                [attr.rowspan]="x.rowspan" [attr.colspan]="x.colspan">
+                                {{x.name}}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item1 let-i="rowIndex">
+                        <tr [style]="{fontWeight:item1.bold,color:item1.color}">
+                            <td class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay }}</td>
+                            <td class="text-center" *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
+                            <td *ngFor="let data of item1?.listGiaTri">
+                                <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
+                                    mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
+                                    [disabled]="data.isDisable"></p-inputNumber>
+                                <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
+                                    [(ngModel)]="data.NoiDung" pInputText />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div *ngIf="TabView === 2">
+                <p-table [value]="item.listData3" [scrollable]="true" scrollHeight="400px"
+                    styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+                    <ng-template pTemplate="colgroup">
+                        <col *ngIf="item.listData3[0].TendmMay" style="width:200px">
+                        <col *ngIf="item.listData3[0].ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData3[0].listGiaTri">
+                            <col style="width:150px">
+                        </ng-container>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr *ngFor="let kiemkehead of item.listHeader3New; let i=index">
+                            <th [ngClass]="'text-center'" *ngFor="let x of kiemkehead.listHeader"
+                                [attr.rowspan]="x.rowspan" [attr.colspan]="x.colspan">
+                                {{x.name}}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item1 let-i="rowIndex">
+                        <tr [style]="{fontWeight:item1.bold,color:item1.color}">
+                            <td class="text-center" *ngIf="item1.TendmMay">{{
+                                item1.TendmMay }}</td>
+                            <td class="text-center" *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}
+                            </td>
+                            <td class="" *ngFor="let data of item1?.listGiaTri">
+                                <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
+                                    mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
+                                    [disabled]="data.isDisable"></p-inputNumber>
+                                <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
+                                    [(ngModel)]="data.NoiDung" pInputText />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div *ngIf="TabView === 3">
+                <p-table [value]="item.listData4" [scrollable]="true" scrollHeight="400px"
+                    styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+                    <ng-template pTemplate="colgroup">
+                        <col *ngIf="item.listData4[0].TendmMay" style="width:200px">
+                        <col *ngIf="item.listData4[0].ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData4[0].listGiaTri">
+                            <col style="width:150px">
+                        </ng-container>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr *ngFor="let kiemkehead of item.listHeader4New; let i=index">
+                            <th [ngClass]="'text-center'" *ngFor="let x of kiemkehead.listHeader"
+                                [attr.rowspan]="x.rowspan" [attr.colspan]="x.colspan">
+                                {{x.name}}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item1 let-i="rowIndex">
+                        <tr [style]="{fontWeight:item1.bold,color:item1.color}">
+                            <td class="text-center" *ngIf="item1.TendmMay" style="width:200px">{{ item1.TendmMay }}</td>
+                            <td class="text-center" *ngIf="item1.ThanhPhan" style="width:200px">{{ item1.ThanhPhan }}</td>
+                            <td *ngFor="let data of item1?.listGiaTri">
+                                <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
+                                    mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
+                                    [disabled]="data.isDisable"></p-inputNumber>
+                                <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
+                                    [(ngModel)]="data.NoiDung" pInputText />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div *ngIf="TabView === 4">
+                <div>
+                    <button pButton pRipple type="button" label="Nhập dữ liệu" class="p-mr-2 p-button-sm"
+                        (click)="NhapDuLieuTho()"></button>
+                    <button pButton pRipple type="button" label="Xuất dữ liệu" class="p-mr-2 p-button-sm"
+                        (click)="XuatDuLieuTho()"></button>
+                </div>
+                <div *ngIf="item.listData5.length">
+                    <p-table [value]="item.listData5" [scrollable]="true" style="width:100%" scrollHeight="400px"
+                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+                        <ng-template pTemplate="colgroup">
+                            <ng-container *ngIf="this.kiemke.CongDoan !== 'GHEPTHO'">
+                                <col *ngIf="item.listData5[0].TendmMay" style="width:200px">
+                                <col *ngIf="item.listData5[0].ThanhPhan" style="width:200px">
+                            </ng-container>
+                            <ng-container *ngFor="let y of item.listData5[0].listGiaTri">
+                                <col style="width:150px">
+                            </ng-container>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr *ngFor="let kiemkehead of item.listHeader5New; let i=index">
+                                <th [ngClass]="'text-center'" *ngFor="let x of kiemkehead.listHeader"
+                                    style="width:200px" [attr.rowspan]="x.rowspan" [attr.colspan]="x.colspan">
+                                    {{x.name}}</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item1 let-i="rowIndex">
+                            <tr [ngStyle]="{fontWeight:item1.bold,color:item1.color}">
+                                <ng-container *ngIf="this.kiemke.CongDoan !== 'GHEPTHO'">
+                                    <td style="width:200px" class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay
+                                        }}
+                                    </td>
+                                    <td style="width:200px" class="text-center" *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
+                                </ng-container>
+                                <td style="width:200px" *ngFor="let data of item1?.listGiaTri">
+                                    <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
+                                        mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
+                                        [disabled]="data.isDisable"></p-inputNumber>
+                                    <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
+                                        [(ngModel)]="data.NoiDung" pInputText />
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+
+            </div>
+            <div *ngIf="TabView === 5">
+                <p-table [value]="item.listData6" [scrollable]="true" scrollHeight="400px"
+                    styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+                    <ng-template pTemplate="colgroup">
+                        <col *ngIf="item.listData6[0].TendmMay" style="width:200px">
+                        <col *ngIf="item.listData6[0].ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData6[0].listGiaTri">
+                            <col style="width:150px">
+                        </ng-container>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr *ngFor="let kiemkehead of item.listHeader6New; let i=index">
+                            <th [ngClass]="'text-center'" *ngFor="let x of kiemkehead.listHeader"
+                                [attr.rowspan]="x.rowspan" [attr.colspan]="x.colspan">
+                                {{x.name}}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item1 let-i="rowIndex">
+                        <tr [style]="{fontWeight:item1.bold,color:item1.color}">
+                            <td class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay }}</td>
+                            <td class="text-center" *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
+                            <td *ngFor="let data of item1?.listGiaTri">
+                                <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
+                                    mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
+                                    [disabled]="data.isDisable"></p-inputNumber>
+                                <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
+                                    [(ngModel)]="data.NoiDung" pInputText />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
     </div>
 </div>
