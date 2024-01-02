@@ -19,6 +19,7 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
   opt = '';
   Nam: any;
   title: any = '';
+  type: any = '';
   kiemke: any = {};
   item: any = {};
   checkbutton:any = {};

@@ -8,7 +8,7 @@ import { HttpHeaders } from "@angular/common/http";
 // export const host1 = `${window.location.origin.includes("4200")
 export const host1 = `${window.location.origin.includes("localhost")
   // ? "http://soindt.vinatex.com.vn"
-  ? "http://103.130.212.35:2369"
+  ? "http://103.130.212.35:2371"
   : window.location.origin
   }`;
 // export const host1 = `http://27.71.231.140`;
@@ -62,6 +62,7 @@ export class API {
   public static danhmuc = API.baseUrl + "DanhMuc/";
   public static QLTSD = API.baseUrl + "QuanLyTaiSanDat/";
   public static uploadURL = host1 + "/QLTS/FileUploader/Post";
+  public static uploader = host1 + "/uploader/Post";
   public static uploadURLalt = host1 + "/uploader/api/hdfiles";
   public static downloadURL = host1 + "/uploader/api/hdfiles";
   public static imgURL = host1;

@@ -322,6 +322,10 @@ import { DanhSachMatHangComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ba
 import { LapKeHoachComponent } from './lap-ke-hoach/lap-ke-hoach.component';
 import { KiemTraBanChePhamHueComponent } from './quanlykhosanxuat/thongke/kiem-tra-ban-che-pham-hue/kiem-tra-ban-che-pham-hue.component';
 import { KiemKeBanChePhamHueModalComponent } from './quanlykhosanxuat/thongke/kiem-tra-ban-che-pham-hue/kiem-ke-ban-che-pham-hue-modal/kiem-ke-ban-che-pham-hue-modal.component';
+import { NhapKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/nhap-kho-gia-cong/nhap-kho-gia-cong.component';
+import { XuatKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/xuat-kho-gia-cong/xuat-kho-gia-cong.component';
+import { NhapKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/nhap-kho-gia-cong/nhap-kho-gia-cong-modal/nhap-kho-gia-cong-modal.component';
+import { DanhMucMatHangPopupComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/danh-muc-mat-hang-popup/danh-muc-mat-hang-popup.component';
 
 @NgModule({
   declarations: [
@@ -590,6 +594,10 @@ import { KiemKeBanChePhamHueModalComponent } from './quanlykhosanxuat/thongke/ki
     LapKeHoachComponent,
     KiemTraBanChePhamHueComponent,
     KiemKeBanChePhamHueModalComponent,
+    NhapKhoGiaCongComponent,
+    XuatKhoGiaCongComponent,
+    NhapKhoGiaCongModalComponent,
+    DanhMucMatHangPopupComponent,
   ],
   imports: [
     HttpClientModule,

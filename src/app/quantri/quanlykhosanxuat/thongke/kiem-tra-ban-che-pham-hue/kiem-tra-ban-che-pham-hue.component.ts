@@ -157,6 +157,7 @@ export class KiemTraBanChePhamHueComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.opt = "edit";
         modalRef.componentInstance.title = 'Tổng hợp kiểm kê kho bán chế phẩm';
         modalRef.componentInstance.item = res.objectReturn;
+        modalRef.componentInstance.type = 'Tiêu hao';
         modalRef.result
           .then(data => {
           })

@@ -32,9 +32,9 @@ export class KiemKeBanChePhamHueModalComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   isKiemKe: boolean = false;
   isKiemKeXoa: boolean = false;
-  listTab: any = [];
-  listHead: any = [];
-  TabView:number = 0;
+  listHeader1New: any = [];
+  listData1: any = [];
+  TabView: number = 0;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -118,12 +118,16 @@ export class KiemKeBanChePhamHueModalComponent implements OnInit {
           this.title = 'Kiểm kê kho bán chế phẩm';
           this.item = {
             ...res.objectReturn,
-            listHeader1: res.objectReturn.listHeader1 ? res.objectReturn.listHeader1 : [],
-            listHeader2: res.objectReturn.listHeader2 ? res.objectReturn.listHeader2 : [],
-            listHeader3: res.objectReturn.listHeader3 ? res.objectReturn.listHeader3 : [],
-            listHeader4: res.objectReturn.listHeader4 ? res.objectReturn.listHeader4 : [],
-            listHeader5: res.objectReturn.listHeader5 ? res.objectReturn.listHeader5 : [],
-            listHeader6: res.objectReturn.listHeader6 ? res.objectReturn.listHeader6 : [],
+            listHeader3New: res.objectReturn.listHeader3New.map(ele => {
+              return {
+                ...ele,
+                listHeader: ele.listHeader.map(obj => {
+                  return {
+                    ...obj,
+                  }
+                })
+              }
+            })
           };
           this.Nam = `${this.item.Thang}/${this.item.Nam}`
         }
@@ -141,13 +145,20 @@ export class KiemKeBanChePhamHueModalComponent implements OnInit {
 
   GhiLai() {
     this._services.KiemKeBanChePhamHue().Set(this.setData()).subscribe((res: any) => {
-      this.item = res.objectReturn;
+      // this.item = res.objectReturn;
+      this.GetById(res.objectReturn.Id)
       if (res.State === 1)
         this.toastr.success(res.message);
       else
         this.toastr.error(res.message);
     })
     this.isKiemKeXoa = true
+  }
+
+  GetById(Id) {
+    this._services.KiemKeBanChePhamHue().Get(Id).subscribe((res: any) => {
+      this.item = res.objectReturn;
+    });
   }
 
   KhongDuyet() {
@@ -218,8 +229,31 @@ export class KiemKeBanChePhamHueModalComponent implements OnInit {
     this.activeModal.dismiss();
   }
 
-  ChangeTab(e:any) {
-    this.TabView = e.index
+  ChangeTab(e: any) {
+    this.TabView = e.index;
+  }
+
+  NhapDuLieuTho() {
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
+      backdrop: 'static',
+    })
+    modalRef.componentInstance.importFunc = this.item.Id;
+    modalRef.componentInstance.dataImport = this.item;
+    modalRef.componentInstance.Name = "BCPHUE";
+    modalRef.result.then(res => {
+      this.item = {
+        ...this.item,
+        listData5: res.listData5,
+        listHeader5New: res.listHeader5New
+      };
+    })
+      .catch(er => console.log(er))
+  }
+
+  XuatDuLieuTho() {
+    this._services.KiemKeBanChePham().ExportFileMauThoDuTru().subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
   }
 
 }

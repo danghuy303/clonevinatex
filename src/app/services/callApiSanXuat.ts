@@ -3083,6 +3083,12 @@ export class SanXuatService {
             ImportKiemKeBanChePhamToHieu: (data) => {
                 return this.http.post(url + 'KiemKeBanChePham/ImportPhieuKiemKeBanChePhamToHieu ', data, httpOptions);
             },
+            ImportThoDuTru: (data) => {
+                return this.http.post(url + 'KiemKeBanChePham/ImportThoDuTru', data, httpOptions);
+            },
+            ExportFileMauThoDuTru: () => {
+                return this.http.get(url + `KiemKeBanChePham/ExportFileMauThoDuTru`, httpOptions);
+            },
             ExportPhieuKiemKeBanChePhamToHieuTongHop: (Id) => {
                 return this.http.get(url + `KiemKeBanChePham/ExportPhieuKiemKeBanChePhamToHieuTongHop?id=${Id}`, httpOptions);
             },
@@ -3106,10 +3112,10 @@ export class SanXuatService {
         return {
             GetListPhieuKiemKeBanChePhamToHieuTongHop: (data) => {
                 data.IdDuAn = this.store.getCurrent();
-                return this.http.post(url + `KiemKeBanChePham/GetListPhieuKiemKeBanChePhamToHieuTongHop`, data, httpOptions);
+                return this.http.post(url + `KiemKeBanChePham/GetListPhieuKiemKeBanChePhamHueTongHop`, data, httpOptions);
             },
             GetPhieuKiemKeBanChePhamToHieuTongHop: (Id) => {
-                return this.http.get(url + `KiemKeBanChePham/GetPhieuKiemKeBanChePhamToHieuTongHop?id=${Id}`, httpOptions);
+                return this.http.get(url + `KiemKeBanChePham/GetPhieuKiemKeBanChePhamHueTongHop?id=${Id}`, httpOptions);
             },
             GetList: (data) => {
                 // data.IdDuAn = this.store.getCurrent();
@@ -3143,11 +3149,11 @@ export class SanXuatService {
                 return this.http.post(url + 'KiemKeBanChePham/ImportPhieuKiemKeBanChePhamHue', data, httpOptions);
             },
             ExportPhieuKiemKeBanChePhamToHieuTongHop: (Id) => {
-                return this.http.get(url + `KiemKeBanChePham/ExportPhieuKiemKeBanChePhamToHieuTongHop?id=${Id}`, httpOptions);
+                return this.http.get(url + `KiemKeBanChePham/ExportPhieuKiemKeBanChePhamHueTongHop?id=${Id}`, httpOptions);
             },
             SetPhieuKiemKeBanChePhamToHieuTongHop: (data) => {
                 data.IdDuAn = this.store.getCurrent();
-                return this.http.post(url + 'KiemKeBanChePham/SetPhieuKiemKeBanChePhamToHieuTongHop', data, httpOptions);
+                return this.http.post(url + 'KiemKeBanChePham/SetPhieuKiemKeBanChePhamHueTongHop', data, httpOptions);
             },
             ChuyenTiep: (data) => {
                 data.IdDuAn = this.store.getCurrent();
