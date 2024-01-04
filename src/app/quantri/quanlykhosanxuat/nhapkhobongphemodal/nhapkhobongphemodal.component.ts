@@ -86,7 +86,7 @@ export class NhapkhobongphemodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  ngày");
       result = true;
     }
-    if (!this.item.IddmCaSanXuat || !this.item.IddmCaSanXuatThucTe) {
+    if (!this.item.IddmCaSanXuat) {
       this.toastr.error("Vui lòng điền đầy đủ thông tin cần thiết");
       result = true;
     }

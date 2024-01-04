@@ -150,7 +150,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
     else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined) {
       this.toastr.error("Bạn chưa chọn  danh mục loại bông");
       return;
-    } else if (!this.item.IddmCaSanXuat || !this.item.IddmCaSanXuatThucTe) {
+    } else if (!this.item.IddmCaSanXuat) {
       this.toastr.error("Vui lòng điền đầy đủ thông tin cần thiết");
       return;
 
