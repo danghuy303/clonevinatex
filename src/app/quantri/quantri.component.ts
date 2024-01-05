@@ -359,7 +359,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
           {
-            label: "Kiểm kê bán chế phẩm Huế",
+            label: "Kiểm kê bán chế phẩm",
             routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham-hue/0",
             icon: "fas fa-circle",
             separator: this.checkmenu("KIEMKEBANCHEPHAMHUE"),
@@ -704,6 +704,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Nhập kho",
             routerLink:
               "/quantri/quanlysanxuatkhogiacong/khogiacong/nhapkho/0",
+            separator: this.checkmenu("NHAPTHANHPHAM"),
+            command: () => this.close(),
+          },
+          {
+            label: "Xuất kho",
+            routerLink:
+              "/quantri/quanlysanxuatkhogiacong/khogiacong/xuatkho/0",
             separator: this.checkmenu("NHAPTHANHPHAM"),
             command: () => this.close(),
           }

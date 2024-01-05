@@ -17,12 +17,13 @@ import { DanhSachMatHangComponent } from '../danh-sach-mat-hang/danh-sach-mat-ha
 export class BanChePhamToHieuTongHopComponent implements OnInit {
 
   opt = '';
+  bcp = '';
   Nam: any;
   title: any = '';
   type: any = '';
   kiemke: any = {};
   item: any = {};
-  checkbutton:any = {};
+  checkbutton: any = {};
   listPhanXuong: any = [];
   listMay: any = [];
   listCaSanXuat: any = [];
@@ -81,7 +82,8 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
   }
 
   GhiLai() {
-    this._services.KiemKeBanChePham().SetPhieuKiemKeBanChePhamToHieuTongHop(this.setData()).subscribe((res: any) => {
+    let API = this.bcp === 'HUE' ? this._services.KiemKeBanChePhamHue() : this._services.KiemKeBanChePham();
+    API.SetPhieuKiemKeBanChePhamToHieuTongHop(this.setData()).subscribe((res: any) => {
       this.item = res.objectReturn;
       this.toastr.success(res.message);
     })
@@ -89,7 +91,8 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
   }
 
   KhongDuyet() {
-    this._services.KiemKeBanChePham().KhongDuyet(this.setData()).subscribe((res: any) => {
+    let API = this.bcp === 'HUE' ? this._services.KiemKeBanChePhamHue() : this._services.KiemKeBanChePham();
+    API.KhongDuyet(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -99,7 +102,8 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
     })
   }
   ChuyenTiep() {
-    this._services.KiemKeBanChePham().ChuyenTiep(this.setData()).subscribe((res: any) => {
+    let API = this.bcp === 'HUE' ? this._services.KiemKeBanChePhamHue() : this._services.KiemKeBanChePham();
+    API.ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -116,7 +120,8 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._services.KiemKeBanChePham().Delete(this.item).subscribe((res: any) => {
+        let API = this.bcp === 'HUE' ? this._services.KiemKeBanChePhamHue() : this._services.KiemKeBanChePham();
+        API.Delete(this.item).subscribe((res: any) => {
           if (res.State === 1) {
             this.toastr.success(res.message);
             this.activeModal.close();
@@ -129,13 +134,14 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
   }
 
   XuatDuLieu() {
-    this._services.KiemKeBanChePham().ExportPhieuKiemKeBanChePhamToHieuTongHop(this.item.Id).subscribe((res: any) => {
+    let API = this.bcp === 'HUE' ? this._services.KiemKeBanChePhamHue() : this._services.KiemKeBanChePham();
+    API.ExportPhieuKiemKeBanChePhamToHieuTongHop(this.item.Id).subscribe((res: any) => {
       this._services.download(res.TenFile);
     })
   }
 
   Link(id) {
-    this.router.navigate([`/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham-tohieu/${id}`], {
+    this.router.navigate([`/quantri/quanlykhosanxuat/khobong/${this.bcp === 'HUE' ? 'kiemtrabanchepham-hue' : 'kiemtrabanchepham-tohieu'}/${id}`], {
       replaceUrl: true,
     });
   }
@@ -152,7 +158,7 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
           listGiaTri: this.item.listData3[0].listGiaTri
         }
       });
-      this.item.listData3 = MergeArr(arr, this.item.listData3 , "IddmItem");
+      this.item.listData3 = MergeArr(arr, this.item.listData3, "IddmItem");
     }).catch(er => {
       console.log(er);
     })

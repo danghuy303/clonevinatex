@@ -140,7 +140,7 @@ export class CandoichuyenComponent extends StoreBase implements OnInit, OnDestro
     boTriMay(index, date?) {
         if (date?.header === 'none') {
         } else {
-            if (this.filter.CongDoan === "ONG") {
+            if (this.filter.CongDoan === "ONG" ) {
                 this._services.CanDoiChuyen().GetCanDoiChuyen(this.filter.IddmPhanXuong, this.filter.CongDoan, date.Unix).subscribe(res => {
                     console.log(res);
                     let modalRef = this._modal.open(BotrimayOngComponent, {
@@ -181,6 +181,7 @@ export class CandoichuyenComponent extends StoreBase implements OnInit, OnDestro
                     });
                     modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan];
                     modalRef.componentInstance.checkbutton = this.checkNavigationButton(index);
+                    modalRef.componentInstance.filter = this.filter;
                     modalRef.componentInstance.item = deepCopy(res);
                     // modalRef.componentInstance.canDieuChinh = (date.labelHienThi === this.today);
                     modalRef.componentInstance.canDieuChinh = true;

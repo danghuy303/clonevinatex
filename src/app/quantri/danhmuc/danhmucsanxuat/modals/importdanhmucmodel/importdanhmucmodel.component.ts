@@ -83,7 +83,20 @@ export class ImportdanhmucmodelComponent implements OnInit {
         }
       })
     }
-    else if (this.Name == 'BCPHUE') { //Import Bán chế phẩm huế
+    else if (this.Name == 'BCPHUECHUNG') { //Import Bán chế phẩm huế
+      let data = {
+        Id:this.importFunc,
+        FileName:this.TepImport.TenGui
+      }
+      this.service.KiemKeBanChePham().ImportKiemKeBanChePhamHue(data).subscribe((res: any) => {
+        if (res.State === 1) {
+          this._modalActive.close(res)
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
+    }
+    else if (this.Name == 'BCPHUE') { //Import Bán chế phẩm huế chung
       let data = {
         CongDoan: this.dataImport.CongDoan,
         Ngay: DateToUnix(this.dataImport.Ngay),

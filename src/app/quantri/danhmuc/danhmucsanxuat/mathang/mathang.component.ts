@@ -21,39 +21,39 @@ export class MathangComponent implements OnInit {
   items: any = [
   ];
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 0 };
-  keyWord:any='';
-  filter:any={
+  keyWord: any = '';
+  filter: any = {
   };
   cols: any = [
     {
       header: 'Mã',
       field: 'Ma',
       width: '100px',
-      align:'center'
+      align: 'center'
     },
     {
       header: 'Tên mặt hàng',
       field: 'Ten',
       width: '200px',
-      align:'center'
+      align: 'center'
     },
     {
       header: 'Loại sợi',
       field: 'TendmLoaiSoi',
       width: '200px',
-      align:'center'
+      align: 'center'
     },
     {
       header: 'Đơn vị tính',
       field: 'DonViDatHang',
       width: '100px',
-      align:'center'
+      align: 'center'
     },
     {
       header: 'Đặc tính sợi',
       field: 'DacTinhSoi',
       width: '100px',
-      align:'center'
+      align: 'center'
     },
     // {
     //   header: 'Chi số Ne',
@@ -73,7 +73,7 @@ export class MathangComponent implements OnInit {
     //   width: '100px',
     //   align:'center'
     // },
-    
+
     // {
     //   header: 'Ghi chú',
     //   field: 'GhiChu',
@@ -81,84 +81,107 @@ export class MathangComponent implements OnInit {
     //   center:'center'
     // }
   ];
-  listdmLoaiSoi:any = [];
-  listCongDoan : any = [];
-  selectedItems:any=[];
-  constructor(private _modal:NgbModal,
-    private _services:SanXuatService,
-    private _toastr:ToastrService) 
-    { }
+  listdmLoaiSoi: any = [];
+  listCongDoan: any = [];
+  selectedItems: any = [];
+  ItemsAll: any = [];
+
+  constructor(private _modal: NgbModal,
+    private _services: SanXuatService,
+    private _toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.GetListdm();
+    this.GetDataAll();
     this.GetListdmLoaiSoi();
     this.getListCongDoan();
   }
-  resetFilter(){
+  resetFilter() {
     this.filter = {
     };
-    this.GetListdm()
+    this.GetListdm();
+    this.GetDataAll();
   }
-  GetListdmLoaiSoi(){
-    this._services.GetListOptdmLoaiSoi().subscribe((res:any)=>{
+  GetListdmLoaiSoi() {
+    this._services.GetListOptdmLoaiSoi().subscribe((res: any) => {
       this.listdmLoaiSoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  GetListdm(reset?){
-    if(reset){
-      this.paging.CurrentPage=1;
+  GetListdm(reset?) {
+    if (reset) {
+      this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
     let data = {
-      PageSize:20, 
-      CurrentPage:this.paging.CurrentPage,
-      sFilter:this.filter.keyWord?this.filter.keyWord:'',
-      IddmLoaiSoi:this.filter.IddmLoaiSoi?this.filter.IddmLoaiSoi:'',
-      Ma:"", 
-      Ten:"",
-      Loai:"1",
-      HoatDong:2,
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
+      sFilter: this.filter.keyWord ? this.filter.keyWord : '',
+      IddmLoaiSoi: this.filter.IddmLoaiSoi ? this.filter.IddmLoaiSoi : '',
+      Ma: "",
+      Ten: "",
+      Loai: "1",
+      HoatDong: 2,
     };
-    this._services.GetListdmItem(data).subscribe((res:any)=>{
+    this._services.GetListdmItem(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
   }
-  add(){
-    let modalRef = this._modal.open(MathangmodelComponent,{
-      size:'lg',
-      backdrop:'static'
-    });
-    modalRef.componentInstance.opt='add';
-    modalRef.componentInstance.listCongDoan = this.listCongDoan;
 
-    modalRef.result.then(res=>{
-      this._toastr.success(res);
-      this.GetListdm()
-    }).catch(er=>console.log(er))
+  GetDataAll() {
+    let data = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: '',
+      IddmLoaiSoi: '',
+      Ma: "",
+      Ten: "",
+      Loai: "1",
+      HoatDong: 2,
+    };
+    this._services.GetListdmItem(data).subscribe((res: any) => {
+      this.ItemsAll = mapArrayForDropDown(res, 'Ten', 'Id')
+    })
   }
-  edit(item){
-    let modalRef = this._modal.open(MathangmodelComponent,{
-      size:'lg',
-      backdrop:'static'
+
+  add() {
+    let modalRef = this._modal.open(MathangmodelComponent, {
+      size: 'lg',
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.opt = 'add';
+    modalRef.componentInstance.listCongDoan = this.listCongDoan;
+    modalRef.componentInstance.listSoiDon = this.ItemsAll.length ? this.ItemsAll : [];
+    modalRef.result.then(res => {
+      this._toastr.success(res);
+      this.GetListdm();
+      this.GetDataAll();
+    }).catch(er => console.log(er))
+  }
+  edit(item) {
+    let modalRef = this._modal.open(MathangmodelComponent, {
+      size: 'lg',
+      backdrop: 'static'
     });
     item.listCongDoan = ['ONG']
-    modalRef.componentInstance.opt='edit';
+    modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.listCongDoan = this.listCongDoan;
+    modalRef.componentInstance.listSoiDon = this.ItemsAll.length ? this.ItemsAll : [];
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.result.then(res=>{
+    modalRef.result.then(res => {
       this._toastr.success(res);
-      this.GetListdm()
-    }).catch(er=>console.log(er))
+      this.GetListdm();
+      this.GetDataAll();
+    }).catch(er => console.log(er))
   }
-  delete(item){
-    let modalRef = this._modal.open(ModalthongbaoComponent,{
-      backdrop:'static'
+  delete(item) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
     });
-    let itemDel : any = {};
+    let itemDel: any = {};
     itemDel.Id = item.Id;
-    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
 
       this._services.DeletedmItem(itemDel).subscribe((res: any) => {
         if (res) {
@@ -170,14 +193,14 @@ export class MathangComponent implements OnInit {
           }
         }
       })
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  deleteAll(){
-    let modalRef = this._modal.open(ModalthongbaoComponent,{
-      backdrop:'static'
+  deleteAll() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
       this._services.DeletedmItem(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -189,39 +212,40 @@ export class MathangComponent implements OnInit {
           }
         }
       })
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  changePage(event){
-    this.paging.CurrentPage = event.page+1;
+  changePage(event) {
+    this.paging.CurrentPage = event.page + 1;
     this.GetListdm();
+    this.GetDataAll();
   }
-  importExcel(){
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
-      backdrop:'static',
+  importExcel() {
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
+      backdrop: 'static',
     })
     modalRef.componentInstance.importFunc = 'SCM_dmItem';
-    modalRef.result.then(res=>{
+    modalRef.result.then(res => {
       this.GetListdm();
       this._toastr.success(res.mess);
     })
-    .catch(er=>console.log(er))
+      .catch(er => console.log(er))
   }
-  exportExcel(){
+  exportExcel() {
     let data = {
-      PageSize:20, 
-      CurrentPage:0,
-      sFilter:this.filter.keyWord?this.filter.keyWord:'',
-      IddmLoaiSoi:this.filter.IddmLoaiSoi?this.filter.IddmLoaiSoi:'',
-      Ma:"", 
-      Ten:"",
-      Loai:"1",
-      TableName:'SCM_dmItem'
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: this.filter.keyWord ? this.filter.keyWord : '',
+      IddmLoaiSoi: this.filter.IddmLoaiSoi ? this.filter.IddmLoaiSoi : '',
+      Ma: "",
+      Ten: "",
+      Loai: "1",
+      TableName: 'SCM_dmItem'
     };
     this._services.Exportdm(data).subscribe((res: any) => {
       this._services.download(res.TenFile);
     })
   }
-  getListCongDoan(){
+  getListCongDoan() {
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
     })

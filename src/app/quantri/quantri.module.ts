@@ -326,6 +326,7 @@ import { NhapKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-con
 import { XuatKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/xuat-kho-gia-cong/xuat-kho-gia-cong.component';
 import { NhapKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/nhap-kho-gia-cong/nhap-kho-gia-cong-modal/nhap-kho-gia-cong-modal.component';
 import { DanhMucMatHangPopupComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/danh-muc-mat-hang-popup/danh-muc-mat-hang-popup.component';
+import { XuatKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/xuat-kho-gia-cong/xuat-kho-gia-cong-modal/xuat-kho-gia-cong-modal.component';
 
 @NgModule({
   declarations: [
@@ -598,6 +599,7 @@ import { DanhMucMatHangPopupComponent } from './quanlykhosanxuat/quytrinh/kho-gi
     XuatKhoGiaCongComponent,
     NhapKhoGiaCongModalComponent,
     DanhMucMatHangPopupComponent,
+    XuatKhoGiaCongModalComponent,
   ],
   imports: [
     HttpClientModule,

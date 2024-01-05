@@ -195,6 +195,7 @@ import { ChonVatTuThayTheComponent } from './screen/chon-vat-tu-thay-the/chon-va
 import { XuatKhoVatTuComponent } from './modal/xuat-kho-vat-tu/xuat-kho-vat-tu.component';
 import { XuatKhoVatTuDanhSachComponent } from './xuat-kho-vat-tu-danh-sach/xuat-kho-vat-tu-danh-sach.component';
 import { ChonVatTuPopupComponent } from './modal/xuat-kho-vat-tu/chon-vat-tu-popup/chon-vat-tu-popup.component';
+import { TaoQrPopupComponent } from './modal/tao-qr-popup/tao-qr-popup.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -339,6 +340,7 @@ import { ChonVatTuPopupComponent } from './modal/xuat-kho-vat-tu/chon-vat-tu-pop
     XuatKhoVatTuComponent,
     XuatKhoVatTuDanhSachComponent,
     ChonVatTuPopupComponent,
+    TaoQrPopupComponent,
   ],
   imports: [
     CommonModule,

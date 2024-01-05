@@ -3083,6 +3083,12 @@ export class SanXuatService {
             ImportKiemKeBanChePhamToHieu: (data) => {
                 return this.http.post(url + 'KiemKeBanChePham/ImportPhieuKiemKeBanChePhamToHieu ', data, httpOptions);
             },
+            ExportKiemKeBanChePhamHue: (Id) => {
+                return this.http.get(url + `KiemKeBanChePham/ExportPhieuKiemKeBanChePhamHue?id=${Id}`, httpOptions);
+            },
+            ImportKiemKeBanChePhamHue: (data) => {
+                return this.http.post(url + 'KiemKeBanChePham/ImportPhieuKiemKeBanChePhamHue', data, httpOptions);
+            },
             ImportThoDuTru: (data) => {
                 return this.http.post(url + 'KiemKeBanChePham/ImportThoDuTru', data, httpOptions);
             },

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { vn } from 'src/app/services/const';
 import { DanhMucMatHangPopupComponent } from '../../danh-muc-mat-hang-popup/danh-muc-mat-hang-popup.component';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nhap-kho-gia-cong-modal',
@@ -19,13 +21,16 @@ export class NhapKhoGiaCongModalComponent implements OnInit {
 
   constructor(
     public _modal: NgbModal,
+    public activeModal: NgbActiveModal,
+    private services: SanXuatService,
+    public toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
   }
 
   GetMatHangTheoKho() {
-    let modalRef = this._modal.open(DanhMucMatHangPopupComponent,{
+    let modalRef = this._modal.open(DanhMucMatHangPopupComponent, {
       size: 'lg',
       backdrop: 'static'
     })
@@ -56,7 +61,7 @@ export class NhapKhoGiaCongModalComponent implements OnInit {
   }
 
   Onclose() {
-
+    this.activeModal.close();
   }
 
 }

@@ -31,6 +31,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   listItemDieuChinh: any = [];
   optionMatHang: string = '';
   userInfo: any;
+  listKgcone: any = [];
 
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
     private _auth: AuthenticationService,) {
@@ -45,7 +46,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     }
 
     this.initLoaiSoiHoacLoaiMatHang();
-    console.log(this.item);
+    this.getKgcone();
     this.sort()
     this.initSpeedOption();
     // this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri.sort((a, b) => {
@@ -73,6 +74,24 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     }
     console.log(this.optionMatHang)
   }
+
+  getKgcone() {
+    this._services.GetListKgCone().subscribe((res: any) => {
+      this.listKgcone = mapArrayForDropDown(res, "GiaTri", "GiaTri");
+    });
+  }
+
+  handleCopy(_item: any, ca: any) {
+    let temp = this.item.listDaBoTri;
+    temp = temp.map((x: any) => {
+      if (x.IdCanDoiChuyen_CanBoTri === _item.IdCanDoiChuyen_CanBoTri) {
+        x.KgCone = _item.KgCone;
+      }
+      return x;
+    })
+    this.item.listDaBoTri = temp;
+  }
+
   sort() {
     this.item.listDaBoTri = this.item.listDaBoTri.sort((a: any, b: any) => {
       return a.TenMay.localeCompare(b.TenMay);

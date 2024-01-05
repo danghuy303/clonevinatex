@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row"
-            *ngIf="item.CongDoan==='THO'||item.CongDoan ==='CON'||item.CongDoan ==='ONG'">
+            *ngIf="item.CongDoan==='THO'||item.CongDoan ==='CON'||item.CongDoan ==='ONG' ||item.CongDoan ==='XE'">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số cọc:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoCoc"
@@ -94,7 +94,7 @@
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3"
-                *ngIf="item.CongDoan == 'CON' || item.CongDoan == 'ONG'">
+                *ngIf="item.CongDoan == 'CON' || item.CongDoan == 'ONG' || item.CongDoan == 'XE' || item.CongDoan == 'DAUXE'">
                 <div class="p-d-flex p-flex-row">
                     <button pButton pRipple [label]="childModalOpt==='MATHANG'?'Chọn mặt hàng':'Chọn loại sợi'"
                         icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="DanhSachHang()"></button>

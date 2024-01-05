@@ -146,11 +146,13 @@ export class KiemKeBanChePhamHueModalComponent implements OnInit {
   GhiLai() {
     this._services.KiemKeBanChePhamHue().Set(this.setData()).subscribe((res: any) => {
       // this.item = res.objectReturn;
-      this.GetById(res.objectReturn.Id)
-      if (res.State === 1)
+      if (res.State === 1) {
         this.toastr.success(res.message);
-      else
+        this.GetById(res.objectReturn.Id)
+      }
+      else {
         this.toastr.error(res.message);
+      }
     })
     this.isKiemKeXoa = true
   }
@@ -158,6 +160,7 @@ export class KiemKeBanChePhamHueModalComponent implements OnInit {
   GetById(Id) {
     this._services.KiemKeBanChePhamHue().Get(Id).subscribe((res: any) => {
       this.item = res.objectReturn;
+      this.KiemTraButtonModal();
     });
   }
 
@@ -173,7 +176,7 @@ export class KiemKeBanChePhamHueModalComponent implements OnInit {
   }
   ChuyenTiep() {
     this._services.KiemKeBanChePhamHue().ChuyenTiep(this.setData()).subscribe((res: any) => {
-      if (res.StatusCode !== 1) {
+      if (res.State !== 1) {
         this.toastr.error(res.message);
       } else {
         this.toastr.success(res.message);
@@ -212,7 +215,7 @@ export class KiemKeBanChePhamHueModalComponent implements OnInit {
       backdrop: 'static',
     })
     modalRef.componentInstance.importFunc = this.item.Id;
-    modalRef.componentInstance.Name = "BCP";
+    modalRef.componentInstance.Name = "BCPHUECHUNG";
     modalRef.result.then(res => {
       this.item = res.objectReturn;
       this.toastr.success(res.message);
@@ -220,7 +223,7 @@ export class KiemKeBanChePhamHueModalComponent implements OnInit {
       .catch(er => console.log(er))
   }
   XuatDuLieu() {
-    this._services.KiemKeBanChePham().ExportKiemKeBanChePham(this.item.Id).subscribe((res: any) => {
+    this._services.KiemKeBanChePham().ExportKiemKeBanChePhamHue(this.item.Id).subscribe((res: any) => {
       this._services.download(res.TenFile);
     })
   }

@@ -154,9 +154,9 @@
                 <p-table [value]="item.listData1" [scrollable]="true" scrollHeight="400px"
                     styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                     <ng-template pTemplate="colgroup">
-                        <col *ngIf="item.listData1[0].TendmMay" style="width:200px">
-                        <col *ngIf="item.listData1[0].ThanhPhan" style="width:200px">
-                        <ng-container *ngFor="let y of item.listData1[0].listGiaTri">
+                        <col *ngIf="item.listData1[0]?.TendmMay" style="width:200px">
+                        <col *ngIf="item.listData1[0]?.ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData1[0]?.listGiaTri">
                             <col style="width:150px">
                         </ng-container>
                     </ng-template>
@@ -217,9 +217,9 @@
                 <p-table [value]="item.listData2" [scrollable]="true" scrollHeight="400px"
                     styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                     <ng-template pTemplate="colgroup">
-                        <col *ngIf="item.listData2[0].TendmMay" style="width:200px">
-                        <col *ngIf="item.listData2[0].ThanhPhan" style="width:200px">
-                        <ng-container *ngFor="let y of item.listData2[0].listGiaTri">
+                        <col *ngIf="item.listData2[0]?.TendmMay" style="width:200px">
+                        <col *ngIf="item.listData2[0]?.ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData2[0]?.listGiaTri">
                             <col style="width:150px">
                         </ng-container>
                     </ng-template>
@@ -249,9 +249,9 @@
                 <p-table [value]="item.listData3" [scrollable]="true" scrollHeight="400px"
                     styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                     <ng-template pTemplate="colgroup">
-                        <col *ngIf="item.listData3[0].TendmMay" style="width:200px">
-                        <col *ngIf="item.listData3[0].ThanhPhan" style="width:200px">
-                        <ng-container *ngFor="let y of item.listData3[0].listGiaTri">
+                        <col *ngIf="item.listData3[0]?.TendmMay" style="width:200px">
+                        <col *ngIf="item.listData3[0]?.ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData3[0]?.listGiaTri">
                             <col style="width:150px">
                         </ng-container>
                     </ng-template>
@@ -283,9 +283,9 @@
                 <p-table [value]="item.listData4" [scrollable]="true" scrollHeight="400px"
                     styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                     <ng-template pTemplate="colgroup">
-                        <col *ngIf="item.listData4[0].TendmMay" style="width:200px">
-                        <col *ngIf="item.listData4[0].ThanhPhan" style="width:200px">
-                        <ng-container *ngFor="let y of item.listData4[0].listGiaTri">
+                        <col *ngIf="item.listData4[0]?.TendmMay" style="width:200px">
+                        <col *ngIf="item.listData4[0]?.ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData4[0]?.listGiaTri">
                             <col style="width:150px">
                         </ng-container>
                     </ng-template>
@@ -322,11 +322,11 @@
                     <p-table [value]="item.listData5" [scrollable]="true" style="width:100%" scrollHeight="400px"
                         styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                         <ng-template pTemplate="colgroup">
-                            <ng-container *ngIf="this.kiemke.CongDoan !== 'GHEPTHO'">
-                                <col *ngIf="item.listData5[0].TendmMay" style="width:200px">
-                                <col *ngIf="item.listData5[0].ThanhPhan" style="width:200px">
+                            <ng-container *ngIf="this.item.CongDoan !== 'GHEPTHO'">
+                                <col *ngIf="item.listData5[0]?.TendmMay" style="width:200px">
+                                <col *ngIf="item.listData5[0]?.ThanhPhan" style="width:200px">
                             </ng-container>
-                            <ng-container *ngFor="let y of item.listData5[0].listGiaTri">
+                            <ng-container *ngFor="let y of item.listData5[0]?.listGiaTri">
                                 <col style="width:150px">
                             </ng-container>
                         </ng-template>
@@ -339,7 +339,7 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-item1 let-i="rowIndex">
                             <tr [ngStyle]="{fontWeight:item1.bold,color:item1.color}">
-                                <ng-container *ngIf="this.kiemke.CongDoan !== 'GHEPTHO'">
+                                <ng-container *ngIf="this.item.CongDoan !== 'GHEPTHO'">
                                     <td style="width:200px" class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay
                                         }}
                                     </td>
@@ -362,9 +362,9 @@
                 <p-table [value]="item.listData6" [scrollable]="true" scrollHeight="400px"
                     styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                     <ng-template pTemplate="colgroup">
-                        <col *ngIf="item.listData6[0].TendmMay" style="width:200px">
-                        <col *ngIf="item.listData6[0].ThanhPhan" style="width:200px">
-                        <ng-container *ngFor="let y of item.listData6[0].listGiaTri">
+                        <col *ngIf="item.listData6[0]?.TendmMay" style="width:200px">
+                        <col *ngIf="item.listData6[0]?.ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData6[0]?.listGiaTri">
                             <col style="width:150px">
                         </ng-container>
                     </ng-template>

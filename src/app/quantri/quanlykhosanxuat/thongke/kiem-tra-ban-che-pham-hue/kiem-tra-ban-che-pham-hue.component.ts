@@ -155,6 +155,7 @@ export class KiemTraBanChePhamHueComponent implements OnInit, OnDestroy {
           keyboard: false,
         });
         modalRef.componentInstance.opt = "edit";
+        modalRef.componentInstance.bcp = "HUE";
         modalRef.componentInstance.title = 'Tổng hợp kiểm kê kho bán chế phẩm';
         modalRef.componentInstance.item = res.objectReturn;
         modalRef.componentInstance.type = 'Tiêu hao';
