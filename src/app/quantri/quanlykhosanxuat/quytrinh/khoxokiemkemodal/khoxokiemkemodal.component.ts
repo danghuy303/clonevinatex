@@ -30,6 +30,20 @@ export class KhoxokiemkemodalComponent implements OnInit {
     listQuyCachDongGoi: any = [];
     listNewMatHang: any = [];
     listNewMatHang_ref: any = [];
+    listHinhThuc: any = [
+        {
+            label: `Kiểm kê`,
+            value: `KiemKe`,
+        },
+        {
+            label: `Cho vay`,
+            value: `ChoVay`,
+        },
+        {
+            label: `Khác`,
+            value: `Khac`,
+        },
+    ];
     isKhoThanhPham: any = false;
     paging: any = {};
     listItem: any = [];

@@ -47,6 +47,13 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hình thức:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listHinhThuc" placeholder="Chọn hình thức"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.LoaiKiemKe"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô bông"
@@ -57,7 +64,8 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số kiện:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong" disabled></p-inputNumber>
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong"
+                    disabled></p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -66,9 +74,9 @@
                 <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.MicBQ" disabled></p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
@@ -150,7 +158,8 @@
                         </td>
                         <td>
                             <div class="p-inputgroup" style="align-items: flex-end">
-                                <p-inputNumber [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.TrongLuong" (onBlur)="checkSoLuong(item, 1)">
+                                <p-inputNumber [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.TrongLuong"
+                                    (onBlur)="checkSoLuong(item, 1)">
                                 </p-inputNumber>
                                 <button pButton pRipple icon="pi pi-copy"
                                     class="p-button-sm p-button-rounded p-button-secondary p-button-text"

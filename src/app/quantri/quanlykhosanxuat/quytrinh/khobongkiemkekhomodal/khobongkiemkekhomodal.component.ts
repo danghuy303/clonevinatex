@@ -28,6 +28,20 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     isKhoThanhPham: any = false;
     paging: any = {};
     listItem: any = [];
+    listHinhThuc: any = [
+        {
+            label: `Kiểm kê`,
+            value: `KiemKe`,
+        },
+        {
+            label: `Cho vay`,
+            value: `ChoVay`,
+        },
+        {
+            label: `Khác`,
+            value: `Khac`,
+        },
+    ];
     title: any = "";
     newItem: any = {};
     filter: any = {};
