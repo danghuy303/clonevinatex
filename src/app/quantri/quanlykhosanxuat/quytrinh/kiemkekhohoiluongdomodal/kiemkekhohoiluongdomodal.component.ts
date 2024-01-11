@@ -56,6 +56,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     data.CurrentPage = 0;
     data.Loai = 6;
     this.item_new.Loai = 6;
+    this.item.luachon = `0`;
     this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
     });
