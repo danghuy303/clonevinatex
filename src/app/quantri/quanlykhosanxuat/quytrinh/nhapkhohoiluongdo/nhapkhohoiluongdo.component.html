@@ -1,15 +1,14 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Quy trình điều chuyển kho bông hồi</h4>
+    <h4 style="color:#1f2779">Nhập kho hồi luồng đỏ</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
-        *ngIf="checkQuyen.ThemMoi"></button>
-    <div></div>
     <div class="p-d-flex p-flex-row">
-        <!-- <div class="p-mr-2">
-            <p-dropdown [options]="listLoaiPhuongAn" placeholder="Chọn phương án" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.LoaiPhuongAn" optionLabel="name" [showClear]="true"></p-dropdown>
-        </div> -->
+    </div>
+    <div class="p-d-flex p-flex-row">
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="filter.IddmKho"
+                (onChange)="GetListQuyTrinh(true)" [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
+        </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListQuyTrinh(true)">
@@ -22,21 +21,23 @@
         </div>
         <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord" />
+                (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.KeyWord" />
+            <button type="button" pButton pRipple icon="pi pi-search"
+                class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh(true)"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh"
                 class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>
 
     </div>
 </div>
-<p-tabView (onChange)="changeTab($event)" styleClass="no-content">
+<!-- <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
     <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
     </p-tabPanel>
     <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
     </p-tabPanel>
-</p-tabView>
+</p-tabView> -->
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
         <ng-template pTemplate="colgroup">
@@ -44,18 +45,24 @@
                 <col style="width:50px">
                 <col>
                 <col>
-                <col *ngFor="let col of cols">
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th class="text-center">STT</th>
-                <th>Số phiếu</th>
-                <th>Ngày khởi tạo</th>
-                <th *ngFor="let header of cols">
-                    {{header.header}}
-                </th>
+                <th class="text-center">#</th>
+                <th class="text-center">Số phiếu</th>
+                <th class="text-center">Ngày</th>
+                <th class="text-center">Ca</th>
+                <th class="text-center"> Kho nhập</th>
+                <th>Tổng số kiện</th>
+                <th>Tổng khối lượng (kg)</th>
+                <th>Trạng thái</th>
                 <th></th>
             </tr>
         </ng-template>
@@ -64,15 +71,22 @@
                 <td class="text-center">
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center">{{item.SoQuyTrinh}}</td>
-                <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
-                <td [class]="col.class" *ngFor="let col of cols">
-                    <div *ngIf="col.ellipsis" class="ellipsis" [pTooltip]="item[col.field]" tooltipPosition="top">
-                        {{item[col.field] | truncate: 50}}
-                    </div>
-                    <div *ngIf="col.ellipsis === false">
-                        {{item[col.field]}}
-                    </div>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td>
+                <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">
+                    {{item.TendmCaSanXuat}}
+                </td>
+                <td class="text-center">{{item.KhoNhap}}</td>
+                <td class="text-center">
+                    {{item.TongSoKien|number:'0.0' }}
+                </td>
+                <td class="text-center">
+                    {{item.TongKhoiLuong|number:'0.2' }}
+                </td>
+                <td class="text-center">
+                    {{item.TenTrangThai}}
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"

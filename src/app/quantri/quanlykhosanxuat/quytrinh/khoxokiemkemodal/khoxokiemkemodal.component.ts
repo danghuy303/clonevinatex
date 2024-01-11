@@ -40,6 +40,10 @@ export class KhoxokiemkemodalComponent implements OnInit {
             value: `ChoVay`,
         },
         {
+            label: `Điều chuyển`,
+            value: `DieuChuyen`,
+        },
+        {
             label: `Khác`,
             value: `Khac`,
         },
@@ -69,6 +73,7 @@ export class KhoxokiemkemodalComponent implements OnInit {
         data.CurrentPage = 0;
         data.Loai = 5;
         this.item_new.Loai = 5;
+        this.item.LoaiKiemKe = `KiemKe`;
         this.services.GetListdmKho(data).subscribe((res: any) => {
             this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
         });
