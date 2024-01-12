@@ -817,6 +817,45 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ],
       },
       {
+        label: "Quản lý kho hồi luồng đỏ",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/quanlykhosanxuatbong/khohoiluongdo",
+        expanded: false,
+        visible: !this.checkmenu("P_KHOBONGHOI"),
+
+        items: [
+          {
+            label: "Nhập kho",
+            routerLink:
+              "/quantri/quanlykhosanxuatbong/khohoiluongdo/nhapkho/0",
+            command: () => this.close(),
+          },
+          // {
+          //   label: "Xuất kho",
+          //   routerLink:
+          //     "/quantri/quanlykhosanxuatbong/khohoiluongdo/xuatkho/0",
+          //   command: () => this.close(),
+          // },
+          {
+            label: "Điều chuyển kho/xuất bán",
+            routerLink:
+              "/quantri/quanlykhosanxuatbong/khohoiluongdo/kiemke/0",
+            separator: this.checkmenu("KIEMKEKHOBONGHOI"),
+            command: () => this.close(),
+          },
+          {
+            label: "Thẻ kho",
+            routerLink: "/quantri/quanlykhosanxuatbong/tonkhobonghoi/khobonghoi//0",
+            command: () => this.close(),
+          },
+          // {
+          //     label: 'Điều chuyển',
+          //     routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/dieuchuyen/0',
+          //     command: () => this.close()
+          // },
+        ],
+      },
+      {
         label: "Quản lý kho bông hồi",
         icon: "fas fa-circle",
         routerLink: "/quantri/quanlykhosanxuatbongkhac/khobonghoi",
@@ -837,7 +876,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
           {
-            label: "Kiểm kê kho",
+            label: "Điều chuyển kho",
             routerLink:
               "/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/0",
             separator: this.checkmenu("KIEMKEKHOBONGHOI"),

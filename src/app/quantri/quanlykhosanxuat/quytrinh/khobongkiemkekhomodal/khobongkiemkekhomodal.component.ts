@@ -14,7 +14,9 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     @ViewChild("paginator") paginator: any;
     opt: any = "";
     Id: any = "";
-    item: any = {};
+    item: any = {
+
+    };
     checkbutton: any = {
         Ghi: true,
         KhongDuyet: false,
@@ -28,6 +30,24 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     isKhoThanhPham: any = false;
     paging: any = {};
     listItem: any = [];
+    listHinhThuc: any = [
+        {
+            label: `Kiểm kê`,
+            value: `KiemKe`,
+        },
+        {
+            label: `Cho vay`,
+            value: `ChoVay`,
+        },
+        {
+            label: `Điều chuyển`,
+            value: `DieuChuyen`,
+        },
+        {
+            label: `Khác`,
+            value: `Khac`,
+        },
+    ];
     title: any = "";
     newItem: any = {};
     filter: any = {};
@@ -49,6 +69,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
         data.CurrentPage = 0;
         data.Loai = 2;
         this.item.Loai = 2;
+        this.item.LoaiKiemKe = `KiemKe`;
         this.services.GetListdmKho(data).subscribe((res: any) => {
             this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
             this.listdmKhoFull = res;

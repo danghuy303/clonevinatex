@@ -331,6 +331,14 @@ import { KiemKeKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-c
 import { TheKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/the-kho-gia-cong/the-kho-gia-cong.component';
 import { KiemKeKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/kiem-ke-kho-gia-cong/kiem-ke-kho-gia-cong-modal/kiem-ke-kho-gia-cong-modal.component';
 import { TheKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/the-kho-gia-cong/the-kho-gia-cong-modal/the-kho-gia-cong-modal.component';
+import { NhapkhohoiluongdoComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiluongdo/nhapkhohoiluongdo.component';
+import { NhapkhohoiluongdomodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiluongdomodal/nhapkhohoiluongdomodal.component';
+import { XuatkhohoiluongdoComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiluongdo/xuatkhohoiluongdo.component';
+import { XuatkhohoiluongdomodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiluongdomodal/xuatkhohoiluongdomodal.component';
+import { KiemkekhohoiluongdoComponent } from './quanlykhosanxuat/quytrinh/kiemkekhohoiluongdo/kiemkekhohoiluongdo.component';
+import { KiemkekhohoiluongdomodalComponent } from './quanlykhosanxuat/quytrinh/kiemkekhohoiluongdomodal/kiemkekhohoiluongdomodal.component';
+import { TonkhohoiluongdoComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiluongdo/tonkhohoiluongdo.component';
+import { TonkhohoiluongdomodalComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiluongdomodal/tonkhohoiluongdomodal.component';
 
 @NgModule({
   declarations: [
@@ -608,6 +616,14 @@ import { TheKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia
     TheKhoGiaCongComponent,
     KiemKeKhoGiaCongModalComponent,
     TheKhoGiaCongModalComponent,
+    NhapkhohoiluongdoComponent,
+    NhapkhohoiluongdomodalComponent,
+    XuatkhohoiluongdoComponent,
+    XuatkhohoiluongdomodalComponent,
+    KiemkekhohoiluongdoComponent,
+    KiemkekhohoiluongdomodalComponent,
+    TonkhohoiluongdoComponent,
+    TonkhohoiluongdomodalComponent,
   ],
   imports: [
     HttpClientModule,

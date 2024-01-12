@@ -4,15 +4,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { TonkhobonghoimodalComponent } from '../tonkhobonghoimodal/tonkhobonghoimodal.component';
-import { StoreBase } from 'src/app/services/storebase.class';
 import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
+import { TonkhohoiluongdomodalComponent } from '../tonkhohoiluongdomodal/tonkhohoiluongdomodal.component';
+
 @Component({
-  selector: 'app-tonkhobonghoi',
-  templateUrl: './tonkhobonghoi.component.html',
-  styleUrls: ['./tonkhobonghoi.component.css']
+  selector: 'app-tonkhohoiluongdo',
+  templateUrl: './tonkhohoiluongdo.component.html',
+  styleUrls: ['./tonkhohoiluongdo.component.css']
 })
-export class TonkhobonghoiComponent extends StoreBase implements OnInit, OnDestroy {
+export class TonkhohoiluongdoComponent extends StoreBase implements OnInit, OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
@@ -118,7 +119,7 @@ export class TonkhobonghoiComponent extends StoreBase implements OnInit, OnDestr
   }
   GetTheKho(item) {
     item.IddmKho = this.filter.IddmKho
-    let modalRef = this._modal.open(TonkhobonghoimodalComponent, {
+    let modalRef = this._modal.open(TonkhohoiluongdomodalComponent, {
       size: 'fullscreen-100',
       backdrop: 'static'
     })

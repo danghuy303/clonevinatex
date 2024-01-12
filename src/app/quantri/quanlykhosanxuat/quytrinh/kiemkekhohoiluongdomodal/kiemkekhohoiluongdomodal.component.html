@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Điều chuyển kho bông hồi</h5>
+    <h5 class="modal-title">Điều chuyển kho/xuất bán hồi luồng đỏ</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
             <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
@@ -33,15 +33,29 @@
 
     </div>
     <div class="p-grid">
+        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại:</label>
+            <div class="p-col-12 p-lg-1 p-p-0">
+                <input class="control-label col-form-label" type="radio" id="inlineCheckbox" [(ngModel)]="item.luachon"
+                    value="0">
+                <label for="inlineCheckbox" style="font-size: .875rem; padding-left: 0px">&nbsp;Chuyển kho</label>
+            </div>
+            <div class="p-col-12 p-lg-1 p-p-0">
+                <input class="control-label col-form-label" type="radio" id="inlineCheckbox1" [(ngModel)]="item.luachon"
+                    value="1">
+                <label for="inlineCheckbox1" style="font-size: .875rem; padding-left: 0px">&nbsp;Xuất bán</label>
+            </div>
+        </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho hồi luồng đỏ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmKho" (onChange)="GetMatHangTheoKho()"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho hồi luồng đỏ:</label>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.luachon === '1'"></div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.luachon === '0'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho chuyển:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmKho"></p-dropdown>
