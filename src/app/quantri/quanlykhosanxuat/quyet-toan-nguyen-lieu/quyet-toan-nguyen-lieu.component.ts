@@ -129,11 +129,11 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+        for (let i = new Date().getFullYear() - 10; i <= (new Date().getFullYear() + 10); i++) {
             this.listNam.push({ value: i, label: i });
         }
+        this.filter.Nam = new Date().getFullYear();
         this.GetListdmPhanXuong();
-        this.filter.Nam = this.listNam[0].value;
     }
 
     XuatDuLieu() {

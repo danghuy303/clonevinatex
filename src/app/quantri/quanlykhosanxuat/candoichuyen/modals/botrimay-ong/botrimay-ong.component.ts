@@ -36,6 +36,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   listKgconeWithId: any = [];
   lang: any = vn;
   userInfo: any;
+  TenCongDoan: any = '';
 
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
     private _auth: AuthenticationService,

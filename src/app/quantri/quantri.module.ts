@@ -327,6 +327,10 @@ import { XuatKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-con
 import { NhapKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/nhap-kho-gia-cong/nhap-kho-gia-cong-modal/nhap-kho-gia-cong-modal.component';
 import { DanhMucMatHangPopupComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/danh-muc-mat-hang-popup/danh-muc-mat-hang-popup.component';
 import { XuatKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/xuat-kho-gia-cong/xuat-kho-gia-cong-modal/xuat-kho-gia-cong-modal.component';
+import { KiemKeKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/kiem-ke-kho-gia-cong/kiem-ke-kho-gia-cong.component';
+import { TheKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/the-kho-gia-cong/the-kho-gia-cong.component';
+import { KiemKeKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/kiem-ke-kho-gia-cong/kiem-ke-kho-gia-cong-modal/kiem-ke-kho-gia-cong-modal.component';
+import { TheKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/the-kho-gia-cong/the-kho-gia-cong-modal/the-kho-gia-cong-modal.component';
 
 @NgModule({
   declarations: [
@@ -600,6 +604,10 @@ import { XuatKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gi
     NhapKhoGiaCongModalComponent,
     DanhMucMatHangPopupComponent,
     XuatKhoGiaCongModalComponent,
+    KiemKeKhoGiaCongComponent,
+    TheKhoGiaCongComponent,
+    KiemKeKhoGiaCongModalComponent,
+    TheKhoGiaCongModalComponent,
   ],
   imports: [
     HttpClientModule,

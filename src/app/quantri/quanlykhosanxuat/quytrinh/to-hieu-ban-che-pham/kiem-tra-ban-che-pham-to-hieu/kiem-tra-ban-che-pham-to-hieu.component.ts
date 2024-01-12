@@ -169,8 +169,10 @@ export class KiemTraBanChePhamToHieuComponent implements OnInit, OnDestroy {
   }
 
   changePage(event) {
+    console.log(event);
+    
     this.paging.CurrentPage = event.page + 1;
-    this.GetList(true)
+    this.GetList()
   }
 
   changeTab(event) {

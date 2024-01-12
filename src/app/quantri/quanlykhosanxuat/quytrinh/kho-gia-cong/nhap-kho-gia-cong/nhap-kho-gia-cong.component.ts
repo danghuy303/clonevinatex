@@ -21,7 +21,7 @@ export class NhapKhoGiaCongComponent extends StoreBase implements OnInit,OnDestr
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "NHAPTHANHPHAM";
+  eAction: any = "NHAPGIACONG";
   cols: any = [
     {
       header: 'Ghi chú',
@@ -48,7 +48,7 @@ export class NhapKhoGiaCongComponent extends StoreBase implements OnInit,OnDestr
       }
       let data = {
         CurrentPage: 0,
-        Loai: 11
+        Loai: 203
       };
       this._service.GetListdmKho(data).subscribe((res: any) => {
         this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -84,7 +84,7 @@ export class NhapKhoGiaCongComponent extends StoreBase implements OnInit,OnDestr
        })
   }
   update(Id) {
-    this._service.PhieuNhapThanhPham().Get(Id).subscribe((res1: any) => {
+    this._service.PhieuNhapGiaCong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapKhoGiaCongModalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
@@ -127,7 +127,7 @@ export class NhapKhoGiaCongComponent extends StoreBase implements OnInit,OnDestr
       Ten: "",
       IddmKhoThanhPham: this.filter.IddmKho,
     }
-      this._service.PhieuNhapThanhPham().GetList(data).subscribe((res: any) => {
+      this._service.PhieuNhapGiaCong().GetList(data).subscribe((res: any) => {
         this.items = res.items;
         this.paging = res.paging;
       })
@@ -140,7 +140,6 @@ export class NhapKhoGiaCongComponent extends StoreBase implements OnInit,OnDestr
   KiemTraTabTrangThai() {
     this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
       this.checkQuyen = res;
-      this.GetListQuyTrinh();
     })
   }
   validateFilter2() {
@@ -166,7 +165,7 @@ export class NhapKhoGiaCongComponent extends StoreBase implements OnInit,OnDestr
         DenNgayUnix:DateToUnix(this.filter.DenNgay),
         IddmKho:this.filter.IddmKho,
       }
-      this._service.PhieuNhapThanhPham().ExportBangKeNhapKhoThanhPham(data).subscribe((res: any) => {
+      this._service.PhieuNhapGiaCong().ExportBangKeNhapKhoGiaCong(data).subscribe((res: any) => {
         this._service.download(res.TenFile);
       })
     }

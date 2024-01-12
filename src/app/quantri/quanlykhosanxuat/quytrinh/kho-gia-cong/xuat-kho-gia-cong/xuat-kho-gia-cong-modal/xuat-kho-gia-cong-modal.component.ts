@@ -35,7 +35,7 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
   getListKho() {
     let data = {
       CurrentPage: 0,
-      Loai: 11,
+      Loai: 203,
     }
     this._services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -57,7 +57,7 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
     else {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
-      this._services.PhieuXuatThanhPham().KhongDuyet(this.item).subscribe((res: any) => {
+      this._services.PhieuXuatGiaCong().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.activeModal.close();
@@ -70,7 +70,7 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._services.PhieuXuatThanhPham().GetNextSo().subscribe((res: any) => {
+    this._services.PhieuXuatGiaCong().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
@@ -84,7 +84,7 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.PhieuXuatThanhPham().Delete(this.item).subscribe((res: any) => {
+      this._services.PhieuXuatGiaCong().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -117,7 +117,7 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
     if (this.item.listItem !== undefined && this.item.listItem !== null) {
       listItem = this.item.listItem.filter((e: any) => e.isXoa !== true);
     }
-    this._services.GetlistdmMatHangXuatThanhPham(data).subscribe((res1: any) => {
+    this._services.GetlistdmMatHangXuatGiaCong(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatthanhphammathangmodalComponent, {
         size: 'xl',
         backdrop: 'static'

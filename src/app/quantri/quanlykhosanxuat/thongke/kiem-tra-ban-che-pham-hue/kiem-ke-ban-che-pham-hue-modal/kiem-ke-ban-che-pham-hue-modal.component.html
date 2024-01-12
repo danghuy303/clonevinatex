@@ -60,7 +60,7 @@
                     styleClass="p-inputtext-sm" [showClear]="false" [filter]="true"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row kiemke" *ngIf="kiemke.CongDoan === 'ONG'">
+        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row kiemke" *ngIf="kiemke.CongDoan === 'ONG' || kiemke.CongDoan === 'DAUXE' ">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca sản xuất <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn"

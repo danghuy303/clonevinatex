@@ -64,7 +64,7 @@ export class XuatKhoGiaCongComponent extends StoreBase implements OnInit, OnDest
       width: 'unset'
     },
   ];
-  eAction = 'XUATTHANHPHAM';
+  eAction = 'XUATGIACONG';
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService,
     private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) { super(store) }
@@ -107,7 +107,7 @@ export class XuatKhoGiaCongComponent extends StoreBase implements OnInit, OnDest
       })
   }
   update(Id) {
-    this._service.PhieuXuatThanhPham().Get(Id).subscribe((res1: any) => {
+    this._service.PhieuXuatGiaCong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatKhoGiaCongModalComponent, {
         size: 'fullscreen-100',
         backdrop: 'static'
@@ -138,7 +138,7 @@ export class XuatKhoGiaCongComponent extends StoreBase implements OnInit, OnDest
   getListKho() {
     let data = {
       CurrentPage: 0,
-      Loai: 11
+      Loai: 203
     };
     this._service.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -161,7 +161,7 @@ export class XuatKhoGiaCongComponent extends StoreBase implements OnInit, OnDest
       Ten: "",
       IddmKhoThanhPham: this.filter.IddmKho,
     }
-    this._service.PhieuXuatThanhPham().GetList(data).subscribe((res: any) => {
+    this._service.PhieuXuatGiaCong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       if (this.items.length > 0) {
         this.items.forEach(element => {
@@ -202,7 +202,7 @@ export class XuatKhoGiaCongComponent extends StoreBase implements OnInit, OnDest
         DenNgayUnix: DateToUnix(this.filter.DenNgay),
         IddmKho: this.filter.IddmKho,
       }
-      this._service.PhieuXuatThanhPham().ExportBangKeXuatKhoThanhPham(data).subscribe((res: any) => {
+      this._service.PhieuXuatGiaCong().ExportBangKeXuatKhoThanhPham(data).subscribe((res: any) => {
         this._service.download(res.TenFile);
       })
     }

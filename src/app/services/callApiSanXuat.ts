@@ -1468,6 +1468,39 @@ export class SanXuatService {
             },
         }
     }
+    PhieuNhapGiaCong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuNhapGiaCong', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListPhieuNhapGiaCong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuNhapGiaCong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuNhapGiaCong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuNhapGiaCong', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuNhapGiaCong', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuNhapGiaCong', data, httpOptions)
+            },
+            ExportBangKeNhapKhoGiaCong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                url = API.SCMBaoCao
+                return this.http.post(url + 'ExportBangKeNhapKhoGiaCong', data, httpOptions)
+            },
+        }
+    }
     PhieuNhapHoiAm() {
         let url = API.SCMQuanLyKho;
         return {
@@ -1678,6 +1711,37 @@ export class SanXuatService {
             },
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuKiemKeThanhPham', data, httpOptions)
+            },
+            GetlistdmMatHangThanhPhamKiemKe: () => {
+                return this.http.get(url + `GetlistdmMatHangThanhPhamKiemKe`, httpOptions);
+            },
+        }
+    }
+    PhieuKiemKeKhoGiaCong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuKiemKeGiaCong', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListPhieuKiemKeGiaCong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuKiemKeGiaCong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuKiemKeGiaCong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuKiemKeGiaCong', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuKiemKeGiaCong', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuKiemKeGiaCong', data, httpOptions)
             },
             GetlistdmMatHangThanhPhamKiemKe: () => {
                 return this.http.get(url + `GetlistdmMatHangThanhPhamKiemKe`, httpOptions);
@@ -1965,6 +2029,44 @@ export class SanXuatService {
             },
         }
     }
+    PhieuXuatGiaCong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuXuatGiaCong', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListPhieuXuatGiaCong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuXuatGiaCong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuXuatGiaCong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuXuatGiaCong', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'ChuyenTiepPhieuXuatGiaCong', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuXuatGiaCong', data, httpOptions)
+            },
+            ExportBangKeXuatKhoThanhPham: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                url = API.SCMBaoCao
+                return this.http.post(url + 'ExportBangKeXuatKhoGiaCong', data, httpOptions)
+            },
+            GetListChoHopDong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(API.SCMChoModuleHopDong + 'GetListPhieuXuatGiaCong', data, httpOptions);
+            },
+        }
+    }
     PhanQuyen() {
         let url = API.SCMDanhMuc;
         return {
@@ -2007,6 +2109,10 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + 'GetlistdmMatHangThanhPham';
         return this.http.post(url, data, httpOptions);
     }
+    GetlistdmMatHangGiaCong(data) {
+        let url = API.SCMQuanLyKho + 'GetlistdmMatHangGiaCong';
+        return this.http.post(url, data, httpOptions);
+    }
     GetlistdmMatHangHaCap(data) {
         let url = API.SCMQuanLyKho + 'GetlistdmMatHangHaCap';
         return this.http.post(url, data, httpOptions);
@@ -2017,6 +2123,10 @@ export class SanXuatService {
     }
     GetlistdmMatHangXuatThanhPham(data) {
         let url = API.SCMQuanLyKho + 'GetlistdmMatHangXuatThanhPham';
+        return this.http.post(url, data, httpOptions);
+    }
+    GetlistdmMatHangXuatGiaCong(data) {
+        let url = API.SCMQuanLyKho + 'GetlistdmMatHangXuatGiaCong';
         return this.http.post(url, data, httpOptions);
     }
     Notifications() {

@@ -35,10 +35,10 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-4 p-p-4 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Kho thành phẩm:</label>
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Kho gia công:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
                 <p-dropdown [filter]="true" [options]="listKhoGiaCong" placeholder="Chọn kho"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmKhoThanhPham"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmKhoGiaCong"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-4 d-flex flex-column flex-lg-row">
@@ -71,10 +71,10 @@
                         <col style="width:100px">
                         <col style="width:120px">
                         <col style="width:140px">
-                        <col style="width:80px">
+                        <col style="width:150px">
                         <col style="width:120px">
-                        <col style="width:80px">
-                        <col >
+                        <col style="width:180px">
+                        <col>
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
@@ -98,18 +98,21 @@
                         <td class="text-center">{{i+1}}</td>
                         <td>{{item.Ma}}</td>
                         <td>{{item.Ten}}</td>
-                        <td>{{item.TenLoHang}}</td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiHoiAm"
-                                disabled>
+                            <p-dropdown [filter]="true" [options]="listdmLo" placeholder="Chọn"
+                            styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoBong"></p-dropdown>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiHoiAm">
                             </p-inputNumber>
-                        </td> <td>
+                        </td>
+                        <td>
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-dropdown [filter]="true" [options]="listdmQuyCachDongGoi" placeholder="Chọn quy cách"
-                            styleClass="p-inputtext-sm" [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
+                            <p-dropdown [filter]="true" [options]="listdmKgCo" placeholder="Chọn"
+                                styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone"></p-dropdown>
                         </td>
                         <td> </td>
                         <td>
@@ -133,14 +136,12 @@
                             {{item.listItem|isXoa|SumByKey:'SoQuaSoiHoiAm'|number:'0.0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'SoQuaSoiThanhPham'|number:'0.0'}}
-                        </td>
-                        <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0'}}
                         </td>
-                        <td class="text-right">
-                        </td>
+                        <td class="text-right"> </td>
+                        <td class="text-right"> </td>
                         <td></td>
+                        <td class="text-center"></td>
                         <td class="text-center"></td>
                     </tr>
                 </ng-template>
