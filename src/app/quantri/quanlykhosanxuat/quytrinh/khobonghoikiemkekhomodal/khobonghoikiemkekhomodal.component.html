@@ -40,6 +40,13 @@
                     [(ngModel)]="item.IddmKho" (onChange)="GetMatHangTheoKho()"></p-dropdown>
             </div>
         </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho hồi luồng đỏ:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmKho"></p-dropdown>
+            </div>
+        </div>
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -92,7 +99,7 @@
                         <th rowspan="2">Mã</th>
                         <th rowspan="2">Tên</th>
                         <th colspan="2">Tồn sổ sách</th>
-                        <th colspan="2">Tồn thực tế</th>
+                        <th colspan="2">Xuất</th>
                         <th rowspan="2"></th>
                     </tr>
                     <tr>

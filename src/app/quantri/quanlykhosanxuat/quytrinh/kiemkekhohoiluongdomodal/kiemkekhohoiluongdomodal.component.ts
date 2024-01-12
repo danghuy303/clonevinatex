@@ -260,10 +260,10 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
         this.item.IdLoHang
       )
       .subscribe((res1: any) => {
-        res1.forEach((mathang) => {
-          mathang.SoLuong = mathang.TonSoLuong;
-          mathang.TrongLuong = mathang.TonTrongLuong;
-        });
+        // res1.forEach((mathang) => {
+        //   mathang.SoLuong = mathang.TonSoLuong;
+        //   mathang.TrongLuong = mathang.TonTrongLuong;
+        // });
         this.item.listItem = res1.slice(0, 10);
         this.listItem = res1;
         this.paging.CurrentPage = 1;
