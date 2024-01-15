@@ -28,8 +28,8 @@
                 *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenTiep()"
                 *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm"
-                (click)="ExportExcel()"></button>
+            <!-- <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm"
+                (click)="ExportExcel()"></button> -->
         </div>
 
     </div>
@@ -100,10 +100,11 @@
                         <td>{{item.Ten}}</td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listdmLo" placeholder="Chọn"
-                            styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoBong"></p-dropdown>
+                                styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoHang "></p-dropdown>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiHoiAm">
+                            <p-inputNumber [minFractionDigits]="0" (onBlur)="TinhKhoiLuong(item)" locale="en-EN"
+                                [(ngModel)]="item.SoQua">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -111,10 +112,10 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-dropdown [filter]="true" [options]="listdmKgCo" placeholder="Chọn"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone"></p-dropdown>
+                            <p-dropdown [filter]="true" [options]="listdmKgCo" (onChange)="TinhKhoiLuong(item)"
+                                placeholder="Chọn" styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone"></p-dropdown>
                         </td>
-                        <td> </td>
+                        <td class="text-right">{{item.KhoiLuong | number:'0.2-2'}} </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listdmQuyCachDongGoi" placeholder="Chọn quy cách"
                                 styleClass="p-inputtext-sm" [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
@@ -133,13 +134,13 @@
                     <tr>
                         <td colspan="4">TỔNG: </td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'SoQuaSoiHoiAm'|number:'0.0'}}
+                            {{item.listItem|isXoa|SumByKey:'SoQua'|number:'0.0'}}
                         </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0'}}
                         </td>
                         <td class="text-right"> </td>
-                        <td class="text-right"> </td>
+                        <td class="text-right"> {{item.listItem|isXoa|SumByKey:'KhoiLuong'|number:'0.0'}} </td>
                         <td></td>
                         <td class="text-center"></td>
                         <td class="text-center"></td>

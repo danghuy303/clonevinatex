@@ -52,7 +52,7 @@
                         <ng-template pTemplate="colgroup">
                             <colgroup>
                                 <col style="width:100px">
-                                <col *ngIf="this.addonData.CongDoan !== 'DAUXE' && this.addonData.CongDoan !== 'XE'" style="width:100px">
+                                <col *ngIf="this.addonData.CongDoan !== 'DAUXE'" style="width:100px">
                                 <col>
                                 <col style="width:100px">
                                 <col style="width:150px">
@@ -63,7 +63,7 @@
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>Máy ống</th>
-                                <th *ngIf="this.addonData.CongDoan !== 'DAUXE' && this.addonData.CongDoan !== 'XE'">Số cọc/máy</th>
+                                <th *ngIf="this.addonData.CongDoan !== 'DAUXE'">Số cọc/máy</th>
                                 <th>Mặt hàng</th>
                                 <th>Tốc độ</th>
                                 <th>Kg/cone</th>
@@ -74,7 +74,7 @@
                         <ng-template pTemplate="body" let-item let-i="rowIndex">
                             <tr>
                                 <td [ngStyle]="{'background-color': item.MaMau}">{{item.TenMay}}</td>
-                                <td *ngIf="this.addonData.CongDoan !== 'DAUXE' && this.addonData.CongDoan !== 'XE'">
+                                <td *ngIf="this.addonData.CongDoan !== 'DAUXE'">
                                     <div class="d-flex flex-row">
                                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoCocTu"
                                             (onBlur)="inputChange()">

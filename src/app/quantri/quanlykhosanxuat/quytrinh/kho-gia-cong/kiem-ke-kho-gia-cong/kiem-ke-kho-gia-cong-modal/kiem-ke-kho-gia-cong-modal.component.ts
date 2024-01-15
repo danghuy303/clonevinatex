@@ -58,8 +58,8 @@ export class KiemKeKhoGiaCongModalComponent implements OnInit {
     //     data.Loai = 5;
     //     this.item_new.Loai = 5;
     // } else if (this.title === "khothanhpham") {
-    data.Loai = 11;
-    this.item.Loai = 11;
+    data.Loai = 203;
+    this.item.Loai = 203;
 
     this.services
       .LoHang()
@@ -90,8 +90,8 @@ export class KiemKeKhoGiaCongModalComponent implements OnInit {
     //     data.Loai = 5;
     //     this.item_new.Loai = 5;
     // } else if (this.title === "khothanhpham") {
-    data.Loai = 11;
-    this.item.Loai = 11;
+    data.Loai = 203;
+    this.item.Loai = 203;
     // }
 
     this.services.GetListdmViTriOpt().subscribe((res: any) => {

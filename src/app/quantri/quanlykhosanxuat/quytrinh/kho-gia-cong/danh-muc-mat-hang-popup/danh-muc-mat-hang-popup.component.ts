@@ -27,7 +27,6 @@ export class DanhMucMatHangPopupComponent implements OnInit {
   }
 
   GetList() {
-    console.log(this.item);
     let data = {
       // Ngay: DateToUnix(this.item.Ngay),
       // IddmKho: this.item.IddmKhoGiaCong,
@@ -42,7 +41,12 @@ export class DanhMucMatHangPopupComponent implements OnInit {
   resetFilter() { }
 
   SetData() {
-    let data = this.listItem.filter(ele => ele.checked);
+    let data = this.listItem.filter(ele => ele.checked).map(obj => {
+      return {
+        ...obj,
+        IddmItem :obj.Id
+      }
+    });
     return data;
   }
 
