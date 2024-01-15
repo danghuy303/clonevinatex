@@ -934,6 +934,10 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'GetListPhieuNhapLoBong', data, httpOptions);
             },
+            GetListPhieuNhapLoBongHoiLuongDo: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListPhieuNhapLoBongHoiLuongDo', data, httpOptions);
+            },
             Get: (Id) => {
                 return this.http.get(url + `GetPhieuNhapLoBong?Id=${Id}`, httpOptions);
             },
@@ -2485,6 +2489,12 @@ export class SanXuatService {
     getLuuKhoKiemKeKhoBongHoi(IddmKho, IdLoBong, sFilter, IdLoHang) {
         // let IdDuAn =this.store.getCurrent();
         let url = API.SCMQuanLyKho + `getLuuKhoKiemKeKhoBongHoi?IdDuAn=0&IddmKho=${IddmKho}&IdLoHang=${IdLoHang || ''}&IdLoBong=${IdLoBong || ''}&sFilter=${sFilter}`;
+        // 
+        return this.http.get(url, httpOptions);
+    }
+    getLuuKhoKiemKeKhoBongHoiLuongDo(IddmKho, IdLoBong, sFilter, IdLoHang) {
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `getLuuKhoKiemKeKhoBongHoiLuongDo?IdDuAn=0&IddmKho=${IddmKho}&IdLoHang=${IdLoHang || ''}&IdLoBong=${IdLoBong || ''}&sFilter=${sFilter}`;
         // 
         return this.http.get(url, httpOptions);
     }

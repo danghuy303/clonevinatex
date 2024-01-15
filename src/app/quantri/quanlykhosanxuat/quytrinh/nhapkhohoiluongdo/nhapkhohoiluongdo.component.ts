@@ -44,10 +44,10 @@ export class NhapkhohoiluongdoComponent extends StoreBase implements OnInit, OnD
       // else
       //
       this.type = 'bonghoi';
-      this.nametype = 'bông hồi';
+      this.nametype = 'bông hồi luồng đỏ';
 
     })
-    this.KiemTraTabTrangThai();
+    // this.KiemTraTabTrangThai();
   }
 
   changeParam(id) {
@@ -58,7 +58,7 @@ export class NhapkhohoiluongdoComponent extends StoreBase implements OnInit, OnD
   }
 
   getListKho() {
-    this._service.GetListdmKho({ Loai: 6 }).subscribe((res: any) => {
+    this._service.GetListdmKho({ Loai: 66 }).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
       this.GetListQuyTrinh();
     })
@@ -101,23 +101,23 @@ export class NhapkhohoiluongdoComponent extends StoreBase implements OnInit, OnD
     let data: any = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      TabTrangThai: this.trangThai,
+      // TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
       IddmKho: validVariable(this.filter.IddmKho) ? this.filter.IddmKho : '',
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      Loai: 6,
+      Loai: 66,
     }
-    if (this.title === 'khobonghoi') {
-      data.Loai = 6;
-    }
-    else if (this.title === 'khobongphe') {
-      data.Loai = 7;
-    }
+    // if (this.title === 'khobonghoi') {
+    //   data.Loai = 6;
+    // }
+    // else if (this.title === 'khobongphe') {
+    //   data.Loai = 7;
+    // }
 
-    this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
+    this._service.QuyTrinhPhieuNhapLoBong().GetListPhieuNhapLoBongHoiLuongDo(data).subscribe((res: any) => {
       this.items = res.items.map(ele => {
         return {
           ...ele,

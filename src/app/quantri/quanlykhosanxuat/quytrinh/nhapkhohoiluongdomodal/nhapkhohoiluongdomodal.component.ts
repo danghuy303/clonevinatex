@@ -28,6 +28,7 @@ export class NhapkhohoiluongdomodalComponent implements OnInit {
   listdmViTri: any = [];
   listCaMay: any = [];
   listKho: any = [];
+  listKhoHoiLD: any = [];
   lang: any = vn;
   data: any = {};
   listKeHoach: any = [];
@@ -121,7 +122,7 @@ export class NhapkhohoiluongdomodalComponent implements OnInit {
   }
 
   GhiLai() {
-    this.item.Loai = 6;
+    this.item.Loai = 66;
 
     // if (this.opt !== 'edit') {
     //   if (this.type === 'bonghoi')
@@ -196,7 +197,7 @@ export class NhapkhohoiluongdomodalComponent implements OnInit {
   }
 
   getListKho() {
-    this.data.Loai = 6;
+    this.data.Loai = 66;
 
     // if (this.opt === 'edit') {
     //   this.data.Loai = this.item.Loai;
@@ -211,6 +212,12 @@ export class NhapkhohoiluongdomodalComponent implements OnInit {
     // }
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+    this._services.GetListdmKho({
+      ...this.data,
+      Loai: 66
+    }).subscribe((res: any) => {
+      this.listKhoHoiLD = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   getListLoaiBong() {

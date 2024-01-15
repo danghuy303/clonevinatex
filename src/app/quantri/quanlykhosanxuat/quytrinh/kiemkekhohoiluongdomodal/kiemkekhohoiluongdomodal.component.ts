@@ -23,6 +23,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     Xoa: false,
   };
   listdmKho: any = [];
+  listdmKhoHoiLD: any = [];
   listdmViTri: any = [];
   listLoBong: any = [];
   listLoHang: any = [];
@@ -54,11 +55,20 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     var data: any = {};
     data.CurrentPage = 0;
-    data.Loai = 6;
-    this.item_new.Loai = 6;
-    this.item.luachon = `0`;
-    this.services.GetListdmKho(data).subscribe((res: any) => {
+    data.Loai = 66;
+    this.item_new.Loai = 66;
+    this.item.LoaiKiemKe = `DieuChuyen`;
+    this.services.GetListdmKho({
+      ...data,
+      Loai: 6
+    }).subscribe((res: any) => {
       this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
+    });
+    this.services.GetListdmKho({
+      ...data,
+      Loai: 66
+    }).subscribe((res: any) => {
+      this.listdmKhoHoiLD = mapArrayForDropDown(res, "Ten", "Id");
     });
     // this.services.GetListdmViTriOpt().subscribe((res: any) => {
     //     this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
@@ -253,8 +263,8 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
 
   GetMatHangTheoKho() {
     this.services
-      .getLuuKhoKiemKeKhoBongHoi(
-        this.item.IddmKho,
+      .getLuuKhoKiemKeKhoBongHoiLuongDo(
+        this.item.IddmKhoHoiLuongDo,
         this.item.IdLoBong,
         "",
         this.item.IdLoHang

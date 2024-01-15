@@ -23,6 +23,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         Xoa: false,
     };
     listdmKho: any = [];
+    listdmKhoHoiLD: any = [];
     listdmViTri: any = [];
     listLoBong: any = [];
     listLoHang: any = [];
@@ -58,6 +59,12 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         this.item_new.Loai = 6;
         this.services.GetListdmKho(data).subscribe((res: any) => {
             this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
+        });
+        this.services.GetListdmKho({
+            ...data,
+            Loai: 66
+        }).subscribe((res: any) => {
+            this.listdmKhoHoiLD = mapArrayForDropDown(res, "Ten", "Id");
         });
         // this.services.GetListdmViTriOpt().subscribe((res: any) => {
         //     this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
