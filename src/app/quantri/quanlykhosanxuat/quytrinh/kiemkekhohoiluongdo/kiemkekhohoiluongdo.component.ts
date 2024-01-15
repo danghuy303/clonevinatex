@@ -52,7 +52,7 @@ export class KiemkekhohoiluongdoComponent extends StoreBase implements OnInit, O
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
-  eAction = 'KIEMKEKHOBONGHOI'
+  eAction = 'KIEMKEKHOBONGHOILUONGDO'
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
@@ -146,7 +146,7 @@ export class KiemkekhohoiluongdoComponent extends StoreBase implements OnInit, O
       Ma: "",
       Ten: "",
     };
-    data.Loai = 6;
+    data.Loai = 66;
     this._service
       .PhieuKiemKeKhoBong()
       .GetList(data)
