@@ -54,7 +54,7 @@ export class TonkhohoiluongdoComponent extends StoreBase implements OnInit, OnDe
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
-  Loai: any = 6;
+  Loai: any = 66;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) {
     super(store)
   }
@@ -65,8 +65,8 @@ export class TonkhohoiluongdoComponent extends StoreBase implements OnInit, OnDe
       console.log(res);
       // this.getListdmKho(this.mapLoaiKhoBong[`${res.kho}`]);
       // this.filter.Loai = this.mapLoaiKhoBong[`${res.kho}`];
-      this.getListdmKho(6);
-      this.filter.Loai = 6;
+      this.getListdmKho(66);
+      this.filter.Loai = 66;
     })
     this.filter.KeyWord = '';
   }
