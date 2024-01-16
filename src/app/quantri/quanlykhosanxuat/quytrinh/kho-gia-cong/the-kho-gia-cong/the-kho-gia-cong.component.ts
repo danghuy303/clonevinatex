@@ -7,6 +7,7 @@ import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TonkhodanhsachchitietComponent } from '../../tonkhodanhsachchitiet/tonkhodanhsachchitiet.component';
 import { StoreBase } from 'src/app/services/storebase.class';
+import { TheKhoGiaCongModalComponent } from './the-kho-gia-cong-modal/the-kho-gia-cong-modal.component';
 
 @Component({
   selector: 'app-the-kho-gia-cong',
@@ -72,10 +73,7 @@ export class TheKhoGiaCongComponent extends StoreBase implements OnInit, OnDestr
     this.activatedRoute.params.subscribe(res => {
       console.log(this.mapLoaiKhoBong[`${res.kho}`])
       console.log(res);
-      this.getListdmKho(this.mapLoaiKhoBong[`${res.kho}`]);
-      this.loai = this.mapLoaiKhoBong[`${res.kho}`];
-      if (this.loai === 10)
-        this.tenkho = "kho hồi ẩm";
+      this.getListdmKho(203);
     })
     this.filter.KeyWord = '';
   }
@@ -152,7 +150,7 @@ export class TheKhoGiaCongComponent extends StoreBase implements OnInit, OnDestr
   }
   GetTheKho(item) {
     item.IddmKho = this.filter.IddmKho
-    let modalRef = this._modal.open(TonkhodanhsachchitietComponent, {
+    let modalRef = this._modal.open(TheKhoGiaCongModalComponent, {
       size: 'fullscreen-100',
       backdrop: 'static'
     })

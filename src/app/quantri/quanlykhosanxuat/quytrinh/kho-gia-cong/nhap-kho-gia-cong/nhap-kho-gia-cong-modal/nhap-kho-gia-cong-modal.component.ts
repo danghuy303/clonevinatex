@@ -81,7 +81,7 @@ export class NhapKhoGiaCongModalComponent implements OnInit {
   setData() {
     let data = {
       ...this.item,
-      NgayUnix:DateToUnix(this.item.Ngay)
+      NgayUnix: DateToUnix(this.item.Ngay)
     }
     return data
   }
@@ -131,15 +131,20 @@ export class NhapKhoGiaCongModalComponent implements OnInit {
   }
   GetListKgCone() {
     let data = {
-      CurrentPage:0
+      CurrentPage: 0
     }
     this._services.GetListdmKgCone(data).subscribe((res: any) => {
-      this.listdmKgCo = mapArrayForDropDown(res, 'GiaTri', 'Id');
+      this.listdmKgCo = res.map(ele => {
+        return {
+          label: ele.GiaTri,
+          value: ele.GiaTri,
+        }
+      });
     })
   }
   GetListLoHang() {
     let data = {
-      CurrentPage:0
+      CurrentPage: 0
     }
     this._services.LoHang().GetList(data).subscribe((res: any) => {
       this.listdmLo = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -191,5 +196,11 @@ export class NhapKhoGiaCongModalComponent implements OnInit {
         }
       }
     })
+  }
+
+  TinhKhoiLuong(data) {
+    data.KhoiLuong = 0;
+    data.KhoiLuong = (data.KgCone || 0) * (data.SoQua || 0);
+    this.item.listItem = [...this.item.listItem];
   }
 }

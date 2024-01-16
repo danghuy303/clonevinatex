@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, UnixToDate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { XuatthanhphammathangmodalComponent } from '../../../xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
 
 @Component({
@@ -19,7 +19,7 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
   checkbutton: any = {}
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  listKho:any = [];
+  listKho: any = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -30,6 +30,16 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListKho();
+    this.KiemTraButtonModal();
+    if (this.opt === 'add') {
+      this.GetNextSoQuyTrinh();
+    }
+    else {
+      this.MapTinhKhoiLuong();
+    }
+    if (this.item.NgayUnix !== 0 || this.item.NgayUnix === 0) {
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
+    }
   }
 
   getListKho() {
@@ -48,7 +58,33 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
     })
   }
 
-  ChuyenTiep() { }
+  SetData() {
+    let data = {
+      ...this.item,
+      NgayUnix: DateToUnix(this.item.Ngay)
+    }
+    return data
+  }
+
+  ValidateData() {
+    if (!validVariable(this.item.Ngay)) {
+      this.toastr.error("Yêu cầu nhập Ngày");
+      return false;
+    }
+    return true;
+  }
+
+  ChuyenTiep() {
+    this._services.PhieuXuatGiaCong().ChuyenTiep(this.SetData()).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
 
   KhongDuyet() {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
@@ -56,7 +92,6 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
     }
     else {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-
       this._services.PhieuXuatGiaCong().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -76,6 +111,23 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
   }
 
   GhiLai() {
+    if (this.ValidateData()) {
+      this._services.PhieuXuatGiaCong().Set(this.SetData()).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.item = {
+              ...res.objectReturn,
+              Ngay: UnixToDate(res.objectReturn.NgayUnix)
+            }
+            this.MapTinhKhoiLuong();
+            this.toastr.success(res.message);
+            this.KiemTraButtonModal();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
   }
 
   XoaQuyTrinh() {
@@ -126,8 +178,6 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
-        console.log("data", data);
-
         if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
           this.item.listItem.forEach(element => {
             element.isXoa = true;
@@ -137,6 +187,7 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
         let listdatapush = [];
         data.data.forEach(element => {
           let datapush: any = {
+            ...element,
             Ten: element.Ten,
             IddmItem: element.IddmItem,
             TenLoHang: element.TenLoHang,
@@ -147,11 +198,13 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
             IdNhapKhoGoc: element.IdNhapKhoGoc,
             IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
             TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
+            SoQuaSoi: element.SoLuong,
           };
           var isCheck: any = false
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
             for (let i = 0; i < this.item.listItem.length; i++) {
               if (this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi && this.item.listItem[i].IdNhapKhoGoc == element.IdNhapKhoGoc) {
+                this.item.listItem[i] = element;
                 this.item.listItem[i].isXoa = false;
                 this.item.listItem[i].Ten = element.Ten;
                 this.item.listItem[i].IddmItem = element.IddmItem;
@@ -163,6 +216,7 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
                 this.item.listItem[i].IdNhapKhoGoc = element.IdNhapKhoGoc;
                 this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
                 this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
+                this.item.listItem[i].SoQuaSoi = element.SoLuong;
                 isCheck = true;
                 break;
               }
@@ -181,8 +235,7 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
         else {
           this.item.listItem = listdatapush
         }
-        console.log("this.item.listItem", this.item.listItem);
-
+        this.MapTinhKhoiLuong();
       }, (reason) => {
         // không
       });
@@ -190,6 +243,20 @@ export class XuatKhoGiaCongModalComponent implements OnInit {
   }
 
   ExportExcel() {
+  }
+
+  TinhKhoiLuong(item) {
+    item.KhoiLuongQua = (item.SoQua || 0) * (item.KhoiLuong || 0);
+    this.item.listItem = [...this.item.listItem]
+  }
+
+  MapTinhKhoiLuong() {
+    this.item.listItem = this.item.listItem.map(ele => {
+      return {
+        ...ele,
+        KhoiLuongQua: (ele.SoQua || 0) * (ele.KhoiLuong || 0)
+      }
+    })
   }
 
 }

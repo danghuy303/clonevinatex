@@ -78,7 +78,7 @@ export class KiemKeKhoGiaCongComponent extends StoreBase implements OnInit, OnDe
   getListdmKho() {
     let data = {
       CurrentPage: 0,
-      Loai: 11,
+      Loai: 203,
     }
     this._service.GetListdmKho(data).subscribe((res: any) => {
       this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -168,7 +168,7 @@ export class KiemKeKhoGiaCongComponent extends StoreBase implements OnInit, OnDe
       IddmKho: this.filter.IddmKho,
       IdLoHang: this.filter.IdLoHang
     };
-    data.Loai = 11;
+    data.Loai = 203;
     this._service
       .PhieuKiemKeKhoGiaCong()
       .GetList(data)
