@@ -18,7 +18,7 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   @ViewChildren('inputNumber') inputNumbers: any;
   @ViewChildren('inputKhoiLuong') inputKhoiLuongs: any;
   @ViewChildren('inputTocDoTrungBinh') inputTocDoTrungBinhs: any;
-  filter: any = {CongDoan:null};
+  filter: any = { CongDoan: null };
   listPhanXuong: any = [];
   listCongDoan: any = [];
   item: any = {};
@@ -31,9 +31,9 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   ngOnInit(): void {
     this.filter.NgayChon = new Date();
     this.getAllOpt();
-    this._services.GetListCongDoan().subscribe((res:any[])=>{
+    this._services.GetListCongDoan().subscribe((res: any[]) => {
       // console.log('listCongDoan',res);
-      this.listCongDoan = mapArrayForDropDown(res,'Ten','Ma');
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
       this.filter.MaCongDoan = this.listCongDoan[0].value;
     })
   }
@@ -41,31 +41,31 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
     this.voiPintable.active()
   }
   getAllOpt() {
-    forkJoin([this._services.GetListdmPhanXuongOpt(),this._services.GetListOptdmCaSanXuat(),this._services.GetListOptdmCaSanXuatThucTe()])
-    .subscribe((res: any[]) => {
-      console.log(res);
-      this.listPhanXuong = mapArrayForDropDown(res[0], "Ten", "Id");
-      this.listCaSanXuat = mapArrayForDropDown(res[1],"Ten","Id");
-      this.listCaSanXuatThucTe = mapArrayForDropDown(res[2],"Ten","Id");
-      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
-      this.filter.IddmCaSanXuat = this.listCaSanXuat[0].value;
-      this.filter.IddmCaSanXuatThucTe = this.listCaSanXuatThucTe[0].value;
-      this.getPhieuThongKeThoiGianDungMay()
-    })
+    forkJoin([this._services.GetListdmPhanXuongForIdDuAn(), this._services.GetListOptdmCaSanXuat(), this._services.GetListOptdmCaSanXuatThucTe()])
+      .subscribe((res: any[]) => {
+        console.log(res);
+        this.listPhanXuong = mapArrayForDropDown(res[0], "Ten", "Id");
+        this.listCaSanXuat = mapArrayForDropDown(res[1], "Ten", "Id");
+        this.listCaSanXuatThucTe = mapArrayForDropDown(res[2], "Ten", "Id");
+        this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+        this.filter.IddmCaSanXuat = this.listCaSanXuat[0].value;
+        this.filter.IddmCaSanXuatThucTe = this.listCaSanXuatThucTe[0].value;
+        this.getPhieuThongKeThoiGianDungMay()
+      })
     // this._services.GetListdmPhanXuongOpt().subscribe((res: any[]) => {
     //   this.listPhanXuong = mapArrayForDropDown(res, "Ten", "Id");
     //   this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
     //   this.getPhieuThongKeThoiGianDungMay()
     // })
   }
-  
+
   getPhieuThongKeThoiGianDungMay() {
     this.filter.Ngay = DateToUnix(this.filter.NgayChon);
     this._services.ThongKeThoiGianDungMay().Get(this.filter).subscribe(res => {
       // res.lstMay = res.lstMay.filter(ele=>ele.)
       this.item = res;
       setTimeout(() => {
-        document.querySelector('div.pintable-container tbody').scrollTo(0,0)
+        document.querySelector('div.pintable-container tbody').scrollTo(0, 0)
         this.voiPintable.active();
       }, 1000)
     })
@@ -82,16 +82,16 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
     item.TongThoiGianDungMay = item.lstSuCoDungMay.reduce((total, ele) => total += (ele.ThoiGianDungMay || 0), 0)
   }
 
-  xuongDong(i,length,indexcon){
-    let nextIndex = i * length + indexcon+1
-    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex+length);
-      if (validVariable(nextFocus)) {
-        nextFocus.el.nativeElement.children[0].children[0].focus();
-        nextFocus.el.nativeElement.children[0].children[0].select();
-      } else {
-        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].focus();
-        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].select();
-      }
+  xuongDong(i, length, indexcon) {
+    let nextIndex = i * length + indexcon + 1
+    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex + length);
+    if (validVariable(nextFocus)) {
+      nextFocus.el.nativeElement.children[0].children[0].focus();
+      nextFocus.el.nativeElement.children[0].children[0].select();
+    } else {
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 1)].el.nativeElement.children[0].children[0].focus();
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 1)].el.nativeElement.children[0].children[0].select();
+    }
   }
 
   nextFocus(index) {
