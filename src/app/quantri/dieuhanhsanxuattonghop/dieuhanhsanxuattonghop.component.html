@@ -126,8 +126,9 @@
                   <ng-container *ngFor="let thongke of thongKes1">
                      <ng-container *ngIf="thongke">
                         <div class="d-flex flex-row p-jc-between p-pt-1" [ngClass]="{ canhbao: thongke.isRed }">
-                           <div [pTooltip]="thongke.tollTip" tooltipPosition="top">{{ thongke.Ten }}</div>
-                           <div>
+                           <div [pTooltip]="thongke.tollTip" tooltipPosition="top" class="text-left">{{ thongke.Ten }}
+                           </div>
+                           <div class="text-right">
                               {{ thongke.GiaTri | number: '0.3-3' }}
                               <span *ngIf="thongke.DinhMuc !== undefined">/
                                  {{ thongke.DinhMuc | number: '0.3-3' }}</span>

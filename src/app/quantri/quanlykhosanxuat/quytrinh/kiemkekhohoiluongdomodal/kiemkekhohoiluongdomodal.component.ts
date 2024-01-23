@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
@@ -22,6 +23,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   };
+  lang: any = vn;
   listdmKho: any = [];
   listdmKhoHoiLD: any = [];
   listdmViTri: any = [];
@@ -30,7 +32,10 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
   listLoaiBong: any = [];
   listNewMatHang: any = [];
   listNewMatHang_ref: any = [];
+  listCaSanXuat: any = [];
+  listCaThucTe: any = [];
   isKhoThanhPham: any = false;
+  yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   paging: any = {
     CurrentPage: 1
   };
@@ -94,7 +99,22 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
         this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
         this.listNewMatHang_ref = res;
       });
+    this.getListCaSanXuat();
+    this.getListCaThucTe();
   }
+
+
+  getListCaSanXuat() {
+    this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListCaThucTe() {
+    this.services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
+      this.listCaThucTe = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
   getListMatHangKiemKe() {
     this.services
       .PhieuKiemKeKhoBongPhe()
