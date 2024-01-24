@@ -35,24 +35,28 @@
     <div class="p-grid">
         <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại:</label>
-            <div class="p-col-12 p-lg-1 p-p-0">
-                <input class="control-label col-form-label" type="radio" id="inlineCheckbox"
-                    [(ngModel)]="item.LoaiKiemKe" value="DieuChuyen">
-                <label for="inlineCheckbox" style="font-size: .875rem; padding-left: 0px">&nbsp;Chuyển kho hồi</label>
-            </div>
-            <div class="p-col-12 p-lg-1 p-p-0">
-                <input class="control-label col-form-label" type="radio" id="inlineCheckbox2"
-                    [(ngModel)]="item.LoaiKiemKe" value="DieuChuyenPhe">
-                <label for="inlineCheckbox2" style="font-size: .875rem; padding-left: 0px">&nbsp;Chuyển kho phế</label>
-            </div>
-            <div class="p-col-12 p-lg-1 p-p-0">
-                <input class="control-label col-form-label" type="radio" id="inlineCheckbox1"
-                    [(ngModel)]="item.LoaiKiemKe" value="XuatBan">
-                <label for="inlineCheckbox1" style="font-size: .875rem; padding-left: 0px">&nbsp;Xuất bán</label>
+            <div class="p-col-12 p-lg-10 p-p-0 d-flex">
+                <div class="mr-5">
+                    <input class="control-label col-form-label" type="radio" id="inlineCheckbox"
+                        [(ngModel)]="item.LoaiKiemKe" value="DieuChuyen">
+                    <label for="inlineCheckbox" style="font-size: .875rem; padding-left: 0px">&nbsp;Chuyển kho
+                        hồi</label>
+                </div>
+                <div class="mr-5">
+                    <input class="control-label col-form-label" type="radio" id="inlineCheckbox2"
+                        [(ngModel)]="item.LoaiKiemKe" value="DieuChuyenPhe">
+                    <label for="inlineCheckbox2" style="font-size: .875rem; padding-left: 0px">&nbsp;Chuyển kho
+                        phế</label>
+                </div>
+                <div class="mr-5">
+                    <input class="control-label col-form-label" type="radio" id="inlineCheckbox1"
+                        [(ngModel)]="item.LoaiKiemKe" value="XuatBan">
+                    <label for="inlineCheckbox1" style="font-size: .875rem; padding-left: 0px">&nbsp;Xuất bán</label>
+                </div>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho hồi luồng đỏ:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho hồi luồng đỏ <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmKhoHoiLD" placeholder="Chọn kho"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IddmKhoHoiLuongDo"
@@ -61,17 +65,23 @@
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.LoaiKiemKe === 'XuatBan'">
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
-            *ngIf="item.LoaiKiemKe === 'DieuChuyen' || item.LoaiKiemKe === 'DieuChuyenPhe'">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.LoaiKiemKe === 'DieuChuyen'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho chuyển:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmKho"></p-dropdown>
             </div>
         </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.LoaiKiemKe === 'DieuChuyenPhe'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho chuyển:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listdmKhoBP" placeholder="Chọn kho" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmKho"></p-dropdown>
+            </div>
+        </div>
 
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.LoaiKiemKe === 'DieuChuyenPhe'">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
@@ -81,7 +91,7 @@
         </div>
 
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.LoaiKiemKe === 'DieuChuyenPhe'">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn ca" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmCaSanXuat"></p-dropdown>
@@ -310,7 +320,7 @@
 
                         </td>
 
-                        <td style="text-align: center;">{{item.Ten}}</td>
+                        <td style="text-align: center;">{{item.TendmLoaiBong_BongPhe}}</td>
 
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
@@ -355,9 +365,9 @@
                         </td>
 
                         <td>
-                            <p-dropdown [filter]="true" [options]="listNewMatHang" placeholder="Chọn mặt hàng"
-                                styleClass="p-inputtext-sm" [(ngModel)]="newItem.IddmItem"
-                                (onChange)="setNewItemName($event)"></p-dropdown>
+                            <p-dropdown [filter]="true" [options]="listNewMatHangBP" placeholder="Chọn mặt hàng"
+                                styleClass="p-inputtext-sm" [(ngModel)]="newItem.IddmLoaiBong_BongPhe"
+                                (onChange)="setNewItemName_BP($event)"></p-dropdown>
                         </td>
 
                         <td class="text-right">

@@ -712,7 +712,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       })
       datasets.push({
         type: 'line',
-        label: 'Tiêu hao điện bình quân thực tế theo NE (30)',
+        label: 'Tiêu hao điện bình quân thực tế',
         borderColor: '#006666',
         yAxisID: 'KK',
         fill: false,

@@ -24,13 +24,15 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     Xoa: false,
   };
   lang: any = vn;
-  listdmKho: any = [];
-  listdmKhoHoiLD: any = [];
+  listdmKho: any = []; // 6
+  listdmKhoBP: any = []; // 7
+  listdmKhoHoiLD: any = []; // 66
   listdmViTri: any = [];
   listLoBong: any = [];
   listLoHang: any = [];
   listLoaiBong: any = [];
   listNewMatHang: any = [];
+  listNewMatHangBP: any = [];
   listNewMatHang_ref: any = [];
   listCaSanXuat: any = [];
   listCaThucTe: any = [];
@@ -71,6 +73,12 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     });
     this.services.GetListdmKho({
       ...data,
+      Loai: 7
+    }).subscribe((res: any) => {
+      this.listdmKhoBP = mapArrayForDropDown(res, "Ten", "Id");
+    });
+    this.services.GetListdmKho({
+      ...data,
       Loai: 66
     }).subscribe((res: any) => {
       this.listdmKhoHoiLD = mapArrayForDropDown(res, "Ten", "Id");
@@ -99,6 +107,15 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
         this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
         this.listNewMatHang_ref = res;
       });
+
+    this.services
+      .GetListdmLoaiBong({
+        ...data,
+        Loai: 7
+      })
+      .subscribe((res: any) => {
+        this.listNewMatHangBP = mapArrayForDropDown(res, "Ten", "Id");
+      });
     this.getListCaSanXuat();
     this.getListCaThucTe();
   }
@@ -115,16 +132,18 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     })
   }
 
-  getListMatHangKiemKe() {
+  getListMatHangKiemKe(loaibong?) {
     this.services
       .PhieuKiemKeKhoBongPhe()
-      .GetlistdmMatHangKiemKeBongPhe(6)
+      .GetlistdmMatHangKiemKeBongPhe(loaibong ?? 6)
       .subscribe((res: any) => {
         this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
         this.listNewMatHang_ref = res;
         this.checklistMatHangTheoKho();
       });
   }
+
+
   GetQuyTrinh() {
     this.services
       .PhieuKiemKeKhoBong()
@@ -209,10 +228,25 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
       });
   }
 
+  validate() {
+    let result = true;
+    if (this.item.LoaiKiemKe === `DieuChuyenPhe`) {
+      if (!this.item.Ngay || !this.item.IddmCaSanXuat) {
+        this.toastr.error(`Vui lòng nhập đầy đủ trường dữ liệu bắt buộc!`);
+        result = false;
+      }
+    }
+    return result;
+  }
+
   GhiLai() {
     if (validVariable(this.newItem.IddmItem)) {
       this.listItem.push(deepCopy(this.newItem));
       this.newItem = {};
+    }
+
+    if (!this.validate()) {
+      return;
     }
 
     this.item_new.listItem = this.listItem;
@@ -312,12 +346,22 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     this.item.listItem = this.listItem.slice(start, end);
   }
   setNewItemName(event) {
+    console.log("e", event);
+
     let selected = this.listNewMatHang_ref.find(
       (ele) => ele.Id === event.value
     );
     this.newItem.Ten = selected?.Ten;
     this.newItem.Ma = selected?.Ma;
     this.checklistMatHang(this.newItem);
+  }
+  setNewItemName_BP(event) {
+    let selected = this.listNewMatHangBP.find(
+      (ele) => ele.value === event.value
+    );
+    this.newItem.TendmLoaiBong_BongPhe = selected?.label;
+    // this.newItem.Ma = selected?.Ma;
+    // this.checklistMatHang(this.newItem);
   }
   add() {
     if (validVariable(this.newItem.IddmItem)) {
