@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, UnixToDate, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-kiemkekhohoiluongdomodal',
@@ -149,7 +150,10 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
       .PhieuKiemKeKhoBong()
       .Get(this.Id)
       .subscribe((res1: any) => {
-        this.item = res1;
+        this.item = {
+          ...res1,
+          Ngay: UnixToDate(res1.NgayUnix)
+        };
         this.listItem = res1.listItem;
         this.paging.CurrentPage = 1;
         this.paging.TotalPage = 5;
@@ -183,7 +187,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
       this.listItem.push(deepCopy(this.newItem));
       this.newItem = {};
     }
-
+    this.item.NgayUnix = DateToUnix(this.item.Ngay)
     this.item.listItem = deepCopy(this.listItem);
     this.services
       .PhieuKiemKeKhoBong()
@@ -203,7 +207,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
       this.listItem.push(deepCopy(this.newItem));
       this.newItem = {};
     }
-
+    this.item.NgayUnix = DateToUnix(this.item.Ngay)
     this.item.listItem = deepCopy(this.listItem);
     this.services
       .PhieuKiemKeKhoBong()
@@ -230,7 +234,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
 
   validate() {
     let result = true;
-    if (this.item.LoaiKiemKe === `DieuChuyenPhe`) {
+    if (this.item.LoaiKiemKe === `DieuChuyenBongPhe`) {
       if (!this.item.Ngay || !this.item.IddmCaSanXuat) {
         this.toastr.error(`Vui lòng nhập đầy đủ trường dữ liệu bắt buộc!`);
         result = false;
@@ -250,6 +254,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     }
 
     this.item_new.listItem = this.listItem;
+    this.item_new.NgayUnix = DateToUnix(this.item.Ngay)
     this.services
       .PhieuKiemKeKhoBong()
       .Set(this.item_new)

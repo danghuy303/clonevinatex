@@ -44,7 +44,7 @@
                 </div>
                 <div class="mr-5">
                     <input class="control-label col-form-label" type="radio" id="inlineCheckbox2"
-                        [(ngModel)]="item.LoaiKiemKe" value="DieuChuyenPhe">
+                        [(ngModel)]="item.LoaiKiemKe" value="DieuChuyenBongPhe">
                     <label for="inlineCheckbox2" style="font-size: .875rem; padding-left: 0px">&nbsp;Chuyển kho
                         phế</label>
                 </div>
@@ -72,7 +72,8 @@
                     [(ngModel)]="item.IddmKho"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.LoaiKiemKe === 'DieuChuyenPhe'">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
+            *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho chuyển:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmKhoBP" placeholder="Chọn kho" styleClass="p-inputtext-sm"
@@ -80,7 +81,8 @@
             </div>
         </div>
 
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.LoaiKiemKe === 'DieuChuyenPhe'">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
+            *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
@@ -90,14 +92,16 @@
             </div>
         </div>
 
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.LoaiKiemKe === 'DieuChuyenPhe'">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
+            *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn ca" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmCaSanXuat"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.LoaiKiemKe === 'DieuChuyenPhe'">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
+            *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kíp:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCaThucTe" placeholder="Chọn kíp" styleClass="p-inputtext-sm"
@@ -211,7 +215,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <tr>
+                    <!-- <tr>
                         <td></td>
                         <td class="text-center">{{newItem.Ma}}</td>
                         <td>
@@ -232,15 +236,11 @@
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newItem.TrongLuong">
                             </p-inputNumber>
                         </td>
-                        <!-- <td>
-                            <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
-                                placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
-                                [(ngModel)]="newItem.IddmQuyCachDongGoi"></p-dropdown>
-                        </td> -->
+                        
                         <td class="text-center"> <button pButton pRipple icon="pi pi-plus"
                                 class="p-button-sm p-button-rounded p-button-success p-mr-2" (click)="add()"
                                 pTooltip="Thêm" showDelay="1000" tooltipPosition="bottom"></button> </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td colspan="3">Tổng</td>
                         <td class="text-right">
@@ -272,7 +272,7 @@
             </p-table>
         </div>
 
-        <div class="p-col-12 p-p-0 d-flex flex-column" *ngIf="item.LoaiKiemKe === 'DieuChuyenPhe'">
+        <div class="p-col-12 p-p-0 d-flex flex-column" *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'">
             <p-table [value]="listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -320,7 +320,10 @@
 
                         </td>
 
-                        <td style="text-align: center;">{{item.TendmLoaiBong_BongPhe}}</td>
+                        <!-- <td style="text-align: center;">{{item.TendmLoaiBong_BongPhe}}</td> -->
+                        <td> <p-dropdown [filter]="true" [options]="listNewMatHangBP" placeholder="Chọn mặt hàng"
+                                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmLoaiBong_BongPhe"></p-dropdown></td>
+                        <!-- (onChange)="setNewItemName_BP($event)" -->
 
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
@@ -351,7 +354,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <tr>
+                    <!-- <tr>
                         <td></td>
                         <td class="text-center">{{newItem.Ma}}</td>
                         <td>
@@ -379,15 +382,11 @@
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newItem.TrongLuong">
                             </p-inputNumber>
                         </td>
-                        <!-- <td>
-                            <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
-                                placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
-                                [(ngModel)]="newItem.IddmQuyCachDongGoi"></p-dropdown>
-                        </td> -->
+                       
                         <td class="text-center"> <button pButton pRipple icon="pi pi-plus"
                                 class="p-button-sm p-button-rounded p-button-success p-mr-2" (click)="add()"
                                 pTooltip="Thêm" showDelay="1000" tooltipPosition="bottom"></button> </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td colspan="3">Tổng</td>
                         <td class="text-right">
