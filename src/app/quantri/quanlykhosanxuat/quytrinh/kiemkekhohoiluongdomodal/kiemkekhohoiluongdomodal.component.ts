@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { vn } from 'src/app/services/const';
+import { DateToUnix, UnixToDate, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-kiemkekhohoiluongdomodal',
@@ -22,15 +24,21 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   };
-  listdmKho: any = [];
-  listdmKhoHoiLD: any = [];
+  lang: any = vn;
+  listdmKho: any = []; // 6
+  listdmKhoBP: any = []; // 7
+  listdmKhoHoiLD: any = []; // 66
   listdmViTri: any = [];
   listLoBong: any = [];
   listLoHang: any = [];
   listLoaiBong: any = [];
   listNewMatHang: any = [];
+  listNewMatHangBP: any = [];
   listNewMatHang_ref: any = [];
+  listCaSanXuat: any = [];
+  listCaThucTe: any = [];
   isKhoThanhPham: any = false;
+  yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   paging: any = {
     CurrentPage: 1
   };
@@ -66,6 +74,12 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     });
     this.services.GetListdmKho({
       ...data,
+      Loai: 7
+    }).subscribe((res: any) => {
+      this.listdmKhoBP = mapArrayForDropDown(res, "Ten", "Id");
+    });
+    this.services.GetListdmKho({
+      ...data,
       Loai: 66
     }).subscribe((res: any) => {
       this.listdmKhoHoiLD = mapArrayForDropDown(res, "Ten", "Id");
@@ -94,23 +108,52 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
         this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
         this.listNewMatHang_ref = res;
       });
+
+    this.services
+      .GetListdmLoaiBong({
+        ...data,
+        Loai: 7
+      })
+      .subscribe((res: any) => {
+        this.listNewMatHangBP = mapArrayForDropDown(res, "Ten", "Id");
+      });
+    this.getListCaSanXuat();
+    this.getListCaThucTe();
   }
-  getListMatHangKiemKe() {
+
+
+  getListCaSanXuat() {
+    this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListCaThucTe() {
+    this.services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
+      this.listCaThucTe = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
+  getListMatHangKiemKe(loaibong?) {
     this.services
       .PhieuKiemKeKhoBongPhe()
-      .GetlistdmMatHangKiemKeBongPhe(6)
+      .GetlistdmMatHangKiemKeBongPhe(loaibong ?? 6)
       .subscribe((res: any) => {
         this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
         this.listNewMatHang_ref = res;
         this.checklistMatHangTheoKho();
       });
   }
+
+
   GetQuyTrinh() {
     this.services
       .PhieuKiemKeKhoBong()
       .Get(this.Id)
       .subscribe((res1: any) => {
-        this.item = res1;
+        this.item = {
+          ...res1,
+          Ngay: UnixToDate(res1.NgayUnix)
+        };
         this.listItem = res1.listItem;
         this.paging.CurrentPage = 1;
         this.paging.TotalPage = 5;
@@ -144,7 +187,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
       this.listItem.push(deepCopy(this.newItem));
       this.newItem = {};
     }
-
+    this.item.NgayUnix = DateToUnix(this.item.Ngay)
     this.item.listItem = deepCopy(this.listItem);
     this.services
       .PhieuKiemKeKhoBong()
@@ -164,7 +207,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
       this.listItem.push(deepCopy(this.newItem));
       this.newItem = {};
     }
-
+    this.item.NgayUnix = DateToUnix(this.item.Ngay)
     this.item.listItem = deepCopy(this.listItem);
     this.services
       .PhieuKiemKeKhoBong()
@@ -189,13 +232,29 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
       });
   }
 
+  validate() {
+    let result = true;
+    if (this.item.LoaiKiemKe === `DieuChuyenBongPhe`) {
+      if (!this.item.Ngay || !this.item.IddmCaSanXuat) {
+        this.toastr.error(`Vui lòng nhập đầy đủ trường dữ liệu bắt buộc!`);
+        result = false;
+      }
+    }
+    return result;
+  }
+
   GhiLai() {
     if (validVariable(this.newItem.IddmItem)) {
       this.listItem.push(deepCopy(this.newItem));
       this.newItem = {};
     }
 
+    if (!this.validate()) {
+      return;
+    }
+
     this.item_new.listItem = this.listItem;
+    this.item_new.NgayUnix = DateToUnix(this.item.Ngay)
     this.services
       .PhieuKiemKeKhoBong()
       .Set(this.item_new)
@@ -292,12 +351,22 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     this.item.listItem = this.listItem.slice(start, end);
   }
   setNewItemName(event) {
+    console.log("e", event);
+
     let selected = this.listNewMatHang_ref.find(
       (ele) => ele.Id === event.value
     );
     this.newItem.Ten = selected?.Ten;
     this.newItem.Ma = selected?.Ma;
     this.checklistMatHang(this.newItem);
+  }
+  setNewItemName_BP(event) {
+    let selected = this.listNewMatHangBP.find(
+      (ele) => ele.value === event.value
+    );
+    this.newItem.TendmLoaiBong_BongPhe = selected?.label;
+    // this.newItem.Ma = selected?.Ma;
+    // this.checklistMatHang(this.newItem);
   }
   add() {
     if (validVariable(this.newItem.IddmItem)) {

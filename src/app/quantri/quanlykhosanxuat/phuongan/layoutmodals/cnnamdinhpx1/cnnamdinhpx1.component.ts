@@ -33,6 +33,7 @@ export class Cnnamdinhpx1Component implements OnInit {
   listBanBong: any = [];
   BanBongForCopy: any = {};
   banBongCopy: any = {};
+
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
   }
 
@@ -45,13 +46,13 @@ export class Cnnamdinhpx1Component implements OnInit {
     }
     this.KiemTraButtonModal();
     this.renderBanDau();
-
   }
   renderBanDau() {
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
-    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
+    let _length = (this.length + this.item.SoViTriNgoaiQuan)
+    for (let i = 1; i <= _length; i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -76,18 +77,26 @@ export class Cnnamdinhpx1Component implements OnInit {
       // if (31 <= i && i <= 44) {
       //   this.block5.push(`${i}`)
       // }
-      if (i % 4 === 1) {
+
+      if (32 >= i) {
         this.block1.push(`${i}`)
       }
-      if (i % 4 === 2) {
+      if (32 < i) {
         this.block2.push(`${i}`)
       }
-      if (i % 4 === 3) {
-        this.block3.push(`${i}`)
-      }
-      if (i % 4 === 0) {
-        this.block4.push(`${i}`)
-      }
+
+      // if (i % 4 === 1) {
+      //   this.block1.push(`${i}`)
+      // }
+      // if (i % 4 === 2) {
+      //   this.block2.push(`${i}`)
+      // }
+      // if (i % 4 === 3) {
+      //   this.block3.push(`${i}`)
+      // }
+      // if (i % 4 === 0) {
+      //   this.block4.push(`${i}`)
+      // }
     };
     if (validVariable(this.item.Id)) {
       for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
@@ -194,7 +203,8 @@ export class Cnnamdinhpx1Component implements OnInit {
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
-    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
+    let _length = (this.length + this.item.SoViTriNgoaiQuan)
+    for (let i = 1; i <= _length; i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -204,18 +214,24 @@ export class Cnnamdinhpx1Component implements OnInit {
         IdLoBong: null,
         Mau: 'white'
       }
-      if (i % 4 === 1) {
+      if (32 >= i) {
         this.block1.push(`${i}`)
       }
-      if (i % 4 === 2) {
+      if (32 < i) {
         this.block2.push(`${i}`)
       }
-      if (i % 4 === 3) {
-        this.block3.push(`${i}`)
-      }
-      if (i % 4 === 0) {
-        this.block4.push(`${i}`)
-      }
+      // if (i % 4 === 1) {
+      //   this.block1.push(`${i}`)
+      // }
+      // if (i % 4 === 2) {
+      //   this.block2.push(`${i}`)
+      // }
+      // if (i % 4 === 3) {
+      //   this.block3.push(`${i}`)
+      // }
+      // if (i % 4 === 0) {
+      //   this.block4.push(`${i}`)
+      // }
     };
   }
   changeNgoaiQuanBong() {

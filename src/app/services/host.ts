@@ -8,7 +8,7 @@ import { HttpHeaders } from "@angular/common/http";
 // export const host1 = `${window.location.origin.includes("4200")
 export const host1 = `${window.location.origin.includes("localhost")
   // ? "http://soindt.vinatex.com.vn"
-  ? "http://103.130.212.35:2371"
+  ? "http://103.130.212.35:2369"
   : window.location.origin
   }`;
 // export const host1 = `http://27.71.231.140`;
@@ -25,7 +25,7 @@ export const host1 = `${window.location.origin.includes("localhost")
 // const host = 'http://vinatex.harmonyes.com.vn';
 // host public 'http://vinatex.harmonyes.com.vn';
 // host phat trien 'http://eos.harmonyes.com.vn:1169';
-// const host1 = 'http://serverda:1169'
+// const host1 = 'http://serverda:1169' 
 export const httpOptions = {
   headers: new HttpHeaders({
     "Content-Type": "application/json",

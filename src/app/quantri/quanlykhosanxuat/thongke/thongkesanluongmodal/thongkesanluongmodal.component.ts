@@ -267,7 +267,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   getListPhanXuong() {
-    this.services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+    this.services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

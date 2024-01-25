@@ -369,18 +369,18 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
           Ten: 'Lũy kế quy Ne 30(kg):', GiaTri: res.LuyKeQuyNe30
 
         },
-        {
-          Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat,
-          tollTip: '[Khối lượng sợi cắt / (Khối lượng sợi cắt + sản lượng công đoạn ống)] (Lấy theo thống kê công đoạn ống)',
-          DinhMuc: res.TyLeSoiCat_DinhMuc, isRed: (res.TyLeSoiCat > res.TyLeSoiCat_DinhMuc)
-        },
+        // {
+        //   Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat,
+        //   tollTip: '[Khối lượng sợi cắt / (Khối lượng sợi cắt + sản lượng công đoạn ống)] (Lấy theo thống kê công đoạn ống)',
+        //   DinhMuc: res.TyLeSoiCat_DinhMuc, isRed: (res.TyLeSoiCat > res.TyLeSoiCat_DinhMuc)
+        // },
         {
           Ten: 'Tỷ lệ sợi Con / Ống:', GiaTri: res.TyLeSoiCon,
           DinhMuc: res.TyLeSoiCon_DinhMuc, isRed: (res.TyLeSoiCon > res.TyLeSoiCon_DinhMuc),
           tollTip: '',
         },
         {
-          Ten: 'Tỷ lệ chênh lệch Con - Ống:', GiaTri: res.TyLeChenhLechConOng,
+          Ten: 'Tỷ lệ Con - Ống:', GiaTri: res.TyLeChenhLechConOng,
           DinhMuc: res.TyLeChenhLechConOng_DinhMuc, isRed: (res.TyLeChenhLechConOng > res.TyLeChenhLechConOng_DinhMuc),
           tollTip: '[((SL sợi con - KL bông hút mối) - (SL ống + KL sợi cắt + KL sợi loại 2)) / (SL con - KL bông hút mối)] * 100 '
         },
@@ -712,7 +712,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       })
       datasets.push({
         type: 'line',
-        label: 'Tiêu hao điện bình quân thực tế theo NE (30)',
+        label: 'Tiêu hao điện bình quân thực tế',
         borderColor: '#006666',
         yAxisID: 'KK',
         fill: false,

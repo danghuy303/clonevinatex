@@ -597,11 +597,13 @@ export class SanXuatService {
 
     //Dùng chung
     GetListCongDoan() {
-        let url = API.SCMDanhMuc + 'GetListCongDoan';
+        let IdDuAn = this.store.getCurrent();
+        let url = API.SCMDanhMuc + `GetListCongDoan?IdDuAn=${IdDuAn}`;
         return this.http.get(url, httpOptions);
     }
     GetlistCongDoanBoDayBongDayPE() {
-        let url = API.SCMDanhMuc + 'GetlistCongDoanBoDayBongDayPE';
+        let IdDuAn = this.store.getCurrent();
+        let url = API.SCMDanhMuc + `GetlistCongDoanBoDayBongDayPE?IdDuAn=${IdDuAn}`;
         return this.http.get(url, httpOptions);
     }
     KiemTraTabTrangThai(eAction) {
