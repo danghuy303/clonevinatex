@@ -93,22 +93,22 @@ export class BanChePhamToHieuTongHopComponent implements OnInit {
   KhongDuyet() {
     let API = this.bcp === 'HUE' ? this._services.KiemKeBanChePhamHue() : this._services.KiemKeBanChePham();
     API.KhongDuyet(this.setData()).subscribe((res: any) => {
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
+      if (res.State === 1) {
+        this.toastr.success(res.message);
         this.activeModal.close();
+      } else {
+        this.toastr.error('Có lỗi xảy ra!');
       }
     })
   }
   ChuyenTiep() {
     let API = this.bcp === 'HUE' ? this._services.KiemKeBanChePhamHue() : this._services.KiemKeBanChePham();
     API.ChuyenTiep(this.setData()).subscribe((res: any) => {
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
+      if (res.State === 1) {
+        this.toastr.success(res.message);
         this.activeModal.close();
+      } else {
+        this.toastr.error('Có lỗi xảy ra!');
       }
     })
   }

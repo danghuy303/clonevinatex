@@ -115,6 +115,16 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
     itemBongPhe: any = { listData1: [] };
     chart5: any;
     $sub!: Subscription;
+    listBong: any = [
+        {
+            value: 'BONGCM',
+            label: 'Bông CM'
+        },
+        {
+            value: 'BONGCD',
+            label: 'Bông CD'
+        }
+    ]
 
     constructor(
         private _services: SanXuatService,
@@ -133,6 +143,7 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
             this.listNam.push({ value: i, label: i });
         }
         this.filter.Nam = new Date().getFullYear();
+        this.filter.LoaiBong = this.listBong[0].value;
         this.GetListdmPhanXuong();
     }
 
@@ -140,7 +151,7 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
         let data = {
             Nam: this.filter.Nam ? this.filter.Nam : null,
             IddmPhanXuong: this.filter.IddmPhanXuong,
-            Thang: this.thang ? this.thang : new Date().getMonth()+1 
+            Thang: this.thang ? this.thang : new Date().getMonth() + 1
         }
         this._services.QuyetToan().ExportDashbroadKiemKeBanChePhamToHieu(data).subscribe((res: any) => {
             this._services.download(res.TenFile);
@@ -275,6 +286,7 @@ export class QuyetToanNguyenLieuComponent implements OnInit {
             ... this.payload,
             Nam: this.filter.Nam ? this.filter.Nam : null,
             IddmPhanXuong: this.filter.IddmPhanXuong,
+            LoaiBong: this.filter.LoaiBong ? this.filter.LoaiBong : '',
         }
         this.BieuDoTiLeTieuHaoBong(this.payload);
         this.BieuDoTiLeTieuHaoXo(this.payload);

@@ -629,6 +629,9 @@ export class SanXuatService {
             GetMatHang: () => {
                 return this.http.post(`${API.SCMDanhMuc}GetListdmItem`, { Loai: 1 }, httpOptions)
             },
+            GetListdmItemForGiaokeHoachSanXuat: () => {
+                return this.http.get(`${API.SCMDanhMuc}GetListdmItemForGiaokeHoachSanXuat?Loai=${1}`, httpOptions)
+            },
             GetChiTietMatHangChoKHKD: () => {
                 return this.http.post(`${API.SCM}APIChoModuleKeHoach/GetDanhMucSanPhamHopDong`, {}, httpOptions)
             },
