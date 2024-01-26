@@ -94,29 +94,11 @@ export class ThongkesanluongmodalComponent implements OnInit {
         this.checkbutton.Ghi = true;
     })
   }
+
+
   ChuyenDuyet() {
-    // switch (this.item.CongDoan) {
-    //   case 'CHAICOTTON':
-    //     this.TinhTyLeCottonBongPhe();
-    //   case 'CHAIPE':
-    //     this.TinhTyLePEBongPhe();
-    //   case 'CHAIKY':
-    //     this.TinhTyLeBongChaiKy();
-    //   case 'THO':
-    //     this.TinhTyLeBongCuiHoi();
-    //   case 'CON':
-    //     this.TinhTyLeBongThoMang();
-    //   case 'ONG':
-    //     this.TinhTyLeSoiCat();
-    // }
-    let isCheck: any = false;
-    this.item.listItem.forEach(element => {
-      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
-        isCheck = true;
-      }
-    });
-    if (isCheck === true) {
-      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
+    if (!this.validate()) {
+      return;
     }
     else {
       this.services.ThongKeSanLuong().ChuyenTiep(this.item).subscribe((res: any) => {
@@ -132,14 +114,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
   }
   KhongDuyet() {
-    let isCheck: any = false;
-    this.item.listItem.forEach(element => {
-      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
-        isCheck = true;
-      }
-    });
-    if (isCheck === true) {
-      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
+    if (!this.validate()) {
+      return;
     }
     else {
       this.services.ThongKeSanLuong().KhongDuyet(this.item).subscribe((res: any) => {
@@ -160,39 +136,41 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
-  GhiLai() {
-    // switch (this.item.CongDoan) {
-    //   case 'CHAICOTTON':
-    //     this.TinhTyLeCottonBongPhe();
-    //   case 'CHAIPE':
-    //     this.TinhTyLePEBongPhe();
-    //   case 'CHAIKY':
-    //     this.TinhTyLeBongChaiKy();
-    //   case 'THO':
-    //     this.TinhTyLeBongCuiHoi();
-    //   case 'CON':
-    //     this.TinhTyLeBongThoMang();
-    //   case 'ONG':
-    //     this.TinhTyLeSoiCat();
-    // }
+
+  validate() {
+    let result = true;
     let isCheck: any = false;
+    let arr: any = [];
     if (this.item.listItem !== null && this.item.listItem !== undefined) {
       this.item.listItem.forEach(element => {
         if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.KhoiLuong !== null && element.KhoiLuong !== undefined) {
           isCheck = true;
         }
+        if (element.CongDoan === "ONG" && (!element.KhoiLuong || !element.SoQuaSoi)) {
+          arr.push(element);
+        }
       });
     }
-    if (isCheck === true) {
+    if (isCheck) {
       this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
-    }
-    else if (this.item.IddmCaSanXuatThucTe === undefined || this.item.IddmCaSanXuatThucTe === null) {
+      result = false;
+    } else if (this.item.IddmCaSanXuatThucTe === undefined || this.item.IddmCaSanXuatThucTe === null) {
       this.toastr.error("Bạn chưa chọn ca thống kê");
+      result = false;
+    } else if (arr.length > 0) {
+      let text = `Số máy ` + arr.map((x: any) => x.TendmMay).join(", ") + ` chưa nhập đầy đủ SL màn hình và số quả sợi`;
+      this.toastr.error(text);
+      result = false;
+    }
+
+    return result
+  }
+
+  GhiLai() {
+    if (!this.validate()) {
+      return;
     }
     else {
-      // this.item.listItem.forEach(element => {
-      //   element.IdLoHang = this.item.IdLoHang
-      // });
       this.services.ThongKeSanLuong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
