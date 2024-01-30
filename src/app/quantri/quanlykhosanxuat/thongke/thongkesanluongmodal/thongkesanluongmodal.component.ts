@@ -146,7 +146,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
         if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.KhoiLuong !== null && element.KhoiLuong !== undefined) {
           isCheck = true;
         }
-        if (element.CongDoan === "ONG" && (!element.KhoiLuong || !element.SoQuaSoi)) {
+        if (element.CongDoan === "ONG" && (!element.KhoiLuong)) {
           arr.push(element);
         }
       });
@@ -158,7 +158,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn ca thống kê");
       result = false;
     } else if (arr.length > 0) {
-      let text = `Số máy ` + arr.map((x: any) => x.TendmMay).join(", ") + ` chưa nhập đầy đủ SL màn hình và số quả sợi`;
+      let text = `Số máy ` + arr.map((x: any) => x.TendmMay).join(", ") + ` chưa nhập đầy đủ SL màn hình`;
       this.toastr.error(text);
       result = false;
     }
