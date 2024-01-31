@@ -153,7 +153,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
   }
 
   getListDmKhoHoiLDByDuAn(event) {
-    this.services.GetListdmKho({
+    this.services.GetListdmKhoNoLogin({
       Loai: 66
     }, event.value).subscribe((res: any) => {
       this.listdmKhoHoiLD_ByDuAn = mapArrayForDropDown(res, "Ten", "Id");

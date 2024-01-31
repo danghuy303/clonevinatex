@@ -57,6 +57,11 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'GetListdmKho';
         return this.http.post(url, data, httpOptions);
     }
+    GetListdmKhoNoLogin(data, IdDuAn?) {
+        data.IdDuAn = IdDuAn ?? this.store.getCurrent();
+        let url = API.SCMDanhMuc + 'GetListdmKhoNoLogin';
+        return this.http.post(url, data, httpOptions);
+    }
     GetdmKhoThanhPhamHoiAm_DashBoard(data) {
         let url = API.SCMDanhMuc + `GetdmKhoThanhPhamHoiAm_DashBoard?IdDuAn=${data.IdDuAn}`;
         return this.http.get(url, httpOptions);
