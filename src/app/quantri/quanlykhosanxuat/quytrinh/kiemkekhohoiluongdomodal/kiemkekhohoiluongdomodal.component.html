@@ -49,6 +49,12 @@
                         phế</label>
                 </div>
                 <div class="mr-5">
+                    <input class="control-label col-form-label" type="radio" id="inlineCheckbox3"
+                        [(ngModel)]="item.LoaiKiemKe" value="XuatBanNoiBo">
+                    <label for="inlineCheckbox3" style="font-size: .875rem; padding-left: 0px">&nbsp;Xuất bán nội
+                        bộ</label>
+                </div>
+                <div class="mr-5">
                     <input class="control-label col-form-label" type="radio" id="inlineCheckbox1"
                         [(ngModel)]="item.LoaiKiemKe" value="XuatBan">
                     <label for="inlineCheckbox1" style="font-size: .875rem; padding-left: 0px">&nbsp;Xuất bán</label>
@@ -72,17 +78,31 @@
                     [(ngModel)]="item.IddmKho"></p-dropdown>
             </div>
         </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.LoaiKiemKe === 'XuatBanNoiBo'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listDuAn" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IdDuAn_NoiBo" (onChange)="getListDmKhoHoiLDByDuAn($event)"></p-dropdown>
+            </div>
+        </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
-            *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'">
+            *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe' ">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho chuyển:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmKhoBP" placeholder="Chọn kho" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmKho"></p-dropdown>
             </div>
         </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf=" item.LoaiKiemKe === 'XuatBanNoiBo'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho chuyển:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listdmKhoHoiLD_ByDuAn" placeholder="Chọn kho"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmKho"></p-dropdown>
+            </div>
+        </div>
 
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
-            *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'">
+            *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'  || item.LoaiKiemKe === 'XuatBanNoiBo'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
@@ -272,7 +292,8 @@
             </p-table>
         </div>
 
-        <div class="p-col-12 p-p-0 d-flex flex-column" *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'">
+        <div class="p-col-12 p-p-0 d-flex flex-column"
+            *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe' || item.LoaiKiemKe === 'XuatBanNoiBo'">
             <p-table [value]="listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -294,7 +315,8 @@
                         <th rowspan="2">Mã</th>
                         <th rowspan="2">Tên</th>
                         <th colspan="2">Tồn sổ sách</th>
-                        <th rowspan="2">Tên bông phế</th>
+                        <th rowspan="2" *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'">Tên bông phế</th>
+                        <th rowspan="2" *ngIf="item.LoaiKiemKe === 'XuatBanNoiBo'">Bông hồi</th>
                         <th colspan="2">Xuất</th>
                         <th rowspan="2"></th>
                     </tr>
@@ -306,31 +328,37 @@
                         <!-- <th>Quy cách đóng gói</th> -->
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <ng-template pTemplate="body" let-x let-i="rowIndex">
                     <tr>
                         <td style="text-align: center;">{{ 10 * (paging.CurrentPage - 1) + i + 1 }}</td>
-                        <td style="text-align: center;">{{item.Ma}}</td>
-                        <td style="text-align: center;">{{item.Ten}}</td>
+                        <td style="text-align: center;">{{x.Ma}}</td>
+                        <td style="text-align: center;">{{x.Ten}}</td>
                         <td style="text-align: right;">
-                            {{item.TonSoLuong|number:'0.0'}}
+                            {{x.TonSoLuong|number:'0.0'}}
 
                         </td>
                         <td style="text-align: right;">
-                            {{item.TonTrongLuong|number:'0.0-2'}}
+                            {{x.TonTrongLuong|number:'0.0-2'}}
 
                         </td>
 
                         <!-- <td style="text-align: center;">{{item.TendmLoaiBong_BongPhe}}</td> -->
-                        <td> <p-dropdown [filter]="true" [options]="listNewMatHangBP" placeholder="Chọn mặt hàng"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmLoaiBong_BongPhe"></p-dropdown></td>
+                        <td *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'">
+                            <p-dropdown [filter]="true" [options]="listNewMatHangBP" placeholder="Chọn mặt hàng"
+                                styleClass="p-inputtext-sm" [(ngModel)]="x.IddmLoaiBong_BongPhe"></p-dropdown>
+                        </td>
+                        <td *ngIf="item.LoaiKiemKe === 'XuatBanNoiBo'">
+                            <p-dropdown [filter]="true" [options]="listNewMatHangBH" placeholder="Chọn mặt hàng"
+                                styleClass="p-inputtext-sm" [(ngModel)]="x.IddmLoaiBong_BongPhe"></p-dropdown>
+                        </td>
                         <!-- (onChange)="setNewItemName_BP($event)" -->
 
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="x.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TrongLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="x.TrongLuong">
                             </p-inputNumber>
                             <!-- <div class="p-inputgroup" style="align-items: flex-end">
                                 <p-inputNumber [minFractionDigits]="1" locale="en-EN"
