@@ -62,6 +62,8 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       }
     }
     else {
+      console.log(this.item);
+      
       this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
     }
   }
@@ -378,9 +380,17 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       }
     }
   }
+
+  SetData() {
+    let data = {
+      ...this.item,
+      TongSanLuong: this.item.TongKhoiLuongMatHang
+    }
+    return data;
+  }
   GhiLai() {
     if (this.validData()) {
-      this.services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
+      this.services.GiaoKeHoachSanXuat().Set(this.SetData()).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
