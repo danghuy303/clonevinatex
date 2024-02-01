@@ -132,7 +132,7 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
       });
     this.getListCaSanXuat();
     this.getListCaThucTe();
-    this.getListDuAn()
+    this.getListDuAn();
   }
 
 
@@ -199,6 +199,11 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
             });
         }
         this.getListMatHangKiemKe();
+        if (res1.LoaiKiemKe === "XuatBanNoiBo") {
+          this.getListDmKhoHoiLDByDuAn({
+            value: res1.IdDuAn_NoiBo
+          })
+        }
       });
   }
   KiemTraButtonModal() {
