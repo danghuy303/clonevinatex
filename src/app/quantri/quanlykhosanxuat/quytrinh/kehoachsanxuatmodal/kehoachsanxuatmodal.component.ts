@@ -35,13 +35,15 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     { value: 0, label: 'Xuất khẩu' },
     { value: 1, label: 'Nội địa' },
   ]
-  listPhanXuong: any = []; listMatHang: any = [];
+  listPhanXuong: any = [];
+  listMatHang: any = [];
+  listMatHangCopy: any = [];
   listQuyCachDongGoi: any = [];
   listKeHoachForCopy: any = [];
   GiaoKeHoachForCopy: any = {};
-  listCaSanXuat:any =[];
+  listCaSanXuat: any = [];
   canCopy: boolean = false;
-  canExport:boolean = false;
+  canExport: boolean = false;
   yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
     private _servicesDungChung: SanXuatService) {
@@ -60,25 +62,25 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       }
     }
     else {
-      this.item.listItem =this.item.listItem.sort((a, b) => a.Ne-b.Ne);
+      this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
     }
   }
   ngDoCheck(): void {
-    this.Calculate();
+    // this.Calculate();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
       this.checkbutton = res;
-      if(validVariable(this.item.Id)){
+      if (validVariable(this.item.Id)) {
         this.canExport = true;
-      }else{
+      } else {
         this.canExport = false;
       }
     })
   }
-  getListCaSanXuat(){
-    this._servicesDungChung.GetListOptdmCaSanXuat().subscribe((res:any)=>{
-      this.listCaSanXuat = res;    
+  getListCaSanXuat() {
+    this._servicesDungChung.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      this.listCaSanXuat = res;
     })
   }
   GetListGiaoKeHoachForCopy() {
@@ -137,8 +139,12 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     this.item.isDieuChinh = true;
   }
   GetFormOptions() {
-    this.services.GetOptions().GetMatHang().subscribe((res: Array<any>) => {
+    this.services.GetOptions().GetListdmItemForGiaokeHoachSanXuat().subscribe((res: Array<any>) => {
       this.listMatHang = res;
+      this.listMatHangCopy = res;
+      if (this.opt === 'edit') {
+        this.Calculate();
+      }
     })
     this.services.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
       this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');;
@@ -266,7 +272,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         return false;
       }
     }
-    let checkArray = this.item.listItem.every(ele=>validVariable(ele.KhoiLuongKeHoach)&&ele.KhoiLuongKeHoach!==0)
+    let checkArray = this.item.listItem.every(ele => validVariable(ele.KhoiLuongKeHoach) && ele.KhoiLuongKeHoach !== 0)
     if (!checkArray) {
       this.toastr.error('Có mặt hàng không nhập khối lượng!')
       return false;
@@ -278,14 +284,16 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       size: 'lg'
     })
     modalRef.componentInstance.items = this.listMatHang;
+    modalRef.componentInstance.listSelectedItems = this.item.listItem.length ? this.item.listItem.map(ele => ele.IddmItem) : [];
     modalRef.componentInstance.selectedItems = [];
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
-      if (res.length > 0) {
-        res.forEach(obj => this.item.listItem.push(obj))
-        this.item.listItem = this.item.listItem.sort((a, b) => a.Ne-b.Ne);
-      }
-      // merge(res, this.item.listItem, 'IddmItem')
+      // if (res.length > 0) {
+      //   res.forEach(obj => this.item.listItem.push(obj))
+      //   this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
+      // }
+      this.item.listItem = merge(res, this.item.listItem, 'IddmItem')
+      this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
     }).catch(er => {
       console.log(er);
     })
@@ -304,7 +312,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
       }
     }
-    if(validVariable(this.item.Id)){
+    if (validVariable(this.item.Id)) {
       item.isEdited = true;
     }
   }
@@ -338,12 +346,26 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     })
   }
 
+  mapListItem() {
+    this.item.listItem = this.item.listItem.map(ele => {
+      return {
+        ...ele,
+        HinhThucSoi: this.listMatHangCopy.find(obj => obj.Id === ele.IddmItem).HinhThucSoi,
+      }
+    })
+  }
+
   Calculate() {
     let TongKL = 0;
     let KLxChiSo = 0;
+    this.mapListItem();
+    console.log(this.item.listItem);
+    
     this.item.listItem.forEach(mathang => {
-      TongKL += validVariable(mathang.KhoiLuongKeHoach) ? mathang.KhoiLuongKeHoach : 0;
-      KLxChiSo += validVariable(mathang.KhoiLuongKeHoach) ? (mathang.KhoiLuongKeHoach * mathang.Ne) : 0;
+      if (mathang.HinhThucSoi !== 4) {
+        TongKL += validVariable(mathang.KhoiLuongKeHoach) ? mathang.KhoiLuongKeHoach : 0;
+        KLxChiSo += validVariable(mathang.KhoiLuongKeHoach) ? (mathang.KhoiLuongKeHoach * mathang.Ne) : 0;
+      }
     });
     if (
       TongKL !== 0 && KLxChiSo !== 0
@@ -371,7 +393,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
                 });
               });
             }
-            this.item.listItem =this.item.listItem.sort((a, b) => a.Ne-b.Ne);
+            this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
             this.KiemTraButtonModal();
             this.Calculate();
           } else {
@@ -446,18 +468,18 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     }
   }
   change(index) {
-    if(validVariable(this.item.Id)){
+    if (validVariable(this.item.Id)) {
       this.item.listItem[index].isEdited = true;
     }
   }
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt]=res;
+      item[opt] = res;
     })
   }
-  exportExcel(){
-    this.services.GiaoKeHoachSanXuat().ExportGiaoKeHoachSanXuat(this.item.Id).subscribe((res:any)=>{
+  exportExcel() {
+    this.services.GiaoKeHoachSanXuat().ExportGiaoKeHoachSanXuat(this.item.Id).subscribe((res: any) => {
       this.services.download(res.TenFile);
     })
   }

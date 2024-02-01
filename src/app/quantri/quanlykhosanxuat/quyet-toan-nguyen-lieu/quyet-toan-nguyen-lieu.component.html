@@ -16,7 +16,14 @@
                         </p-dropdown>
                     </div>
                     <div class="p-mr-2">
-                        <button pButton pRipple label="Xuất báo cáo" class="p-button-sm p-mr-2" (click)="XuatDuLieu()"></button>
+                        <p-dropdown [filter]="true" placeholder="Chọn bông" styleClass="p-inputtext-sm"
+                            [options]="listBong" [(ngModel)]="filter.LoaiBong" [showClear]="true"
+                            (onChange)="getOptions()">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-mr-2">
+                        <button pButton pRipple label="Xuất báo cáo" class="p-button-sm p-mr-2"
+                            (click)="XuatDuLieu()"></button>
                     </div>
                 </div>
             </div>
@@ -71,7 +78,7 @@
         <div class="first-chart bg-white p-3">
             <h6 class="text-center m-0" style="font-weight: bold"> TỶ LỆ CHẾ THÀNH (Tháng {{thang}})</h6>
             <div class="pt-3 ">
-                <p-table [value]="item?.listData3" [scrollable]="true" scrollHeight="400px"
+                <p-table *ngIf="item.ChiNhanh === 0" [value]="item?.listData3" [scrollable]="true" scrollHeight="400px"
                     styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
                     <ng-template pTemplate="colgroup">
                         <col style="width:50px">
@@ -89,6 +96,43 @@
                         </tr>
                         <tr>
                             <th *ngFor="let kiemkehead of item.listHeader3" [ngStyle]="{
+          display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''
+        }">
+                                {{ kiemkehead.name }}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item1 let-i="rowIndex">
+                        <tr [style]="{fontWeight:item1.bold,color:item1.color}">
+                            <td class="text-center">{{ item1.STT }}</td>
+                            <td>{{ item1.ThanhPhan }}</td>
+                            <td *ngFor="let data of item1?.listGiaTri">
+                                <div>
+                                    <p-inputNumber [minFractionDigits]="data.SoSauDauPhay" mode="decimal"
+                                        [(ngModel)]="data.GiaTri" [disabled]="data.isDisable"></p-inputNumber>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <p-table *ngIf="item.ChiNhanh === 1" [value]="item?.listData2" [scrollable]="true" scrollHeight="400px"
+                    styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+                    <ng-template pTemplate="colgroup">
+                        <col style="width:50px">
+                        <col style="min-width:200px">
+                        <col style="width:100px" *ngFor="let col of item?.listData2[0]?.listGiaTri">
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th *ngFor="let kiemkehead of item.listHeader2" [attr.rowspan]="kiemkehead.rowspan"
+                                [attr.colspan]="kiemkehead.colspan" [ngStyle]="{
+          display: kiemkehead.colspan || kiemkehead.rowspan ? '' : 'none'
+        }">
+                                {{ kiemkehead.name }}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let kiemkehead of item.listHeader2" [ngStyle]="{
           display: kiemkehead.colspan || kiemkehead.rowspan ? 'none' : ''
         }">
                                 {{ kiemkehead.name }}

@@ -698,34 +698,33 @@ export class QuantriComponent implements OnInit, OnDestroy {
         icon: "fas fa-circle",
         routerLink: "/quantri/quanlysanxuatkhogiacong/khogiacong",
         expanded: false,
-        visible: !this.checkmenu("P_KHOTHANHPHAM"),
+        visible: !this.checkmenu("P_KHOGIACONG"),
         items: [
           {
             label: "Nhập kho",
             routerLink:
               "/quantri/quanlysanxuatkhogiacong/khogiacong/nhapkho/0",
-            separator: this.checkmenu("NHAPTHANHPHAM"),
+            separator: this.checkmenu("NHAPGIACONG"),
             command: () => this.close(),
           },
           {
             label: "Xuất kho",
             routerLink:
               "/quantri/quanlysanxuatkhogiacong/khogiacong/xuatkho/0",
-            separator: this.checkmenu("NHAPTHANHPHAM"),
+            separator: this.checkmenu("XUATGIACONG"),
             command: () => this.close(),
           },
           {
             label: "Kiểm kê",
             routerLink:
               "/quantri/quanlysanxuatkhogiacong/khogiacong/kiemke/0",
-            separator: this.checkmenu("NHAPTHANHPHAM"),
+            separator: this.checkmenu("KIEMKEKHOGIACONG"),
             command: () => this.close(),
           },
           {
             label: "Thẻ kho",
             routerLink:
               "/quantri/quanlysanxuatkhogiacong/khogiacong/thekho/0",
-            separator: this.checkmenu("NHAPTHANHPHAM"),
             command: () => this.close(),
           }
         ],
