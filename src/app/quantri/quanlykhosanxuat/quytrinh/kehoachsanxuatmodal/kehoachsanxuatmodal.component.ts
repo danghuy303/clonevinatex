@@ -35,7 +35,9 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     { value: 0, label: 'Xuất khẩu' },
     { value: 1, label: 'Nội địa' },
   ]
-  listPhanXuong: any = []; listMatHang: any = [];
+  listPhanXuong: any = [];
+  listMatHang: any = [];
+  listMatHangCopy: any = [];
   listQuyCachDongGoi: any = [];
   listKeHoachForCopy: any = [];
   GiaoKeHoachForCopy: any = {};
@@ -64,7 +66,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     }
   }
   ngDoCheck(): void {
-    this.Calculate();
+    // this.Calculate();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
@@ -139,6 +141,10 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   GetFormOptions() {
     this.services.GetOptions().GetListdmItemForGiaokeHoachSanXuat().subscribe((res: Array<any>) => {
       this.listMatHang = res;
+      this.listMatHangCopy = res;
+      if (this.opt === 'edit') {
+        this.Calculate();
+      }
     })
     this.services.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
       this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');;
@@ -340,11 +346,23 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     })
   }
 
+  mapListItem() {
+    this.item.listItem = this.item.listItem.map(ele => {
+      return {
+        ...ele,
+        HinhThucSoi: this.listMatHangCopy.find(obj => obj.Id === ele.IddmItem).HinhThucSoi,
+      }
+    })
+  }
+
   Calculate() {
     let TongKL = 0;
     let KLxChiSo = 0;
+    this.mapListItem();
+    console.log(this.item.listItem);
+    
     this.item.listItem.forEach(mathang => {
-      if(mathang.HinhThucSoi !== 4) {
+      if (mathang.HinhThucSoi !== 4) {
         TongKL += validVariable(mathang.KhoiLuongKeHoach) ? mathang.KhoiLuongKeHoach : 0;
         KLxChiSo += validVariable(mathang.KhoiLuongKeHoach) ? (mathang.KhoiLuongKeHoach * mathang.Ne) : 0;
       }
