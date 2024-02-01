@@ -47,7 +47,8 @@
                             <col style="width: 100px;">
                             <col style="width:200px">
                             <col style="width: 100px;">
-                            <col *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE' " style="width:150px">
+                            <col *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE' "
+                                style="width:150px">
                             <col style="width: 100px;">
                             <col style="width:200px" *ngIf="addonData.CongDoan==='CON'">
                             <!-- <col style="width:100px"> -->
@@ -88,8 +89,8 @@
                                 <td *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE'">
                                     <div class="p-inputgroup w-full">
                                         <p-dropdown [options]="listKgcone" placeholder="Chọn"
-                                            styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone" style="width: 80%;"
-                                            ></p-dropdown>
+                                            styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone"
+                                            style="width: 80%;"></p-dropdown>
                                         <button pButton pRipple type="button" icon="pi pi-copy"
                                             class="p-button-rounded p-button-sm p-button-text"
                                             (click)="handleCopy(item, this.mapCa_Id[ca.prop])" style="width: 20%;"
@@ -119,7 +120,7 @@
                                 <td>&nbsp;</td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE'"></td>
                                 <td></td>
                                 <td *ngIf="addonData.CongDoan==='CON'"></td>
                             </tr>
