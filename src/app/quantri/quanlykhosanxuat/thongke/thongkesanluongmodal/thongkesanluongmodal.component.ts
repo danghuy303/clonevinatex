@@ -146,7 +146,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
         if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.KhoiLuong !== null && element.KhoiLuong !== undefined) {
           isCheck = true;
         }
-        if (element.CongDoan === "ONG" && (!element.KhoiLuong)) {
+        if (this.item.CongDoan === "ONG" && element.CongDoan === "ONG" && (!element.KhoiLuong)) {
           arr.push(element);
         }
       });
