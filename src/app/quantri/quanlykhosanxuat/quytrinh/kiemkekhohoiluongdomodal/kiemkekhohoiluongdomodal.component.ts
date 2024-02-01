@@ -6,6 +6,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, UnixToDate, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-kiemkekhohoiluongdomodal',
@@ -28,15 +29,18 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
   listdmKho: any = []; // 6
   listdmKhoBP: any = []; // 7
   listdmKhoHoiLD: any = []; // 66
+  listdmKhoHoiLD_ByDuAn: any = []; // 66
   listdmViTri: any = [];
   listLoBong: any = [];
   listLoHang: any = [];
   listLoaiBong: any = [];
   listNewMatHang: any = [];
   listNewMatHangBP: any = [];
+  listNewMatHangBH: any = [];
   listNewMatHang_ref: any = [];
   listCaSanXuat: any = [];
   listCaThucTe: any = [];
+  listDuAn: any = [];
   isKhoThanhPham: any = false;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   paging: any = {
@@ -50,7 +54,8 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private services: SanXuatService,
     public toastr: ToastrService,
-    public _modal: NgbModal
+    public _modal: NgbModal,
+    private store: StoreService
   ) { }
 
   ngOnInit(): void {
@@ -117,8 +122,17 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
       .subscribe((res: any) => {
         this.listNewMatHangBP = mapArrayForDropDown(res, "Ten", "Id");
       });
+    this.services
+      .GetListdmLoaiBong({
+        ...data,
+        Loai: 6
+      })
+      .subscribe((res: any) => {
+        this.listNewMatHangBH = mapArrayForDropDown(res, "Ten", "Id");
+      });
     this.getListCaSanXuat();
     this.getListCaThucTe();
+    this.getListDuAn()
   }
 
 
@@ -131,6 +145,19 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     this.services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
       this.listCaThucTe = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+  }
+  getListDuAn() {
+    this.services.GetDanhSachDuAnPublic().subscribe((res: any) => {
+      this.listDuAn = mapArrayForDropDown(res.filter((x: any) => x.Id !== this.store.getCurrent()), 'TenDuAn', 'Id');
+    })
+  }
+
+  getListDmKhoHoiLDByDuAn(event) {
+    this.services.GetListdmKhoNoLogin({
+      Loai: 66
+    }, event.value).subscribe((res: any) => {
+      this.listdmKhoHoiLD_ByDuAn = mapArrayForDropDown(res, "Ten", "Id");
+    });
   }
 
   getListMatHangKiemKe(loaibong?) {

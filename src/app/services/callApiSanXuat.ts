@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { httpOptions, API } from './host';
+import { httpOptions, API, host1 } from './host';
 import { StoreService } from './store.service';
 import { AuthenticationService } from './auth.service';
 
@@ -52,9 +52,14 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
     //#region  Danh Muc Kho
-    GetListdmKho(data) {
-        data.IdDuAn = this.store.getCurrent();
+    GetListdmKho(data, IdDuAn?) {
+        data.IdDuAn = IdDuAn ?? this.store.getCurrent();
         let url = API.SCMDanhMuc + 'GetListdmKho';
+        return this.http.post(url, data, httpOptions);
+    }
+    GetListdmKhoNoLogin(data, IdDuAn?) {
+        data.IdDuAn = IdDuAn ?? this.store.getCurrent();
+        let url = API.SCMDanhMuc + 'GetListdmKhoNoLogin';
         return this.http.post(url, data, httpOptions);
     }
     GetdmKhoThanhPhamHoiAm_DashBoard(data) {
@@ -591,6 +596,10 @@ export class SanXuatService {
     }
     getLoBong(Id) {
         let url = API.SCMDanhMuc + `GetLoBongTheoId?Id=${Id}`;
+        return this.http.get(url, httpOptions);
+    }
+    GetDanhSachDuAnPublic() {
+        let url = host1 + `/SmartEOSAPI/DanhMuc/GetDanhSachDuAnPublic`;
         return this.http.get(url, httpOptions);
     }
     //#endregion
