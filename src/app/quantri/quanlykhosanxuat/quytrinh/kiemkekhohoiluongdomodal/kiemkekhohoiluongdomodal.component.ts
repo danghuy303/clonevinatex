@@ -266,11 +266,37 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
 
   validate() {
     let result = true;
+    let msg = ``;
+    let arr = []
+    console.log("this.item", this.item);
+
     if (this.item.LoaiKiemKe === `DieuChuyenBongPhe`) {
       if (!this.item.Ngay || !this.item.IddmCaSanXuat) {
-        this.toastr.error(`Vui lòng nhập đầy đủ trường dữ liệu bắt buộc!`);
+        msg = `Vui lòng nhập đầy đủ trường dữ liệu bắt buộc!`
         result = false;
       }
+      this.item.listItem.forEach((x: any) => {
+        if (!x.IddmLoaiBong_BongPhe) {
+          arr.push(x);
+          result = false;
+        }
+      })
+    }
+    if (this.item.LoaiKiemKe === `XuatBanNoiBo`) {
+      if (!this.item.Ngay) {
+        msg = `Vui lòng nhập đầy đủ trường dữ liệu bắt buộc!`
+        result = false;
+      }
+      this.item.listItem.forEach((x: any) => {
+        if (!x.IddmLoaiBong_BongPhe) {
+          arr.push(x);
+          result = false;
+        }
+      })
+    }
+    if (!result) {
+      msg = arr.map(x => x.Ten).join(", ") + " chưa chọn mặt hàng!";
+      this.toastr.error(msg);
     }
     return result;
   }
