@@ -166,14 +166,14 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res: any) => {
       res.forEach((x: any) => {
         let _thisMatHang = this.item.listItem.find((y: any) => y.IddmItem === x.IddmItem && y.IdLoHang === x.IdLoHang)
-        if (_thisMatHang && _thisMatHang.SoQuaSoiThucTe !== x.SoQuaSoiManHinh) {
+        if (_thisMatHang && _thisMatHang.SoQuaSoiThucTe > x.SoQuaSoiManHinh) {
           arr.push(_thisMatHang)
           bool = false;
         }
       })
 
       if (!bool) {
-        let msg = `${arr.map(x => x.Ten).join(', ')} có số quả thực tế không khớp với số quả màn hình!`
+        let msg = `${arr.map(x => x.Ten).join(', ')} có số quả thực tế vượt quá số quả màn hình!`
         this.toastr.error(msg);
         return;
       }
