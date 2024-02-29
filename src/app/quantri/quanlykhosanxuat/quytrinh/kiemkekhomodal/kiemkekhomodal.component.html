@@ -145,7 +145,7 @@
                         <td class="text-right">
                             <p-dropdown [filter]="true" [options]="listKgCone" (onChange)="TinhTongKhoiLuong(item)"
                                 placeholder="Chọn trọng lượng qua sợi" styleClass="p-inputtext-sm"
-                                [(ngModel)]="item.TrongLuongQuaSoi"></p-dropdown>
+                                [(ngModel)]="item.TrongLuongQuaSoi" [disabled]="true"></p-dropdown>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [disabled]="true"
@@ -154,7 +154,7 @@
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TongTrongLuong"
-                                (onBlur)="TinhChenhLech(item)">
+                                [disabled]="true" (onBlur)="TinhChenhLech(item)">
                             </p-inputNumber>
                         </td>
 
@@ -190,9 +190,8 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <tr>
+                    <!-- <tr>
                         <td></td>
-                        <!-- <td class="text-center">{{newItem.Ma}}</td> -->
                         <td>
                             <p-dropdown [filter]="true" [options]="listNewMatHang" placeholder="Chọn mặt hàng"
                                 styleClass="p-inputtext-sm" [(ngModel)]="newItem.IddmItem"
@@ -211,8 +210,6 @@
                         </td>
                         <td class="text-right"
                             *ngIf="newItem.TonSoLuong === 0 || newItem.TonSoLuong === null || newItem.TonSoLuong === undefined">
-                            <!-- <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newItem.TrongLuongQuaSoi">
-                            </p-inputNumber> -->
                             <p-dropdown [filter]="true" [options]="listKgCone" placeholder="Chọn trọng lượng qua sợi"
                                 styleClass="p-inputtext-sm" [(ngModel)]="newItem.TrongLuongQuaSoi"
                                 (onChange)="TinhTongKhoiLuong(newItem)"></p-dropdown>
@@ -235,9 +232,6 @@
                             {{(newItem.TongTrongLuong - newItem.TongTrongLuongChenhLech)/
                             newItem.SoQuaSoi|number:'0.3-3'}}
                         </td>
-                        <!-- <td class="text-right">
-                            {{newItem.TongTrongLuong/ newItem.SoLuong|number:'0.2'}}
-                        </td> -->
                         <td>
                             <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
                                 placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
@@ -249,7 +243,7 @@
                         <td class="text-center"> <button pButton pRipple icon="pi pi-plus"
                                 class="p-button-sm p-button-rounded p-button-success p-mr-2" (click)="add()"
                                 pTooltip="Thêm" showDelay="1000" tooltipPosition="bottom"></button> </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td colspan="2">TỔNG:</td>
                         <td class="text-right">
