@@ -270,6 +270,8 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     let arr = []
     console.log("this.item", this.item);
 
+
+
     if (this.item.LoaiKiemKe === `DieuChuyenBongPhe`) {
       if (!this.item.Ngay || !this.item.IddmCaSanXuat) {
         msg = `Vui lòng nhập đầy đủ trường dữ liệu bắt buộc!`
@@ -305,6 +307,12 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit {
     if (validVariable(this.newItem.IddmItem)) {
       this.listItem.push(deepCopy(this.newItem));
       this.newItem = {};
+    }
+
+    if (!this.item.Ngay) {
+      let msg = `Vui lòng nhập đầy đủ trường dữ liệu bắt buộc!`
+      this.toastr.error(msg);
+      return;
     }
 
     if (!this.validate()) {
