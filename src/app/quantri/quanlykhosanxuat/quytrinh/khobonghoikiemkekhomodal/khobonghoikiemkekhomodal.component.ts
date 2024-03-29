@@ -3,8 +3,9 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { UnixToDate, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { ImportnhapkhothanhphamComponent } from '../nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component';
+import { vn } from 'src/app/services/const';
 
 @Component({
     selector: 'app-khobonghoikiemkekhomodal',
@@ -22,6 +23,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         ChuyenTiep: false,
         Xoa: false,
     };
+    lang: any = vn;
     listdmKho: any = [];
     listdmKhoHoiLD: any = [];
     listdmViTri: any = [];
@@ -106,7 +108,10 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
             .PhieuKiemKeKhoBong()
             .Get(this.Id)
             .subscribe((res1: any) => {
-                this.item = res1;
+                this.item = {
+                    ...res1,
+                    Ngay: UnixToDate(res1.NgayUnix)
+                };
                 this.listItem = res1.listItem;
                 this.paging.CurrentPage = 1;
                 this.paging.TotalPage = 5;
@@ -189,6 +194,12 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         if (validVariable(this.newItem.IddmItem)) {
             this.listItem.push(deepCopy(this.newItem));
             this.newItem = {};
+        }
+
+        if (!this.item.Ngay) {
+            let msg = `Vui lòng nhập đầy đủ trường dữ liệu bắt buộc!`
+            this.toastr.error(msg);
+            return;
         }
 
         this.item_new.listItem = this.listItem;
