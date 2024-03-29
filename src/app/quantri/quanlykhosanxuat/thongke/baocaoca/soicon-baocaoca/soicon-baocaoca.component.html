@@ -28,29 +28,29 @@
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lao động:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
-            <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoLaoDong" pInputText /> -->
-            <textarea pInputTextarea [(ngModel)]="item.SoLaoDong"></textarea>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoLaoDong" pInputText />
+            <!-- <textarea pInputTextarea autoResize="autoResize" [(ngModel)]="item.SoLaoDong"></textarea> -->
         </div>
     </div>
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổ trưởng:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
-            <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ToTruong" pInputText /> -->
-            <textarea pInputTextarea [(ngModel)]="item.ToTruong"></textarea>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ToTruong" pInputText />
+            <!-- <textarea pInputTextarea autoResize="autoResize" [(ngModel)]="item.ToTruong"></textarea> -->
         </div>
     </div>
     <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tình hình hoạt động trong ca:</label>
         <div class="p-col-12 p-lg-10 p-p-0">
             <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TinhHinhHoatDongTrongCa" pInputText /> -->
-            <textarea pInputTextarea [(ngModel)]="item.TinhHinhHoatDongTrongCa"></textarea>
+            <textarea pInputTextarea autoResize="autoResize" [(ngModel)]="item.TinhHinhHoatDongTrongCa"></textarea>
         </div>
     </div>
     <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
         <div class="p-col-12 p-lg-10 p-p-0">
             <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /> -->
-            <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
+            <textarea pInputTextarea autoResize="autoResize" [(ngModel)]="item.GhiChu" autoResize="autoResize"></textarea>
 
         </div>
     </div>
@@ -68,13 +68,13 @@
                     <th>Định mức</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template pTemplate="body" let-product let-i="rowIndex">
                 <tr>
                     <td>{{product.TendmLoaiBong_BongHoi}}</td>
                     <td class="text-right">{{product.KhoiLuongLuyKeThang|number:'0.2-2'}}</td>
                     <td>
-                        <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"
-                            [(ngModel)]="product.KhoiLuong"></p-inputNumber>
+                        <p-inputNumber #inputKhoiLuong mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"
+                            [(ngModel)]="product.KhoiLuong" (keyup.enter)="nextFocus(i)"></p-inputNumber>
                     </td>
                     <td class="text-right">{{((product.KhoiLuongLuyKeThang||0)+(product.KhoiLuong||0))|number:'0.2-2'}}</td>
                     <td class="text-right">{{product.DinhMuc|number:'0.2-2'}}</td>

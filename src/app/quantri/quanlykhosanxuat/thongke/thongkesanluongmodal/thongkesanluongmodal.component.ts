@@ -29,12 +29,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   listCongDoan: any = [];
   listCaSanXuat: any = [];
+  listCaThucTe: any = [];
   listPhanXuong: any = [];
   listItem: any = [];
   editTableItem: any = {};
   lang: any = vn;
   listLoHang: any = [];
-  listCaThucTe: any = [];
   TongKhoiLuong: any = 0;
   userInfo: any;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -64,8 +64,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.getListPhanXuong();
-    this.getListCaSanXuat();
     this.getListLoHang();
+    this.getListCaSanXuat();
     this.getListCaThucTe();
     this.$typing = this.typing.asObservable().pipe(debounceTime(200)).subscribe(_ => { this.TinhTyLeThongKeSanLuongBongPhe() });
   }
@@ -76,7 +76,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
 
   GetTyLeThongKeSanLuongBongPhe() {
-    this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((res: any) => {
+    this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe('', this.item.IddmPhanXuong, this.item.IddmCaSanXuat, DateToUnix(this.item.Ngay)).subscribe((res: any) => {
       // this.item.SoQuyTrinh = res.SoQuyTrinh;
       this.item.listTyLeBongPhe = res;
     })
@@ -94,32 +94,31 @@ export class ThongkesanluongmodalComponent implements OnInit {
         this.checkbutton.Ghi = true;
     })
   }
+
+
   ChuyenDuyet() {
-    // switch (this.item.CongDoan) {
-    //   case 'CHAICOTTON':
-    //     this.TinhTyLeCottonBongPhe();
-    //   case 'CHAIPE':
-    //     this.TinhTyLePEBongPhe();
-    //   case 'CHAIKY':
-    //     this.TinhTyLeBongChaiKy();
-    //   case 'THO':
-    //     this.TinhTyLeBongCuiHoi();
-    //   case 'CON':
-    //     this.TinhTyLeBongThoMang();
-    //   case 'ONG':
-    //     this.TinhTyLeSoiCat();
-    // }
-    let isCheck: any = false;
-    this.item.listItem.forEach(element => {
-      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
-        isCheck = true;
-      }
-    });
-    if (isCheck === true) {
-      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
+    if (!this.validate()) {
+      return;
     }
     else {
       this.services.ThongKeSanLuong().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
+  KhongDuyet() {
+    if (!this.validate()) {
+      return;
+    }
+    else {
+      this.services.ThongKeSanLuong().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message);
@@ -137,39 +136,41 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
-  GhiLai() {
-    // switch (this.item.CongDoan) {
-    //   case 'CHAICOTTON':
-    //     this.TinhTyLeCottonBongPhe();
-    //   case 'CHAIPE':
-    //     this.TinhTyLePEBongPhe();
-    //   case 'CHAIKY':
-    //     this.TinhTyLeBongChaiKy();
-    //   case 'THO':
-    //     this.TinhTyLeBongCuiHoi();
-    //   case 'CON':
-    //     this.TinhTyLeBongThoMang();
-    //   case 'ONG':
-    //     this.TinhTyLeSoiCat();
-    // }
+
+  validate() {
+    let result = true;
     let isCheck: any = false;
+    let arr: any = [];
     if (this.item.listItem !== null && this.item.listItem !== undefined) {
       this.item.listItem.forEach(element => {
         if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.KhoiLuong !== null && element.KhoiLuong !== undefined) {
           isCheck = true;
         }
+        if (this.item.CongDoan === "ONG" && element.CongDoan === "ONG" && (!element.KhoiLuong)) {
+          arr.push(element);
+        }
       });
     }
-    if (isCheck === true) {
+    if (isCheck) {
       this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
-    }
-    else if (this.item.IddmCaSanXuatThucTe === undefined || this.item.IddmCaSanXuatThucTe === null) {
+      result = false;
+    } else if (this.item.IddmCaSanXuatThucTe === undefined || this.item.IddmCaSanXuatThucTe === null) {
       this.toastr.error("Bạn chưa chọn ca thống kê");
+      result = false;
+    } else if (arr.length > 0) {
+      let text = `Số máy ` + arr.map((x: any) => x.TendmMay).join(", ") + ` chưa nhập đầy đủ SL màn hình`;
+      this.toastr.error(text);
+      result = false;
+    }
+
+    return result
+  }
+
+  GhiLai() {
+    if (!this.validate()) {
+      return;
     }
     else {
-      // this.item.listItem.forEach(element => {
-      //   element.IdLoHang = this.item.IdLoHang
-      // });
       this.services.ThongKeSanLuong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -244,11 +245,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   getListPhanXuong() {
-    this.services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+    this.services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   getMatHangThongKeSanLuong() {
+
     if (this.item.IddmCaSanXuat != undefined
       && this.item.IddmPhanXuong != undefined
       && this.item.Ngay != undefined) {
@@ -277,6 +279,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
         this.getItemTheoCongDoan();
       })
     }
+    this.GetTyLeThongKeSanLuongBongPhe();
   }
   editChiTiet(item, index) {
     this.item.listItem.forEach(element => {
@@ -303,7 +306,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhCongThucMoi(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0) {
-      KhoiLuong = (item.ChieuDai / item.Nm*1000) * item.SoCoc/1000;
+      // KhoiLuong = (item.ChieuDai / item.Nm*1000) * item.SoCoc/1000; // sửa tại sao nhân chia 1000
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000) * item.SoCoc;
       if (item.isM == true)
         item.ChuDongHo = item.ChieuDai / (item.Nm);
     }
@@ -334,7 +338,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhKhoiLuongChaiKy(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
-      KhoiLuong = item.ChieuDai / (item.Nm)/1000;
+      KhoiLuong = item.ChieuDai / (item.Nm) / 1000;
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
@@ -384,6 +388,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     });
   }
   getItemTheoCongDoan() {
+    console.log(this.item.CongDoan)
     if (this.item.CongDoan != undefined && this.item.listItem != undefined && this.item.listItem != null) {
       this.listItem = []
       this.item.listItem.forEach(element => {

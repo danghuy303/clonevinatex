@@ -56,7 +56,7 @@ export class KiemkebcpmodalComponent implements OnInit {
     else {
       this.GetQuyTrinh();
     }
-    
+
   }
   GetQuyTrinh() {
     this.services.PhieuKiemKeBanChePham().Get(this.Id).subscribe((res1: any) => {
@@ -86,6 +86,23 @@ export class KiemkebcpmodalComponent implements OnInit {
     else {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.services.PhieuKiemKeBanChePham().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
+  KhongDuyet() {
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn  ngày");
+    }
+    else {
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this.services.PhieuKiemKeBanChePham().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.activeModal.close();
@@ -166,14 +183,14 @@ export class KiemkebcpmodalComponent implements OnInit {
           // if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') {
           //   this.listMatHang.push(element);
           // }
-          
+
         }
       });
       // if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt === 'edit') {
-        if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG')) {
+      if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG')) {
         this.services.dmKiemKeBanChePham().GetListAll().subscribe((res: any) => {
           res.forEach(element => {
-            if(element.CongDoan === this.item.CongDoan){
+            if (element.CongDoan === this.item.CongDoan) {
               if (element.SoCotCon > 0 && element.SoDongCon === 1) {
                 this.listCotCon = this.listCotCon.concat(element.listCon)
               }
@@ -182,10 +199,10 @@ export class KiemkebcpmodalComponent implements OnInit {
           });
         })
       }
-      // if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') {
-      //   this.check = false;
-      //   this.getListCanDoiChuyenKiemKe();
-      // }
+      if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') { // mở ra cho c giang test
+        this.check = false;
+        this.getListCanDoiChuyenKiemKe();
+      }
     }
   }
   getListdmHangMuc() {
@@ -195,9 +212,9 @@ export class KiemkebcpmodalComponent implements OnInit {
         element.Id = "";
       });
       this.listItemFull = res;
-      var listItemAdd : any = [];
+      var listItemAdd: any = [];
       res.forEach(element => {
-        if(element.listCon.length === 0){
+        if (element.listCon.length === 0) {
           listItemAdd.push(element)
         }
       });
@@ -224,10 +241,10 @@ export class KiemkebcpmodalComponent implements OnInit {
     this.activeModal.close();
   }
   getListCanDoiChuyenKiemKe() {
-    if(this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG'){
+    if (this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') {
       this.listItem = [];
       this.item.listItem.forEach(element => {
-        if(element.CongDoan === this.item.CongDoan)
+        if (element.CongDoan === this.item.CongDoan)
           element.isXoa = true;
       });
       if (this.item.Ngay !== undefined) {
@@ -239,7 +256,7 @@ export class KiemkebcpmodalComponent implements OnInit {
       }
     }
   }
-  GetListItemKiemKeBanChePham(){
+  GetListItemKiemKeBanChePham() {
     if (this.item.Ngay !== undefined) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
     }
@@ -248,7 +265,7 @@ export class KiemkebcpmodalComponent implements OnInit {
       this.item.listItem = res;
       var listItem: any = [];
       this.listItemFull.forEach(element => {
-        if(element.CongDoan === this.item.CongDoan){
+        if (element.CongDoan === this.item.CongDoan) {
           listItem.push(element)
         }
       });

@@ -100,6 +100,7 @@
             <p-button type="text" icon="fas fa-tasks" styleClass="p-button-text p-button-lg"
                 pTooltip="Quy trình cần xử lý" (click)="openQuyTrinhCanXuLy()">
             </p-button>
+            <div class="badge" *ngIf="SluongListQuyTrinhCanXuLy>0">{{SluongListQuyTrinhCanXuLy}}</div>
         </div>
         <!-- <div>
             <img id='logo' src="https://vinatex.com.vn/wp-content/uploads/2017/09/logo.png" style="height: 50px;">

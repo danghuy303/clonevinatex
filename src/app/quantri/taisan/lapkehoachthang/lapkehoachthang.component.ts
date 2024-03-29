@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { PintableDirective } from 'voi-lib';
@@ -36,6 +38,8 @@ export class LapkehoachthangComponent implements OnInit {
   vi: any;
   checkBtnChonTaiSan: boolean;
   old_item: any = {};
+  $sub!: Subscription;
+
   constructor(
     private _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -43,8 +47,14 @@ export class LapkehoachthangComponent implements OnInit {
     private _serviceTaiSan: TaisanService,
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
-    private confirmService: ConfirmationService
+    private confirmService: ConfirmationService,
+    private store: StoreService
   ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
   }
 
   ngOnInit(): void {
@@ -58,11 +68,11 @@ export class LapkehoachthangComponent implements OnInit {
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
       this.item.ThoiGian = new Date();
-      this.ThemMoiDanhSachTaiSan('MOI');
+      // this.ThemMoiDanhSachTaiSan('MOI');
     } else {
       this.chonThang(this.item.ThoiGian);
     }
-    let ls2 = this._servicesSanXuat.GetOptions().GetListdmPhanXuong().toPromise();
+    let ls2 = this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().toPromise();
     let ls3 = this._servicesSanXuat.GetListCongDoan().toPromise();
     Promise.all([ls2, ls3]).then((values: any) => {
       this.listPhanXuong = mapArrayForDropDown(values[0], "Ten", "Id");

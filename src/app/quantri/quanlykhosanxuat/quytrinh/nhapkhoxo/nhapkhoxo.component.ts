@@ -22,11 +22,16 @@ export class NhapkhoxoComponent extends StoreBase implements OnInit,OnDestroy {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   eAction: any = "PHIEUNHAPLOBONG";
   colXos: any = [
-    {
-      header: 'Số phiếu',
-      field: 'SoQuyTrinh',
-      width: '100px'
-    },
+    // {
+    //   header: 'Số phiếu',
+    //   field: 'SoQuyTrinh',
+    //   width: '100px'
+    // },
+    // {
+    //   header: 'Ngày',
+    //   field: "SoHopDong ",
+    //   width: '100px'
+    // },
     {
       header: 'Số hợp đồng',
       field: 'SoHopDong',

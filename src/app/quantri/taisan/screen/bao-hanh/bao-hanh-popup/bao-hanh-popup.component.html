@@ -1,0 +1,49 @@
+<div class="modal-header">
+    <h5>{{ title }}</h5>
+  </div>
+  <div class="modal-body" style="overflow-y: visible;">
+    <div class="flex">
+      <button pButton pRipple type="button" label="Quay lại" class="p-button-sm mr-2"
+        (click)="activeModal.dismiss('close')"></button>
+      <button pButton pRipple type="button" label="Ghi lại" (click)="GhiLai()" class="p-button-sm mr-2"></button>
+    </div>
+    <div class="p-grid p-3">
+      <div class="d-flex p-ai-center col-8 md:col-12 lg:col-8 p-0">
+        <div class="col-3">Số phiếu:</div>
+        <div class="col-9">
+            <input type="text" pInputText class="p-inputtext-sm w-full" [(ngModel)]="item.SoPhieu" />
+        </div>
+      </div>
+      <div class="d-flex p-ai-center col-4 md:col-12 lg:col-4 p-0">
+        <div class="p-field-checkbox">
+            <p-checkbox [(ngModel)]="item.isNhacHetHan" binary="true"></p-checkbox>
+            <label for="ny">Nhắc hết hạn</label>
+        </div>
+      </div>
+      <div class="d-flex p-ai-center col-6 md:col-12 lg:col-6 p-0">
+        <div class="col-4">Ngày bắt đầu</div>
+        <div class="col-8">
+            <p-calendar [(ngModel)]="item.NgayBatDau" [showIcon]="true" dateFormat="dd/mm/yy" [style]="{ width: '100%' }"></p-calendar>
+        </div>
+      </div>
+      <div class="d-flex p-ai-center col-6 md:col-12 lg:col-6 p-0">
+        <div class="col-4">Ngày hết hạn</div>
+        <div class="col-8">
+            <p-calendar [(ngModel)]="item.NgayHetHan" [showIcon]="true" dateFormat="dd/mm/yy" [style]="{ width: '100%' }"></p-calendar>
+        </div>
+      </div>
+      <div class="d-flex p-ai-center col-12 md:col-12 lg:col-12 p-0">
+        <div class="col-2">Đơn vị bảo hành</div>
+        <div class="col-10">
+            <p-dropdown [filter]="true" [options]="listKiemDinh" placeholder="Chọn" styleClass="p-inputtext-sm" [(ngModel)]="item.IdDonViBaoHanh" (onChange)="GetList(true)">
+            </p-dropdown>
+        </div>
+      </div>
+      <div class="d-flex p-ai-center col-12 md:col-12 lg:col-12 p-0">
+        <div class="col-2">Ghi chú:</div>
+        <div class="col-10">
+          <textarea pInputTextarea class="w-full" [rows]="1" [(ngModel)]="item.GhiChu"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>

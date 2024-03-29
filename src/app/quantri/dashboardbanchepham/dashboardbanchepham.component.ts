@@ -56,7 +56,13 @@ export class DashboardbanchephamComponent extends StoreBase implements OnInit {
   listThang:any[]=[];
   headerChatLuongSanPham =[];
 
-  constructor(private _services: SanXuatService, private _auth: AuthenticationService, public store: StoreService, public toastr: ToastrService) {
+  isBanChePham:boolean = false;
+  checkBanChePham:any;
+  indexBanChePham:any
+
+
+  constructor(private _services: SanXuatService, 
+    private _auth: AuthenticationService, public store: StoreService, public toastr: ToastrService) {
     super(store);
    }
 
@@ -125,7 +131,7 @@ export class DashboardbanchephamComponent extends StoreBase implements OnInit {
       //   this.SelectItem = exist;
       // } else {
       //   console.log('not exist', this.SelectItem);
-        this.listMatHang[0].checked = true;
+        this.listMatHang[0].checked = false;
         this.SelectItem = this.listMatHang[0];
       // }
       this.GetBieuDoDuongKiemTraChatLuong_js();
@@ -173,12 +179,31 @@ export class DashboardbanchephamComponent extends StoreBase implements OnInit {
     })
   }
   checkMatHang(e, item, index) {
-    if (e.checked) {
+    this.checkBanChePham = e.checked;
+    this.indexBanChePham = index;
+    // if (e.checked) {
+    //   this.listMatHang.forEach(mathang => {
+    //     mathang.checked = false
+    //   });
+    //   this.listMatHang[index].checked = true;
+    //   this.SelectItem = this.listMatHang[index];
+    //   this.GetBieuDoDuongKiemTraChatLuong_js();
+    // }
+    // else {
+    //   this.SelectItem = {};
+    //   this.dataBanChePham = [];
+    // }
+  }
+
+  check() {
+   
+    this.isBanChePham = true;
+    if (this.checkBanChePham) {
       this.listMatHang.forEach(mathang => {
         mathang.checked = false
       });
-      this.listMatHang[index].checked = true;
-      this.SelectItem = this.listMatHang[index];
+      this.listMatHang[this.indexBanChePham].checked = true;
+      this.SelectItem = this.listMatHang[this.indexBanChePham];
       this.GetBieuDoDuongKiemTraChatLuong_js();
     }
     else {
@@ -186,6 +211,7 @@ export class DashboardbanchephamComponent extends StoreBase implements OnInit {
       this.dataBanChePham = [];
     }
   }
+
   checkXuatMatHang(e, item, index) {
     if (item.xuatChecked) {
       item.xuatChecked = !item.xuatChecked;

@@ -1,18 +1,32 @@
 <div class="p-mb-3 p-mt-0">
-    <h4 style="color:#1f2779">Báo cáo tổng hợp lỗi cắt</h4>
+    <h4 style="color:#1f2779">Báo cáo tổng hợp lỗi cắt/ classimat</h4>
 </div>
- <div class="p-d-flex p-ai-center p-jc-end p-mb-3">
-    <div class="p-d-flex p-flex-row">
-        <button pButton pRipple label="Xuất báo cáo" icon="fa fa-file-excel" class="p-button-sm p-mr-2"
-            (click)="exportBaoCaoCa()"></button>
+<div class="p-d-flex p-ai-center p-jc-end p-mb-3">
+    <div class="d-flex flex-column flex-lg-row p-mr-2">
+        <button pButton pRipple label="Biểu đồ lỗi cắt" class="p-button-sm p-mr-2" (click)="mapLoiCat()"></button>
     </div>
     <div class="d-flex flex-column flex-lg-row p-mr-2">
-        <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.keyWord" class="p-inputtext-sm" pInputText />
+        <button pButton pRipple label="Biểu đồ classimat" class="p-button-sm p-mr-2" (click)="mapClasimat()"></button>
     </div>
+    <div class="d-flex flex-column flex-lg-row p-mr-2">
+        <!-- <button pButton pRipple label="Xuất báo cáo" icon="fa fa-file-excel" class="p-button-sm p-mr-2"
+            (click)="exportBaoCaoCa()"></button> -->
+        <p-button #menuToggle styleClass="p-button-sm" label="Xuất báo cáo" icon="fas fa-file-excel"
+            (click)="menu.toggle($event)">
+        </p-button>
+        <p-menu #menu [appendTo]="menuToggle" [popup]="true" [model]="listXuatBaoCao"></p-menu>
+    </div>
+    <!-- <div class="d-flex flex-column flex-lg-row p-mr-2">
+        <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.keyWord" class="p-inputtext-sm" pInputText />
+    </div> -->
     <div class="d-flex flex-column flex-lg-row p-mr-2">
         <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
             [(ngModel)]="filter.NgayChon" inputId="icon" placeholder="Đến ngày" (onSelect)="getBaoCao()">
         </p-calendar>
+    </div>
+    <div class="d-flex flex-column flex-lg-row p-mr-2">
+        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng" [(ngModel)]="filter.IddmItem"
+            styleClass="p-inputtext-sm" (onChange)="getBaoCao()" [showClear]="false" [filter]="true"></p-dropdown>
     </div>
     <div class="p-mr-2">
         <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
@@ -20,7 +34,7 @@
             [filter]="true"></p-dropdown>
     </div>
 </div>
-<div style="height: calc( (100vh - 201px )/2); background-color: white;">
+<!-- <div style="height: calc( (100vh - 201px )/2); background-color: white;">
     <p-table [value]="item.lstSanPham | filterByKey: 'TenMatHang':filter.keyWord"
         styleClass="p-datatable-sm wrap-text p-datatable-gridlines" [scrollable]="true"
         scrollHeight="calc((100vh - 321px) / 2)" [lazy]="true">
@@ -58,34 +72,161 @@
             </tr>
         </ng-template>
     </p-table>
+</div> -->
+
+<div class="p-col-12 p-p-0 pintable-container" style="height: calc(36vh) !important; background-color: #fff;"
+    voiPintable [pinnedCols]="3">
+    <table>
+        <thead>
+            <tr>
+                <th style="display: none;"></th>
+                <th class="text-center tc-w-200" colspan="2">STT</th>
+                <th class="text-center tc-w-250">Loại sợi</th>
+                <th *ngFor="let ban of item.lstDanhMuc" class="tc-w-100">
+                    {{ban.Ten}}
+                    <ng-container *ngIf="ban.isTong"><br>(Tổng)</ng-container>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let loaisoi of item.lstSanPham;let i = index">
+                <tr>
+                    <td rowspan="4" class="text-center tc-w-50 bg-white">{{i+1}}</td>
+                    <td class="tc-w-150 bg-white">SL Lỗi Chỉ Tiêu</td>
+                    <td rowspan="4" class="tc-w-250 bg-white">{{loaisoi.TenMatHang}}</td>
+                    <td class="text-right tc-w-100" *ngFor="let lythuyet of loaisoi.lstChatLuongSanPham">
+                        {{lythuyet.ChiTieuLyThuyet | number:'0.2-2'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td class="tc-w-150 bg-white">Hôm Trước</td>
+                    <td class="text-right tc-w-100" *ngFor="let homtruoc of loaisoi.lstChatLuongSanPham">
+                        {{homtruoc.ChiTieuThucTe_HomTruoc | number:'0.2-2'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td class="tc-w-150 bg-white">Hôm Nay</td>
+                    <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham" class="text-right tc-w-100">
+                        <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"
+                            [(ngModel)]="homnay.ChiTieuThucTe"
+                            (onBlur)="tinhTong(loaisoi.lstChatLuongSanPham,homnay.NhomChiTieu)"
+                            [disabled]="homnay.isTong"></p-inputNumber>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td class="tc-w-150 bg-white">So Sánh</td>
+                    <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham" class="text-right tc-w-100">
+                        <td class="text-center"
+                            [ngStyle]="{'background-color': sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet?'#a7d1a7':'#f59999'}">
+                            <span *ngIf="sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet">Đạt</span>
+                            <span *ngIf="sosanh.ChiTieuThucTe>sosanh.ChiTieuLyThuyet">K.Đạt</span>
+                        </td>
+                    </ng-container>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
 </div>
-<div style="height: calc( (100vh - 201px )/2); background-color: white;margin-top: 15px;">
-    <div class="p-d-flex p-ai-center p-jc-between p-mb-3 p-2">
-        <div>
-            <h5>Biểu đồ chỉ tiêu lỗi cắt</h5>
+<!-- classimat -->
+<div class="p-col-12 p-p-0 pintable-container p-my-3" style="height: calc(36vh ) !important; background-color: #fff;"
+    voiPintable [pinnedCols]="3">
+    <table>
+        <thead>
+            <tr>
+                <th style="display: none;"></th>
+                <th class="text-center tc-w-200" colspan="2">STT</th>
+                <th class="text-center tc-w-250">Loại sợi</th>
+                <th *ngFor="let ban of itemClasimat.lstDanhMuc" class="tc-w-100">
+                    {{ban.Ten}}
+                    <ng-container *ngIf="ban.isTong"><br>(Tổng)</ng-container>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let loaisoi of itemClasimat.lstSanPham;let i = index">
+                <tr>
+                    <td rowspan="4" class="text-center tc-w-50 bg-white">{{i+1}}</td>
+                    <td class="tc-w-150 bg-white">SL Lỗi Chỉ Tiêu</td>
+                    <td rowspan="4" class="tc-w-250 bg-white">{{loaisoi.TenMatHang}}</td>
+                    <td class="text-right tc-w-100" *ngFor="let lythuyet of loaisoi.lstChatLuongSanPham">
+                        {{lythuyet.ChiTieuLyThuyet | number:'0.2-2'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td class="tc-w-150 bg-white">Hôm Trước</td>
+                    <td class="text-right tc-w-100" *ngFor="let homtruoc of loaisoi.lstChatLuongSanPham">
+                        {{homtruoc.ChiTieuThucTe_HomTruoc | number:'0.2-2'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td class="tc-w-150 bg-white">Hôm Nay</td>
+                    <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham" class="text-right tc-w-100">
+                        <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"
+                            [(ngModel)]="homnay.ChiTieuThucTe"
+                            (onBlur)="tinhTong(loaisoi.lstChatLuongSanPham,homnay.NhomChiTieu)"
+                            [disabled]="homnay.isTong"></p-inputNumber>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td class="tc-w-150 bg-white">So Sánh</td>
+                    <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham" class="text-right tc-w-150">
+                        <td class="text-center"
+                            [ngStyle]="{'background-color': sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet?'#a7d1a7':'#f59999'}">
+                            <span *ngIf="sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet">Đạt</span>
+                            <span *ngIf="sosanh.ChiTieuThucTe>sosanh.ChiTieuLyThuyet">K.Đạt</span>
+                        </td>
+                    </ng-container>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+<!-- huy nho -->
+<p-dialog [(visible)]="display" [style]="{ width: '80vw', height: '70vh' }" [baseZIndex]="1000">
+    <ng-template pTemplate="header">
+        <div class="p-d-flex p-ai-center p-jc-between p-mb-3 p-2">
+            <div>
+                <h5 *ngIf="isLoiCat">Biểu đồ chỉ tiêu lỗi cắt</h5>
+                <h5 *ngIf="!isLoiCat">Biểu đồ chỉ tiêu classimat</h5>
+            </div>
+            <div class="p-d-flex p-ai-center p-jc-end p-pl-6">
+                <div class="d-flex flex-column flex-lg-row p-mr-2">
+                    <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                        [(ngModel)]="filterBieuDo.NgayDauKy" inputId="icon" placeholder="Đến ngày"
+                        (onSelect)="getBieuDo()">
+                    </p-calendar>
+                </div>
+                <div class="d-flex flex-column flex-lg-row p-mr-2">
+                    <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                        [(ngModel)]="filterBieuDo.NgayCuoiKy" inputId="icon" placeholder="Đến ngày"
+                        (onSelect)="getBieuDo()">
+                    </p-calendar>
+                </div>
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" [options]="listChiTieu" placeholder="Chọn chỉ tiêu"
+                        [(ngModel)]="filterBieuDo.IddmChiTieu" styleClass="p-inputtext-sm" (onChange)="isLoiCat? getBieuDo() : getBieuDoClasimat()"
+                        [showClear]="false" [filter]="true"></p-dropdown>
+                </div>
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
+                        [(ngModel)]="filterBieuDo.IddmItem" styleClass="p-inputtext-sm" (onChange)="isLoiCat? getBieuDo() : getBieuDoClasimat()"
+                        [showClear]="false" [filter]="true"></p-dropdown>
+                </div>
+            </div>
         </div>
-        <div class="p-d-flex p-ai-center p-jc-end">
-            <div class="d-flex flex-column flex-lg-row p-mr-2">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    [(ngModel)]="filterBieuDo.NgayDauKy" inputId="icon" placeholder="Đến ngày" (onSelect)="getBieuDo()">
-                </p-calendar>
-            </div>
-            <div class="d-flex flex-column flex-lg-row p-mr-2">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    [(ngModel)]="filterBieuDo.NgayCuoiKy" inputId="icon" placeholder="Đến ngày" (onSelect)="getBieuDo()">
-                </p-calendar>
-            </div>
-            <div class="p-mr-2">
-                <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
-                    [(ngModel)]="filterBieuDo.IddmItem" styleClass="p-inputtext-sm" (onChange)="getBieuDo()" [showClear]="false"
-                    [filter]="true"></p-dropdown>
-            </div>
-            <div class="p-mr-2">
-                <p-dropdown [filter]="true" [options]="listChiTieu" placeholder="Chọn chỉ tiêu"
-                    [(ngModel)]="filterBieuDo.IddmChiTieu" styleClass="p-inputtext-sm" (onChange)="getBieuDo()" [showClear]="false"
-                    [filter]="true"></p-dropdown>
-            </div>
-        </div>
-    </div>
+    </ng-template>
     <p-chart type="line" [data]="dataBieuDo" [options]="optionLineChart"></p-chart>
-</div>
+</p-dialog>

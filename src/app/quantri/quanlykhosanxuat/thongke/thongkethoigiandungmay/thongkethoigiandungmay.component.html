@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Thống kê thời gian dừng máy</h4>
+    <h4 style="color:#1f2779">Thống kê thời gian dừng máy (Phút)</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -25,7 +25,7 @@
         </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.MaCongDoan" [showClear]="true"></p-dropdown>
+                [(ngModel)]="filter.MaCongDoan" [showClear]="false"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
@@ -50,31 +50,36 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let may of item.lstMay | filterByKey : 'MaCongDoan' : filter.MaCongDoan ;let i = index">
+                <tr
+                    *ngFor="let may of item.lstMay | filterbykeyCongDoan : 'MaCongDoan' : filter.MaCongDoan ;let i = index">
+
                     <td class="w-tc-50 bg-white text-center z-100">{{i+1}}</td>
                     <td class="w-tc-250 bg-white z-100">{{may.TendmMay}}</td>
-                    <td class="w-tc-100" *ngFor="let suco of may.lstSuCoDungMay">
-                        <p-inputNumber [minFractionDigits]="1" [maxFractionDigits]="1" styleClass="p-inputtext-sm"
-                            [(ngModel)]="suco.ThoiGianDungMay" (onBlur)="TinhTong(may)">
+                    <td class="w-tc-100" *ngFor="let suco of may.lstSuCoDungMay;let indexcon = index">
+                        <p-inputNumber #inputNumber [minFractionDigits]="3" [maxFractionDigits]="3"
+                            styleClass="p-inputtext-sm" [(ngModel)]="suco.ThoiGianDungMay" (onBlur)="TinhTong(may)"
+                            [tabindex]="i * may.lstSuCoDungMay.length+indexcon+1"
+                            (keyup.enter)="xuongDong(i, may.lstSuCoDungMay.length,indexcon)">
                         </p-inputNumber>
                     </td>
                     <td class="w-tc-150">
-                        <p-inputNumber [minFractionDigits]="1" [maxFractionDigits]="1" disabled="true"
+                        <p-inputNumber [minFractionDigits]="3" [maxFractionDigits]="3" disabled="true"
                             styleClass="p-inputtext-sm" [ngModel]="may.TongThoiGianDungMay">
                         </p-inputNumber>
                     </td>
                     <td class="w-tc-150">
-                        <p-inputNumber [minFractionDigits]="0" [maxFractionDigits]="0" styleClass="p-inputtext-sm"
-                            [(ngModel)]="may.TocDoMax">
+                        <p-inputNumber #inputKhoiLuong [minFractionDigits]="3" [maxFractionDigits]="3"
+                            styleClass="p-inputtext-sm" (keyup.enter)="nextFocus(i)" [(ngModel)]="may.TocDoMax">
                         </p-inputNumber>
                     </td>
                     <td class="w-tc-150">
-                        <p-inputNumber [minFractionDigits]="0" [maxFractionDigits]="0" styleClass="p-inputtext-sm"
-                            [(ngModel)]="may.TocDoTrungBinh">
+                        <p-inputNumber #inputTocDoTrungBinh [minFractionDigits]="3" [maxFractionDigits]="3"
+                            styleClass="p-inputtext-sm" [(ngModel)]="may.TocDoTrungBinh"
+                            (keyup.enter)="nextFocus_inputTocDoTrungBinhs(i)">
                         </p-inputNumber>
                     </td>
                     <td class="w-tc-150">
-                        <p-inputNumber [minFractionDigits]="0" [maxFractionDigits]="0" styleClass="p-inputtext-sm"
+                        <p-inputNumber [minFractionDigits]="3" [maxFractionDigits]="3" styleClass="p-inputtext-sm"
                             [ngModel]="may.TocDoMax-may.TocDoTrungBinh" disabled="true">
                         </p-inputNumber>
                     </td>

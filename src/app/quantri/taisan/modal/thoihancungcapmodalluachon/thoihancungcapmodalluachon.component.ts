@@ -1,3 +1,4 @@
+import { LohangComponent } from 'src/app/quantri/quanlykhosanxuat/thongke/lohang/lohang.component';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -43,7 +44,9 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
     this.filter = {};
     this.GetList();
   }
-  GetList() {
+  GetList(e?:any) {
+    console.log(e);
+    
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,

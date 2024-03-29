@@ -42,14 +42,15 @@
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca làm việc:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listCaLamViec" placeholder="Chọn ca làm việc" [(ngModel)]="item.idCaLamViec"
-                    styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listCaLamViec" placeholder="Chọn ca làm việc"
+                    [(ngModel)]="item.idCaLamViec" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khung giờ áp dụng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [options]="listLoaiKhungGio" [(ngModel)]="item.idLoaiKhungGio" [filter]="true" styleClass="p-inputtext-sm" placeholder="Chọn khung giờ">
+                <p-dropdown [options]="listLoaiKhungGio" [(ngModel)]="item.idLoaiKhungGio" [filter]="true"
+                    styleClass="p-inputtext-sm" placeholder="Chọn khung giờ" (onChange)="handleChangeKhungGio($event)">
                 </p-dropdown>
             </div>
         </div>
@@ -62,7 +63,7 @@
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá tiền:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DonGia">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DonGia" [disabled]="true">
                 </p-inputNumber>
             </div>
         </div>

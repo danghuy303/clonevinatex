@@ -40,7 +40,7 @@
                         </td> -->
                         <td class="text-right" *ngFor="let tieuchuan of item.lstChiTieuChatLuong_Item">
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="tieuchuan.TieuChuan"
-                                [disabled]="item.disable">
+                                [disabled]="tieuchuan.isDisable">
                             </p-inputNumber>
                         </td>
                     </tr>

@@ -21,43 +21,52 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.NgayChon" inputId="icon" placeholder="Ngày"
-                (onSelect)="getBaoCaoCa()">
+                [(ngModel)]="filter.NgayChon" inputId="icon" placeholder="Ngày" (onSelect)="getBaoCaoCa()">
             </p-calendar>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm"
-                (onChange)="getBaoCaoCa()" [showClear]="false" [filter]="true"></p-dropdown>
+                [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="getBaoCaoCa()"
+                [showClear]="false" [filter]="true"></p-dropdown>
         </div>
     </div>
 </div>
 <div>
     <p-tabView>
-        <p-tabPanel header="Công đoạn bông chải">
+        <p-tabPanel header="Công đoạn bông chải" *ngIf="!item.itemCongDoan_BongChai.isDisable">
             <ng-template pTemplate="content">
                 <app-bongchai-baocaoca [data]="item.itemCongDoan_BongChai"></app-bongchai-baocaoca>
             </ng-template>
         </p-tabPanel>
-        <p-tabPanel header="Công đoạn ghép thô">
+        <p-tabPanel header="Công đoạn ghép thô" *ngIf="!item.itemCongDoan_GhepTho.isDisable">
             <ng-template pTemplate="content">
                 <app-gheptho-baocaoca [data]="item.itemCongDoan_GhepTho"></app-gheptho-baocaoca>
             </ng-template>
         </p-tabPanel>
-        <p-tabPanel header="Công đoạn máy ống">
+        <p-tabPanel header="Công đoạn máy ống" *ngIf="!item.itemCongDoan_Ong.isDisable">
             <ng-template pTemplate="content">
                 <app-mayong-baocaoca [data]="item.itemCongDoan_Ong"></app-mayong-baocaoca>
             </ng-template>
         </p-tabPanel>
-        <p-tabPanel header="Công đoạn sợi con">
+        <p-tabPanel header="Công đoạn sợi con" *ngIf="!item.itemCongDoan_Con.isDisable">
             <ng-template pTemplate="content">
                 <app-soicon-baocaoca [data]="item.itemCongDoan_Con"></app-soicon-baocaoca>
             </ng-template>
         </p-tabPanel>
-        <p-tabPanel header="Thay thô">
+        <p-tabPanel header="Thay thô" *ngIf="!item.itemCongDoan_ThayTho.isDisable">
             <ng-template pTemplate="content">
                 <app-thaytho-baocaoca [data]="item.itemCongDoan_ThayTho"></app-thaytho-baocaoca>
             </ng-template>
         </p-tabPanel>
+            <p-tabPanel header="Con 2" *ngIf="!item.itemCongDoan_Con2.isDisable">
+                <ng-template pTemplate="content">
+                    <app-con2-baocaoca [data]="item.itemCongDoan_Con2"></app-con2-baocaoca>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel header="Đậu xe" *ngIf="!item.itemCongDoan_DauXe.isDisable">
+                <ng-template pTemplate="content">
+                    <app-dauxe-baocaoca [data]="item.itemCongDoan_DauXe"></app-dauxe-baocaoca>
+                </ng-template>
+            </p-tabPanel>
     </p-tabView>
 </div>

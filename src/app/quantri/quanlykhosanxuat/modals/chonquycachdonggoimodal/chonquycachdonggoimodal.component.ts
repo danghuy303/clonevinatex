@@ -79,8 +79,14 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
     }
   }
 
+  select(item) {
+    this.selectedItems.forEach((ele: any) => {
+      ele.label = this.items.filter(obj => item.value == obj.value)[0].label;
+    })
+  }
+
   accept() {
-    if(validVariable(this.newTableItem.IddmQuyCachDongGoi) && validVariable(this.newTableItem.KhoiLuong) && this.newTableItem.KhoiLuong>0){
+    if (validVariable(this.newTableItem.IddmQuyCachDongGoi) && validVariable(this.newTableItem.KhoiLuong) && this.newTableItem.KhoiLuong > 0) {
       this.add()
     }
     // let tong = 0;
@@ -91,7 +97,7 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
     //   this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
     // }
     // else {
-      this._activeModal.close({ listItem: this.selectedItems });
+    this._activeModal.close({ listItem: this.selectedItems });
     // }
   }
 

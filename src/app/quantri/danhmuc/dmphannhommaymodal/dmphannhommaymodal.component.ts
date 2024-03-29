@@ -43,7 +43,9 @@ export class DmphannhommaymodalComponent implements OnInit {
     BONGCHAI: '',
     XOCHAI: '',
     CHAITHO: '',
-    CHAIKY: ''
+    CHAIKY: '',
+    DAUXE: 'MATHANG',
+    XE: 'MATHANG',
   }
 
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) {
@@ -291,7 +293,7 @@ export class DmphannhommaymodalComponent implements OnInit {
           }
         });
       }
-      else if (this.item.CongDoan == "GHEPSOBO"|| this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
+      else if (this.item.CongDoan == "GHEPSOBO" || this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(obj.Nm))) {
             obj.NangSuat = obj.TocDo * this.item.SoDauRa * (this.item.TocDoQuay || 0) / obj.Nm / 1000 * (this.item.HeSo || 0);
@@ -332,6 +334,22 @@ export class DmphannhommaymodalComponent implements OnInit {
           }
         });
       }
+      else if (this.item.CongDoan == "DAUXE") {
+        this.item.lstdmItem.forEach(obj => {
+          if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(obj.Ne))) {
+            obj.NangSuat = obj.TocDo * (this.item.TocDoQuay || 0) / (obj.Nm * 1000);
+            obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
+          }
+        });
+      }
+      else if (this.item.CongDoan == "XE") {
+        this.item.lstdmItem.forEach(obj => {
+          if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(obj.Ne))) {
+            obj.NangSuat = 2 * (this.item.SoCoc || 0) * obj.TocDo * (this.item.TocDoQuay || 0) / ((obj.DoSan) * (obj.Nm * 1000));
+            obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
+          }
+        });
+      }
     }
   }
 
@@ -343,7 +361,7 @@ export class DmphannhommaymodalComponent implements OnInit {
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
-      else if (this.item.CongDoan == "GHEPSOBO"|| this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
+      else if (this.item.CongDoan == "GHEPSOBO" || this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(this.newTableItem.Nm))) {
           this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoDauRa * (this.item.TocDoQuay || 0) / this.newTableItem.Nm / 1000 * (this.item.HeSo || 0);
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
@@ -413,8 +431,20 @@ export class DmphannhommaymodalComponent implements OnInit {
   }
 
   changeDMApDung(item) {
+    // this.item.lstdmItem.forEach(element => {
+    //   if (element.Iditem != undefined && element.Iditem.Id == item.Iditem.Id) {
+    //     if (element.Id != item.Id) {
+    //       if (item.Nm != element.Nm) {
+    //         item.isApDung = true;
+    //       }
+    //       else {
+    //         element.isApDung = false;
+    //       }
+    //     }
+    //   }
+    // });
     this.item.lstdmItem.forEach(element => {
-      if (element.Iditem != undefined && element.Iditem.Id == item.Iditem.Id) {
+      if (element.Iditem != undefined && element.Iditem == item.Iditem) {
         if (element.Id != item.Id) {
           if (item.Nm != element.Nm) {
             item.isApDung = true;
@@ -424,6 +454,18 @@ export class DmphannhommaymodalComponent implements OnInit {
           }
         }
       }
+      else if (element.Iditem != undefined && element.Iditem != item.Iditem) {
+        item.isApDung = true;
+      }
     });
+  }
+
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }

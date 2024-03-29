@@ -1,0 +1,98 @@
+.options {
+  margin-bottom: 20px;
+}
+
+.sogiodungmay {
+  /* height: calc(100vh - 171px); */
+}
+.top-charts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  height: 50%;
+}
+
+.first-chart {
+  width: 50%;
+  flex-basis: 1;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.second-chart {
+  width: 50%;
+  flex-basis: 1;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.third-chart {
+  height: 50%;
+  margin-bottom: 20px;
+}
+
+:host ::ng-deep .p-dialog-header {
+  justify-content: space-between;
+}
+
+:host ::ng-deep .third-chart canvas {
+  height: calc((100vh - 211px) / 2 - 28px) !important;
+}
+:host ::ng-deep .second-chart canvas {
+  height: calc((100vh - 211px) / 2 - 45px) !important;
+}
+:host ::ng-deep .first-chart canvas {
+  height: calc((100vh - 211px) / 2 - 45px) !important;
+  /* cursor: pointer; */
+}
+
+.tc-w-150 {
+  max-width: 150px !important;
+  min-width: 150px !important;
+}
+.tc-w-100 {
+  max-width: 100px !important;
+  min-width: 100px !important;
+}
+.tc-w-50 {
+  max-width: 50px !important;
+  min-width: 50px !important;
+}
+.tc-w-250 {
+  max-width: 250px !important;
+  min-width: 250px !important;
+}
+.tc-w-200 {
+  max-width: 200px !important;
+  min-width: 200px !important;
+}
+.chuthich {
+  height: 20px;
+  width: 50px;
+  background-color: #42a5f5;
+  margin-right: 10px !important;
+}
+.chuthichtc {
+  height: 20px;
+  width: 50px;
+  background-color: #9ccc65;
+  margin-right: 10px !important;
+}
+.chuthichss {
+  height: 20px;
+  width: 50px;
+  background-color: #cc65c5;
+  margin-right: 10px !important;
+}
+
+.sticky-table {
+  overflow: auto;
+}
+.sticky-table thead th:first-child,
+.sticky-table tbody td:first-child {
+  position: sticky;
+  left: 0;
+}

@@ -19,6 +19,7 @@ import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.serv
 import { TreeNode } from 'primeng/api';
 import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
 import { ModalcapnhatbaogiaComponent } from "../modal/modalcapnhatbaogia/modalcapnhatbaogia.component";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-bangiaotaisan',
@@ -26,7 +27,7 @@ import { ModalcapnhatbaogiaComponent } from "../modal/modalcapnhatbaogia/modalca
   styleUrls: ['./bangiaotaisan.component.css']
 })
 export class BangiaotaisanComponent implements OnInit {
-
+  $sub!: Subscription;
   filter: any = {};
   eAction: any = "QUYTRINHBANGIAOTAISAN";
   loaiTab: any = 0;
@@ -51,6 +52,11 @@ export class BangiaotaisanComponent implements OnInit {
     
   ) { 
     this.idUser = this._serviceAuth.currentUserValue.Id;
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
   }
 
   ngOnInit(): void {
@@ -86,7 +92,7 @@ export class BangiaotaisanComponent implements OnInit {
   }
 
   getListdmPhanXuong() {
-    this._serviceDungChung.GetListdmPhanXuongOpt().subscribe((res: any) => {
+    this._serviceDungChung.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

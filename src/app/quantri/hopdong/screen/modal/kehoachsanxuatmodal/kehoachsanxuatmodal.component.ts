@@ -44,9 +44,9 @@ export class KehoachsanxuatmodalComponent implements OnInit {
   listKeHoachForCopy: any = [];
   GiaoKeHoachForCopy: any = {};
   canCopy: boolean = false;
-  canExport:boolean = false;
+  canExport: boolean = false;
   yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,private HopDongService:HopDongService) {
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService, private HopDongService: HopDongService) {
 
   }
 
@@ -55,11 +55,11 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     this.GetFormOptions()
     this.KiemTraButtonModal();
     // if (this._store.getCurrent()) {
-     
+
     // }
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-      this.GetListGiaoKeHoachForCopy();     
+      this.GetListGiaoKeHoachForCopy();
     }
   }
   ngDoCheck(): void {
@@ -68,9 +68,9 @@ export class KehoachsanxuatmodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
       this.checkbutton = res;
-      if(validVariable(this.item.Id)){
+      if (validVariable(this.item.Id)) {
         this.canExport = true;
-      }else{
+      } else {
         this.canExport = false;
       }
     })
@@ -131,9 +131,9 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     this.item.isDieuChinh = true;
   }
   GetFormOptions() {
-    this.HopDongService.GiaoKeHoachSanXuat().GetListMatHangGiaoKeHoachSanXuat(this.item.idDuAn).subscribe((res:any) => {
+    this.HopDongService.GiaoKeHoachSanXuat().GetListMatHangGiaoKeHoachSanXuat(this.item.idDuAn).subscribe((res: any) => {
       this.listMatHang = res.data;
-      this.listMatHang.forEach(obj=>{
+      this.listMatHang.forEach(obj => {
         obj.Ne = obj.ne;
         obj.DoSan = obj.doSan;
         obj.Ma = obj.ma;
@@ -271,7 +271,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
         return false;
       }
     }
-    let checkArray = this.item.listItem.every(ele=>validVariable(ele.KhoiLuongKeHoach)&&ele.KhoiLuongKeHoach!==0)
+    let checkArray = this.item.listItem.every(ele => validVariable(ele.KhoiLuongKeHoach) && ele.KhoiLuongKeHoach !== 0)
     if (!checkArray) {
       this.toastr.error('Có mặt hàng không nhập khối lượng!')
       return false;
@@ -279,13 +279,15 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     return true;
   }
   chonHangHoa() {
+    console.log(1);
     let modalRef = this._modal.open(ChonhanghoamodalComponent, {
       size: 'xl'
     })
     modalRef.componentInstance.items = this.listMatHang;
+    modalRef.componentInstance.listSelectedItems = this.item.listItem.length ? this.item.listItem.map(ele => ele.IddmItem) : [];
     modalRef.componentInstance.selectedItems = [];
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
-    modalRef.componentInstance.opt = "GiaoKeHoachSanXuatHopDong";    
+    modalRef.componentInstance.opt = "GiaoKeHoachSanXuatHopDong";
     modalRef.result.then(res => {
       if (res.length > 0) {
         res.forEach(obj => this.item.listItem.push(obj))
@@ -309,7 +311,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
         this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
       }
     }
-    if(validVariable(this.item.Id)){
+    if (validVariable(this.item.Id)) {
       item.isEdited = true;
     }
   }
@@ -450,18 +452,18 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     }
   }
   change(index) {
-    if(validVariable(this.item.Id)){
+    if (validVariable(this.item.Id)) {
       this.item.listItem[index].isEdited = true;
     }
   }
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt]=res;
+      item[opt] = res;
     })
   }
-  exportExcel(){
-    this.services.GiaoKeHoachSanXuat().ExportGiaoKeHoachSanXuat(this.item.Id).subscribe((res:any)=>{
+  exportExcel() {
+    this.services.GiaoKeHoachSanXuat().ExportGiaoKeHoachSanXuat(this.item.Id).subscribe((res: any) => {
       this.services.download(res.TenFile);
     })
   }

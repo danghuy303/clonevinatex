@@ -28,18 +28,42 @@ export class MathangmodelComponent implements OnInit {
   ];
   editTableItem: any = {};
   khongclicknhieu: any = false;
+  listHinhThucSoi: any = [
+    {
+      value: 1,
+      label: "Sợi đơn"
+    },
+    {
+      value: 2,
+      label: "Sợi đơn khách"
+    },
+    {
+      value: 3,
+      label: "Sợi xe"
+    },
+    {
+      value: 4,
+      label: "Sợi xe khách"
+    }
+  ];
+  listSoiDon: any = [];
+
   constructor(public activeModal: NgbActiveModal,
     private services: SanXuatService,
     public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
-    if(this.opt === 'add'){
+    console.log(this.listSoiDon);
+    
+    if (this.opt === 'add') {
       this.item.HoatDong = true;
     }
-    else{
-      this.item.Nm = this.item.Ne*1.693;
+    else {
+      this.item.Nm = this.item.Ne * 1.693;
     }
     this.getListLoaiSoi();
+    console.log(this.item);
+    
   }
 
   getListLoaiSoi() {
@@ -64,7 +88,7 @@ export class MathangmodelComponent implements OnInit {
       //   });
       //   this.item.listCongDoan = listCodeCongDoan_new;
       // }
-     
+
       this.services.SetdmItem(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -83,7 +107,7 @@ export class MathangmodelComponent implements OnInit {
   }
 
   TinhGiaTri(event) {
-    if(event !== undefined)
-     return (event*1.693);
+    if (event !== undefined)
+      return (event * 1.693);
   }
 }

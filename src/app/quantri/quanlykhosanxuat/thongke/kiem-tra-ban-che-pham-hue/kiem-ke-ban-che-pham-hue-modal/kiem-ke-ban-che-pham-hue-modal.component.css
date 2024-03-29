@@ -1,0 +1,17 @@
+
+.kiemke {
+  padding: 9px !important;
+}
+:host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th {
+  padding: 0.3rem 0.5rem;
+}
+
+.tc-w-200{
+  min-width: 200px !important; 
+  max-width: 200px !important;
+}
+.tc-w-150{
+  min-width: 150px !important; 
+  max-width: 150px !important;
+}
+

@@ -8,6 +8,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalthuhoitaisanComponent } from '../../modal/modalthuhoitaisan/modalthuhoitaisan.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoreBase } from 'src/app/services/storebase.class';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-phieuthuhoitaisan',
   templateUrl: './phieuthuhoitaisan.component.html',
@@ -26,6 +27,7 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "QUYTRINHTHUHOITAISAN";
   listPhanXuong:any=[];
+  $sub!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
@@ -33,7 +35,12 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
     store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
   ) {
-    super(store)
+    super(store);
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit();
+      }
+  })
    }
   ngOnInit(): void {
 
@@ -77,7 +84,7 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
     })
   }
   GetListdmPhanXuong() {
-    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.GetList();
     })

@@ -43,7 +43,14 @@ export class DinhmuctieuhaomodalComponent implements OnInit {
     data.CurrentPage = 0;
     data.Loai = 1;
     this.services.GetListdmItem(data).subscribe((res: any) => {
-      this.listItem = mapArrayForDropDown(res, 'Ten', 'Id');
+      let sort = res.sort((a,b) => a.Ne - b.Ne);
+      sort = sort.map(ele => {
+        return {
+          ...ele,
+          maTen: ele.Ma + '-' + ele.Ten
+        }
+      })
+      this.listItem = mapArrayForDropDown(sort, 'maTen', 'Id');
     })
   }
 

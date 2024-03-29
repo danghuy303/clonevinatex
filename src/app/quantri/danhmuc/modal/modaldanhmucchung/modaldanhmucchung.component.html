@@ -12,14 +12,14 @@
                 <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.Ma" pInputText />
             </div>
         </div>
-      
+
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.Ten" pInputText />
             </div>
         </div>
-       
+
         <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -27,11 +27,32 @@
                     [(ngModel)]="item.Loai"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'&& item?.Loai===7">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông phế:</label>
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="(type==='loaibong'&& (item?.Loai===7 || item?.Loai===6))">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [options]="listLoaiBongPhe" placeholder="Chọn loại bông phế" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmLoaiBongPhe"></p-dropdown>
+                <p-multiSelect [options]="listCongDoan" [(ngModel)]="item.listCongDoan"
+                    selectedItemsLabel="{0} Công đoạn đã chọn" defaultLabel="Chọn công đoạn"></p-multiSelect>
+            </div>
+        </div>
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='nhomcongto'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.LoaiCongDoan" [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'&& (item?.Loai===7 || item?.Loai===6)">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cách tính:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [options]="listCachTinh" placeholder="Chọn cách tính" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.isTinhTyLeTheoSoiCon"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'&& (item?.Loai===7)">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công thức:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <textarea class="p-inputtext-sm" pInputTextarea [(ngModel)]="item.CongThuc" placeholder="Nhập công thức"
+                    rows="1" cols="1"></textarea>
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type=='loaibong'">
@@ -55,23 +76,54 @@
                     [(ngModel)]="item.Loai"></p-dropdown>
             </div>
         </div>
+
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='nhomcongto'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [options]="listLoaiCongTo" placeholder="Chọn loại" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.LoaiCongTo" [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'&& (item?.Loai===7 || item?.Loai===6)">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto"></label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+
+                <div class="p-d-flex p-flex-row  align-items-center justify-content-between">
+                    <div class="field-radiobutton p-mr-2 d-flex align-items-center">
+                        <p-checkbox [(ngModel)]="item.isPha" binary="true" inputId="binary"></p-checkbox>
+                        <!-- <p-radioButton value="PHA" [(ngModel)]="item.PHACDCM"></p-radioButton> -->
+                        <label class="ml-1 mb-0">Pha</label>
+                    </div>
+                    <div class="field-radiobutton p-mr-2">
+                        <p-radioButton value="CD" [(ngModel)]="item.PHACDCM"></p-radioButton>
+                        <label class="ml-1 mb-0">CD</label>
+                    </div>
+                    <div class="field-radiobutton p-mr-2">
+                        <p-radioButton value="CM" [(ngModel)]="item.PHACDCM"></p-radioButton>
+                        <label class="ml-1 mb-0">CM</label>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu"
+                    pInputText />
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaisoi'">
             <div class="p-field-checkbox m-0">
-                <p-checkbox [(ngModel)]="item.isPER" binary="true" inputId="PER"
-                    ></p-checkbox>
+                <p-checkbox [(ngModel)]="item.isPER" binary="true" inputId="PER"></p-checkbox>
                 <label for="PER">PER</label>
             </div>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()" [disabled]="khongclicknhieu"></button>
+    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
+        [disabled]="khongclicknhieu"></button>
     <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
         (click)="activeModal.dismiss()"></button>
 </div>

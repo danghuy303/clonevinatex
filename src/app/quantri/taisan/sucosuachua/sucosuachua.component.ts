@@ -14,6 +14,8 @@ import {
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { ModalcapnhatsuachuabaoduongComponent } from '../modal/modalcapnhatsuachuabaoduong/modalcapnhatsuachuabaoduong.component';
+import { Subscription } from "rxjs";
+import { StoreService } from "src/app/services/store.service";
 
 @Component({
   selector: 'app-sucosuachua',
@@ -29,6 +31,7 @@ export class SucosuachuaComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: any = [];
   trangThai: any = 1;
+  $sub!: Subscription;
 
   constructor(
     public _modal: NgbModal,
@@ -37,8 +40,16 @@ export class SucosuachuaComponent implements OnInit {
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private store: StoreService
+
+  ) { 
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+  }
 
   ngOnInit(): void {
     this.resetFilter();

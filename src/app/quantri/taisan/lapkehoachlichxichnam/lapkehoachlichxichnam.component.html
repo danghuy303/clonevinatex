@@ -105,7 +105,6 @@
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col style="width:100px">
                         <col style="width:50px">
                         <col style="width:50px">
                         <col style="width:50px">
@@ -118,7 +117,8 @@
                         <col style="width:50px">
                         <col style="width:50px">
                         <col style="width:50px">
-
+                        <col style="width:50px">
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -136,7 +136,7 @@
                         <th class="text-center">Tháng 10</th>
                         <th class="text-center">Tháng 11</th>
                         <th class="text-center">Tháng 12</th>
-
+                        <th class="text-center">Thao tác</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-taisan let-i="rowIndex">
@@ -148,13 +148,18 @@
                             <a href="javascript:void(0)">Chọn</a>
                         </td> -->
 
-                        <td> {{taisan.TenVietTat}}</td>
+                        <td class="text-center"> {{taisan.TenVietTat}}</td>
                         <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong" >
                             <div>
                                 <p *ngFor="let chitiet of baoduong.listChiTiet">{{chitiet?.TendmLoaiBaoDuong}}</p>
                                 <!-- <a  *ngIf="baoduong.canInput" href="javascript:void(0)" (click)="Chon(baoduong,taisan)">Chọn</a> -->
                                 <a *ngIf="baoduong.IsHienThi" href="javascript:void(0)" (click)="Chon(baoduong,taisan)" >Chọn</a>
                             </div>
+                        </td>
+                        <td class="text-center">
+                            <button pButton pRipple type="button" icon="pi pi-trash"
+                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                            (click)=" delete(i)"></button>
                         </td>
                     </tr>
                 </ng-template>

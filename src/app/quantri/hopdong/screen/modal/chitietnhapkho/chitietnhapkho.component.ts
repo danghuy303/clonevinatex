@@ -53,8 +53,8 @@ export class ChitietnhapkhoComponent implements OnInit {
         listItem: [],
         isTuDong: false,
       }
-      if(this.type==='bong'){
-        this.item.isGopPhieu= true;
+      if (this.type === 'bong') {
+        this.item.isGopPhieu = true;
       }
       this.GetNextSoQuyTrinh();
     }
@@ -93,10 +93,26 @@ export class ChitietnhapkhoComponent implements OnInit {
   // }
 
   ChuyenTiep() {
-    if(this.CheckTruocKhiLuu()){
+    if (this.CheckTruocKhiLuu()) {
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix =  DateToUnix(this.item.Ngay);
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
+
+  KhongDuyet() {
+    if (this.CheckTruocKhiLuu()) {
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this._services.QuyTrinhPhieuNhapLoBong().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.activeModal.close();
@@ -126,8 +142,7 @@ export class ChitietnhapkhoComponent implements OnInit {
         this.item.Loai = 7;
     }
     // let isCheck = false;
-    if(this.CheckTruocKhiLuu())
-    {
+    if (this.CheckTruocKhiLuu()) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -246,7 +261,7 @@ export class ChitietnhapkhoComponent implements OnInit {
       this.item.listItem = [];
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
-    
+
   }
 
   delete(index) {
@@ -318,25 +333,25 @@ export class ChitietnhapkhoComponent implements OnInit {
         this._services.download(res.TenFile);
       })
     }
-    if(this.type ==='xo'){
+    if (this.type === 'xo') {
       this._services.QuyTrinhPhieuNhapLoBong().ExportPhieuNhapLoBongXo(this.item.Id).subscribe((res: any) => {
         this._services.download(res.TenFile);
       })
     }
   }
-  exportHoaDon(){
+  exportHoaDon() {
     if (this.type === 'bong') {
       this._services.QuyTrinhPhieuNhapLoBong().ExportHoaDonNhapKhoBong(this.item.Id).subscribe((res: any) => {
         this._services.download(res.TenFile);
       })
     }
-    if(this.type ==='xo'){
+    if (this.type === 'xo') {
       this._services.QuyTrinhPhieuNhapLoBong().ExportHoaDonNhapKhoXo(this.item.Id).subscribe((res: any) => {
         this._services.download(res.TenFile);
       })
     }
   }
-  CheckTruocKhiLuu(){
+  CheckTruocKhiLuu() {
     if (this.newTableItem.Ten != undefined || this.newTableItem.SoCan != undefined || this.newTableItem.SoKien != undefined || this.newTableItem.IddmViTri != undefined) {
       this.add();
     }

@@ -311,6 +311,34 @@ import { BaocaotonghoptaisanchiphiComponent } from './baocaotonghoptaisan/baocao
 import { ThongkesanluongnhanhComponent } from './quanlykhosanxuat/thongke/thongkesanluongnhanh/thongkesanluongnhanh.component';
 import { ThongkesanluongnhanhmodalComponent } from './quanlykhosanxuat/thongke/thongkesanluongnhanhmodal/thongkesanluongnhanhmodal.component';
 import { ModalQuyTrinhCanXuLyComponent } from './modal/modal-quy-trinh-can-xu-ly/modal-quy-trinh-can-xu-ly.component';
+import { Con2BaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/con2-baocaoca/con2-baocaoca.component';
+import { DauxeBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/dauxe-baocaoca/dauxe-baocaoca.component';
+import { KiemTraBanChePhamToHieuComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/kiem-tra-ban-che-pham-to-hieu/kiem-tra-ban-che-pham-to-hieu.component';
+import { KiemTraBanChePhamToHieuModalComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/modal/kiem-tra-ban-che-pham-to-hieu-modal/kiem-tra-ban-che-pham-to-hieu-modal.component';
+import { BanChePhamToHieuTongHopComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/modal/ban-che-pham-to-hieu-tong-hop/ban-che-pham-to-hieu-tong-hop.component';
+import { QuyetToanNguyenLieuComponent } from './quanlykhosanxuat/quyet-toan-nguyen-lieu/quyet-toan-nguyen-lieu.component';
+import { DmKiemKeBanChePhamComponent } from './danhmuc/dm-kiem-ke-ban-che-pham/dm-kiem-ke-ban-che-pham.component';
+import { DanhSachMatHangComponent } from './quanlykhosanxuat/quytrinh/to-hieu-ban-che-pham/modal/danh-sach-mat-hang/danh-sach-mat-hang.component';
+import { LapKeHoachComponent } from './lap-ke-hoach/lap-ke-hoach.component';
+import { KiemTraBanChePhamHueComponent } from './quanlykhosanxuat/thongke/kiem-tra-ban-che-pham-hue/kiem-tra-ban-che-pham-hue.component';
+import { KiemKeBanChePhamHueModalComponent } from './quanlykhosanxuat/thongke/kiem-tra-ban-che-pham-hue/kiem-ke-ban-che-pham-hue-modal/kiem-ke-ban-che-pham-hue-modal.component';
+import { NhapKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/nhap-kho-gia-cong/nhap-kho-gia-cong.component';
+import { XuatKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/xuat-kho-gia-cong/xuat-kho-gia-cong.component';
+import { NhapKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/nhap-kho-gia-cong/nhap-kho-gia-cong-modal/nhap-kho-gia-cong-modal.component';
+import { DanhMucMatHangPopupComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/danh-muc-mat-hang-popup/danh-muc-mat-hang-popup.component';
+import { XuatKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/xuat-kho-gia-cong/xuat-kho-gia-cong-modal/xuat-kho-gia-cong-modal.component';
+import { KiemKeKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/kiem-ke-kho-gia-cong/kiem-ke-kho-gia-cong.component';
+import { TheKhoGiaCongComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/the-kho-gia-cong/the-kho-gia-cong.component';
+import { KiemKeKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/kiem-ke-kho-gia-cong/kiem-ke-kho-gia-cong-modal/kiem-ke-kho-gia-cong-modal.component';
+import { TheKhoGiaCongModalComponent } from './quanlykhosanxuat/quytrinh/kho-gia-cong/the-kho-gia-cong/the-kho-gia-cong-modal/the-kho-gia-cong-modal.component';
+import { NhapkhohoiluongdoComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiluongdo/nhapkhohoiluongdo.component';
+import { NhapkhohoiluongdomodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiluongdomodal/nhapkhohoiluongdomodal.component';
+import { XuatkhohoiluongdoComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiluongdo/xuatkhohoiluongdo.component';
+import { XuatkhohoiluongdomodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiluongdomodal/xuatkhohoiluongdomodal.component';
+import { KiemkekhohoiluongdoComponent } from './quanlykhosanxuat/quytrinh/kiemkekhohoiluongdo/kiemkekhohoiluongdo.component';
+import { KiemkekhohoiluongdomodalComponent } from './quanlykhosanxuat/quytrinh/kiemkekhohoiluongdomodal/kiemkekhohoiluongdomodal.component';
+import { TonkhohoiluongdoComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiluongdo/tonkhohoiluongdo.component';
+import { TonkhohoiluongdomodalComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiluongdomodal/tonkhohoiluongdomodal.component';
 
 @NgModule({
   declarations: [
@@ -568,6 +596,34 @@ import { ModalQuyTrinhCanXuLyComponent } from './modal/modal-quy-trinh-can-xu-ly
     ThongkesanluongnhanhComponent,
     ThongkesanluongnhanhmodalComponent,
     ModalQuyTrinhCanXuLyComponent,
+    Con2BaocaocaComponent,
+    DauxeBaocaocaComponent,
+    KiemTraBanChePhamToHieuComponent,
+    KiemTraBanChePhamToHieuModalComponent,
+    BanChePhamToHieuTongHopComponent,
+    QuyetToanNguyenLieuComponent,
+    DmKiemKeBanChePhamComponent,
+    DanhSachMatHangComponent,
+    LapKeHoachComponent,
+    KiemTraBanChePhamHueComponent,
+    KiemKeBanChePhamHueModalComponent,
+    NhapKhoGiaCongComponent,
+    XuatKhoGiaCongComponent,
+    NhapKhoGiaCongModalComponent,
+    DanhMucMatHangPopupComponent,
+    XuatKhoGiaCongModalComponent,
+    KiemKeKhoGiaCongComponent,
+    TheKhoGiaCongComponent,
+    KiemKeKhoGiaCongModalComponent,
+    TheKhoGiaCongModalComponent,
+    NhapkhohoiluongdoComponent,
+    NhapkhohoiluongdomodalComponent,
+    XuatkhohoiluongdoComponent,
+    XuatkhohoiluongdomodalComponent,
+    KiemkekhohoiluongdoComponent,
+    KiemkekhohoiluongdomodalComponent,
+    TonkhohoiluongdoComponent,
+    TonkhohoiluongdomodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -610,6 +666,7 @@ import { ModalQuyTrinhCanXuLyComponent } from './modal/modal-quy-trinh-can-xu-ly
     NgbProgressbarModule,
     ColorPickerModule,
     QRCodeModule,
+    SharedModule,
     NgxMaskModule.forRoot(),
   ],
   entryComponents: [

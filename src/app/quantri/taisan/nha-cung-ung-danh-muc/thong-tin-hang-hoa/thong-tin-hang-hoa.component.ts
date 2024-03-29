@@ -34,6 +34,8 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges, AfterViewIni
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('isDisabled', this.isDisabled);
+
     if (this.item.listItem) {
       this.LoadData(true);
     } else {
@@ -135,12 +137,24 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges, AfterViewIni
       .then((res: any) => {
         data.FileName = res[0].Name;
         this.taiSanService.NhaCungUng().ImportItem(data).subscribe((res: any) => {
-            handleHTTPResponse(res, this.toast, () => {}, () => {})
-            this.item.listItem = [...this.item.listItem, ...res.Data];
-            this.LoadData(true);
+          handleHTTPResponse(res, this.toast, () => { }, () => { })
+          // this.item.listItem = [...this.item.listItem, ...res.Data];
+          this.item.listItem = this.mapUnique([...this.item.listItem, ...res.Data]);
+          this.LoadData(true);
         })
       })
       .catch(er => { })
       .finally()
   }
+
+  mapUnique(list) {
+    let unique = list.reduce((accumulator, current) => {
+      if (!accumulator.some((x) => x.MadmItem === current.MadmItem)) {
+        accumulator.push(current);
+      }
+      return accumulator;
+    }, []);
+    return unique;
+  }
+
 }

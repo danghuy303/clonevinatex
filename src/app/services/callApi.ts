@@ -6,100 +6,100 @@ import { httpOptions, API } from './host';
 })
 export class Dat09Service {
     constructor(private http: HttpClient) { }
-    
 
 
-     //DanhMucHinhThucThanhToan
+
+    //DanhMucHinhThucThanhToan
     DanhMucHinhThucThanhToan() {
-    return {
-        GetListdmDanhMucHinhThucThanhToan:(data) => {
-            let url = API.danhmuc + 'GetListdmDanhMucHinhThucThanhToan';
-         return this.http.post(url,  httpOptions)
-        },
-        SetdmDanhMucHinhThucThanhToan: (data) => {
-            let url = API.danhmuc + 'SetdmDanhMucHinhThucThanhToan';
-         return this.http.post(url,  httpOptions)
-        },
-        DeletedmDanhMucHinhThucThanhToan: (data) => {
-            let url = API.danhmuc + 'DeletedmDanhMucHinhThucThanhToan';
-         return this.http.post(url,  httpOptions)
-        },
-    }
-    }
-
- //DanhMucLoaiHopDong
- DanhMucLoaiHopDong() {
-    return {
-        GetListdmLoaiHopDong:(data) => {
-            let url = API.danhmuc + ' GetListdmLoaiHopDong';
-         return this.http.post(url,  httpOptions)
-        },
-        SetdmLoaiHopDong: (data) => {
-            let url = API.danhmuc + 'SetdmLoaiHopDong';
-         return this.http.post(url,  httpOptions)
-        },
-        DeletedmLoaiHopDong: (data) => {
-            let url = API.danhmuc + 'DeletedmLoaiHopDong';
-         return this.http.post(url,  httpOptions)
-        },
-    }
+        return {
+            GetListdmDanhMucHinhThucThanhToan: (data) => {
+                let url = API.danhmuc + 'GetListdmDanhMucHinhThucThanhToan';
+                return this.http.post(url, httpOptions)
+            },
+            SetdmDanhMucHinhThucThanhToan: (data) => {
+                let url = API.danhmuc + 'SetdmDanhMucHinhThucThanhToan';
+                return this.http.post(url, httpOptions)
+            },
+            DeletedmDanhMucHinhThucThanhToan: (data) => {
+                let url = API.danhmuc + 'DeletedmDanhMucHinhThucThanhToan';
+                return this.http.post(url, httpOptions)
+            },
+        }
     }
 
- //  DanhMucLoaiTienTe
-DanhMucLoaiTienTe() {
-return {
-    GetListdmLoaiTienTe:(data) => {
-        let url = API.danhmuc + 'GetListdmLoaiTienTe';
-     return this.http.post(url,  httpOptions)
-    },
-    SetdmLoaiTienTe: (data) => {
-        let url = API.danhmuc + 'SetdmLoaiTienTe';
-     return this.http.post(url,  httpOptions)
-    },
-    DeletedmLoaiTienTe: (data) => {
-        let url = API.danhmuc + 'DeletedmLoaiTienTe';
-     return this.http.post(url,  httpOptions)
-    },
-}
-}
-
-//DanhMucThuTucThanhToan
-DanhMucThuTucThanhToan() {
-    return {
-        GetListdmThuTucThanhToan:(data) => {
-            let url = API.danhmuc + 'GetListdmThuTucThanhToan';
-         return this.http.post(url,  httpOptions)
-        },
-        SetdmThuTucThanhToan: (data) => {
-            let url = API.danhmuc + 'SetdmThuTucThanhToan';
-         return this.http.post(url,  httpOptions)
-        },
-        DeletedmThuTucThanhToan: (data) => {
-            let url = API.danhmuc + 'DeletedmThuTucThanhToan';
-         return this.http.post(url,  httpOptions)
-        },
-    }
+    //DanhMucLoaiHopDong
+    DanhMucLoaiHopDong() {
+        return {
+            GetListdmLoaiHopDong: (data) => {
+                let url = API.danhmuc + ' GetListdmLoaiHopDong';
+                return this.http.post(url, httpOptions)
+            },
+            SetdmLoaiHopDong: (data) => {
+                let url = API.danhmuc + 'SetdmLoaiHopDong';
+                return this.http.post(url, httpOptions)
+            },
+            DeletedmLoaiHopDong: (data) => {
+                let url = API.danhmuc + 'DeletedmLoaiHopDong';
+                return this.http.post(url, httpOptions)
+            },
+        }
     }
 
-//DanhMucTrangThaiBaoLanh
-DanhMucTrangThaiBaoLanh() {
-    return {
-        GetListdmDanhMucTrangThaiBaoLanh:(data) => {
-            let url = API.danhmuc + 'GetListdmDanhMucTrangThaiBaoLanh';
-         return this.http.post(url,  httpOptions)
-        },
-        SetdmDanhMucTrangThaiBaoLanh: (data) => {
-            let url = API.danhmuc + 'SetdmDanhMucTrangThaiBaoLanh';
-         return this.http.post(url,  httpOptions)
-        },
-        DeletedmDanhMucTrangThaiBaoLanh: (data) => {
-            let url = API.danhmuc + 'DeletedmDanhMucTrangThaiBaoLanh';
-         return this.http.post(url,  httpOptions)
-        },
-    }
+    //  DanhMucLoaiTienTe
+    DanhMucLoaiTienTe() {
+        return {
+            GetListdmLoaiTienTe: (data) => {
+                let url = API.danhmuc + 'GetListdmLoaiTienTe';
+                return this.http.post(url, httpOptions)
+            },
+            SetdmLoaiTienTe: (data) => {
+                let url = API.danhmuc + 'SetdmLoaiTienTe';
+                return this.http.post(url, httpOptions)
+            },
+            DeletedmLoaiTienTe: (data) => {
+                let url = API.danhmuc + 'DeletedmLoaiTienTe';
+                return this.http.post(url, httpOptions)
+            },
+        }
     }
 
-    Importdm(View,FileName){
+    //DanhMucThuTucThanhToan
+    DanhMucThuTucThanhToan() {
+        return {
+            GetListdmThuTucThanhToan: (data) => {
+                let url = API.danhmuc + 'GetListdmThuTucThanhToan';
+                return this.http.post(url, httpOptions)
+            },
+            SetdmThuTucThanhToan: (data) => {
+                let url = API.danhmuc + 'SetdmThuTucThanhToan';
+                return this.http.post(url, httpOptions)
+            },
+            DeletedmThuTucThanhToan: (data) => {
+                let url = API.danhmuc + 'DeletedmThuTucThanhToan';
+                return this.http.post(url, httpOptions)
+            },
+        }
+    }
+
+    //DanhMucTrangThaiBaoLanh
+    DanhMucTrangThaiBaoLanh() {
+        return {
+            GetListdmDanhMucTrangThaiBaoLanh: (data) => {
+                let url = API.danhmuc + 'GetListdmDanhMucTrangThaiBaoLanh';
+                return this.http.post(url, httpOptions)
+            },
+            SetdmDanhMucTrangThaiBaoLanh: (data) => {
+                let url = API.danhmuc + 'SetdmDanhMucTrangThaiBaoLanh';
+                return this.http.post(url, httpOptions)
+            },
+            DeletedmDanhMucTrangThaiBaoLanh: (data) => {
+                let url = API.danhmuc + 'DeletedmDanhMucTrangThaiBaoLanh';
+                return this.http.post(url, httpOptions)
+            },
+        }
+    }
+
+    Importdm(View, FileName) {
         // View:
         // BienDong,
         // MucDichSuDung
@@ -115,7 +115,7 @@ DanhMucTrangThaiBaoLanh() {
         // PhuongAnSapXep
         // DonViSoHuuNhaDat
         let url = API.danhmuc + `Importdm${View}?FileName=${FileName}`;
-        return this.http.get(url,httpOptions);
+        return this.http.get(url, httpOptions);
     }
 
     // SetActionRole(data) {
@@ -123,21 +123,21 @@ DanhMucTrangThaiBaoLanh() {
     //     return this.http.post(url, data, httpOptions);
     // }
 
-    ChangePass(data){ //{"OldPassword":"1","NewPassword":"12"}
+    ChangePass(data) { //{"OldPassword":"1","NewPassword":"12"}
         let url = API.auth + 'QuanTri/ChangePass';
         return this.http.post(url, data, httpOptions);
     }
 
-    ForgotPass(data){ //{"UserName":"1"}
+    ForgotPass(data) { //{"UserName":"1"}
         let url = API.auth + 'QuanTri/ForgotPassword';
         return this.http.post(url, data, httpOptions);
     }
 
-    
 
 
-    
-    
+
+
+
 
     // Global function
     Avatar(str: string) {
@@ -214,6 +214,6 @@ DanhMucTrangThaiBaoLanh() {
 
     }
     download(url) {
-        window.open(API.imgURL+url);
+        window.open(API.imgURL + url);
     }
 }

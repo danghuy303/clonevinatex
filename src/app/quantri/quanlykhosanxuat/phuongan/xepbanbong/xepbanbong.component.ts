@@ -21,7 +21,7 @@ import { DetmayhueComponent } from '../layoutmodals/detmayhue/detmayhue.componen
   templateUrl: './xepbanbong.component.html',
   styleUrls: ['./xepbanbong.component.css']
 })
-export class XepbanbongComponent extends StoreBase implements OnInit,OnDestroy {
+export class XepbanbongComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   filter: any = {};
@@ -53,10 +53,10 @@ export class XepbanbongComponent extends StoreBase implements OnInit,OnDestroy {
     '55': {
       '1cf3f340_0f55_4f34_938p_e329318e25et': HoaxaComponent,
     },
-    '56':{
+    '56': {
       '1cf3f340_0f55_4f34_938p_e629318e25et': HoaxaComponent
     },
-    '57':{
+    '57': {
       '1cf3f340_0f55_4f34_938p_e329318e25et': Phuhung1Component,
       '1cf3f340_0f55_4f34_938p_e629318e25et': Phuhung2Component
     },
@@ -74,7 +74,7 @@ export class XepbanbongComponent extends StoreBase implements OnInit,OnDestroy {
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listdmPhanXuong: any = [];
-  constructor(public _modal: NgbModal,public store:StoreService, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private _store: StoreService) {super(store) }
+  constructor(public _modal: NgbModal, public store: StoreService, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private _store: StoreService) { super(store) }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
@@ -158,7 +158,7 @@ export class XepbanbongComponent extends StoreBase implements OnInit,OnDestroy {
       this.GetListQuyTrinh();
     })
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }

@@ -12,13 +12,13 @@ import { StoreService } from 'src/app/services/store.service';
   templateUrl: './tonkhobonghoi.component.html',
   styleUrls: ['./tonkhobonghoi.component.css']
 })
-export class TonkhobonghoiComponent extends StoreBase implements OnInit,OnDestroy {
+export class TonkhobonghoiComponent extends StoreBase implements OnInit, OnDestroy {
 
   @ViewChild('paginator') paginator: any;
-  items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
-  filter:any={};
-  listdmKho:any=[];
-  trangThai:any=1;
+  items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
+  filter: any = {};
+  listdmKho: any = [];
+  trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   // cols: any = [
   //   {
@@ -42,24 +42,24 @@ export class TonkhobonghoiComponent extends StoreBase implements OnInit,OnDestro
   //     width: 'unset'
   //   },
   // ];
-  mapLoaiKhoBong:any={
-    khobong:2,
-    khoxo:5,
-    khobonghoi:6,
-    khobongphe:7,
-    khohoiam:10,
-    khothanhpham:11,
+  mapLoaiKhoBong: any = {
+    khobong: 2,
+    khoxo: 5,
+    khobonghoi: 6,
+    khobongphe: 7,
+    khohoiam: 10,
+    khothanhpham: 11,
   }
-  checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
+  checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
-  Loai:any = 6;
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router,public store:StoreService) {
+  Loai: any = 6;
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) {
     super(store)
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(res=>{
+    this.activatedRoute.params.subscribe(res => {
       console.log(this.mapLoaiKhoBong[`${res.kho}`])
       console.log(res);
       // this.getListdmKho(this.mapLoaiKhoBong[`${res.kho}`]);
@@ -71,28 +71,28 @@ export class TonkhobonghoiComponent extends StoreBase implements OnInit,OnDestro
   }
   getListdmKho(Loai?) {
     let data = {
-      CurrentPage : 0,
-      Loai:Loai
+      CurrentPage: 0,
+      Loai: Loai
     }
     this._service.GetListdmKho(data).subscribe((res: any) => {
-      this.listdmKho = mapArrayForDropDown(res,'Ten','Id');
-      if(this.listdmKho.length > 0 && this.listdmKho !== undefined){
+      this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (this.listdmKho.length > 0 && this.listdmKho !== undefined) {
         this.filter.IddmKho = this.listdmKho[0].value;
         this.GetListQuyTrinh();
       }
     })
   }
 
-  changeTab(e){
-    this.trangThai = e.index+1;
+  changeTab(e) {
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
-  changePage(event){
+  changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?){
-   
+  GetListQuyTrinh(reset?) {
+
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
@@ -108,11 +108,11 @@ export class TonkhobonghoiComponent extends StoreBase implements OnInit,OnDestro
       this.paging = res.paging;
     })
   }
-  resetFilter(){
-    this.filter={
-      Loai:this.Loai,
-      IddmKho:this.listdmKho[0].value,
-      KeyWord:''
+  resetFilter() {
+    this.filter = {
+      Loai: this.Loai,
+      IddmKho: this.listdmKho[0].value,
+      KeyWord: ''
     };
     this.GetListQuyTrinh(true);
   }
@@ -126,9 +126,10 @@ export class TonkhobonghoiComponent extends StoreBase implements OnInit,OnDestro
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
-      .catch(er => { console.log(er) 
+      .catch(er => {
+        console.log(er)
         this.GetListQuyTrinh();
-    })
+      })
   }
   exportExcel(IddmItem) {
     let data: any = {
@@ -139,7 +140,7 @@ export class TonkhobonghoiComponent extends StoreBase implements OnInit,OnDestro
       this._service.download(res.TenFile);
     })
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }

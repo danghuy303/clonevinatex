@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
-import { debounce, debounceTime } from 'rxjs/operators';
+import { debounce, debounceTime, filter } from 'rxjs/operators';
 import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
@@ -41,6 +41,9 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   typing: Subject<string> = new Subject<string>();
   $typing: Subscription
+  listCongDoan_Copy: any = [];
+  socot_Copy: any;
+
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
     public _modal: NgbModal,) {
@@ -50,26 +53,45 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
   ngOnInit(): void {
     this.getListCongDoan();
     // this.item.CongDoan = 'ONG'
-    if (this.opt !== 'edit') {
 
+    if (this.opt !== 'edit') {
       // this.GetNextSoQuyTrinh();
+      this.GetThongKeSanLuongNhanh();
     }
     else {
       this.userInfo = this._auth.currentUserValue;
       this.KiemTraButtonModal();
       this.item.Ngay = UnixToDate(this.item.NgayUnix)
+
+
       this.item.listCongDoan.forEach(congdoan => {
-        let socot = congdoan?.listHeader[0]?.listColumn.length;
-        console.log('socot', socot)
-        congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
-          dulieukhac.SoCot = socot;
-        });
+        let socot = congdoan?.listHeader[0]?.listColumn.length
+        this.socot_Copy = socot
         congdoan.listBongPhe.forEach(bongphe => {
           bongphe.listCaSanXuat.forEach((ca: any) => {
             ca.SoCot = socot;
           })
         })
       });
+      this.chon(
+        {
+          value: this.item.listCongDoan[2].MaCongDoan
+        }
+      );
+
+
+      // this.item.listCongDoan.forEach(congdoan => {
+      //   let socot = congdoan?.listHeader[0]?.listColumn.length;
+      //   console.log('socot', socot)
+      //   congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
+      //     dulieukhac.SoCot = socot;
+      //   });
+      //   congdoan.listBongPhe.forEach(bongphe => {
+      //     bongphe.listCaSanXuat.forEach((ca: any) => {
+      //       ca.SoCot = socot;
+      //     })
+      //   })
+      // });
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
@@ -84,11 +106,11 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
   moveFocus(e, td, tr, abc?) {
     // e.preventDefault();
     const index = Array.from(tr.children).indexOf(td);
-    if (e.keyCode == '38' && abc!=='id') {
+    if (e.keyCode == '38' && abc !== 'id') {
       // up arrow
       (Array.from(tr.previousElementSibling.children)[index] as any)?.getElementsByTagName('input')[0]?.focus();
     }
-    else if (e.keyCode == '40' && abc!=='id') {
+    else if (e.keyCode == '40' && abc !== 'id') {
       // down arrow 
       (Array.from(tr.nextElementSibling.children)[index] as any)?.getElementsByTagName('input')[0]?.focus();
     }
@@ -101,13 +123,13 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
       td.nextElementSibling?.getElementsByTagName('input')[0]?.focus();
     }
   }
-  enter(e,td, tr){
+  enter(e, td, tr) {
     e.preventDefault();
     console.log(e)
     const index = Array.from(tr.children).indexOf(td);
-    if(e.shiftKey){
+    if (e.shiftKey) {
       (Array.from(tr.previousElementSibling.children)[index] as any).getElementsByTagName('input')[0].focus();
-    }else{
+    } else {
       (Array.from(tr.nextElementSibling.children)[index] as any).getElementsByTagName('input')[0].focus();
     }
   }
@@ -115,7 +137,7 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if (this.item.CreatedBy == this.userInfo.Id)
+      if (this.item.CreatedBy == this.userInfo?.Id)
         this.checkbutton.Ghi = true;
     })
   }
@@ -131,6 +153,32 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
       }
     })
   }
+  // GetThongKeSanLuongNhanh() {
+  //   if (validVariable(this.item.IddmPhanXuong) && validVariable(this.item.Ngay)) {
+  //     let data =
+  //     {
+  //       IddmPhanXuong: this.item.IddmPhanXuong,
+  //       Ngay: DateToUnix(this.item.Ngay)
+  //     }
+  //     this.services.ThongKeSanLuongNhanh().Get(data).subscribe((res: any) => {
+  //       res.Ngay = UnixToDate(res.NgayUnix)
+  //       res.listCongDoan.forEach(congdoan => {
+  //         let socot = congdoan?.listHeader[0]?.listColumn.length
+  //         congdoan.listDuLieuCaSanXuatKhac?.forEach((dulieukhac: any) => {
+  //           dulieukhac.SoCot = socot;
+  //         });
+  //         congdoan.listBongPhe.forEach(bongphe => {
+  //           bongphe.listCaSanXuat.forEach((ca: any) => {
+  //             ca.SoCot = socot;
+  //           })
+  //         })
+  //       });
+  //       this.item = res;
+  //     })
+  //   }
+  // }
+
+
   GetThongKeSanLuongNhanh() {
     if (validVariable(this.item.IddmPhanXuong) && validVariable(this.item.Ngay)) {
       let data =
@@ -142,19 +190,47 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
         res.Ngay = UnixToDate(res.NgayUnix)
         res.listCongDoan.forEach(congdoan => {
           let socot = congdoan?.listHeader[0]?.listColumn.length
-          congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
-            dulieukhac.SoCot = socot;
-          });
+          this.socot_Copy = socot
           congdoan.listBongPhe.forEach(bongphe => {
             bongphe.listCaSanXuat.forEach((ca: any) => {
               ca.SoCot = socot;
             })
           })
         });
+        // huy nhỏ chỉnh sửa list công đoạn
         this.item = res;
+        this.item.CongDoan = this.listCongDoan[0].value;
+        this.chon(
+          {
+            value: this.item.CongDoan
+          }
+        );
       })
     }
   }
+
+  chon(e: any) {
+    console.log('e', e);
+
+    this.listCongDoan_Copy = [...this.item.listCongDoan];
+    let opp = this.listCongDoan_Copy.filter(ele => ele.MaCongDoan === e.value);
+    opp.forEach(obj => {
+      this.socot_Copy = obj.listHeader[0].listColumn.length;
+      console.log('this.socot_Copy', this.socot_Copy);
+
+    })
+
+    // let opp = [...this.item.listCongDoan];
+    // let opp_Copy = [];
+    // opp_Copy = opp.filter(ele => ele.MaCongDoan === e.value);
+    // this.item.listCongDoan = [...opp_Copy]
+    // this.item.listCongDoan.forEach(obj => {
+    //   this.socot_Copy = obj.listHeader[0].listColumn.length;
+
+    // })
+
+  }
+
   // GetNextSoQuyTrinh() {
   //   this.services.ThongKeSanLuongNhanh().GetNextSo().subscribe((res: any) => {
   //     this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -169,10 +245,10 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
           this.item.listCongDoan.forEach(congdoan => {
             let socot = congdoan?.listHeader[0]?.listColumn.length;
             console.log('socot', socot)
-            congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
+            congdoan?.listDuLieuCaSanXuatKhac?.forEach((dulieukhac: any) => {
               dulieukhac.SoCot = socot;
             });
-            congdoan.listBongPhe.forEach(bongphe => {
+            congdoan?.listBongPhe?.forEach(bongphe => {
               bongphe.listCaSanXuat.forEach((ca: any) => {
                 ca.SoCot = socot;
               })
@@ -183,17 +259,20 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
           this.item.Ngay = UnixToDate(this.item.NgayUnix)
           this.item.listCongDoan.forEach(congdoan => {
             let socot = congdoan?.listHeader[0]?.listColumn.length;
-            console.log('socot', socot)
-            congdoan.listDuLieuCaSanXuatKhac.forEach((dulieukhac: any) => {
+            congdoan?.listDuLieuCaSanXuatKhac?.forEach((dulieukhac: any) => {
               dulieukhac.SoCot = socot;
             });
-            congdoan.listBongPhe.forEach(bongphe => {
+            congdoan?.listBongPhe?.forEach(bongphe => {
               bongphe.listCaSanXuat.forEach((ca: any) => {
                 ca.SoCot = socot;
               })
             })
           });
+          console.log(1);
+
           this.listItem = [];
+          console.log('d', 4);
+
           this.KiemTraButtonModal();
         } else {
           this.toastr.error(res.message);
@@ -222,6 +301,9 @@ export class ThongkesanluongnhanhmodalComponent implements OnInit {
   getListCongDoan() {
     this.services.GetlistCongDoanBoDayBongDayPE().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+      this.item.CongDoan = this.listCongDoan[0].value;
+      console.log(this.item.CongDoan);
+
     })
   }
 

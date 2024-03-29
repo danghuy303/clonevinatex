@@ -62,9 +62,9 @@ export class TimbongmodalComponent implements OnInit {
   PoolLoBong: any = {
 
   }
-  cloneLoBong:any=[];
+  cloneLoBong: any = [];
   listLoaiBong: any = [];
-  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal,private loader:LoaderService) {
+  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal, private loader: LoaderService) {
 
   }
 
@@ -288,8 +288,11 @@ export class TimbongmodalComponent implements OnInit {
     this.TongKhoiLuongDung = tempTongKhoiLuongDung;
     this.item.listLoBong.forEach(lobong => {
       if (validVariable(lobong.SoLuongDung)) {
-        lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
-        lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
+        // lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
+        // lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
+        // huy nho chinh sua copy theo yeu cau mong muon!!!
+        lobong.TyLe = (lobong.SoLuongDung * (lobong.IdLoBong !== null ? lobong.TrongLuong : (this.item.TrongLuongBongHoi / this.item.SoKienBongHoi))) / tempTongKhoiLuongDung * 100;
+        lobong.TongTrongLuong = lobong.SoLuongDung * (lobong.IdLoBong !== null ? lobong.TrongLuong : (this.item.TrongLuongBongHoi / this.item.SoKienBongHoi));
       }
       if (validVariable(lobong.Mic) || lobong.isLoBongTuongLai) {
         if (validVariable(lobong.Mic) && validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
@@ -451,7 +454,7 @@ export class TimbongmodalComponent implements OnInit {
   }
   chonKienBong(IdLoBong, y, x) {
     this.loader.show()
-    setTimeout(()=>{
+    setTimeout(() => {
       if (this.item.listLoBong[y].isLoBongTuongLai) {
         this._toastr.error('Lô bông này là lô tương lai!');
         this.loader.hide();
@@ -488,7 +491,7 @@ export class TimbongmodalComponent implements OnInit {
           })
         }
       }
-    },100)
+    }, 100)
 
   }
   SetData() {
@@ -507,9 +510,9 @@ export class TimbongmodalComponent implements OnInit {
         lobong.listItem.push(data)
       }
     });
-    
-    this.cloneLoBong = this.item.listLoBong.map(ele=>{
-      return {...ele}
+
+    this.cloneLoBong = this.item.listLoBong.map(ele => {
+      return { ...ele }
     })
     this.item.listLoBong.forEach(ele => {
       ele.tempBanBong = undefined;
@@ -570,6 +573,7 @@ export class TimbongmodalComponent implements OnInit {
       }
     })
   }
+
   TimBongTuDong() {
     this._services.TimBong().TimBongTuDong(this.ghostItem.Id).subscribe((res: any) => {
       if (res.State === 1) {
@@ -603,10 +607,10 @@ export class TimbongmodalComponent implements OnInit {
         IdPhuongAnPhaBong_LoBong: item.Id,
         SoBanTimTuDongMax: res
       }
-      this._services.PhuongAnPhaBong().SetSoBanTimTuDongMax(data).subscribe((res:any) => {
-        if(res.State===1){
+      this._services.PhuongAnPhaBong().SetSoBanTimTuDongMax(data).subscribe((res: any) => {
+        if (res.State === 1) {
           this._toastr.success(res.message)
-        }else{
+        } else {
           this._toastr.error(res.message)
         }
       })

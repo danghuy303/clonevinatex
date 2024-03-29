@@ -34,12 +34,15 @@ export class QuantriComponent implements OnInit, OnDestroy {
   menuQLNS: MenuItem[];
   dataphanquyen: any = {};
   listNhaMay: Array<any> = [];
-  IdNhaMay: string = "";
+  // IdNhaMay: string = "";
+  IdNhaMay: number = 0;
   showDropDown: boolean = false;
   canSendMessage: any;
   mapQuyTrinhRoute: any = mapQuyTrinhRoute;
   showHopDongModule: any = false;
   showTaiSanModule: any = false;
+  listQuyTrinh: any;
+  SluongListQuyTrinhCanXuLy: any;
   US: any = [];
   @ViewChild("listNoti") listNoti;
   @ViewChild("listCanhBaoComponent") listCanhBaoComponent;
@@ -70,7 +73,17 @@ export class QuantriComponent implements OnInit, OnDestroy {
     //   this.showDropDown = false;
     //   this.OSName = "HỆ THỐNG Quản lý Nhà – Đất";
     // }
+    this.GetListQuyTrinhCanXuLy();
   }
+
+  GetListQuyTrinhCanXuLy() {
+    this._services.GetListQuyTrinhCanXuLy().subscribe((res: any) => {
+      this.SluongListQuyTrinhCanXuLy = res.SoLuong;
+      this.listQuyTrinh = res.Items;
+    })
+    this.IdNhaMay = this.store.getCurrent();
+  };
+
   getListNhaMay() {
     const nm = this._services
       .GetOptions()
@@ -87,6 +100,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   }
   setGlobalNhaMay(event) {
     this.store.setNhaMay(event.value);
+    this.GetListQuyTrinhCanXuLy();
   }
   open(event) {
     this.listNoti.toggle(event);
@@ -182,17 +196,26 @@ export class QuantriComponent implements OnInit, OnDestroy {
 
   openQuyTrinhCanXuLy() {
     const modalRef = this._modal.open(ModalQuyTrinhCanXuLyComponent, { size: 'xl', backdrop: 'static' });
+    modalRef.componentInstance.listQuyTrinh = this.listQuyTrinh;
+    modalRef.result.then((res: any) => {
+      // console.log(res);
+      if (res) {
+        this.GetListQuyTrinhCanXuLy()
+      }
+    })
   }
 
   ngOnInit(): void {
     this.showHopDongModule =
       window.location.origin.includes("4200") ||
       window.location.origin.includes("2269") ||
-      window.location.origin.includes("2369");
+      window.location.origin.includes("2369") ||
+      window.location.origin.includes("2371");
     this.showTaiSanModule =
       window.location.origin.includes("4200") ||
       window.location.origin.includes("2269") ||
-      window.location.origin.includes("2369");
+      window.location.origin.includes("2369") ||
+      window.location.origin.includes("2371");
     // this.showTaiSanModule = true;
     this.refreshNotis();
     const rt = this._router.events
@@ -293,8 +316,17 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
+          // {
+          //   label: "Quyết toán nguyên liệu",
+          //   routerLink: "/quantri/quantrisanxuat/quyettoannguyenlieu",
+          //   separator: this.checkmenu("DASHBOARD_TONGHOP"),
+          //   icon: "fas fa-circle",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
           {
-            label: "Thống kê bán chế phẩm",
+            label: "Báo cáo chất lượng bán chế phẩm",
             routerLink: "/quantri/quantrisanxuat/dashboardbanchepham",
             separator: this.checkmenu("DASHBOARD_TONGHOP"),
             icon: "fas fa-circle",
@@ -304,7 +336,37 @@ export class QuantriComponent implements OnInit, OnDestroy {
           },
         ],
       },
-
+      {
+        label: "Quyết toán nguyên liệu",
+        routerLink: "/quantri/quyettoannguyenlieu",
+        icon: "fas fa-warehouse",
+        // visible: !this.checkmenu("P_QUANTRISANXUAT"),
+        items: [
+          {
+            label: "Tổng hợp",
+            routerLink: "/quantri/quyettoannguyenlieu/quyettoannguyenlieu",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Kiểm kê bán chế phẩm",
+            routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham-tohieu/0",
+            icon: "fas fa-circle",
+            separator: this.checkmenu("KIEMKEBANCHEPHAMTOHIEU"),
+            command: () => this.close(),
+          },
+          {
+            label: "Kiểm kê bán chế phẩm",
+            routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham-hue/0",
+            icon: "fas fa-circle",
+            separator: this.checkmenu("KIEMKEBANCHEPHAMHUE"),
+            command: () => this.close(),
+          },
+        ]
+      },
       // {
       //   label: "Quản trị tài sản",
       //   routerLink: "/quantri/quantritaisan",
@@ -493,20 +555,20 @@ export class QuantriComponent implements OnInit, OnDestroy {
             separator: this.checkmenu("THONGKESANLUONG"),
             command: () => this.close(),
           },
-          {
-            label: "Thống kê sản lượng ca",
-            routerLink:
-              "/quantri/theodoithongkebaocaosanxuat/thongkesanluongca/0",
-            separator: this.checkmenu("THONGKESANLUONG"),
-            command: () => this.close(),
-          },
-          {
-            label: "Thống kê sản lượng nhanh",
-            routerLink:
-              "/quantri/theodoithongkebaocaosanxuat/thongkesanluongnhanh/0",
-            separator: this.checkmenu("THONGKESANLUONG"),
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Thống kê sản lượng ca",
+          //   routerLink:
+          //     "/quantri/theodoithongkebaocaosanxuat/thongkesanluongca/0",
+          //   separator: this.checkmenu("THONGKESANLUONG"),
+          //   command: () => this.close(),
+          // },
+          // {
+          //   label: "Thống kê sản lượng nhanh",
+          //   routerLink:
+          //     "/quantri/theodoithongkebaocaosanxuat/thongkesanluongnhanh/0",
+          //   separator: this.checkmenu("THONGKESANLUONG"),
+          //   command: () => this.close(),
+          // },
           {
             label: "Thống kê điện",
             routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkedien/0",
@@ -623,6 +685,48 @@ export class QuantriComponent implements OnInit, OnDestroy {
             routerLink: "/quantri/quanlykhosanxuat/tonkho/khothanhpham/0",
             command: () => this.close(),
           },
+          // {
+          //   label: "Kiểm kê bán chế phẩm",
+          //   routerLink: "/quantri/quanlykhosanxuat/kiemkeBCP/0",
+          //   separator: this.checkmenu("KIEMKEBANCHEPHAM"),
+          //   command: () => this.close(),
+          // },
+        ],
+      },
+      {
+        label: "Quản lý kho gia công",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/quanlysanxuatkhogiacong/khogiacong",
+        expanded: false,
+        visible: !this.checkmenu("P_KHOGIACONG"),
+        items: [
+          {
+            label: "Nhập kho",
+            routerLink:
+              "/quantri/quanlysanxuatkhogiacong/khogiacong/nhapkho/0",
+            separator: this.checkmenu("NHAPGIACONG"),
+            command: () => this.close(),
+          },
+          {
+            label: "Xuất kho",
+            routerLink:
+              "/quantri/quanlysanxuatkhogiacong/khogiacong/xuatkho/0",
+            separator: this.checkmenu("XUATGIACONG"),
+            command: () => this.close(),
+          },
+          {
+            label: "Kiểm kê",
+            routerLink:
+              "/quantri/quanlysanxuatkhogiacong/khogiacong/kiemke/0",
+            separator: this.checkmenu("KIEMKEKHOGIACONG"),
+            command: () => this.close(),
+          },
+          {
+            label: "Thẻ kho",
+            routerLink:
+              "/quantri/quanlysanxuatkhogiacong/khogiacong/thekho/0",
+            command: () => this.close(),
+          }
         ],
       },
       {
@@ -712,6 +816,45 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ],
       },
       {
+        label: "Quản lý kho hồi luồng đỏ",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/quanlykhosanxuatbong/khohoiluongdo",
+        expanded: false,
+        visible: !this.checkmenu("P_KHOBONGHOI"),
+
+        items: [
+          {
+            label: "Nhập kho",
+            routerLink:
+              "/quantri/quanlykhosanxuatbong/khohoiluongdo/nhapkho/0",
+            command: () => this.close(),
+          },
+          // {
+          //   label: "Xuất kho",
+          //   routerLink:
+          //     "/quantri/quanlykhosanxuatbong/khohoiluongdo/xuatkho/0",
+          //   command: () => this.close(),
+          // },
+          {
+            label: "Điều chuyển kho/xuất bán",
+            routerLink:
+              "/quantri/quanlykhosanxuatbong/khohoiluongdo/kiemke/0",
+            separator: this.checkmenu("KIEMKEKHOBONGHOI"),
+            command: () => this.close(),
+          },
+          {
+            label: "Thẻ kho",
+            routerLink: "/quantri/quanlykhosanxuatbong/tonkhobonghoi/khobonghoi//0",
+            command: () => this.close(),
+          },
+          // {
+          //     label: 'Điều chuyển',
+          //     routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/dieuchuyen/0',
+          //     command: () => this.close()
+          // },
+        ],
+      },
+      {
         label: "Quản lý kho bông hồi",
         icon: "fas fa-circle",
         routerLink: "/quantri/quanlykhosanxuatbongkhac/khobonghoi",
@@ -732,7 +875,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
           {
-            label: "Kiểm kê kho",
+            label: "Điều chuyển kho",
             routerLink:
               "/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/0",
             separator: this.checkmenu("KIEMKEKHOBONGHOI"),
@@ -1150,10 +1293,31 @@ export class QuantriComponent implements OnInit, OnDestroy {
                   this.close();
                 },
               },
+              // {
+              //   label: "Thông tin kiểm định",
+              //   routerLink: "/quantri/taisan/kiem-dinh-tai-san/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
+              // {
+              //   label: "Thông tin bảo hiểm",
+              //   routerLink: "/quantri/taisan/bao-hiem/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
             ],
           },
           {
-            label: "Quản lý vật tư dự trù",
+            label: "Kế hoạch mua vật tư",
+            routerLink: "/quantri/taisan/thoihancungcapvattu/0",
+            command: () => {
+              this.close();
+            }
+          },
+          {
+            label: "Quản lý kho vật tư",
             items: [
               {
                 label: "Danh sách nhập vật tư",
@@ -1162,16 +1326,23 @@ export class QuantriComponent implements OnInit, OnDestroy {
                   this.close();
                 },
               },
+              // {
+              //   label: "Kế hoạch mua vật tư",
+              //   routerLink: "/quantri/taisan/thoihancungcapvattu/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
               {
-                label: "Kế hoạch mua vật tư",
-                routerLink: "/quantri/taisan/thoihancungcapvattu/0",
+                label: "Nhập kho vật tư",
+                routerLink: "/quantri/taisan/quytrinhnhapvattu/0",
                 command: () => {
                   this.close();
                 },
               },
               {
-                label: "Quy trình nhập vật tư",
-                routerLink: "/quantri/taisan/quytrinhnhapvattu/0",
+                label: "Xuất kho vật tư",
+                routerLink: "/quantri/taisan/xuat-kho/0",
                 command: () => {
                   this.close();
                 },
@@ -1218,6 +1389,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
               },
             ],
           },
+
           {
             label: "Danh mục ",
             items: [
@@ -1252,6 +1424,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
               {
                 label: "Loại bảo dưỡng ",
                 routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Loại công việc bảo dưỡng ",
+                routerLink: "/quantri/taisan/danhmuc/danhmucloaicongviecbaoduong",
                 command: () => {
                   this.close();
                 },
@@ -1792,21 +1971,35 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
           {
-            label: "Báo cáo tổng hợp lỗi cắt",
+            label: "Báo cáo TH lỗi cắt/classimat",
             routerLink: "/quantri/baocaotonghop/loicat",
             command: () => this.close(),
           },
-          {
-            label: "Báo cáo tổng hợp classimat",
-            routerLink: "/quantri/baocaotonghop/classimat",
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Báo cáo tổng hợp classimat",
+          //   routerLink: "/quantri/baocaotonghop/classimat",
+          //   command: () => this.close(),
+          // },
           {
             label: "Báo cáo điều không",
             routerLink: "/quantri/baocaotonghop/dieukhong",
             separator: this.checkmenu("BAOCAODIEUKHONG"),
             command: () => this.close(),
           },
+        ],
+      },
+      {
+        label: "Lập kế hoạch",
+        icon: "fas fa-circle",
+        // routerLink: "/",
+        // visible: this.showHopDongModule,
+        items: [
+          {
+            label: "Danh sách kế hoạch năm",
+            routerLink: "/quantri/lap-ke-hoach/danhsachkehoachnam",
+            command: () => this.close(),
+          },
+
         ],
       },
 
@@ -1853,21 +2046,21 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
 
+          // {
+          //   label: "Loại bông phế",
+          //   routerLink: "/quantri/danhmucsanxuat/dmloaibongphe",
+          //   command: () => this.close(),
+          // },
           {
-            label: "Loại bông phế",
-            routerLink: "/quantri/danhmucsanxuat/dmloaibongphe",
-            command: () => this.close(),
-          },
-          {
-            label: "Tỷ lệ tiêu chuẩn bông phế",
+            label: "Tỷ lệ tiêu chuẩn bông phế/hồi",
             routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbongphe",
             command: () => this.close(),
           },
-          {
-            label: "Tỷ lệ tiêu chuẩn bông hồi",
-            routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbonghoi",
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Tỷ lệ tiêu chuẩn bông hồi",
+          //   routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbonghoi",
+          //   command: () => this.close(),
+          // },
           {
             label: "Cấp bông",
             routerLink: "/quantri/danhmucsanxuat/dmcapbong",
@@ -1943,9 +2136,14 @@ export class QuantriComponent implements OnInit, OnDestroy {
             routerLink: "/quantri/danhmucsanxuat/dmkhunggio",
             command: () => this.close(),
           },
+          // {
+          //   label: "Bán chế phẩm",
+          //   routerLink: "/quantri/danhmucsanxuat/dmbanchepham",
+          //   command: () => this.close(),
+          // },
           {
-            label: "Bán chế phẩm",
-            routerLink: "/quantri/danhmucsanxuat/dmbanchepham",
+            label: "Kiểm kê bán chế phẩm",
+            routerLink: "/quantri/danhmucsanxuat/dmkiemkebcp",
             command: () => this.close(),
           },
           {
@@ -2055,6 +2253,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       this.refreshNotis();
     });
   }
+
   downloadHDSD() {
     this._services
       .HDSD()

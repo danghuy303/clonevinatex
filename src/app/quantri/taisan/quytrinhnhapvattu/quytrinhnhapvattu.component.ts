@@ -7,6 +7,7 @@ import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NhapvattuComponent } from '../nhapvattu/nhapvattu.component';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -27,13 +28,21 @@ export class QuytrinhnhapvattuComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "NHAPVATTUDUTRU";
   listPhanXuong:any=[];
+  $sub!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { }
+  ) { 
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+  }
+  
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
@@ -82,7 +91,7 @@ export class QuytrinhnhapvattuComponent implements OnInit {
     })
   }
   GetListdmPhanXuong() {
-    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

@@ -47,6 +47,8 @@
                             <col style="width: 100px;">
                             <col style="width:200px">
                             <col style="width: 100px;">
+                            <col *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE' "
+                                style="width:150px">
                             <col style="width: 100px;">
                             <col style="width:200px" *ngIf="addonData.CongDoan==='CON'">
                             <!-- <col style="width:100px"> -->
@@ -59,6 +61,7 @@
                             <!-- <th>Nm</th>
                             <th>Ne</th> -->
                             <th>Tốc độ</th>
+                            <th *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE'">Kg/cone</th>
                             <th>Năng suất</th>
                             <th *ngIf="addonData.CongDoan==='CON'">Màu</th>
                         </tr>
@@ -71,14 +74,28 @@
                                 <td [ngStyle]="{'background-color': item.MaMau}">
                                     <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
                                         placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
-                                        [(ngModel)]="item.IdCanDoiChuyen_CanBoTri"
-                                        (onChange)="chonMatHang(item,$event)">
+                                        [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="chonMatHang(item,$event)"
+                                        [tooltip]="getTooltip(item.IdCanDoiChuyen_CanBoTri, listHangHoa)"
+                                        tooltipPosition="top">
                                     </p-dropdown>
                                 </td>
                                 <td [ngStyle]="{'background-color': item.isDieuChinh?'red':''}">
                                     <p-dropdown [options]="item.listTocDo" placeholder="Chọn tốc độ máy"
                                         styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanNhomMay_Item"
-                                        (onChange)="chonTocDo(item,$event)"></p-dropdown>
+                                        (onChange)="chonTocDo(item,$event)"
+                                        [tooltip]="getTooltip(item.IdPhanNhomMay_Item, item.listTocDo)"
+                                        tooltipPosition="top"></p-dropdown>
+                                </td>
+                                <td *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE'">
+                                    <div class="p-inputgroup w-full">
+                                        <p-dropdown [options]="listKgcone" placeholder="Chọn"
+                                            styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone"
+                                            style="width: 80%;"></p-dropdown>
+                                        <button pButton pRipple type="button" icon="pi pi-copy"
+                                            class="p-button-rounded p-button-sm p-button-text"
+                                            (click)="handleCopy(item, this.mapCa_Id[ca.prop])" style="width: 20%;"
+                                            [disabled]="!item.KgCone"></button>
+                                    </div>
                                 </td>
                                 <td class="text-right" [ngStyle]="{'background-color': item.isDieuChinh?'red':''}">
                                     {{item.SanLuongCa|number:'0.2-2'}}
@@ -103,6 +120,7 @@
                                 <td>&nbsp;</td>
                                 <td></td>
                                 <td></td>
+                                <td *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE'"></td>
                                 <td></td>
                                 <td *ngIf="addonData.CongDoan==='CON'"></td>
                             </tr>

@@ -13,16 +13,15 @@ import { StoreService } from './services/store.service';
 export class AppComponent {
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
-    if(this._modal.hasOpenModals){
+    if (this._modal.hasOpenModals) {
       window.history.forward();
       this._modal.dismissAll();
     }
   }
-  
-  constructor(private router: Router,private _modal:NgbModal, private store:StoreService) { }
-  
+
+  constructor(private router: Router, private _modal: NgbModal, private store: StoreService) { }
+
   ngOnInit() {
-    console.log(window.location)
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;

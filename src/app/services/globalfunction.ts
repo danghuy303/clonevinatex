@@ -189,6 +189,30 @@ export function merge(newArr: Array<any>, existingArr: Array<any>, diffProp: str
     return existingArr;
 }
 
+export function MergeArr(newArr: Array<any>, existingArr: Array<any>, diffProp: string): Array<any>{
+    let removeIndex = [];
+    newArr.forEach((newEle) => {
+      let index = existingArr?.findIndex(
+        (oldEle) => newEle[diffProp] === oldEle[diffProp]
+      );
+      if (index === -1) {
+        existingArr.push(newEle);
+      }
+    });
+    existingArr?.forEach((oldEle, index) => {
+      let indexCheck = newArr.findIndex(
+        (newEle) => newEle[diffProp] === oldEle[diffProp]
+      );
+      if (indexCheck === -1) {
+        removeIndex.push(index);
+      }
+    });
+    for (var i = removeIndex.length - 1; i >= 0; i--) {
+      existingArr.splice(removeIndex[i], 1);
+    }
+    return existingArr;
+  }
+
 export function CVMic(array: Array<any>, sokien: number) {
     // array là mảng chứa mic và số lượng của từng lô từng bàn từ bông hồi
     // sokien là tổng số kiện trên bàn bông trừ bông hồi

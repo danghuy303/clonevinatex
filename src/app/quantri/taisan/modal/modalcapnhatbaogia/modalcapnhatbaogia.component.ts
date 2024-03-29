@@ -56,7 +56,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       this.CheckParent(this.listTaiSan_copy);
     }
     // if (validVariable(this.item.IdDuAn)) {
-    //   this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    //   this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
     //     this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
     //   });
     // }

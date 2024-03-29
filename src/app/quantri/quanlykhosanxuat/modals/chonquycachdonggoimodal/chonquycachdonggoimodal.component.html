@@ -47,7 +47,7 @@
                         <td class="text-center">{{i+1}}</td>
                         <td>
                             <p-dropdown [filter]="true" [options]="items" placeholder="Chọn quy cách đóng gói"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
+                            (onChange)="select($event)"  styleClass="p-inputtext-sm" [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.KhoiLuong">
@@ -65,7 +65,7 @@
                         <td class="text-center">#
                         </td>
                         <td>
-                            <p-dropdown [filter]="true" [options]="items" placeholder="Chọn quy cách đóng gói"
+                            <p-dropdown [filter]="true" [options]="items" placeholder="Chọn quy cách đóng gói" 
                                 styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.IddmQuyCachDongGoi"></p-dropdown>
                         </td>
                         <td>

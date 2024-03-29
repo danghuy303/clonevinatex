@@ -30,7 +30,8 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   lang: any = vn;
   listItemDieuChinh: any = [];
   optionMatHang: string = '';
-  userInfo: any ;
+  userInfo: any;
+  listKgcone: any = [];
 
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
     private _auth: AuthenticationService,) {
@@ -38,18 +39,26 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   }
 
   ngOnInit(): void {
-    if(this.item.listCanBoTri.length > 0){
+    if (this.item.listCanBoTri.length > 0) {
       this.userInfo = this._auth.currentUserValue;
-      if(this.item.listCanBoTri[0].CreatedBy !== this.userInfo.Id)
+      if (this.item.listCanBoTri[0].CreatedBy !== this.userInfo.Id)
         this.checkbutton.Ghi = false;
     }
 
     this.initLoaiSoiHoacLoaiMatHang();
-    console.log(this.item);
+    this.getKgcone();
     this.sort()
     this.initSpeedOption();
+    // this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri.sort((a, b) => {
+    //   return parseInt(a.Ten.split(' ')[0]) - parseInt(b.Ten.split(' ')[0]);
+    // }), 'Ten', 'Id')
     this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri.sort((a, b) => {
       return parseInt(a.Ten.split(' ')[0]) - parseInt(b.Ten.split(' ')[0]);
+    }).map(mathang => {
+      return {
+        Ten: this.addonData.CongDoan === "ONG" ? `${mathang.Ten} - ${mathang.Ma}` : `${mathang.Ten}`,
+        Id: mathang.Id
+      }
     }), 'Ten', 'Id')
     this.item.listCanBoTri.forEach(mathang => {
       mathang.SoMayDaBoTri = 0;
@@ -65,6 +74,24 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     }
     console.log(this.optionMatHang)
   }
+
+  getKgcone() {
+    this._services.GetListKgCone().subscribe((res: any) => {
+      this.listKgcone = mapArrayForDropDown(res, "GiaTri", "GiaTri");
+    });
+  }
+
+  handleCopy(_item: any, ca: any) {
+    let temp = this.item.listDaBoTri;
+    temp = temp.map((x: any) => {
+      if (x.IdCanDoiChuyen_CanBoTri === _item.IdCanDoiChuyen_CanBoTri) {
+        x.KgCone = _item.KgCone;
+      }
+      return x;
+    })
+    this.item.listDaBoTri = temp;
+  }
+
   sort() {
     this.item.listDaBoTri = this.item.listDaBoTri.sort((a: any, b: any) => {
       return a.TenMay.localeCompare(b.TenMay);
@@ -211,5 +238,14 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   }
   HuyDieuChinh() {
     this.activeModal.close({ respawn: true });
+  }
+
+  getTooltip(id: string, arr: any) {
+    let text = ``
+    let _thisObj = arr.find((x: any) => x.value === id);
+    if (_thisObj) {
+      text = _thisObj.label
+    }
+    return text;
   }
 }

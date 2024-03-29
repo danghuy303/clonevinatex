@@ -91,6 +91,8 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
       item.TongThanhTien.forEach(Tong => {
         item.TongGiaTri += Tong;
       });
+      console.log('item.TongGiaTri', item.TongGiaTri);
+      
       this.TongGiaTriToanBang += (item.TongGiaTri || 0);
     })
   }

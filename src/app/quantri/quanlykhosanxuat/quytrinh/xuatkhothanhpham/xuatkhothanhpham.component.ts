@@ -13,7 +13,7 @@ import { XuatkhothanhphammodalComponent } from '../xuatkhothanhphammodal/xuatkho
   templateUrl: './xuatkhothanhpham.component.html',
   styleUrls: ['./xuatkhothanhpham.component.css']
 })
-export class XuatkhothanhphamComponent extends StoreBase implements OnInit,OnDestroy {
+export class XuatkhothanhphamComponent extends StoreBase implements OnInit, OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
@@ -36,7 +36,7 @@ export class XuatkhothanhphamComponent extends StoreBase implements OnInit,OnDes
     {
       header: 'Tên kho',
       field: 'TendmKho',
-      width: 'unset'
+      width: '20rem'
     },
     {
       header: 'Tổng số quả sợi',
@@ -67,7 +67,7 @@ export class XuatkhothanhphamComponent extends StoreBase implements OnInit,OnDes
   eAction = 'XUATTHANHPHAM';
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService,
-    private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {super(store) }
+    private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) { super(store) }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -198,16 +198,16 @@ export class XuatkhothanhphamComponent extends StoreBase implements OnInit,OnDes
   exportExcel() {
     if (this.validateFilter()) {
       let data = {
-        TuNgayUnix:DateToUnix(this.filter.TuNgay),
-        DenNgayUnix:DateToUnix(this.filter.DenNgay),
-        IddmKho:this.filter.IddmKho,
+        TuNgayUnix: DateToUnix(this.filter.TuNgay),
+        DenNgayUnix: DateToUnix(this.filter.DenNgay),
+        IddmKho: this.filter.IddmKho,
       }
       this._service.PhieuXuatThanhPham().ExportBangKeXuatKhoThanhPham(data).subscribe((res: any) => {
         this._service.download(res.TenFile);
       })
     }
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }

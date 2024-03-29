@@ -7,6 +7,7 @@ import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LapkehoachlichxichnamComponent } from '../lapkehoachlichxichnam/lapkehoachlichxichnam.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-quytrinhlapkehoachlichxichnam',
@@ -28,16 +29,22 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
   listPhanXuong: any = [];
   listNam: any = [];
   minDate: Date;
+  $sub!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { }
+  ) {  this.$sub = this.store.getNhaMay().subscribe(res => {
+    if (res) {
+        this.ngOnInit()
+    }
+})}
+
   ngOnInit(): void {
     this.GetList();
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+    for (let i = new Date().getFullYear()-10; i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
     // this.filter.Ngay = new Date().getFullYear();
@@ -80,7 +87,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     })
   }
   GetListdmPhanXuong() {
-    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.GetList();
     })

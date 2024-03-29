@@ -3,7 +3,7 @@
     <!-- {{opt==='add'?'Thêm mới':'Cập nhật'}} -->
     <div class="d-flex flex-column flex-lg-row">
         <div>
-           <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
+            <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
         </div>
         <div class="ml-lg-3 mr-lg-3">
             <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
@@ -25,13 +25,13 @@
                 *ngIf="checkbutton.Ghi"></button>
             <!-- <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
                 (click)="XoaQuyTrinh()"></button> -->
-            <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
-                *ngIf="checkbutton.KhongDuyet"></button>
+            <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
+                *ngIf="checkbutton.KhongDuyet"></button> -->
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
             <button pButton pRipple type="button" label="Tìm bông tự động" class="p-mr-2 p-button-sm"
                 (click)="TimBongTuDong()"></button>
-                <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm"
+            <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm"
                 (click)="XuatExcel()"></button>
         </div>
     </div>
@@ -40,7 +40,8 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Triển khai kế hoạch:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listTrienKhaiKeHoach" placeholder="Chọn triển khai kế hoạch"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdTrienKhaiKeHoachSanXuat" [disabled]="true"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdTrienKhaiKeHoachSanXuat"
+                    [disabled]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -60,10 +61,10 @@
                 </div>
             </div>
         </div>
-        <div class="p-col-12 p-p-3 d-flex flex-column flex-lg-row" >
+        <div class="p-col-12 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-11 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText disabled/>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText disabled />
             </div>
         </div>
         <!-- <div class="p-col-12 d-flex flex-row">
@@ -185,7 +186,8 @@
                             {{lobong.Am|number:'0.2-2'}}</td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
-                                <a href="javascript:void(0)" *ngIf="lobong.tempBanBong[prop].SoKien!==0&&!lobong.tempBanBong[prop].disabled"
+                                <a href="javascript:void(0)"
+                                    *ngIf="lobong.tempBanBong[prop].SoKien!==0&&!lobong.tempBanBong[prop].disabled"
                                     [ngStyle]="{'font-weight': lobong.tempBanBong[prop].listItem.length===lobong.tempBanBong[prop].SoKien?'900':'unset','text-decoration':lobong.tempBanBong[prop].listItem.length===lobong.tempBanBong[prop].SoKien?'underline':'none'}"
                                     (click)="chonKienBong(lobong.IdLoBong,i,prop)">
                                     {{lobong.tempBanBong[prop].SoKien}}

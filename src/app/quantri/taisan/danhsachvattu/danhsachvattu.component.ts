@@ -13,6 +13,8 @@ import { Label } from "@amcharts/amcharts4/core";
 import { vn } from "src/app/services/const";
 import { ThanhtoanhopdongsoimodalComponent } from "../../hopdong/screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoimodal/thanhtoanhopdongsoimodal.component";
 import { fakeData } from "./datafake"
+import { StoreService } from "src/app/services/store.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-danhsachvattu',
@@ -38,6 +40,7 @@ export class DanhsachvattuComponent implements OnInit {
   checkedAll: boolean = false;
   listVatTuDaChon: any = [];
   checkButton: boolean = false;
+  $sub!: Subscription;
 
   constructor(
     public _modal: NgbModal,
@@ -47,8 +50,15 @@ export class DanhsachvattuComponent implements OnInit {
     public toastr: ToastrService,
     private _servicesSanXuat: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,
+    private store: StoreService
   ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
     this.labelThang = [];
+
   }
 
   ngOnInit(): void {
@@ -56,7 +66,7 @@ export class DanhsachvattuComponent implements OnInit {
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listBoPhanSuDung = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.labelThang = [];

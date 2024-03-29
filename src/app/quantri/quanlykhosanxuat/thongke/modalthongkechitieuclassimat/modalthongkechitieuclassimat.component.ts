@@ -1,13 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { maskOption, vn } from 'src/app/services/const';
-import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable, merge, MergeArr } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoimathangmodal/chatluongsoimathangmodal.component';
+import { API, host1 } from 'src/app/services/host';
+import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-modalthongkechitieuclassimat',
@@ -16,6 +18,7 @@ import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoima
 })
 export class ModalthongkechitieuclassimatComponent implements OnInit {
   @ViewChild('voiPintable') voiPintable: PintableDirective;
+  @ViewChildren('inputNumber') inputNumbers: any;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -34,6 +37,15 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
   lstSanPham: any = [];
   userInfo: any;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+
+  // Uploader
+  fileInput: string;
+  TepImport: any = {
+    TenGoc: ''
+  }
+  uploader: FileUploader;
+  // End uploader
+
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
     public _modal: NgbModal,) {
@@ -43,7 +55,7 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
   ngOnInit(): void {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-      this.getDanhSachChiTieuChatLuong();
+      this.getDanhSachChiTieuChatLuong(true);
     }
     else {
       this.userInfo = this._auth.currentUserValue;
@@ -53,9 +65,45 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
       this.item.NgayKiemTra = UnixToDate(this.item.NgayKiemTraUnix);
     }
     this.getListdmPhanXuong();
+    this.initUploader();
   }
+
+
+  // Uploader
+  initUploader() {
+    let option: FileUploaderOptions = {
+      url: `${API.uploadURLalt}`,
+      headers: [{ name: 'Accept', value: 'application/json' }],
+      autoUpload: true,
+    }
+
+    this.uploader = new FileUploader(option);
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = true;
+    };
+
+    this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
+    this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
+    this.uploader.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
+  }
+
+  onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+  }
+
+  onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+    let res = JSON.parse(response);
+    this.TepImport.TenGui = res[0].Name;
+    this.TepImport.TenGoc = res[0].NameLocal;
+    this.TepImport.DuongDan = res[0].Url;
+    this.fileInput = '';
+    this.ImportPhieuNhap()
+  };
+  onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+  }
+  // End uploader
+
   ngAfterViewInit(): void {
-    this.voiPintable.active();
+    this.voiPintable?.active();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -69,6 +117,20 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
     if (this.item.NgayKiemTra !== null && this.item.NgayKiemTra !== undefined)
       this.item.NgayKiemTraUnix = DateToUnix(this.item.NgayKiemTra);
     this.services.QuyTrinhClassimat().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.activeModal.close();
+          this.toastr.success(res.message);
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
+  KhongDuyet() {
+    if (this.item.NgayKiemTra !== null && this.item.NgayKiemTra !== undefined)
+      this.item.NgayKiemTraUnix = DateToUnix(this.item.NgayKiemTra);
+    this.services.QuyTrinhClassimat().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -101,7 +163,7 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
             res.objectReturn.NgayKiemTra = UnixToDate(res.objectReturn.NgayKiemTraUnix);
             this.item = res.objectReturn;
             this.KiemTraButtonModal();
-            this.voiPintable.active();
+            this.voiPintable?.active();
           } else {
             this.toastr.error(res.message);
           }
@@ -154,7 +216,8 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
       modalRef.componentInstance.loai = 'classimat';
       modalRef.result.then((data) => {
         console.log(data);
-        this.item.lstSanPham = data.data;
+        // this.item.lstSanPham = data.data;
+        this.item.lstSanPham = MergeArr(data.data, this.item.lstSanPham || [], "IddmItem"); // huy nhỏ sửa, khi thêm mặt hàng giữ số liệu đã chọn
       }, (reason) => {
         // không
       });
@@ -173,10 +236,11 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  getDanhSachChiTieuChatLuong() {
+  getDanhSachChiTieuChatLuong(value) {
     let data = {
       CurrentPage: 0,
       KeyWord: "",
+      IddmPhanXuong: value || "",
     }
     this.services.DanhMucClassimat().GetList(data).subscribe((res: any) => {
       this.item.lstDanhMuc = res;
@@ -191,6 +255,60 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
     if (validVariable(chitieuCon) && chitieuCon?.length !== 0 && validVariable(chitieuTong) && chitieuTong?.length !== 0) {
       let TongChiTieuCon = chitieuCon.reduce((a, b) => a + (b.ChiTieuThucTe || 0), 0);
       chitieuTong.forEach(ele => { ele.ChiTieuThucTe = TongChiTieuCon });
+    }
+  }
+  chonPhanXuong(e) {
+    this.getDanhSachChiTieuChatLuong(e.value);
+  }
+
+  xuongDong(i, length, indexcon) {
+    let nextIndex = i * length + indexcon + 1;
+    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex + length);
+    if (validVariable(nextFocus)) {
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 1)].el.nativeElement.children[0].children[0].focus();
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : nextIndex)].el.nativeElement.children[0].children[0].select();
+    }
+  }
+
+  ImportPhieuNhap() {
+    let { obj, _bool } = this.validBefore();
+    if (!_bool) {
+      return;
+    }
+    this.services.QuyTrinhLoiCat().ImportPhieuNhapChiTieuClasimat(this.TepImport.TenGui, obj.IddmPhanXuong, obj.NgayKiemTraUnix).subscribe((imp: any) => {
+      this.item.lstSanPham = imp
+    })
+  }
+
+  ExportPhieuNhap() {
+    let { obj, _bool } = this.validBefore();
+    if (!_bool) {
+      return;
+    }
+    this.services.QuyTrinhLoiCat().ExportPhieuNhapChiTieuClasimat(obj.IddmPhanXuong, obj.NgayKiemTraUnix).subscribe((res: any) => {
+      const _url = host1 + res.TenFile
+      window.open(_url);
+      this.toastr.success(`Xuất file thành công`);
+    })
+  }
+
+  validBefore() {
+    let _bool = true
+    let obj = {
+      IddmPhanXuong: this.item.IddmPhanXuong,
+      NgayKiemTraUnix: DateToUnix(this.item.NgayKiemTra)
+    }
+    if (!obj.IddmPhanXuong) {
+      this.toastr.error(`Vui lòng chọn phân xưởng`);
+      _bool = false
+    }
+    else if (!obj.NgayKiemTraUnix) {
+      this.toastr.error(`Vui lòng chọn ngày kiểm tra`);
+      _bool = false
+    }
+    return {
+      obj: obj,
+      _bool: _bool
     }
   }
 }

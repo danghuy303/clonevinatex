@@ -7,6 +7,7 @@ import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunct
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalthanhlytaisanComponent } from '../modal/modalthanhlytaisan/modalthanhlytaisan.component';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-thanhlytaisan',
   templateUrl: './thanhlytaisan.component.html',
@@ -25,13 +26,20 @@ export class ThanhlytaisanComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "THANHLYTAISAN";
   listPhanXuong:any=[];
+  $sub!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { }
+  ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+   }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
@@ -72,7 +80,7 @@ export class ThanhlytaisanComponent implements OnInit {
     })
   }
   GetListdmPhanXuong() {
-    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

@@ -17,25 +17,52 @@ export class ModaldanhmucchungComponent implements OnInit {
   khongclicknhieu: any = false;
   listLoaiBong: any = [];
   listLoaiNhomKho: any = [];
+  listLoaiCongTo: any = [];
   listLoaiBongPhe: any = [];
+  listCongDoan: any = [];
+  listCachTinh: any = [{
+    label: `Tất cả công đoạn`,
+    value: false
+  }, {
+    label: `Sợi con`,
+    value: true
+  }];
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if(this.type === 'loaibong'){
+    if (this.type === 'loaibong') {
       this.GetListLoaiBong();
       this.GetListLoaiBongPhe();
+      this.GetListCongDoan()
     }
-    if(this.type === 'dmnhomkho'){
+    if (this.type === 'dmnhomkho') {
       this.GetListLoaiNhomKho();
     }
+    if (this.type === 'nhomcongto') {
+      this.GetDanhSachLoaiCongTo();
+      this.GetListCongDoan()
+    }
   }
+
+  GetListCongDoan() {
+    this.sanXuatService.GetListCongDoan().subscribe((res: any[]) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Id')
+    })
+  }
+  GetDanhSachLoaiCongTo() {
+    this.sanXuatService.GetDanhSachLoaiCongTo().subscribe((res: any) => {
+      this.listLoaiCongTo = mapArrayForDropDown(res, "Ten", 'Ma');
+    })
+  }
+
+
   GetListLoaiNhomKho() {
     this.sanXuatService.GetListLoaiNhomKho().subscribe((res: any) => {
       this.listLoaiNhomKho = mapArrayForDropDown(res, "Ten", 'Loai');
     })
   }
   GetListLoaiBongPhe() {
-    this.sanXuatService.DanhMucLoaiBongPhe().GetList({CurrentPage:0}).subscribe((res: any) => {
+    this.sanXuatService.DanhMucLoaiBongPhe().GetList({ CurrentPage: 0 }).subscribe((res: any) => {
       this.listLoaiBongPhe = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
@@ -70,7 +97,7 @@ export class ModaldanhmucchungComponent implements OnInit {
       this.toastr.warning('Vui lòng nhập đầy đủ trường thông tin bắt buộc!')
     }
   }
-  
+
   quycachdonggoi() {
     this.sanXuatService.dmQuyCachDongGoi().Set(this.item).subscribe((res: any) => {
       if (res) {
@@ -149,4 +176,5 @@ export class ModaldanhmucchungComponent implements OnInit {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Loai');
     })
   }
+
 }

@@ -14,7 +14,9 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     @ViewChild("paginator") paginator: any;
     opt: any = "";
     Id: any = "";
-    item: any = {};
+    item: any = {
+
+    };
     checkbutton: any = {
         Ghi: true,
         KhongDuyet: false,
@@ -28,10 +30,28 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     isKhoThanhPham: any = false;
     paging: any = {};
     listItem: any = [];
+    listHinhThuc: any = [
+        {
+            label: `Kiểm kê`,
+            value: `KiemKe`,
+        },
+        {
+            label: `Cho vay`,
+            value: `ChoVay`,
+        },
+        {
+            label: `Điều chuyển`,
+            value: `DieuChuyen`,
+        },
+        {
+            label: `Khác`,
+            value: `Khac`,
+        },
+    ];
     title: any = "";
     newItem: any = {};
     filter: any = {};
-    itemInfo:any={};
+    itemInfo: any = {};
     constructor(
         public activeModal: NgbActiveModal,
         private services: SanXuatService,
@@ -49,6 +69,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
         data.CurrentPage = 0;
         data.Loai = 2;
         this.item.Loai = 2;
+        this.item.LoaiKiemKe = `KiemKe`;
         this.services.GetListdmKho(data).subscribe((res: any) => {
             this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
             this.listdmKhoFull = res;
@@ -84,6 +105,20 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
         this.services
             .PhieuKiemKeKhoBong()
             .ChuyenTiep(this.item)
+            .subscribe((res: any) => {
+                if (res) {
+                    if (res.State === 1) {
+                        this.activeModal.close();
+                    } else {
+                        this.toastr.error(res.message);
+                    }
+                }
+            });
+    }
+    KhongDuyet() {
+        this.services
+            .PhieuKiemKeKhoBong()
+            .KhongDuyet(this.item)
             .subscribe((res: any) => {
                 if (res) {
                     if (res.State === 1) {
@@ -161,7 +196,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
         // let item = this.listItem.splice(index, 1)[0];
         console.log(this.item.listItem.length)
         //   this.item.listItem.splice(index, 1);
-        let item = this.item.listItem.splice((this.paging.CurrentPage-1)*10+index, 1)[0];
+        let item = this.item.listItem.splice((this.paging.CurrentPage - 1) * 10 + index, 1)[0];
         this.toastr.warning("Thao tác này đồng nghĩa việc không kiểm kê, không đồng nghĩa việc xóa khỏi kho");
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
         } else {
@@ -169,7 +204,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
             //   this.item.listItem.push(JSON.parse(JSON.stringify(item)));
             this.item.listItem.push(JSON.parse(JSON.stringify(item)));
         }
-        this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage-1)*10,10);
+        this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage - 1) * 10, 10);
         this.paging.TotalItem = Math.ceil(this.item.listItem.filter(ele => ele.isXoa !== true).length);
     }
     GetMatHangTheoKho() {
@@ -194,16 +229,16 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
                 let Mic = 0;
                 let iCount = 0;
                 res1.forEach(element => {
-                    if(element.Mic > 0){
+                    if (element.Mic > 0) {
                         Mic += element.Mic || 0;
                         iCount += 1;
                     }
                 });
-                if(iCount > 0)
+                if (iCount > 0)
                     this.item.MicBQ = Mic / iCount;
             });
     }
-   
+
     changePage(event) {
         this.paging.CurrentPage = event.page + 1;
         let start = 10 * (event.page);
@@ -227,8 +262,8 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
         this.item.listItem.forEach(itemTon => {
             itemTon.TrongLuong = value;
         });
-        this.item.listItem.forEach(itemTon=>{
-            this.checkSoLuong(itemTon,1)
+        this.item.listItem.forEach(itemTon => {
+            this.checkSoLuong(itemTon, 1)
         })
     }
     refreshFilter() {
@@ -244,14 +279,14 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
             this.itemInfo = res;
         })
     }
-    checkSoLuong(item, check){
-        switch(check){
+    checkSoLuong(item, check) {
+        switch (check) {
             case 0:
-                if(item.SoLuong === 0)
+                if (item.SoLuong === 0)
                     item.TrongLuong = 0;
                 break;
             case 1:
-                if(item.TrongLuong === 0)
+                if (item.TrongLuong === 0)
                     item.SoLuong = 0;
                 break;
             default:

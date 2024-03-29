@@ -228,8 +228,8 @@ export class DieuhanhsanxuatComponent implements OnInit, OnDestroy {
           ]
           this.GiaTrungBinhCoCauBong = res.map(ele => ele.DonGia);
           let TongTrongLuong = res.reduce((Tong, b) => {
-            return Tong+= (b.TrongLuong||0)
-          },0)
+            return Tong += (b.TrongLuong || 0)
+          }, 0)
           res.forEach((ele) => {
             if (ele.TrongLuong !== null) {
               this.pieLegend.push({
@@ -384,7 +384,7 @@ export class DieuhanhsanxuatComponent implements OnInit, OnDestroy {
         this.listXuatNhap = res;
         this.showXuatNhap = true;
         this.selectedXuatNhap = {
-          Ten: `${this.mapXuatNhap[opt]} - ${item.TendmLoaiBong} ${(item.TenLoBong?(' - '+item.TenLoBong):'')}`,
+          Ten: `${this.mapXuatNhap[opt]} - ${item.TendmLoaiBong} ${(item.TenLoBong ? (' - ' + item.TenLoBong) : '')}`,
           opt: opt,
           field: `SoPhieu${opt}`,
           TenOpt: this.mapXuatNhap[opt],
@@ -410,10 +410,13 @@ export class DieuhanhsanxuatComponent implements OnInit, OnDestroy {
       '22': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/',
       '23': '/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/',
       '24': '/quantri/quanlykhosanxuat/khobongphe/kiemkekhobongphe/',
+      '25': '/quantri/quanlykhosanxuatbong/khohoiluongdo/nhapkho/',
+      '26': '/quantri/quanlykhosanxuatbong/khohoiluongdo/kiemke/',
     }
     // if (this.selectedXuatNhap.opt === 'Xuat') {
     //   window.open(`#${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
     // }else{
+    // let a = `#${route[`${item.LoaiPhieu}`]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`;
     window.open(`#${route[`${item.LoaiPhieu}`]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
     // }
 
@@ -436,6 +439,8 @@ export class DieuhanhsanxuatComponent implements OnInit, OnDestroy {
       '22': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/',
       '23': '/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/',
       '24': '/quantri/quanlykhosanxuat/khobongphe/kiemkekhobongphe/',
+      '25': '/quantri/quanlykhosanxuatbong/khohoiluongdo/nhapkho/',
+      '26': '/quantri/quanlykhosanxuatbong/khohoiluongdo/kiemke/',
     }
     window.open(`#${route[`${item.LoaiPhieu}`]}${item.IdPhieuKiemKe || 0}`, "_blank");
     // this._router.navigate([`${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeKho||0}`])

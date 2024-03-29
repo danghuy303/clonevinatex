@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
@@ -27,14 +28,17 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   listPhanXuong = [];
   listLoaiTaiSan = [];
-  listCongDoan:any = [];
+  listCongDoan: any = [];
   store: any;
   TaiSanItem: any = [];
   count: number;
   trangThai: any = 0;
   currentYear: any = 0;
   checkBtnChonTaiSan: boolean;
-  keyword:any = '';
+  keyword: any = '';
+  differ: any;
+  opp: boolean = false;
+  private customerDiffer: KeyValueDiffer<string, any>;
 
   constructor(
     private _modal: NgbModal,
@@ -44,7 +48,10 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
-  ) { }
+    private differs: KeyValueDiffers
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.currentYear = new Date().getFullYear();
@@ -67,25 +74,46 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     }
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
-      this.item.Nam = new Date().getFullYear()+1;
+      this.item.Nam = new Date().getFullYear() + 1;
     }
     else {
       this.GetQuyTrinhById(this.item.Id);
     }
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+    for (let i = new Date().getFullYear() - 10; i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._servicesSanXuat.GetListCongDoan().toPromise();
-    Promise.all([ls1,ls2]).then((values: any) => {
+    Promise.all([ls1, ls2]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listCongDoan = mapArrayForDropDown(values[1], "Ten", "Ma");
     });
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.KiemTraButtonModal();
+    // this.customerDiffer = this.differs.find(this.item).create();
   }
+
+  // customerChanged(changes: KeyValueChanges<string, any>) {
+  //   console.log('changes');
+  // }
+
+  // ngDoCheck(): void {
+  //   const changes = this.customerDiffer.diff(this.item);
+  //   if (changes) {
+  //     this.opp = !this.opp
+  //     this.customerChanged(changes);
+  //   }
+  // }
+
+  // QuayLai() {
+  //   if (this.opp) {
+  //     this.toastr.success('loi');
+  //     this.activeModal.dismiss();
+  //   }
+  //   else this.activeModal.dismiss();
+  // }
 
   GetQuyTrinhById(id) {
     this._serviceTaiSan
@@ -122,7 +150,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
+    if (!validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       return false;
     }
@@ -193,7 +221,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
-  
+
   // ThemMoiDanhSachTaiSan() {
   //   if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
   //     this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
@@ -344,6 +372,20 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(data).subscribe((res: any) => {
       this.item.listTaiSan = res.Data.listTaiSan;
     })
+  }
+
+  delete(index: any) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa chứ?";
+    modalRef.result
+      .then((res) => {
+        this.item.listTaiSan.splice(index, 1);
+        //  this.item.IdBoPhanSuDung = null;
+        this.item.listTaiSan = [...this.item.listTaiSan]
+      })
+      .catch((er) => console.log(er));
   }
 
 }

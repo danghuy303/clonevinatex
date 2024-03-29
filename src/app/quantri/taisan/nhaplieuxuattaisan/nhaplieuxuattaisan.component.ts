@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, formatdate, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
@@ -29,11 +30,19 @@ export class NhaplieuxuattaisanComponent implements OnInit {
   bien_Luu_ThongTin_Tai_San: any = {};
   SoSeri: any = '';
   selectedItems: any = [];
+  $sub!: Subscription;
+
   constructor(public _modal: NgbModal, public store: StoreService,
     public _toastr: ToastrService,
     private _serviceTaiSan: TaisanService,
     private _service: SanXuatService, private activatedRoute: ActivatedRoute,
-  ) { }
+  ) { 
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+  }
 
   ngOnInit(): void {
 

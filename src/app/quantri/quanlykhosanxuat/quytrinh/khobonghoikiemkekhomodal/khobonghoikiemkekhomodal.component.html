@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Kiểm kê kho bông hồi</h5>
+    <h5 class="modal-title">Điều chuyển kho bông hồi</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
             <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
@@ -40,6 +40,13 @@
                     [(ngModel)]="item.IddmKho" (onChange)="GetMatHangTheoKho()"></p-dropdown>
             </div>
         </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho hồi luồng đỏ:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listdmKhoHoiLD" placeholder="Chọn kho"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmKhoHoiLuongDo"></p-dropdown>
+            </div>
+        </div>
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -55,6 +62,16 @@
                 </p-dropdown>
             </div>
         </div> -->
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <!-- *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'  || item.LoaiKiemKe === 'XuatBanNoiBo'" -->
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ <span class="required">(*)</span>:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
+                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
+                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
+            </div>
+        </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -92,7 +109,7 @@
                         <th rowspan="2">Mã</th>
                         <th rowspan="2">Tên</th>
                         <th colspan="2">Tồn sổ sách</th>
-                        <th colspan="2">Tồn thực tế</th>
+                        <th colspan="2">Xuất</th>
                         <th rowspan="2"></th>
                     </tr>
                     <tr>
@@ -105,7 +122,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <td>{{ 10 * (paging.CurrentPage - 1) + i + 1 }}</td>
+                        <td style="text-align: center;">{{ 10 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td style="text-align: center;">{{item.Ma}}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <td style="text-align: right;">
@@ -162,7 +179,7 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            
+
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newItem.TrongLuong">
                             </p-inputNumber>
                         </td>

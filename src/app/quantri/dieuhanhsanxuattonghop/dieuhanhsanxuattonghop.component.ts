@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { formatDate, formatNumber } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -19,8 +20,10 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     nNam: 0,
     nThang: 0,
     nNgay: 0,
-    LoaiThoiGian: 0
+    LoaiThoiGian: 0,
+    Loai: 0,
   };
+  checked: boolean = false;
   @ViewChild('bangScroll') bangScroll: ElementRef;
   listNhaMay: any = [];
   listMatHang: any = [];
@@ -210,8 +213,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     { label: 'Báo cáo chất lượng BCP', command: () => { this.xuatBaoCaoBanChePham() } }
   ];
   TyLeBongPhe_Hoi: any = [];
-  ThongTinLuyKeDien:any = {};
-  isKhongHienChuNhat:any= true;
+  ThongTinLuyKeDien: any = {};
+  isKhongHienChuNhat: any = true;
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
@@ -360,13 +363,28 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
         { Ten: 'SL quy Ne 30(kg):', GiaTri: res.SanLuongQuyNe30 },
-        { Ten: 'SL quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_TrenCa,DinhMuc:res.SanLuongQuyNe30_TrenCa_TieuChuan,isRed:(res.SanLuongQuyNe30_TrenCa < res.SanLuongQuyNe30_TrenCa_TieuChuan) },
-        (this.filter.IddmCaSanXuatThucTe !== '')&&{ Ten: 'Sản lượng quy Ne 30 theo ca:', GiaTri: res.SanLuongQuyNe30_TheoKip },
-        { Ten: 'Lũy kế quy Ne 30(kg):', GiaTri: res.LuyKeQuyNe30 },
-        { Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat },
-        { Ten: 'Tỷ lệ sợi Con / Ống:', GiaTri: res.TyLeSoiCon },
-        { Ten: 'Tỷ lệ chênh lệch Con - Ống:', GiaTri: res.TyLeChenhLechConOng },
-        
+        { Ten: 'SL quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_TrenCa, DinhMuc: res.SanLuongQuyNe30_TrenCa_TieuChuan, isRed: (res.SanLuongQuyNe30_TrenCa < res.SanLuongQuyNe30_TrenCa_TieuChuan) },
+        (this.filter.IddmCaSanXuatThucTe !== '') && { Ten: 'Sản lượng quy Ne 30 theo ca:', GiaTri: res.SanLuongQuyNe30_TheoKip },
+        {
+          Ten: 'Lũy kế quy Ne 30(kg):', GiaTri: res.LuyKeQuyNe30
+
+        },
+        // {
+        //   Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat,
+        //   tollTip: '[Khối lượng sợi cắt / (Khối lượng sợi cắt + sản lượng công đoạn ống)] (Lấy theo thống kê công đoạn ống)',
+        //   DinhMuc: res.TyLeSoiCat_DinhMuc, isRed: (res.TyLeSoiCat > res.TyLeSoiCat_DinhMuc)
+        // },
+        {
+          Ten: 'Tỷ lệ sợi Con / Ống:', GiaTri: res.TyLeSoiCon,
+          DinhMuc: res.TyLeSoiCon_DinhMuc, isRed: (res.TyLeSoiCon > res.TyLeSoiCon_DinhMuc),
+          tollTip: '',
+        },
+        {
+          Ten: 'Tỷ lệ Con - Ống:', GiaTri: res.TyLeChenhLechConOng,
+          DinhMuc: res.TyLeChenhLechConOng_DinhMuc, isRed: (res.TyLeChenhLechConOng > res.TyLeChenhLechConOng_DinhMuc),
+          tollTip: '[((SL sợi con - KL bông hút mối) - (SL ống + KL sợi cắt + KL sợi loại 2)) / (SL con - KL bông hút mối)] * 100 '
+        },
+
         // { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho },
         // { Ten: 'Tỷ lệ bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy },
         // { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun },
@@ -431,7 +449,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
 
   BieuDoCoCau() {
     this.filter.IdDuAn = this.IdDuAn;
-    let data: any = { IdDuAn: this.filter.IdDuAn, IddmPhanXuong: this.filter.IddmPhanXuong, nNam: this.filter.nNam, nThang: this.filter.nThang };
+    let data: any = { IdDuAn: this.filter.IdDuAn, IddmPhanXuong: this.filter.IddmPhanXuong, nNam: this.filter.nNam, nThang: this.filter.nThang, Loai: this.filter.Loai };
     this._services.BaoCao().BieuDoCoCau(data).subscribe((res: any) => {
       this.mapIndex_Ma = deepCopy(res.labels);
       res.labels = this.mapIndex_Ma.map(lb => {
@@ -450,6 +468,16 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       // });
       this.dataPie = res;
     });
+  }
+
+  Loai_BieuDoCoCau(e) {
+    if (e.checked === true) {
+      this.filter.Loai = 1;
+    }
+    else {
+      this.filter.Loai = 0;
+    }
+    this.BieuDoCoCau();
   }
 
   GetBaoCaoQuyTrinhKiemTraChatLuong() {
@@ -482,7 +510,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   GetBieuDoDuongKiemTraChatLuong() {
     this.GetBaoCaoQuyTrinhKiemTraChatLuong();
 
-    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem, this.filter.LoaiThoiGian,this.isKhongHienChuNhat).subscribe((res: any) => {
+    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem, this.filter.LoaiThoiGian, this.isKhongHienChuNhat).subscribe((res: any) => {
       // this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39", "02bd1952-5092-496f-a566-2f0ac6ab4940").subscribe((res: any) => {
       // this.dataSet1 = res;
       console.log(res);
@@ -544,7 +572,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   }
   GetBieuDoDuongKiemTraChatLuong_js() {
 
-    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem, this.filter.LoaiThoiGian,this.isKhongHienChuNhat).subscribe((res: any) => {
+    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem, this.filter.LoaiThoiGian, this.isKhongHienChuNhat).subscribe((res: any) => {
       // this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39", "02bd1952-5092-496f-a566-2f0ac6ab4940").subscribe((res: any) => {
       // this.dataSet1 = res;
       let label = this.listtieuchi.filter(obj => obj.value == this.filter.IddmChiTieu)[0].label;
@@ -676,7 +704,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       })
       datasets.push({
         type: 'line',
-        label: 'Tiêu hao điện bình quân theo NE',
+        label: 'Tiêu hao điện bình quân theo NE (30)',
         borderColor: '#ff6530',
         yAxisID: 'KK',
         fill: false,
@@ -684,7 +712,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       })
       datasets.push({
         type: 'line',
-        label: 'Tiêu hao điện bình quân',
+        label: 'Tiêu hao điện bình quân thực tế',
         borderColor: '#006666',
         yAxisID: 'KK',
         fill: false,
@@ -741,9 +769,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.GetThongTyLeBongPhe_Hoi();
     this.showBieuDoTyLe = true;
   }
-  GetThongTyLeBongPhe_Hoi(){
+  GetThongTyLeBongPhe_Hoi() {
     let data = this.filter;
-    this._services.DashBoard().GetDashBoard_TongHop_TyLeBongPheBongHoi(data).subscribe((res:any)=>{
+    this._services.DashBoard().GetDashBoard_TongHop_TyLeBongPheBongHoi(data).subscribe((res: any) => {
       this.TyLeBongPhe_Hoi = res;
       //  this.TyLeBongPhe_Hoi = [
       //   { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho, LuyKe: res.TyleBongRoiChaiThoLuyKe },

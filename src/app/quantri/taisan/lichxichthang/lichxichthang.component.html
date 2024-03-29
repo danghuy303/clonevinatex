@@ -2,22 +2,32 @@
     <h4 style="color:#1f2779">Lịch xích tháng</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-  
+
     <div></div>
-    <div class="p-d-flex p-flex-row">
-        <div class="p-mr-2">
-            <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [locale]="lang"
-            [yearNavigator]="true" [yearRange]="yearRange"  [showIcon]="true" [(ngModel)]="filter.Ngay" (onSelect)="GetList(true)"
-            inputId="icon" placeholder="mm/yyyy">
-        </p-calendar>
+    <div class="p-d-flex p-flex-row align-items-center justify-content-center">
+        <div class=" p-m-2 ">
+            <p-radioButton value="theoBaoDuong" [(ngModel)]="filter.isChon" (onClick)="GetList(true)"></p-radioButton>
+            <label class="mb-0">Theo loại bảo dưỡng</label>
+        </div>
+        <div class=" p-m-2">
+            <p-radioButton value="theoMay" [(ngModel)]="filter.isChon" (onClick)="GetList(true)"></p-radioButton>
+            <label class="mb-0">Theo máy</label>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "[(ngModel)]="filter.IdBoPhanSuDung" styleClass="p-inputtext-sm"
-                [showClear]="true" [filter]="true" (onChange)="GetList(true)"></p-dropdown>
+            <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+                [locale]="lang" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
+                [(ngModel)]="filter.Ngay" (onSelect)="GetList(true)" inputId="icon" placeholder="mm/yyyy">
+            </p-calendar>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn " [(ngModel)]="filter.IddmLoaiTaiSan" styleClass="p-inputtext-sm"
-                [showClear]="true" [filter]="true" (onChange)="GetList(true)"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
+                [(ngModel)]="filter.IdBoPhanSuDung" styleClass="p-inputtext-sm" [showClear]="true" [filter]="true"
+                (onChange)="GetList(true)"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn "
+                [(ngModel)]="filter.IddmLoaiTaiSan" styleClass="p-inputtext-sm" [showClear]="true" [filter]="true"
+                (onChange)="GetList(true)"></p-dropdown>
         </div>
     </div>
 </div>
@@ -49,25 +59,57 @@
     </ng-template>
 </p-table> -->
 
-<div class="p-col-12 p-p-0 pintable-container bg-white" style="height: calc(100vh - 250px)" voiPintable [pinnedCols]="1">
+<div class="p-col-12 p-p-0 pintable-container bg-white" style="height: calc(100vh - 250px)" voiPintable
+    [pinnedCols]="1">
     <table>
         <thead>
             <tr>
-                <th style="min-width: 200px;max-width: 200px">Loại bảo dưỡng</th>
-                <th style="min-width: 150px;max-width: 150px;" *ngFor="let label of labelThang">{{label}}</th>
+                <th style="min-width: 50px;max-width: 50px; padding: 0.5rem 0">STT</th>
+                <th style="min-width: 200px;max-width: 200px" *ngIf="filter.isChon === 'theoBaoDuong'">Loại bảo dưỡng
+                </th>
+                <th style="min-width: 200px;max-width: 200px" *ngIf="filter.isChon !== 'theoBaoDuong'">Mã, tên tài sản
+                </th>
+                <th style="min-width: 150px;max-width: 150px;" *ngFor="let label of labelThang">Ngày {{label}}</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of items.listBaoDuong">
-                <td style="min-width: 200px;max-width: 200px;background-color: white; cursor: pointer;" (click)="ChiTietBaoDuong(item)">{{item.TendmLoaiBaoDuong}}</td>
-                <td style="min-width: 150px;max-width: 150px;background-color: white;" class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
-                    <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"
-                        (click)="ChiTietThongTin(taisan)"
-                        [ngStyle]="{'color': taisan.Mau}">
-                        {{taisan.TenTaiSan}}<br>
-                    </a>
-                </td>
-            </tr>
+            <ng-container *ngTemplateOutlet="filter.isChon === 'theoBaoDuong' ? listBaoDuong : listTaiSan;">
+            </ng-container>
         </tbody>
     </table>
 </div>
+
+<ng-template #listBaoDuong>
+    <tr *ngFor="let item of items.listBaoDuong;let i = index">
+        <td class="text-center"
+            style="min-width: 50px;; padding: 0.5rem 0 ; max-width: 50px;background-color: white; cursor: pointer; z-index: 999;">
+            {{i+ 1}}
+        </td>
+        <td style="min-width: 200px;max-width: 200px;background-color: white; cursor: pointer;"
+            (click)="ChiTietThongTin(item)">{{item.TendmLoaiBaoDuong}}</td>
+        <td style="min-width: 150px;max-width: 150px;background-color: white;" class="text-center"
+            *ngFor="let newItem of item.listItemTheoThoiGian" [ngStyle]="{'background-color': newItem.ColorLabel}">
+            <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)"
+                [ngStyle]="{'color': taisan.Mau}">
+                {{taisan.TenTaiSan}}<br>
+            </a>
+        </td>
+    </tr>
+</ng-template>
+<ng-template #listTaiSan>
+    <tr *ngFor="let item of items.listTaiSan;let i = index">
+        <td class="text-center"
+            style="min-width: 50px;; padding: 0.5rem 0 ; max-width: 50px;background-color: white; cursor: pointer; z-index: 999;">
+            {{i+ 1}}
+        </td>
+        <td style="min-width: 200px;max-width: 200px;background-color: white; cursor: pointer;"
+            (click)="ChiTietThongTin(item)">{{item.MaTaiSan}} - {{item.TenTaiSan}}</td>
+        <td style="min-width: 150px;max-width: 150px;background-color: white;" class="text-center"
+            *ngFor="let newItem of item.listItemTheoThoiGian" [ngStyle]="{'background-color': newItem.ColorLabel}">
+            <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)"
+                [ngStyle]="{'color': taisan.Mau}">
+                {{taisan.TendmLoaiBaoDuong}}<br>
+            </a>
+        </td>
+    </tr>
+</ng-template>

@@ -6,6 +6,7 @@ import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { DateToUnix } from "src/app/services/globalfunction";
 import { StoreService } from "src/app/services/store.service";
 import { StoreBase } from "src/app/services/storebase.class";
+import { TooltipModule } from 'primeng/tooltip';
 import { PhabongmodalComponent } from "../phabongmodal/phabongmodal.component";
 
 @Component({
@@ -13,7 +14,7 @@ import { PhabongmodalComponent } from "../phabongmodal/phabongmodal.component";
   templateUrl: "./phabong.component.html",
   styleUrls: ["./phabong.component.css"],
 })
-export class PhabongComponent extends StoreBase implements OnInit,OnDestroy {
+export class PhabongComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   filter: any = {};
@@ -34,8 +35,8 @@ export class PhabongComponent extends StoreBase implements OnInit,OnDestroy {
     public _toastr: ToastrService,
     private _service: SanXuatService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,public store:StoreService
-  ) {super(store)}
+    private router: Router, public store: StoreService
+  ) { super(store) }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
@@ -77,7 +78,7 @@ export class PhabongComponent extends StoreBase implements OnInit,OnDestroy {
       .then((res: any) => {
         this._toastr.success("Cập nhật thành công");
       })
-      .finally(()=>{
+      .finally(() => {
         this.GetListQuyTrinh();
         this.changeParam(0);
       });
@@ -91,7 +92,7 @@ export class PhabongComponent extends StoreBase implements OnInit,OnDestroy {
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
-      .finally(()=>{
+      .finally(() => {
         this.GetListQuyTrinh();
         this.changeParam(0);
       });
@@ -140,7 +141,7 @@ export class PhabongComponent extends StoreBase implements OnInit,OnDestroy {
       this.GetListQuyTrinh();
     });
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }

@@ -19,7 +19,7 @@ import { BotrimayOngComponent } from "./modals/botrimay-ong/botrimay-ong.compone
     styleUrls: ["./candoichuyen.component.css"],
     providers: [DatePipe],
 })
-export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy {
+export class CandoichuyenComponent extends StoreBase implements OnInit, OnDestroy {
     listDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     listDates = [];
     filter: any = {
@@ -30,13 +30,13 @@ export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy
     listCongDoan: any = [];
     listPhanXuong: any = [];
     mapMa_TenCongDoan: any = {};
-    today:any;
+    today: any;
 
     constructor(
         private _store: StoreService,
         private _services: SanXuatService,
         private datepipe: DatePipe,
-        private _modal: NgbModal,public store:StoreService
+        private _modal: NgbModal, public store: StoreService
     ) {
         super(store)
     }
@@ -123,12 +123,15 @@ export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy
                     this.filter._tuNgay,
                     this.filter._denNgay
                 );
+              
+                
                 for (let i = 0; i < this.listDates.length; i++) {
                     this.listDates[i] = { ...this.listDates[i], ...res[i] }
                 }
                 for (let i = 0; i < this.filter._tuNgay.getDay(); i++) {
                     this.listDates.unshift({ header: "none" });
                 }
+                console.log(this.listDates);
                 // if(!reset){
                 //     let date = new Date();
                 //     let today = this.datepipe.transform(date, "dd/MM/yyyy");
@@ -138,9 +141,10 @@ export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy
         }
     }
     boTriMay(index, date?) {
+        console.log(date);
         if (date?.header === 'none') {
         } else {
-            if (this.filter.CongDoan === "ONG") {
+            if (this.filter.CongDoan === "ONG" || this.filter.CongDoan === "XE" || this.filter.CongDoan === "DAUXE" ) {
                 this._services.CanDoiChuyen().GetCanDoiChuyen(this.filter.IddmPhanXuong, this.filter.CongDoan, date.Unix).subscribe(res => {
                     console.log(res);
                     let modalRef = this._modal.open(BotrimayOngComponent, {
@@ -149,6 +153,7 @@ export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy
                         keyboard: false
                     });
                     modalRef.componentInstance.item = deepCopy(res);
+                    modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan];
                     modalRef.componentInstance.checkbutton = this.checkNavigationButton(index);
                     modalRef.componentInstance.addonData = {
                         IddmPhanXuong: this.filter.IddmPhanXuong,
@@ -181,15 +186,16 @@ export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy
                     });
                     modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan];
                     modalRef.componentInstance.checkbutton = this.checkNavigationButton(index);
+                    modalRef.componentInstance.filter = this.filter;
                     modalRef.componentInstance.item = deepCopy(res);
                     // modalRef.componentInstance.canDieuChinh = (date.labelHienThi === this.today);
                     modalRef.componentInstance.canDieuChinh = true;
-                        modalRef.componentInstance.addonData = {
-                            IddmPhanXuong: this.filter.IddmPhanXuong,
-                            CongDoan: this.filter.CongDoan,
-                            NgayUnix: date.Unix,
-                            LabelNgay: date.labelHienThi
-                        };
+                    modalRef.componentInstance.addonData = {
+                        IddmPhanXuong: this.filter.IddmPhanXuong,
+                        CongDoan: this.filter.CongDoan,
+                        NgayUnix: date.Unix,
+                        LabelNgay: date.labelHienThi
+                    };
                     modalRef.result
                         .then((res) => {
                             if (res.opt) {
@@ -248,7 +254,7 @@ export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy
     showSanLuong() {
         this.showDialog = true;
     }
-    ngOnDestroy(){
+    ngOnDestroy() {
         super.ngOnDestroy();
-      }
+    }
 }

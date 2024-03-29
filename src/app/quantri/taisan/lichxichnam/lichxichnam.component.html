@@ -22,9 +22,8 @@
         (onChange)="loadData(true)"></p-dropdown>
     </div>
     <div class="p-mr-2">
-      <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
-        styleClass="p-inputtext-sm" [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true"
-        (onChange)="loadData(true)"></p-dropdown>
+      <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
+        [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true" (onChange)="loadData(true)"></p-dropdown>
     </div>
   </div>
 </div>
@@ -41,16 +40,20 @@
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
+      <th style="width: 2%;min-width: 50px; ">STT</th>
       <th class="text-center">Loại bảo dưỡng</th>
       <th class="text-center" *ngFor="let label of items.listThoiGian">Tháng {{label}}</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-item let-i="rowIndex">
     <tr>
-      <td (click)="ChiTietBaoDuong(item)">{{item.TendmLoaiBaoDuong}}</td>
+      <td class="text-center" style="width: 2%;min-width: 50px;">
+        {{i+ 1}}
+      </td>
+      <td (click)="ChiTietThongTin(item)">{{item.TendmLoaiBaoDuong}}</td>
       <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
-        <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)" 
-        [ngStyle]="{'color': taisan.Mau}">
+        <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)"
+          [ngStyle]="{'color': taisan.Mau}">
           {{taisan.TenTaiSan}},
         </a>
       </td>
@@ -58,7 +61,7 @@
   </ng-template>
   <ng-template pTemplate="paginatorleft">
     Tổng số bản ghi {{items.listBaoDuong?.length}}.
-</ng-template>
+  </ng-template>
 </p-table>
 
 <p-table [value]="items.listTaiSan" *ngIf="filter.isChon === 'theoMay'" [paginator]="true" [rows]="20"
@@ -69,16 +72,20 @@
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
+      <th style="width: 2%;min-width: 50px; ">STT</th>
       <th class="text-center">Mã, tên tài sản</th>
       <th class="text-center" *ngFor="let label of items.listThoiGian">Tháng {{label}}</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-item let-i="rowIndex">
     <tr>
+      <td class="text-center" style="width: 2%;min-width: 50px;">
+        {{i+ 1}}
+      </td>
       <td (click)="ChiTietThongTin(item)">{{item.MaTaiSan}} - {{item.TenTaiSan}}</td>
       <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
         <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietBaoDuong(taisan)"
-        [ngStyle]="{'color': taisan.Mau}">
+          [ngStyle]="{'color': taisan.Mau}">
           {{taisan.TendmLoaiBaoDuong}}
         </a>
       </td>
@@ -86,5 +93,5 @@
   </ng-template>
   <ng-template pTemplate="paginatorleft">
     Tổng số bản ghi {{items.listTaiSan?.length}}.
-</ng-template>
+  </ng-template>
 </p-table>

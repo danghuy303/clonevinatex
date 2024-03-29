@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
@@ -39,6 +41,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
   };
   listPhanXuong = [];
   filter: { MaCongDoan, };
+  $sub!: Subscription;
 
   constructor(
     public _modal: NgbModal,
@@ -48,8 +51,13 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
     private _servicesSanXuat: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
+    private store: StoreService
   ) {
-
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
   }
 
   ngOnInit() {
@@ -72,7 +80,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
   }
 
   GetListdmPhanXuong() {
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -138,6 +146,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
       listLichBaoDuong: [],
       listThongSoKyThuat: [],
       listThongSoAnToan: [],
+      listBaoHanh: [],
     };
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.result

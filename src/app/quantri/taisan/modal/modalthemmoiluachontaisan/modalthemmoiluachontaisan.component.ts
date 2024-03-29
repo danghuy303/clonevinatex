@@ -15,7 +15,7 @@ import { ChonComponent } from '../../screen/chon/chon.component';
   styleUrls: ['./modalthemmoiluachontaisan.component.css']
 })
 export class ModalthemmoiluachontaisanComponent implements OnInit {
-  item: any = {};
+  item: any = {value:''};
   opt: any = "";
   title: any = "";
   lang: any = vn;
@@ -31,6 +31,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   listTinhTrangTaiSan_copy: any = [];
   listDonVi_copy: any = [];
   IdBoPhanSuDung: any = "";
+  value:any;
   qrcode: any = {
     size: 250
   };
@@ -46,7 +47,8 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('item', this.item);
+    // this.item.value = this.item.IddmLoaiTaiSan;
+    // this.LayMa(this.item);
     this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
     // if (this.item.ThoiGianDuaVaoSuDungUnix !== 0 || this.item.ThoiGianDuaVaoSuDungUnix === 0) {
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
@@ -69,7 +71,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     this.item.isCanDuTru = false;
   }
   GetListdmPhanXuong() {
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

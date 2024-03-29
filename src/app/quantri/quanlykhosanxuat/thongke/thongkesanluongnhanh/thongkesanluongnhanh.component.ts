@@ -31,21 +31,21 @@ export class ThongkesanluongnhanhComponent implements OnInit {
       field: 'Ngay',
       width: '100px'
     },
-    {
-      header: 'Thời điểm',
-      field: 'TendmCaSanXuat',
-      width: '150px'
-    },
-    {
-      header: 'Ca',
-      field: 'TendmCaSanXuatThucTe',
-      width: '150px'
-    },
-    {
-      header: 'Khối lượng(kg)',
-      field: 'TongKhoiLuong',
-      width: '100px'
-    },
+    // {
+    //   header: 'Thời điểm',
+    //   field: 'TendmCaSanXuat',
+    //   width: '150px'
+    // },
+    // {
+    //   header: 'Ca',
+    //   field: 'TendmCaSanXuatThucTe',
+    //   width: '150px'
+    // },
+    // {
+    //   header: 'Khối lượng(kg)',
+    //   field: 'TongKhoiLuong',
+    //   width: '100px'
+    // },
     {
       header: 'Phân xưởng',
       field: 'TendmPhanXuong',

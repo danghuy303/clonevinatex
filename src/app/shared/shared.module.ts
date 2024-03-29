@@ -49,6 +49,7 @@ import { DanhMucKeHoachModalComponent } from './danh-muc-ke-hoach-kinh-doanh/dan
 import { PaginatorModule } from 'primeng/paginator';
 import { NhapLieuKeHoachComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke-hoach.component';
 import { NhapLieuKeHoachModalComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke-hoach-modal/nhap-lieu-ke-hoach-modal.component';
+import { FilterbykeyCongDoanPipe } from '../services/filterbykey-cong-doan.pipe';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { NhapLieuKeHoachModalComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke
     CaPipe,
     FilterPipe,
     FilterByKeyPipe,
+    FilterbykeyCongDoanPipe,
     EqualByKeyPipe,
     TruncatePipe,
     SumByKeyPipe,
@@ -112,6 +114,7 @@ import { NhapLieuKeHoachModalComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke
     CaPipe,
     FilterPipe,
     FilterByKeyPipe,
+    FilterbykeyCongDoanPipe,
     EqualByKeyPipe,
     TruncatePipe,
     SumByKeyPipe,

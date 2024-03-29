@@ -16,6 +16,11 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
     width: 'unset'
   },
   {
+    header: 'Mã mặt hàng',
+    field: 'Ma',
+    width: 'unset'
+  },
+  {
     header: 'Tên mặt hàng',
     field: 'Ten',
     width: 'unset'
@@ -51,7 +56,8 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
       for (let i = 0; i < this.listItem.length; i++) {
         console.log(this.listItem[i])
         let itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang === this.listItem[i].IdLoHang)
+          // ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang === this.listItem[i].IdLoHang)
+          ele => (ele.IddmItem === this.listItem[i].IddmItem )
         );
         if (validVariable(itemFind)) {
           itemFind.checked = true;
@@ -71,7 +77,8 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
         data: itemFind.map(ele => {
           return {
             ...ele,
-            Ten: `${ele.TenLoHang} - ${ele.Ten}`
+            Ten: `${ele.TenLoHang} - ${ele.Ten}`,
+            Ma: ele.Ma
           }
         })
       }

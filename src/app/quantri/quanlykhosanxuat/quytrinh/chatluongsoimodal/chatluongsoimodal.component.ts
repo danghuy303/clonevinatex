@@ -47,6 +47,7 @@ export class ChatluongsoimodalComponent implements OnInit {
     else {
       this.userInfo = this._auth.currentUserValue;
       this.KiemTraButtonModal();
+      // this.getDanhSachChiTieuChatLuong();
     }
     if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
       this.item.NgayKiemTra = UnixToDate(this.item.NgayKiemTraUnix);
@@ -167,6 +168,8 @@ export class ChatluongsoimodalComponent implements OnInit {
       // modalRef.componentInstance.
 
       modalRef.result.then((data) => {
+        console.log('data',data);
+        
         this.lstSanPham = data.data;
         this.item.lstDanhMuc.forEach(element => {
           let chatluongpush = [];
@@ -196,6 +199,7 @@ export class ChatluongsoimodalComponent implements OnInit {
             IddmItem: danhmuc.IddmItem,
             IdLoHang: danhmuc.IdLoHang,
             Ten: danhmuc.Ten,
+            Ma:danhmuc.Ma,
           }
           sanphampush.push(datapush);
         });
@@ -223,6 +227,7 @@ export class ChatluongsoimodalComponent implements OnInit {
     let data = {
       CurrentPage: 0,
       KeyWord: "",
+      Loai:1
     }
     this.services.GetDanhSachChiTieuChatLuong(data).subscribe((res: any) => {
       this.item.lstDanhMuc = res;
@@ -299,7 +304,8 @@ export class ChatluongsoimodalComponent implements OnInit {
         str = str.replaceAll(',', '')
         console.log(str);
       }
-      item.ChiTieuThucTe = parseFloat(str) ? parseFloat(str) : null;
+      // item.ChiTieuThucTe = parseFloat(str) ? parseFloat(str) : 0; //12/8/2022 huy sửa, để enter xuống dòng vẫn còn số 0. bugs 380
+      item.ChiTieuThucTe = parseFloat(str); //10/1/2023 huy sửa, để enter xuống dòng vẫn lấy đúng giá trị
       // console.log(item.ChiTieuThucTe)
     }
     let arr = 'Thin50Thick50Neps200';

@@ -1,6 +1,9 @@
 <div class="modal-header">
    <h5 class="modal-title">Thống kê sản lượng</h5>
    <div class="d-flex flex-column flex-lg-row">
+      <div>
+         <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+     </div>
       <div class="ml-lg-3 mr-lg-3">
          <span style="font-weight: bold">TG Tạo:</span>
          {{ item.Created | date: 'dd/MM/yyyy HH:mm' }}
@@ -10,131 +13,76 @@
          {{ item.Modified | date: 'dd/MM/yyyy HH:mm' }}
       </div>
    </div>
-   <button
-      *ngIf="false"
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="activeModal.dismiss('Cross click')">
+   <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
    </button>
 </div>
 <div class="modal-body">
    <div class="p-d-flex p-flex-row p-jc-between">
       <div class="modal-bt p-mb-4">
-         <button
-            pButton
-            pRipple
-            type="button"
-            label="Quay lại"
-            class="p-mr-2 p-button-sm"
-            (click)="onClose()"></button>
-         <button
-            pButton
-            pRipple
-            type="button"
-            label="Lưu nháp"
-            class="p-mr-2 p-button-sm"
-            (click)="GhiLai()"
+         <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="onClose()"></button>
+         <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm" (click)="GhiLai()"
             *ngIf="checkbutton.Ghi"></button>
-         <button
-            pButton
-            pRipple
-            type="button"
-            label="Xóa"
-            class="p-mr-2 p-button-sm"
-            *ngIf="checkbutton.Xoa"
+         <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
             (click)="XoaQuyTrinh()"></button>
-         <button
-            pButton
-            pRipple
-            type="button"
-            label="Xác nhận"
-            class="p-mr-2 p-button-sm"
-            (click)="ChuyenDuyet()"
+         <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()"
             *ngIf="checkbutton.ChuyenTiep"></button>
       </div>
    </div>
    <div class="p-grid">
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày:</label>
-         <div class="p-col-12 p-lg-8 p-p-0">
-            <p-calendar
-               dateFormat="dd/mm/yy"
-               inputStyleClass="p-inputtext-sm"
-               [locale]="lang"
-               [monthNavigator]="true"
-               [yearNavigator]="true"
-               [yearRange]="yearRange"
-               [showIcon]="true"
-               [(ngModel)]="item.Ngay"
-               inputId="icon"
-               placeholder="dd/mm/yyyy"
-               (onSelect)="GetThongKeSanLuongNhanh()">
+         <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày:</label>
+         <div class="p-col-12 p-lg-9 p-pl-3">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true"
+               [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.Ngay" inputId="icon"
+               placeholder="dd/mm/yyyy" (onSelect)="GetThongKeSanLuongNhanh()">
             </p-calendar>
          </div>
       </div>
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
-         <div class="p-col-12 p-lg-8 p-p-0">
-            <p-dropdown
-               [filter]="true"
-               [options]="listPhanXuong"
-               placeholder="Chọn phân xưởng"
-               styleClass="p-inputtext-sm"
-               [(ngModel)]="item.IddmPhanXuong">
+         <label class="p-col-12 p-lg-3 p-p-0 my-auto">Phân xưởng:</label>
+         <div class="p-col-12 p-lg-9 p-p-0 ">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
+               styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong">
             </p-dropdown>
          </div>
       </div>
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
-         <div class="p-col-12 p-lg-8 p-p-0">
-            <p-dropdown
-               [filter]="true"
-               [options]="listCongDoan"
-               placeholder="Chọn công đoạn"
-               styleClass="p-inputtext-sm"
-               [(ngModel)]="item.CongDoan">
+         <label class="p-col-12 p-lg-3 p-p-0 my-auto">Công đoạn:</label>
+         <div class="p-col-12 p-lg-9 p-p-0">
+            <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
+               styleClass="p-inputtext-sm" [(ngModel)]="item.CongDoan" (onChange)="chon($event)">
             </p-dropdown>
          </div>
       </div>
-      <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
-         <div class="p-col-12 p-lg-8 p-p-0">
-            <input
-               type="text"
-               class="p-inputtext-sm"
-               [(ngModel)]="item.GhiChu"
-               pInputText />
+      <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+         <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
+         <div class="p-col-12 p-lg-11 p-pl-2">
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
          </div>
       </div>
       <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
          <label class="p-col-12 p-lg-1 p-p-0 my-auto">Nội dung:</label>
-         <div class="p-col-12 p-lg-11 p-pt-0 p-pr-0 p-pb-0 p-pl-5">
+         <div class="p-col-12 p-lg-11 p-pt-0 p-pr-0 p-pb-0 ">
             <textarea pInputTextarea [(ngModel)]="item.NoiDung"></textarea>
          </div>
       </div>
-      <div class="p-col-12 p-p-0 d-flex flex-column">
-         <table
-            class="table-sm table-striped table-bordered"
-            style="overflow-y: visible !important">
+      <!-- <div class="p-col-12 p-p-0 d-flex flex-column">
+         <table class="table-sm table-striped table-bordered" style="overflow-y: visible !important">
             <thead class="thead-dark">
                <tr>
                   <th rowspan="2">Máy</th>
                   <th rowspan="2">Mặt hàng</th>
-                  <th
-                     *ngFor="
+                  <th *ngFor="
                         let ca of (
                            item.listCongDoan | itemByCongDoan: item.CongDoan
                         )?.listHeader
-                     "
-                     [attr.colspan]="ca.listColumn.length">
+                     " [attr.colspan]="ca.listColumn.length">
                      {{ ca.TenCaSanXuat }}
                   </th>
                </tr>
                <tr>
-                  <ng-container
-                     *ngFor="
+                  <ng-container *ngFor="
                         let ca of (
                            item.listCongDoan | itemByCongDoan: item.CongDoan
                         )?.listHeader
@@ -149,27 +97,20 @@
                <tr>
                   <td></td>
                   <td></td>
-                  <ng-container
-                     *ngFor="
+                  <ng-container *ngFor="
                         let duLieuKhac of (
                            item.listCongDoan | itemByCongDoan: item.CongDoan
                         )?.listDuLieuCaSanXuatKhac
                      ">
                      <td [attr.colspan]="duLieuKhac.SoCot">
-                        <p-dropdown
-                           [filter]="true"
-                           [options]="listCaThucTe"
-                           placeholder="Chọn kíp"
-                           styleClass="p-inputtext-sm"
-                           [(ngModel)]="
+                        <p-dropdown [filter]="true" [options]="listCaThucTe" placeholder="Chọn kíp"
+                           styleClass="p-inputtext-sm" [(ngModel)]="
                               duLieuKhac.IddmCaSanXuatThucTe
                            "></p-dropdown>
                      </td>
                   </ng-container>
                </tr>
-               <tr
-                  #tr123
-                  *ngFor="
+               <tr #tr123 *ngFor="
                      let may of (
                         item.listCongDoan | itemByCongDoan: item.CongDoan
                      )?.listMay
@@ -183,54 +124,36 @@
                   <ng-container *ngFor="let ca of may.listCaSanXuat">
                      <td #td123 *ngFor="let chiso of ca.listColumn">
                         <ng-container *ngIf="chiso.LoaiInput === 'double'">
-                           <p-inputNumber
-                              [minFractionDigits]="3"
-                              locale="en-EN"
-                              (keydown)="
+                           <p-inputNumber [minFractionDigits]="3" locale="en-EN" (keydown)="
                                  chiso.GiaTri_Double =
                                     chiso.GiaTri_Double || null
-                              "
-                              (keydown)="moveFocus($event, td123, tr123)"
-                              step="0"
-                              [(ngModel)]="chiso.GiaTri_Double">
+                              " (keydown)="moveFocus($event, td123, tr123)" step="0" [(ngModel)]="chiso.GiaTri_Double">
                            </p-inputNumber>
                         </ng-container>
                         <ng-container *ngIf="chiso.LoaiInput === 'string'">
-                           <input
-                              type="text"
-                              class="p-inputtext-sm"
-                              (keydown)="
+                           <input type="text" class="p-inputtext-sm" (keydown)="
                                  chiso.GiaTri_String =
                                     chiso.GiaTri_String || null
-                              "
-                              (keydown)="moveFocus($event, td123, tr123)"
-                              [(ngModel)]="chiso.GiaTri_String"
+                              " (keydown)="moveFocus($event, td123, tr123)" [(ngModel)]="chiso.GiaTri_String"
                               pInputText />
                         </ng-container>
                         <ng-container *ngIf="chiso.LoaiInput === 'id'">
-                           <p-dropdown
-                              [filter]="true"
-                              [options]="listLoHang"
-                              (keydown.enter)="enter($event, td123, tr123)"
-                              (keydown)="
+                           <p-dropdown [filter]="true" [options]="listLoHang"
+                              (keydown.enter)="enter($event, td123, tr123)" (keydown)="
                                  moveFocus(
                                     $event,
                                     td123,
                                     tr123,
                                     chiso.LoaiInput
                                  )
-                              "
-                              placeholder="Chọn lô hàng"
-                              styleClass="p-inputtext-sm"
-                              [(ngModel)]="chiso.GiaTri_Id"></p-dropdown>
+                              " placeholder="Chọn lô hàng" styleClass="p-inputtext-sm" [(ngModel)]="chiso.GiaTri_Id">
+                           </p-dropdown>
                         </ng-container>
                      </td>
                   </ng-container>
                </tr>
 
-               <tr
-                  #tr123
-                  *ngFor="
+               <tr #tr123 *ngFor="
                      let bongphe of (
                         item.listCongDoan | itemByCongDoan: item.CongDoan
                      )?.listBongPhe
@@ -240,12 +163,8 @@
                   </td>
                   <ng-container *ngFor="let ca of bongphe.listCaSanXuat">
                      <td #td123 [attr.colspan]="ca.SoCot">
-                        <p-inputNumber
-                           (keydown)="ca.GiaTri = ca.GiaTri || null"
-                           (keydown)="moveFocus($event, td123, tr123)"
-                           step="0"
-                           [minFractionDigits]="3"
-                           locale="en-EN"
+                        <p-inputNumber (keydown)="ca.GiaTri = ca.GiaTri || null"
+                           (keydown)="moveFocus($event, td123, tr123)" step="0" [minFractionDigits]="3" locale="en-EN"
                            [(ngModel)]="ca.GiaTri">
                         </p-inputNumber>
                      </td>
@@ -254,29 +173,146 @@
                <tr>
                   <td></td>
                   <td></td>
-                  <ng-container
-                     *ngFor="
+                  <ng-container *ngFor="
                         let duLieuKhac of (
                            item.listCongDoan | itemByCongDoan: item.CongDoan
                         )?.listDuLieuCaSanXuatKhac
                      ">
                      <td [attr.colspan]="duLieuKhac.SoCot">
                         <div class="p-field-checkbox">
-                           <p-checkbox
-                              [(ngModel)]="duLieuKhac.isTruVaoSanLuong"
-                              binary="true"
-                              inputId="binary">
+                           <p-checkbox [(ngModel)]="duLieuKhac.isTruVaoSanLuong" binary="true" inputId="binary">
                            </p-checkbox>
-                           <label for="binary"
-                              >Trừ vào sản lượng gian máy</label
-                           >
+                           <label for="">Trừ vào sản lượng gian máy</label>    
                         </div>
                      </td>
                   </ng-container>
                </tr>
             </tbody>
          </table>
-      </div>
+      </div> -->
+   
+   <!-- huy nho -->
+   
+   <div class="p-col-12 p-p-0 d-flex flex-column">
+      <table class="table-sm table-striped table-bordered" style="overflow-y: visible !important">
+         <thead class="thead-dark">
+            <tr>
+               <th rowspan="2">Máy</th>
+               <th rowspan="2">Mặt hàng</th>
+               <th *ngFor="
+                     let ca of (
+                        item.listCongDoan | itemByCongDoan: item.CongDoan
+                     )?.listHeader
+                  " [attr.colspan]="ca.listColumn.length">
+                  {{ ca.TenCaSanXuat }}
+               </th>
+            </tr>
+            <tr>
+               <ng-container *ngFor="
+                     let ca of (
+                        item.listCongDoan | itemByCongDoan: item.CongDoan
+                     )?.listHeader
+                  ">
+                  <th *ngFor="let col of ca.listColumn">
+                     {{ col.Label }}
+                  </th>
+               </ng-container>
+            </tr>
+         </thead>
+         <tbody id="bodyTable">
+            <tr>
+               <td></td>
+               <td></td>
+               <ng-container *ngFor="
+               let opp of (
+                  item.listDuLieuCaSanXuatKhac 
+               )
+                  ">
+                  <td [attr.colspan]="this.socot_Copy">
+                        <p-dropdown [filter]="true" [options]="listCaThucTe" placeholder="Chọn kíp"
+                        styleClass="p-inputtext-sm w-full" [(ngModel)]="
+                        opp.IddmCaSanXuatThucTe
+                        "></p-dropdown>
+                  </td>
+               </ng-container>
+            </tr>
+            <tr #tr123 *ngFor="
+                  let may of (
+                     item.listCongDoan | itemByCongDoan: item.CongDoan
+                  )?.listMay
+               ">
+               <td>
+                  {{ may.TendmMay }}
+               </td>
+               <td>
+                  {{ may.TenMatHang }}
+               </td>
+               <ng-container *ngFor="let ca of may.listCaSanXuat">
+                  <td #td123 *ngFor="let chiso of ca.listColumn">
+                     <ng-container *ngIf="chiso.LoaiInput === 'double'">
+                        <p-inputNumber [minFractionDigits]="3" locale="en-EN" (keydown)="
+                              chiso.GiaTri_Double =
+                                 chiso.GiaTri_Double || null
+                           " (keydown)="moveFocus($event, td123, tr123)" step="0" [(ngModel)]="chiso.GiaTri_Double">
+                        </p-inputNumber>
+                     </ng-container>
+                     <ng-container *ngIf="chiso.LoaiInput === 'string'">
+                        <input type="text" class="p-inputtext-sm" (keydown)="
+                              chiso.GiaTri_String =
+                                 chiso.GiaTri_String || null
+                           " (keydown)="moveFocus($event, td123, tr123)" [(ngModel)]="chiso.GiaTri_String"
+                           pInputText />
+                     </ng-container>
+                     <ng-container *ngIf="chiso.LoaiInput === 'id'">
+                        <p-dropdown [filter]="true" [options]="listLoHang"
+                           (keydown.enter)="enter($event, td123, tr123)" (keydown)="
+                              moveFocus(
+                                 $event,
+                                 td123,
+                                 tr123,
+                                 chiso.LoaiInput
+                              )
+                           " placeholder="Chọn lô hàng" styleClass="p-inputtext-sm" [(ngModel)]="chiso.GiaTri_Id">
+                        </p-dropdown>
+                     </ng-container>
+                  </td>
+               </ng-container>
+            </tr>
+
+            <tr #tr123 *ngFor="
+                  let bongphe of (
+                     item.listCongDoan | itemByCongDoan: item.CongDoan
+                  )?.listBongPhe
+               ">
+               <td colspan="2" class="text-right">
+                  {{ bongphe.TendmBongPhe }}
+               </td>
+               <ng-container *ngFor="let ca of bongphe.listCaSanXuat">
+                  <td #td123 [attr.colspan]="ca.SoCot">
+                     <p-inputNumber (keydown)="ca.GiaTri = ca.GiaTri || null"
+                        (keydown)="moveFocus($event, td123, tr123)" step="0" [minFractionDigits]="3" locale="en-EN"
+                        [(ngModel)]="ca.GiaTri">
+                     </p-inputNumber>
+                  </td>
+               </ng-container>
+            </tr>
+            <tr>
+               <td></td>
+               <td></td>
+               <ng-container *ngFor="let duLieuKhac of item.listDuLieuCaSanXuatKhac">
+                  <td [attr.colspan]="this.socot_Copy">
+                     <div class="p-field-checkbox">
+                        <p-checkbox [(ngModel)]="duLieuKhac.isTruVaoSanLuong" binary="true" inputId="binary">
+                        </p-checkbox>
+                        <label for="">Trừ vào sản lượng gian máy</label>    
+                     </div>
+                  </td>
+               </ng-container>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <!--  -->
    </div>
 </div>
 <div class="modal-footer"></div>

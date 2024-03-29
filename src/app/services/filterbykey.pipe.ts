@@ -9,7 +9,7 @@ export class FilterByKeyPipe implements PipeTransform {
                         if (keyWord !== null && keyWord !== undefined && keyWord.trim() !== '') {
                                 return value.filter(ele => ele[Key].toString()
                                         .toLowerCase()
-                                        .includes(keyWord.toLowerCase())
+                                        .includes(keyWord.toLowerCase() ) 
                                 );
                         }
                         else {
@@ -19,4 +19,5 @@ export class FilterByKeyPipe implements PipeTransform {
                         return null;
                 }
         }
+
 }

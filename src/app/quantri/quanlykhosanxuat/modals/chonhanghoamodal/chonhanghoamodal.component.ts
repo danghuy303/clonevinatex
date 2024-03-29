@@ -12,6 +12,7 @@ import { validVariable } from 'src/app/services/globalfunction';
 export class ChonhanghoamodalComponent implements OnInit {
   items: any = [];
   selectedItems: any = [];
+  listSelectedItems: any = [];
   IdQuyTrinh: any;
   KeyWord: any = '';
   opt: any = '';
@@ -19,6 +20,7 @@ export class ChonhanghoamodalComponent implements OnInit {
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.items = this.items.sort((a, b) => a.Ne-b.Ne);
     this.items.forEach(item => {
       item.checked = false;
     });
@@ -61,7 +63,8 @@ export class ChonhanghoamodalComponent implements OnInit {
       }
     } else {
       this.items.forEach(item => {
-        item.checked = false;
+        // item.checked = false;
+        item.checked = this.listSelectedItems.includes(item.Id)
       });
     }
     if (this.items.length !== 0) {
@@ -101,7 +104,7 @@ export class ChonhanghoamodalComponent implements OnInit {
           return {
             ...ele,
             IdGiaoKeHoachSanXuat_TrienKhai: this.IdQuyTrinh,
-            IddmItem: ele.IddmItem,
+            IddmItem: ele.Id,
             Id: '',
           }
         }))

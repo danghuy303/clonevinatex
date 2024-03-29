@@ -68,7 +68,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
     this.getList();
   }
   GetListdmPhanXuong() {
-    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -154,7 +154,6 @@ export class ModalthanhlytaisanComponent implements OnInit {
           this.GetQuyTrinh(this.item.Id);
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
-          // this.activeModal.close();
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");

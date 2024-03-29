@@ -4,6 +4,7 @@ import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } fr
 import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix } from 'src/app/services/globalfunction';
 import { API } from 'src/app/services/host';
 import { StoreService } from 'src/app/services/store.service';
 
@@ -23,13 +24,14 @@ export class ImportdanhmucmodelComponent implements OnInit {
   Loai: any = '';
   uploader: FileUploader;
   data: any = {};
+  dataImport: any = {};
   IdDuAn: any;
   constructor(public _modalActive: NgbActiveModal, private _modal: NgbModal,
     private service: SanXuatService, private _toastr: ToastrService, private store: StoreService) { }
   ngOnInit(): void {
     this.IdDuAn = this.store.getCurrent();
     let option: FileUploaderOptions = {
-      url: `${API.uploadURL}`,
+      url: `${API.uploader}`,
       headers: [{ name: 'Accept', value: 'application/json' }],
       autoUpload: true,
     }
@@ -49,16 +51,17 @@ export class ImportdanhmucmodelComponent implements OnInit {
 
   onCompleteItem = (item: any, response: any, status: any, headers: any) => {
     let res = JSON.parse(response);
-    console.log(res)
-    this.TepImport.TenGui = res[0].Name;
-    this.TepImport.TenGoc = res[0].NameLocal;
-    this.TepImport.DuongDan = res[0].Url;
+    // this.TepImport.TenGui = res[0].Name;
+    // this.TepImport.TenGoc = res[0].NameLocal;
+    // this.TepImport.DuongDan = res[0].Url;
+    this.TepImport.TenGui = res.Name;
+    this.TepImport.TenGoc = res.NameLocal;
+    this.TepImport.DuongDan = res.Url;
   };
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
   }
   accept() {
-    console.log(this.TepImport)
-    if(this.Name == 'dinhmuctieuchichatluongsoi'){
+    if (this.Name == 'dinhmuctieuchichatluongsoi') {
       this.service.ImportDanhSachChiTieuChatLuongTheoSanPham(this.IdDuAn, '', this.TepImport.TenGui).subscribe((res: any) => {
         if (res.State === 1) {
           this._modalActive.close({ mess: 'Cập nhật thành công!' })
@@ -67,7 +70,50 @@ export class ImportdanhmucmodelComponent implements OnInit {
         }
       })
     }
-    else{
+    else if (this.Name == 'BCP') { //Import BÁn chế phẩm tô hiệu
+      let data = {
+        Id:this.importFunc,
+        FileName:this.TepImport.TenGui
+      }
+      this.service.KiemKeBanChePham().ImportKiemKeBanChePhamToHieu(data).subscribe((res: any) => {
+        if (res.State === 1) {
+          this._modalActive.close(res)
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
+    }
+    else if (this.Name == 'BCPHUECHUNG') { //Import Bán chế phẩm huế
+      let data = {
+        Id:this.importFunc,
+        FileName:this.TepImport.TenGui
+      }
+      this.service.KiemKeBanChePham().ImportKiemKeBanChePhamHue(data).subscribe((res: any) => {
+        if (res.State === 1) {
+          this._modalActive.close(res)
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
+    }
+    else if (this.Name == 'BCPHUE') { //Import Bán chế phẩm huế chung
+      let data = {
+        CongDoan: this.dataImport.CongDoan,
+        Ngay: DateToUnix(this.dataImport.Ngay),
+        IddmCaSanXuat: this.dataImport.IddmCaSanXuat,
+        IddmPhanXuong: this.dataImport.IddmPhanXuong,
+        FileName:this.TepImport.TenGui
+      }
+      this.service.KiemKeBanChePham().ImportThoDuTru(data).subscribe((res: any) => {
+        if (res.State === 1) {
+          this._toastr.success(res.message);
+          this._modalActive.close(res.Data)
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
+    }
+    else {
       this.service.Importdm(this.importFunc, this.TepImport.TenGui).subscribe((res: any) => {
         if (res.State === 1) {
           this._modalActive.close({ mess: 'Cập nhật thành công!' })
@@ -75,10 +121,10 @@ export class ImportdanhmucmodelComponent implements OnInit {
           this._toastr.error(res.message);
         }
       })
-    }    
+    }
   }
   acceptThongSoChatLuong() {
-    if(this.Loai == 'MIC'){
+    if (this.Loai == 'MIC') {
       this.service.PhieuNhapLoBong_ChatLuong().Import_Mic(this.data.Id, this.TepImport.TenGui).subscribe((res: any) => {
         if (res.State === 1) {
           this._modalActive.close({ mess: 'Cập nhật thành công!' })
@@ -87,16 +133,16 @@ export class ImportdanhmucmodelComponent implements OnInit {
         }
       })
     }
-    else{
+    else {
       this.service.PhieuNhapLoBong_ChatLuong().Import(this.data.Id, this.TepImport.TenGui).subscribe((res: any) => {
-      if (res.State === 1) {
-        this._modalActive.close({ mess: 'Cập nhật thành công!' })
-      } else {
-        this._toastr.error(res.message);
-      }
-    })
+        if (res.State === 1) {
+          this._modalActive.close({ mess: 'Cập nhật thành công!' })
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
     }
-  } 
+  }
 
   taiTepMau() {
     window.open(API.baseUrl + this.mapTepMauURL[this.importFunc]);

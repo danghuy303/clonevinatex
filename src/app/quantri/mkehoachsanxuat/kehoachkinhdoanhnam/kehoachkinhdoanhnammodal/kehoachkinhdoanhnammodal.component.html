@@ -143,7 +143,7 @@
                 class="text-right p-p-2" 
                 [style.color]="(sanLuongForAllMonth > nangLucSanXuatNam)?'red':''"
                 [tooltipDisabled]="!(sanLuongForAllMonth > nangLucSanXuatNam)"
-                [pTooltip]="(sanLuongForAllMonth > nangLucSanXuatNam)?'Vượt quá năng lực sản xuât năm':''"
+                [pTooltip]="(sanLuongForAllMonth > nangLucSanXuatNam)?'Vượt quá năng lực sản xuất năm':''"
               >
                 <b>{{sanLuongForAllMonth | number: '0.0'}}</b>
               </td>
@@ -152,7 +152,7 @@
                 class="tc-w-80 text-right"
                 [style.color]="(thang > nangLucSanXuatThang)?'red':''"
                 [tooltipDisabled]="!(thang > nangLucSanXuatThang)"
-                [pTooltip]="(thang > nangLucSanXuatThang)?'Vượt quá năng lực sản xuât tháng':'Tổng sản lượng tháng'"
+                [pTooltip]="(thang > nangLucSanXuatThang)?'Vượt quá năng lực sản xuất tháng':'Tổng sản lượng tháng'"
               >
               <b>{{thang | number: '0.0'}}</b>
               </td>

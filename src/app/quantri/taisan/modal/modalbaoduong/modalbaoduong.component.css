@@ -12,3 +12,10 @@ label {
 .check-pt {
     padding-top: 8px;
 }
+::ng-deep .p-calendar {
+   width: 100px;
+}
+
+::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link {
+    text-decoration: none;
+}

@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { validVariable } from 'src/app/services/globalfunction';
 
 @Component({
@@ -13,7 +14,10 @@ export class ThongTinDanhGiaComponent implements OnInit, OnChanges {
   filter: any = {};
   listDanhGia: any = [];
 
-  constructor() { 
+  constructor(
+    private router: Router,
+  ) { 
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -57,6 +61,10 @@ export class ThongTinDanhGiaComponent implements OnInit, OnChanges {
   changePage(e) {
     this.paging.currentPage = e.page;
     this.SplitPages(this.listDanhGia);
+  }
+
+  Xem(item:any) {
+    this.router.navigate([`/quantri/taisan/danhgianhacungung/${item.IdQuyTrinhDanhGia || 0}`]);
   }
 
 }

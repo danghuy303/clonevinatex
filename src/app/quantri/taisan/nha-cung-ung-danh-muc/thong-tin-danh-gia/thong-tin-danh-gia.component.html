@@ -15,6 +15,7 @@
         <col>
         <col>
         <col>
+        <col style="width: 120px">
       </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
@@ -24,6 +25,7 @@
         <th>Ngày</th>
         <th>Kết quả</th>
         <th>Ghi chú</th>
+        <th>Thao tác</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -33,6 +35,10 @@
         <td class="text-center">{{item.Created | date:'dd/MM/yyyy'}}</td>
         <td class="text-center">{{item.KetQuaDanhGia}}</td>
         <td>{{item.GhiChu}}</td>
+        <td class="text-center">
+          <button pButton pRipple type="button" icon="pi pi-eye"
+          pTooltip="Xem" tooltipPosition="top"   class="p-button-rounded p-button-secondary p-button-text" (click)="Xem(item)"></button>
+        </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">

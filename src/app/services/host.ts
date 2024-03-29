@@ -6,8 +6,9 @@ import { HttpHeaders } from "@angular/common/http";
 // const host1 = 'http://hoaxa.vinatex.harmonyes.com.vn';//Tong Cong Ty Det May Nam Dinh moi
 // const host1 = 'http://phuhung.vinatex.harmonyes.com.vn/';//Nha May Phu Hung
 // export const host1 = `${window.location.origin.includes("4200")
-export const host1 = `${window.location.origin.includes("4200")
-  ? "http://103.130.212.45:2369"
+export const host1 = `${window.location.origin.includes("localhost")
+  // ? "http://soindt.vinatex.com.vn"
+  ? "http://103.130.212.35:2369"
   : window.location.origin
   }`;
 // export const host1 = `http://27.71.231.140`;
@@ -24,7 +25,7 @@ export const host1 = `${window.location.origin.includes("4200")
 // const host = 'http://vinatex.harmonyes.com.vn';
 // host public 'http://vinatex.harmonyes.com.vn';
 // host phat trien 'http://eos.harmonyes.com.vn:1169';
-// const host1 = 'http://serverda:1169'
+// const host1 = 'http://serverda:1169' 
 export const httpOptions = {
   headers: new HttpHeaders({
     "Content-Type": "application/json",
@@ -61,7 +62,9 @@ export class API {
   public static danhmuc = API.baseUrl + "DanhMuc/";
   public static QLTSD = API.baseUrl + "QuanLyTaiSanDat/";
   public static uploadURL = host1 + "/QLTS/FileUploader/Post";
+  public static uploader = host1 + "/uploader/Post";
   public static uploadURLalt = host1 + "/uploader/api/hdfiles";
   public static downloadURL = host1 + "/uploader/api/hdfiles";
   public static imgURL = host1;
+  public static SCMKiemKeBanChePham = host1 + "/SCM/KiemKeBanChePham/";
 }

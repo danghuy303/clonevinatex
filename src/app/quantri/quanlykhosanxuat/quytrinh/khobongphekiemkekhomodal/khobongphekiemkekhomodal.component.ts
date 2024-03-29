@@ -137,6 +137,21 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
                 }
             });
     }
+    KhongDuyet() {
+        this.item.listItem = deepCopy(this.listItem);
+        this.services
+            .PhieuKiemKeKhoBongPhe()
+            .KhongDuyet(this.item)
+            .subscribe((res: any) => {
+                if (res) {
+                    if (res.State === 1) {
+                        this.activeModal.close();
+                    } else {
+                        this.toastr.error(res.message);
+                    }
+                }
+            });
+    }
 
     GetNextSoQuyTrinh() {
         this.services
@@ -200,14 +215,14 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
     }
 
     delete(index) {
-        let item = this.item.listItem.splice((this.paging.CurrentPage-1)*10+index, 1)[0];
+        let item = this.item.listItem.splice((this.paging.CurrentPage - 1) * 10 + index, 1)[0];
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
         } else {
             this.toastr.warning("Thao tác này đồng nghĩa việc không kiểm kê, không đồng nghĩa việc xóa khỏi kho");
             item.isXoa = true;
             this.item.listItem.push(JSON.parse(JSON.stringify(item)));
         }
-        this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage-1)*10,10);
+        this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage - 1) * 10, 10);
         this.paging.TotalItem = Math.ceil(this.item.listItem.filter(ele => ele.isXoa !== true).length);
     }
 

@@ -5,27 +5,18 @@
                 [(ngModel)]="filter.IdDuAn" (onChange)="filterdata()"></p-dropdown>
         </div> -->
       <div class="p-mr-2">
-         <p-dropdown
-            [filter]="true"
-            [options]="listPhanXuong"
-            placeholder="Chọn phân xưởng"
-            styleClass="p-inputtext-sm"
-            [(ngModel)]="filter.IddmPhanXuong"
-            (onChange)="filterdata()"></p-dropdown>
+         <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+            [(ngModel)]="filter.IddmPhanXuong" (onChange)="filterdata()"></p-dropdown>
       </div>
       <div>
-         <p-dropdown
-            [options]="Nams"
-            styleClass="p-inputtext-sm"
-            [(ngModel)]="filter.nNam"
-            (onChange)="filterdata()"></p-dropdown>
+         <p-dropdown [options]="Nams" styleClass="p-inputtext-sm" [(ngModel)]="filter.nNam" (onChange)="filterdata()">
+         </p-dropdown>
       </div>
    </div>
 </div>
 <div class="p-grid" style="align-self: stretch">
    <div class="p-col-12 p-xl-8 p-lg-8 p-p-3">
-      <div
-         style="
+      <div style="
             background-color: white;
             border-radius: 5px;
             padding: 5px;
@@ -37,30 +28,16 @@
             </div>
             <div class="p-d-flex flex-column flex-lg-row">
                <div class="p-mr-2">
-                  <p-dropdown
-                     [filter]="true"
-                     [options]="listCa"
-                     placeholder="Chọn ca"
-                     styleClass="p-inputtext-sm"
-                     [(ngModel)]="filter.IddmCaSanXuatThucTe"
-                     (onChange)="filterdatatonghop()"></p-dropdown>
+                  <p-dropdown [filter]="true" [options]="listCa" placeholder="Chọn ca" styleClass="p-inputtext-sm"
+                     [(ngModel)]="filter.IddmCaSanXuatThucTe" (onChange)="filterdatatonghop()"></p-dropdown>
                </div>
                <div class="p-mr-2">
-                  <p-dropdown
-                     [filter]="true"
-                     [options]="listThang"
-                     styleClass="p-inputtext-sm"
-                     [(ngModel)]="filter.nThang"
-                     (onChange)="filterdatatonghop()"></p-dropdown>
+                  <p-dropdown [filter]="true" [options]="listThang" styleClass="p-inputtext-sm"
+                     [(ngModel)]="filter.nThang" (onChange)="filterdatatonghop()"></p-dropdown>
                </div>
                <div class="p-mr-2">
-                  <p-dropdown
-                     [filter]="true"
-                     [options]="listNgay"
-                     placeholder="Chọn ngày"
-                     styleClass="p-inputtext-sm"
-                     [(ngModel)]="filter.nNgay"
-                     (onChange)="filterdatatonghop()">
+                  <p-dropdown [filter]="true" [options]="listNgay" placeholder="Chọn ngày" styleClass="p-inputtext-sm"
+                     [(ngModel)]="filter.nNgay" (onChange)="filterdatatonghop()">
                   </p-dropdown>
                </div>
                <!-- <div class="p-mr-2">
@@ -77,9 +54,7 @@
          <div class="p-d-flex flex-column flex-lg-row">
             <div class="p-col-12 p-xl-8 p-lg-8 p-p-3">
                <div>
-                  <p-table
-                     [value]="thongKes"
-                     styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font">
+                  <p-table [value]="thongKes" styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font">
                      <ng-template pTemplate="header">
                         <tr class="normal">
                            <th style="width: 20px">#</th>
@@ -93,52 +68,33 @@
                            <td class="text-center">{{ i + 1 }}</td>
                            <td>
                               {{ thongke.Ten }}
-                              <span
-                                 *ngIf="
+                              <span *ngIf="
                                     thongke?.button === 'chitietsanluongong'
                                  ">
-                                 <a
-                                    href="javascript:void(0)"
-                                    (click)="xemSanLuong()"
-                                    >Chi tiết</a
-                                 >
+                                 <a href="javascript:void(0)" (click)="xemSanLuong()">Chi tiết</a>
                               </span>
                               <span *ngIf="thongke?.button === 'chitietluyke'">
-                                 <a
-                                    href="javascript:void(0)"
-                                    (click)="xemLuyKeChiTiet()"
-                                    >Chi tiết</a
-                                 >
+                                 <a href="javascript:void(0)" (click)="xemLuyKeChiTiet()">Chi tiết</a>
                               </span>
-                              <span
-                                 *ngIf="
+                              <span *ngIf="
                                     thongke?.button === 'xuatexceltongdien'
                                  ">
-                                 <p-button
-                                    styleClass="p-button-xs"
-                                    icon="fas fa-file-excel"
-                                    (click)="xuatBaoCaoDien()"></p-button>
+                                 <p-button styleClass="p-button-xs" icon="fas fa-file-excel" (click)="xuatBaoCaoDien()">
+                                 </p-button>
                               </span>
-                              <span
-                                 *ngIf="
+                              <span *ngIf="
                                     thongke?.button === 'xuatexceltiendien'
                                  ">
-                                 <p-button
-                                    styleClass="p-button-xs"
-                                    icon="fas fa-file-excel"
+                                 <p-button styleClass="p-button-xs" icon="fas fa-file-excel"
                                     (click)="xuatBaoCaoTienDien()"></p-button>
                               </span>
-                              <span
-                                 *ngIf="thongke?.button2 === 'bieudotongdien'">
-                                 <p-button
-                                    styleClass="p-button-xs ml-1"
-                                    icon="fas fa-chart-bar"
-                                    (click)="bieuDoDien()"></p-button>
+                              <span *ngIf="thongke?.button2 === 'bieudotongdien'">
+                                 <p-button styleClass="p-button-xs ml-1" icon="fas fa-chart-bar" (click)="bieuDoDien()">
+                                 </p-button>
                               </span>
                            </td>
                            <td class="text-center">
-                              <div
-                                 *ngIf="
+                              <div *ngIf="
                                     thongke.TieuHao != 'KwH' &&
                                        thongke.TieuHao != '%';
                                     else elseTieuHao
@@ -161,8 +117,7 @@
                </div>
             </div>
             <div class="p-col-12 p-xl-4 p-lg-4 p-p-3 text-center">
-               <div
-                  style="
+               <div style="
                      display: flex;
                      flex-direction: column;
                      flex: 1;
@@ -170,25 +125,19 @@
                   ">
                   <ng-container *ngFor="let thongke of thongKes1">
                      <ng-container *ngIf="thongke">
-                        <div
-                           class="d-flex flex-row p-jc-between p-pt-1"
-                           [ngClass]="{ canhbao: thongke.isRed }">
-                           <div>{{ thongke.Ten }}</div>
-                           <div>
+                        <div class="d-flex flex-row p-jc-between p-pt-1" [ngClass]="{ canhbao: thongke.isRed }">
+                           <div [pTooltip]="thongke.tollTip" tooltipPosition="top" class="text-left">{{ thongke.Ten }}
+                           </div>
+                           <div class="text-right">
                               {{ thongke.GiaTri | number: '0.3-3' }}
-                              <span *ngIf="thongke.DinhMuc !== undefined"
-                                 >/
-                                 {{ thongke.DinhMuc | number: '0.3-3' }}</span
-                              >
+                              <span *ngIf="thongke.DinhMuc !== undefined">/
+                                 {{ thongke.DinhMuc | number: '0.3-3' }}</span>
                            </div>
                         </div>
                      </ng-container>
                   </ng-container>
                </div>
-               <p-button
-                  styleClass="p-button-sm ml-1 mt-2"
-                  (click)="bieuDoTyLeThongKeSanLuong()"
-                  >Tỷ lệ tiêu hao
+               <p-button styleClass="p-button-sm ml-1 mt-2" (click)="bieuDoTyLeThongKeSanLuong()">Tỷ lệ tiêu hao
                </p-button>
                <!-- <p *ngFor="let thongke of thongKes1">
                          {{thongke.GiaTri|number:'0.0-3'}}
@@ -200,7 +149,12 @@
 
    <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
       <div class="chart text-left">
-         <h5>Cơ cấu mặt hàng theo thực xuất</h5>
+         <!-- <h5>Cơ cấu mặt hàng theo thực xuất</h5> -->
+         <div class="d-flex p-jc-center">
+            <span>Mặt hàng thực xuất</span>
+            <p-inputSwitch class="p-mx-3" [(ngModel)]="checked" (onChange)="Loai_BieuDoCoCau($event)"></p-inputSwitch>
+            <span>Mặt hàng đang sản xuất</span>
+         </div>
          <p-chart type="pie" [data]="dataPie" [options]="optionPie"></p-chart>
       </div>
    </div>
@@ -210,12 +164,8 @@
             <div class="p-d-flex p-flex-row">
                <h5>Danh sách mặt hàng</h5>
                <div style="display: table; height: 100%; margin-left: 15px">
-                  <a
-                     style="display: table-cell; vertical-align: middle"
-                     href="javascript:void(0)"
-                     (click)="xemTruySuatNguonGoc()"
-                     >Truy xuất nguồn gốc</a
-                  >
+                  <a style="display: table-cell; vertical-align: middle" href="javascript:void(0)"
+                     (click)="xemTruySuatNguonGoc()">Truy xuất nguồn gốc</a>
                </div>
                <!-- <div style="display:table;height:100%;margin-left: 15px;">
                         <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
@@ -224,44 +174,23 @@
             </div>
             <div class="p-d-flex p-flex-row">
                <div class="p-mr-2">
-                  <p-dropdown
-                     [filter]="true"
-                     [options]="listtieuchi"
-                     placeholder="Chọn tiêu chí"
-                     styleClass="p-inputtext-sm"
-                     [(ngModel)]="filter.IddmChiTieu"
+                  <p-dropdown [filter]="true" [options]="listtieuchi" placeholder="Chọn tiêu chí"
+                     styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmChiTieu"
                      (onChange)="GetBaoCaoQuyTrinhKiemTraChatLuong()">
                   </p-dropdown>
                </div>
                <div class="p-inputgroup" style="width: 150px">
-                  <input
-                     type="text"
-                     placeholder="Tìm kiếm"
-                     class="p-inputtext-sm"
-                     pInputText
-                     (keyup.enter)="GetBieuDoDuongKiemTraChatLuong()"
-                     [(ngModel)]="filter.KeyWord" />
-                  <button
-                     type="button"
-                     pButton
-                     pRipple
-                     icon="pi pi-refresh"
-                     class="p-button-secondary p-button-sm p-button-text"
-                     (click)="resetFilter()"></button>
+                  <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+                     (keyup.enter)="GetBieuDoDuongKiemTraChatLuong()" [(ngModel)]="filter.KeyWord" />
+                  <button type="button" pButton pRipple icon="pi pi-refresh"
+                     class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                </div>
                <div style="display: table; height: 100%">
                   <!-- <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
                         (click)="xuatBaoCaoTieuChi()">Xuất báo cáo</a> -->
-                  <p-button
-                     #menuToggle
-                     styleClass="p-button-sm"
-                     icon="fas fa-file-excel"
-                     (click)="menu.toggle($event)"></p-button>
-                  <p-menu
-                     #menu
-                     [appendTo]="menuToggle"
-                     [popup]="true"
-                     [model]="listXuatBaoCao"></p-menu>
+                  <p-button #menuToggle styleClass="p-button-sm" icon="fas fa-file-excel" (click)="menu.toggle($event)">
+                  </p-button>
+                  <p-menu #menu [appendTo]="menuToggle" [popup]="true" [model]="listXuatBaoCao"></p-menu>
                </div>
                <!-- <div style="display:table;height:100%">
                         <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
@@ -270,19 +199,15 @@
             </div>
          </div>
          <div #bangScroll style="height: calc((100vh - 192.5px) / 2 - 40px)">
-            <p-table
-               [value]="listMatHang | filter: filter.KeyWord"
-               styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font"
-               [scrollable]="true"
+            <p-table [value]="listMatHang | filter: filter.KeyWord"
+               styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font" [scrollable]="true"
                scrollHeight="flex">
                <ng-template pTemplate="header">
                   <tr class="normal">
                      <th style="width: 35px !important">BC</th>
                      <th style="width: 35px !important">NG</th>
                      <th style="width: 200px !important">Mặt hàng</th>
-                     <th
-                        *ngFor="let header of headerChatLuongSanPham"
-                        style="width: 80px !important">
+                     <th *ngFor="let header of headerChatLuongSanPham" style="width: 80px !important">
                         {{ header.label }}
                      </th>
                   </tr>
@@ -290,23 +215,15 @@
                <ng-template pTemplate="body" let-item let-i="rowIndex">
                   <tr>
                      <td class="text-center" style="width: 35px !important">
-                        <p-checkbox
-                           [ngModel]="item.xuatChecked"
-                           (onChange)="checkXuatMatHang($event, item, i)"
-                           binary="true"
-                           inputId="binary"></p-checkbox>
+                        <p-checkbox [ngModel]="item.xuatChecked" (onChange)="checkXuatMatHang($event, item, i)"
+                           binary="true" inputId="binary"></p-checkbox>
                      </td>
                      <td class="text-center" style="width: 35px !important">
-                        <p-checkbox
-                           [ngModel]="item.checked"
-                           (onChange)="checkMatHang($event, item, i)"
-                           binary="true"
+                        <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event, item, i)" binary="true"
                            inputId="binary"></p-checkbox>
                      </td>
                      <td style="width: 200px !important">{{ item.TenItem }}</td>
-                     <td
-                        *ngFor="let body of headerChatLuongSanPham"
-                        style="width: 80px !important">
+                     <td *ngFor="let body of headerChatLuongSanPham" style="width: 80px !important">
                         {{ item[body.prop] | number: '0.0-2' }}
                      </td>
                   </tr>
@@ -319,8 +236,7 @@
       <div class="chart text-left">
          <div style="display: flex; flex-direction: row">
             <div style="display: table; margin-right: 10px">
-               <h5
-                  style="
+               <h5 style="
                      margin: 0px;
                      display: table-cell;
                      vertical-align: middle;
@@ -329,19 +245,16 @@
                </h5>
             </div>
             <div style="display: inline">
-               <p-dropdown
-                  [filter]="false"
-                  [options]="listLoaiThoiGian"
-                  styleClass="p-inputtext-sm"
-                  [(ngModel)]="filter.LoaiThoiGian"
-                  (onChange)="GetBieuDoDuongKiemTraChatLuong_js()">
+               <p-dropdown [filter]="false" [options]="listLoaiThoiGian" styleClass="p-inputtext-sm"
+                  [(ngModel)]="filter.LoaiThoiGian" (onChange)="GetBieuDoDuongKiemTraChatLuong_js()">
                </p-dropdown>
             </div>
             <div class="p-ml-2">
-                 <div style="padding-top: 8px;">
-                     <p-checkbox [(ngModel)]="isKhongHienChuNhat" binary="true" (onChange)="GetBieuDoDuongKiemTraChatLuong_js()"></p-checkbox>
-                     <label style="margin: 0;">Không hiển thị chủ nhật</label>
-                 </div>
+               <div style="padding-top: 8px;">
+                  <p-checkbox [(ngModel)]="isKhongHienChuNhat" binary="true"
+                     (onChange)="GetBieuDoDuongKiemTraChatLuong_js()"></p-checkbox>
+                  <label style="margin: 0;">Không hiển thị chủ nhật</label>
+               </div>
             </div>
          </div>
          <p-chart type="line" [data]="dataSet1" [options]="option1"></p-chart>
@@ -349,24 +262,15 @@
    </div>
 </div>
 
-<p-dialog
-   [header]="labelSanLuongOng"
-   [(visible)]="showSanLuong"
-   [modal]="true"
-   [style]="{ width: '95vw' }"
-   [baseZIndex]="10000"
-   [draggable]="false"
-   [resizable]="false">
-   <p-table
-      [value]="listHienThiSanLuongOng"
-      styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
-      [scrollable]="true"
-      scrollHeight="500px">
+<p-dialog [header]="labelSanLuongOng" [(visible)]="showSanLuong" [modal]="true" [style]="{ width: '95vw' }"
+   [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+   <p-table [value]="listHienThiSanLuongOng" styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
+      [scrollable]="true" scrollHeight="500px">
       <ng-template pTemplate="colgroup">
          <colgroup>
             <col style="width: 150px" />
             <col style="width: 50px" />
-            <col style="width: 90px" />
+            <col style="width: 300px" />
             <col style="width: 90px" />
             <col style="width: 100px" />
             <col style="width: 100px" />
@@ -391,7 +295,7 @@
             <th>Chi số</th>
             <th>Máy chạy</th>
             <th>Sản lượng màn hình</th>
-            <th>Số quả thực tế</th>
+            <th>Số quả đơn hồi ẩm TT</th>
             <th>Sản lượng thực tế</th>
             <th>Lô</th>
          </tr>
@@ -404,16 +308,16 @@
             </th>
             <th class="text-right">
                {{
-                  listHienThiSanLuongOng
-                     | SumByKey: 'SoQuaSoiThucTe'
-                     | number: '0.0-3'
+               listHienThiSanLuongOng
+               | SumByKey: 'SoQuaSoiThucTe'
+               | number: '0.0-3'
                }}
             </th>
             <th class="text-right">
                {{
-                  listHienThiSanLuongOng
-                     | SumByKey: 'KhoiLuongThucTe'
-                     | number: '0.0-3'
+               listHienThiSanLuongOng
+               | SumByKey: 'KhoiLuongThucTe'
+               | number: '0.0-3'
                }}
             </th>
             <th></th>
@@ -450,27 +354,18 @@
       </ng-template>
    </p-table>
 </p-dialog>
-<p-dialog
-   [header]="SelectItem.TenItem"
-   [(visible)]="showTruySuatNguonGoc"
-   [modal]="true"
-   [style]="{ width: '95vw' }"
-   [baseZIndex]="10000"
-   [draggable]="false"
-   [resizable]="false">
-   <p-table
-      [value]="listTruySuatNguonGoc"
-      styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
-      [scrollable]="true"
-      scrollHeight="500px">
+<p-dialog [header]="SelectItem.TenItem" [(visible)]="showTruySuatNguonGoc" [modal]="true" [style]="{ width: '95vw' }"
+   [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+   <p-table [value]="listTruySuatNguonGoc" styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
+      [scrollable]="true" scrollHeight="500px">
       <ng-template pTemplate="colgroup">
          <colgroup>
             <col style="width: 30px" />
             <col style="width: 7rem" />
             <!-- <col style="width: 10rem;"> -->
             <col style="width: 100px" />
-            <col style="width: 150px" />
-            <col style="width: 150px" />
+            <col style="width: 350px; min-width: 350px;" />
+            <col style="width: 200px; min-width: 200px;" />
             <col style="width: 150px" />
          </colgroup>
       </ng-template>
@@ -496,68 +391,42 @@
             <td>
                <a [href]="item.herfgiaokehoachsanxuat" target="_blank">{{
                   item.TenGiaoKeHoach
-               }}</a>
+                  }}</a>
             </td>
             <td>
                <a [href]="item.herftrienkhaikehoachsanxuat" target="_blank">{{
                   item.TenTrienKhaiKeHoach
-               }}</a>
+                  }}</a>
             </td>
             <td>
                <a [href]="item.herfphabong" target="_blank">{{
                   item.TenPhuongAnPhaBong
-               }}</a>
+                  }}</a>
             </td>
          </tr>
       </ng-template>
    </p-table>
 </p-dialog>
 
-<p-dialog
-   [header]="labelLuyKeChiTiet"
-   [(visible)]="showLuyKeChiTiet"
-   [modal]="true"
-   [style]="{ width: '95vw', height: 'auto' }"
-   [baseZIndex]="10000"
-   [draggable]="false"
-   [resizable]="false">
+<p-dialog [header]="labelLuyKeChiTiet" [(visible)]="showLuyKeChiTiet" [modal]="true"
+   [style]="{ width: '95vw', height: 'auto' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
    <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
       <div class="p-d-flex p-flex-row">
          <div class="p-mr-2">
-            <p-calendar
-               dateFormat="dd/mm/yy"
-               inputStyleClass="p-inputtext-sm"
-               [showIcon]="true"
-               [(ngModel)]="timKiem.TuNgayDate"
-               inputId="icon"
-               placeholder="Từ ngày"
-               (onSelect)="getBaoCaoLuyKe()">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+               [(ngModel)]="timKiem.TuNgayDate" inputId="icon" placeholder="Từ ngày" (onSelect)="getBaoCaoLuyKe()">
             </p-calendar>
          </div>
          <div class="p-mr-2">
-            <p-calendar
-               dateFormat="dd/mm/yy"
-               inputStyleClass="p-inputtext-sm"
-               [showIcon]="true"
-               [(ngModel)]="timKiem.DenNgayDate"
-               inputId="icon"
-               placeholder="Đến ngày"
-               (onSelect)="getBaoCaoLuyKe()">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+               [(ngModel)]="timKiem.DenNgayDate" inputId="icon" placeholder="Đến ngày" (onSelect)="getBaoCaoLuyKe()">
             </p-calendar>
          </div>
-         <button
-            pButton
-            pRipple
-            label="Tìm kiếm"
-            icon="pi pi-search"
-            class="p-button-sm p-mr-2"
+         <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-2"
             (click)="getBaoCaoLuyKe()"></button>
       </div>
    </div>
-   <p-table
-      [value]="listLuyKeChiTiet"
-      styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
-      [scrollable]="true"
+   <p-table [value]="listLuyKeChiTiet" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"
       scrollHeight="500px">
       <ng-template pTemplate="colgroup">
          <colgroup>
@@ -580,8 +449,8 @@
             <th>
                SL đã trừ phế:
                {{
-                  TongKhoiLuongLuyKeChiTiet - TongPheLuyKeChiTiet
-                     | number: '0.0-3'
+               TongKhoiLuongLuyKeChiTiet - TongPheLuyKeChiTiet
+               | number: '0.0-3'
                }}
             </th>
             <th></th>
@@ -592,7 +461,7 @@
             <th>Lô</th>
             <!-- <th>Máy chạy</th> -->
             <th>Sản lượng màn hình</th>
-            <th>Số quả thực tế</th>
+            <th>Số quả đơn hồi ẩm TT</th>
             <th>Sản lượng thực tế</th>
          </tr>
          <tr class="normal">
@@ -605,16 +474,16 @@
             </th>
             <th class="text-right">
                {{
-                  listLuyKeChiTiet
-                     | SumByKey: 'SoQuaSoiThucTe'
-                     | number: '0.0-3'
+               listLuyKeChiTiet
+               | SumByKey: 'SoQuaSoiThucTe'
+               | number: '0.0-3'
                }}
             </th>
             <th class="text-right">
                {{
-                  listLuyKeChiTiet
-                     | SumByKey: 'KhoiLuongThucTe'
-                     | number: '0.0-3'
+               listLuyKeChiTiet
+               | SumByKey: 'KhoiLuongThucTe'
+               | number: '0.0-3'
                }}
             </th>
          </tr>
@@ -653,58 +522,37 @@
    </p-table>
 </p-dialog>
 
-<p-dialog
-   header="Biểu đồ điện"
-   [(visible)]="showBieuDoDien"
-   [modal]="true"
-   [style]="{ width: '95vw', height: 'auto' }"
-   [baseZIndex]="10000"
-   [draggable]="false"
-   [resizable]="false">
+<p-dialog header="Biểu đồ điện" [(visible)]="showBieuDoDien" [modal]="true" [style]="{ width: '95vw', height: 'auto' }"
+   [baseZIndex]="10000" [draggable]="false" [resizable]="false">
    <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
       <div class="p-d-flex p-flex-row">
          <div class="p-mr-2">
-            <p-calendar
-               dateFormat="dd/mm/yy"
-               inputStyleClass="p-inputtext-sm"
-               [showIcon]="true"
-               [(ngModel)]="filterBieuDo_TienDien.TuNgay"
-               inputId="icon"
-               placeholder="Từ ngày"
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+               [(ngModel)]="filterBieuDo_TienDien.TuNgay" inputId="icon" placeholder="Từ ngày"
                (onSelect)="getBieuDoDien()">
             </p-calendar>
          </div>
          <div class="p-mr-2">
-            <p-calendar
-               dateFormat="dd/mm/yy"
-               inputStyleClass="p-inputtext-sm"
-               [showIcon]="true"
-               [(ngModel)]="filterBieuDo_TienDien.DenNgay"
-               inputId="icon"
-               placeholder="Đến ngày"
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+               [(ngModel)]="filterBieuDo_TienDien.DenNgay" inputId="icon" placeholder="Đến ngày"
                (onSelect)="getBieuDoDien()">
             </p-calendar>
          </div>
-         <button
-            pButton
-            pRipple
-            label="Tìm kiếm"
-            icon="pi pi-search"
-            class="p-button-sm p-mr-5"
+         <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-5"
             (click)="getBieuDoDien()"></button>
       </div>
    </div>
    <div class="p-d-flex p-flex-row p-pb-3 p-px-3 text-center p-jc-between">
       <div class="p-mr-5" style="display: flex; align-items: center">
-         <strong>Lợi nhuận điện GY:</strong> &nbsp;
+         <strong>Lợi nhuận điện Solar GY/Solar:</strong> &nbsp;
          {{ ThongTinLuyKeDien.TongTienDienGY | number: '0.0' }} Đồng
       </div>
       <div class="p-mr-5" style="display: flex; align-items: center">
-         <strong>Lũy kế lợi nhuận điện GY:</strong> &nbsp;
+         <strong>Lũy kế lợi nhuận điện Solar GY/Solar:</strong> &nbsp;
          {{ ThongTinLuyKeDien.TongTienDienGY_LuyKe | number: '0.0' }} Đồng
       </div>
       <div style="display: flex; align-items: center">
-         <strong>Lũy kế điện GY:</strong> &nbsp;
+         <strong>Lũy kế điện Solar GY/Solar:</strong> &nbsp;
          {{ ThongTinLuyKeDien.TongSoDienGY_LuyKe | number: '0.0' }} Kwh
       </div>
       <div style="display: flex; align-items: center">
@@ -714,25 +562,14 @@
       </div>
    </div>
    <div class="responsiveChart">
-      <p-chart
-         type="bar"
-         [data]="dataBieuDoDien"
-         [options]="optionBarDien"></p-chart>
+      <p-chart type="bar" [data]="dataBieuDoDien" [options]="optionBarDien"></p-chart>
    </div>
 </p-dialog>
-<p-dialog
-   header="Biểu đồ tỷ lệ tiêu hao"
-   [(visible)]="showBieuDoTyLe"
-   [modal]="true"
-   [style]="{ width: '95vw', height: 'auto' }"
-   [baseZIndex]="10000"
-   [draggable]="false"
-   [resizable]="false">
+<p-dialog header="Biểu đồ tỷ lệ tiêu hao" [(visible)]="showBieuDoTyLe" [modal]="true"
+   [style]="{ width: '95vw', height: 'auto' }" [baseZIndex]="1000" [draggable]="false" [resizable]="false">
    <div class="p-d-flex p-flex-row p-jc-end">
       <div class="p-col-3">
-         <p-table
-            [value]="TyLeBongPhe_Hoi"
-            styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font">
+         <p-table [value]="TyLeBongPhe_Hoi" styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font">
             <ng-template pTemplate="header">
                <tr class="normal">
                   <th>Nội dung</th>
@@ -742,10 +579,11 @@
             </ng-template>
             <ng-template pTemplate="body" let-thongke let-i="rowIndex">
                <tr>
-                  <td>{{ thongke.Ten }}</td>
-                  <td
-                     class="text-right"
-                     [ngStyle]="{
+                  <td>
+                     <!-- <p class="tooltip" [ngbTooltip]="thongke.CongThuc">{{ thongke.Ten }}</p> -->
+                     <p [pTooltip]="thongke.CongThuc" tooltipPosition="top">{{ thongke.Ten }}</p>
+                  </td>
+                  <td class="text-right" [ngStyle]="{
                         color:
                            thongke.isCanhBao &&
                            thongke.GiaTriTyLe > thongke.TieuChuanTyLe
@@ -753,12 +591,10 @@
                               : 'black'
                      }">
                      {{ thongke.GiaTriTyLe | number: '0.3-3' }}
-                     <ng-container *ngIf="thongke.isCanhBao"
-                        >/
+                     <ng-container *ngIf="thongke.isCanhBao">/
                         {{
-                           thongke.TieuChuanTyLe | number: '0.3-3'
-                        }}</ng-container
-                     >
+                        thongke.TieuChuanTyLe | number: '0.3-3'
+                        }}</ng-container>
                      <!-- <div *ngIf="thongke.TieuHao!='KwH'&&thongke.TieuHao!='%'; else elseTieuHao">
                             {{thongke.TieuHao|number:'0.0-3'}}
                         </div>
@@ -779,41 +615,23 @@
          <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
             <div class="p-d-flex p-flex-row">
                <div class="p-mr-2">
-                  <p-calendar
-                     dateFormat="dd/mm/yy"
-                     inputStyleClass="p-inputtext-sm"
-                     [showIcon]="true"
-                     [(ngModel)]="filterBieuDo_TyLe.TuNgay"
-                     inputId="icon"
-                     placeholder="Từ ngày"
+                  <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                     [(ngModel)]="filterBieuDo_TyLe.TuNgay" inputId="icon" placeholder="Từ ngày"
                      (onSelect)="bieuDoTyLeThongKeSanLuong()">
                   </p-calendar>
                </div>
                <div class="p-mr-2">
-                  <p-calendar
-                     dateFormat="dd/mm/yy"
-                     inputStyleClass="p-inputtext-sm"
-                     [showIcon]="true"
-                     [(ngModel)]="filterBieuDo_TyLe.DenNgay"
-                     inputId="icon"
-                     placeholder="Đến ngày"
+                  <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                     [(ngModel)]="filterBieuDo_TyLe.DenNgay" inputId="icon" placeholder="Đến ngày"
                      (onSelect)="bieuDoTyLeThongKeSanLuong()">
                   </p-calendar>
                </div>
-               <button
-                  pButton
-                  pRipple
-                  label="Tìm kiếm"
-                  icon="pi pi-search"
-                  class="p-button-sm p-mr-2"
+               <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-2"
                   (click)="bieuDoTyLeThongKeSanLuong()"></button>
             </div>
          </div>
          <div class="responsiveChart">
-            <p-chart
-               type="bar"
-               [data]="dataBieuDoTyLe"
-               [options]="optionBar"></p-chart>
+            <p-chart type="bar" [data]="dataBieuDoTyLe" [options]="optionBar"></p-chart>
          </div>
       </div>
    </div>

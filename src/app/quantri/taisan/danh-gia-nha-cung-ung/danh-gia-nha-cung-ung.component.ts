@@ -6,6 +6,8 @@ import { DateToUnix, UnixToDate } from "src/app/services/globalfunction";
 import { DanhGiaNhaCungUngModalComponent } from './danh-gia-nha-cung-ung-modal/danh-gia-nha-cung-ung-modal.component';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-danh-gia-nha-cung-ung',
@@ -13,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./danh-gia-nha-cung-ung.component.css']
 })
 export class DanhGiaNhaCungUngComponent implements OnInit {
-
+  $sub!: Subscription;
   @ViewChild('paginator') paginator:any;
   filter: any = {};
   eAction: any = "QUYTRINHDANHGIANHACUNGUNG";
@@ -30,7 +32,14 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
     private taiSanService: TaisanService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-  ) { }
+    private store: StoreService
+  ) { 
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+  }
 
   ngOnInit(): void {
 

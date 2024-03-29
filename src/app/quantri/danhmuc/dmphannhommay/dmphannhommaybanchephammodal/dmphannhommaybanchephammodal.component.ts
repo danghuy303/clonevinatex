@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { PintableDirective } from 'voi-lib';
 import { DmphannhommayChonmathangmodalComponent } from '../../dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
 
 @Component({
@@ -11,6 +13,7 @@ import { DmphannhommayChonmathangmodalComponent } from '../../dmphannhommay-chon
   styleUrls: ['./dmphannhommaybanchephammodal.component.css']
 })
 export class DmphannhommaybanchephammodalComponent implements OnInit {
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
   public item: any = {};
   public title: any = '';
   public type = '';
@@ -18,6 +21,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
   childModalOpt: any = null;
   listPhanXuong: any = [];
   listCongDoan: any = [];
+  listCongThuc: any = [];
   listloaisoi: any = [];
   listDonViNangSuat: any = [];
   khongclicknhieu: any = false;
@@ -30,6 +34,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
   filter: any = {
     KeyWord: ''
   };
+  lstdmItem_Copy: any = [];
   mapCongDoan: any = {
     THO: 'SOI',
     GHEPDAURA: 'SOI',
@@ -47,6 +52,8 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
     CHAIKY: ''
   }
   listdmTieuChiBanChePham : any = [];
+  lita = ['hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj',];
+  litb = [1,2,3,4,5,6,7,8,9,10,11,12]
 
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) {
   }
@@ -62,15 +69,21 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
     this.GetListPhanXuong();
     this.GetListCongDoan();
   }
+
+  ngAfterViewInit(): void {
+    this.voiPintable.active()
+  }
+
   GetListdmTieuChiChatLuongBanChePham(CongDoan){
     this.sanXuatService.dmTieuChiChatLuongsoi().GetListdmTieuChiBanChePham(CongDoan).subscribe((res: any) => {
+      this.listCongThuc = res;
       this.listdmTieuChiBanChePham = mapArrayForDropDown(res, 'Ten', 'Id');
       this.listdmTieuChiBanChePham.forEach(dmTieuChi => {
           let data: any = {Id: "",
                           IddmTieuChiBanChePham: dmTieuChi.value }
           this.newTableItem.listdmTieuChiBanChePham.push(data);
       });
-      
+      this.look(this.listCongThuc);
     })
   }
   mapHienThi(array: Array<any>) {
@@ -81,6 +94,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       }
     }))
   }
+
   GetListPhanXuong() {
     this.sanXuatService.GetOptions().GetPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
@@ -152,7 +166,10 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       });
       this.item.lstdmItem = this.item.lstdmItem.concat(listdatapush);
       this.item.lstdmItem.filter(obj => obj.isDelete = obj.isXoa);
+      this.lstdmItem_Copy = [...this.item.lstdmItem];
+      this.look(this.listCongThuc);
     }).catch(er => console.log(er))
+    this.voiPintable.active();
   }
 
   changeCongDoan(e) {
@@ -184,7 +201,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       Ma: "",
       Ten: ""
     };
-    this.sanXuatService.GetListdmLoaiSoi(dataSearch).subscribe((res: any) => {
+    this.sanXuatService.GetListdmLoaiSoiBanThanhPham(dataSearch).subscribe((res: any) => {
       this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -198,7 +215,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       Ma: "",
       Ten: "",
     };
-    this.sanXuatService.GetListdmLoaiSoi(data).subscribe((res: any) => {
+    this.sanXuatService.GetListdmLoaiSoiBanThanhPham(data).subscribe((res: any) => {
       console.table(this.mapHienThi(res));
       this.listLoaiSoiHoacMatHang = this.mapHienThi(res);
     })
@@ -248,17 +265,28 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
   }
 
   delete(index) {
-    let item = this.item.lstdmItem.splice(index, 1)[0];
-    if (item.Id === '' && item.Id === null && item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      item.isDelete = true;
-      this.item.lstdmItem.push(JSON.parse(JSON.stringify(item)));
-    }
+
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+      this.item.lstdmItem.splice(index, 1);
+    }).catch(er => console.log(er))
+
+    // let item = this.item.lstdmItem.splice(index, 1)[0];
+    // if (item.Id === '' && item.Id === null && item.Id === undefined) {
+    // } else {
+    //   item.isXoa = true;
+    //   item.isDelete = true;
+    //   this.item.lstdmItem.push(JSON.parse(JSON.stringify(item)));
+    // }
   }
   getBanChePham() {
     this.sanXuatService.dmPhanNhomMaySanXuat().GetdmPhanNhomMayBanChePham(this.item.Id).subscribe((res: any) => {
       this.item = res;
+      this.lstdmItem_Copy = [...this.item.lstdmItem];
+      this.look(this.listCongThuc);
       if (this.childModalOpt === 'SOI') {
         this.GetListLoaiSoi();
         let data1 = {
@@ -269,7 +297,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
           Ma: "",
           Ten: "",
         };
-        this.sanXuatService.GetListdmLoaiSoi(data1).subscribe((res: any) => {
+        this.sanXuatService.GetListdmLoaiSoiBanThanhPham(data1).subscribe((res: any) => {
           let listLoaiSoiHoacMatHang1 = this.mapHienThi(res);
           this.item.lstdmItem.forEach(element => {
             if (this.childModalOpt === 'SOI') {
@@ -301,4 +329,55 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       }
     })
   }
+
+  Search() {
+    if (this.filter.Keyword !== null && this.filter.Keyword !== undefined && this.filter.Keyword.trim() !== '') {
+      this.item.lstdmItem = (this.lstdmItem_Copy.filter((ele: any) => ele.Ne !== null && 
+      (
+        ele.Ne.toString().toLowerCase().includes(this.filter.Keyword.toLowerCase()) |
+        ele.TendmLoaiSoi.toString().toLowerCase().includes(this.filter.Keyword.toLowerCase()) 
+      )
+      ));
+    }
+    else this.item.lstdmItem = this.lstdmItem_Copy;
+  }
+
+  resetFilter() {
+    this.filter = {};
+    this.Search();
+  }
+
+  Tinh(index) {
+    this.listCongThuc.forEach((ele) => {
+      let obj = this.item.lstdmItem[index].listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === ele.Id)
+      if (obj && ele.CongThuc) {
+        obj.Disabled = true;
+        obj.substrings = ele.CongThuc.split("|");
+        obj.substrings.forEach((sub, index_con) => {
+          let opp = this.listCongThuc.find((thamso) => thamso.Ma === sub)
+          if (opp) {
+            let ItemGiaTri = this.item.lstdmItem[index].listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === opp.Id)
+            if (ItemGiaTri)
+              obj.substrings[index_con] = ItemGiaTri.GiaTri;
+          }
+        });
+        obj.text = obj.substrings.join('');
+        obj.GiaTri = eval(obj.text);
+      }
+    });
+  }
+
+  look(list) {
+    console.log(this.item);
+    
+    list.forEach((ele) => {
+      this.item.lstdmItem.forEach(item => {
+        let obj =item.listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === ele.Id);
+        if (obj && ele.CongThuc) {
+          obj.Disabled = true;
+        }
+      });
+    })
+  }
+
 }

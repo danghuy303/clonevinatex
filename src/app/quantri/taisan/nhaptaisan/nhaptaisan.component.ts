@@ -10,6 +10,8 @@ import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.serv
 import { TreeNode } from 'primeng/api';
 import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { StoreService } from "src/app/services/store.service";
 
 @Component({
   selector: 'app-nhaptaisan',
@@ -17,6 +19,7 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ['./nhaptaisan.component.css']
 })
 export class NhaptaisanComponent implements OnInit {
+  $sub!: Subscription;
   @ViewChild("paginator") paginator: any;
   eAction: any = "QUYTRINHNHAPTAISAN";
   loaiTab: any = 0;
@@ -39,7 +42,14 @@ export class NhaptaisanComponent implements OnInit {
     private _serviceTaiSan: TaisanService,
     private _danhMucTaiSan: DanhmuctaisanService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { }
+    private store: StoreService
+  ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+          this.ngOnInit()
+      }
+  })
+}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
@@ -62,7 +72,7 @@ export class NhaptaisanComponent implements OnInit {
     });
   }
   GetListdmPhanXuong() {
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       let nhaMay = [
         {
           Id: 'Chưa có bộ phận sử dụng',

@@ -355,22 +355,22 @@ export class SanxuatmodalComponent implements OnInit {
   ThuHoi() {
     console.log(this.soBanThuHoi, this.item)
     // if (validVariable(this.soBanThuHoi)) {
-      this._services.TrienKhaiKeHoachSanXuat().ThuHoiPhieuXuat({ThuTu:this.soBanThuHoi,IdPhuongAnPhaBong:this.item.Id}).subscribe((res:any)=>{
-        if(res.State ===1){
-          this._toastr.success(res.message);
-          this._services.SanXuat().Get(this.ghostItem.Id).subscribe((res: any) => {
-            this.item = deepCopy(res.PhuongAnPhaBong);
-            res.PhuongAnPhaBong = undefined;
-            this.ghostItem = res;
-            this.GetListTrienKhaiKeHoach();
-            this.KiemTraButtonModal();
-          })
-        }else{
-          this._toastr.error(res.message);
-        }
-      })
+    this._services.TrienKhaiKeHoachSanXuat().ThuHoiPhieuXuat({ ThuTu: this.soBanThuHoi, IdPhuongAnPhaBong: this.item.Id }).subscribe((res: any) => {
+      if (res.State === 1) {
+        this._toastr.success(res.message);
+        this._services.SanXuat().Get(this.ghostItem.Id).subscribe((res: any) => {
+          this.item = deepCopy(res.PhuongAnPhaBong);
+          res.PhuongAnPhaBong = undefined;
+          this.ghostItem = res;
+          this.GetListTrienKhaiKeHoach();
+          this.KiemTraButtonModal();
+        })
+      } else {
+        this._toastr.error(res.message);
+      }
+    })
     // } else {
-      // this._toastr.warning('Vui lòng nhập bàn cần thu hồi!')
+    // this._toastr.warning('Vui lòng nhập bàn cần thu hồi!')
     // }
 
   }

@@ -6,7 +6,8 @@
 @media (min-width: 769px) {
     .p-grid>div>div.chart{
         padding:5px;
-        height: calc((100vh - 192.5px)/2);
+        /* height: calc((100vh - 192.5px)/2); */
+        height: 100vh;
         border-radius: 5px;
         background-color: white;
         position: relative;
@@ -15,7 +16,8 @@
 @media (max-width: 769px) {
     .p-grid>div>div.chart{
         padding:5px;
-        height: calc((100vh - 192.5px)/2);
+        /* height: calc((100vh - 192.5px)/2); */
+        height: 100vh;
         border-radius: 5px;
         background-color: white;
         position: relative;

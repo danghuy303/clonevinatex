@@ -19,6 +19,18 @@
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Hình thức sợi</label>
+            <div class="p-col-12 p-lg-4 p-p-0">
+                <p-dropdown [options]="listHinhThucSoi " placeholder="Chọn" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.HinhThucSoi" [showClear]="true" [filter]="true"></p-dropdown>
+            </div>
+                <label *ngIf="item.HinhThucSoi === 3 || item.HinhThucSoi === 4" class="p-col-12 p-lg-2 p-p-0 my-auto text-right">Sợi đơn</label>
+                <div *ngIf="item.HinhThucSoi === 3 || item.HinhThucSoi === 4" class="p-col-12 p-lg-4 p-p-0">
+                    <p-dropdown [options]="listSoiDon" placeholder="Chọn" styleClass="p-inputtext-sm" 
+                        [(ngModel)]="item.IdParent" [virtualScroll]="true" [itemSize]="20" [showClear]="true" [filter]="true"></p-dropdown>
+                </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại sợi</label>
             <div class="p-col-12 p-lg-4 p-p-0">
                 <p-dropdown [options]="listLoaiSoi" placeholder="Chọn loại sợi" styleClass="p-inputtext-sm"

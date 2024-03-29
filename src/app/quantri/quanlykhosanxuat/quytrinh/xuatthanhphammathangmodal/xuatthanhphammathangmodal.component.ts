@@ -9,12 +9,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class XuatthanhphammathangmodalComponent implements OnInit {
 
   listMatHang: any = [];
+  listRoot: any = [];
   listItem: any = [];
   cols: any = [
     {
       header: 'Tên',
       field: 'Ten',
-      width: '10rem'
+      width: '15rem'
     },
     {
       header: 'Mã',
@@ -24,6 +25,11 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     {
       header: 'Tên lô',
       field: 'TenLoHang',
+      width: 'unset'
+    },
+    {
+      header: 'Ngày chứng từ',
+      field: 'NgayNhapKho',
       width: 'unset'
     },
     {
@@ -47,7 +53,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
       width: 'unset'
     },
   ];
-  loai='';
+  loai = '';
   checkedAll: boolean = false;
   paging: any = {};
   item: any = {};
@@ -61,19 +67,124 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
     console.log(this.listItem)
-    if(this.listItem != undefined && this.listItem!= null && this.listItem.length > 0)
-    {
-      for(let i = 0; i < this.listItem.length; i++){
+    if (this.listItem != undefined && this.listItem != null && this.listItem.length > 0) {
+      for (let i = 0; i < this.listItem.length; i++) {
         let itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang && ele.IddmQuyCachDongGoi == this.listItem[i].IddmQuyCachDongGoi)
+          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang && ele.IddmQuyCachDongGoi == this.listItem[i].IddmQuyCachDongGoi && ele.IdNhapKho == this.listItem[i].IdNhapKho)
         );
-        if(itemFind !== undefined)
+        if (itemFind !== undefined)
           itemFind.checked = true;
       }
     }
-    this.item.listItem = this.listMatHang.slice(0,15);
+
+    let _listIdLoHang = [...new Set(this.listMatHang.map((x: any) => x.Ma))]
+    let results = [];
+    _listIdLoHang.forEach((x: any) => {
+      let _arr = this.listMatHang.filter((y: any) => y.Ma === x);
+
+      let newObj = {
+        isParent: true,
+        expanded: false,
+        Ma: x,
+        Ten: _arr[0].Ten,
+        // TenLoHang: _arr[0].TenLoHang,
+        // IdLoHang: _arr[0].IdLoHang,
+        SoLuong: _arr.map((y: any) => y.SoLuong).reduce((cur: any, next: any) => cur + next, 0),
+        // TrongLuong: _arr.map((y: any) => y.TrongLuong).reduce((cur, next) => cur + next, 0),
+        checked: _arr.filter((x: any) => x.checked).length === _arr.length,
+        listChild: _arr
+      }
+      results.push(newObj);
+    })
+    this.item.listItem = results;
+    this.listRoot = results;
     this.item.listItem_copy = this.listMatHang;
   }
+
+  handleExpand(data: any) {
+    data.expanded = true;
+    let newArr = []
+    this.listRoot.forEach((x: any) => {
+      let _listChild = x.listChild.sort((a: any, b: any) => a.NgayNhapKho < b.NgayNhapKho ? -1 : 1);
+      if (this.KeyWord) {
+        _listChild = _listChild.filter((y: any) => y.Ten.toLowerCase().trim().includes(this.KeyWord.toLowerCase().trim()))
+      }
+      if (x.Ma === data.Ma || x.expanded) {
+        if (_listChild.length > 0) {
+          _listChild = [x, ..._listChild]
+        }
+        newArr = [...newArr, ..._listChild];
+      } else {
+        if (_listChild.length)
+          newArr.push(x)
+      }
+    })
+    this.item.listItem = newArr
+  }
+  handleCollapse(data: any) {
+    data.expanded = false;
+    let newArr = []
+    this.listRoot.forEach((x: any) => {
+      let _listChild = x.listChild.sort((a: any, b: any) => a.NgayNhapKho < b.NgayNhapKho ? -1 : 1);
+      if (this.KeyWord) {
+        _listChild = _listChild.filter((y: any) => y.Ten.toLowerCase().trim().includes(this.KeyWord.toLowerCase().trim()))
+      }
+      if (x.expanded) {
+        if (_listChild.length > 0) {
+          _listChild = [x, ..._listChild]
+        }
+        newArr = [...newArr, ..._listChild];
+      } else {
+        if (_listChild.length)
+          newArr.push(x)
+      }
+    })
+    this.item.listItem = newArr
+  }
+
+  handleParentCheck(item: any, checked: any) {
+    let _parent = this.item.listItem.find((x: any) => x.Ma === item.Ma && x.isParent);
+    if (!checked) {
+      if (_parent) {
+        _parent.checked = false
+      }
+    } else {
+      let _listChild = _parent.listChild;
+      let _lengthChild = _listChild.filter((x: any) => x.checked).length + 1;
+      if (_listChild.length === _lengthChild) {
+        if (_parent) {
+          _parent.checked = true
+        }
+      }
+    }
+  }
+
+  handleSelectAll(item: any) {
+    item.listChild = item.listChild.map((x: any) => {
+      x.checked = !item.checked;
+      return x;
+    })
+  }
+
+  firstInitial() {
+    // onInit old
+    this.paging.CurrentPage = 1;
+    this.paging.TotalPage = 5;
+    this.paging.TotalItem = this.listMatHang.length;
+    console.log(this.listItem)
+    if (this.listItem != undefined && this.listItem != null && this.listItem.length > 0) {
+      for (let i = 0; i < this.listItem.length; i++) {
+        let itemFind = this.listMatHang.find(
+          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang && ele.IddmQuyCachDongGoi == this.listItem[i].IddmQuyCachDongGoi)
+        );
+        if (itemFind !== undefined)
+          itemFind.checked = true;
+      }
+    }
+    this.item.listItem = this.listMatHang.sort((a: any, b: any) => a.IdLoHang - b.IdLoHang).slice(0, 15);
+    this.item.listItem_copy = this.listMatHang;
+  }
+
   accept() {
     var itemFind: any = this.listMatHang.filter(function (obj) {
       return obj.checked == true;
@@ -98,10 +209,10 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
-    var end =  start + 15;
-    if((start + 15) > this.paging.TotalItem)
-      end= this.paging.TotalItem;
-    this.item.listItem = this.item.listItem_copy.slice(start,end);
+    var end = start + 15;
+    if ((start + 15) > this.paging.TotalItem)
+      end = this.paging.TotalItem;
+    this.item.listItem = this.item.listItem_copy.slice(start, end);
   }
   // timKiemMatHang() {
   //   var listItem : any = [];
@@ -121,32 +232,40 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
   //   this.item.listItem = this.listMatHang.slice(start,end);
   // }
   filtertable_add() {
-    if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
-      this.item.listItem_copy = this.listMatHang;
-      let filter: any = this.item.listItem_copy.filter(
-        ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase())
-        // obj => {
-        // if(obj.Ten === "CD 23"){
-        //   debugger
-
-        // }
-        // let Ten = obj.Ten.toLowerCase();
-        // let indexOf = Ten.includes(this.KeyWord.toLowerCase());
-        // return indexOf != false
-      // }
-      );
-      console.log(filter)
-      this.item.listItem = filter;
-      this.item.listItem_copy = filter;
-    }
-    else {
-      this.item.listItem = this.listMatHang;
-      this.item.listItem_copy = this.listMatHang;
-    }
-    this.paging.CurrentPage = 1;
-    this.paging.TotalPage = 5;
-    this.paging.TotalItem = this.item.listItem.length;
-    this.item.listItem = this.item.listItem.slice(0,15);
+    // if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
+    //   this.item.listItem_copy = this.listMatHang;
+    //   let filter: any = this.item.listItem_copy.filter(
+    //     ele => ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase())
+    //   );
+    //   console.log(filter)
+    //   this.item.listItem = filter;
+    //   this.item.listItem_copy = filter;
+    // }
+    // else {
+    //   this.item.listItem = this.listMatHang;
+    //   this.item.listItem_copy = this.listMatHang;
+    // }
+    // this.paging.CurrentPage = 1;
+    // this.paging.TotalPage = 5;
+    // this.paging.TotalItem = this.item.listItem.length;
+    let newArr = []
+    this.listRoot.forEach((x: any) => {
+      let _listChild = x.listChild.sort((a: any, b: any) => a.NgayNhapKho < b.NgayNhapKho ? -1 : 1);
+      if (this.KeyWord) {
+        _listChild = _listChild.filter((y: any) => y.Ten.toLowerCase().trim().includes(this.KeyWord.toLowerCase().trim()));
+      }
+      if (x.expanded) {
+        if (_listChild.length > 0) {
+          _listChild = [x, ..._listChild]
+        }
+        newArr = [...newArr, ..._listChild];
+      } else {
+        if (_listChild.length)
+          newArr.push(x)
+      }
+    })
+    this.item.listItem = newArr
+    // this.item.listItem = this.item.listItem.slice(0, 15);
   }
   resetFilter() {
     this.KeyWord = '';

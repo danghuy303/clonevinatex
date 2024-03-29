@@ -41,6 +41,17 @@ export class GhepThoTongHopComponent extends StoreBase implements OnInit {
       this.GetBaoCao();
     })
   }
+
+  GetBaoCao_tuNgay() {
+    this.filter._denNgay=new Date(this.filter._tuNgay.getFullYear(), this.filter._tuNgay.getMonth()+1, 0);
+    this.GetBaoCao();
+  }
+
+  GetBaoCao_denNgay() {
+    this.filter._tuNgay =new Date(this.filter._denNgay.getFullYear(), this.filter._denNgay.getMonth(), 1);
+    this.GetBaoCao();
+  }
+
   GetBaoCao(){
     if (validVariable(this.filter._tuNgay)) {
       this.filter.TuNgay = DateToUnix(this.filter._tuNgay);

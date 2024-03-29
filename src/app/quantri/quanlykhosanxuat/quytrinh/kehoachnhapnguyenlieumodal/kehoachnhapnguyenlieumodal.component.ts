@@ -365,4 +365,10 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       })
     }
   }
+
+  XuatExcel() {
+    this._services.XuatBaoCao_KeHoachNhapNguyenLieu(this.item.Id).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
+  }
 }

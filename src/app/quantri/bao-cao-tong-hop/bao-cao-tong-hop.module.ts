@@ -18,7 +18,10 @@ import { BaoCaoTongHopLoiCatComponent } from './bao-cao-tong-hop-loi-cat/bao-cao
 import { BaoCaoTongHopClassimatComponent } from './bao-cao-tong-hop-classimat/bao-cao-tong-hop-classimat.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ChartModule } from 'primeng/chart';
-import {BaocaodieukhongComponent} from './baocaodieukhong/baocaodieukhong.component'
+import {BaocaodieukhongComponent} from './baocaodieukhong/baocaodieukhong.component';
+import {DialogModule} from 'primeng/dialog';
+import {MenuModule} from 'primeng/menu';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import {BaocaodieukhongComponent} from './baocaodieukhong/baocaodieukhong.compon
     PaginatorModule,
     VoiLibModule,
     InputTextModule,
-    ChartModule
+    ChartModule,
+    DialogModule,
+    MenuModule,
+    InputNumberModule
   ],
   exports: [
     BaoCaoTongHopComponent,

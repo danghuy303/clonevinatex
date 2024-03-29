@@ -15,7 +15,7 @@ import { KehoachsanxuatmodalComponent } from '../kehoachsanxuatmodal/kehoachsanx
   templateUrl: './kehoachsanxuat.component.html',
   styleUrls: ['./kehoachsanxuat.component.css']
 })
-export class KehoachsanxuatComponent extends StoreBase implements OnInit,OnDestroy {
+export class KehoachsanxuatComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   filter: any = {};
@@ -43,7 +43,8 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit,OnDestr
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listQuyCachDongGoi: any = [];
 
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {super(store)
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) {
+    super(store)
   }
 
   ngOnInit(): void {
@@ -86,7 +87,7 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit,OnDestr
           item.listItem.filter(objlistItem => {
             objlistItem.listItem.filter(async objlistItem2 => {
               objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
-            });          
+            });
           });
           let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
             size: 'fullscreen-100',
@@ -104,9 +105,9 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit,OnDestr
           })
             .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
         }
-      })  
-    },(err)=>{
-      if(err.status ===500){
+      })
+    }, (err) => {
+      if (err.status === 500) {
         this._toastr.error('Hệ thống không tìm thấy dữ liệu bạn cần!')
       }
       console.log(err);
@@ -145,7 +146,7 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit,OnDestr
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
@@ -160,7 +161,7 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit,OnDestr
           item.listItem.filter(objlistItem => {
             objlistItem.listItem.filter(async objlistItem2 => {
               objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
-            });          
+            });
           });
           let modalRef = this._modal.open(GiaokehoachsanxuathoanthanhmodalComponent, {
             size: 'fullscreen-100',
@@ -178,10 +179,10 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit,OnDestr
           })
             .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
         }
-      }) 
+      })
     });
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }

@@ -1,21 +1,26 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { maskOption, vn } from 'src/app/services/const';
-import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable, merge, MergeArr } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoimathangmodal/chatluongsoimathangmodal.component';
+import { API, host1 } from 'src/app/services/host';
+import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-modalthongkechitieuloicat',
   templateUrl: './modalthongkechitieuloicat.component.html',
   styleUrls: ['./modalthongkechitieuloicat.component.css']
 })
-export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit {
-  @ViewChild('voiPintable') voiPintable:PintableDirective;
+export class ModalthongkechitieuloicatComponent implements OnInit, AfterViewInit {
+  @ViewChild('voiPintable') voiPintable: PintableDirective;
+  @ViewChildren('inputNumber') inputNumbers: any;
+  @ViewChildren('inputKhoiLuong') inputKhoiLuongs: any;
+  @ViewChildren('buttonUploader') buttonUploader;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -24,7 +29,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
     ChuyenTiep: false,
     Xoa: false,
   }
-  MO:any = maskOption;
+  MO: any = maskOption;
   listdmKho: any = [];
   editTableItem: any = {};
   newTableItem: any = {};
@@ -32,11 +37,20 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
   listdmPhanXuong: any = [];
   lang: any = vn;
   lstSanPham: any = [];
-  userInfo: any ;
+  userInfo: any;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, 
+
+  // Uploader
+  fileInput: string;
+  TepImport: any = {
+    TenGoc: ''
+  }
+  uploader: FileUploader;
+  // End uploader
+
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
-    public _modal: NgbModal, ) {
+    public _modal: NgbModal,) {
 
   }
 
@@ -44,23 +58,58 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
     this.userInfo = this._auth.currentUserValue;
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-      this.getDanhSachChiTieuChatLuong();
+      this.getDanhSachChiTieuChatLuong(true);
     }
-    else{
-    this.KiemTraButtonModal();
+    else {
+      this.KiemTraButtonModal();
     }
     if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
       this.item.NgayKiemTra = UnixToDate(this.item.NgayKiemTraUnix);
     }
     this.getListdmPhanXuong();
+    this.initUploader();
   }
+
+  // Uploader
+  initUploader() {
+    let option: FileUploaderOptions = {
+      url: `${API.uploadURLalt}`,
+      headers: [{ name: 'Accept', value: 'application/json' }],
+      autoUpload: true,
+    }
+
+    this.uploader = new FileUploader(option);
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = true;
+    };
+
+    this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
+    this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
+    this.uploader.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
+  }
+
+  onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+  }
+
+  onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+    let res = JSON.parse(response);
+    this.TepImport.TenGui = res[0].Name;
+    this.TepImport.TenGoc = res[0].NameLocal;
+    this.TepImport.DuongDan = res[0].Url;
+    this.fileInput = '';
+    this.ImportPhieuNhap()
+  };
+  onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+  }
+  // End uploader
+
   ngAfterViewInit(): void {
-      this.voiPintable.active();
+    this.voiPintable.active();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if(this.item.CreatedBy == this.userInfo.Id){
+      if (this.item.CreatedBy == this.userInfo?.Id) {
         this.checkbutton.Ghi = true;
       }
     })
@@ -74,6 +123,24 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
     if (this.item.DenNgay !== null && this.item.DenNgay !== undefined)
       this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
     this.services.QuyTrinhLoiCat().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.activeModal.close();
+          this.toastr.success(res.message);
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
+  KhongDuyet() {
+    if (this.item.NgayKiemTra !== null && this.item.NgayKiemTra !== undefined)
+      this.item.NgayKiemTraUnix = DateToUnix(this.item.NgayKiemTra);
+    if (this.item.TuNgay !== null && this.item.TuNgay !== undefined)
+      this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
+    if (this.item.DenNgay !== null && this.item.DenNgay !== undefined)
+      this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
+    this.services.QuyTrinhLoiCat().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -115,7 +182,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
     }
   }
   XoaQuyTrinh() {
-    let modalRef = this._modal.open(ModalthongbaoComponent, { 
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
@@ -145,7 +212,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
     let data = {
       IddmPhanXuong: this.item.IddmPhanXuong,
       Ngay: DateToUnix(this.item.NgayKiemTra),
-      TuNgay: DateToUnix(this.item.TuNgay) ,
+      TuNgay: DateToUnix(this.item.TuNgay),
       DenNgay: DateToUnix(this.item.DenNgay),
     };
     this.services.QuyTrinhLoiCat().GetListMatHang(data).subscribe((res1: any) => {
@@ -158,13 +225,15 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
       modalRef.componentInstance.listItem = this.item.lstSanPham;
       modalRef.componentInstance.loai = 'loicat';
       modalRef.result.then((data) => {
-        console.log(data);
-        this.item.lstSanPham = data.data;
+        // this.item.lstSanPham = data.data;
+        this.item.lstSanPham = MergeArr(data.data, this.item.lstSanPham || [], "IddmItem");
+        // huy nhỏ sửa, khi thêm mặt hàng giữ số liệu đã chọn
       }, (reason) => {
         // không
       });
     })
   }
+
   getListKho() {
     var data: any = {}
     data.Loai = 10;
@@ -178,10 +247,11 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  getDanhSachChiTieuChatLuong() {
+  getDanhSachChiTieuChatLuong(value) {
     let data = {
       CurrentPage: 0,
       KeyWord: "",
+      IddmPhanXuong: value || "",
     }
     this.services.DanhMucLoiCat().GetList(data).subscribe((res: any) => {
       this.item.lstDanhMuc = res;
@@ -190,12 +260,74 @@ export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit 
   Onclose() {
     this.activeModal.close();
   }
-  tinhTong(list,nhom){
-    let chitieuCon = list.filter(ele=>ele.NhomChiTieu===nhom&&!ele.isTong);
-    let chitieuTong = list.filter(ele=>ele.NhomChiTieu===nhom&&ele.isTong);
-    if(validVariable(chitieuCon)&& chitieuCon?.length!==0&& validVariable(chitieuTong)&& chitieuTong?.length!==0){
-      let TongChiTieuCon = chitieuCon.reduce((a,b)=>a+(b.ChiTieuThucTe||0),0);
-      chitieuTong.forEach(ele=>{ele.ChiTieuThucTe=TongChiTieuCon});
+  tinhTong(list, nhom) {
+    let chitieuCon = list.filter(ele => ele.NhomChiTieu === nhom && !ele.isTong);
+    let chitieuTong = list.filter(ele => ele.NhomChiTieu === nhom && ele.isTong);
+    if (validVariable(chitieuCon) && chitieuCon?.length !== 0 && validVariable(chitieuTong) && chitieuTong?.length !== 0) {
+      let TongChiTieuCon = chitieuCon.reduce((a, b) => a + (b.ChiTieuThucTe || 0), 0);
+      chitieuTong.forEach(ele => { ele.ChiTieuThucTe = TongChiTieuCon });
+    }
+  }
+
+  chonPhanXuong(e) {
+    this.getDanhSachChiTieuChatLuong(e.value);
+  }
+
+  moveToNext(event) {
+    let next = event.target.nextElementSibling;
+    if (next) {
+      next.focus();
+    } else {
+      event.target.blur();
+    }
+  }
+  xuongDong(i, length, indexcon) {
+    let nextIndex = i * length + indexcon + 1;
+    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex + length);
+    if (validVariable(nextFocus)) {
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : indexcon + 1)].el.nativeElement.children[0].children[0].focus();
+      this.inputNumbers.toArray()[(indexcon + 1 >= length ? 0 : nextIndex)].el.nativeElement.children[0].children[0].select();
+    }
+  }
+
+  ImportPhieuNhap() {
+    let { obj, _bool } = this.validBefore();
+    if (!_bool) {
+      return;
+    }
+    this.services.QuyTrinhLoiCat().ImportPhieuNhapChiTieuLoiCat(this.TepImport.TenGui, obj.IddmPhanXuong, obj.NgayKiemTraUnix).subscribe((imp: any) => {
+      this.item.lstSanPham = imp
+    })
+  }
+  ExportPhieuNhap() {
+    let { obj, _bool } = this.validBefore();
+    if (!_bool) {
+      return;
+    }
+    this.services.QuyTrinhLoiCat().ExportPhieuNhapChiTieuLoiCat(obj.IddmPhanXuong, obj.NgayKiemTraUnix).subscribe((res: any) => {
+      const _url = host1 + res.TenFile
+      window.open(_url);
+      this.toastr.success(`Xuất file thành công`);
+    })
+  }
+
+  validBefore() {
+    let _bool = true
+    let obj = {
+      IddmPhanXuong: this.item.IddmPhanXuong,
+      NgayKiemTraUnix: DateToUnix(this.item.NgayKiemTra)
+    }
+    if (!obj.IddmPhanXuong) {
+      this.toastr.error(`Vui lòng chọn phân xưởng`);
+      _bool = false
+    }
+    else if (!obj.NgayKiemTraUnix) {
+      this.toastr.error(`Vui lòng chọn ngày kiểm tra`);
+      _bool = false
+    }
+    return {
+      obj: obj,
+      _bool: _bool
     }
   }
 }
