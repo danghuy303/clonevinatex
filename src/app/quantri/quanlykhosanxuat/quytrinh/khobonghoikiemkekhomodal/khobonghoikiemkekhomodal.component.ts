@@ -205,13 +205,13 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         }
 
         this.item_new.listItem = this.listItem;
-        this.item_new.NgayUnix = DateToUnix(this.item_new.Ngay)
+        this.item_new.NgayUnix = DateToUnix(this.item.Ngay)
 
         this.item.NgayUnix = DateToUnix(this.item.Ngay)
 
         this.services
             .PhieuKiemKeKhoBong()
-            .Set(this.item)
+            .Set(this.item_new)
             .subscribe((res: any) => {
                 if (res) {
                     if (res.State === 1) {
