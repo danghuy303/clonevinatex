@@ -1945,26 +1945,26 @@ export class QuantriComponent implements OnInit, OnDestroy {
         routerLink: "/quantri/baocaotonghop",
         // visible: this.showHopDongModule,
         items: [
-          {
-            label: "Báo cáo bông chải tổng hợp",
-            routerLink: "/quantri/baocaotonghop/bongchaitonghop",
-            command: () => this.close(),
-          },
-          {
-            label: "Báo cáo ghép thô tổng hợp",
-            routerLink: "/quantri/baocaotonghop/ghepthotonghop",
-            command: () => this.close(),
-          },
-          {
-            label: "Báo cáo sợi con tổng hợp",
-            routerLink: "/quantri/baocaotonghop/soicontonghop",
-            command: () => this.close(),
-          },
-          {
-            label: "Báo cáo ống tổng hợp",
-            routerLink: "/quantri/baocaotonghop/ongtonghop",
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Báo cáo bông chải tổng hợp",
+          //   routerLink: "/quantri/baocaotonghop/bongchaitonghop",
+          //   command: () => this.close(),
+          // },
+          // {
+          //   label: "Báo cáo ghép thô tổng hợp",
+          //   routerLink: "/quantri/baocaotonghop/ghepthotonghop",
+          //   command: () => this.close(),
+          // },
+          // {
+          //   label: "Báo cáo sợi con tổng hợp",
+          //   routerLink: "/quantri/baocaotonghop/soicontonghop",
+          //   command: () => this.close(),
+          // },
+          // {
+          //   label: "Báo cáo ống tổng hợp",
+          //   routerLink: "/quantri/baocaotonghop/ongtonghop",
+          //   command: () => this.close(),
+          // },
           {
             label: "Báo cáo thời gian dừng máy",
             routerLink: "/quantri/baocaotonghop/thoigiandungmay",
