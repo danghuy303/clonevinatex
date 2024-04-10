@@ -268,12 +268,12 @@
                             <app-antoan *ngIf="item.TaiSan === undefined" [item]="item.listThongSoAnToan"></app-antoan>
                         </ng-template>
                     </p-tabPanel>
-                    <p-tabPanel header="Bảo hành">
+                    <!-- <p-tabPanel header="Bảo hành">
                         <ng-template pTemplate="content">
                             <app-bao-hanh *ngIf="item.TaiSan !== undefined" [listBaoHanh]="item.TaiSan.listBaoHanh"></app-bao-hanh>
                             <app-bao-hanh *ngIf="item.TaiSan === undefined" [listBaoHanh]="item.listBaoHanh"></app-bao-hanh>
                         </ng-template>
-                    </p-tabPanel>
+                    </p-tabPanel> -->
                 </p-tabView>
             </ng-template>
         </p-panel>

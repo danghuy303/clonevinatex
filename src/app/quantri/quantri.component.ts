@@ -215,7 +215,8 @@ export class QuantriComponent implements OnInit, OnDestroy {
       window.location.origin.includes("4200") ||
       window.location.origin.includes("2269") ||
       window.location.origin.includes("2369") ||
-      window.location.origin.includes("2371");
+      window.location.origin.includes("2371")||
+      window.location.origin.includes("2370");
     // this.showTaiSanModule = true;
     this.refreshNotis();
     const rt = this._router.events

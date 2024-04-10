@@ -10,6 +10,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalbaoduongluachontaisanComponent } from '../modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
+import { ChonmVatTuThayThePopUpComponent } from '../chonm-vat-tu-thay-the-pop-up/chonm-vat-tu-thay-the-pop-up.component';
 
 
 @Component({
@@ -248,7 +249,9 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     this._danhMucTaiSan.LoaiThucHienBaoDuong().GetList(data).subscribe((res: any) => {
       this.listCVBaoDuong = res.Data;
     });
-    this.GetDanhSachCongViecByIddmLoaiBaoDuong(this.item.IddmLoaiBaoDuong, this.item.IdTaiSan);
+    if (this.item.listCongViec.length = 0) {
+      this.GetDanhSachCongViecByIddmLoaiBaoDuong(this.item.IddmLoaiBaoDuong, this.item.IdTaiSan);
+    }
     this.GetListVatTuByIdTaiSan_BaoDuong(this.item.IdTaiSan_BaoDuong);
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res1: any) => {
       this.listLoaiTaiSanDeep = res1.Data;
@@ -269,7 +272,6 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.listLoaiBaoDuong = mapArrayForDropDown(res.Data, "Ten", "Id");
     })
   }
-
 
   chonBoPhan(value) {
     this.GetListTaiSanBaoDuong();
@@ -382,6 +384,41 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
         this.toastr.success(res.Message);
       }
     })
+  }
+
+  ChonVatTuThayThe() {
+    let modalRef = this._modal.open(ChonmVatTuThayThePopUpComponent, {
+      backdrop: 'static',
+      size: 'lg'
+    });
+    modalRef.componentInstance.title = 'Chọn vật tư';
+    modalRef.componentInstance.listHienThi = this.listNoiDungVatTuDeep;
+    modalRef.componentInstance.listDaChon = this.item.listVatTu ? this.item.listVatTu.map(ele => ele.IdVatTuThayThe) : [];
+    modalRef.result.then(res => {
+      this.item.listVatTu = merge(res, this.item.listVatTu, 'IdVatTuThayThe')
+    })
+  }
+
+  ThayThe(data) {
+    let value = this.listCVBaoDuong.find(ele => ele.Id === data.IddmLoaiThucHienBaoDuong)?.Ma;
+    if (value === 'THAYTHE') {
+      if (data.isThucHien) {
+        let check = this.item.listVatTu.find(ele => ele.IdVatTuThayThe === data.IdVatTu);
+        if (!check) {
+          data = {
+            ...data,
+            IdVatTuThayThe: data.IdVatTu,
+            TenTaiSan: this.listNoiDungVatTuDeep.find(obj => obj.IdVatTuThayThe === data.IdVatTu)?.TenTaiSan
+          }
+          this.item.listVatTu.push(data)
+        }
+      } else {
+        let checkF = this.item.listCongViec.find(ele => ele.IdVatTu === data.IdVatTu && ele.isThucHien);
+        if (!checkF) {
+          this.item.listVatTu = this.item.listVatTu.filter(ele => !ele.IdVatTuThayThe === data.IdVatTu);
+        }
+      }
+    }
   }
 
 }

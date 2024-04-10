@@ -133,7 +133,7 @@
                                 class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
                             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan"
-                                placeholder="Chọn loại tài sản" [disabled]="true" ></p-dropdown>
+                                placeholder="Chọn loại tài sản" [disabled]="true"></p-dropdown>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
@@ -191,10 +191,11 @@
                     </div>
                     <div>
                         <p-table [value]="item.listCongViec"
-                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
+                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
                             <ng-template pTemplate="colgroup">
                                 <colgroup>
                                     <col style="width: 50px;">
+                                    <col>
                                     <col>
                                     <col *ngFor="let x of listCVBaoDuong">
                                 </colgroup>
@@ -205,6 +206,7 @@
                                         STT
                                     </th>
                                     <th class="text-center">Nội dung công việc</th>
+                                    <th class="text-center">Vật tư</th>
                                     <th class="text-center" *ngFor="let x of listCVBaoDuong">{{x.Ten}}</th>
                                 </tr>
                             </ng-template>
@@ -212,11 +214,16 @@
                                 <tr>
                                     <td class="text-center">{{i + 1}}</td>
                                     <td>{{baoduong.TenVatTu}}</td>
+                                    <td>
+                                        <p-dropdown [filter]="true" [options]="listNoiDungVatTu"
+                                            (onChange)="ThayThe(baoduong)" [(ngModel)]="baoduong.IdVatTu"
+                                            placeholder="Chọn"></p-dropdown>
+                                    </td>
                                     <ng-container *ngFor="let x of listCVBaoDuong">
                                         <td class="text-center">
                                             <div *ngIf="x.Id === baoduong.IddmLoaiThucHienBaoDuong">
                                                 <p-checkbox [(ngModel)]="baoduong.isThucHien" binary="true"
-                                                    inputId="binary"></p-checkbox>
+                                                    (onChange)="ThayThe(baoduong)" inputId="binary"></p-checkbox>
                                             </div>
                                         </td>
                                     </ng-container>
@@ -230,6 +237,8 @@
                 <div class="d-flex p-pb-2">
                     <button pButton pRipple type="button" label="Đề xuất cấp vật tư" class="p-mr-2 p-button-sm"
                         (click)="CapVatTu()"></button>
+                    <button pButton pRipple type="button" label="Chọn vật tư" class="p-mr-2 p-button-sm"
+                        (click)="ChonVatTuThayThe()"></button>
                 </div>
                 <p-table [value]="item.listVatTu"
                     styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
@@ -250,20 +259,14 @@
                             <th class="text-center">Nội dung</th>
                             <th class="text-center">ĐVT</th>
                             <th class="text-center">Số lượng</th>
-                            <th class="text-center">
-                                <p-button icon="pi pi-plus" pTooltip="Thêm" tooltipPosition="top"
-                                    (click)="add()"></p-button>
-                            </th>
+                            <th class="text-center"></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-baoduong let-i="rowIndex">
                         <tr>
                             <td class="text-center">{{i + 1}}</td>
                             <td>
-                                <p-dropdown [filter]="true" [options]="listNoiDungVatTu" placeholder="Chọn"
-                                    (onChange)="ChonVatTu($event.value,i)" [(ngModel)]="baoduong.IdVatTuThayThe"
-                                    styleClass="p-inputtext-sm" showClear="true">
-                                </p-dropdown>
+                                {{baoduong.TenTaiSan}}
                             </td>
                             <td class="text-center">Cái</td>
                             <td>

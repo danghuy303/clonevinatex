@@ -41,14 +41,16 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bộ phận sử dụng: <span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" [showClear]="true"
-                    [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ThemMoiDanhSachTaiSan()" placeholder="Chọn bộ phận"></p-dropdown>
+                    [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ThemMoiDanhSachTaiSan()"
+                    placeholder="Chọn bộ phận"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chọn công đoạn: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown #congdoan [filter]="true" [showClear]="true" [options]="listCongDoan"
-                [(ngModel)]="item.MaCongDoan" (onChange)="ThemMoiDanhSachTaiSan()" placeholder="Chọn công đoạn"></p-dropdown>
+                    [(ngModel)]="item.MaCongDoan" (onChange)="ThemMoiDanhSachTaiSan()"
+                    placeholder="Chọn công đoạn"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
@@ -83,7 +85,7 @@
             <ng-template pTemplate="header">
                 <div style="line-height: 1 !important;">
                     <!-- Danh sách tài sản (<span class="required" style="font-size: 14px !important;">*</span>) -->
-                    Danh sách tài sản 
+                    Danh sách tài sản
                 </div>
             </ng-template>
             <div class="d-flex justify-content-between p-mb-3">
@@ -92,13 +94,14 @@
                         (click)="ThemMoiDanhSachTaiSan()"></button> -->
                 </div>
                 <div class="p-p-0">
-                    <strong style="color: #007bff;">Tổng số: <span style="color: red;">{{(item.listTaiSan | filter: keyword)?.length}}</span> thiết bị</strong>
+                    <strong style="color: #007bff;">Tổng số: <span style="color: red;">{{(item.listTaiSan | filter:
+                            keyword)?.length}}</span> thiết bị</strong>
                 </div>
             </div>
             <div class="p-grid p-jc-end">
                 <span class="p-input-icon-left mb-3" style="width: 300px">
                     <i class="pi pi-search"></i>
-                    <input type="text" [(ngModel)]="keyword"  pInputText placeholder="Tìm kiếm..." />
+                    <input type="text" [(ngModel)]="keyword" pInputText placeholder="Tìm kiếm..." />
                 </span>
             </div>
             <p-table [value]="item.listTaiSan | filter: keyword "
@@ -149,17 +152,19 @@
                         </td> -->
 
                         <td class="text-center"> {{taisan.TenVietTat}}</td>
-                        <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong" >
+                        <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong">
                             <div>
-                                <p *ngFor="let chitiet of baoduong.listChiTiet">{{chitiet?.TendmLoaiBaoDuong}}</p>
+                                <span *ngFor="let chitiet of baoduong.listChiTiet"
+                                    [pTooltip]="chitiet.TendmLoaiBaoDuong">{{chitiet?.KyHieu}}</span>
                                 <!-- <a  *ngIf="baoduong.canInput" href="javascript:void(0)" (click)="Chon(baoduong,taisan)">Chọn</a> -->
-                                <a *ngIf="baoduong.IsHienThi" href="javascript:void(0)" (click)="Chon(baoduong,taisan)" >Chọn</a>
+                                <a *ngIf="baoduong.IsHienThi" href="javascript:void(0)"
+                                    (click)="Chon(baoduong,taisan)">Chọn</a>
                             </div>
                         </td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-trash"
-                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                            (click)=" delete(i)"></button>
+                                class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                                (click)=" delete(i)"></button>
                         </td>
                     </tr>
                 </ng-template>

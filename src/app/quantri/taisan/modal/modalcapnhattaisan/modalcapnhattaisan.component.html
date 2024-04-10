@@ -42,7 +42,7 @@
         </div>
     </div>
     <!-- phần cha -->
-    <app-thongtinthemmoitaisan [(item)]="item.TaiSan" [listLoaiTaiSan]="listLoaiTaiSan"
+    <app-thongtinthemmoitaisan [(item)]="item.TaiSan" [listLoaiTaiSan]="listLoaiTaiSan" (handleAsset)="handleAsset($event)"
         [listCungSanXuat]="listCungSanXuat" [listPhanXuong]="listPhanXuong" [opt]="opt" [TaiSanChaCon]="'cha'">
     </app-thongtinthemmoitaisan>
     <!-- phần con -->

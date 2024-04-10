@@ -91,16 +91,6 @@
             </p-calendar>
         </div>
     </div>
-    <div  *ngIf="item?.IdBoPhanSuDung != null" class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng <span
-                class="text-danger">(*)</span>: </label>
-        <div class="p-col-12 p-xl-8 p-p-0">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [minDate]="item.NgayNhap"
-                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianDuaVaoSuDung"
-                inputId="icon" placeholder="dd/mm/yyyy">
-            </p-calendar>
-        </div>
-    </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số năm khấu hao <span class="text-danger">(*)</span> : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
@@ -180,7 +170,17 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu"></textarea>
+            <textarea pInputTextarea class="p-inputtext-sm" [rows]="1" [(ngModel)]="item.GhiChu"></textarea>
+        </div>
+    </div>
+    <div  *ngIf="item?.IdBoPhanSuDung != null" class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng <span
+                class="text-danger">(*)</span>: </label>
+        <div class="p-col-12 p-xl-8 p-p-0">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [minDate]="item.NgayNhap"
+                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianDuaVaoSuDung"
+                inputId="icon" placeholder="dd/mm/yyyy">
+            </p-calendar>
         </div>
     </div>
     <div class="p-mb-4">

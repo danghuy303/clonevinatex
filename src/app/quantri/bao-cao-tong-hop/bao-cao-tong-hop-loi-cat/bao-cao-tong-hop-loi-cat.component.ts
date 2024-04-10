@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown, DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
+import { PintableDirective } from 'voi-lib/lib/pintable.directive';
 
 @Component({
   selector: 'app-bao-cao-tong-hop-loi-cat',
@@ -12,6 +13,7 @@ import { StoreBase } from 'src/app/services/storebase.class';
   styleUrls: ['./bao-cao-tong-hop-loi-cat.component.css']
 })
 export class BaoCaoTongHopLoiCatComponent extends StoreBase implements OnInit {
+  @ViewChild('voiPintable') voiPintable: PintableDirective;
   filter: any = {};
   filterBieuDo: any = {};
   listPhanXuong: any = [];

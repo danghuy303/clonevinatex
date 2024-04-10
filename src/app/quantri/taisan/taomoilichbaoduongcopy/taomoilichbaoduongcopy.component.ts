@@ -45,7 +45,6 @@ export class TaomoilichbaoduongcopyComponent implements OnInit , OnChanges{
     modalRef.result
       .then((res: any) => {
         this.item.listLichBaoDuong.push(res);
-        this.toastr.success(`xử lý thành công!`)
       })
       .catch((er) => {
 

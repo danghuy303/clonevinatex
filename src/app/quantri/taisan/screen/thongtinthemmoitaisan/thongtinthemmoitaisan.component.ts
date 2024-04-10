@@ -33,6 +33,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   @Input('listLoaiTaiSan') listLoaiTaiSan: any = [];
   @Input('listCungSanXuat') listCungSanXuat: any = [];
   @Input('opt') opt: any = "";
+  @Output() handleAsset = new EventEmitter();
 
   constructor(
     private _modal: NgbModal,
@@ -76,6 +77,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
         }
       })
     }
+    this.handleAsset.emit(e.value)
   }
 
   edit(item) {

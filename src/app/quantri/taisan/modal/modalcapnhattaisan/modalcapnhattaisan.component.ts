@@ -419,4 +419,16 @@ export class ModalcapnhattaisanComponent implements OnInit {
       });
   }
 
+  handleAsset(data) {
+    // console.log(data);
+    // this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(data).subscribe((res: any) => {
+    //   if (res.StatusCode === 500) {
+    //     this.toastr.error(res.Message);
+    //   }
+    //   else {
+    //     this.item.Ma = res.Data;
+    //   }
+    // })
+  }
+
 }

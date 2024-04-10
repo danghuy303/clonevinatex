@@ -118,6 +118,10 @@ export class ModalbaoduongComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ tên !");
       return false;
     }
+    if (!validVariable(this.item.Ten)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ ký hiệu !");
+      return false;
+    }
     if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IddmMucDoUuTien)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc !");
       return false;

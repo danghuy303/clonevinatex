@@ -10,23 +10,30 @@
     <div class="p-d-flex p-flex-row p-jc-between">
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Mã <span class="text-danger">(*)</span> :</label>
             <div class="p-col-12 p-lg-7 p-p-0">
                 <input locale="en-EN" [(ngModel)]="item.Ma" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-7 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tên <span class="text-danger">(*)</span>:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input locale="en-EN" [(ngModel)]="item.Ten" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ký hiệu <span class="text-danger">(*)</span> :</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <input locale="en-EN" [(ngModel)]="item.KyHieu" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-7 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span>:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn loại tài sản"
-                    [(ngModel)]="item.IddmLoaiTaiSan" (onChange)="GetListVatTuTheoLoaiTaiSan($event.value)" styleClass="p-inputtext-sm" showClear="true">
+                    [(ngModel)]="item.IddmLoaiTaiSan" (onChange)="GetListVatTuTheoLoaiTaiSan($event.value)"
+                    styleClass="p-inputtext-sm" showClear="true">
                 </p-dropdown>
             </div>
         </div>
@@ -157,7 +164,7 @@
                 <p-inputNumber [minFractionDigits]="1" locale="en-EN" min="0" [(ngModel)]="item.NangSuat">
                 </p-inputNumber>
                 <p class="tan">(tấn)</p>
-            </div> 
+            </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Độ ưu tiên <span class="text-danger">(*)</span> :</label>
@@ -166,7 +173,7 @@
                     [(ngModel)]="item.IddmMucDoUuTien" style="width: 100%" styleClass="p-inputtext-sm">
                 </p-dropdown>
             </div>
-        </div> 
+        </div>
         <!-- <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thời gian và số người thực hiện theo NCC:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
@@ -216,7 +223,7 @@
                     <tr>
                         <th class="text-center">STT</th>
                         <th class="text-center">Nội dung</th>
-                        <th class="text-center">Hạng mục bảo dưỡng</th>
+                        <th class="text-center">Cách thực hiện</th>
                         <th class="text-center">Công việc bảo dưỡng</th>
                         <th class="text-center">
                             <p-button icon="pi pi-plus" pTooltip="Thêm" tooltipPosition="top"
@@ -228,12 +235,13 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td>
-                            <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText />
+                            <input locale="en-EN" [(ngModel)]="hangmuc.NoiDung" pInputText />
                         </td>
                         <td>
-                            <p-dropdown [filter]="true" [options]="listVatTu" placeholder="Chọn"
+                            <!-- <p-dropdown [filter]="true" [options]="listVatTu" placeholder="Chọn"
                                 [(ngModel)]="hangmuc.IdVatTu" styleClass="p-inputtext-sm" showClear="true">
-                            </p-dropdown>
+                            </p-dropdown> -->
+                            <input locale="en-EN" [(ngModel)]="hangmuc.CachThucHien" pInputText />
                         </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listLoaiThucHienBaoDuong" placeholder="Chọn"

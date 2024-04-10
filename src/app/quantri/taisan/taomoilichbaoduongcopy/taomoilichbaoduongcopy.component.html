@@ -22,22 +22,22 @@
             <th class="text-center"> <button pButton pRipple icon="pi pi-plus" (click)="addBaoDuong()" class="p-button-sm p-mr-2"></button></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-item let-i="rowIndex">
+    <ng-template pTemplate="body" let-x let-i="rowIndex">
         <tr>
             <td class="text-center">
                 {{i + 1}}
             </td>
-            <td >{{item.TendmLoaiBaoDuong}}</td>
-            <td >{{item.ThoiGianBaoDuong}} {{item.MaLoaiThoiGian}} </td>
-            <td >{{item.NangSuat}}</td>
-            <td >{{item.GhiChu}}</td>
+            <td >{{x.TendmLoaiBaoDuong}}</td>
+            <td >{{x.ThoiGianBaoDuong}} {{x.MaLoaiThoiGian}} </td>
+            <td >{{x.NangSuat}}</td>
+            <td >{{x.GhiChu}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
-                    (click)="CapNhat(i,item)"></button>
+                    (click)="CapNhat(i,x)"></button>
                 <!-- <button pButton pRipple type="button" icon="pi pi-align-justify"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Tạo lịch bảo dưỡng"
-                    (click)="TaoLichBaoDuong(item)"></button> -->
+                    (click)="TaoLichBaoDuong(x)"></button> -->
                 <button pButton pRipple type="button" icon="pi pi-trash"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
                     (click)="delete(i)"></button>
