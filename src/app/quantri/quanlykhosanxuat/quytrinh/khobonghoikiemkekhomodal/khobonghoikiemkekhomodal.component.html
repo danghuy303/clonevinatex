@@ -47,6 +47,16 @@
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IddmKhoHoiLuongDo"></p-dropdown>
             </div>
         </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <!-- *ngIf="item.LoaiKiemKe === 'DieuChuyenBongPhe'  || item.LoaiKiemKe === 'XuatBanNoiBo'" -->
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ <span class="required">(*)</span>:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
+                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
+                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
+            </div>
+        </div>
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">

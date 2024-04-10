@@ -3,8 +3,9 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, UnixToDate, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { ImportnhapkhothanhphamComponent } from '../nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component';
+import { vn } from 'src/app/services/const';
 
 @Component({
     selector: 'app-khobonghoikiemkekhomodal',
@@ -16,6 +17,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
     opt: any = "";
     Id: any = "";
     item: any = {};
+    lang: any = vn;
     checkbutton: any = {
         Ghi: true,
         KhongDuyet: false,
@@ -106,7 +108,10 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
             .PhieuKiemKeKhoBong()
             .Get(this.Id)
             .subscribe((res1: any) => {
-                this.item = res1;
+                this.item = {
+                    ...res1,
+                    Ngay: UnixToDate(res1.NgayUnix)
+                };
                 this.listItem = res1.listItem;
                 this.paging.CurrentPage = 1;
                 this.paging.TotalPage = 5;
@@ -142,6 +147,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         }
 
         this.item.listItem = deepCopy(this.listItem);
+        this.item.NgayUnix = DateToUnix(this.item.Ngay)
         this.services
             .PhieuKiemKeKhoBong()
             .ChuyenTiep(this.item)
@@ -162,6 +168,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         }
 
         this.item.listItem = deepCopy(this.listItem);
+        this.item.NgayUnix = DateToUnix(this.item.Ngay)
         this.services
             .PhieuKiemKeKhoBong()
             .KhongDuyet(this.item)
@@ -191,7 +198,17 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
             this.newItem = {};
         }
 
+        if (!this.item.Ngay) {
+            let msg = `Vui lòng nhập đầy đủ trường dữ liệu bắt buộc!`
+            this.toastr.error(msg);
+            return;
+        }
+
         this.item_new.listItem = this.listItem;
+        this.item_new.NgayUnix = DateToUnix(this.item.Ngay)
+
+        this.item.NgayUnix = DateToUnix(this.item.Ngay)
+
         this.services
             .PhieuKiemKeKhoBong()
             .Set(this.item_new)
@@ -201,7 +218,11 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
                         this.toastr.success(res.message);
                         this.opt = "edit";
                         this.item_new = res.objectReturn;
-                        this.item = res.objectReturn;
+                        this.item_new.Ngay = UnixToDate(res.objectReturn.NgayUnix);
+                        this.item = {
+                            ...res.objectReturn,
+                            Ngay: UnixToDate(res.objectReturn.NgayUnix)
+                        };
                         this.Id = res.objectReturn.Id;
                         this.listItem = res.objectReturn.listItem;
                         this.paging.CurrentPage = 1;

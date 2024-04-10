@@ -122,8 +122,18 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
             });
     }
 
+    convertData() {
+        this.item.listItem = this.item.listItem.map((x: any) => {
+            let _thisFind = this.listItem.find((y: any) => y.IddmItem === x.IddmItem);
+            if (_thisFind) {
+                x = _thisFind;
+            }
+            return x;
+        })
+    }
+
     ChuyenDuyet() {
-        this.item.listItem = deepCopy(this.listItem);
+        // this.item.listItem = deepCopy(this.listItem);
         this.services
             .PhieuKiemKeKhoBongPhe()
             .ChuyenTiep(this.item)
@@ -138,7 +148,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
             });
     }
     KhongDuyet() {
-        this.item.listItem = deepCopy(this.listItem);
+        // this.item.listItem = deepCopy(this.listItem);
         this.services
             .PhieuKiemKeKhoBongPhe()
             .KhongDuyet(this.item)
