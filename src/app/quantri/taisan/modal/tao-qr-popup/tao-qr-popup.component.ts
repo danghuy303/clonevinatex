@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { validVariable } from 'src/app/services/globalfunction';
 
@@ -22,6 +23,7 @@ export class TaoQrPopupComponent implements OnInit {
     public activeModal: NgbActiveModal,
     public toastr: ToastrService,
     private _serviceTaiSan: TaisanService,
+    private _danhMucTaiSan: DanhmuctaisanService,
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +50,14 @@ export class TaoQrPopupComponent implements OnInit {
   }
 
   GetList() {
-
+    let data = {
+      listMaQr: [],
+      CurrentPage: 0,
+      PageSize: 20
+    }
+    this._danhMucTaiSan.GetListQRCODE(data).subscribe((res: any) => {
+      this.items = res;
+    })
   }
 
   checkAll(e) {
@@ -75,7 +84,7 @@ export class TaoQrPopupComponent implements OnInit {
 
   checked(e) {
     this.items.forEach(ele => {
-      if (ele.data.Id !== e.Id) {
+      if (ele.MaQr !== e.MaQr) {
         ele.data.disabled = e.checked; // nếu khác id thì disabled các item khác ( disabled = true). ko đc fix cứng => vì khi tích chọn thì e.checked = true
       }
     })

@@ -37,8 +37,16 @@
                 </p-dropdown>
             </div>
         </div>
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bảo dưỡng theo sản lượng:</label>
+            <div class="p-col-12 p-lg-8 p-p-0 d-flex flex-column flex-xl-row">
+                <p-inputNumber [minFractionDigits]="1" locale="en-EN" min="0" [(ngModel)]="item.NangSuat">
+                </p-inputNumber>
+                <p class="tan">(tấn)</p>
+            </div>
+        </div>
         <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Lịch bảo dưỡng <span class="text-danger">(*)</span> :</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Bảo dưỡng theo thời gian <span class="text-danger">(*)</span> :</label>
             <div class="p-col-12 p-lg-10 p-p-0 flex-column flex-xl-row">
                 <div class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-xl-row">
                     <div class="p-col-12 p-lg-2 p-p-0">
@@ -156,14 +164,6 @@
             <div class="p-col-12 p-lg-7 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNguoi">
                 </p-inputNumber>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sản lượng:</label>
-            <div class="p-col-12 p-lg-8 p-p-0 d-flex flex-column flex-xl-row">
-                <p-inputNumber [minFractionDigits]="1" locale="en-EN" min="0" [(ngModel)]="item.NangSuat">
-                </p-inputNumber>
-                <p class="tan">(tấn)</p>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">

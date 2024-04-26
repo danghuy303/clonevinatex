@@ -213,7 +213,7 @@
                             <ng-template pTemplate="body" let-baoduong let-i="rowIndex">
                                 <tr>
                                     <td class="text-center">{{i + 1}}</td>
-                                    <td>{{baoduong.TenVatTu}}</td>
+                                    <td>{{baoduong.NoiDung}}</td>
                                     <td>
                                         <p-dropdown [filter]="true" [options]="listNoiDungVatTu"
                                             (onChange)="ThayThe(baoduong)" [(ngModel)]="baoduong.IdVatTu"

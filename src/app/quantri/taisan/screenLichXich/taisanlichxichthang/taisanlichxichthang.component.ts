@@ -44,10 +44,10 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
   }
 
   check(e, index, list) {
-    list.forEach(ele => {
-      ele.isChon = false;
-    })
-    list[index].isChon = e.checked;
+    // list.forEach(ele => {
+    //   ele.isChon = false;
+    // })
+    // list[index].isChon = e.checked;
   }
 
 }

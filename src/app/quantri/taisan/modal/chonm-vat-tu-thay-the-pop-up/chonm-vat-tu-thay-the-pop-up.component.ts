@@ -41,6 +41,8 @@ export class ChonmVatTuThayThePopUpComponent implements OnInit {
 
   GhiLai() {
     let arr = this.listHienThi.filter(ele => ele.checked);
+    console.log(arr);
+    
     this.activeModal.close(arr);
   }
 

@@ -23,13 +23,13 @@
             </div>
         </div>
     </div>
-    <div>
+    <!-- <div>
         <h5>Tạo mã QR</h5>
         <div class="p-inputgroup" style="width: 200px;">
             <p-inputNumber [(ngModel)]="filter.SoLuong" placeholder="Nhập số lượng QR"></p-inputNumber>
             <button type="button" (click)="TaoQR()" pButton pRipple label="Tạo" styleClass="p-button-warn"></button>
         </div>
-    </div>
+    </div> -->
     <div class="table">
         <p-table [value]="items" [paginator]="true" [rows]="20"
             styleClass="p-datatable-gridlines p-datatable-sm wrap-text p-datatable-striped">
@@ -65,7 +65,6 @@
                         <div class="d-flex p-jc-center p-ai-center">
                             <qrcode [qrdata]="item.MaQr" [width]="50" [errorCorrectionLevel]="'M'" [elementType]="'svg'">
                             </qrcode>
-                            {{item.MaQr}}
                         </div>
                     </td>
                     <td class="text-center">

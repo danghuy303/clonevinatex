@@ -154,8 +154,8 @@
                         <td class="text-center"> {{taisan.TenVietTat}}</td>
                         <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong">
                             <div>
-                                <span *ngFor="let chitiet of baoduong.listChiTiet"
-                                    [pTooltip]="chitiet.TendmLoaiBaoDuong">{{chitiet?.KyHieu}}</span>
+                                <div *ngFor="let chitiet of baoduong.listChiTiet"
+                                    [pTooltip]="chitiet?.TendmLoaiBaoDuong">{{chitiet?.KyHieu}}</div>
                                 <!-- <a  *ngIf="baoduong.canInput" href="javascript:void(0)" (click)="Chon(baoduong,taisan)">Chọn</a> -->
                                 <a *ngIf="baoduong.IsHienThi" href="javascript:void(0)"
                                     (click)="Chon(baoduong,taisan)">Chọn</a>
