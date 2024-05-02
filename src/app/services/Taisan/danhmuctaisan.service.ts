@@ -17,6 +17,7 @@ export class DanhmuctaisanService {
         return this.http.get(`${url}DanhMuc/GetListTinhTrangTaiSan?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmTinhTrangTaiSan`, data, httpOptions)
       },
       Delete: (id) => {
@@ -31,6 +32,7 @@ export class DanhmuctaisanService {
         return this.http.get(`${url}DanhMuc/GetListLoaiKhauHao?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmLoaiKhauHao`, data, httpOptions)
       },
       Delete: (id) => {
@@ -46,6 +48,7 @@ export class DanhmuctaisanService {
         return this.http.get(`${url}DanhMuc/GetListDonViTinh?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmDonViTinh`, data, httpOptions)
       },
       Delete: (Id) => {
@@ -64,6 +67,7 @@ export class DanhmuctaisanService {
         return this.http.post(`${url}DanhMuc/GetListdmLoaiBaoDuongForDanhMuc`, data, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmLoaiBaoDuong`, data, httpOptions)
       },
       Delete: (Id) => {
@@ -96,6 +100,7 @@ export class DanhmuctaisanService {
         return this.http.post(`${url}DanhMuc/GetListdmLoaiThucHienBaoDuong`, data, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmLoaiThucHienBaoDuong`, data, httpOptions)
       },
       Delete: (id) => {
@@ -131,6 +136,7 @@ export class DanhmuctaisanService {
         return this.http.post(`${url}DanhMuc/GetListdmLoaiTaiSan`, data, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmLoaiTaiSan`, data, httpOptions)
       },
       Delete: (id) => {
@@ -163,6 +169,7 @@ export class DanhmuctaisanService {
         return this.http.post(`${url}DanhMuc/GetListdmLoaiSuCoForDanhMuc`, data, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmLoaiSuCo`, data, httpOptions)
       },
       Delete: (Id) => {
@@ -193,6 +200,7 @@ export class DanhmuctaisanService {
         return this.http.post(`${url}DanhMuc/GetListdmMucDoUuTienForDanhMuc`, data, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmMucDoUuTien`, data, httpOptions)
       },
       Delete: (Id) => {
@@ -220,6 +228,7 @@ export class DanhmuctaisanService {
         return this.http.get(`${url}DanhMuc/GetListDonViNangSuat?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmDonViNangSuat`, data, httpOptions)
       },
       Delete: (Id) => {
@@ -234,6 +243,7 @@ export class DanhmuctaisanService {
         return this.http.post(`${url}DanhMuc/GetlistdmNhaCungUng`, data, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmNhaCungCap`, data, httpOptions)
       },
       Delete: (Id) => {
@@ -261,6 +271,7 @@ export class DanhmuctaisanService {
         return this.http.get(`${url}DanhMuc/GetListNhaSanXuat?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmNhaSanXuat`, data, httpOptions)
       },
       Delete: (Id) => {

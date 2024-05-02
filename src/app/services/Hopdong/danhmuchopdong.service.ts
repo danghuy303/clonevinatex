@@ -29,6 +29,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmThuTucThanhToan?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmThuTucThanhToan`, data, httpOptions)
             },
             Delete: (id) => {
@@ -54,6 +55,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmLoaiTienTe?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmLoaiTienTe`, data, httpOptions)
             },
             Delete: (id) => {
@@ -74,6 +76,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmLoaiHopDong?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmLoaiHopDong`, data, httpOptions)
             },
             DeleteList: (data) => {
@@ -97,6 +100,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmHinhThucThanhToan?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
 
                 return this.http.post(`${url}DanhMuc/SetdmHinhThucThanhToan`, data, httpOptions)
             },
@@ -120,6 +124,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmTinhTrangBaoLanh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmTinhTrangBaoLanh`, data, httpOptions)
             },
             Delete: (id) => {
@@ -137,6 +142,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmTieuChuanChatLuong?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmTieuChuanChatLuong`, data, httpOptions)
             },
             Delete: (data) => {
@@ -157,6 +163,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmLoaiVatTuPhu?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmLoaiVatTuPhu`, data, httpOptions)
             },
             DeleteList: (data) => {
@@ -176,6 +183,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmCoCauNhanSu?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmCoCauNhanSu`, data, httpOptions)
             },
             DeleteList: (data) => {
@@ -195,6 +203,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmDinhMucMatHang?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmDinhMucMatHang`, data, httpOptions)
             },
             DeleteList: (data) => {
@@ -214,6 +223,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmChiPhiBanHang?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmChiPhiBanHang`, data, httpOptions)
             },
             DeleteList: (data) => {
@@ -233,6 +243,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmTaiSan?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmTaiSan`, data, httpOptions)
             },
             DeleteList: (data) => {
@@ -252,6 +263,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetListdmTinhLuong?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmTinhLuong`, data, httpOptions)
             },
             DeleteList: (data) => {
@@ -274,6 +286,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DinhMucMatHangHangNam/GetAllPaging?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DinhMucMatHangHangNam/AddDinhMucMatHangHangNam`, data, httpOptions)
             },
         }
@@ -314,6 +327,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}KeHoachKinhDoanh/GetListQuyTrinh`, data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}KeHoachKinhDoanh/SetQuyTrinh`, data, httpOptions)
             },
             GetListSanPham: (data) => {
@@ -362,6 +376,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}GetListQuyTrinh`, data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}SetQuyTrinh`, data, httpOptions)
             },
             NextQuyTrinh: () => {
@@ -395,6 +410,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}GetListQuyTrinh`, data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}SetQuyTrinh`, data, httpOptions)
             },
             NextQuyTrinh: () => {
@@ -434,6 +450,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetSanPhamTheoKeHoachSanLuong?IdKeHoachSanLuong=${IdKeHoachSanLuong}`);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}KeHoachKinhDoanh/SetQuyTrinhKeHoachDoanhThu`, data);
             },
             ChuyenTiep: (data) => {
@@ -467,6 +484,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetLoaiDinhMucTheoKeHoachSanLuong?IdKeHoachSanLuong=${IdKeHoachSanLuong}`);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}KeHoachKinhDoanh/SetQuyTrinhKeHoachChiPhi`, data);
             },
             ChuyenTiep: (data) => {
@@ -510,6 +528,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}KeHoachKinhDoanh_DonGia/GetListQuyTrinh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}KeHoachKinhDoanh_DonGia/SetListKeHoachKinhDoanh_DonGia`, data, httpOptions)
             },
         }
@@ -528,6 +547,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}DanhSachTinhLuongHangNam/UpdateDanhSachTinhLuongHangNam`, data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhSachTinhLuongHangNam/AddDanhSachTinhLuongHangNam`, data, httpOptions)
             },
             Delete: (data) => {
@@ -549,6 +569,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}MucLuongHangNam/UpdateMucLuongHangNam`, data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}MucLuongHangNam/AddMucLuongHangNam`, data, httpOptions)
             },
             Delete: (data) => {
@@ -570,6 +591,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}ChiPhiBanHangHangNam/UpdateChiPhiBanHangHangNam`, data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ChiPhiBanHangHangNam/AddChiPhiBanHangHangNam`, data, httpOptions)
             },
             Delete: (data) => {
@@ -600,6 +622,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}DanhMuc/GetdmTyGia?Nam=${Nam}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmTyGia`, data, httpOptions)
             },
             Delete: (data) => {
@@ -617,6 +640,7 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetBangGiaSanPham?Nam=${Nam}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}KeHoachKinhDoanh/CapNhatBangGiaSanPham`, data, httpOptions)
             },
             GoiYGia: (data) => {
@@ -635,6 +659,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}KeHoachKinhDoanh/GetDoanhThuKeHoachKinhDoanhSanPhamTheoThang`, data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}KeHoachKinhDoanh/CapNhatDoanhThuKeHoachKinhDoanhSanPhamTheoThang`, data, httpOptions)
             }
         }
@@ -647,6 +672,7 @@ export class DanhMucHopDongService {
                 return this.CPAll(opt);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent()
                 return this.http.post(`${url}DonGiaDinhMuc/Set_DonGiaDinhMucNam`, data, httpOptions);
             }

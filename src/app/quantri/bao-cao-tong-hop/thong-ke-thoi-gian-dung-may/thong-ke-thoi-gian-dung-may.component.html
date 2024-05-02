@@ -53,34 +53,34 @@
 
 
                     <th class="text-right" *ngFor="let suco of item.lstdmSuCoMay; let i = index">
-                        {{ calculateTong(item.lstMay, i) | number: '0.0-3' }}
+                        {{ calculateTong(item.lstMay|filterByKey:'MaCongDoan':filter.MaCongDoan, i) | number: '0.0-3' }}
                     </th>
 
 
                     <th class="text-right">
                         {{
-                        item.lstMay
+                        item.lstMay|filterByKey:'MaCongDoan':filter.MaCongDoan
                         | SumByKey: 'TongThoiGianDungMay'
                         | number: '0.0-3'
                         }}
                     </th>
                     <th class="text-right">
                         {{
-                        item.lstMay
+                        item.lstMay|filterByKey:'MaCongDoan':filter.MaCongDoan
                         | SumByKey: 'TocDoMax'
                         | number: '0.0-3'
                         }}
                     </th>
                     <th class="text-right">
                         {{
-                        item.lstMay
+                        item.lstMay|filterByKey:'MaCongDoan':filter.MaCongDoan
                         | SumByKey: 'TocDoTrungBinh'
                         | number: '0.0-3'
                         }}
                     </th>
                     <th class="text-right">
                         {{
-                        item.lstMay
+                        item.lstMay|filterByKey:'MaCongDoan':filter.MaCongDoan
                         | SumByKey: 'TocDoMax-may.TocDoTrungBinh'
                         | number: '0.0-3'
                         }}

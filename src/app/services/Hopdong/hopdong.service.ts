@@ -63,6 +63,7 @@ export class HopDongService {
         );
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(
           url + "HopDong/SetQuyTrinhHopDong",
           data,
@@ -147,6 +148,7 @@ export class HopDongService {
         );
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(
           url + "GiaHanHopDong/SetQuyTrinh",
           data,
@@ -202,6 +204,7 @@ export class HopDongService {
         return this.http.get(url + `QuyetToan/GetById?Id=${Id}`,httpOptions);
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(url + "QuyetToan/SetQuyTrinh",data,httpOptions);
       },
       KhongDuyet: (data) => {
@@ -244,6 +247,7 @@ export class HopDongService {
         return this.http.get(url + `PhatHopDong/GetById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         data.idDuAn = this.store.getCurrent();
         return this.http.post(
           url + "PhatHopDong/SetQuyTrinh",
@@ -296,6 +300,7 @@ export class HopDongService {
         );
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         data.idDuAn = this.store.getCurrent();
 
         return this.http.post(
@@ -374,6 +379,7 @@ export class HopDongService {
         );
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         // data.idDuAn = 53
         return this.http.post(
           url + "GiaoKeHoachSanXuat/SetQuyTrinh",
@@ -427,6 +433,7 @@ export class HopDongService {
         return this.http.get(url + `PhieuXuatLoBong/GetById?Id=${Id}`,httpOptions);
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         data.idDuAn = this.store.getCurrent();
         return this.http.post(url + "PhieuXuatLoBong/SetPhieuXuatLoBong",data,httpOptions);
       },
@@ -459,6 +466,7 @@ export class HopDongService {
         return this.http.get(url + `DanhGia/GetById?Id=${Id}`,httpOptions);
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         data.idDuAn = this.store.getCurrent();
         return this.http.post(url + "DanhGia/SetQuyTrinh",data,httpOptions);
       },
@@ -487,6 +495,7 @@ export class HopDongService {
         return this.http.get(url + `DanhMuc/GetdmTieuChiDanhGiaById?Id=${Id}`,httpOptions);
       },
       Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(url + "DanhMuc/SetdmTieuChiDanhGia",data,httpOptions);
       },
       Delete: (Id) => {

@@ -101,6 +101,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetItemMayBienAp?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetItemMayBienAp', data, httpOptions);
             },
             Delete: (data) => {
@@ -123,6 +124,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetItemLoaiDienKV?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetItemLoaiDienKV', data, httpOptions);
             },
             Delete: (data) => {
@@ -142,6 +144,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetItemLoaiDien?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetItemLoaiDien', data, httpOptions);
             },
             Delete: (data) => {
@@ -161,6 +164,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetItemNhomCongToDien?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetItemNhomCongToDien', data, httpOptions);
             },
             Delete: (data) => {
@@ -181,6 +185,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetListdmQuyCachDongGoi?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmQuyCachDongGoi', data, httpOptions);
             },
             Delete: (data) => {
@@ -201,6 +206,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetdmPhanNhomMay?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmPhanNhomMay', data, httpOptions);
             },
             Delete: (Id) => {
@@ -358,6 +364,7 @@ export class SanXuatService {
                 return this.http.post(url + `GetDanhSachChiTieuChatLuongTheoSanPham`, data, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetDanhSachChiTieuChatLuongTheoSanPham', data, httpOptions);
             },
         }
@@ -375,6 +382,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetItemChiTieuChatLuong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetItemChiTieuChatLuong', data, httpOptions);
             },
             Delete: (data) => {
@@ -398,6 +406,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetItemCongToDien?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetItemCongToDien', data, httpOptions);
             },
             Delete: (data) => {
@@ -741,6 +750,7 @@ export class SanXuatService {
                 return this.http.get(`${url}DanhMuc/GetListdm${endpoint}?CurrentPage=${currentPage}&PageSize=${pageSize}`);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/Setdm${endpoint}`, data);
             },
             Delete: (id) => {
@@ -779,6 +789,7 @@ export class SanXuatService {
                 return this.http.get(`${url}DanhMuc/GetListAlldmLoaiCoCauNhanSu?IdDuAn=${IdDuAn}`);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}DanhMuc/SetdmCoCauNhanSu`, data)
             }
         }
@@ -795,6 +806,7 @@ export class SanXuatService {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetByNam_${endpoint}?Nam=${nam}&IdDuAn=${idDuAn}`);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = idDuAn;
                 return this.http.post(`${url}KeHoachKinhDoanh/Set_${endpoint}`, data);
             }
@@ -834,6 +846,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetGiaoKeHoachSanXuat?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetGiaoKeHoachSanXuat', data, httpOptions);
             },
             Delete: (data) => {
@@ -868,6 +881,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetTrienKhaiKeHoachSanXuat?Id=${Id}&ChiTiet=${ChiTiet === false ? false : true}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetTrienKhaiKeHoachSanXuat', data, httpOptions);
             },
@@ -956,6 +970,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuNhapLoBong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuNhapLoBong', data, httpOptions);
             },
@@ -1018,6 +1033,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuNhapLoBong_ChatLuong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuNhapLoBong_ChatLuong', data, httpOptions);
             },
@@ -1058,6 +1074,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuBanGiaoBongXo?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuBanGiaoBongXo', data, httpOptions);
             },
@@ -1089,6 +1106,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuHaCap?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuHaCap', data, httpOptions);
             },
@@ -1122,6 +1140,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuDieuChuyen?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuDieuChuyen', data, httpOptions);
             },
@@ -1154,6 +1173,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetKeHoachNhapNguyenLieu?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetKeHoachNhapNguyenLieu', data, httpOptions);
             },
@@ -1193,6 +1213,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetKeHoachXuatHang?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetKeHoachXuatHang', data, httpOptions);
             },
@@ -1226,6 +1247,7 @@ export class SanXuatService {
                 return this.http.post(url + `GetThongKeDien`, data, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetThongKeDien', data, httpOptions);
             },
@@ -1270,6 +1292,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetThongKeSanLuong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetThongKeSanLuong', data, httpOptions);
             },
@@ -1323,6 +1346,7 @@ export class SanXuatService {
                 return this.http.post(url + `GetThongKeSanLuongNhanh`, data, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetThongKeSanLuongNhanh', data, httpOptions);
             },
@@ -1361,6 +1385,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhuongAnPhaBong?Id=${Id}&isDieuChinh=true`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 // data.IdDuAn = parseInt(this.store.getCurrent());
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhuongAnPhaBong', data, httpOptions);
@@ -1467,6 +1492,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuNhapThanhPham?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuNhapThanhPham', data, httpOptions);
             },
@@ -1500,6 +1526,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuNhapGiaCong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuNhapGiaCong', data, httpOptions);
             },
@@ -1533,6 +1560,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuNhapHoiAm?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuNhapHoiAm', data, httpOptions);
             },
@@ -1567,6 +1595,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetQuyTrinhKiemTraChatLuong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetQuyTrinhKiemTraChatLuong', data, httpOptions);
             },
@@ -1597,6 +1626,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhuongAnTimBong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhuongAnTimBong', data, httpOptions);
             },
@@ -1632,6 +1662,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhuongAnSanXuat?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhuongAnSanXuat', data, httpOptions);
             },
             // Delete: (data) => {
@@ -1663,6 +1694,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhuongAnXepBanBong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhuongAnXepBanBong', data, httpOptions);
             },
             // Delete: (data) => {
@@ -1718,6 +1750,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuKiemKeThanhPham?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuKiemKeThanhPham', data, httpOptions);
             },
@@ -1749,6 +1782,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuKiemKeGiaCong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuKiemKeGiaCong', data, httpOptions);
             },
@@ -1801,6 +1835,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuXuatBong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuXuatBong', data, httpOptions);
             },
@@ -1842,6 +1877,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhuongAnDieuChinhTimBong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhuongAnDieuChinhTimBong', data, httpOptions);
             },
@@ -1873,6 +1909,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuXuatXo?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuXuatXo', data, httpOptions);
             },
@@ -1913,6 +1950,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuXuatBongPhe?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuXuatBongPhe', data, httpOptions);
             },
@@ -2023,6 +2061,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuXuatThanhPham?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuXuatThanhPham', data, httpOptions);
             },
@@ -2061,6 +2100,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuXuatGiaCong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuXuatGiaCong', data, httpOptions);
             },
@@ -2093,6 +2133,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListUserTheoGiaoDien', data, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetUserTheoGiaoDien', data, httpOptions);
             },
             Delete: (Id) => {
@@ -2111,6 +2152,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetLoMatHang?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetLoMatHang', data, httpOptions);
             },
@@ -2201,6 +2243,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuKiemKeBanChePham?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuKiemKeBanChePham', data, httpOptions);
             },
@@ -2225,6 +2268,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListdmKiemKeBanChePham', data, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmKiemKeBanChePham', data, httpOptions);
             },
             Delete: (data) => {
@@ -2254,6 +2298,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetdmDacTinhBong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmDacTinhBong', data, httpOptions);
             },
             Delete: (data) => {
@@ -2278,6 +2323,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetKeHoachNhapNguyenLieuInvoice?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetKeHoachNhapNguyenLieuInvoice', data, httpOptions);
             },
@@ -2329,6 +2375,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuNhapBongPhe?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuNhapBongPhe', data, httpOptions);
             },
@@ -2362,6 +2409,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListdmKhachHang', data, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmKhachHang', data, httpOptions);
             },
@@ -2395,6 +2443,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuKiemKeBongXo?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuKiemKeBongXo', data, httpOptions);
             },
@@ -2458,6 +2507,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuKiemKeBongPhe?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuKiemKeBongPhe', data, httpOptions);
             },
@@ -2521,6 +2571,7 @@ export class SanXuatService {
         let url = API.SCMDanhMuc
         return {
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}SetTepDinhKemHuongDanSuDung`, data, httpOptions)
             },
             Get: () => {
@@ -2539,6 +2590,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListdmChiSoTrienKhai', data, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetChiSoTrienKhai', data, httpOptions);
             },
@@ -2565,6 +2617,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuKiemKeHoiAm?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuKiemKeHoiAm', data, httpOptions);
             },
@@ -2601,6 +2654,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuNhapVatTuPhu?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuNhapVatTuPhu', data, httpOptions);
             },
@@ -2629,6 +2683,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuXuatVatTuPhu?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuXuatVatTuPhu', data, httpOptions);
             },
@@ -2657,6 +2712,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuKiemKeVatTuPhu?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuKiemKeVatTuPhu', data, httpOptions);
             },
@@ -2688,6 +2744,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetQuyTrinhKeHoachNhapBong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetKeHoachNhapBong', data, httpOptions);
             },
             Delete: (data) => {
@@ -2715,6 +2772,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuXuatBongChoVay?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuXuatBongChoVay', data, httpOptions);
             },
@@ -2748,6 +2806,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetThongKeSanLuongNhieuCa?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetThongKeSanLuongNhieuCa', data, httpOptions);
             },
@@ -2777,6 +2836,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetKiemTraBanChePham?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetKiemTraBanChePham', data, httpOptions);
             },
@@ -2807,6 +2867,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListdmLoaiBongPhe', data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmLoaiBongPhe', data, httpOptions);
             },
             Delete: (data) => {
@@ -2821,6 +2882,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetDanhSachTieuChuanBongPheHangThang?Nam=${Nam}&Thang=${Thang}&Loai=${Loai}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetDanhSachTieuChuanBongPheHangThang', data, httpOptions);
             }
         }
@@ -2832,6 +2894,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetDanhSachTieuChuanBongHoiHangThang?Nam=${Nam}&Thang=${Thang}`, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetDanhSachTieuChuanBongHoiHangThang', data, httpOptions);
             }
         }
@@ -2846,6 +2909,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListdmSuCoMay', data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmSuCoMay', data, httpOptions);
             },
             Delete: (data) => {
@@ -2863,6 +2927,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListQuyTrinhThoiGianDungMayVaTocDo', data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetQuyTrinhThoiGianDungMayVaTocDo', data, httpOptions);
             },
             Delete: (data) => {
@@ -2884,6 +2949,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetItemChiTieuChatLuongLoiCat?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetItemChiTieuChatLuongLoiCat', data, httpOptions);
             },
             Delete: (data) => {
@@ -2899,6 +2965,7 @@ export class SanXuatService {
                 return this.http.post(url + `GetDanhSachChiTieuChatLuongLoiCatTheoSanPham`, data, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetDanhSachChiTieuChatLuongLoiCatTheoSanPham', data, httpOptions);
             },
         }
@@ -2918,6 +2985,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetQuyTrinhKiemTraChatLuongLoiCat?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetQuyTrinhKiemTraChatLuongLoiCat', data, httpOptions);
             },
@@ -2978,6 +3046,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetItemChiTieuChatLuongClasimat?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetItemChiTieuChatLuongClasimat', data, httpOptions);
             },
             Delete: (data) => {
@@ -2993,6 +3062,7 @@ export class SanXuatService {
                 return this.http.post(url + `GetDanhSachChiTieuChatLuongClasimatTheoSanPham`, data, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetDanhSachChiTieuChatLuongClasimatTheoSanPham', data, httpOptions);
             },
         }
@@ -3011,6 +3081,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetQuyTrinhKiemTraChatLuongClasimat?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetQuyTrinhKiemTraChatLuongClasimat', data, httpOptions);
             },
@@ -3049,6 +3120,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListQuyTrinhBaoCaoCa', data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetQuyTrinhBaoCaoCa', data, httpOptions);
             },
             Delete: (data) => {
@@ -3077,6 +3149,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetdmHeThongDieuKhong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmHeThongDieuKhong', data, httpOptions);
             },
             Delete: (data) => {
@@ -3094,6 +3167,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetdmCapHutDieuKhong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmCapHutDieuKhong', data, httpOptions);
             },
             Delete: (data) => {
@@ -3114,6 +3188,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetdmKhuVucDieuKhong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmKhuVucDieuKhong', data, httpOptions);
             },
             Delete: (data) => {
@@ -3131,6 +3206,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListQuyTrinhBaoCaoCa', data, httpOptions)
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetQuyTrinhBaoCaoDieuKhong', data, httpOptions);
             },
             Delete: (data) => {
@@ -3194,6 +3270,7 @@ export class SanXuatService {
                 return this.http.get(url + `KiemKeBanChePham/GetPhieuKiemKeBanChePhamToHieu?id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'KiemKeBanChePham/SetPhieuKiemKeBanChePhamToHieu', data, httpOptions);
             },
@@ -3265,6 +3342,7 @@ export class SanXuatService {
                 return this.http.get(url + `KiemKeBanChePham/GetPhieuKiemKeBanChePhamHue?id=${Id}`, httpOptions);
             },
             Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'KiemKeBanChePham/SetPhieuKiemKeBanChePhamHue', data, httpOptions);
             },
