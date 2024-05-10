@@ -28,6 +28,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   opt = '';
   listPhanXuong = [];
   listDoUuTien = [];
+  listNguoiThucHien = [];
   listLoaiSuCo = [];
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   lang: any = vn;
@@ -71,12 +72,18 @@ export class ModaldenghixulisucoComponent implements OnInit {
     this.LoaiThucHienBaoDuong();
     this.GetListTaiSanDangSuDung();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
+    let data_BaoDuong = {
+      CurrentPage: 0,
+      MaCongDoan: ''
+    }
     let ls1 = this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucLoaiSuCo().GetList(data).toPromise();
+    let ls3 = this._danhMucTaiSan.GetListdmCongDoan_DoiBaoDuong(data_BaoDuong).toPromise();
 
-    Promise.all([ls1, ls2]).then((values: any) => {
+    Promise.all([ls1, ls2,ls3]).then((values: any) => {
       this.listDoUuTien = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listLoaiSuCo = mapArrayForDropDown(values[1].Data, "Ten", "Id");
+      this.listNguoiThucHien = mapArrayForDropDown(values[2].Data, "NoiDung", "Id");
     })
   }
 
@@ -333,10 +340,10 @@ export class ModaldenghixulisucoComponent implements OnInit {
         listVatTuThayThe = [...obj.listVatTu, ...listVatTuThayThe];
       })
       this.listVatTu = [...listVatTuThayThe];
-      console.log( this.listVatTuThayThe);
-      
-      console.log( this.listVatTu);
-      
+      console.log(this.listVatTuThayThe);
+
+      console.log(this.listVatTu);
+
     }
   }
 

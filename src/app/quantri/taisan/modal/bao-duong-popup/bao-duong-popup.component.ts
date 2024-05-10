@@ -68,7 +68,7 @@ export class BaoDuongPopupComponent implements OnInit {
       MaCongDoan: this.listLoaiTaiSanDeep.find(obj => obj.Id === value)?.MaCongDoan
     }
     this._danhMucTaiSan.GetListdmCongDoan_DoiBaoDuong(data).subscribe((res: any) => {
-      this.listDoiBaoDuong = mapArrayForDropDown(res.Data, "Ten", "Id");
+      this.listDoiBaoDuong = mapArrayForDropDown(res.Data, "NoiDung", "Id");
     })
   }
 

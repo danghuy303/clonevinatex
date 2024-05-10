@@ -210,7 +210,8 @@ export class QuantriComponent implements OnInit, OnDestroy {
       window.location.origin.includes("4200") ||
       window.location.origin.includes("2269") ||
       window.location.origin.includes("2369") ||
-      window.location.origin.includes("2371");
+      window.location.origin.includes("2371")||
+      window.location.origin.includes("2370");
     this.showTaiSanModule =
       window.location.origin.includes("4200") ||
       window.location.origin.includes("2269") ||
@@ -1439,6 +1440,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
               {
                 label: "Mã QR",
                 routerLink: "/quantri/taisan/danhmuc/maqr",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Đội bảo dưỡng",
+                routerLink: "/quantri/taisan/danhmuc/doibaoduong",
                 command: () => {
                   this.close();
                 },

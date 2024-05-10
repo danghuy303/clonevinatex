@@ -93,6 +93,25 @@ export class DanhmuctaisanService {
     }
   }
 
+  DoiBaoDuong() {
+    let url = API.TaiSan
+    return {
+      GetList: (data) => {
+        return this.http.post(`${url}DanhMuc/GetListdmCongDoan_DoiBaoDuong`, data, httpOptions)
+      },
+      Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/SetdmCongDoan_DoiBaoDuong`, data, httpOptions)
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}/DanhMuc/GetdmCongDoan_DoiBaoDuong?Id=${Id}`, httpOptions);
+      },
+      DeleteList: (data) => {
+        return this.http.post(`${url}DanhMuc/DeleteListdmCongDoan_DoiBaoDuong`, data, httpOptions)
+      },
+    }
+  }
+
   LoaiThucHienBaoDuong() {
     let url = API.TaiSan
     return {
@@ -294,6 +313,10 @@ export class DanhmuctaisanService {
 
   GetDanhSachCongViecByIddmLoaiBaoDuong(data) {
     return this.http.post(`${API.TaiSan}DanhMuc/GetDanhSachCongViecByIddmLoaiBaoDuong `, data, httpOptions)
+  }
+
+  GetBoPhanNhanSu() {
+    return this.http.get(`${API.auth}CoCauNhanSu/GetBoPhanNhanSu`, httpOptions)
   }
 
   SetQRCODE(data) {
