@@ -26,19 +26,19 @@ export class DanhmucloaitaisanComponent implements OnInit {
     {
       header: 'Mã',
       field: 'Ma',
-      width: '350px',
+      width: '150px',
       align: 'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '300px',
+      width: '200px',
       align: 'center'
     },
     {
       header: 'Công đoạn',
       field: 'TenCongDoan',
-      width: '300px',
+      width: '200px',
       align: 'center'
     },
     {
@@ -157,10 +157,9 @@ export class DanhmucloaitaisanComponent implements OnInit {
     modalRef.componentInstance.single = true;
     modalRef.componentInstance.onlyExcel = true;
     modalRef.result
-      .then((res: any) => {
-        this.fileUpload = res;
+      .then((res: any) => { 
         console.log(res);
-        
+        this.fileUpload = res;
         this._danhMucTaiSan.DanhMucLoaiTaiSan().Importdm(this.fileUpload[0].Name).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);

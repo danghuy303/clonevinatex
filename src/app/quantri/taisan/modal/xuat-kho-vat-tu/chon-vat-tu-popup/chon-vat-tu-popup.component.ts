@@ -28,7 +28,12 @@ export class ChonVatTuPopupComponent implements OnInit {
   }
 
   ChapNhan() {
-    let data = this.listVatTu.filter(ele => ele.checked);
+    let data = this.listVatTu.filter(ele => ele.checked).map(obj => {
+      return {
+        ...obj,
+        IddmItem: obj.Id
+      }
+    });
     this.activeModal.close(data)
   }
 

@@ -197,7 +197,7 @@
                             <col [style.minWidth]="item.CongDoan === 'ONG'?'80px':'200px' ">
                             <!-- <col style="width:200px"> -->
                             <col [style.width]="item.CongDoan === 'ONG'?'135px':'100px' "
-                                *ngFor="let col of item.listData2[0].listGiaTri">
+                                *ngFor="let col of item.listData2[0]?.listGiaTri">
                         </ng-template>
                         <ng-template pTemplate="header">
                             <tr>

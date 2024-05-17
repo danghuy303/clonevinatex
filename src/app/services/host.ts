@@ -61,7 +61,8 @@ export class API {
   public static SCMBaoCaoCa = host1 + "/SCM/BaoCaoCa/";
   public static danhmuc = API.baseUrl + "DanhMuc/";
   public static QLTSD = API.baseUrl + "QuanLyTaiSanDat/";
-  public static uploadURL = host1 + "/QLTS/FileUploader/Post";
+  // public static uploadURL = host1 + "/QLTS/FileUploader/Post";
+  public static uploadURL = host1 + "/uploader/Post";
   public static uploader = host1 + "/uploader/Post";
   public static uploadURLalt = host1 + "/uploader/api/hdfiles";
   public static downloadURL = host1 + "/uploader/api/hdfiles";

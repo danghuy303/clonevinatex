@@ -175,17 +175,17 @@ export class DanhMucDoiBaoDuongComponent implements OnInit {
       .finally(()=> {
       })
   }
-  exportExcel(){
+  exportExcel() {
     let data = {
       PageSize:20, 
       CurrentPage:0,
       Keyword:this.Keyword, 
-     
     };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().Exportdm(data).subscribe((res: any) => {
       this._danhMucTaiSan.DanhMucLoaiBaoDuong().download(res.Data);
     })
   }
+  
   changePage(event) {
     this.paging.CurrentPage = event.page+1;
     this.GetList()

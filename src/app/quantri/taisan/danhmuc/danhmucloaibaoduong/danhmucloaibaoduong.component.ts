@@ -29,7 +29,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     {
       header: 'Mã',
       field: 'Ma',
-      width: '200px',
+      width: '150px',
       align: 'center'
     },
     {
@@ -47,7 +47,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     {
       header: 'Thời gian và số người thực hiện',
       field: 'ThoiGianVaSoNguoiThucTe',
-      width: '200px',
+      width: '100px',
       align: 'center'
     },
     {

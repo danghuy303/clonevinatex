@@ -224,7 +224,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
     }
   }
 
-
   ChuyenDuyet() {
     this._serviceTaiSan.NhapTaiSan().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
