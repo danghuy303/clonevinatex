@@ -2,17 +2,18 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { ModalbaoduongComponent } from '../../modal/modalbaoduong/modalbaoduong.component';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
+import { DanhMucDoiBaoDuongModalComponent } from '../../modal/danh-muc-doi-bao-duong-modal/danh-muc-doi-bao-duong-modal.component';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+
 @Component({
-  selector: 'app-danhmucloaibaoduong',
-  templateUrl: './danhmucloaibaoduong.component.html',
-  styleUrls: ['./danhmucloaibaoduong.component.css']
+  selector: 'app-danh-muc-doi-bao-duong',
+  templateUrl: './danh-muc-doi-bao-duong.component.html',
+  styleUrls: ['./danh-muc-doi-bao-duong.component.css']
 })
-export class DanhmucloaibaoduongComponent implements OnInit {
+export class DanhMucDoiBaoDuongComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   fileUpload: any;
@@ -21,15 +22,9 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
-      header: 'Loại tài sản',
-      field: 'TendmLoaiTaiSan',
-      width: '150px',
-      align: 'center'
-    },
-    {
       header: 'Mã',
       field: 'Ma',
-      width: '150px',
+      width: '200px',
       align: 'center'
     },
     {
@@ -45,33 +40,30 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       align: 'center'
     },
     {
-      header: 'Thời gian và số người thực hiện',
+      header: 'Công đoạn',
       field: 'ThoiGianVaSoNguoiThucTe',
-      width: '100px',
+      width: '200px',
       align: 'center'
-    },
-    {
-      header: 'Lịch bảo dưỡng/Sản lượng',
-      field: 'ThoiGianNangSuat',
-      width: '150px',
-      align: 'center'
-    },
+    }
   ];
   selectedItems: any = [];
-  listTaiSan: any = [];
-  TenLoaiTaiSan: '';
+  listCongDoan: any = [];
   filter: any = {};
 
-  constructor(private _modal: NgbModal, private _danhMucTaiSan: DanhmuctaisanService, private _toastr: ToastrService) { }
+  constructor(private _modal: NgbModal, private _danhMucTaiSan: DanhmuctaisanService, private _toastr: ToastrService,private _servicesSanXuat: SanXuatService,) { }
 
   ngOnInit() {
     this.GetList();
     let data = { PageSize: 20, CurrentPage: this.paging.CurrentPage, Keyword: this.Keyword, };
-    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
-      this.listTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
-    })
-
+    this.getListCongDoan();
   }
+
+  getListCongDoan() {
+    this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+    })
+  }
+
   resetFilter() {
      this.filter = {};
      this.Keyword = '';
@@ -86,39 +78,35 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       Keyword: this.Keyword,
-      IddmLoaiTaisan: this.filter.IddmLoaiTaisan?this.filter.IddmLoaiTaisan : '',
-      Ma: "",
-      Ten: ""
+      MaCongDoan: this.filter.MaCongDoan ? this.filter.MaCongDoan : '',
     };
-    this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetListdmLoaiBaoDuongForDanhMuc(data).subscribe((res: any) => {
+    this._danhMucTaiSan.DoiBaoDuong().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
-      // this.items.forEach(obj => {
-      //   obj.TenLoaiTaiSan = this.listTaiSan.find(ele => ele.value == obj.IddmLoaiTaiSan).label;
-      //   console.log(obj.TenLoaiTaiSan);
-      // });
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
   add() {
-    let modalRef = this._modal.open(ModalbaoduongComponent, {
+    let modalRef = this._modal.open(DanhMucDoiBaoDuongModalComponent, {
       backdrop: 'static',
       size: "lg",
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới loại bảo dưỡng';
+    modalRef.componentInstance.title = 'Thêm mới đội bảo dưỡng';
+    modalRef.componentInstance.listCongDoan = this.listCongDoan;
     modalRef.result.then(res => {
       this.GetList()
     }).catch(er => console.log(er))
   }
   edit(item) {
-    let modalRef = this._modal.open(ModalbaoduongComponent, {
+    let modalRef = this._modal.open(DanhMucDoiBaoDuongModalComponent, {
       backdrop: 'static',
       size: "lg",
     });
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật loại bảo dưỡng';
+    modalRef.componentInstance.title = 'Cập nhật đội bảo dưỡng';
+    modalRef.componentInstance.listCongDoan = this.listCongDoan;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then(res => {
       this.GetList()
@@ -130,7 +118,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this._danhMucTaiSan.DanhMucLoaiBaoDuong().DeleteList([item.Id]).subscribe((res: any) => {
+      this._danhMucTaiSan.DoiBaoDuong().DeleteList([item.Id]).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
@@ -149,7 +137,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     const listId = this.selectedItems.map(({ Id }) => Id);
     modalRef.result.then(res => {
-      this._danhMucTaiSan.DanhMucLoaiBaoDuong().DeleteList(listId).subscribe((res: any) => {
+      this._danhMucTaiSan.DoiBaoDuong().DeleteList(listId).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
@@ -162,6 +150,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
+  
   importExcel(){
     let modalRef = this._modal.open(UploadmodalComponent, {
       size: 'md',
@@ -180,24 +169,23 @@ export class DanhmucloaibaoduongComponent implements OnInit {
           } else {
             this._toastr.error(res.Message);
           }
-          // this.resetFilter();
         })
       })
       .catch(er => {})
       .finally(()=> {
       })
   }
-  exportExcel(){
+  exportExcel() {
     let data = {
       PageSize:20, 
       CurrentPage:0,
       Keyword:this.Keyword, 
-     
     };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().Exportdm(data).subscribe((res: any) => {
       this._danhMucTaiSan.DanhMucLoaiBaoDuong().download(res.Data);
     })
   }
+  
   changePage(event) {
     this.paging.CurrentPage = event.page+1;
     this.GetList()

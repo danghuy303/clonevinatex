@@ -154,7 +154,7 @@ export class XuatKhoVatTuComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.QuyTrinhXuatKho().Delete(this.item.Id).subscribe((res: any) => {
+      this._services.QuyTrinhXuatKho().Delete(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
           this.activeModal.close();

@@ -85,8 +85,8 @@ export class TaisanService {
       ChuyenTiep: (data) => {
         return this.http.post(`${url}QuanLyKho/ChuyenTiepQuyTrinhXuatKho`, data, httpOptions);
       },
-      Delete: (Id) => {
-        return this.http.get(`${url}QuanLyKho/DeleteQuyTrinhXuatKho?Id=${Id}`, httpOptions);
+      Delete: (data) => {
+        return this.http.post(`${url}QuanLyKho/DeleteQuyTrinhXuatKho`,data ,httpOptions);
       },
     };
   }

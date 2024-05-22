@@ -198,6 +198,8 @@ import { ChonVatTuPopupComponent } from './modal/xuat-kho-vat-tu/chon-vat-tu-pop
 import { TaoQrPopupComponent } from './modal/tao-qr-popup/tao-qr-popup.component';
 import { ChonmVatTuThayThePopUpComponent } from './modal/chonm-vat-tu-thay-the-pop-up/chonm-vat-tu-thay-the-pop-up.component';
 import { DanhMucQrComponent } from './danhmuc/danh-muc-qr/danh-muc-qr.component';
+import { DanhMucDoiBaoDuongComponent } from './danhmuc/danh-muc-doi-bao-duong/danh-muc-doi-bao-duong.component';
+import { DanhMucDoiBaoDuongModalComponent } from './modal/danh-muc-doi-bao-duong-modal/danh-muc-doi-bao-duong-modal.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -345,6 +347,8 @@ import { DanhMucQrComponent } from './danhmuc/danh-muc-qr/danh-muc-qr.component'
     TaoQrPopupComponent,
     ChonmVatTuThayThePopUpComponent,
     DanhMucQrComponent,
+    DanhMucDoiBaoDuongComponent,
+    DanhMucDoiBaoDuongModalComponent,
   ],
   imports: [
     CommonModule,

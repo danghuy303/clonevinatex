@@ -60,7 +60,8 @@
                     styleClass="p-inputtext-sm" [showClear]="false" [filter]="true"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row kiemke" *ngIf="kiemke.CongDoan === 'ONG' || kiemke.CongDoan === 'DAUXE' ">
+        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row kiemke"
+            *ngIf="kiemke.CongDoan === 'ONG' || kiemke.CongDoan === 'DAUXE' ">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca sản xuất <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn"
@@ -175,9 +176,11 @@
                             <td *ngFor="let data of item1?.listGiaTri">
                                 <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
                                     mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                    [disabled]="data.isDisable"></p-inputNumber>
+                                    [disabled]="data.isDisable"
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}"></p-inputNumber>
                                 <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
-                                    [(ngModel)]="data.NoiDung" pInputText />
+                                    [(ngModel)]="data.NoiDung" [inputStyle]="{fontWeight:item1.bold,color:item1.color}"
+                                    pInputText />
                             </td>
                         </tr>
                     </ng-template>
@@ -237,9 +240,11 @@
                             <td *ngFor="let data of item1?.listGiaTri">
                                 <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
                                     mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                    [disabled]="data.isDisable"></p-inputNumber>
+                                    [disabled]="data.isDisable"
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}"></p-inputNumber>
                                 <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
-                                    [(ngModel)]="data.NoiDung" pInputText />
+                                    [(ngModel)]="data.NoiDung" pInputText
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}" />
                             </td>
                         </tr>
                     </ng-template>
@@ -271,9 +276,11 @@
                             <td class="" *ngFor="let data of item1?.listGiaTri">
                                 <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
                                     mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                    [disabled]="data.isDisable"></p-inputNumber>
+                                    [disabled]="data.isDisable"
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}"></p-inputNumber>
                                 <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
-                                    [(ngModel)]="data.NoiDung" pInputText />
+                                    [(ngModel)]="data.NoiDung" pInputText
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}" />
                             </td>
                         </tr>
                     </ng-template>
@@ -299,25 +306,28 @@
                     <ng-template pTemplate="body" let-item1 let-i="rowIndex">
                         <tr [style]="{fontWeight:item1.bold,color:item1.color}">
                             <td class="text-center" *ngIf="item1.TendmMay" style="width:200px">{{ item1.TendmMay }}</td>
-                            <td class="text-center" *ngIf="item1.ThanhPhan" style="width:200px">{{ item1.ThanhPhan }}</td>
+                            <td class="text-center" *ngIf="item1.ThanhPhan" style="width:200px">{{ item1.ThanhPhan }}
+                            </td>
                             <td *ngFor="let data of item1?.listGiaTri">
                                 <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
                                     mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                    [disabled]="data.isDisable"></p-inputNumber>
+                                    [disabled]="data.isDisable"
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}"></p-inputNumber>
                                 <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
-                                    [(ngModel)]="data.NoiDung" pInputText />
+                                    [(ngModel)]="data.NoiDung" pInputText
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}" />
                             </td>
                         </tr>
                     </ng-template>
                 </p-table>
             </div>
             <div *ngIf="TabView === 4">
-                <div>
+                <!-- <div>
                     <button pButton pRipple type="button" label="Nhập dữ liệu" class="p-mr-2 p-button-sm"
                         (click)="NhapDuLieuTho()"></button>
                     <button pButton pRipple type="button" label="Xuất dữ liệu" class="p-mr-2 p-button-sm"
                         (click)="XuatDuLieuTho()"></button>
-                </div>
+                </div> -->
                 <div *ngIf="item.listData5.length">
                     <p-table [value]="item.listData5" [scrollable]="true" style="width:100%" scrollHeight="400px"
                         styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
@@ -343,14 +353,17 @@
                                     <td style="width:200px" class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay
                                         }}
                                     </td>
-                                    <td style="width:200px" class="text-center" *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
+                                    <td style="width:200px" class="text-center" *ngIf="item1.ThanhPhan">{{
+                                        item1.ThanhPhan }}</td>
                                 </ng-container>
                                 <td style="width:200px" *ngFor="let data of item1?.listGiaTri">
                                     <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
                                         mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                        [disabled]="data.isDisable"></p-inputNumber>
+                                        [disabled]="data.isDisable"
+                                        [inputStyle]="{fontWeight:item1.bold,color:item1.color}"></p-inputNumber>
                                     <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
-                                        [(ngModel)]="data.NoiDung" pInputText />
+                                        [(ngModel)]="data.NoiDung" pInputText
+                                        [inputStyle]="{fontWeight:item1.bold,color:item1.color}" />
                                 </td>
                             </tr>
                         </ng-template>
@@ -382,9 +395,45 @@
                             <td *ngFor="let data of item1?.listGiaTri">
                                 <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
                                     mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
-                                    [disabled]="data.isDisable"></p-inputNumber>
+                                    [disabled]="data.isDisable"
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}"></p-inputNumber>
                                 <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
-                                    [(ngModel)]="data.NoiDung" pInputText />
+                                    [(ngModel)]="data.NoiDung" pInputText
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div *ngIf="TabView === 6">
+                <p-table [value]="item.listData7" [scrollable]="true" scrollHeight="400px"
+                    styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+                    <ng-template pTemplate="colgroup">
+                        <col *ngIf="item.listData7[0]?.TendmMay" style="width:200px">
+                        <col *ngIf="item.listData7[0]?.ThanhPhan" style="width:200px">
+                        <ng-container *ngFor="let y of item.listData7[0]?.listGiaTri">
+                            <col style="width:150px">
+                        </ng-container>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr *ngFor="let kiemkehead of item.listHeader7New; let i=index">
+                            <th [ngClass]="'text-center'" *ngFor="let x of kiemkehead.listHeader"
+                                [attr.rowspan]="x.rowspan" [attr.colspan]="x.colspan">
+                                {{x.name}}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item1 let-i="rowIndex">
+                        <tr [style]="{fontWeight:item1.bold,color:item1.color}">
+                            <td class="text-center" *ngIf="item1.TendmMay">{{ item1.TendmMay }}</td>
+                            <td class="text-center" *ngIf="item1.ThanhPhan">{{ item1.ThanhPhan }}</td>
+                            <td *ngFor="let data of item1?.listGiaTri">
+                                <p-inputNumber *ngIf="!data.isNhapChu" [minFractionDigits]="data.SoSauDauPhay"
+                                    mode="decimal" [maxFractionDigits]="data.SoSauDauPhay" [(ngModel)]="data.GiaTri"
+                                    [disabled]="data.isDisable"
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}"></p-inputNumber>
+                                <input *ngIf="data.isNhapChu" type="text" class="p-inputtext-sm"
+                                    [(ngModel)]="data.NoiDung" pInputText
+                                    [inputStyle]="{fontWeight:item1.bold,color:item1.color}" />
                             </td>
                         </tr>
                     </ng-template>

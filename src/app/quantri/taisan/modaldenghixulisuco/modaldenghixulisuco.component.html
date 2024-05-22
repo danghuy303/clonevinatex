@@ -84,10 +84,13 @@
                 <textarea pInputTextarea [rows]="1" class="p-inputtext-sm" [(ngModel)]="item.NguyenNhan"></textarea>
             </div>
         </div>
-        <div *ngIf="checkbutton.KhoiTao" class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Người thực hiện:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <textarea pInputTextarea [rows]="1" class="p-inputtext-sm"></textarea>
+                <!-- <textarea pInputTextarea [rows]="1" class="p-inputtext-sm"></textarea> -->
+                <p-dropdown [filter]="true" [options]="listNguoiThucHien" placeholder=""
+                    styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdNguoiThucHien">
+                </p-dropdown>
             </div>
         </div>
         <div *ngIf="checkbutton.KhoiTao" class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">

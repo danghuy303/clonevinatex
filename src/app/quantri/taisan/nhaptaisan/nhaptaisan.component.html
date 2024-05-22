@@ -13,12 +13,14 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuNgay" [maxDate]="filter.DenNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="Loaddata(true)">
+                [(ngModel)]="filter.TuNgay" [maxDate]="filter.DenNgay" inputId="icon" placeholder="Từ ngày"
+                (onSelect)="Loaddata(true)">
             </p-calendar>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" [minDate]="filter.TuNgay" inputId="icon" [minDate]="filter.TuNgay" placeholder="Đến ngày" (onSelect)="Loaddata(true)">
+                [(ngModel)]="filter.DenNgay" [minDate]="filter.TuNgay" inputId="icon" [minDate]="filter.TuNgay"
+                placeholder="Đến ngày" (onSelect)="Loaddata(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width: 200px;">
@@ -68,15 +70,18 @@
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr>
             <td class="">
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                {{rowData.SoQuyTrinh}}
+                <div class="p-d-flex p-ai-center">
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    {{rowData.SoQuyTrinh}}
+                </div>
+
             </td>
             <td class="text-center">{{rowData.Created|date:'dd/MM/yyyy'}}</td>
             <td>{{rowData.TenBoPhanSuDung}}</td>
-            <td >{{rowData.TendmLoaiTaiSan}}</td>
+            <td>{{rowData.TendmLoaiTaiSan}}</td>
             <td>{{rowData.Ma}}</td>
-            <td >{{rowData.Ten}}</td>
-            <td >{{rowData.HangSanXuat}}</td>
+            <td>{{rowData.Ten}}</td>
+            <td>{{rowData.HangSanXuat}}</td>
             <td class="text-center">{{rowData.TenTrangThai}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"

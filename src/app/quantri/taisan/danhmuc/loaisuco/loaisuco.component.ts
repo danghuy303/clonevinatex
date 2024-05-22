@@ -23,13 +23,13 @@ export class LoaisucoComponent implements OnInit {
     {
       header: 'Mã',
       field: 'Ma',
-      width: '350px',
+      width: '150px',
       align:'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '300px',
+      width: '200px',
       align:'center'
     },
     {
