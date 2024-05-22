@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 style="color:#1f2779">Báo cáo điện</h4>
+    <h4 style="color:#1f2779">Báo cáo điện (Tháng {{filter.nThang}} - {{filter.nNam}})</h4>
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
@@ -12,31 +12,31 @@
         scrollHeight="70vh" scrollDirection="both">
         <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
-                <col style="width:100px; position: sticky; left: 0; z-index: 1; background: white;">
+                <col style="width:70px; position: sticky; left: 0; z-index: 1; background: white;">
                 <ng-container *ngFor="let col of listHeader">
-                    <col style="width:70px">
-                    <col style="width:70px">
-                    <col style="width:70px">
-                    <col style="width:70px">
+                    <col style="width:120px">
+                    <col style="width:120px">
+                    <col style="width:120px">
+                    <col style="width:120px">
                 </ng-container>
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
-                <col style="width:70px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:200px">
+                <col style="width:120px">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -151,6 +151,36 @@
                 <td class="text-right">
                     {{item.TyLeCDTD|number:'0.0-2'}}
                 </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <tr>
+                <td class="font-bold sticky-col-1 text-center">Tổng</td>
+                <ng-container *ngFor="let col of listTotal">
+                    <td class="text-right">{{col.Ca1|number:'0.2-2'}}</td>
+                    <td class="text-right">{{col.Ca2|number:'0.2-2'}}</td>
+                    <td class="text-right">{{col.Ca3|number:'0.2-2'}}</td>
+                    <td class="text-right">{{col.Tong|number:'0.2-2'}}</td>
+                </ng-container>
+                <td class="text-right">{{items|SumByKey:'HB1'|number:'0.2-2'}}</td>
+                <td class="text-right">{{items|SumByKey:'HB2'|number:'0.2-2'}}</td>
+                <td class="text-right"></td>
+                <td class="text-right">{{items|SumByKey:'HB34'|number:'0.2-2'}}</td>
+                <td class="text-right"></td>
+                <td class="text-right">{{items|SumByKey:'HB56'|number:'0.2-2'}}</td>
+                <td class="text-right"></td>
+                <td class="text-right">{{items|SumByKey:'HBCK'|number:'0.2-2'}}</td>
+                <td class="text-right"></td>
+                <td class="text-right">{{items|SumByKey:'TongMayCongNghe'|number:'0.2-2'}}</td>
+                <td class="text-right">{{items|SumByKey:'GioTieuThu_BT'|number:'0.2-2'}}</td>
+                <td class="text-right">{{items|SumByKey:'GioTieuThu_CD'|number:'0.2-2'}}</td>
+                <td class="text-right">{{items|SumByKey:'GioTieuThu_TD'|number:'0.2-2'}}</td>
+                <td class="text-right">{{items|SumByKey:'GioTieuThu_TongNgay'|number:'0.2-2'}}</td>
+                <td class="text-right">{{items|SumByKey:'Ne30'|number:'0.2-2'}}</td>
+                <td class="text-right">{{items|SumByKey:'kWhNe30'|number:'0.2-2'}}</td>
+                <td class="text-right">{{items|SumByKey:'ThanhTien'|number:'0.2-2'}}</td>
+                <td class="text-right"></td>
             </tr>
         </ng-template>
     </p-table>

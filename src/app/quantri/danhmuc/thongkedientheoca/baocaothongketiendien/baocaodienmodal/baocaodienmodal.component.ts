@@ -14,7 +14,9 @@ export class BaocaodienmodalComponent implements OnInit {
   filter: any = {};
   items: any = [];
   listHeader: any = [];
+  listTotal: any = [];
   constructor(private _service: SanXuatService, public activeModal: NgbActiveModal) { }
+
 
   ngOnInit(): void {
     if (this.items && this.items.length > 0) {
@@ -22,6 +24,15 @@ export class BaocaodienmodalComponent implements OnInit {
       let _arr = _firstRow.listLoaiCongToKhac.map((x: any) => x.Title);
       this.listHeader = _arr;
       console.log(this.listHeader);
+      _arr.forEach((x: any, index: any) => {
+        this.listTotal.push({
+          Ca1: this.items.reduce((a: any, b: any) => a + b.listLoaiCongToKhac[index][`Ca1`], 0),
+          Ca2: this.items.reduce((a: any, b: any) => a + b.listLoaiCongToKhac[index][`Ca2`], 0),
+          Ca3: this.items.reduce((a: any, b: any) => a + b.listLoaiCongToKhac[index][`Ca3`], 0),
+          Tong: this.items.reduce((a: any, b: any) => a + b.listLoaiCongToKhac[index][`Tong`], 0),
+        })
+      })
+      console.log("this.filter", this.filter);
 
     }
   }

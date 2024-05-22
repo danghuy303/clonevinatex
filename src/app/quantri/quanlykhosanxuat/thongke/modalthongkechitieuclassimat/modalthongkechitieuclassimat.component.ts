@@ -205,6 +205,8 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
       TuNgay: DateToUnix(this.item.TuNgay),
       DenNgay: DateToUnix(this.item.DenNgay),
     };
+    console.log("this.item", this.item);
+
     this.services.QuyTrinhClassimat().GetListMatHang(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(ChatluongsoimathangmodalComponent, {
         size: 'lg',
@@ -222,6 +224,7 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
         // không
       });
     })
+
   }
   getListKho() {
     var data: any = {}

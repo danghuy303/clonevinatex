@@ -6,11 +6,9 @@
   width: 800px;
 }
 
-.my-sticky-table tr:first-child {
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 2;
+.my-sticky-table {
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .sticky-col-1 {
