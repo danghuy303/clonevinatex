@@ -128,6 +128,7 @@ export class XepbanbongComponent extends StoreBase implements OnInit, OnDestroy 
     this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?) {
+
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);

@@ -8,7 +8,7 @@ import { HttpHeaders } from "@angular/common/http";
 // export const host1 = `${window.location.origin.includes("4200")
 export const host1 = `${window.location.origin.includes("localhost")
   // ? "http://soindt.vinatex.com.vn"
-  ? "http://103.130.212.35:2369"
+  ? "http://103.130.212.35:2372"
   : window.location.origin
   }`;
 // export const host1 = `http://27.71.231.140`;
