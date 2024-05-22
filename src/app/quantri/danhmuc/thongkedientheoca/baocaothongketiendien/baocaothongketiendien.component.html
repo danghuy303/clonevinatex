@@ -9,24 +9,26 @@
     <div class=" d-flex flex-column flex-lg-row p-ai-center p-jc-between p-col-12">
         <div></div>
         <div class="d-flex flex-column flex-lg-row">
+            <p-button styleClass="p-button-sm p-mr-2" label="Báo cáo điện" icon="fas fa-bolt" (click)="GetBaoCaoDien()"
+                *ngIf="isPortHue()"></p-button>
             <p-button styleClass="p-button-sm p-mr-2" label="Xuất báo cáo" icon="fas fa-file-excel"
-                                                (click)="xuatBaoCaoTienDien()"></p-button>
+                (click)="xuatBaoCaoTienDien()"></p-button>
             <div style="width:200px; margin-right:10px ;">
                 <div class="p-col-12 p-p-0">
-                    <p-dropdown [filter]="true" [options]="listdmPhanXuong"
-                        styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetListQuyTrinhFull()"></p-dropdown>
+                    <p-dropdown [filter]="true" [options]="listdmPhanXuong" styleClass="p-inputtext-sm"
+                        [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetListQuyTrinhFull()"></p-dropdown>
                 </div>
             </div>
             <div style="width:200px; margin-right:10px ;">
                 <div class="p-col-12 p-p-0">
-                    <p-dropdown [filter]="true" [options]="listThang"
-                        styleClass="p-inputtext-sm" [(ngModel)]="filter.nThang" (onChange)="GetListQuyTrinhThang()"></p-dropdown>
+                    <p-dropdown [filter]="true" [options]="listThang" styleClass="p-inputtext-sm"
+                        [(ngModel)]="filter.nThang" (onChange)="GetListQuyTrinhThang()"></p-dropdown>
                 </div>
             </div>
             <div style="width:200px; margin-right:10px ;">
                 <div class="p-col-12 p-p-0">
-                    <p-dropdown [filter]="true" [options]="listNam"
-                        styleClass="p-inputtext-sm" [(ngModel)]="filter.nNam" (onChange)="GetListQuyTrinhThang()"></p-dropdown>
+                    <p-dropdown [filter]="true" [options]="listNam" styleClass="p-inputtext-sm"
+                        [(ngModel)]="filter.nNam" (onChange)="GetListQuyTrinhThang()"></p-dropdown>
                 </div>
             </div>
         </div>

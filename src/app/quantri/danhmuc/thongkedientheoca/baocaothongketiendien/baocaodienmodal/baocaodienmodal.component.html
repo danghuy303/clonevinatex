@@ -1,0 +1,157 @@
+<div class="modal-header">
+    <h4 style="color:#1f2779">Báo cáo điện</h4>
+</div>
+<div class="modal-body">
+    <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+        <div class="modal-bt ">
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+                (click)="activeModal.dismiss('Cross click')"></button>
+        </div>
+    </div>
+    <p-table [value]="items" styleClass="p-datatable-sm  p-datatable-gridlines my-sticky-table" [scrollable]="true"
+        scrollHeight="70vh" scrollDirection="both">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col style="width:100px; position: sticky; left: 0; z-index: 1; background: white;">
+                <ng-container *ngFor="let col of listHeader">
+                    <col style="width:70px">
+                    <col style="width:70px">
+                    <col style="width:70px">
+                    <col style="width:70px">
+                </ng-container>
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+                <col style="width:70px">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center sticky-col-1" rowspan="2">Ngày</th>
+
+                <th colspan="4" *ngFor="let col of listHeader" class="tw-800">{{col}}</th>
+
+                <th colspan="10">Máy công nghệ</th>
+                <th colspan="3">Giờ tiêu thụ</th>
+                <th rowspan="2">Tổng ngày</th>
+                <th colspan="3">Tiêu hao điện trên kg sợi ống</th>
+                <th rowspan="2">CĐ/TĐ</th>
+            </tr>
+            <tr>
+                <ng-container *ngFor="let col of listHeader">
+                    <th class="text-center">Ca 1</th>
+                    <th class="text-center">Ca 2</th>
+                    <th class="text-center">Ca 3</th>
+                    <th class="text-center">Tổng</th>
+                </ng-container>
+
+
+                <th class="text-center">HB1</th>
+                <th class="text-center">HB2</th>
+                <th class="text-center">kWh/Kg</th>
+                <th class="text-center">HB3+4</th>
+                <th class="text-center">kWh/Kg</th>
+                <th class="text-center">HB5+6</th>
+                <th class="text-center">kWh/Kg</th>
+                <th class="text-center">HBCK</th>
+                <th class="text-center">kWh/Kg</th>
+                <th class="text-center">TỔNG</th>
+                <th class="text-center">BT</th>
+                <th class="text-center">CĐ</th>
+                <th class="text-center">TĐ</th>
+                <th class="text-center">Ne 30</th>
+                <th class="text-center">kWh/Kg Ne30</th>
+                <th class="text-center">Thành tiền</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center sticky-col-1">
+                    {{(item.Ngay| date:'d')}}
+                </td>
+                <ng-container *ngFor="let col of item.listLoaiCongToKhac">
+                    <td class="text-right">
+                        {{col.Ca1|number:'0.0-2'}}
+                    </td>
+                    <td class="text-right">
+                        {{col.Ca2|number:'0.0-2'}}
+                    </td>
+                    <td class="text-right">
+                        {{col.Ca3|number:'0.0-2'}}
+                    </td>
+                    <td class="text-right">
+                        {{col.Tong|number:'0.0-2'}}
+                    </td>
+                </ng-container>
+                <td class="text-right">
+                    {{item.HB1|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.HB2|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.kWhKgHB12|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.HB34|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.kWhKgHB34|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.HB56|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.kWhKgHB56|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.HBCK|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.kWhKgHBCK|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.TongMayCongNghe|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.GioTieuThu_BT|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.GioTieuThu_CD|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.GioTieuThu_TD|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.GioTieuThu_TongNgay|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.Ne30|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.kWhNe30|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.ThanhTien|number:'0.0-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.TyLeCDTD|number:'0.0-2'}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
