@@ -157,9 +157,9 @@ export class CapnhatthuvienComponent implements OnInit {
     modalRef.componentInstance.title = "Cập nhật thư viện";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result.then(res => {
-      this.getList()
     }).catch(er => console.log(er))
       .finally(() => {
+        this.getList()
         this.changeParam(0);
       })
   }

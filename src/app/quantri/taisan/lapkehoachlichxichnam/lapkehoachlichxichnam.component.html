@@ -98,13 +98,14 @@
                             keyword)?.length}}</span> thiết bị</strong>
                 </div>
             </div>
-            <div class="p-grid p-jc-end">
-                <span class="p-input-icon-left mb-3" style="width: 300px">
-                    <i class="pi pi-search"></i>
-                    <input type="text" [(ngModel)]="keyword" pInputText placeholder="Tìm kiếm..." />
-                </span>
+            <div class="d-flex p-jc-end">
+                <div class="p-inputgroup" style="width: 200px;">
+                    <input type="text" [(ngModel)]="keyword" pInputText placeholder="Tìm kiếm...">   
+                    <!-- <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn"></button>       -->
+                    <button pButton pRipple type="button" icon="pi pi-refresh" class="p-button-rounded p-button-success p-button-text"></button>
+                </div>
             </div>
-            <p-table [value]="item.listTaiSan | filter: keyword "
+            <p-table [value]="item.listTaiSan | filter: keyword"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -151,7 +152,9 @@
                             <a href="javascript:void(0)">Chọn</a>
                         </td> -->
 
-                        <td class="text-center"> {{taisan.TenVietTat}}</td>
+                        <td class="text-center">
+                            <div [pTooltip]="taisan.TenTaiSan">{{taisan.TenVietTat}}</div>
+                        </td>
                         <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong">
                             <div>
                                 <div *ngFor="let chitiet of baoduong.listChiTiet"

@@ -149,6 +149,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
       listBaoHanh: [],
     };
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
+    modalRef.componentInstance.isSuDung = false;
     modalRef.result
       .then((res: any) => {
           this.item.listTaiSan.push(res);
@@ -168,6 +169,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
+    modalRef.componentInstance.isSuDung = false;
     modalRef.result
       .then((res: any) => {
         this.item.TaiSan.listTaiSan[index] = res;

@@ -121,7 +121,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     this.thangDaChon = new Date(year, month, 0).getDate();
     this.labelThang = [];
 
-    this.filter.Ngay = (this.filter.LoaiKeHoach === 'NAM') ? DateToUnix(new Date(this.filter.nam, 1, 1)) : DateToUnix(this.filter.namThang);
+    // this.filter.Ngay = (this.filter.LoaiKeHoach === 'NAM') ? DateToUnix(new Date(this.filter.nam, 1, 1)) : DateToUnix(this.filter.namThang);
     for (let i = 1; i <= this.thangDaChon; i++) {
       this.labelThang.push(i);
     }
@@ -155,6 +155,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       })
     }
     this.GetListLichXichThang(data);
+
     // this.GetListChiPhiVatTu(data);
     // this.GetListChiPhiPhatSinh();
   }
