@@ -39,10 +39,10 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   listThoiGian: any = [
     {
-      value: 'NAM', label: 'Năm'
+      value: "THANG", label: 'Tháng'
     },
     {
-      value: "THANG", label: 'Tháng'
+      value: 'NAM', label: 'Năm'
     },
   ];
   listVatTu: any = [];

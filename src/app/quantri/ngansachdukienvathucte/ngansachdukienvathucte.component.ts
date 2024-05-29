@@ -5,6 +5,8 @@ import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DateToUnix } from "src/app/services/globalfunction";
 import { mapArrayForDropDown } from "src/app/services/globalfunction";
+import { vn } from 'src/app/services/const';
+import * as moment from 'moment';
 
 
 @Component({
@@ -17,12 +19,17 @@ export class NgansachdukienvathucteComponent implements OnInit {
     IdBoPhanSuDung: "",
     LoaiThoiGian: 0,
     TuNgay: new Date(),
-    DenNgay: new Date()
+    DenNgay: new Date(),
+    namThang: new Date(),
+    nam: 0
   };
+  listNam: any = [];
+  lang: any = vn;
+  yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
 
   PhanXuong: any;
 
-  LoaiThoiGian = [{ label: "Ngày", value: 0 }, { label: "Tuần", value: 1 }, { label: "Tháng", value: 2 }, { label: "Năm", value: 3 }]
+  LoaiThoiGian = [{ label: "Ngày", value: 0 }, { label: "Tháng", value: 2 }, { label: "Năm", value: 3 }]
 
   data: any;
 
@@ -65,7 +72,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
           // min: 0,
           beginAtZero: true,
           callback: function (value, index, values) {
-            return formatNumber(value,'en-US','0.0-0');
+            return formatNumber(value, 'en-US', '0.0-0');
           }
         }
       }],
@@ -81,13 +88,16 @@ export class NgansachdukienvathucteComponent implements OnInit {
   constructor(private _servicesSanXuat: SanXuatService, private _servicesTaiSan: TaisanService, private taisanService: TaisanService) { }
 
   ngOnInit(): void {
+    for (let i = new Date().getFullYear() - 10; i <= (new Date().getFullYear() + 20); i++) {
+      this.listNam.push({ value: i, label: i });
+    }
     this._servicesSanXuat.GetListdmPhanXuongOpt().subscribe((res: any) => {
       this.PhanXuong = mapArrayForDropDown(res, 'Ten', 'Id')
     })
 
     let date = new Date();
-    this.filter.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.filter.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.filter.nam = date.getFullYear();
+    this.filter.namThang = date;
 
     this.getDataBaoCao();
 
@@ -141,9 +151,45 @@ export class NgansachdukienvathucteComponent implements OnInit {
   }
 
   getDataBaoCao() {
+    let _tuNgay = null;
+    let _denNgay = null;
+
+    let _year = moment(this.filter.namThang).year();
+    let _month = moment(this.filter.namThang).month() + 1;
+    let _date = moment(this.filter.namThang).date();
+
+    switch (this.filter.LoaiThoiGian) {
+      case 0:
+        // Ngày
+        let _firstTimeOnDay = new Date(_year, _month - 1, _date, 0, 0, 0);
+        let _lastTimeOnDay = new Date(_year, _month - 1, _date, 23, 59, 59);
+        _tuNgay = DateToUnix(_firstTimeOnDay);
+        _denNgay = DateToUnix(_lastTimeOnDay);
+        break;
+      case 2:
+        // Tháng
+        let _firstDayOnMonth = new Date(_year, _month - 1, 1, 0, 0, 0);
+        let _lastDayOnMonth = new Date(_year, _month, 0, 23, 59, 59);
+        _tuNgay = DateToUnix(_firstDayOnMonth);
+        _denNgay = DateToUnix(_lastDayOnMonth);
+        break;
+      case 3:
+        // Năm
+        _year = this.filter.nam;
+        let _firstDayOnYear = new Date(_year, 0, 1, 0, 0, 0);
+        let _lastDayOnYear = new Date(_year, 11, 31, 23, 59, 59);
+        _tuNgay = DateToUnix(_firstDayOnYear);
+        _denNgay = DateToUnix(_lastDayOnYear);
+        break;
+      default:
+        break;
+    }
+
     let data = {
       ...this.filter,
-      TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
+      TuNgay: _tuNgay,
+      DenNgay: _denNgay,
+      Ngay: _tuNgay
     };
 
     this.taisanService.getDataBaoCao().GetDataNganSach(data).subscribe((res: any) => {

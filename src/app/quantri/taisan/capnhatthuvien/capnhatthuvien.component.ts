@@ -37,12 +37,12 @@ export class CapnhatthuvienComponent implements OnInit {
     private _danhMucTaiSan: DanhmuctaisanService,
     private activatedRoute: ActivatedRoute, private router: Router,
     private store: StoreService
-  ) { 
+  ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
+    })
   }
 
   ngOnInit(): void {
@@ -137,7 +137,7 @@ export class CapnhatthuvienComponent implements OnInit {
       listThongSoAnToan: [],
       listBaoHanh: [],
       listFileDinhKem: [],
-      
+
     }
     modalRef.result.then(res => {
 
@@ -157,9 +157,10 @@ export class CapnhatthuvienComponent implements OnInit {
     modalRef.componentInstance.title = "Cập nhật thư viện";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result.then(res => {
-      this.getList()
+
     }).catch(er => console.log(er))
       .finally(() => {
+        this.getList()
         this.changeParam(0);
       })
   }

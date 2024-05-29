@@ -26,25 +26,25 @@ export class DanhmucloaitaisanComponent implements OnInit {
     {
       header: 'Mã',
       field: 'Ma',
-      width: '150px',
+      width: '100px',
       align: 'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '200px',
+      width: '150px',
       align: 'center'
     },
     {
       header: 'Công đoạn',
       field: 'TenCongDoan',
-      width: '200px',
+      width: '150px',
       align: 'center'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
-      width: '200px',
+      width: '150px',
       align: 'center'
     },
   ];
@@ -157,7 +157,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
     modalRef.componentInstance.single = true;
     modalRef.componentInstance.onlyExcel = true;
     modalRef.result
-      .then((res: any) => { 
+      .then((res: any) => {
         console.log(res);
         this.fileUpload = res;
         this._danhMucTaiSan.DanhMucLoaiTaiSan().Importdm(this.fileUpload[0].Name).subscribe((res: any) => {

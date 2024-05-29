@@ -210,13 +210,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
       window.location.origin.includes("4200") ||
       window.location.origin.includes("2269") ||
       window.location.origin.includes("2369") ||
-      window.location.origin.includes("2371")||
+      window.location.origin.includes("2371") ||
       window.location.origin.includes("2370");
     this.showTaiSanModule =
       window.location.origin.includes("4200") ||
       window.location.origin.includes("2269") ||
       window.location.origin.includes("2369") ||
-      window.location.origin.includes("2371")||
+      window.location.origin.includes("2371") ||
       window.location.origin.includes("2370");
     // this.showTaiSanModule = true;
     this.refreshNotis();
@@ -338,6 +338,445 @@ export class QuantriComponent implements OnInit, OnDestroy {
           },
         ],
       },
+
+
+      /////////////      Quản lý tài sản
+      {
+        label: "Quản lý tài sản",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/taisan",
+        visible: this.showTaiSanModule,
+        items: [
+          {
+            label: "Quản trị tài sản",
+            routerLink: "/quantri/quantritaisan",
+            visible: this.showTaiSanModule,
+            items: [
+              {
+                label: "Lịch xích",
+                routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
+                separator: !this.showTaiSanModule,
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Số giờ dừng máy",
+                routerLink: "/quantri/quantritaisan/sogiodungmay",
+                separator: !this.showTaiSanModule,
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Quản lý ngân sách",
+                routerLink: "/quantri/quantritaisan/ngansachdukienvathucte",
+                separator: !this.showTaiSanModule,
+                command: () => {
+                  this.close();
+                },
+              },
+
+            ]
+          },
+          {
+            label: "Quản lý thông tin tài sản",
+            items: [
+              {
+                label: "Danh sách tài sản",
+                routerLink: "/quantri/taisan/danhsachtaisan",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Quy trình nhập tài sản",
+                routerLink: "/quantri/taisan/nhaptaisan/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Danh sách thư viện tài sản",
+                routerLink: "/quantri/taisan/capnhatthuvien/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Lịch sử sử dụng tài sản",
+                routerLink: "/quantri/taisan/lichsusudungtaisan/0",
+                command: () => {
+                  this.close();
+                },
+              },
+            ],
+          },
+          {
+            label: "Quản lý bảo trì, bảo dưỡng",
+            items: [
+              {
+                label: "Lịch xích năm",
+                routerLink: "/quantri/taisan/lichxichnam",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Lịch xích tháng",
+                routerLink: "/quantri/taisan/lichxichthang",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Lập kế hoạch lịch xích năm",
+                routerLink: "/quantri/taisan/quytrinhlapkehoachnam/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Lập kế hoạch lịch xích tháng",
+                routerLink: "/quantri/taisan/quytrinhlapkehoachthang/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Quy trình bảo dưỡng",
+                routerLink: "/quantri/taisan/quytrinhbaoduong/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Đề nghị xử lý sự cố",
+                routerLink: "/quantri/taisan/denghixulisuco/0",
+                command: () => {
+                  this.close();
+                },
+              },
+            ],
+          },
+          {
+            label: "Biến động tài sản",
+            items: [
+              {
+                label: "Bàn giao tài sản",
+                routerLink: "/quantri/taisan/bangiaotaisan/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              // {
+              //   label: "Điều chuyển tài sản",
+              //   routerLink: "/quantri/taisan/dieuchuyentaisan/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
+              {
+                label: "Thu hồi tài sản",
+                routerLink: "/quantri/taisan/thuhoitaisan/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Thanh lý tài sản",
+                routerLink: "/quantri/taisan/thanhlytaisan/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Tính Khấu hao tài sản",
+                routerLink: "/quantri/taisan/khauhaotaisan/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              // {
+              //   label: "Thông tin kiểm định",
+              //   routerLink: "/quantri/taisan/kiem-dinh-tai-san/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
+              // {
+              //   label: "Thông tin bảo hiểm",
+              //   routerLink: "/quantri/taisan/bao-hiem/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
+            ],
+          },
+          {
+            label: "Kế hoạch mua vật tư",
+            routerLink: "/quantri/taisan/thoihancungcapvattu/0",
+            command: () => {
+              this.close();
+            }
+          },
+          {
+            label: "Quản lý kho vật tư",
+            items: [
+              {
+                label: "Danh sách nhập vật tư",
+                routerLink: "/quantri/taisan/danhsachvattu",
+                command: () => {
+                  this.close();
+                },
+              },
+              // {
+              //   label: "Kế hoạch mua vật tư",
+              //   routerLink: "/quantri/taisan/thoihancungcapvattu/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
+              {
+                label: "Nhập kho vật tư",
+                routerLink: "/quantri/taisan/quytrinhnhapvattu/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Xuất kho vật tư",
+                routerLink: "/quantri/taisan/xuat-kho/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              // {
+              //   label: "Đề nghị thay vật tư",
+              //   routerLink: "/quantri/taisan/quytrinhdenghithayvattu/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
+            ],
+          },
+          {
+            label: "Quản lý nhà cung ứng",
+            items: [
+              {
+                label: "Nhóm nhà cung ứng",
+                routerLink: "/quantri/taisan/nhomnhacungung",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Danh mục nhà cung ứng",
+                routerLink: "/quantri/taisan/danhmucnhacungung",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Đánh giá nhà cung ứng",
+                routerLink: "/quantri/taisan/danhgianhacungung/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Tiêu chí đánh giá",
+                routerLink: "/quantri/taisan/tieuchidanhgia/0",
+                command: () => {
+                  this.close();
+                },
+              },
+            ],
+          },
+
+          {
+            label: "Danh mục ",
+            items: [
+              {
+                label: "Loại tài sản",
+                routerLink: "/quantri/taisan/danhmuc/danhmucloaitaisan",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Mức độ ưu tiên",
+                routerLink: "/quantri/taisan/danhmuc/mucdouutien",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Loại sự cố",
+                routerLink: "/quantri/taisan/danhmuc/loaisuco",
+                command: () => {
+                  this.close();
+                },
+              },
+              // {
+              //   label: "Nhà cung cấp",
+              //   routerLink: "/quantri/taisan/danhmuc/nhacungcap",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
+              {
+                label: "Loại bảo dưỡng ",
+                routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Loại công việc bảo dưỡng ",
+                routerLink: "/quantri/taisan/danhmuc/danhmucloaicongviecbaoduong",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Mã QR",
+                routerLink: "/quantri/taisan/danhmuc/maqr",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Đội bảo dưỡng",
+                routerLink: "/quantri/taisan/danhmuc/doibaoduong",
+                command: () => {
+                  this.close();
+                },
+              },
+            ],
+          },
+          // {
+          //   label: "Nhập tài sản",
+          //   routerLink: "/quantri/taisan/nhaptaisan",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Bàn giao tài sản",
+          //   routerLink: "/quantri/taisan/bangiaotaisan",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Sự cố/Sửa chữa",
+          //   routerLink: "/quantri/taisan/sucosuachua",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // // {
+          // //   label: "Danh sách tài sản",
+          // //   routerLink: "/quantri/taisan/danhsachtaisan",
+          // //   command: () => {
+          // //     this.close();
+          // //   },
+          // // },
+          // {
+          //   label: "Vật tư dự trữ",
+          //   routerLink: "/quantri/taisan/danhsachvattudutru",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Vật tư giá trị cao",
+          //   routerLink: "/quantri/taisan/danhsachvattugiatricao",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Thu hồi tài sản",
+          //   routerLink: "/quantri/taisan/thuhoitaisan/0",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Thanh lý tài sản",
+          //   routerLink: "/quantri/taisan/thanhlytaisan/0",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Hiệu xuất tài sản",
+          //   routerLink: "/quantri/taisan/nhaplieuxuattaisan",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Danh sách nhập vật tư",
+          //   routerLink: "/quantri/taisan/danhsachvattu",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Nhập vật tư trự trù",
+          //   routerLink: "/quantri/taisan/quytrinhnhapvattu",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Đề nghị thay vật tư",
+          //   routerLink: "/quantri/taisan/quytrinhdenghithayvattu/0",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Lịch xích năm",
+          //   routerLink: "/quantri/taisan/lichxichnam",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Lịch xích tháng",
+          //   routerLink: "/quantri/taisan/lichxichthang",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Lập kế hoạch lịch xích năm",
+          //   routerLink: "/quantri/taisan/lapkehoachlichxichnam",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Lập kế hoạch lịch xích tháng",
+          //   routerLink: "/quantri/taisan/lapkehoachlichxichthang",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          // {
+          //   label: "Đề nghị xử lý sự cố",
+          //   routerLink: "/quantri/taisan/denghixulisuco/0",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+        ],
+      },
+
       {
         label: "Quyết toán nguyên liệu",
         routerLink: "/quantri/quyettoannguyenlieu",
@@ -1139,441 +1578,6 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ],
       },
 
-      /////////////      Quản lý tài sản
-      {
-        label: "Quản lý tài sản",
-        icon: "fas fa-circle",
-        routerLink: "/quantri/taisan",
-        visible: this.showTaiSanModule,
-        items: [
-          {
-            label: "Quản trị tài sản",
-            routerLink: "/quantri/quantritaisan",
-            visible: this.showTaiSanModule,
-            items: [
-              {
-                label: "Tổng hợp tài sản",
-                routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
-                separator: !this.showTaiSanModule,
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Số giờ dừng máy",
-                routerLink: "/quantri/quantritaisan/sogiodungmay",
-                separator: !this.showTaiSanModule,
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Ngân sách dự kiến và thực tế",
-                routerLink: "/quantri/quantritaisan/ngansachdukienvathucte",
-                separator: !this.showTaiSanModule,
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Lịch sử sử dụng tài sản",
-                routerLink: "/quantri/taisan/lichsusudungtaisan/0",
-                command: () => {
-                  this.close();
-                },
-              },
-            ]
-          },
-          {
-            label: "Quản lý thông tin tài sản",
-            items: [
-              {
-                label: "Danh sách tài sản",
-                routerLink: "/quantri/taisan/danhsachtaisan",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Nhập tài sản",
-                routerLink: "/quantri/taisan/nhaptaisan/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Cập nhật thư viện",
-                routerLink: "/quantri/taisan/capnhatthuvien/0",
-                command: () => {
-                  this.close();
-                },
-              },
-            ],
-          },
-          {
-            label: "Quản lý bảo trì, bảo dưỡng",
-            items: [
-              {
-                label: "Lịch xích năm",
-                routerLink: "/quantri/taisan/lichxichnam",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Lịch xích tháng",
-                routerLink: "/quantri/taisan/lichxichthang",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Lập kế hoạch lịch xích năm",
-                routerLink: "/quantri/taisan/quytrinhlapkehoachnam/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Lập kế hoạch lịch xích tháng",
-                routerLink: "/quantri/taisan/quytrinhlapkehoachthang/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Quy trình bảo dưỡng",
-                routerLink: "/quantri/taisan/quytrinhbaoduong/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Đề nghị xử lý sự cố",
-                routerLink: "/quantri/taisan/denghixulisuco/0",
-                command: () => {
-                  this.close();
-                },
-              },
-            ],
-          },
-          {
-            label: "Biến động tài sản",
-            items: [
-              {
-                label: "Bàn giao tài sản",
-                routerLink: "/quantri/taisan/bangiaotaisan/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              // {
-              //   label: "Điều chuyển tài sản",
-              //   routerLink: "/quantri/taisan/dieuchuyentaisan/0",
-              //   command: () => {
-              //     this.close();
-              //   },
-              // },
-              {
-                label: "Thu hồi tài sản",
-                routerLink: "/quantri/taisan/thuhoitaisan/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Thanh lý tài sản",
-                routerLink: "/quantri/taisan/thanhlytaisan/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Tính Khấu hao tài sản",
-                routerLink: "/quantri/taisan/khauhaotaisan/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              // {
-              //   label: "Thông tin kiểm định",
-              //   routerLink: "/quantri/taisan/kiem-dinh-tai-san/0",
-              //   command: () => {
-              //     this.close();
-              //   },
-              // },
-              // {
-              //   label: "Thông tin bảo hiểm",
-              //   routerLink: "/quantri/taisan/bao-hiem/0",
-              //   command: () => {
-              //     this.close();
-              //   },
-              // },
-            ],
-          },
-          {
-            label: "Kế hoạch mua vật tư",
-            routerLink: "/quantri/taisan/thoihancungcapvattu/0",
-            command: () => {
-              this.close();
-            }
-          },
-          {
-            label: "Quản lý kho vật tư",
-            items: [
-              {
-                label: "Danh sách nhập vật tư",
-                routerLink: "/quantri/taisan/danhsachvattu",
-                command: () => {
-                  this.close();
-                },
-              },
-              // {
-              //   label: "Kế hoạch mua vật tư",
-              //   routerLink: "/quantri/taisan/thoihancungcapvattu/0",
-              //   command: () => {
-              //     this.close();
-              //   },
-              // },
-              {
-                label: "Nhập kho vật tư",
-                routerLink: "/quantri/taisan/quytrinhnhapvattu/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Xuất kho vật tư",
-                routerLink: "/quantri/taisan/xuat-kho/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              // {
-              //   label: "Đề nghị thay vật tư",
-              //   routerLink: "/quantri/taisan/quytrinhdenghithayvattu/0",
-              //   command: () => {
-              //     this.close();
-              //   },
-              // },
-            ],
-          },
-          {
-            label: "Quản lý nhà cung ứng",
-            items: [
-              {
-                label: "Nhóm nhà cung ứng",
-                routerLink: "/quantri/taisan/nhomnhacungung",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Danh mục nhà cung ứng",
-                routerLink: "/quantri/taisan/danhmucnhacungung",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Đánh giá nhà cung ứng",
-                routerLink: "/quantri/taisan/danhgianhacungung/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Tiêu chí đánh giá",
-                routerLink: "/quantri/taisan/tieuchidanhgia/0",
-                command: () => {
-                  this.close();
-                },
-              },
-            ],
-          },
-
-          {
-            label: "Danh mục ",
-            items: [
-              {
-                label: "Loại tài sản",
-                routerLink: "/quantri/taisan/danhmuc/danhmucloaitaisan",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Mức độ ưu tiên",
-                routerLink: "/quantri/taisan/danhmuc/mucdouutien",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Loại sự cố",
-                routerLink: "/quantri/taisan/danhmuc/loaisuco",
-                command: () => {
-                  this.close();
-                },
-              },
-              // {
-              //   label: "Nhà cung cấp",
-              //   routerLink: "/quantri/taisan/danhmuc/nhacungcap",
-              //   command: () => {
-              //     this.close();
-              //   },
-              // },
-              {
-                label: "Loại bảo dưỡng ",
-                routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Loại công việc bảo dưỡng ",
-                routerLink: "/quantri/taisan/danhmuc/danhmucloaicongviecbaoduong",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Mã QR",
-                routerLink: "/quantri/taisan/danhmuc/maqr",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Đội bảo dưỡng",
-                routerLink: "/quantri/taisan/danhmuc/doibaoduong",
-                command: () => {
-                  this.close();
-                },
-              },
-            ],
-          },
-          // {
-          //   label: "Nhập tài sản",
-          //   routerLink: "/quantri/taisan/nhaptaisan",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Bàn giao tài sản",
-          //   routerLink: "/quantri/taisan/bangiaotaisan",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Sự cố/Sửa chữa",
-          //   routerLink: "/quantri/taisan/sucosuachua",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // // {
-          // //   label: "Danh sách tài sản",
-          // //   routerLink: "/quantri/taisan/danhsachtaisan",
-          // //   command: () => {
-          // //     this.close();
-          // //   },
-          // // },
-          // {
-          //   label: "Vật tư dự trữ",
-          //   routerLink: "/quantri/taisan/danhsachvattudutru",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Vật tư giá trị cao",
-          //   routerLink: "/quantri/taisan/danhsachvattugiatricao",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Thu hồi tài sản",
-          //   routerLink: "/quantri/taisan/thuhoitaisan/0",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Thanh lý tài sản",
-          //   routerLink: "/quantri/taisan/thanhlytaisan/0",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Hiệu xuất tài sản",
-          //   routerLink: "/quantri/taisan/nhaplieuxuattaisan",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Danh sách nhập vật tư",
-          //   routerLink: "/quantri/taisan/danhsachvattu",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Nhập vật tư trự trù",
-          //   routerLink: "/quantri/taisan/quytrinhnhapvattu",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Đề nghị thay vật tư",
-          //   routerLink: "/quantri/taisan/quytrinhdenghithayvattu/0",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Lịch xích năm",
-          //   routerLink: "/quantri/taisan/lichxichnam",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Lịch xích tháng",
-          //   routerLink: "/quantri/taisan/lichxichthang",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Lập kế hoạch lịch xích năm",
-          //   routerLink: "/quantri/taisan/lapkehoachlichxichnam",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Lập kế hoạch lịch xích tháng",
-          //   routerLink: "/quantri/taisan/lapkehoachlichxichthang",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Đề nghị xử lý sự cố",
-          //   routerLink: "/quantri/taisan/denghixulisuco/0",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-        ],
-      },
 
       /////////////      Danh Mục quản lý tài sản
       // {

@@ -11,6 +11,7 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { PintableDirective } from 'voi-lib';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-lapkehoachthang',
@@ -52,9 +53,9 @@ export class LapkehoachthangComponent implements OnInit {
   ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
+    })
   }
 
   ngOnInit(): void {
@@ -67,7 +68,7 @@ export class LapkehoachthangComponent implements OnInit {
     this.KiemTraButtonModal();
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
-      this.item.ThoiGian = new Date();
+      this.item.ThoiGian = moment().add("months", 1).toDate();
       // this.ThemMoiDanhSachTaiSan('MOI');
     } else {
       this.chonThang(this.item.ThoiGian);

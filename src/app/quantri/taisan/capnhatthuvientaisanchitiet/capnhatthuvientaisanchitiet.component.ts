@@ -55,14 +55,18 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
   ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
+    })
   }
 
   ngOnInit() {
     this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
+    console.log("this.opt", this.opt);
+
     if (this.opt === 'add') {
+      this.item.SoLuong = 1;
+
     }
     else {
       this.GetIem();
@@ -151,7 +155,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.result
       .then((res: any) => {
-          this.item.listTaiSan.push(res);
+        this.item.listTaiSan.push(res);
       })
       .catch((er) => {
       });
