@@ -46,7 +46,8 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Bảo dưỡng theo thời gian <span class="text-danger">(*)</span> :</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Bảo dưỡng theo thời gian <span class="text-danger">(*)</span>
+                :</label>
             <div class="p-col-12 p-lg-10 p-p-0 flex-column flex-xl-row">
                 <div class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-xl-row">
                     <div class="p-col-12 p-lg-2 p-p-0">
@@ -258,8 +259,10 @@
             </p-table>
         </p-accordionTab>
     </p-accordion>
-    <div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
-        <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2" (click)="activeModal.dismiss()"></button>
+
+    <div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-end p-mb-3">
+        <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2 p-button-text"
+            (click)="activeModal.dismiss()"></button>
         <button pButton pRipple label="Chấp nhận" [style.visibility]="bool?'visible':'hidden'" icon="pi pi-save"
             class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
     </div>

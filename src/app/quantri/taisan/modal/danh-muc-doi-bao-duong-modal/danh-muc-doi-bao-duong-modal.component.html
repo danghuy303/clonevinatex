@@ -36,8 +36,9 @@
             <div class="p-col-12 p-lg-12 d-flex flex-column flex-xl-row ">
                 <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nhân sự: </label>
                 <div class="p-col-12 p-lg-10 p-p-0">
-                    <p-multiSelect [options]="listUser" [(ngModel)]="item.listIdUser" [filter]="false" [showToggleAll]="true"
-                        [maxSelectedLabels]="1" selectedItemsLabel="{0} nhân sự được chọn" display="chip">
+                    <p-multiSelect [options]="listUser" [(ngModel)]="item.listIdUser" [filter]="false"
+                        [showToggleAll]="true" [maxSelectedLabels]="1" selectedItemsLabel="{0} nhân sự được chọn"
+                        display="chip">
                     </p-multiSelect>
                 </div>
             </div>
@@ -50,7 +51,8 @@
         </div>
     </div>
 </div>
-<div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
-    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2" (click)="activeModal.dismiss()"></button>
+<div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-end p-mb-3">
+    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2 p-button-text"
+        (click)="activeModal.dismiss()"></button>
     <button pButton pRipple label="Chấp nhận" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
 </div>
