@@ -185,15 +185,15 @@
                     thiết bị</strong></div>
         </div>
         <div class="p-col-12 p-mb-4 pintable-container bg-white" style="height: calc(100vh - 250px); z-index: 999;"
-            voiPintable [pinnedCols]="3">
+            voiPintable [pinnedCols]="2">
             <table>
                 <thead>
                     <tr>
                         <th style="min-width: 50px;max-width: 50px; padding: 0.5rem 0">STT</th>
-                        <th style="min-width: 200px;max-width: 200px; padding: 0.5rem 0"
-                            *ngIf="filter.isChon !== 'theoMay'">Loại bảo dưỡng</th>
-                        <th style="min-width: 200px;max-width: 200px; padding: 0.5rem 0"
-                            *ngIf="filter.isChon === 'theoMay'">Mã, tên tài sản</th>
+                        <th style="min-width: 200px;max-width: 200px; padding: 0.5rem 0"><span>{{filter.isChon ===
+                                'theoMay' ? 'Mã, tên tài sản' : 'Loại bảo dưỡng'}}</span></th>
+                        <!-- <th style="min-width: 200px;max-width: 200px; padding: 0.5rem 0"
+                            *ngIf="filter.isChon === 'theoMay'">Mã, tên tài sản</th> -->
 
                         <th style="min-width: 150px;max-width: 150px;"
                             *ngFor="let label of itemsLichXichThang.listThoiGian">{{label}}</th>
