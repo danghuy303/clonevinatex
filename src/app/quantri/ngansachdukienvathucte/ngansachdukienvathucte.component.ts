@@ -158,6 +158,8 @@ export class NgansachdukienvathucteComponent implements OnInit {
     let _month = moment(this.filter.namThang).month() + 1;
     let _date = moment(this.filter.namThang).date();
 
+    let _loaiKH = ``
+
     switch (this.filter.LoaiThoiGian) {
       case 0:
         // Ngày
@@ -165,6 +167,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
         let _lastTimeOnDay = new Date(_year, _month - 1, _date, 23, 59, 59);
         _tuNgay = DateToUnix(_firstTimeOnDay);
         _denNgay = DateToUnix(_lastTimeOnDay);
+        _loaiKH = "NGAY"
         break;
       case 2:
         // Tháng
@@ -172,6 +175,8 @@ export class NgansachdukienvathucteComponent implements OnInit {
         let _lastDayOnMonth = new Date(_year, _month, 0, 23, 59, 59);
         _tuNgay = DateToUnix(_firstDayOnMonth);
         _denNgay = DateToUnix(_lastDayOnMonth);
+        _loaiKH = "THANG"
+
         break;
       case 3:
         // Năm
@@ -180,17 +185,20 @@ export class NgansachdukienvathucteComponent implements OnInit {
         let _lastDayOnYear = new Date(_year, 11, 31, 23, 59, 59);
         _tuNgay = DateToUnix(_firstDayOnYear);
         _denNgay = DateToUnix(_lastDayOnYear);
+        _loaiKH = "NAM"
         break;
       default:
         break;
     }
-
     let data = {
       ...this.filter,
       TuNgay: _tuNgay,
       DenNgay: _denNgay,
-      Ngay: _tuNgay
+      Ngay: _tuNgay,
+      LoaiKeHoach: _loaiKH
     };
+
+    this.filter = data;
 
     this.taisanService.getDataBaoCao().GetDataNganSach(data).subscribe((res: any) => {
 

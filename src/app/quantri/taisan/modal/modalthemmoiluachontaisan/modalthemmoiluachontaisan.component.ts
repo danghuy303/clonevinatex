@@ -15,7 +15,7 @@ import { ChonComponent } from '../../screen/chon/chon.component';
   styleUrls: ['./modalthemmoiluachontaisan.component.css']
 })
 export class ModalthemmoiluachontaisanComponent implements OnInit {
-  item: any = {value:''};
+  item: any = { value: '' };
   opt: any = "";
   title: any = "";
   lang: any = vn;
@@ -31,7 +31,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   listTinhTrangTaiSan_copy: any = [];
   listDonVi_copy: any = [];
   IdBoPhanSuDung: any = "";
-  value:any;
+  value: any;
   qrcode: any = {
     size: 250
   };
@@ -51,7 +51,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     // this.LayMa(this.item);
     this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
     // if (this.item.ThoiGianDuaVaoSuDungUnix !== 0 || this.item.ThoiGianDuaVaoSuDungUnix === 0) {
-      this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
+    this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
     // }
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
@@ -101,12 +101,12 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
       return false;
     }
-    if (this.IdBoPhanSuDung != null) {
-      if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {
-        this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
-        return false;
-      }
-    }
+    // if (this.IdBoPhanSuDung != null) {
+    //   if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {
+    //     this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
+    //     return false;
+    //   }
+    // }
     if (this.item?.isCanDuTru) {
       if (!validVariable(this.item?.DuTruToiThieu) || this.item?.DuTruToiThieu <= 0) {
         this.toastr.error("Yêu cầu nhập số lượng dự trữ");
@@ -122,9 +122,9 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     //   return
     // }
     if (this.ValidateData()) {
-    this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
-    this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
-    this.activeModal.close(this.item);
+      this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
+      this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
+      this.activeModal.close(this.item);
     }
   }
   taiLenFileDinhKem() {

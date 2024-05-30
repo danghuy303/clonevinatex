@@ -185,7 +185,7 @@
                     thiết bị</strong></div>
         </div>
         <div class="p-col-12 p-mb-4 pintable-container bg-white" style="height: calc(100vh - 250px); z-index: 999;"
-            voiPintable [pinnedCols]="2">
+            voiPintable [pinnedCols]="3">
             <table>
                 <thead>
                     <tr>
@@ -328,14 +328,14 @@
         </td>
         <td style="min-width: 200px;; padding: 0.5rem 0 ; max-width: 200px;background-color: white; cursor: pointer; z-index: 999;"
             (click)="ChiTietBaoDuongLichXIchThang(lichXichThang)">
-            {{lichXichThang.TendmLoaiBaoDuong}}
+            {{lichXichThang.TenTaiSan}}
         </td>
         <td style="min-width: 150px;max-width: 150px;background-color: white;" class="text-center"
             *ngFor="let newItem of lichXichThang.listItemTheoThoiGian"
             [ngStyle]="{'background-color': newItem.ColorLabel}">
             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" [ngStyle]="{'color': taisan.Mau}"
                 (click)="ChiTietThongTinLichXIchThang(taisan)">
-                {{taisan.TenTaiSan}}<br>
+                {{taisan.TendmLoaiBaoDuong}}<br>
             </a>
         </td>
     </tr>

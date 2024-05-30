@@ -11,7 +11,7 @@ import { ModalcapnhatbaoduongcopyyComponent } from '../modalcapnhatbaoduongcopyy
   templateUrl: './taomoilichbaoduongcopy.component.html',
   styleUrls: ['./taomoilichbaoduongcopy.component.css']
 })
-export class TaomoilichbaoduongcopyComponent implements OnInit , OnChanges{
+export class TaomoilichbaoduongcopyComponent implements OnInit, OnChanges {
 
   @Input('item') item: any = {};
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
@@ -24,7 +24,7 @@ export class TaomoilichbaoduongcopyComponent implements OnInit , OnChanges{
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    
+
   }
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class TaomoilichbaoduongcopyComponent implements OnInit , OnChanges{
     modalRef.componentInstance.title = "Thêm mới lịch bảo dưỡng";
     modalRef.componentInstance.listLichBaoDuong = this.item.listLichBaoDuong || [];
     modalRef.componentInstance.LayId = this.item;
-    modalRef.componentInstance.existedItems = this.listIdDaChon|| [];
+    modalRef.componentInstance.existedItems = this.listIdDaChon || [];
     modalRef.result
       .then((res: any) => {
         this.item.listLichBaoDuong.push(res);
@@ -54,7 +54,7 @@ export class TaomoilichbaoduongcopyComponent implements OnInit , OnChanges{
     let item_copy = { ...item };
     this.listIdDaChon = this.item?.listLichBaoDuong?.map(ele => {
       return ele.IddmLoaiBaoDuong
-    })||[]
+    }) || []
     let modalRef = this._modal.open(ModalcapnhatbaoduongcopyyComponent, {
       size: "lg",
       backdrop: "static",
@@ -62,7 +62,7 @@ export class TaomoilichbaoduongcopyComponent implements OnInit , OnChanges{
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.title = "Cập nhật lịch bảo dưỡng";
     modalRef.componentInstance.item = item_copy;
-    modalRef.componentInstance.existedItems = this.listIdDaChon|| [];
+    modalRef.componentInstance.existedItems = this.listIdDaChon || [];
     modalRef.result
       .then((res: any) => {
         this.item.listLichBaoDuong[index] = res;
@@ -71,6 +71,28 @@ export class TaomoilichbaoduongcopyComponent implements OnInit , OnChanges{
       .catch((er) => {
 
       });
+  }
+
+  getTextTime(TGBD: any, MLTG: any) {
+    let text = `${TGBD}`;
+    switch (MLTG) {
+      case `NGAY`:
+        text += " Ngày"
+        break;
+
+      case `TUAN`:
+        text += " Tuần"
+        break;
+      case `THANG`:
+        text += " Tháng"
+        break;
+      case `NAM`:
+        text += " Năm"
+        break;
+      default:
+        break;
+    }
+    return text;
   }
   // Xoa(item, index) {
   //   if (validVariable(item.Id)) {

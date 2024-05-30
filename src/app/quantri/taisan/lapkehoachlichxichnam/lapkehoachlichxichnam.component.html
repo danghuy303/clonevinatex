@@ -99,10 +99,19 @@
                 </div>
             </div>
             <div class="p-grid p-jc-end">
-                <span class="p-input-icon-left mb-3" style="width: 300px">
+                <!-- <span class="p-input-icon-left mb-3" style="width: 300px">
                     <i class="pi pi-search"></i>
                     <input type="text" [(ngModel)]="keyword" pInputText placeholder="Tìm kiếm..." />
-                </span>
+                </span> -->
+
+                <div class="p-inputgroup  mb-3" style="width: 200px;">
+                    <span class="p-input-icon-left" style="width: 300px">
+                        <i class="pi pi-search"></i>
+                        <input type="text" [(ngModel)]="keyword" pInputText placeholder="Tìm kiếm..." />
+                    </span>
+                    <button type="button" pButton pRipple icon="pi pi-refresh"
+                        class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+                </div>
             </div>
             <p-table [value]="item.listTaiSan | filter: keyword "
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">

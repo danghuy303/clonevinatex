@@ -1,5 +1,4 @@
-<p-table [value]="item.listLichBaoDuong" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
-   >
+<p-table [value]="item.listLichBaoDuong" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width: 50px;">
@@ -19,7 +18,8 @@
             <th class="text-center">Theo thời gian</th>
             <th class="text-center">Theo sản lượng (Tấn)</th>
             <th class="text-center">Ghi chú</th>
-            <th class="text-center"> <button pButton pRipple icon="pi pi-plus" (click)="addBaoDuong()" class="p-button-sm p-mr-2"></button></th>
+            <th class="text-center"> <button pButton pRipple icon="pi pi-plus" (click)="addBaoDuong()"
+                    class="p-button-sm p-mr-2"></button></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-x let-i="rowIndex">
@@ -27,10 +27,10 @@
             <td class="text-center">
                 {{i + 1}}
             </td>
-            <td >{{x.TendmLoaiBaoDuong}}</td>
-            <td >{{x.ThoiGianBaoDuong}} {{x.MaLoaiThoiGian}} </td>
-            <td >{{x.NangSuat}}</td>
-            <td >{{x.GhiChu}}</td>
+            <td>{{x.TendmLoaiBaoDuong}}</td>
+            <td>{{getTextTime(x.ThoiGianBaoDuong, x.MaLoaiThoiGian)}}</td>
+            <td>{{x.NangSuat}}</td>
+            <td>{{x.GhiChu}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"

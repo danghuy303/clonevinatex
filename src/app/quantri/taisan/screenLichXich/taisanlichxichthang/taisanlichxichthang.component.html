@@ -22,13 +22,23 @@
     </table>
 </div> -->
 <div class="p-grid p-jc-end">
-    <span class="p-input-icon-left mb-3" style="width: 300px">
+    <!-- <span class="p-input-icon-left mb-3" style="width: 300px">
         <i class="pi pi-search"></i>
         <input type="text" [(ngModel)]="keyword"  pInputText placeholder="Tìm kiếm..." />
-    </span>
+    </span> -->
+
+    <div class="p-inputgroup  mb-3" style="width: 200px;">
+        <span class="p-input-icon-left" style="width: 300px">
+            <i class="pi pi-search"></i>
+            <input type="text" [(ngModel)]="keyword" pInputText placeholder="Tìm kiếm..." />
+        </span>
+        <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"
+            (click)="resetFilter()"></button>
+    </div>
 </div>
 <div>
-    <p-table [value]="listTaiSan | filter: keyword" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped">
+    <p-table [value]="listTaiSan | filter: keyword"
+        styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 100px">Tài sản</th>
@@ -38,10 +48,13 @@
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr *ngFor="let baoduongthang of item.listBaoDuongThang; let i = index">
-                <td *ngIf="i === 0" [attr.rowspan]="item.listBaoDuongThang.length" style="background-color: #fff;">{{item.TenTaiSan}}</td>
+                <td *ngIf="i === 0" [attr.rowspan]="item.listBaoDuongThang.length" style="background-color: #fff;">
+                    {{item.TenTaiSan}}</td>
                 <td>{{baoduongthang.TendmLoaiBaoDuong}} - {{baoduongthang.Ngay | date: 'MM/yyyy'}}</td>
-                <td *ngFor="let thoigian of baoduongthang.listThoiGian; let index = index" [style.backgroundColor]="thoigian.IsWeekend?'#edbfbb':''" class="text-center">
-                    <p-checkbox [(ngModel)]="thoigian.isChon" [binary]="true" (onChange)="check($event ,index,baoduongthang.listThoiGian)"></p-checkbox>
+                <td *ngFor="let thoigian of baoduongthang.listThoiGian; let index = index"
+                    [style.backgroundColor]="thoigian.IsWeekend?'#edbfbb':''" class="text-center">
+                    <p-checkbox [(ngModel)]="thoigian.isChon" [binary]="true"
+                        (onChange)="check($event ,index,baoduongthang.listThoiGian)"></p-checkbox>
                 </td>
             </tr>
         </ng-template>

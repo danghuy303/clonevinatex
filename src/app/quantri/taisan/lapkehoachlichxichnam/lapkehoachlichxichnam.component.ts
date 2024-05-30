@@ -388,4 +388,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => console.log(er));
   }
 
+  resetFilter() {
+    this.keyword = '';
+  }
+
 }
