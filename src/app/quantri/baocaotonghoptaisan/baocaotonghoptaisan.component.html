@@ -315,7 +315,7 @@
             [ngStyle]="{'background-color': newItem.ColorLabel}">
             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" [ngStyle]="{'color': taisan.Mau}"
                 (click)="ChiTietThongTinLichXIchThang(taisan)">
-                {{taisan.TenTaiSan}}<br>
+                {{taisan.TenVietTat}}<br>
             </a>
         </td>
     </tr>
@@ -335,7 +335,7 @@
             [ngStyle]="{'background-color': newItem.ColorLabel}">
             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" [ngStyle]="{'color': taisan.Mau}"
                 (click)="ChiTietThongTinLichXIchThang(taisan)">
-                {{taisan.TendmLoaiBaoDuong}}<br>
+                {{taisan.KyHieu}}<br>
             </a>
         </td>
     </tr>
