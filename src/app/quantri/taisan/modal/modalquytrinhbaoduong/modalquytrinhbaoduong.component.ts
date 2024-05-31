@@ -81,6 +81,9 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     } else { }
     this.KiemTraButtonModal();
     this.GetNews();
+
+    console.log("item 1", this.item);
+
   }
 
   GetNextSoQuyTrinh() {
@@ -242,6 +245,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
 
   GetNews() {
     this.item.NgayBaoDuong = new Date();
+    this.item.NgayBatDau = UnixToDate(this.item.NgayBatDauUnix);
+    this.item.NgayKetThuc = UnixToDate(this.item.NgayKetThucUnix);
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
     this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -395,7 +400,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     modalRef.componentInstance.listHienThi = this.listNoiDungVatTuDeep;
     modalRef.componentInstance.listDaChon = this.item.listVatTu ? this.item.listVatTu.map(ele => ele.IdVatTuThayThe) : [];
     modalRef.result.then(res => {
-      this.item.listVatTu =  this.item.listVatTu ?  this.item.listVatTu : []
+      this.item.listVatTu = this.item.listVatTu ? this.item.listVatTu : []
       this.item.listVatTu = merge(res, this.item.listVatTu, 'IdVatTuThayThe')
     })
   }

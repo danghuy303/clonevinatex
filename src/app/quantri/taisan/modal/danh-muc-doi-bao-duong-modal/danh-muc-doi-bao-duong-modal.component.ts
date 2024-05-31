@@ -13,14 +13,14 @@ export class DanhMucDoiBaoDuongModalComponent implements OnInit {
   public item: any = {};
   public title: any = '';
   public type = '';
-  listCongDoan:any =[];
-  listUser:any =[];
+  listCongDoan: any = [];
+  listUser: any = [];
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
-  Keyword="";
+  Keyword = "";
 
   constructor(public activeModal: NgbActiveModal,
-     private _danhMucTaiSan:DanhmuctaisanService,
-      public toastr: ToastrService) { this.item.isHoatDong = true }
+    private _danhMucTaiSan: DanhmuctaisanService,
+    public toastr: ToastrService) { this.item.isHoatDong = true }
 
   ngOnInit(): void {
     this.GetBoPhanNhanSu();
@@ -37,17 +37,14 @@ export class DanhMucDoiBaoDuongModalComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ công đoạn!");
       return false;
     }
-    if (!validVariable(this.item.Ma)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ mã !");
+    if (!validVariable(this.item.NoiDung)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ nội dung !");
       return false;
     }
-    if (!validVariable(this.item.Ten)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ tên!");
-      return false;
-    }
+
     return true;
   }
-  
+
   GhiLai() {
     if (this.ValidateData()) {
       this._danhMucTaiSan.DoiBaoDuong().Set(this.item).subscribe((res: any) => {
@@ -56,7 +53,7 @@ export class DanhMucDoiBaoDuongModalComponent implements OnInit {
         } else {
           this.toastr.success(res.Message);
           this.activeModal.close();
-        } 
+        }
         // this.activeModal.close();
       })
     }

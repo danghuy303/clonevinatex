@@ -341,6 +341,7 @@ import { TonkhohoiluongdoComponent } from './quanlykhosanxuat/quytrinh/tonkhohoi
 import { TonkhohoiluongdomodalComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiluongdomodal/tonkhohoiluongdomodal.component';
 import { BaocaodienmodalComponent } from './danhmuc/thongkedientheoca/baocaothongketiendien/baocaodienmodal/baocaodienmodal.component';
 import { PhucuongComponent } from './quanlykhosanxuat/phuongan/layoutmodals/phucuong/phucuong.component';
+import { DinhmucbaocaodienmodalComponent } from './danhmuc/thongkedientheoca/baocaothongketiendien/baocaodienmodal/dinhmucbaocaodienmodal/dinhmucbaocaodienmodal.component';
 
 @NgModule({
   declarations: [
@@ -628,6 +629,7 @@ import { PhucuongComponent } from './quanlykhosanxuat/phuongan/layoutmodals/phuc
     TonkhohoiluongdomodalComponent,
     BaocaodienmodalComponent,
     PhucuongComponent,
+    DinhmucbaocaodienmodalComponent,
   ],
   imports: [
     HttpClientModule,

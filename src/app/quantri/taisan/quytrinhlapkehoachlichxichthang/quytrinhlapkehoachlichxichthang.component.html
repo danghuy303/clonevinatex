@@ -3,7 +3,8 @@
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+        <button *ngIf="checkQuyen.ThemMoi" pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2"
+            (click)="add()"></button>
         <!-- <button pButton pRipple label="xóa" icon="pi pi-trash" class="p-button-sm p-button-outlined p-mr-2" (click)="delete(item)"></button> 
          <button pButton pRipple label="Xóa tất cả" *ngIf="selectedItems.length!==0" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>
          <button pButton pRipple label="Xóa tất cả" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>  -->
@@ -11,12 +12,14 @@
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Bộ phận sử dụng"
-                [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" [showClear]="true" styleClass="p-inputtext-sm">
+                [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" [showClear]="true"
+                styleClass="p-inputtext-sm">
             </p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuThang "  [maxDate]="filter.DenThang" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)">
+                [(ngModel)]="filter.TuThang " [maxDate]="filter.DenThang" inputId="icon" placeholder="Từ ngày"
+                (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-mr-2">
