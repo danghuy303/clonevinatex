@@ -107,25 +107,25 @@
                 <td class="text-right">
                     {{item.HB2|number:'0.0-2'}}
                 </td>
-                <td class="text-right" [style]="{'color':item.kWhKgHB12 < item.itemDinhMuc.kWhKgHB12 ?'red':'black'}">
+                <td class="text-right" [style]="{'color':item.kWhKgHB12 > item.itemDinhMuc.kWhKgHB12 ?'red':'black'}">
                     {{item.kWhKgHB12|number:'0.0-2'}}
                 </td>
                 <td class="text-right">
                     {{item.HB34|number:'0.0-2'}}
                 </td>
-                <td class="text-right" [style]="{'color':item.kWhKgHB34 < item.itemDinhMuc.kWhKgHB34 ?'red':'black'}">
+                <td class="text-right" [style]="{'color':item.kWhKgHB34 > item.itemDinhMuc.kWhKgHB34 ?'red':'black'}">
                     {{item.kWhKgHB34|number:'0.0-2'}}
                 </td>
                 <td class="text-right">
                     {{item.HB56|number:'0.0-2'}}
                 </td>
-                <td class="text-right" [style]="{'color':item.kWhKgHB56 < item.itemDinhMuc.kWhKgHB56 ?'red':'black'}">
+                <td class="text-right" [style]="{'color':item.kWhKgHB56 > item.itemDinhMuc.kWhKgHB56 ?'red':'black'}">
                     {{item.kWhKgHB56|number:'0.0-2'}}
                 </td>
                 <td class="text-right">
                     {{item.HBCK|number:'0.0-2'}}
                 </td>
-                <td class="text-right" [style]="{'color':item.kWhKgHBCK < item.itemDinhMuc.kWhKgHBCK ?'red':'black'}">
+                <td class="text-right" [style]="{'color':item.kWhKgHBCK > item.itemDinhMuc.kWhKgHBCK ?'red':'black'}">
                     {{item.kWhKgHBCK|number:'0.0-2'}}
                 </td>
                 <td class="text-right">
@@ -146,7 +146,7 @@
                 <td class="text-right">
                     {{item.Ne30|number:'0.0-2'}}
                 </td>
-                <td class="text-right" [style]="{'color':item.kWhNe30 < item.itemDinhMuc.kWhNe30 ?'red':'black'}">
+                <td class="text-right" [style]="{'color':item.kWhNe30 > item.itemDinhMuc.kWhNe30 ?'red':'black'}">
                     {{item.kWhNe30|number:'0.0-2'}}
                 </td>
                 <td class="text-right">
@@ -155,7 +155,7 @@
                 <td class="text-right">
                     {{item.TyLeCDTD|number:'0.0-2'}}
                 </td>
-                <td class="text-right" [style]="{'color':item.kWhNe30Xe < item.itemDinhMuc.kWhNe30Xe ?'red':'black'}">
+                <td class="text-right" [style]="{'color':item.kWhNe30Xe > item.itemDinhMuc.kWhNe30Xe ?'red':'black'}">
                     {{item.kWhNe30Xe|number:'0.0-2'}}
                 </td>
             </tr>
