@@ -21,15 +21,15 @@
             <!-- <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()"
                 *ngIf="checkbutton.Ghi"></button> -->
             <!-- <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
-                (click)="XoaQuyTrinh()"></button>
-            <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
+                (click)="XoaQuyTrinh()"></button> -->
+            <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
                 *ngIf="checkbutton.KhongDuyet"></button> -->
             <!-- <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button> -->
             <button pButton pRipple type="button" label="Xác nhận bảo dưỡng" class="p-mr-2 p-button-sm"
-                (click)="XacNhan()"></button>
+                (click)="XacNhan()" *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Hoàn thành bảo dưỡng" class="p-mr-2 p-button-sm"
-                (click)="HoanThanh()"></button>
+                (click)="HoanThanh()" *ngIf="checkbutton.ChuyenTiep"></button>
         </div>
     </div>
     <!-- <div class="p-grid">

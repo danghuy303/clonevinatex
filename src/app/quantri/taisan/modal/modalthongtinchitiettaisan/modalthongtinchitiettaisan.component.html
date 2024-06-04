@@ -9,7 +9,7 @@
                 (click)="activeModal.dismiss('close')"></button>
         </div>
         <div class="modal-bt text-center p-col-4 maQR" [style.visibility]="item.Ma?'visible':'hidden'">
-            <qrcode [qrdata]="item.Ma" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+            <qrcode [qrdata]="item.MaQR" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
         </div>
     </div>
 
