@@ -222,6 +222,10 @@ export class ModaldenghixulisucoComponent implements OnInit {
     });
   }
   ChuyenDuyet() {
+    if (this.item.isDoiBaoDuong && this.item.listTaiSan.some(x => !x.IsXuLy)) {
+      this.toastr.error("Vui lòng hoàn thành các công việc trước khi chuyển tiếp!")
+      return;
+    }
     this._serviceTaiSan.QuyTrinhXuLySuCo().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);

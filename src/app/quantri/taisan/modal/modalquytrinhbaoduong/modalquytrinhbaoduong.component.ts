@@ -87,7 +87,6 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     this.GetNews();
 
     console.log("item 1", this.item);
-
   }
 
   GetNextSoQuyTrinh() {
@@ -351,6 +350,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   MapUnix(data) {
     this.item = {
       ...data,
+      listCongViec: data.listCongViec,
       ThoiGianBatDau: UnixToDate(data.ThoiGianBatDauUnix),
       ThoiGianKetThuc: UnixToDate(data.ThoiGianKetThucUnix),
       NgayKeHoach: UnixToDate(data.NgayKeHoachUnix),
@@ -388,6 +388,10 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   HoanThanh() {
     if (!this.validate()) {
       this.toastr.error("Vui lòng chọn đầy đủ thông tin cần thiết");
+      return;
+    }
+    if (this.item.listCongViec.some(x => !x.isThucHien)) {
+      this.toastr.error("Vui lòng hoàn thành tất cả công việc trước khi hoàn thành bảo dưỡng");
       return;
     }
     this.item.ThoiGianKetThuc = new Date();
