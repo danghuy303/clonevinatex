@@ -1,7 +1,6 @@
-
 <div class="d-flex justify-content-end p-mb-3">
     <strong style="color: #007bff;">Tổng giá trị: <span style="color: red;"> {{TongGiaTriToanBang |
-        number:'0.0-0'}} </span> (VNĐ)</strong>
+            number:'0.0-0'}} </span> (VNĐ)</strong>
 </div>
 <div class="p-col-12 p-p-0 pintable-container" style="height: 45vh;" voiPintable [pinnedCols]="1">
     <table>
@@ -15,7 +14,7 @@
         <tbody>
             <ng-container *ngFor="let item of listTaiSan, let i=index">
                 <tr>
-                    <td class="tc-w-300 p-py-3" style="background-color: white;z-index: 999;"> {{item.TenVietTat}}</td>
+                    <td class="tc-w-300 p-py-3" style="background-color: white;z-index: 999;"> {{item.TenTaiSan}}</td>
                     <td class="text-center" *ngFor="let chiPhi of item?.listChiPhi" class="text-center tc-w-250 p-p-2">
                         <!-- <div *ngIf="chiPhi.ChiTietChiPhi.length" class="p-d-flex p-flex-column"> -->
                         <!-- <div  *ngFor="let item of chiPhi.ChiTietChiPhi; let i = index" class="p-d-flex p-ai-center">
@@ -26,7 +25,7 @@
                             </div> -->
                         <!--  -->
                         <!-- <div  [style.display]="chiPhi.canInput?'block':'none' "> -->
-                            <div >
+                        <div>
                             <div class="p-grid" style="border: .5px solid #ccc;">
                                 <div class="p-col-4 t-head-custom">Tên chi phí</div>
                                 <div class="p-col-4 t-head-custom">Số tiền</div>
@@ -43,13 +42,18 @@
                                                 class="p-button-rounded p-button-text p-button-danger"
                                                 (click)="Delete(chiPhi.ChiTietChiPhi,i)"></button>
                                             <button pButton pRipple type="button" icon="pi pi-pencil" title="Chỉnh sửa"
+                                                (click)="Delete(chiPhi.ChiTietChiPhi,i)" pTooltip="Xóa"
+                                                tooltipPosition="top"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-pencil"
                                                 class="p-button-rounded p-button-text p-button-primary"
-                                                (click)="editChiTietChiPhi(item)"></button>
+                                                (click)="editChiTietChiPhi(item)" pTooltip="Sửa"
+                                                tooltipPosition="top"></button>
                                         </div>
                                     </div>
                                 </ng-container>
                             </div>
-                            <a *ngIf="chiPhi.IsHienThi" href="javascript:void(0)" (click)="ChiTietThongTin(chiPhi)">Thêm</a>
+                            <a *ngIf="chiPhi.IsHienThi" href="javascript:void(0)"
+                                (click)="ChiTietThongTin(chiPhi)">Thêm</a>
                         </div>
                     </td>
                     <td class="text-right tc-w-250 p-p-2">{{ item.TongTienChiPhi | number:'0.0-0'}}</td>

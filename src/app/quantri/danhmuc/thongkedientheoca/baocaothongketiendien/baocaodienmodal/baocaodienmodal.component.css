@@ -1,0 +1,19 @@
+.tw-100 {
+  width: 100px;
+}
+
+.tw-800 {
+  width: 800px;
+}
+
+.my-sticky-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.sticky-col-1 {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: white;
+}

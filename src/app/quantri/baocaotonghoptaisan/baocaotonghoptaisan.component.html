@@ -1,41 +1,19 @@
-<div class="p-d-flex p-flex-row p-jc-end">
-    <div class="p-mr-2">
-        <p-dropdown [filter]="true" [options]="listThoiGian" [(ngModel)]="filter.LoaiKeHoach"
-            placeholder="Chọn tháng năm" (onChange)="loadData(true)" styleClass="p-inputtext-sm"></p-dropdown>
-    </div>
-    <div class="p-mr-2">
-        <p-calendar *ngIf="filter.LoaiKeHoach !== 'NAM'" dateFormat="mm/yy" view="month"
-            inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"
-            [showIcon]="true" [(ngModel)]="filter.namThang" [locale]="lang" (onSelect)="loadData(true)" inputId="icon"
-            placeholder="mm/yyyy">
-        </p-calendar>
-        <p-dropdown *ngIf="filter.LoaiKeHoach === 'NAM'" [filter]="true" [options]="listNam" [(ngModel)]="filter.nam"
-            placeholder="Chọn năm" styleClass="p-inputtext-sm" (onChange)="loadData(true)"></p-dropdown>
-    </div>
-    <div class="p-mr-2">
-        <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
-            styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="filter.IdBoPhanSuDung"
-            (onChange)="loadData(true)"></p-dropdown>
-    </div>
-    <!-- <div class="p-mr-2">
-        <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản "
-            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiTaiSan" [showClear]="true" [filter]="true"
-            (onChange)="loadData(true)">
-        </p-dropdown>
-    </div> -->
-    <div class="p-mr-2">
-        <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
-            [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true" (onChange)="loadData(true)">
-        </p-dropdown>
+<div *ngIf="filter.LoaiKeHoach === 'NAM'">
+    <div class="p-mb-3 p-mt-3">
+        <h4 style="color:#1f2779">Lịch xích năm</h4>
     </div>
 </div>
+<div *ngIf="filter.LoaiKeHoach === 'THANG'">
+    <div class="p-mb-3 p-mt-3">
+        <h4 style="color:#1f2779">Lịch xích tháng</h4>
+    </div>
+</div>
+
+
 <div class="p-p-1">
-    <!-- lich xich nam -->
-    <div *ngIf="filter.LoaiKeHoach === 'NAM'">
-        <div class="p-mb-3 p-mt-3">
-            <h4 style="color:#1f2779">Lịch xích năm</h4>
-        </div>
-        <div class="p-d-flex p-flex-row p-jc-start">
+
+    <div class="p-d-flex p-flex-row p-jc-between p-ai-center">
+        <div class="p-d-flex p-flex-row p-jc-start ">
             <div class="field-radiobutton p-mr-2">
                 <p-radioButton value="theoBaoDuong" [(ngModel)]="filter.isChon" (onClick)="loadData()"></p-radioButton>
                 <label>Theo loại bảo dưỡng</label>
@@ -45,6 +23,43 @@
                 <label>Theo máy</label>
             </div>
         </div>
+        <div class="p-d-flex p-flex-row p-jc-end">
+            <div class="p-mr-2">
+                <p-dropdown [filter]="true" [options]="listThoiGian" [(ngModel)]="filter.LoaiKeHoach"
+                    placeholder="Chọn tháng năm" (onChange)="loadData(true)" styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+            <div class="p-mr-2">
+                <p-calendar *ngIf="filter.LoaiKeHoach !== 'NAM'" dateFormat="mm/yy" view="month"
+                    inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [yearNavigator]="true"
+                    [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.namThang" [locale]="lang"
+                    (onSelect)="loadData(true)" inputId="icon" placeholder="mm/yyyy">
+                </p-calendar>
+                <p-dropdown *ngIf="filter.LoaiKeHoach === 'NAM'" [filter]="true" [options]="listNam"
+                    [(ngModel)]="filter.nam" placeholder="Chọn năm" styleClass="p-inputtext-sm"
+                    (onChange)="loadData(true)"></p-dropdown>
+            </div>
+            <div class="p-mr-2">
+                <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
+                    styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="filter.IdBoPhanSuDung"
+                    (onChange)="loadData(true)"></p-dropdown>
+            </div>
+            <!-- <div class="p-mr-2">
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản "
+                    styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiTaiSan" [showClear]="true" [filter]="true"
+                    (onChange)="loadData(true)">
+                </p-dropdown>
+            </div> -->
+            <div class="p-mr-2">
+                <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
+                    styleClass="p-inputtext-sm" [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true"
+                    (onChange)="loadData(true)">
+                </p-dropdown>
+            </div>
+        </div>
+    </div>
+    <!-- lich xich nam -->
+    <div *ngIf="filter.LoaiKeHoach === 'NAM'">
+
         <div class="p-d-flex p-ai-center p-jc-between p-mb-4">
             <div></div>
             <div class="p-mr-2"><strong>Tổng số: <span style="color: red;">{{items.TongSoTaiSan}}</span> thiết
@@ -164,19 +179,6 @@
     </div>
     <!-- lich xich thang -->
     <div *ngIf="filter.LoaiKeHoach === 'THANG'">
-        <div class="p-mb-3 p-mt-3">
-            <h4 style="color:#1f2779">Lịch xích tháng</h4>
-        </div>
-        <div class="p-d-flex p-flex-row p-jc-start">
-            <div class="field-radiobutton p-mr-2">
-                <p-radioButton value="theoBaoDuong" [(ngModel)]="filter.isChon" (onClick)="loadData()"></p-radioButton>
-                <label>Theo loại bảo dưỡng</label>
-            </div>
-            <div class="field-radiobutton p-mr-2">
-                <p-radioButton value="theoMay" [(ngModel)]="filter.isChon" (onClick)="loadData()"></p-radioButton>
-                <label>Theo máy</label>
-            </div>
-        </div>
         <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
             <div></div>
             <div class="p-mr-2"><strong>Tổng số: <span style="color: red;"> {{itemsLichXichThang.TongSoTaiSan}}</span>
@@ -253,7 +255,7 @@
         </div>
         <!--  -->
         <div class="p-col-12 p-lg-6 p-pr-0 p-pl-3">
-            <app-baocaotonghoptaisanchiphi [filter]="filter"></app-baocaotonghoptaisanchiphi>
+            <!-- <app-baocaotonghoptaisanchiphi [filter]="filter"></app-baocaotonghoptaisanchiphi> -->
             <!-- <div class=" bg-white p-p-3">
                 <div class="p-mb-3 p-mt-3">
                     <h4 style="color:#1f2779">Chi phí</h4>

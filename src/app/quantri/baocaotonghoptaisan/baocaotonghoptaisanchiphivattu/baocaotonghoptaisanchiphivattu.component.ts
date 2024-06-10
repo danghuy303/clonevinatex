@@ -23,10 +23,10 @@ export class BaocaotonghoptaisanchiphivattuComponent implements OnInit, OnChange
   ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
-   }
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.GetListChiPhiVatTu();
@@ -53,7 +53,7 @@ export class BaocaotonghoptaisanchiphivattuComponent implements OnInit, OnChange
       this.paging.TotalCount = res.Data?.pagination?.TotalCount;
       this.listVatTu = res.Data?.pagination?.Items;
       this.listVatTu?.forEach(ele => {
-        ele.ThanhTien =0;
+        ele.ThanhTien = 0;
         ele.ThanhTien = ele.SoLuong * ele.DonGia;
       })
     })

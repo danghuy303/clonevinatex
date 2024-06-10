@@ -23,25 +23,25 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     {
       header: 'Loại tài sản',
       field: 'TendmLoaiTaiSan',
-      width: '150px',
+      width: '100px',
       align: 'center'
     },
     {
       header: 'Mã',
       field: 'Ma',
-      width: '150px',
+      width: '100px',
       align: 'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '200px',
+      width: '150px',
       align: 'center'
     },
     {
       header: 'Nội dung',
       field: 'NoiDung',
-      width: '200px',
+      width: '150px',
       align: 'center'
     },
     {
@@ -73,8 +73,8 @@ export class DanhmucloaibaoduongComponent implements OnInit {
 
   }
   resetFilter() {
-     this.filter = {};
-     this.Keyword = '';
+    this.filter = {};
+    this.Keyword = '';
     this.GetList(true);
   }
   GetList(reset?) {
@@ -86,7 +86,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       Keyword: this.Keyword,
-      IddmLoaiTaisan: this.filter.IddmLoaiTaisan?this.filter.IddmLoaiTaisan : '',
+      IddmLoaiTaisan: this.filter.IddmLoaiTaisan ? this.filter.IddmLoaiTaisan : '',
       Ma: "",
       Ten: ""
     };
@@ -162,7 +162,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  importExcel(){
+  importExcel() {
     let modalRef = this._modal.open(UploadmodalComponent, {
       size: 'md',
       backdrop: 'static',
@@ -173,7 +173,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        this._danhMucTaiSan.DanhMucLoaiBaoDuong().Importdm(this.fileUpload[0].Name).subscribe((res: any)=>{
+        this._danhMucTaiSan.DanhMucLoaiBaoDuong().Importdm(this.fileUpload[0].Name).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
             this.resetFilter();
@@ -183,23 +183,23 @@ export class DanhmucloaibaoduongComponent implements OnInit {
           // this.resetFilter();
         })
       })
-      .catch(er => {})
-      .finally(()=> {
+      .catch(er => { })
+      .finally(() => {
       })
   }
-  exportExcel(){
+  exportExcel() {
     let data = {
-      PageSize:20, 
-      CurrentPage:0,
-      Keyword:this.Keyword, 
-     
+      PageSize: 20,
+      CurrentPage: 0,
+      Keyword: this.Keyword,
+
     };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().Exportdm(data).subscribe((res: any) => {
       this._danhMucTaiSan.DanhMucLoaiBaoDuong().download(res.Data);
     })
   }
   changePage(event) {
-    this.paging.CurrentPage = event.page+1;
+    this.paging.CurrentPage = event.page + 1;
     this.GetList()
   }
 

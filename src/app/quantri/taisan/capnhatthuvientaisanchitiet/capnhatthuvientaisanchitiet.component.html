@@ -11,6 +11,8 @@
                 (click)="GhiLai()"></button>
             <button *ngIf="item.Id" pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm"
                 (click)="XoaThuVien()"></button>
+            <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" (click)="XoaThuVien()"
+                *ngIf="opt === 'edit'"></button>
         </div>
         <!-- <div class="modal-bt p-mb-4 text-center" style="position: absolute; right: 0;transform: translate(-180%,20%);">
             <qrcode [qrdata]="item.Ma" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
@@ -197,7 +199,7 @@
                                 </div>
                             </div>
                             <!-- <p-table [value]="item.TaiSan?.listTaiSan" -->
-                                <p-table [value]="item.listTaiSan"
+                            <p-table [value]="item.listTaiSan"
                                 styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
                                 [scrollable]="true">
                                 <ng-template pTemplate="colgroup">

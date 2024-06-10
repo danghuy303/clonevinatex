@@ -14,6 +14,7 @@ import { Hungyenpx1Component } from '../layoutmodals/hungyenpx1/hungyenpx1.compo
 import { Phuhung1Component } from '../layoutmodals/phuhung1/phuhung1.component';
 import { Phuhung2Component } from '../layoutmodals/phuhung2/phuhung2.component';
 import { DetmayhueComponent } from '../layoutmodals/detmayhue/detmayhue.component';
+import { PhucuongComponent } from '../layoutmodals/phucuong/phucuong.component';
 
 
 @Component({
@@ -70,6 +71,9 @@ export class XepbanbongComponent extends StoreBase implements OnInit, OnDestroy 
     },
     '66': {
       '6336eafc_bc2c_4c6e_b3ec_58d5ee127aef': DetmayhueComponent
+    },
+    '68': {
+      '1cf3f340_0f55_4f34_938p_e329318e25et': PhucuongComponent
     },
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
@@ -128,6 +132,7 @@ export class XepbanbongComponent extends StoreBase implements OnInit, OnDestroy 
     this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?) {
+
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);

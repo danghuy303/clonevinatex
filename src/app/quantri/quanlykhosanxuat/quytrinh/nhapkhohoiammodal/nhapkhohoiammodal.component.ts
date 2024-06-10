@@ -116,6 +116,22 @@ export class NhapkhohoiammodalComponent implements OnInit {
       this.checkQuaSoiKhacThucTe(() => this.afterChuyenTiep());
     }
   }
+  KhongDuyet() {
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn ngày!");
+    }
+    else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
+      this.toastr.error("Bạn chưa chọn danh mục kho!");
+    } else if (!this.item.listItem.every(ele => validVariable(ele.KgCone))) {
+      this.toastr.error("Vui lòng chọn Kg/cone ở tất cả các mặt hàng!")
+    }
+    else {
+      if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {
+        this.add();
+      }
+      this.checkQuaSoiKhacThucTe(() => this.afterKhongDuyet());
+    }
+  }
 
   afterChuyenTiep() {
     this.item.NgayUnix = DateToUnix(this.item.Ngay);
@@ -123,6 +139,22 @@ export class NhapkhohoiammodalComponent implements OnInit {
       element.IddmKho = this.item.IddmKho
     });
     this._services.PhieuNhapHoiAm().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          // this.activeModal.close();
+          this.Onclose();
+        } else {
+          this.toastr.error(res.message);
+        }
+      }
+    })
+  }
+  afterKhongDuyet() {
+    this.item.NgayUnix = DateToUnix(this.item.Ngay);
+    this.item.listItem.forEach(element => {
+      element.IddmKho = this.item.IddmKho
+    });
+    this._services.PhieuNhapHoiAm().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           // this.activeModal.close();

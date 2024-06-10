@@ -6,6 +6,7 @@ import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
 import { BaocaothongketiendienmodalComponent } from './baocaothongketiendienmodal/baocaothongketiendienmodal.component';
+import { BaocaodienmodalComponent } from './baocaodienmodal/baocaodienmodal.component';
 
 @Component({
   selector: 'app-baocaothongketiendien',
@@ -88,6 +89,10 @@ export class BaocaothongketiendienComponent extends StoreBase implements OnInit,
 
   }
 
+  isPortHue() {
+    return this.store.getCurrent() === 66;
+  }
+
   GetListQuyTrinh() {
     if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay)) {
       if (this.filter.TuNgay > this.filter.DenNgay) {
@@ -146,6 +151,21 @@ export class BaocaothongketiendienComponent extends StoreBase implements OnInit,
       });
       modalRef.componentInstance.items = res;
       modalRef.componentInstance.NgayNhap = item.NgayNhap;
+      modalRef.result.then(res => {
+      }).catch(er => console.log(er))
+    })
+  }
+  GetBaoCaoDien() {
+    this._service.ThongKeDien().GetBaoCaoDien_Hue({
+      nThang: this.filter.nThang,
+      nNam: this.filter.nNam,
+      IdDuAn: this.store.getCurrent()
+    }).subscribe((res: any) => {
+      let modalRef = this._modal.open(BaocaodienmodalComponent, {
+        backdrop: 'static', size: 'fullscreen',
+      });
+      modalRef.componentInstance.items = res;
+      modalRef.componentInstance.filter = this.filter;
       modalRef.result.then(res => {
       }).catch(er => console.log(er))
     })

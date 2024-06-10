@@ -155,6 +155,7 @@
                         <td class="text-center">
                             <div [pTooltip]="taisan.TenTaiSan">{{taisan.TenVietTat}}</div>
                         </td>
+                        <td class="text-center"> {{taisan.TenTaiSan}}</td>
                         <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong">
                             <div>
                                 <div *ngFor="let chitiet of baoduong.listChiTiet"
