@@ -113,7 +113,7 @@
                         class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                 </div>
             </div>
-            <p-table [value]="item.listTaiSan | filter: keyword"
+            <p-table [value]="item.listTaiSan | filter: keyword "
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -160,9 +160,6 @@
                             <a href="javascript:void(0)">Chọn</a>
                         </td> -->
 
-                        <td class="text-center">
-                            <div [pTooltip]="taisan.TenTaiSan">{{taisan.TenVietTat}}</div>
-                        </td>
                         <td class="text-center"> {{taisan.TenTaiSan}}</td>
                         <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong">
                             <div>

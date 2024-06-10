@@ -37,8 +37,6 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   };
   listPhanXuong = [];
   listTaiSan: any = [];
-  isSuDung: boolean = true;
-
   constructor(
     public _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -102,14 +100,6 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     if (!validVariable(this.item.IddmLoaiTaiSan)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
       return false;
-    }
-    if (this.isSuDung) {
-      if (this.IdBoPhanSuDung != null) {
-        if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {
-          this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
-          return false;
-        }
-      }
     }
     // if (this.IdBoPhanSuDung != null) {
     //   if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {

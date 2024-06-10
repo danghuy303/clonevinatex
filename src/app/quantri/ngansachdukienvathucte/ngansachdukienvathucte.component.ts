@@ -190,7 +190,6 @@ export class NgansachdukienvathucteComponent implements OnInit {
       default:
         break;
     }
-    this.filter = {...this.filter}
     let data = {
       ...this.filter,
       TuNgay: _tuNgay,

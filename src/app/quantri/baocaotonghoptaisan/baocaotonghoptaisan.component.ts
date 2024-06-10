@@ -40,10 +40,10 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   listThoiGian: any = [
     {
-      value: 'NAM', label: 'Năm'
+      value: "THANG", label: 'Tháng'
     },
     {
-      value: "THANG", label: 'Tháng'
+      value: 'NAM', label: 'Năm'
     },
   ];
   listVatTu: any = [];
@@ -117,7 +117,6 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     // let year = this.filter.Ngay.getFullYear();
     // this.thangDaChon = new Date(year, month, 0).getDate();
     // this.labelThang = [];
-
     let month = this.filter.namThang.getMonth() + 1;
     let year = this.filter.namThang.getFullYear();
     this.thangDaChon = new Date(year, month, 0).getDate();
@@ -128,36 +127,35 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       this.labelThang.push(i);
     }
     this.filter = { ...this.filter };
-    // let data = {
-    //   Keyword: "",
-    //   CurrentPage: this.paging.CurrentPage,
-    //   PageSize: 20,
-    //   MaCongDoan: this.filter.Ma,
-    //   IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-    //   IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
-    //   IdUser: '',
-    //   Ngay: this.filter.Ngay,
-    //   LoaiKeHoach: this.filter.LoaiKeHoach,
-    //   IdDuAn: 0,
-    // };
+    let data = {
+      Keyword: "",
+      CurrentPage: this.paging.CurrentPage,
+      PageSize: 20,
+      MaCongDoan: this.filter.Ma,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+      IdUser: '',
+      Ngay: this.filter.Ngay,
+      LoaiKeHoach: this.filter.LoaiKeHoach,
+      IdDuAn: 0,
+    };
 
-    // if (this.filter.LoaiKeHoach === 'NAM') {
+    if (this.filter.LoaiKeHoach === 'NAM') {
 
-    // } else {
+    } else {
 
-    // }
+    }
 
-    // if (this.filter.isChon === 'theoBaoDuong') {
-    //   this._serviceTaiSan.ListLichXichNam().GetListBaoDuong(data).subscribe((res: any) => {
-    //     this.items = res.Data;
-    //   })
-    // } else {
-    //   this._serviceTaiSan.ListLichXichNam().GetListMay(data).subscribe((res: any) => {
-    //     this.items = res.Data;
-    //   })
-    // }
-    // this.GetListLichXichThang(data);
-
+    if (this.filter.isChon === 'theoBaoDuong') {
+      this._serviceTaiSan.ListLichXichNam().GetListBaoDuong(data).subscribe((res: any) => {
+        this.items = res.Data;
+      })
+    } else {
+      this._serviceTaiSan.ListLichXichNam().GetListMay(data).subscribe((res: any) => {
+        this.items = res.Data;
+      })
+    }
+    this.GetListLichXichThang(data);
     // this.GetListChiPhiVatTu(data);
     // this.GetListChiPhiPhatSinh();
   }
