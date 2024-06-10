@@ -13,6 +13,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { PintableDirective } from 'voi-lib';
 import { ModalbaoduongComponent } from '../taisan/modal/modalbaoduong/modalbaoduong.component';
 import { ModalthongtinchitiettaisanComponent } from '../taisan/modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+import { ModalquytrinhbaoduongComponent } from '../taisan/modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
 
 @Component({
   selector: 'app-baocaotonghoptaisan',
@@ -265,6 +266,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     this.loadData()
   }
 
+
   ChiTietThongTinLichXIchThang(item) {
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
@@ -281,19 +283,26 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       });
   }
   ChiTietBaoDuongLichXIchThang(item) {
-    this._serviceTaiSan.ListLichXichNam().Get(item.IddmLoaiBaoDuong).subscribe((res1: any) => {
-      let modalRef = this._modal.open(ModalbaoduongComponent, {
-        size: "fullscreen",
-        backdrop: "static",
-      });
-      modalRef.componentInstance.opt = "edit";
-      modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1.Data));
-      modalRef.result
-        .then((res: any) => {
+    console.log("item", item);
+    // this._serviceTaiSan.ListLichXichNam().Get(item.IddmLoaiBaoDuong).subscribe((res1: any) => {
+    // console.log("res1", res1);
+    // return;
+    let modalRef = this._modal.open(ModalquytrinhbaoduongComponent, {
+      size: "fullscreen",
+      backdrop: "static",
+    });
+    // let modalRef = this._modal.open(ModalbaoduongComponent, {
+    //   size: "fullscreen",
+    //   backdrop: "static",
+    // });
+    modalRef.componentInstance.opt = "edit";
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.result
+      .then((res: any) => {
 
-        })
-        .catch((er) => {
-        });
-    })
+      })
+      .catch((er) => {
+      });
+    // })
   }
 }

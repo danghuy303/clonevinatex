@@ -9,7 +9,7 @@
                 (click)="activeModal.dismiss('close')"></button>
         </div>
         <div class="modal-bt text-center p-col-4 maQR" [style.visibility]="item.Ma?'visible':'hidden'">
-            <qrcode [qrdata]="item.Ma" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+            <qrcode [qrdata]="item.MaQR" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
         </div>
     </div>
 
@@ -23,8 +23,10 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label *ngIf="item.IdRoot === item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto"> Mã tài sản <span class="text-danger">(*)</span> : </label>
-            <label *ngIf="item.IdRoot !== item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto"> Mã vật tư <span class="text-danger">(*)</span> : </label>
+            <label *ngIf="item.IdRoot === item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto"> Mã tài sản <span
+                    class="text-danger">(*)</span> : </label>
+            <label *ngIf="item.IdRoot !== item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto"> Mã vật tư <span
+                    class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
             </div>
@@ -40,8 +42,10 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label *ngIf="item.IdRoot === item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto">Tên tài sản <span class="text-danger">(*)</span> : </label>
-            <label *ngIf="item.IdRoot !== item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto">Tên vật tư <span class="text-danger">(*)</span> : </label>
+            <label *ngIf="item.IdRoot === item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto">Tên tài sản <span
+                    class="text-danger">(*)</span> : </label>
+            <label *ngIf="item.IdRoot !== item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto">Tên vật tư <span
+                    class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
             </div>
@@ -113,7 +117,8 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng <span *ngIf="item?.IdBoPhanSuDung != null" class="text-danger">(*)</span>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">TG đưa vào sử dụng <span *ngIf="item?.IdBoPhanSuDung != null"
+                    class="text-danger">(*)</span>
                 : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm bold" [locale]="lang"
@@ -163,11 +168,11 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
                 <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
-                <label>Giá trị cao</label>
+                <label class="mb-0">Giá trị cao</label>
             </div>
             <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
                 <p-checkbox binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
-                <label>Cần dự trữ</label>
+                <label class="mb-0">Cần dự trữ</label>
             </div>
             <div *ngIf="item.isCanDuTru" class="p-col-12 p-xl-4 p-p-0 my-auto">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
@@ -183,7 +188,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu"> </textarea>
+                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu" rows="1"> </textarea>
             </div>
         </div>
     </div>
@@ -197,7 +202,8 @@
                 <p-tabPanel *ngIf="item.IdRoot === item.Id" header="Danh sách vật tư">
                     <ng-template pTemplate="content">
                         <p-table [value]="item.listTaiSan"
-                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="false">
+                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+                            [scrollable]="false">
                             <ng-template pTemplate="colgroup">
                                 <colgroup>
                                     <col style="width: 50px;">
@@ -239,30 +245,30 @@
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel *ngIf="item.IdRoot === item.Id" header="Lịch bảo dưỡng">
-                <ng-template pTemplate="content">
-                    <app-lichbaoduongcopy [item]="item"></app-lichbaoduongcopy>
-                </ng-template>
-            </p-tabPanel>
-            <p-tabPanel header="Thông số kỹ thuật">
-                <ng-template pTemplate="content">
-                    <app-thongsokythuat [listThongSoKyThuat]="item.listThongSoKyThuat"></app-thongsokythuat>
-                </ng-template>
-            </p-tabPanel>
-            <p-tabPanel header="Thông số an toàn">
-                <ng-template pTemplate="content">
-                    <app-antoan [item]="item.listThongSoAnToan"></app-antoan>
-                </ng-template>
-            </p-tabPanel>
-            <p-tabPanel *ngIf="item.IdRoot === item.Id" header="Thông tin khấu hao">
-                <ng-template pTemplate="content">
-                    <app-thongtinkhauhao [item]="item"></app-thongtinkhauhao>
-                </ng-template>
-            </p-tabPanel>
-            <p-tabPanel header="Biến động">
-                <ng-template pTemplate="content">
-                    <app-biendong [item]="item"></app-biendong>
-                </ng-template>
-            </p-tabPanel>
+                    <ng-template pTemplate="content">
+                        <app-lichbaoduongcopy [item]="item"></app-lichbaoduongcopy>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Thông số kỹ thuật">
+                    <ng-template pTemplate="content">
+                        <app-thongsokythuat [listThongSoKyThuat]="item.listThongSoKyThuat"></app-thongsokythuat>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Thông số an toàn">
+                    <ng-template pTemplate="content">
+                        <app-antoan [item]="item.listThongSoAnToan"></app-antoan>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel *ngIf="item.IdRoot === item.Id" header="Thông tin khấu hao">
+                    <ng-template pTemplate="content">
+                        <app-thongtinkhauhao [item]="item"></app-thongtinkhauhao>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Biến động">
+                    <ng-template pTemplate="content">
+                        <app-biendong [item]="item"></app-biendong>
+                    </ng-template>
+                </p-tabPanel>
             </p-tabView>
         </ng-template>
     </p-panel>

@@ -111,6 +111,12 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
         }
       }
     }
+    // if (this.IdBoPhanSuDung != null) {
+    //   if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {
+    //     this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
+    //     return false;
+    //   }
+    // }
     if (this.item?.isCanDuTru) {
       if (!validVariable(this.item?.DuTruToiThieu) || this.item?.DuTruToiThieu <= 0) {
         this.toastr.error("Yêu cầu nhập số lượng dự trữ");

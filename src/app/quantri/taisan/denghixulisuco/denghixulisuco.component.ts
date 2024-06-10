@@ -25,7 +25,7 @@ export class DenghixulisucoComponent implements OnInit {
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "BAOCAOSUCOSUACHUA";
+  eAction = "QUYTRINHXULYSUCO";
   listPhanXuong: any = [];
   $sub!: Subscription;
 
@@ -34,12 +34,12 @@ export class DenghixulisucoComponent implements OnInit {
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,) {
-      this.$sub = this.store.getNhaMay().subscribe(res => {
-        if (res) {
-            this.ngOnInit()
-        }
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+        this.ngOnInit()
+      }
     })
-     }
+  }
 
   ngOnInit(): void {
     this.GetListdmPhanXuong();
@@ -54,6 +54,7 @@ export class DenghixulisucoComponent implements OnInit {
           });
       }
     });
+    this.KiemTraTabTrangThai()
   }
   changeParam(id) {
     this.router.navigate([`quantri/taisan/denghixulisuco/${id}`], {

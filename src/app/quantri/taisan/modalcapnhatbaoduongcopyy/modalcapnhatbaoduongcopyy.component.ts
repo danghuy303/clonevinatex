@@ -51,12 +51,35 @@ export class
     }
 
   }
+
+  getTextTime() {
+    let text = `${this.item.ThoiGianBaoDuong}`;
+    switch (this.item.MaLoaiThoiGian) {
+      case `NGAY`:
+        text += " Ngày"
+        break;
+
+      case `TUAN`:
+        text += " Tuần"
+        break;
+      case `THANG`:
+        text += " Tháng"
+        break;
+      case `NAM`:
+        text += " Năm"
+        break;
+      default:
+        break;
+    }
+    return text;
+  }
+
   GhiLai() {
     if (this.opt === 'add') {
       if (validVariable(this.item.IddmLoaiBaoDuong)) {
         this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
         if (!this.existedItems.includes(this.item.IddmLoaiBaoDuong)) {
-          this.activeModal.close(this.item); 
+          this.activeModal.close(this.item);
         }
         else {
           this.toastr.error("Đã tồn tại!");

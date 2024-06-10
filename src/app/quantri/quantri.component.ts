@@ -338,7 +338,39 @@ export class QuantriComponent implements OnInit, OnDestroy {
           },
         ],
       },
+      {
+        label: "Quản trị tài sản",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/taisan1",
+        visible: this.showTaiSanModule,
+        items: [
 
+          {
+            label: "Lịch xích",
+            routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
+            separator: !this.showTaiSanModule,
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Số giờ dừng máy",
+            routerLink: "/quantri/quantritaisan/sogiodungmay",
+            separator: !this.showTaiSanModule,
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Quản lý ngân sách",
+            routerLink: "/quantri/quantritaisan/ngansachdukienvathucte",
+            separator: !this.showTaiSanModule,
+            command: () => {
+              this.close();
+            },
+          },
+        ],
+      },
 
       /////////////      Quản lý tài sản
       {
@@ -347,38 +379,38 @@ export class QuantriComponent implements OnInit, OnDestroy {
         routerLink: "/quantri/taisan",
         visible: this.showTaiSanModule,
         items: [
-          {
-            label: "Quản trị tài sản",
-            routerLink: "/quantri/quantritaisan",
-            visible: this.showTaiSanModule,
-            items: [
-              {
-                label: "Lịch xích",
-                routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
-                separator: !this.showTaiSanModule,
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Số giờ dừng máy",
-                routerLink: "/quantri/quantritaisan/sogiodungmay",
-                separator: !this.showTaiSanModule,
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Quản lý ngân sách",
-                routerLink: "/quantri/quantritaisan/ngansachdukienvathucte",
-                separator: !this.showTaiSanModule,
-                command: () => {
-                  this.close();
-                },
-              },
+          // {
+          //   label: "Quản trị tài sản",
+          //   routerLink: "/quantri/quantritaisan",
+          //   visible: this.showTaiSanModule,
+          //   items: [
+          //     {
+          //       label: "Lịch xích",
+          //       routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
+          //       separator: !this.showTaiSanModule,
+          //       command: () => {
+          //         this.close();
+          //       },
+          //     },
+          //     {
+          //       label: "Số giờ dừng máy",
+          //       routerLink: "/quantri/quantritaisan/sogiodungmay",
+          //       separator: !this.showTaiSanModule,
+          //       command: () => {
+          //         this.close();
+          //       },
+          //     },
+          //     {
+          //       label: "Quản lý ngân sách",
+          //       routerLink: "/quantri/quantritaisan/ngansachdukienvathucte",
+          //       separator: !this.showTaiSanModule,
+          //       command: () => {
+          //         this.close();
+          //       },
+          //     },
 
-            ]
-          },
+          //   ]
+          // },
           {
             label: "Quản lý thông tin tài sản",
             items: [

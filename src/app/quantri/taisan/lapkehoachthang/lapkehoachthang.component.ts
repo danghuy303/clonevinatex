@@ -141,12 +141,13 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   ValidateData(isChuyenDuyet) {
-    if (isChuyenDuyet) {
-      if (!this.checkLoaiBaoDuong()) {
-        this.toastr.error("Yêu cầu chọn loại bảo dưỡng cho tài sản!");
-        return false;
-      }
+
+    // if (isChuyenDuyet) {
+    if (this.checkLoaiBaoDuong()) {
+      this.toastr.error("Yêu cầu chọn loại bảo dưỡng cho tài sản!");
+      return false;
     }
+    // }
     if (!validVariable(this.item.ThoiGian)) {
       this.toastr.error("Yêu cầu chọn tháng, năm!");
       return false;
@@ -166,13 +167,15 @@ export class LapkehoachthangComponent implements OnInit {
       taisan.listBaoDuongThang.forEach(baoduong => {
         baoduong.hasNullLoaiBD = baoduong.listThoiGian.some(ele => ele.isChon);
       })
-      taisan.hasNullLoaiBD = taisan.listBaoDuongThang.some(ele => ele.hasNullLoaiBD);
+      taisan.hasNullLoaiBD = taisan.listBaoDuongThang.some(ele => !ele.hasNullLoaiBD);
     })
     loaiBaoDuongisNull = this.item.listTaiSan.some(taisan => taisan.hasNullLoaiBD);
     return loaiBaoDuongisNull;
   }
 
   GhiLai() {
+
+
     if (this.ValidateData(false)) {
       this._serviceTaiSan.LichXichThang().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode !== 200 || !res.StatusCode) {

@@ -80,7 +80,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
     let ls2 = this._danhMucTaiSan.DanhMucLoaiSuCo().GetList(data).toPromise();
     let ls3 = this._danhMucTaiSan.GetListdmCongDoan_DoiBaoDuong(data_BaoDuong).toPromise();
 
-    Promise.all([ls1, ls2,ls3]).then((values: any) => {
+    Promise.all([ls1, ls2, ls3]).then((values: any) => {
       this.listDoUuTien = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listLoaiSuCo = mapArrayForDropDown(values[1].Data, "Ten", "Id");
       this.listNguoiThucHien = mapArrayForDropDown(values[2].Data, "NoiDung", "Id");
@@ -102,14 +102,14 @@ export class ModaldenghixulisucoComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item.IddmLoaiSuCo) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.IdDoUuTien)) {
+    if (!validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.IdDoUuTien)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       return false;
     }
-    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
-      this.toastr.error("Yêu cầu nhập thêm tài sản!");
-      return false;
-    }
+    // if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+    //   this.toastr.error("Yêu cầu nhập thêm tài sản!");
+    //   return false;
+    // }
     return true;
   }
 
@@ -222,6 +222,10 @@ export class ModaldenghixulisucoComponent implements OnInit {
     });
   }
   ChuyenDuyet() {
+    if (this.item.isDoiBaoDuong && this.item.listTaiSan.some(x => !x.IsXuLy)) {
+      this.toastr.error("Vui lòng hoàn thành các công việc trước khi chuyển tiếp!")
+      return;
+    }
     this._serviceTaiSan.QuyTrinhXuLySuCo().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);

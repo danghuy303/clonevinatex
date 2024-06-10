@@ -11,6 +11,7 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalbaoduongluachontaisanComponent } from '../modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
 import { ChonmVatTuThayThePopUpComponent } from '../chonm-vat-tu-thay-the-pop-up/chonm-vat-tu-thay-the-pop-up.component';
+import * as moment from 'moment';
 
 
 @Component({
@@ -36,6 +37,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   listTaiSan: any = [];
   listTaiSanDeep: any = [];
   listLoaiBaoDuong: any = [];
+  listMay: any = [];
+  listMayDeep: any = [];
 
   constructor(
     private _modal: NgbModal,
@@ -76,11 +79,14 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     // this.item.NgayBaoDuong = this.item.NgayBaoDuong || new Date();
 
     this.item.listVatTu = this.item.listVatTu ? this.item.listVatTu : [];
+    this.item.NgayKeHoach = UnixToDate(this.item.NgayKeHoachUnix);
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
     } else { }
     this.KiemTraButtonModal();
     this.GetNews();
+
+    console.log("item 1", this.item);
   }
 
   GetNextSoQuyTrinh() {
@@ -242,6 +248,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
 
   GetNews() {
     this.item.NgayBaoDuong = new Date();
+    this.item.NgayBatDau = UnixToDate(this.item.NgayBatDauUnix);
+    this.item.NgayKetThuc = UnixToDate(this.item.NgayKetThucUnix);
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
     this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -273,18 +281,36 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
 
   chonBoPhan(value) {
     this.GetListTaiSanBaoDuong();
+    this.GetListTaiSanDangSuDung();
   }
 
   GetListTaiSanBaoDuong() {
+    let _momentDate = moment(this.item.NgayKeHoach).startOf('day').toDate();
+    console.log("_momentDate", _momentDate);
     let data = {
-      IdBoPhanSuDung: this.item.IdBoPhanSuDung
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      IdTaiSan: this.item.IdTaiSan,
+      NgayKeHoach: DateToUnix(_momentDate)
     }
     this._serviceTaiSan.GetListTaiSanBaoDuong(data).subscribe((res: any) => {
       this.listTaiSanDeep = res.Data;
-      this.listTaiSan = mapArrayForDropDown(res.Data, 'NoiDung', 'IdTaiSan_BaoDuong')
+      this.listTaiSan = mapArrayForDropDown(res.Data, 'TendmLoaiBaoDuong', 'IdTaiSan_BaoDuong')
 
     })
   }
+
+  GetListTaiSanDangSuDung() {
+    if (!this.item.IdBoPhanSuDung || !this.item.IddmLoaiTaiSan) {
+      return;
+    }
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, IdBoPhanSuDung: this.item.IdBoPhanSuDung, IddmLoaiTaiSan: this.item.IddmLoaiTaiSan };
+    this._serviceTaiSan.GetListTaiSanDangSuDung(data).subscribe((res: any) => {
+      this.listMayDeep = res.Data;
+      this.listMay = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    });
+  }
+
+
 
   GetDaTa(value) {
     let obj = this.listTaiSanDeep.find(ele => ele.IdTaiSan_BaoDuong === value);
@@ -317,13 +343,14 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       MaCongDoan: this.listLoaiTaiSanDeep.find(obj => obj.Id === value)?.MaCongDoan
     }
     this._danhMucTaiSan.GetListdmCongDoan_DoiBaoDuong(data).subscribe((res: any) => {
-      this.listDoiBaoDuong = mapArrayForDropDown(res.Data, "Ten", "Id");
+      this.listDoiBaoDuong = mapArrayForDropDown(res.Data, "NoiDung", "Id");
     })
   }
 
   MapUnix(data) {
     this.item = {
       ...data,
+      listCongViec: data.listCongViec,
       ThoiGianBatDau: UnixToDate(data.ThoiGianBatDauUnix),
       ThoiGianKetThuc: UnixToDate(data.ThoiGianKetThucUnix),
       NgayKeHoach: UnixToDate(data.NgayKeHoachUnix),
@@ -331,7 +358,19 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     }
   }
 
+  validate() {
+    let result = true;
+    if (!this.item.IdBoPhanSuDung || !this.item.IddmLoaiTaiSan || !this.item.IdTaiSan || !this.item.NgayKeHoach || !this.item.IdTaiSan_BaoDuong) {
+      result = false;
+    }
+    return result
+  }
+
   XacNhan() {
+    if (!this.validate()) {
+      this.toastr.error("Vui lòng chọn đầy đủ thông tin cần thiết");
+      return;
+    }
     this.item.ThoiGianBatDau = new Date();
     this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
@@ -347,6 +386,14 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   }
 
   HoanThanh() {
+    if (!this.validate()) {
+      this.toastr.error("Vui lòng chọn đầy đủ thông tin cần thiết");
+      return;
+    }
+    if (this.item.listCongViec.some(x => !x.isThucHien)) {
+      this.toastr.error("Vui lòng hoàn thành tất cả công việc trước khi hoàn thành bảo dưỡng");
+      return;
+    }
     this.item.ThoiGianKetThuc = new Date();
     this._serviceTaiSan.QuyTrinhBaoDuong().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
@@ -395,7 +442,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     modalRef.componentInstance.listHienThi = this.listNoiDungVatTuDeep;
     modalRef.componentInstance.listDaChon = this.item.listVatTu ? this.item.listVatTu.map(ele => ele.IdVatTuThayThe) : [];
     modalRef.result.then(res => {
-      this.item.listVatTu =  this.item.listVatTu ?  this.item.listVatTu : []
+      this.item.listVatTu = this.item.listVatTu ? this.item.listVatTu : []
       this.item.listVatTu = merge(res, this.item.listVatTu, 'IdVatTuThayThe')
     })
   }

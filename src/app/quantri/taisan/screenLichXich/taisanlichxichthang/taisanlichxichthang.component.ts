@@ -16,7 +16,7 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
   @Input('listTaiSan') listTaiSan: any = [];
   @Input('checkBtnChonTaiSan') checkBtnChonTaiSan: boolean;
   @Input('soNgay') soNgay: any = 0;
-  @Input('ThoiGianDaChon') thoiGianDaChon:any;
+  @Input('ThoiGianDaChon') thoiGianDaChon: any;
   keyword: string;
   labelThang = [];
   selectedItems = [];
@@ -48,6 +48,10 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
     //   ele.isChon = false;
     // })
     // list[index].isChon = e.checked;
+  }
+
+  resetFilter() {
+    this.keyword = '';
   }
 
 }

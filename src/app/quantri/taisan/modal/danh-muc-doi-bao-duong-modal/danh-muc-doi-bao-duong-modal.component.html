@@ -12,7 +12,7 @@
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Công đoạn <span class="text-danger">(*)</span> : </label>
                 <div class="p-col-12 p-lg-9 p-p-0">
                     <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
-                        styleClass="p-inputtext-sm" [(ngModel)]="item.MaCongDoan"></p-dropdown>
+                        styleClass="p-inputtext-sm" [(ngModel)]="item.IdCongDoan"></p-dropdown>
                 </div>
             </div>
             <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
@@ -21,23 +21,18 @@
                     <label for="binary">Hoạt động </label>
                 </div>
             </div>
-            <div class="p-col-12 p-lg-12 d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mã <span class="text-danger">(*)</span>: </label>
-                <div class="p-col-12 p-lg-10 p-p-0">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
-                </div>
-            </div>
             <div class="p-col-12 p-lg-12 d-flex flex-column flex-xl-row ">
-                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tên <span class="text-danger">(*)</span>: </label>
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung <span class="text-danger">(*)</span>: </label>
                 <div class="p-col-12 p-lg-10 p-p-0">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
                 </div>
             </div>
             <div class="p-col-12 p-lg-12 d-flex flex-column flex-xl-row ">
                 <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nhân sự: </label>
                 <div class="p-col-12 p-lg-10 p-p-0">
-                    <p-multiSelect [options]="listUser" [(ngModel)]="item.listIdUser" [filter]="false" [showToggleAll]="true"
-                        [maxSelectedLabels]="1" selectedItemsLabel="{0} nhân sự được chọn" display="chip">
+                    <p-multiSelect [options]="listUser" [(ngModel)]="item.listIdUser" [filter]="false"
+                        [showToggleAll]="true" [maxSelectedLabels]="1" selectedItemsLabel="{0} nhân sự được chọn"
+                        display="chip">
                     </p-multiSelect>
                 </div>
             </div>
@@ -50,7 +45,8 @@
         </div>
     </div>
 </div>
-<div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
-    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2" (click)="activeModal.dismiss()"></button>
+<div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-end p-mb-3">
+    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2 p-button-secondary"
+        (click)="activeModal.dismiss()"></button>
     <button pButton pRipple label="Chấp nhận" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
 </div>

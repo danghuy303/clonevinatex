@@ -50,6 +50,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { NhapLieuKeHoachComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke-hoach.component';
 import { NhapLieuKeHoachModalComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke-hoach-modal/nhap-lieu-ke-hoach-modal.component';
 import { FilterbykeyCongDoanPipe } from '../services/filterbykey-cong-doan.pipe';
+import { ModalquytrinhbaoduongComponent } from '../quantri/taisan/modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { FilterbykeyCongDoanPipe } from '../services/filterbykey-cong-doan.pipe'
     DanhMucKeHoachKinhDoanhComponent,
     DanhMucKeHoachModalComponent,
     NhapLieuKeHoachComponent,
-    NhapLieuKeHoachModalComponent
+    NhapLieuKeHoachModalComponent,
+    ModalquytrinhbaoduongComponent
   ],
   imports: [
     AccordionModule,
@@ -134,7 +136,8 @@ import { FilterbykeyCongDoanPipe } from '../services/filterbykey-cong-doan.pipe'
     DanhMucKeHoachKinhDoanhComponent,
     DanhMucKeHoachModalComponent,
     NhapLieuKeHoachComponent,
-    NhapLieuKeHoachModalComponent
+    NhapLieuKeHoachModalComponent,
+    ModalquytrinhbaoduongComponent
   ]
 })
 export class SharedModule { }

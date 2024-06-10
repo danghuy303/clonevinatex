@@ -284,6 +284,12 @@ export class SanXuatService {
             GetBieuDo_TienDien: (data) => {
                 return this.http.post(`${url}GetBieuDo_TienDien`, data, httpOptions)
             },
+            GetBaoCaoDienHueDinhMuc: (data) => {
+                return this.http.get(`${url}GetBaoCaoDienHueDinhMuc?NgayNhapUnix=${data.NgayUnix}`, httpOptions)
+            },
+            SetBaoCaoDienHueDinhMuc: (data) => {
+                return this.http.post(`${url}SetBaoCaoDienHueDinhMuc`, data, httpOptions)
+            },
             GetBieuDo_TyLeThongKeSanLuong: (data) => {
                 data.IdDuAn = this.store.getCurrent()
                 return this.http.post(`${url}GetBieuDo_TyLeThongKeSanLuong`, data, httpOptions)

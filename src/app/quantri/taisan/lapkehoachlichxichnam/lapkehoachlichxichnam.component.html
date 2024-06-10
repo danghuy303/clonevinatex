@@ -98,11 +98,19 @@
                             keyword)?.length}}</span> thiết bị</strong>
                 </div>
             </div>
-            <div class="d-flex p-jc-end">
-                <div class="p-inputgroup" style="width: 200px;">
-                    <input type="text" [(ngModel)]="keyword" pInputText placeholder="Tìm kiếm...">   
-                    <!-- <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn"></button>       -->
-                    <button pButton pRipple type="button" icon="pi pi-refresh" class="p-button-rounded p-button-success p-button-text"></button>
+            <div class="p-grid p-jc-end">
+                <!-- <span class="p-input-icon-left mb-3" style="width: 300px">
+                    <i class="pi pi-search"></i>
+                    <input type="text" [(ngModel)]="keyword" pInputText placeholder="Tìm kiếm..." />
+                </span> -->
+
+                <div class="p-inputgroup  mb-3" style="width: 200px;">
+                    <span class="p-input-icon-left" style="width: 300px">
+                        <i class="pi pi-search"></i>
+                        <input type="text" [(ngModel)]="keyword" pInputText placeholder="Tìm kiếm..." />
+                    </span>
+                    <button type="button" pButton pRipple icon="pi pi-refresh"
+                        class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                 </div>
             </div>
             <p-table [value]="item.listTaiSan | filter: keyword"
