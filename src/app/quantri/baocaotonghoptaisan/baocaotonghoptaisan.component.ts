@@ -281,7 +281,6 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       });
   }
   ChiTietBaoDuongLichXIchThang(item) {
-    console.log("item", item);
     // this._serviceTaiSan.ListLichXichNam().Get(item.IddmLoaiBaoDuong).subscribe((res1: any) => {
     // console.log("res1", res1);
     // return;

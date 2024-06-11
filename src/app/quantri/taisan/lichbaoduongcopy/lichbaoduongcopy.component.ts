@@ -53,6 +53,8 @@ export class LichbaoduongcopyComponent implements OnInit {
       }
     })
     this.isChonNam();
+    this.item.isChon = true;
+    this.item.isChonNam = 0;
   }
  
   isChon(item) {
