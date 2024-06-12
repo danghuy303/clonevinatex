@@ -31,6 +31,8 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   qrcode: any = {
     size: 250
   };
+  activeTabIndex: number = 1;
+  isCollapsed: boolean = true;
 
   constructor(
     private _modal: NgbModal,
@@ -58,6 +60,14 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+  }
+
+  togglePanel() {
+    this.isCollapsed = !this.isCollapsed;
+  }
+
+  ChonTaiSan() {
+    
   }
 
   LayMa(e) {

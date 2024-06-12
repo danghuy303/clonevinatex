@@ -304,7 +304,9 @@ export class ModaldenghixulisucoComponent implements OnInit {
   }
 
   add() {
-    this.item.listTaiSan.push({})
+    this.item.listTaiSan.push({
+      TuGio: new Date()
+    })
   }
 
   delete(index: any) {

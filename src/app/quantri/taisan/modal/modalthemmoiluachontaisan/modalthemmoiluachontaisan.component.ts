@@ -107,6 +107,10 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     //     return false;
     //   }
     // }
+    if (!validVariable(this.item.DonViNangSuat)) {
+      this.toastr.error("Yêu cầu nhập đơn vị");
+      return false;
+    }
     if (this.item?.isCanDuTru) {
       if (!validVariable(this.item?.DuTruToiThieu) || this.item?.DuTruToiThieu <= 0) {
         this.toastr.error("Yêu cầu nhập số lượng dự trữ");

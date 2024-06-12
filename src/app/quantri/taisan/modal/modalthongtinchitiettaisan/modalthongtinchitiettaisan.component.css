@@ -12,3 +12,6 @@ border-top: 0 none;
     position: absolute !important;
     right:0 ;
 }
+.QR {
+    padding-left: 50%;
+}

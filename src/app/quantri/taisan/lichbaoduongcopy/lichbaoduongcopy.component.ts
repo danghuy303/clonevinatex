@@ -14,7 +14,7 @@ import { datafake } from './datafake';
 })
 export class LichbaoduongcopyComponent implements OnInit {
 
-  @Input('item') item: any = { };
+  @Input('item') item: any = {};
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
 
@@ -28,7 +28,7 @@ export class LichbaoduongcopyComponent implements OnInit {
   itemsThang: any = [];
   listThoiGianNangSuat: any = [];
   listdmLoaiBaoDuong: any = [];
-  
+
   constructor(
     public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
@@ -43,7 +43,7 @@ export class LichbaoduongcopyComponent implements OnInit {
       this.listThang.push({ value: i, label: `Tháng ${i}` });
     }
     this.filter.Nam = new Date().getFullYear();
-    this.filter.Thang = new Date().getMonth()+1;
+    this.filter.Thang = new Date().getMonth() + 1;
     this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().Get(this.item.Id).subscribe((res: any) => {
       if (res.StatusCode === 200) {
         this.listdmLoaiBaoDuong = res?.Data.lstLoaiBaoDuong;
@@ -52,13 +52,21 @@ export class LichbaoduongcopyComponent implements OnInit {
         this._toastr.error(`${res.Message} - Lỗi lấy dữ liệu từ QLTS_Vinatex/QuanLyTaiSan/GetChiTietTaiSanById_LichBaoDuong`);
       }
     })
-    this.isChonNam();
-    this.item.isChon = true;
-    this.item.isChonNam = 0;
+    setTimeout(() => {
+      this.item.isChon = true;
+      this.item.isChonThang = 1;
+      this.isChonThang()
+    }, 100);
   }
- 
+
   isChon(item) {
-    item.isChonNam = 0;
+    if(this.item.isChon) {
+      this.item.isChonNam = 0;
+      this.isChonNam();
+    } else {
+      this.item.isChonNam = null;
+      this.item.isChonThang = null;
+    }
   }
   isChonNam() {
     this.item.isChonThang = false;
@@ -69,7 +77,7 @@ export class LichbaoduongcopyComponent implements OnInit {
   isChonThang() {
     this.item.isChonNam = true;
     this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().GetThang(this.item.Id, DateToUnix(new Date(this.filter.Nam, this.filter.Thang - 1, 1))).subscribe((res: any) => {
-        this.items = res.Data;
-      })
+      this.items = res.Data;
+    })
   }
 }

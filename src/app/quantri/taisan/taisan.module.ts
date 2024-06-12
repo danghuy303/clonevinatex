@@ -360,7 +360,7 @@ import { DanhMucDoiBaoDuongModalComponent } from './modal/danh-muc-doi-bao-duong
     ButtonModule,
     CalendarModule,
     ChartModule,
-    CheckboxModule,
+    // CheckboxModule,
     ColorPickerModule,
     DialogModule,
     DynamicDialogModule,

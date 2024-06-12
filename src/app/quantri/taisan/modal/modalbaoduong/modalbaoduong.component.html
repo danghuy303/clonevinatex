@@ -233,9 +233,9 @@
                     <tr>
                         <th class="text-center">STT</th>
                         <th class="text-center">Nội dung</th>
-                        <th class="text-center">Cách thực hiện</th>
-                        <th class="text-center">Vật tư</th>
+                        <th class="text-center">Hạng mục</th>
                         <th class="text-center">Công việc bảo dưỡng</th>
+                        <th class="text-center">Cách thực hiện</th>
                         <th class="text-center">
                             <p-button icon="pi pi-plus" pTooltip="Thêm" tooltipPosition="top"
                                 (click)="add()"></p-button>
@@ -249,12 +249,6 @@
                             <input locale="en-EN" [(ngModel)]="hangmuc.NoiDung" pInputText />
                         </td>
                         <td>
-                            <!-- <p-dropdown [filter]="true" [options]="listVatTu" placeholder="Chọn"
-                                [(ngModel)]="hangmuc.IdVatTu" styleClass="p-inputtext-sm" showClear="true">
-                            </p-dropdown> -->
-                            <input locale="en-EN" [(ngModel)]="hangmuc.CachThucHien" pInputText />
-                        </td>
-                        <td>
                             <p-dropdown [filter]="true" [options]="listVatTu" placeholder="Chọn"
                                 [(ngModel)]="hangmuc.IdVatTu" styleClass="p-inputtext-sm" showClear="true">
                             </p-dropdown>
@@ -264,6 +258,12 @@
                                 [(ngModel)]="hangmuc.IddmLoaiThucHienBaoDuong" styleClass="p-inputtext-sm"
                                 showClear="true">
                             </p-dropdown>
+                        </td>
+                        <td>
+                            <!-- <p-dropdown [filter]="true" [options]="listVatTu" placeholder="Chọn"
+                                [(ngModel)]="hangmuc.IdVatTu" styleClass="p-inputtext-sm" showClear="true">
+                            </p-dropdown> -->
+                            <input locale="en-EN" [(ngModel)]="hangmuc.CachThucHien" pInputText />
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"

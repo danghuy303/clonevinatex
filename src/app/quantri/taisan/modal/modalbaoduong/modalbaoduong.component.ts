@@ -74,7 +74,7 @@ export class ModalbaoduongComponent implements OnInit {
   }
 
   GetListVatTuTheoLoaiTaiSan(Id) {
-    this._service.GetListVatTuTheoLoaiTaiSan(Id).subscribe((res: any) => {
+    this._service.GetListVatTuThuVienTaiSanTheoLoaiTaiSan(Id).subscribe((res: any) => {
       this.listVatTu = mapArrayForDropDown(res.Data, 'Ten', 'Id')
     })
   }

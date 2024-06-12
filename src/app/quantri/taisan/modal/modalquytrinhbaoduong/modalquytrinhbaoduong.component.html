@@ -27,9 +27,9 @@
             <!-- <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button> -->
             <button pButton pRipple type="button" label="Xác nhận bảo dưỡng" class="p-mr-2 p-button-sm"
-                (click)="XacNhan()" *ngIf="checkbutton.Ghi"></button>
+                (click)="XacNhan()" *ngIf="!checkbutton.XacNhan"></button>
             <button pButton pRipple type="button" label="Hoàn thành bảo dưỡng" class="p-mr-2 p-button-sm"
-                (click)="HoanThanh()" *ngIf="checkbutton.ChuyenTiep"></button>
+                (click)="HoanThanh()" *ngIf="checkbutton.HoanThanh"></button>
         </div>
     </div>
     <!-- <div class="p-grid">
@@ -109,7 +109,7 @@
                         <label class="p-col-12 p-xl-2 p-p-0 my-auto">Bộ phận sử dụng<span
                                 class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
-                            <p-dropdown [filter]="true" (onChange)="chonBoPhan($event.value)" [options]="listPhanXuong"
+                            <p-dropdown [filter]="true" (onChange)="chonBoPhanSuDung($event.value)" [options]="listPhanXuong"
                                 [(ngModel)]="item.IdBoPhanSuDung" placeholder="Chọn bộ phận"></p-dropdown>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                         <div class="p-col-12 p-xl-10 p-p-0">
                             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan"
                                 placeholder="Chọn loại tài sản"
-                                (onChange)="GetListTaiSanDangSuDung($event)"></p-dropdown>
+                                (onChange)="GetListTaiSanDangSuDung()"></p-dropdown>
                         </div>
                     </div>
 
@@ -129,7 +129,7 @@
                         <label class="p-col-12 p-xl-2 p-p-0 my-auto">Tài sản<span class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
                             <p-dropdown [filter]="true" [options]="listMay" [(ngModel)]="item.IdTaiSan"
-                                placeholder="Chọn tài sản" (onChange)="GetListTaiSanBaoDuong()"></p-dropdown>
+                                placeholder="Chọn tài sản" (onChange)="ChonBaoDuong()"></p-dropdown>
                         </div>
                     </div>
 
@@ -137,8 +137,8 @@
                         <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ngày kế hoạch<span
                                 class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
-                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                                [(ngModel)]="item.NgayKeHoach" inputId="icon" (onSelect)="GetListTaiSanBaoDuong()">
+                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" style="width: 100%"
+                                [(ngModel)]="item.NgayKeHoach" inputId="icon" (onSelect)="ChonBaoDuong()">
                             </p-calendar>
                         </div>
                     </div>
@@ -148,13 +148,13 @@
                                 class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
                             <p-dropdown [filter]="true" [options]="listTaiSan" [(ngModel)]="item.IdTaiSan_BaoDuong"
-                                placeholder="Chọn tài sản" (onChange)="GetDaTa($event.value)"></p-dropdown>
+                                placeholder="Chọn loại bảo dưỡng" (onChange)="GetDaTa($event.value)"></p-dropdown>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
                         <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ngày bảo dưỡng</label>
                         <div class="p-col-12 p-xl-10 p-p-0">
-                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" style="width: 100%"
                                 [(ngModel)]="item.NgayBaoDuong" inputId="icon">
                             </p-calendar>
                         </div>
@@ -184,12 +184,13 @@
                             <div class="p-col-12 p-xl-8 p-p-0">
                                 <p-calendar dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true"
                                     yearRange="2000:2040" [showTime]="true" [showIcon]="true" inputId="icon"
-                                    placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayKetThuc">
+                                    placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayKetThuc">s
                                 </p-calendar>
                             </div>
                         </div>
                         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-                            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đội/người bảo dưỡng</label>
+                            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đội/người bảo dưỡng<span
+                                class="required">(*)</span></label>
                             <div class="p-col-12 p-xl-8 p-p-0">
                                 <p-dropdown [filter]="true" [options]="listDoiBaoDuong" [(ngModel)]="item.IdDoiBaoDuong"
                                     placeholder="Chọn"></p-dropdown>
