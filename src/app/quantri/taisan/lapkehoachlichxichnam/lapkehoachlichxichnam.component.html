@@ -49,7 +49,7 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chọn công đoạn: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown #congdoan [filter]="true" [showClear]="true" [options]="listCongDoan"
-                    [(ngModel)]="item.MaCongDoan" (onChange)="ThemMoiDanhSachTaiSan()"
+                    [(ngModel)]="item.MaCongDoan" (onChange)="ThemMoiDanhSachTaiSan()" [resetFilterOnHide]="true"
                     placeholder="Chọn công đoạn"></p-dropdown>
             </div>
         </div>
@@ -164,11 +164,10 @@
                         <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong">
                             <div>
                                 <div *ngFor="let chitiet of baoduong.listChiTiet"
-                                    [style.color]="baoduong.listChiTiet?.length?'red':''"
-                                    [pTooltip]="chitiet?.TendmLoaiBaoDuong">{{chitiet?.KyHieu}}</div>
+                                    [style.color]="baoduong.IsHienThi?'':'red'" [pTooltip]="chitiet?.TendmLoaiBaoDuong">
+                                    {{chitiet?.KyHieu}}</div>
                                 <!-- <a  *ngIf="baoduong.canInput" href="javascript:void(0)" (click)="Chon(baoduong,taisan)">Chọn</a> -->
-                                <a  href="javascript:void(0)"
-                                    (click)="Chon(baoduong,taisan)">Chọn</a>
+                                <a href="javascript:void(0)" (click)="Chon(baoduong,taisan)">Chọn</a>
                             </div>
                         </td>
                         <td class="text-center">
@@ -183,7 +182,7 @@
 
         <p-tabPanel header="Vật tư thay thế">
             <ng-template pTemplate="content">
-                <app-vattuthaythelichxichnam [listTaiSan]="item.listTaiSan"></app-vattuthaythelichxichnam>
+                <app-vattuthaythelichxichnam [listTaiSan]="item.listTaiSan" (HandListTaiSan)="HandListTaiSan($event)"></app-vattuthaythelichxichnam>
             </ng-template>
         </p-tabPanel>
 

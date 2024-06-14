@@ -51,6 +51,7 @@ import { NhapLieuKeHoachComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke-hoac
 import { NhapLieuKeHoachModalComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke-hoach-modal/nhap-lieu-ke-hoach-modal.component';
 import { FilterbykeyCongDoanPipe } from '../services/filterbykey-cong-doan.pipe';
 import { ModalquytrinhbaoduongComponent } from '../quantri/taisan/modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
+import { ChonmVatTuThayThePopUpComponent } from '../quantri/taisan/modal/chonm-vat-tu-thay-the-pop-up/chonm-vat-tu-thay-the-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { ModalquytrinhbaoduongComponent } from '../quantri/taisan/modal/modalquy
     DanhMucKeHoachModalComponent,
     NhapLieuKeHoachComponent,
     NhapLieuKeHoachModalComponent,
-    ModalquytrinhbaoduongComponent
+    ModalquytrinhbaoduongComponent,
+    ChonmVatTuThayThePopUpComponent
   ],
   imports: [
     AccordionModule,
@@ -139,6 +141,7 @@ import { ModalquytrinhbaoduongComponent } from '../quantri/taisan/modal/modalquy
     NhapLieuKeHoachModalComponent,
     ModalquytrinhbaoduongComponent,
     CheckboxModule,
+    ChonmVatTuThayThePopUpComponent
   ]
 })
 export class SharedModule { }

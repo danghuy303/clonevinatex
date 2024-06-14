@@ -17,6 +17,7 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
 
   item: any={};
   getId: any = '';
+  XemTheo: any = '';
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   checkbutton: any = {};

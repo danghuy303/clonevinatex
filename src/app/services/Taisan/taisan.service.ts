@@ -1127,4 +1127,8 @@ export class TaisanService {
     return this.http.post(`${API.TaiSan}BaoDuongTaiSan/GetListTaiSanBaoDuong`,data, httpOptions);
   }
 
+  GetDanhSachVatTuThayTheForLichXichNam(data:any) {
+    return this.http.post(`${API.TaiSan}BaoDuongTaiSan/GetDanhSachVatTuThayTheForLichXichNam`,data, httpOptions);
+  }
+
 }

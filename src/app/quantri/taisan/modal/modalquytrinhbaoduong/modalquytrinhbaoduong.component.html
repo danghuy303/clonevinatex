@@ -27,9 +27,9 @@
             <!-- <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button> -->
             <button pButton pRipple type="button" label="Xác nhận bảo dưỡng" class="p-mr-2 p-button-sm"
-                (click)="XacNhan()" *ngIf="!checkbutton.XacNhan"></button>
+                (click)="XacNhan()" *ngIf="checkbutton.XacNhan?false:true"></button>
             <button pButton pRipple type="button" label="Hoàn thành bảo dưỡng" class="p-mr-2 p-button-sm"
-                (click)="HoanThanh()" *ngIf="checkbutton.HoanThanh"></button>
+                (click)="HoanThanh()" *ngIf="checkbutton.ChuyenTiep"></button>
         </div>
     </div>
     <!-- <div class="p-grid">
@@ -109,8 +109,9 @@
                         <label class="p-col-12 p-xl-2 p-p-0 my-auto">Bộ phận sử dụng<span
                                 class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
-                            <p-dropdown [filter]="true" (onChange)="chonBoPhanSuDung($event.value)" [options]="listPhanXuong"
-                                [(ngModel)]="item.IdBoPhanSuDung" placeholder="Chọn bộ phận"></p-dropdown>
+                            <p-dropdown [filter]="true" (onChange)="chonBoPhanSuDung($event.value)"
+                                [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung"
+                                placeholder="Chọn bộ phận"></p-dropdown>
                         </div>
                     </div>
 
@@ -120,8 +121,7 @@
                                 class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
                             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan"
-                                placeholder="Chọn loại tài sản"
-                                (onChange)="GetListTaiSanDangSuDung()"></p-dropdown>
+                                placeholder="Chọn loại tài sản" (onChange)="GetListTaiSanDangSuDung()"></p-dropdown>
                         </div>
                     </div>
 
@@ -137,8 +137,9 @@
                         <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ngày kế hoạch<span
                                 class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
-                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" style="width: 100%"
-                                [(ngModel)]="item.NgayKeHoach" inputId="icon" (onSelect)="ChonBaoDuong()">
+                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                                style="width: 100%" [(ngModel)]="item.NgayKeHoach" inputId="icon"
+                                (onSelect)="ChonBaoDuong()">
                             </p-calendar>
                         </div>
                     </div>
@@ -154,8 +155,8 @@
                     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
                         <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ngày bảo dưỡng</label>
                         <div class="p-col-12 p-xl-10 p-p-0">
-                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" style="width: 100%"
-                                [(ngModel)]="item.NgayBaoDuong" inputId="icon">
+                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                                style="width: 100%" [(ngModel)]="item.NgayBaoDuong" inputId="icon">
                             </p-calendar>
                         </div>
                     </div>
@@ -175,7 +176,7 @@
                             <div class="p-col-12 p-xl-8 p-p-0">
                                 <p-calendar dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true"
                                     yearRange="2000:2040" [showTime]="true" [showIcon]="true" inputId="icon"
-                                    placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayBatDau">
+                                    placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayBatDau" [disabled]="checkbutton.XacNhan?true:false">
                                 </p-calendar>
                             </div>
                         </div>
@@ -184,13 +185,13 @@
                             <div class="p-col-12 p-xl-8 p-p-0">
                                 <p-calendar dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true"
                                     yearRange="2000:2040" [showTime]="true" [showIcon]="true" inputId="icon"
-                                    placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayKetThuc">s
+                                    placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayKetThuc">
                                 </p-calendar>
                             </div>
                         </div>
                         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
                             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đội/người bảo dưỡng<span
-                                class="required">(*)</span></label>
+                                    class="required">(*)</span></label>
                             <div class="p-col-12 p-xl-8 p-p-0">
                                 <p-dropdown [filter]="true" [options]="listDoiBaoDuong" [(ngModel)]="item.IdDoiBaoDuong"
                                     placeholder="Chọn"></p-dropdown>
@@ -243,9 +244,9 @@
             </p-tabPanel>
             <p-tabPanel header="Vật tư">
                 <div class="d-flex p-pb-2">
-                    <button pButton pRipple type="button" label="Đề xuất cấp vật tư" class="p-mr-2 p-button-sm"
+                    <button  pButton pRipple type="button" label="Đề xuất cấp vật tư" class="p-mr-2 p-button-sm"
                         (click)="CapVatTu()"></button>
-                    <button pButton pRipple type="button" label="Chọn vật tư" class="p-mr-2 p-button-sm"
+                    <button  pButton pRipple type="button" label="Chọn vật tư" class="p-mr-2 p-button-sm"
                         (click)="ChonVatTuThayThe()"></button>
                 </div>
                 <p-table [value]="item.listVatTu"

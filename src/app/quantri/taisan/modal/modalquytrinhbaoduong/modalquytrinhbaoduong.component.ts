@@ -39,6 +39,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   listLoaiBaoDuong: any = [];
   listMay: any = [];
   listMayDeep: any = [];
+  isHoanThanhBaoDuong: boolean = false;
 
   constructor(
     private _modal: NgbModal,
@@ -78,11 +79,11 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     // this.KiemTraButtonModal();
     // this.item.NgayBaoDuong = this.item.NgayBaoDuong || new Date();
 
-    this.checkbutton.XacNhan = this.item.Id;
+
     // this.item.listVatTu = this.item.listVatTu ? this.item.listVatTu : [];
     this.item.NgayKeHoach = UnixToDate(this.item.NgayKeHoachUnix);
     if (this.opt === 'add') {
-     
+
     } else { }
     this.KiemTraButtonModal();
     this.GetNews();
@@ -336,6 +337,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       NgayBaoDuong: new Date(this.item.NgayBaoDuong),
       NgayKeHoach: UnixToDate(this.item.NgayKeHoachUnix ? this.item.NgayKeHoachUnix : 0)
     }
+    console.log(this.item);
     this.GetDoiThiCong(this.item.IddmLoaiTaiSan);
     // this.GetListVatTuByIdTaiSan_BaoDuong(this.item.IdTaiSan_BaoDuong);
     // this.GetDanhSachCongViecByIddmLoaiBaoDuong(this.item.IddmLoaiBaoDuong, this.item.IdTaiSan);
@@ -356,8 +358,13 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
 
   GetQuyTrinhBaoDuongByIdTaiSan_BaoDuong(IdTaiSan_BaoDuong) {
     this._serviceTaiSan.GetQuyTrinhBaoDuongByIdTaiSan_BaoDuong(IdTaiSan_BaoDuong).subscribe((res: any) => {
-      this.item = res.Data;
-      if(!this.item.Id) {
+      this.item = {
+        ...res.Data,
+        NgayKeHoach: UnixToDate(res.Data.NgayKeHoachUnix ? res.Data.NgayKeHoachUnix : 0)
+      };
+      this.checkbutton.XacNhan = this.item.Id;
+      this.checkbutton.ChuyenTiep = false;
+      if (!this.item.Id) {
         this.GetNextSoQuyTrinh();
       }
     })
@@ -377,8 +384,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     this.item = {
       ...data,
       listCongViec: data.listCongViec,
-      ThoiGianBatDau: UnixToDate(data.ThoiGianBatDauUnix),
-      ThoiGianKetThuc: UnixToDate(data.ThoiGianKetThucUnix),
+      NgayBatDau: UnixToDate(data.NgayBatDauUnix),
+      NgayKetThuc: UnixToDate(data.NgayKetThucUnix),
       NgayKeHoach: UnixToDate(data.NgayKeHoachUnix),
       NgayBaoDuong: UnixToDate(data.NgayBaoDuongUnix),
     }
@@ -408,8 +415,13 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       } else {
         this.MapUnix(res.Data);
         this.toastr.success(res.Message);
-        this.KiemTraButtonModal();
-        this.checkbutton.XacNhan = false;
+        this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((btn: any) => {
+          this.checkbutton = {
+            ...btn,
+            ChuyenTiep: false,
+            XacNhan: res.Data.Id
+          };
+        });
       }
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -500,7 +512,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     //   }
     // }s
 
-    this.checkbutton.HoanThanh = this.item.listCongViec.every(ele => ele.isThucHien);
+    this.checkbutton.ChuyenTiep = this.item.listCongViec.every(ele => ele.isThucHien);
   }
 
 }

@@ -21,7 +21,6 @@ export class ChonmVatTuThayThePopUpComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.listHienThi);
     this.checkAll();
     this.checkItem();
   }

@@ -248,7 +248,7 @@
                 </p-tabPanel>
                 <p-tabPanel *ngIf="item.IdRoot === item.Id" header="Lịch bảo dưỡng">
                     <ng-template pTemplate="content">
-                        <app-lichbaoduongcopy [item]="item"></app-lichbaoduongcopy>
+                        <app-lichbaoduongcopy [item]="item" [XemTheo]="XemTheo"></app-lichbaoduongcopy>
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel header="Thông số kỹ thuật">

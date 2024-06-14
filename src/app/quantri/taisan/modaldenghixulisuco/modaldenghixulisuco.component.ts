@@ -321,7 +321,8 @@ export class ModaldenghixulisucoComponent implements OnInit {
 
   ChonVatTuThayThe(data: any, index: any) {
     let modalRef = this._modal.open(ChonVatTuThayTheComponent, {
-      backdrop: 'static'
+      backdrop: 'static',
+      size:'lg'
     });
     modalRef.componentInstance.title = 'Chọn vật tư thay thế';
     modalRef.componentInstance.IdTaiSan = this.item.IdTaiSan;

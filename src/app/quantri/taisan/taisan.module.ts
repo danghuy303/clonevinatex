@@ -345,7 +345,7 @@ import { DanhMucDoiBaoDuongModalComponent } from './modal/danh-muc-doi-bao-duong
     XuatKhoVatTuDanhSachComponent,
     ChonVatTuPopupComponent,
     TaoQrPopupComponent,
-    ChonmVatTuThayThePopUpComponent,
+    // ChonmVatTuThayThePopUpComponent,
     DanhMucQrComponent,
     DanhMucDoiBaoDuongComponent,
     DanhMucDoiBaoDuongModalComponent,

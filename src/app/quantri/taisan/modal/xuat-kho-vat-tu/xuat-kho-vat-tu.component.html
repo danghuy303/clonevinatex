@@ -32,7 +32,7 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng <span class="text-danger">*</span>:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bộ phận sử dụng <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn" [(ngModel)]="item.IddmKho"
                     styleClass="p-inputtext-sm" tooltipPosition="top"></p-dropdown>
@@ -54,13 +54,14 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Người yêu cầu <span class="text-danger">*</span>:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Người đề xuất <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdmKhachHang" placeholder="Chọn"
-                    [(ngModel)]="item.IdNguoiYeuCau" styleClass="p-inputtext-sm" tooltipPosition="top"></p-dropdown>
+                <!-- <p-dropdown [filter]="true" [options]="listdmKhachHang" placeholder="Chọn"
+                    [(ngModel)]="item.IdNguoiYeuCau" styleClass="p-inputtext-sm" tooltipPosition="top"></p-dropdown> -->
+                <input pInputText type="text" [(ngModel)]="item.CreatedByName" [disabled]="true">
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+        <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Người vận chuyển:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input pInputText type="text" [(ngModel)]="item.NguoiVanChuyen">
@@ -70,6 +71,12 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phương tiện vận chuyển:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input pInputText type="text" [(ngModel)]="item.PhuongTienVanChuyen">
+            </div>
+        </div> -->
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày đề xuất:</label>
+            <div class="p-col-12 p-lg-8 p-p-0" style="border: 1px solid rgb(245, 240, 240); display: flex;align-items: center;padding-left: 10px;">
+                {{item.Created|date:"dd/MM/yyyy"}}
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">

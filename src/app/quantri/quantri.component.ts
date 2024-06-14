@@ -136,7 +136,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
     if (routerURL) {
       // this._router.navigate([`${routerURL}0`]);
       // setTimeout(()=>{
-      this._router.navigate([`${routerURL}${item.IdQuyTrinh || 0}`]);
+      this._router.navigate([`${routerURL}/${item.IdQuyTrinh || 0}`]);
       // },1000)
     } else {
       this._toastr.warning("Không tìm thấy điều hướng của thông báo!");

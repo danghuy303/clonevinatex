@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { deepCopy, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 
@@ -10,6 +11,7 @@ import { PintableDirective } from 'voi-lib';
 export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
 
   @Input('listTaiSan') listTaiSan: any = {};
+  @Output() HandListTaiSan: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
 
   labelThang: any = [];
@@ -18,7 +20,9 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
   vatTu: any = [];
 
 
-  constructor() { }
+  constructor(
+    private _serviceTaiSan: TaisanService,
+  ) { }
 
   ngOnChanges(): void {
     this.SumAll();
@@ -63,10 +67,10 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
     })
     item.listVatTu.forEach(vattu => {
       vattu.listThoiGian.forEach(obj => {
-        if (obj.SoLuong == null ) {
+        if (obj.SoLuong == null) {
           obj.SoLuong = 0;
         }
-        if(obj.DonGia == null) {
+        if (obj.DonGia == null) {
           obj.DonGia = 0;
         }
       })
@@ -91,9 +95,13 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
       item.TongThanhTien.forEach(Tong => {
         item.TongGiaTri += Tong;
       });
-      console.log('item.TongGiaTri', item.TongGiaTri);
-      
       this.TongGiaTriToanBang += (item.TongGiaTri || 0);
+    })
+  }
+
+  LayVatTu() {
+    this._serviceTaiSan.GetDanhSachVatTuThayTheForLichXichNam(this.listTaiSan).subscribe((res: any) => {
+      this.HandListTaiSan.emit(res.Data);
     })
   }
 

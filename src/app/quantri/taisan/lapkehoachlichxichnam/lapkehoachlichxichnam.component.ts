@@ -163,16 +163,22 @@ export class LapkehoachlichxichnamComponent implements OnInit {
 
   GhiLai() {
     if (this.ValidateData()) {
-      this._serviceTaiSan.LichXich().Set(this.setData()).subscribe((res: any) => {
-        if (res.StatusCode !== 200 || !res.StatusCode) {
-          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-        } else {
-          this.item = res.Data;
-          this.toastr.success(res.Message);
-          this.GetQuyTrinhById(this.item.Id);
+      this._serviceTaiSan.GetDanhSachVatTuThayTheForLichXichNam(this.item.listTaiSan).subscribe((taisan: any) => {
+        this.item = {
+          ...this.item,
+          listTaiSan: taisan.Data
         }
-      }, (er) => {
-        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+        this._serviceTaiSan.LichXich().Set(this.setData()).subscribe((res: any) => {
+          if (res.StatusCode !== 200 || !res.StatusCode) {
+            this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+          } else {
+            this.item = res.Data;
+            this.toastr.success(res.Message);
+            this.GetQuyTrinhById(this.item.Id);
+          }
+        }, (er) => {
+          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+        })
       })
     }
   }
@@ -184,13 +190,19 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     });
   }
   ChapNhan() {
-    this._serviceTaiSan.LichXich().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
-        this.activeModal.close();
+    this._serviceTaiSan.GetDanhSachVatTuThayTheForLichXichNam(this.item.listTaiSan).subscribe((taisan: any) => {
+      this.item = {
+        ...this.item,
+        listTaiSan: taisan.Data
       }
+      this._serviceTaiSan.LichXich().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        }
+      })
     })
   }
   KhongDuyet() {
@@ -392,4 +404,28 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     this.keyword = '';
   }
 
+  HandListTaiSan(data) {
+    this.item.listTaiSan = data;
+  }
+
+  ChonCongDoan(event: any) {
+    // this.ThemMoiDanhSachTaiSan()
+   
+    
+    setTimeout(() => {
+      // Tìm phần tử dropdown
+      const dropdownElement = document.querySelector('p-dropdown');
+
+      if (dropdownElement) {
+        // Tìm phần tử input của filter trong dropdown
+        const inputElement:any = dropdownElement.querySelector('.ui-dropdown-filter');
+        if (inputElement) {
+          inputElement.value = '';
+          // Kích hoạt sự kiện input để cập nhật giá trị trong dropdown
+          const inputEvent = new Event('input', { bubbles: true });
+          inputElement.dispatchEvent(inputEvent);
+        }
+      }
+    });
+  }
 }

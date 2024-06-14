@@ -107,13 +107,14 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td (click)="ChiTietBaoDuong(item)">{{item.TendmLoaiBaoDuong}}</td>
+                        <td >{{item.KyHieu}}</td>
                         <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
-                            <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"
-                                [ngStyle]="{'color': taisan.Mau}" (click)="ChiTietThongTin(taisan)">
-                                {{taisan.TenTaiSan}},
-                            </a>
-
+                            <div>
+                                <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"
+                                    [ngStyle]="{'color': taisan.Mau}">
+                                    {{taisan.TenVietTat}}<br>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 </ng-template>
@@ -162,11 +163,11 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td (click)="ChiTietThongTin(item)">{{item.TenTaiSan}}</td>
+                        <td (click)="ChiTietThongTin(item)">{{item.TenVietTat}}</td>
                         <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
                             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"
-                                [ngStyle]="{'color': taisan.Mau}" (click)="ChiTietBaoDuong(taisan)">
-                                {{taisan.TendmLoaiBaoDuong}}
+                                [ngStyle]="{'color': taisan.Mau}">
+                                {{taisan.KyHieu}}<br>
                             </a>
                         </td>
                     </tr>
@@ -190,12 +191,12 @@
                 <thead>
                     <tr>
                         <th style="min-width: 50px;max-width: 50px; padding: 0.5rem 0">STT</th>
-                        <th style="min-width: 200px;max-width: 200px; padding: 0.5rem 0"><span>{{filter.isChon ===
+                        <th style="min-width: 160px;max-width: 160px; padding: 0.5rem 0"><span>{{filter.isChon ===
                                 'theoMay' ? 'Mã, tên tài sản' : 'Loại bảo dưỡng'}}</span></th>
                         <!-- <th style="min-width: 200px;max-width: 200px; padding: 0.5rem 0"
                             *ngIf="filter.isChon === 'theoMay'">Mã, tên tài sản</th> -->
 
-                        <th style="min-width: 150px;max-width: 150px;"
+                        <th style="min-width: 90px;max-width: 90px;"
                             *ngFor="let label of itemsLichXichThang.listThoiGian">{{label}}</th>
                     </tr>
                 </thead>
@@ -311,10 +312,10 @@
             {{lichXichThang.KyHieu}}
         </td> -->
         <td
-            style="min-width: 200px;; padding: 0.5rem 0 ; max-width: 200px;background-color: white; cursor: pointer; z-index: 999;">
+            style="min-width: 160px;; padding: 0.5rem 0 ; max-width: 160px;background-color: white;  z-index: 999;">
             {{lichXichThang.KyHieu}}
         </td>
-        <td style="min-width: 150px;max-width: 150px;background-color: white;" class="text-center"
+        <td style="min-width: 90px;max-width: 90px;background-color: white;" class="text-center"
             *ngFor="let newItem of lichXichThang.listItemTheoThoiGian"
             [ngStyle]="{'background-color': newItem.ColorLabel}">
             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" [ngStyle]="{'color': taisan.Mau}"
@@ -330,11 +331,11 @@
             style="min-width: 50px;; padding: 0.5rem 0 ; max-width: 50px;background-color: white; cursor: pointer; z-index: 999;">
             {{i+ 1}}
         </td>
-        <td style="min-width: 200px;; padding: 0.5rem 0 ; max-width: 200px;background-color: white; cursor: pointer; z-index: 999;"
+        <td style="min-width: 160px;; padding: 0.5rem 0 ; max-width: 160px;background-color: white; cursor: pointer; z-index: 999;"
             (click)="ChiTietThongTinLichXIchThang(lichXichThang)">
             {{lichXichThang.TenVietTat}}
         </td>
-        <td style="min-width: 150px;max-width: 150px;background-color: white;" class="text-center"
+        <td style="min-width: 90px;max-width: 90px;background-color: white;" class="text-center"
             *ngFor="let newItem of lichXichThang.listItemTheoThoiGian"
             [ngStyle]="{'background-color': newItem.ColorLabel}">
             <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" [ngStyle]="{'color': taisan.Mau}"

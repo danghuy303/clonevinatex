@@ -28,6 +28,7 @@ export class LichbaoduongcopyComponent implements OnInit {
   itemsThang: any = [];
   listThoiGianNangSuat: any = [];
   listdmLoaiBaoDuong: any = [];
+  @Input() XemTheo: any = '';
 
   constructor(
     public _modal: NgbModal,
@@ -54,13 +55,20 @@ export class LichbaoduongcopyComponent implements OnInit {
     })
     setTimeout(() => {
       this.item.isChon = true;
-      this.item.isChonThang = 1;
-      this.isChonThang()
+      if (this.XemTheo === 'nam') {
+        this.item.isChonNam = 0;
+        this.isChonNam();
+      } else {
+        this.item.isChonThang = 1;
+        this.isChonThang()
+      }
     }, 100);
+    console.log(this.XemTheo);
+    
   }
 
   isChon(item) {
-    if(this.item.isChon) {
+    if (this.item.isChon) {
       this.item.isChonNam = 0;
       this.isChonNam();
     } else {
