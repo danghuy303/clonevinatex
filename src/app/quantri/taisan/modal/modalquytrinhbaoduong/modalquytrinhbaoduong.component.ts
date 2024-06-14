@@ -78,15 +78,14 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     // this.KiemTraButtonModal();
     // this.item.NgayBaoDuong = this.item.NgayBaoDuong || new Date();
 
-    this.item.listVatTu = this.item.listVatTu ? this.item.listVatTu : [];
+    this.checkbutton.XacNhan = this.item.Id;
+    // this.item.listVatTu = this.item.listVatTu ? this.item.listVatTu : [];
     this.item.NgayKeHoach = UnixToDate(this.item.NgayKeHoachUnix);
     if (this.opt === 'add') {
-      this.GetNextSoQuyTrinh();
+     
     } else { }
     this.KiemTraButtonModal();
     this.GetNews();
-
-    console.log("item 1", this.item);
   }
 
   GetNextSoQuyTrinh() {
@@ -258,6 +257,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.listCVBaoDuong = res.Data;
     });
     // this.GetDanhSachCongViecByIddmLoaiBaoDuong(this.item.IddmLoaiBaoDuong, this.item.IdTaiSan);
+    this.GetQuyTrinhBaoDuongByIdTaiSan_BaoDuong(this.item.IdTaiSan_BaoDuong);
     this.GetListVatTuByIdTaiSan_BaoDuong(this.item.IdTaiSan_BaoDuong);
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res1: any) => {
       this.listLoaiTaiSanDeep = res1.Data;
@@ -266,6 +266,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     })
     this.GetListdmLoaiBaoDuongForDanhMuc();
     this.chonBoPhan(this.item.IdBoPhanSuDung);
+
   }
 
   GetListdmLoaiBaoDuongForDanhMuc() {
@@ -284,9 +285,18 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     this.GetListTaiSanDangSuDung();
   }
 
+  chonBoPhanSuDung(value: any) {
+    this.item.IdTaiSan_BaoDuong = '';
+    this.chonBoPhan(value)
+  }
+
+  ChonBaoDuong() {
+    this.item.IdTaiSan_BaoDuong = '';
+    this.GetListTaiSanBaoDuong();
+  }
+
   GetListTaiSanBaoDuong() {
     let _momentDate = moment(this.item.NgayKeHoach).startOf('day').toDate();
-    console.log("_momentDate", _momentDate);
     let data = {
       IdBoPhanSuDung: this.item.IdBoPhanSuDung,
       IdTaiSan: this.item.IdTaiSan,
@@ -294,8 +304,15 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     }
     this._serviceTaiSan.GetListTaiSanBaoDuong(data).subscribe((res: any) => {
       this.listTaiSanDeep = res.Data;
-      this.listTaiSan = mapArrayForDropDown(res.Data, 'TendmLoaiBaoDuong', 'IdTaiSan_BaoDuong')
-
+      this.listTaiSan = res.Data.map(ele => {
+        return {
+          label: `${ele.MadmLoaiBaoDuong} - ${ele.TendmLoaiBaoDuong}`,
+          value: ele.IdTaiSan_BaoDuong
+        }
+      })
+      if (this.item.IdTaiSan_BaoDuong) {
+        this.GetDaTa(this.item.IdTaiSan_BaoDuong)
+      }
     })
   }
 
@@ -313,15 +330,15 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
 
 
   GetDaTa(value) {
-    let obj = this.listTaiSanDeep.find(ele => ele.IdTaiSan_BaoDuong === value);
+    // let obj = this.listTaiSanDeep.find(ele => ele.IdTaiSan_BaoDuong === value);
     this.item = {
-      ...obj,
+      ...this.item,
       NgayBaoDuong: new Date(this.item.NgayBaoDuong),
-      NgayKeHoach: UnixToDate(obj.ThoiGianKeHoachUnix)
+      NgayKeHoach: UnixToDate(this.item.NgayKeHoachUnix ? this.item.NgayKeHoachUnix : 0)
     }
     this.GetDoiThiCong(this.item.IddmLoaiTaiSan);
-    this.GetListVatTuByIdTaiSan_BaoDuong(this.item.IdTaiSan_BaoDuong);
-    this.GetDanhSachCongViecByIddmLoaiBaoDuong(this.item.IddmLoaiBaoDuong, this.item.IdTaiSan);
+    // this.GetListVatTuByIdTaiSan_BaoDuong(this.item.IdTaiSan_BaoDuong);
+    // this.GetDanhSachCongViecByIddmLoaiBaoDuong(this.item.IddmLoaiBaoDuong, this.item.IdTaiSan);
   }
 
   GetListVatTuByIdTaiSan_BaoDuong(IdTaiSan_LoaiBaoDuong) {
@@ -334,6 +351,15 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   GetDanhSachCongViecByIddmLoaiBaoDuong(IddmLoaiBaoDuong, IdTaiSan) {
     this._serviceTaiSan.GetDanhSachCongViecByIddmLoaiBaoDuong(IddmLoaiBaoDuong, IdTaiSan).subscribe((baoduong: any) => {
       this.item.listCongViec = baoduong.Data;
+    })
+  }
+
+  GetQuyTrinhBaoDuongByIdTaiSan_BaoDuong(IdTaiSan_BaoDuong) {
+    this._serviceTaiSan.GetQuyTrinhBaoDuongByIdTaiSan_BaoDuong(IdTaiSan_BaoDuong).subscribe((res: any) => {
+      this.item = res.Data;
+      if(!this.item.Id) {
+        this.GetNextSoQuyTrinh();
+      }
     })
   }
 
@@ -371,6 +397,10 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.toastr.error("Vui lòng chọn đầy đủ thông tin cần thiết");
       return;
     }
+    if (!this.item.IdDoiBaoDuong) {
+      this.toastr.error("Vui lòng chọn đội/người bảo dưỡng");
+      return;
+    }
     this.item.ThoiGianBatDau = new Date();
     this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
@@ -379,6 +409,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
         this.MapUnix(res.Data);
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
+        this.checkbutton.XacNhan = false;
       }
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -448,26 +479,28 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   }
 
   ThayThe(data) {
-    let value = this.listCVBaoDuong.find(ele => ele.Id === data.IddmLoaiThucHienBaoDuong)?.Ma;
-    if (value === 'THAYTHE') {
-      if (data.isThucHien) {
-        this.item.listVatTu = this.item.listVatTu?.length ? this.item.listVatTu : [];
-        let check = this.item.listVatTu.find(ele => ele.IdVatTuThayThe === data.IdVatTu);
-        if (!check) {
-          data = {
-            ...data,
-            IdVatTuThayThe: data.IdVatTu,
-            TenTaiSan: this.listNoiDungVatTuDeep.find(obj => obj.IdVatTuThayThe === data.IdVatTu)?.TenTaiSan
-          }
-          this.item.listVatTu.push(data)
-        }
-      } else {
-        let checkF = this.item.listCongViec.find(ele => ele.IdVatTu === data.IdVatTu && ele.isThucHien);
-        if (!checkF) {
-          this.item.listVatTu = this.item.listVatTu.filter(ele => !ele.IdVatTuThayThe === data.IdVatTu);
-        }
-      }
-    }
+    // let value = this.listCVBaoDuong.find(ele => ele.Id === data.IddmLoaiThucHienBaoDuong)?.Ma;
+    // if (value === 'THAYTHE') {
+    //   if (data.isThucHien) {
+    //     this.item.listVatTu = this.item.listVatTu?.length ? this.item.listVatTu : [];
+    //     let check = this.item.listVatTu.find(ele => ele.IdVatTuThayThe === data.IdVatTu);
+    //     if (!check) {
+    //       data = {
+    //         ...data,
+    //         IdVatTuThayThe: data.IdVatTu,
+    //         TenTaiSan: this.listNoiDungVatTuDeep.find(obj => obj.IdVatTuThayThe === data.IdVatTu)?.TenTaiSan
+    //       }
+    //       this.item.listVatTu.push(data)
+    //     }
+    //   } else {
+    //     let checkF = this.item.listCongViec.find(ele => ele.IdVatTu === data.IdVatTu && ele.isThucHien);
+    //     if (!checkF) {
+    //       this.item.listVatTu = this.item.listVatTu.filter(ele => !ele.IdVatTuThayThe === data.IdVatTu);
+    //     }
+    //   }
+    // }s
+
+    this.checkbutton.HoanThanh = this.item.listCongViec.every(ele => ele.isThucHien);
   }
 
 }

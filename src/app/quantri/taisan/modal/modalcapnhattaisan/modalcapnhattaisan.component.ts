@@ -380,11 +380,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
             listTaiSan: res.listTaiSan.map((taisan: any) => {
               return {
                 ...taisan,
+                IdThuVien: taisan.Id,
                 Id: null,
               }
             }),
           },
-        }
+        }  
         this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(this.item.TaiSan.IddmLoaiTaiSan).subscribe((res: any) => {
           if (res.StatusCode === 500) {
             this.toastr.error(res.Message);

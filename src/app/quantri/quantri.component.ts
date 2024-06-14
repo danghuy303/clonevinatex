@@ -447,20 +447,20 @@ export class QuantriComponent implements OnInit, OnDestroy {
           {
             label: "Quản lý bảo trì, bảo dưỡng",
             items: [
-              {
-                label: "Lịch xích năm",
-                routerLink: "/quantri/taisan/lichxichnam",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Lịch xích tháng",
-                routerLink: "/quantri/taisan/lichxichthang",
-                command: () => {
-                  this.close();
-                },
-              },
+              // {
+              //   label: "Lịch xích năm",
+              //   routerLink: "/quantri/taisan/lichxichnam",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
+              // {
+              //   label: "Lịch xích tháng",
+              //   routerLink: "/quantri/taisan/lichxichthang",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
               {
                 label: "Lập kế hoạch lịch xích năm",
                 routerLink: "/quantri/taisan/quytrinhlapkehoachnam/0",

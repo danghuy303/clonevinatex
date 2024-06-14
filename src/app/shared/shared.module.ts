@@ -137,7 +137,8 @@ import { ModalquytrinhbaoduongComponent } from '../quantri/taisan/modal/modalquy
     DanhMucKeHoachModalComponent,
     NhapLieuKeHoachComponent,
     NhapLieuKeHoachModalComponent,
-    ModalquytrinhbaoduongComponent
+    ModalquytrinhbaoduongComponent,
+    CheckboxModule,
   ]
 })
 export class SharedModule { }

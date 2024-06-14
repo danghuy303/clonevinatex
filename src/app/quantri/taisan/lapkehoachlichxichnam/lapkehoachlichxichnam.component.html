@@ -164,9 +164,10 @@
                         <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong">
                             <div>
                                 <div *ngFor="let chitiet of baoduong.listChiTiet"
+                                    [style.color]="baoduong.listChiTiet?.length?'red':''"
                                     [pTooltip]="chitiet?.TendmLoaiBaoDuong">{{chitiet?.KyHieu}}</div>
                                 <!-- <a  *ngIf="baoduong.canInput" href="javascript:void(0)" (click)="Chon(baoduong,taisan)">Chọn</a> -->
-                                <a *ngIf="baoduong.IsHienThi" href="javascript:void(0)"
+                                <a  href="javascript:void(0)"
                                     (click)="Chon(baoduong,taisan)">Chọn</a>
                             </div>
                         </td>

@@ -23,7 +23,7 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
   IdBoPhanSuDung: any = '';
-  IdTaiSan:any = '';
+  IdTaiSan: any = '';
   Nam: any = "";
   checkBtnChonTaiSan: boolean;
 
@@ -46,8 +46,8 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
       IdTaiSan: this.IdTaiSan
     }
     this._serviceTaiSan.LichXich().GetListLoaiBaoDuongForLapKeHoachLichXich(data).subscribe((res: any) => {
-      if(typeof res.Data !== 'string') {
-        this.items = res.Data.listLichBaoDuong ;
+      if (typeof res.Data !== 'string') {
+        this.items = res.Data.listLichBaoDuong;
         this.items.forEach(obj => {
           obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
         })
@@ -71,7 +71,7 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   }
   checkAll(e) {
     this.items.forEach(ele => {
-     ele.checked = e.checked
+      ele.checked = e.checked
     })
   }
   checked() {
@@ -86,6 +86,7 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
           Id: '',
           TendmLoaiBaoDuong: obj.TendmLoaiBaoDuong,
           NgayUnix: 0,
+          KyHieu: obj.KyHieu
         });
       }
     });
