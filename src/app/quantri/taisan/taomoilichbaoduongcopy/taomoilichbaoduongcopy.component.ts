@@ -77,17 +77,17 @@ export class TaomoilichbaoduongcopyComponent implements OnInit, OnChanges {
     let text = `${TGBD}`;
     switch (MLTG) {
       case `NGAY`:
-        text += " Ngày"
+        text += " ngày"
         break;
 
       case `TUAN`:
-        text += " Tuần"
+        text += " tuần"
         break;
       case `THANG`:
-        text += " Tháng"
+        text += " tháng"
         break;
       case `NAM`:
-        text += " Năm"
+        text += " năm"
         break;
       default:
         break;
