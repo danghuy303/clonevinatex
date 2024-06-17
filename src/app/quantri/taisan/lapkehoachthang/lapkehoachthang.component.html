@@ -124,7 +124,7 @@
         <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chọn công đoạn</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <p-dropdown #congdoan [filter]="true" [showClear]="true" [options]="listCongDoan"
+                <p-dropdown #congdoan [filter]="true" [showClear]="true" [options]="listCongDoan" [resetFilterOnHide]="true"
                     [(ngModel)]="item.MaCongDoan" placeholder="Chọn công đoạn"
                     (onChange)="ThemMoiDanhSachTaiSan('CHONLAI')" (onShow)="SaveOldVal()"></p-dropdown>
             </div>

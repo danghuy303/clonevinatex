@@ -37,7 +37,8 @@
                 </div>
                 <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
                     <div class="QR" [style.visibility]="item.Ma?'visible':'hidden'">
-                        <qrcode [qrdata]="item.MaQR" [width]="50" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+                        <qrcode [qrdata]="item.MaQR" [width]="50" [errorCorrectionLevel]="'M'" [elementType]="'svg'">
+                        </qrcode>
                     </div>
                 </div>
                 <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -215,6 +216,7 @@
                                     <col>
                                     <col>
                                     <col>
+                                    <col>
                                 </colgroup>
                             </ng-template>
                             <ng-template pTemplate="header">
@@ -228,6 +230,7 @@
                                     <th class="text-center">Số seri</th>
                                     <th class="text-center">Hãng sản xuất</th>
                                     <th class="text-center">Thời gian đưa vào sử dụng</th>
+                                    <th></th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -241,6 +244,12 @@
                                     <td>{{item.SoSeri}}</td>
                                     <td>{{item.HangSanXuat}}</td>
                                     <td class="text-center">{{item.ThoiGianDuaVaoSuDung|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">
+                                        <button pButton pRipple type="button" icon="pi pi-eye"
+                                            class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                                            pTooltip="Xem Thông tin tài sản"
+                                            (click)="ChiTietThongTin(item)"></button>
+                                    </td>
                                 </tr>
                             </ng-template>
                         </p-table>

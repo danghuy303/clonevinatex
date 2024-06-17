@@ -34,6 +34,7 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   };
   activeTabIndex: number = 1;
   isCollapsed: boolean = true;
+  isXemChiTiet: boolean = false;
 
   constructor(
     private _modal: NgbModal,
@@ -47,7 +48,9 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     let date = new Date();
     this.filter.TuNgay = new Date(date.getFullYear(), 0, 1);
     this.filter.DenNgay = new Date(date.getFullYear(), 11, 31);
-    this.GetById();
+    if(!this.isXemChiTiet) {
+      this.GetById();
+    }
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan:'', };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
@@ -80,7 +83,8 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   GetById() {
     this._serviceTaiSan.ListDanhSachTaiSan().Get(this.getId).subscribe((res: any) => {
       this.item = res.Data;
-      this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
+      // this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
+      this.item.NgayNhap = new Date(this.item.NgayNhap)
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
     })
   }
@@ -109,4 +113,21 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
 
     });
   }
+
+  ChiTietThongTin(item) {
+    let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
+      size: "fullscreen",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.opt = "edit";
+    modalRef.componentInstance.isXemChiTiet = true;
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.result
+      .then((res: any) => {
+      })
+      .catch((er) => {
+
+      });
+  }
+
 }
