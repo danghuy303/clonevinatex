@@ -14,7 +14,8 @@
         </span> -->
     </header>
     <div class="p-px-3">
-        <p-table [columns]="cols" [value]="item.listFileDinhKem" styleClass="p-datatable-gridlines p-datatable-sm p-datatable-striped">
+        <p-table [columns]="cols" [value]="item.listFileDinhKem"
+            styleClass="p-datatable-gridlines p-datatable-sm p-datatable-striped">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th style="width: 50px">STT</th>
@@ -25,9 +26,12 @@
             <ng-template pTemplate="body" let-tailieu let-columns="columns" let-i="rowIndex">
                 <tr>
                     <td class="text-center">{{i+1}}</td>
-                    <td><a [href]="API + '/' + tailieu.Link">{{tailieu.FileName}}</a></td>
+                    <td>
+                        <div style="cursor: pointer;color: cornflowerblue;" (click)="open(tailieu)">{{tailieu.FileName}}</div>
+                    </td>
                     <td class="text-center">
-                        <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="deleteTaiLieu(i)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash"
+                            class="p-button-rounded p-button-danger p-button-text" (click)="deleteTaiLieu(i)"></button>
                     </td>
                 </tr>
             </ng-template>

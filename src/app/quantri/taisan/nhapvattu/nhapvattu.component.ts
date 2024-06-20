@@ -47,13 +47,13 @@ export class NhapvattuComponent implements OnInit {
     public store: StoreService,
     public _modal: NgbModal,
     private _danhMucTaiSan: DanhmuctaisanService,
-  ) { 
+  ) {
 
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
+    })
   }
 
   ngOnInit(): void {
@@ -70,11 +70,11 @@ export class NhapvattuComponent implements OnInit {
   }
 
   chonBoPhan(e) {
-    this.item.listTaiSan = [];
+    this.item.listItem = [];
   }
 
   ListNhaCungUng() {
-    this.item.listTaiSan.forEach(ele => {
+    this.item.listItem.forEach(ele => {
       this._serviceTaiSan.ThoiHanCungCap().GetListNhaCungUng(ele.IdTaiSan).subscribe((res: any) => {
         ele.listNhaCungUngDoiChieu = res.Data.map(nhaCungUng => {
           return {
@@ -99,7 +99,7 @@ export class NhapvattuComponent implements OnInit {
   }
 
   GetListNhaCungUng() {
-    this.item.listTaiSan.forEach(taisan => {
+    this.item.listItem.forEach(taisan => {
       this._serviceTaiSan.ThoiHanCungCap().GetListNhaCungUng(taisan.IdTaiSan).subscribe((res: any) => {
         taisan.listNhaCungUngDoiChieu = res.Data.map(nhaCungUng => {
           return {
@@ -120,7 +120,7 @@ export class NhapvattuComponent implements OnInit {
   }
   Tong() {
     this.tongThanhTien = 0;
-    this.item.listTaiSan.forEach(item => {
+    this.item.listItem.forEach(item => {
       item.ThanhTien = (item.SoLuong || 0) * (item.DonGia || 0);
       this.tongThanhTien += (item.ThanhTien || 0);
     });
@@ -134,9 +134,9 @@ export class NhapvattuComponent implements OnInit {
     })
   }
   add() {
-    if (this.item.listTaiSan == undefined || this.item.listTaiSan == null)
-      this.item.listTaiSan = [];
-    this.item.listTaiSan.push(this.newitem);
+    if (this.item.listItem == undefined || this.item.listItem == null)
+      this.item.listItem = [];
+    this.item.listItem.push(this.newitem);
     this.newitem = {}
   }
   delete(index) {
@@ -145,7 +145,7 @@ export class NhapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this.item.listTaiSan.splice(index, 1)[0];
+      this.item.listItem.splice(index, 1)[0];
       this.Tong();
     }).catch(er => console.log(er))
   }
@@ -161,7 +161,7 @@ export class NhapvattuComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
       return false;
     }
-    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+    if (!validVariable(this.item.listItem) || this.item.listItem.length === 0) {
       this.toastr.error("Yêu cầu nhập thêm vật tư!");
       return false;
     }
@@ -169,7 +169,7 @@ export class NhapvattuComponent implements OnInit {
   }
   GhiLai() {
     if (this.ValidateData()) {
-      this._serviceTaiSan.QuyTrinhNhapTu().Set(this.setData()).subscribe((res: any) => {
+      this._serviceTaiSan.PhieuNhapKho().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
@@ -187,26 +187,26 @@ export class NhapvattuComponent implements OnInit {
     }
   }
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.QuyTrinhNhapTu().GetNextSoQuyTrinh().subscribe((res: any) => {
+    this._serviceTaiSan.PhieuNhapKho().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
     })
   }
   ThemMoiDanhSachTaiSan() {
-    if (!validVariable(this.item.IdBoPhanSuDung)) {
-      this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
-      return false;
-    }
+    // if (!validVariable(this.item.IdBoPhanSuDung)) {
+    //   this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
+    //   return false;
+    // }
     let modalRef = this._modal.open(ModalnhapvattuluachontaisanComponent, {
       size: "xl",
       backdrop: "static",
     });
-    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+    modalRef.componentInstance.listItemDaChon = this.item.listItem ? this.item.listItem.map(ele => ele.IddmItem) : []
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.vatTu = 'Nhap vat tu';
     modalRef.componentInstance.item.IdBoPhanSuDung = this.item.IdBoPhanSuDung;
     modalRef.componentInstance.checkedAll = false;
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan').filter(ele => !ele.isXoa)
+      this.item.listItem = merge(res, this.item.listItem ? this.item.listItem : [], 'IddmItem').filter(ele => !ele.isXoa)
       this.GetListNhaCungUng();
     })
       .catch((er) => {
@@ -218,11 +218,11 @@ export class NhapvattuComponent implements OnInit {
     });
   }
   ChuyenDuyet() {
-    if (!validVariable(this.item.listTaiSan[0]?.IddmNhaCungUng) || !validVariable(this.item.listTaiSan[0]?.SoLuong)) {
-      this.toastr.error("Yêu cầu nhập nhà cung ứng và số lượng của vật tư!");
-      return
-    }
-    this._serviceTaiSan.QuyTrinhNhapTu().ChuyenTiep(this.setData()).subscribe((res: any) => {
+    // if (!validVariable(this.item.listItem[0]?.IddmNhaCungUng) || !validVariable(this.item.listItem[0]?.SoLuong)) {
+    //   this.toastr.error("Yêu cầu nhập nhà cung ứng và số lượng của vật tư!");
+    //   return
+    // }
+    this._serviceTaiSan.PhieuNhapKho().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -238,7 +238,7 @@ export class NhapvattuComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._serviceTaiSan.QuyTrinhNhapTu().Delete(this.item.Id).subscribe((res: any) => {
+        this._serviceTaiSan.PhieuNhapKho().Delete(this.item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.toastr.success(res.Message);
             this.activeModal.close();

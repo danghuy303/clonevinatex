@@ -200,6 +200,10 @@ import { ChonmVatTuThayThePopUpComponent } from './modal/chonm-vat-tu-thay-the-p
 import { DanhMucQrComponent } from './danhmuc/danh-muc-qr/danh-muc-qr.component';
 import { DanhMucDoiBaoDuongComponent } from './danhmuc/danh-muc-doi-bao-duong/danh-muc-doi-bao-duong.component';
 import { DanhMucDoiBaoDuongModalComponent } from './modal/danh-muc-doi-bao-duong-modal/danh-muc-doi-bao-duong-modal.component';
+import { TheKhoVatTuComponent } from './the-kho-vat-tu/the-kho-vat-tu.component';
+import { ChiTietTheKhoVatTuComponent } from './the-kho-vat-tu/chi-tiet-the-kho-vat-tu/chi-tiet-the-kho-vat-tu.component';
+import { KiemKeKhoVatTuComponent } from './kiem-ke-kho-vat-tu/kiem-ke-kho-vat-tu.component';
+import { ChiTietKiemKhoVatTuComponent } from './kiem-ke-kho-vat-tu/chi-tiet-kiem-kho-vat-tu/chi-tiet-kiem-kho-vat-tu.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -349,6 +353,10 @@ import { DanhMucDoiBaoDuongModalComponent } from './modal/danh-muc-doi-bao-duong
     DanhMucQrComponent,
     DanhMucDoiBaoDuongComponent,
     DanhMucDoiBaoDuongModalComponent,
+    TheKhoVatTuComponent,
+    ChiTietTheKhoVatTuComponent,
+    KiemKeKhoVatTuComponent,
+    ChiTietKiemKhoVatTuComponent,
   ],
   imports: [
     CommonModule,

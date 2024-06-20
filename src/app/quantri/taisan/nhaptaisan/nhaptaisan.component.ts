@@ -33,6 +33,9 @@ export class NhaptaisanComponent implements OnInit {
   listLoaiTaiSan: any = [];
   listPhanXuong = [];
   TenBoPhanSuDung = '';
+  display: boolean = false;
+  checkedAll: boolean = false;
+  listDanhSachMay = [];
 
   constructor(
     public _modal: NgbModal,
@@ -46,20 +49,20 @@ export class NhaptaisanComponent implements OnInit {
   ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
-}
+    })
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
-        .NhapTaiSan()
-        .Get(res.id)
-        .subscribe((res1: any) => {
-          this.update(res1);
-        });
+          .NhapTaiSan()
+          .Get(res.id)
+          .subscribe((res1: any) => {
+            this.update(res1);
+          });
       }
     });
     this.resetFilter();
@@ -187,4 +190,38 @@ export class NhaptaisanComponent implements OnInit {
     this.Loaddata();
   }
 
+  ChonDanhSachMay() {
+    this.display = !this.display;
+    let data = {
+      CurrentPage: 0
+    }
+    this._servicesSanXuat.GetListdmMay(data).subscribe((res: any) => {
+      this.listDanhSachMay = res;
+    })
+  }
+
+  check() {
+    this.checkedAll = this.listDanhSachMay.every(ele => ele.checked);
+  }
+
+  checkAll() {
+    this.listDanhSachMay = this.listDanhSachMay.map(ele => {
+      return {
+        ...ele,
+        checked: this.checkedAll
+      }
+    });
+  }
+
+  ChapNhan() {
+    let listId = this.listDanhSachMay.filter(ele => ele.checked).map(obj => obj.Id);
+    this._serviceTaiSan.DongBoTaiSanBylistIdFromSCM(listId).subscribe((res: any) => {
+      if(res.StatusCode === 200) {
+        this.toastr.success(res.Message);
+        this.display = !this.display;
+        this.Loaddata();
+      } else this.toastr.error(res.Message);
+     
+    })
+  }
 }

@@ -12,7 +12,9 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 export class ChonVatTuPopupComponent implements OnInit {
 
   item: any = {};
-  listVatTu: any = []
+  listVatTu: any = [];
+  IdTaiSan:string = '';
+  listDaChon:any = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -22,8 +24,16 @@ export class ChonVatTuPopupComponent implements OnInit {
 
   ngOnInit(): void {
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, IdDuAn: 0 };
-    this._serviceTaiSan.GetlistdmItem(data).subscribe((res: any) => {
-      this.listVatTu = res.Data;
+    // this._serviceTaiSan.GetlistdmItem(data).subscribe((res: any) => {
+    //   this.listVatTu = res.Data;
+    // })
+    this._serviceTaiSan.GetListDanhSachVatTuTrongKhoByIdTaiSan(this.IdTaiSan).subscribe((res: any) => {
+      this.listVatTu = res.Data.map(obj => {
+        return {
+          ...obj,
+          checked: this.listDaChon.includes(obj.Id)
+        }
+      });
     })
   }
 

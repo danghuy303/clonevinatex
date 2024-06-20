@@ -65,4 +65,9 @@ export class TaiLieuDanhSachComponent implements OnInit, OnChanges {
   test(){
     console.log(this.item)
   }
+
+  open(tailieu) {
+    let url =this.API + '/' + tailieu.Link;
+    window.open(url)
+  }
 }

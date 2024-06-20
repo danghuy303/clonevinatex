@@ -221,6 +221,17 @@ export class ModaldenghixulisucoComponent implements OnInit {
       this.checkbutton = res;
     });
   }
+
+  KhongDuyet() {
+    this._serviceTaiSan.QuyTrinhXuLySuCo().KhongDuyet(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
+  }
   ChuyenDuyet() {
     if (this.item.isDoiBaoDuong && this.item.listTaiSan.some(x => !x.IsXuLy)) {
       this.toastr.error("Vui lòng hoàn thành các công việc trước khi chuyển tiếp!")
@@ -342,15 +353,11 @@ export class ModaldenghixulisucoComponent implements OnInit {
     let listVatTuThayThe = [];
     if (e.index === 1) {
       let arr = this.item.listTaiSan.filter(ele =>
-        this.listNoiDungVatTuDeep.find(obj => obj.Id === ele.IddmCongViecThucHien).Ma === 'THAYTHE');
+        this.listNoiDungVatTuDeep.find(obj => obj.Id === ele?.IddmCongViecThucHien)?.Ma === 'THAYTHE');
       arr.forEach(obj => {
         listVatTuThayThe = [...obj.listVatTu, ...listVatTuThayThe];
       })
       this.listVatTu = [...listVatTuThayThe];
-      console.log(this.listVatTuThayThe);
-
-      console.log(this.listVatTu);
-
     }
   }
 

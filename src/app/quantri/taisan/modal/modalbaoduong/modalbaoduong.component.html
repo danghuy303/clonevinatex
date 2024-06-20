@@ -33,7 +33,7 @@
                     class="text-danger">(*)</span>:</label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
                 <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn loại tài sản"
-                    [(ngModel)]="item.IddmLoaiTaiSan" (onChange)="GetListVatTuTheoLoaiTaiSan($event.value)"
+                    [(ngModel)]="item.IddmLoaiTaiSan" (onChange)="ChonLoaiTaiSan($event.value)"
                     styleClass="p-inputtext-sm" showClear="true">
                 </p-dropdown>
             </div>

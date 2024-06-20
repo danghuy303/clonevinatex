@@ -49,13 +49,13 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewIn
   GetList() {
     let data = {
       PageSize: 20,
-      CurrentPage: 1,
+      CurrentPage: 0,
       Keyword: this.filter.Keyword,
       IddmLoaiTaiSan: '',
       // IdBoPhanSuDung:'',
       IdBoPhanSuDung: this.item.IdBoPhanSuDung || "",
     };
-    this._serviceTaiSan.QuyTrinhDeNghiThayVatTu().GetListVatTu(data).subscribe((res: any) => {
+    this._serviceTaiSan.NhaCungUng().GetListItem(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
       res.Data?.forEach(obj => {
         obj.MaTenTaiSan = obj.MaTaiSan + ' - ' + obj.TenTaiSan;
@@ -90,7 +90,7 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewIn
     this.items.forEach(obj => {
       if (obj.checked) {
         data.push({
-          IdTaiSan: obj.Id,
+          IddmItem: obj.Id,
           Id: '',
           MaTenVatTu: obj.MaTenVatTu,
           MaTenTaiSan: obj.MaTenTaiSan,
@@ -98,8 +98,8 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewIn
           TuoiTho: obj.TuoiTho,
           NuocSanXuat: obj.NuocSanXuat,
           IddmTaiSan: obj.IddmTaiSan,
-          MaTaiSan: obj.Ma,
-          TenTaiSan: obj.Ten,
+          Ma: obj.Ma,
+          Ten: obj.Ten,
         });
       }
     });

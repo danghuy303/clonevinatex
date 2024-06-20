@@ -91,7 +91,7 @@ export class XuatKhoVatTuDanhSachComponent implements OnInit {
       })
   }
   update(Id) {
-    this._taisan.QuyTrinhXuatKho().Get(Id).subscribe((res1: any) => {
+    this._taisan.PhieuXuatKho().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatKhoVatTuComponent, {
         size: 'fullscreen-100',
         backdrop: 'static'
@@ -132,7 +132,7 @@ export class XuatKhoVatTuDanhSachComponent implements OnInit {
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.TuNgay),
     }
-    this._taisan.QuyTrinhXuatKho().GetList(data).subscribe((res: any) => {
+    this._taisan.PhieuXuatKho().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
       this.paging.CurrentPage = res.Data.Page;
       this.paging.TotalItem = res.Data.TotalCount;

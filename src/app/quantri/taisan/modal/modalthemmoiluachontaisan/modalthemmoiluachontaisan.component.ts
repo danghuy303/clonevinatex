@@ -9,6 +9,7 @@ import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ChonComponent } from '../../screen/chon/chon.component';
+import { TaoQrPopupComponent } from '../tao-qr-popup/tao-qr-popup.component';
 @Component({
   selector: 'app-modalthemmoiluachontaisan',
   templateUrl: './modalthemmoiluachontaisan.component.html',
@@ -165,4 +166,19 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
       .catch((er) => {
       });
   }
+
+  TaoQR() {
+    let modalRef = this._modal.open(TaoQrPopupComponent, {
+      size: "lg",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.item = this.item.MaQR;
+    modalRef.result
+      .then((res: any) => {
+        this.item.MaQR = res
+      })
+      .catch((er) => {
+      });
+  }
+
 }

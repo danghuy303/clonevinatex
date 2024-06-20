@@ -214,7 +214,16 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this._serviceTaiSan.NhapTaiSan().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
-          this.item = res.Data;
+          this.item = res.Data.map((ele:any) => {
+            return {
+              ...res.Data,
+              TaiSan: {
+                ...res.Data.TaiSan,
+                ThoiGianDuaVaoSuDung: UnixToDate(res.Data.TaiSan.ThoiGianDuaVaoSuDungUnix),
+                NgayNhap: UnixToDate(res.Data.TaiSan.NgayNhapUnix),
+              }
+            }
+          });
           // this.activeModal.close();
           this.KiemTraButtonModal();
         } else {
@@ -410,7 +419,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.listItemDaChon = this.item.TaiSan.IdThuVien ? this.item.TaiSan.IdThuVien : "";
-    modalRef.componentInstance.item = this.item;
+    modalRef.componentInstance.item = this.item.TaiSan.MaQR;
     modalRef.result
       .then((res: any) => {
         this.item.TaiSan.MaQR = res

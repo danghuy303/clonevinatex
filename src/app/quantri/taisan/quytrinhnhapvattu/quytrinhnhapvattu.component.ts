@@ -47,7 +47,7 @@ export class QuytrinhnhapvattuComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
-          .QuyTrinhNhapTu()
+          .PhieuNhapKho()
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
@@ -79,12 +79,12 @@ export class QuytrinhnhapvattuComponent implements OnInit {
       TabTrangThai: this.trangThai, loai:0, IdBoPhanSuDung:'',
 
     };
-    this._serviceTaiSan.QuyTrinhNhapTu().GetList(data).subscribe((res: any) => {
+    this._serviceTaiSan.PhieuNhapKho().GetList(data).subscribe((res: any) => {
       // this.items = res.Data.Items;  
       this.items = res.Data.Items.map(ele => {
         return {
           ...ele,
-          Ngay: UnixToDate(ele.NgayUnix),
+          // Ngay: UnixToDate(ele.NgayUnix),
         }
       });  
       this.paging.TotalCount = res.Data.TotalCount;

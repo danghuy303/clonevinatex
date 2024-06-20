@@ -583,6 +583,20 @@ export class QuantriComponent implements OnInit, OnDestroy {
                   this.close();
                 },
               },
+              {
+                label: "Kiểm kê vật tư",
+                routerLink: "/quantri/taisan/kiem-ke-kho-vat-tu/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Thẻ kho vật tư",
+                routerLink: "/quantri/taisan/the-kho-vat-tu",
+                command: () => {
+                  this.close();
+                },
+              },
               // {
               //   label: "Đề nghị thay vật tư",
               //   routerLink: "/quantri/taisan/quytrinhdenghithayvattu/0",

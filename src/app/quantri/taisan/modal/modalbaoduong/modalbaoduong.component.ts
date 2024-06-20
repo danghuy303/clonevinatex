@@ -73,10 +73,26 @@ export class ModalbaoduongComponent implements OnInit {
 
   }
 
-  GetListVatTuTheoLoaiTaiSan(Id) {
-    this._service.GetListVatTuThuVienTaiSanTheoLoaiTaiSan(Id).subscribe((res: any) => {
-      this.listVatTu = mapArrayForDropDown(res.Data, 'Ten', 'Id')
+  ChonLoaiTaiSan(Id) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thay đổi loại tài sản';
+    modalRef.result.then(res => {
+      this.GetListVatTuTheoLoaiTaiSan(Id);
+      this.item.listCongViec = this.item.listCongViec.map(ele => {
+        return {
+          ...ele,
+          IdVatTu: ''
+        }
+      })
     })
+  }
+
+  GetListVatTuTheoLoaiTaiSan(Id) {
+      this._service.GetListVatTuThuVienTaiSanTheoLoaiTaiSan(Id).subscribe((res: any) => {
+        this.listVatTu = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+      })
   }
 
   delete(index: any) {

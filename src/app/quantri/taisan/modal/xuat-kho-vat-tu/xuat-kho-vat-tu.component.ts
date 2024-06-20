@@ -28,6 +28,7 @@ export class XuatKhoVatTuComponent implements OnInit {
   lang: any = vn;
   filter: any = {};
   listdmKhachHang: any = [];
+  listTaiSan: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   eAction: string = 'QUYTRINHXUATKHO';
 
@@ -46,6 +47,9 @@ export class XuatKhoVatTuComponent implements OnInit {
     this.getListdmKhachHang();
     if (this.opt === 'edit') {
       this.mapUnix();
+    }
+    if (this.item.IddmKho) {
+      this.GetListTaiSanDangSuDung();
     }
   }
 
@@ -70,8 +74,8 @@ export class XuatKhoVatTuComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._services.QuyTrinhXuatKho().GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.SoQuyTrinh = res;
+    this._services.PhieuXuatKho().GetNextSoQuyTrinh().subscribe((res: any) => {
+      this.item.SoQuyTrinh = res.Data;
     })
   }
 
@@ -84,10 +88,10 @@ export class XuatKhoVatTuComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập ngày");
       return false;
     }
-    if (!validVariable(this.item.IdNguoiYeuCau)) {
-      this.toastr.error("Yêu cầu nhập người yêu cầu");
-      return false;
-    }
+    // if (!validVariable(this.item.IdNguoiYeuCau)) {
+    //   this.toastr.error("Yêu cầu nhập người yêu cầu");
+    //   return false;
+    // }
     return true;
   }
 
@@ -109,7 +113,7 @@ export class XuatKhoVatTuComponent implements OnInit {
 
   GhiLai() {
     if (this.ValidateData()) {
-      this._services.QuyTrinhXuatKho().Set(this.setData()).subscribe((res: any) => {
+      this._services.PhieuXuatKho().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
           this.item = res.Data;
@@ -123,7 +127,7 @@ export class XuatKhoVatTuComponent implements OnInit {
   }
 
   ChuyenTiep() {
-    this._services.QuyTrinhXuatKho().ChuyenTiep(this.setData()).subscribe((res: any) => {
+    this._services.PhieuXuatKho().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res) {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
@@ -136,7 +140,7 @@ export class XuatKhoVatTuComponent implements OnInit {
   }
 
   KhongDuyet() {
-    this._services.QuyTrinhXuatKho().KhongDuyet(this.setData()).subscribe((res: any) => {
+    this._services.PhieuXuatKho().KhongDuyet(this.setData()).subscribe((res: any) => {
       if (res) {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
@@ -154,7 +158,7 @@ export class XuatKhoVatTuComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.QuyTrinhXuatKho().Delete(this.setData()).subscribe((res: any) => {
+      this._services.PhieuXuatKho().Delete(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
           this.activeModal.close();
@@ -168,6 +172,15 @@ export class XuatKhoVatTuComponent implements OnInit {
   getListdmKhachHang() {
     this._sanxuat.dmKhachHang().GetListOpt().subscribe((res: any) => {
       this.listdmKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
+  GetListTaiSanDangSuDung() {
+    let data = {
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung
+    }
+    this._services.GetListTaiSanDangSuDung(data).subscribe((res: any) => {
+      this.listTaiSan = mapArrayForDropDown(res.Data, 'TendmLoaiTaiSan', 'Id')
     })
   }
 
@@ -186,8 +199,16 @@ export class XuatKhoVatTuComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = '';
+    modalRef.componentInstance.IdTaiSan = this.item.IdTaiSan ? this.item.IdTaiSan : '';
+    modalRef.componentInstance.listDaChon = this.item.listItem ? this.item.listItem.map((ele: any) => ele.IddmItem) : [];
     modalRef.result.then((data) => {
-      this.item.listItem = data
+      this.item.listItem = data.map((ele: any) => {
+        return {
+          ...ele,
+          Ton: ele.SoLuong,
+          SoLuong:0
+        }
+      })
     })
   }
 

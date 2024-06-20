@@ -13,6 +13,7 @@ import { validVariable } from 'src/app/services/globalfunction';
 export class TaoQrPopupComponent implements OnInit {
   opt: any = "";
   items: any = [];
+  item:any;
   listItemDaChon: any = '';
   checkedAll: boolean = false;
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
@@ -56,7 +57,12 @@ export class TaoQrPopupComponent implements OnInit {
       PageSize: 20
     }
     this._danhMucTaiSan.GetListQRCODE(data).subscribe((res: any) => {
-      this.items = res;
+      this.items = res.map(ele => {
+        return {
+          ...ele,
+          checked:ele.MaQr === this.item ? true :false
+        }
+      });
     })
   }
 
@@ -93,6 +99,15 @@ export class TaoQrPopupComponent implements OnInit {
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetList()
+  }
+
+  checkItem(item) {
+    this.items = this.items.map(ele => {
+      return {
+        ...ele,
+        checked: item.Id === ele.Id ? true : false
+      }
+    })
   }
 
   GhiLai() {

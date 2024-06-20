@@ -233,7 +233,7 @@
                                 [(ngModel)]="suco.NoiDung"></textarea></td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listNoiDungVatTu" placeholder="Chọn"
-                                (onChange)="ChonVatTu($event.value,i)" [(ngModel)]="suco.IddmCongViecThucHien"
+                                [(ngModel)]="suco.IddmCongViecThucHien"
                                 styleClass="p-inputtext-sm" showClear="true">
                             </p-dropdown>
                         </td>

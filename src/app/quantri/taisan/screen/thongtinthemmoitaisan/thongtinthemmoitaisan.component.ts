@@ -55,12 +55,11 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   }
 
   chonBoPhan(e) {
-    if (!validVariable(e.value)) {
       this.item.ThoiGianDuaVaoSuDung = null;
       this.item.ThoiGianDuaVaoSuDungUnix = 0;
       this.item.listTaiSan[0].ThoiGianDuaVaoSuDung = null;
       this.item.listTaiSan[0].ThoiGianDuaVaoSuDungUnix = 0;
-    }
+
   }
 
   LayMa(e) {

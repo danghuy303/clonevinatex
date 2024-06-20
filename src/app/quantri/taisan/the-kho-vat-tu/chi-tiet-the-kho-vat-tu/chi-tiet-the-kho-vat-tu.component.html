@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <h4 style="color:#1f2779">Danh sách thẻ kho vật tư</h4>
+</div>
+<div class="modal-body">
+    <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+        <div class="modal-bt p-mb-4 ">
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+                (click)="activeModal.dismiss('Cross click')"></button>
+            <!-- <button pButton pRipple type="button" label="Xuất excel" class="p-mr-2 p-button-sm"
+                (click)="exportExcel()"></button> -->
+        </div>
+        <div class="p-d-flex p-flex-row">
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetTheKho(true)">
+                </p-calendar>
+            </div>
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetTheKho(true)">
+                </p-calendar>
+            </div>
+        </div>
+    </div>
+    <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines"
+        [scrollable]="true">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width:50px">
+                <col style="width:10rem">
+                <col style="width:10rem">
+                <col style="width:10rem">
+                <col style="width:10rem">
+                <col style="width:10rem">
+                <col style="width: 250px;">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center">STT</th>
+                <th class="text-center">Thời gian</th>
+                <th class="text-center">Tồn đầu kỳ</th>
+                <th class="text-center">Nhập</th>
+                <th class="text-center">Xuất</th>
+                <th class="text-center">Tồn cuối</th>
+                <th class="text-center">Số phiếu</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="text-center">TỔNG CỘNG</td>
+                <td class="text-right">{{tong.TonDau|number:'0.0-0'}}</td>
+                <td class="text-right">{{tong.Nhap|number:'0.0-0'}}</td>
+                <td class="text-right">{{tong.Xuat|number:'0.0-0'}}</td>
+                <td class="text-right">{{tong.TonCuoi|number:'0.0-0'}}</td>
+                <td></td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center">
+                    {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
+                </td>
+                <td class="text-center">
+                    {{(item.Ngay|date:'dd/MM/yyyy HH:mm') || ''}}
+                </td>
+                <td class="text-right">{{item.TonDau|number:'0.0-0'}}</td>
+                <td class="text-right">{{item.Nhap|number:'0.0-0'}}</td>
+                <td class="text-right">{{item.Xuat|number:'0.0-0'}}</td>
+                <td class="text-right">{{item.TonCuoi|number:'0.0-0'}}</td>
+                <td>
+                    {{item.SoPhieu}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
+                    [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
+            </div>
+        </ng-template>
+    </p-table>
+</div>

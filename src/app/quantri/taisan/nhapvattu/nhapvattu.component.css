@@ -5,3 +5,7 @@
 .my-dropdown-14px {
   background-color: red;
 }
+
+::ng-deep .p-calendar {
+  width: 100%;
+}
