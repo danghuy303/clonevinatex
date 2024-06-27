@@ -84,6 +84,7 @@ export class CapnhatthuvienComponent implements OnInit {
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       Keyword: this.filter.Keyword,
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      isList:true
     };
     this._serviceTaiSan.ThuVienTaiSan().GetList(data).subscribe((res: any) => {
       this.paging.CurrentPage = res.Data.Page;

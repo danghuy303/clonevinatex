@@ -51,6 +51,7 @@ import { DanhMucQrComponent } from './danhmuc/danh-muc-qr/danh-muc-qr.component'
 import { DanhMucDoiBaoDuongComponent } from './danhmuc/danh-muc-doi-bao-duong/danh-muc-doi-bao-duong.component';
 import { TheKhoVatTuComponent } from './the-kho-vat-tu/the-kho-vat-tu.component';
 import { KiemKeKhoVatTuComponent } from './kiem-ke-kho-vat-tu/kiem-ke-kho-vat-tu.component';
+import { DanhSachVatTuCanThayTheComponent } from './danh-sach-vat-tu-can-thay-the/danh-sach-vat-tu-can-thay-the.component';
 
 const routes: Routes = [
   { path: '', component: TaisanComponent },
@@ -77,6 +78,7 @@ const routes: Routes = [
   { path: 'danhmuc/mucdouutien', component: DanhmucmucdouutienComponent },
   { path: 'quytrinhnhapvattu/:id', component: QuytrinhnhapvattuComponent },
   { path: 'danhsachvattu', component: DanhsachvattuComponent },
+  // { path: 'quantritaisan/danhsachvattucanthaythe', component: DanhSachVatTuCanThayTheComponent },
   { path: 'quytrinhdenghithayvattu/:id', component: QuytrinhdenghithayvattuComponent },
   { path: 'quytrinhlapkehoachnam/:id', component: QuytrinhlapkehoachlichxichnamComponent },
   { path: 'lapkehoachlichxichnam', component: LapkehoachlichxichnamComponent },

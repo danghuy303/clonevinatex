@@ -43,7 +43,7 @@ export const mapQuyTrinhRoute = {
         GIAOKEHOACHSANXUATDIEUCHINH: '/quantri/kehoachsanxuat/giaokehoachsanxuat',
         THONGKESANLUONGNHANH: '/quantri/theodoithongkebaocaosanxuat/thongkesanluongnhanh',
 
-        QUYTRINHXUATKHO: '/quantri/taisan/xuat-kho',
+        PHIEUXUATKHO: '/quantri/taisan/xuat-kho',
         LAPKEHOACHLICHXICHNAM: '/quantri/taisan/quytrinhlapkehoachnam',
         LAPKEHOACHLICHXICHTHANG: '/quantri/taisan/quytrinhlapkehoachthang',
         QUYTRINHBAODUONGTAISAN: '/quantri/taisan/quytrinhbaoduong',

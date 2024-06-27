@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Danh sách vật tư tồn kho</h4>
+    <h4 style="color:#1f2779">Danh sách vật tư cần thay thế</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <!-- <button pButton label="Xuất Excel" class="p-button-sm p-mr-2"></button> -->
@@ -25,61 +25,7 @@
         </div>
     </div>
 </div>
-<p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <!-- <p-tabPanel header="Tồn trong kho">
-    </p-tabPanel> -->
-    <!-- <p-tabPanel header="Cần thay thế">
-    </p-tabPanel> -->
-</p-tabView>
-<div *ngIf="loaiTab === 0" class="p-mt-3">
-    <p-table [value]="itemsTonKho" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
-        <ng-template pTemplate="colgroup">
-            <colgroup>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <!-- <col> -->
-                <!-- <col>
-                <col> -->
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th class="text-center" rowspan="2">Mã </th>
-                <th class="text-center" rowspan="2">Tên vật tư</th>
-                <th class="text-center" rowspan="2">Xuất xứ</th>
-                <th class="text-center" rowspan="2">Tuổi thọ (Tháng)</th>
-                <th class="text-center" rowspan="2">Số lượng tồn</th>
-                <!-- <th class="text-center" rowspan="2">Số lượng cần dự trữ</th> -->
-                <!-- <th class="text-center" rowspan="2">Số lượng cần thay thế</th> -->
-                <!-- <th class="text-center" rowspan="2">Ngày đưa vào sử dụng</th> -->
-                <th class="text-center" rowspan="2">Đơn giá (VNĐ)</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr>
-                <td >{{item.Ma}}</td>
-                <td>{{item.Ten}}</td>
-                <td >{{item.NuocSanXuat}}</td>
-                <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
-                <!-- <td style="text-align: right;">{{item.DuTruToiThieu | number:'0.0-0'}}</td> -->
-                <!-- <td style="text-align: right;">{{item.SoLuongCanThayThe | number:'0.0-0'}}</td> -->
-                <!-- <td class="text-center">{{item.ThoiGianDuaVaoSuDung | date:"dd/MM/yyyy"}}</td> -->
-                <td style="text-align: right;">{{item.DonGiaNhapGanNhat | number:'0.0-0'}}</td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
-                [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
-            </div>
-        </ng-template>
-    </p-table>
-</div>
-<div class="p-mt-3" *ngIf="loaiTab === 1 ">
+<div class="p-mt-3">
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 " >
             <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm" (click)="exportExcel()" ></button>

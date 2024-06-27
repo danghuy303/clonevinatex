@@ -214,16 +214,17 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this._serviceTaiSan.NhapTaiSan().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
-          this.item = res.Data.map((ele:any) => {
-            return {
-              ...res.Data,
+          this.item = res.Data;
+          this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((data: any) => {
+            this.item = {
+              ...data.Data,
               TaiSan: {
-                ...res.Data.TaiSan,
-                ThoiGianDuaVaoSuDung: UnixToDate(res.Data.TaiSan.ThoiGianDuaVaoSuDungUnix),
-                NgayNhap: UnixToDate(res.Data.TaiSan.NgayNhapUnix),
+                ...data.Data.TaiSan,
+                ThoiGianDuaVaoSuDung: UnixToDate(data.Data.TaiSan.ThoiGianDuaVaoSuDungUnix),
+                NgayNhap: UnixToDate(data.Data.TaiSan.NgayNhapUnix),
               }
             }
-          });
+          })
           // this.activeModal.close();
           this.KiemTraButtonModal();
         } else {
@@ -380,21 +381,29 @@ export class ModalcapnhattaisanComponent implements OnInit {
           SoQuyTrinh: this.item.SoQuyTrinh,
           TaiSan: {
             ...res,
+            MaQR:'',
             IdThuVien: res.Id,
-            Id: null,
+            Id: this.item.TaiSan.Id ? this.item.TaiSan.Id : (this.opt === 'add') ? '' : res.Id,
             // ThoiGianDuaVaoSuDung: UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix),
             // NgayNhap: UnixToDate(this.item.TaiSan.NgayNhapUnix),
             ThoiGianDuaVaoSuDung: UnixToDate(res.ThoiGianDuaVaoSuDungUnix),
             NgayNhap: UnixToDate(res.NgayNhapUnix),
+            listFileDinhKem: res.listFileDinhKem.map(ele => {
+              return {
+                ...ele,
+                Id: ''
+              }
+            }),
             listTaiSan: res.listTaiSan.map((taisan: any) => {
               return {
                 ...taisan,
+                MaQR:'',
                 IdThuVien: taisan.Id,
                 Id: null,
               }
             }),
           },
-        }  
+        }
         this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(this.item.TaiSan.IddmLoaiTaiSan).subscribe((res: any) => {
           if (res.StatusCode === 500) {
             this.toastr.error(res.Message);
@@ -410,7 +419,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   addItem(e) {
-
   }
 
   TaoQR() {

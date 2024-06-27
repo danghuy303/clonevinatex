@@ -52,6 +52,8 @@ import { NhapLieuKeHoachModalComponent } from './nhap-lieu-ke-hoach/nhap-lieu-ke
 import { FilterbykeyCongDoanPipe } from '../services/filterbykey-cong-doan.pipe';
 import { ModalquytrinhbaoduongComponent } from '../quantri/taisan/modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
 import { ChonmVatTuThayThePopUpComponent } from '../quantri/taisan/modal/chonm-vat-tu-thay-the-pop-up/chonm-vat-tu-thay-the-pop-up.component';
+import { DanhSachVatTuCanThayTheComponent } from '../quantri/taisan/danh-sach-vat-tu-can-thay-the/danh-sach-vat-tu-can-thay-the.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -85,7 +87,8 @@ import { ChonmVatTuThayThePopUpComponent } from '../quantri/taisan/modal/chonm-v
     NhapLieuKeHoachComponent,
     NhapLieuKeHoachModalComponent,
     ModalquytrinhbaoduongComponent,
-    ChonmVatTuThayThePopUpComponent
+    ChonmVatTuThayThePopUpComponent,
+    DanhSachVatTuCanThayTheComponent
   ],
   imports: [
     AccordionModule,
@@ -109,7 +112,8 @@ import { ChonmVatTuThayThePopUpComponent } from '../quantri/taisan/modal/chonm-v
     DropdownModule,
     InputTextModule,
     NgbModule,
-    PaginatorModule
+    PaginatorModule,
+    SelectButtonModule
   ],
   exports: [
     isXoaPipe,
@@ -141,7 +145,9 @@ import { ChonmVatTuThayThePopUpComponent } from '../quantri/taisan/modal/chonm-v
     NhapLieuKeHoachModalComponent,
     ModalquytrinhbaoduongComponent,
     CheckboxModule,
-    ChonmVatTuThayThePopUpComponent
+    SelectButtonModule,
+    ChonmVatTuThayThePopUpComponent,
+    DanhSachVatTuCanThayTheComponent
   ]
 })
 export class SharedModule { }

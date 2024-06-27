@@ -12,6 +12,8 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalbaoduongluachontaisanComponent } from '../modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
 import { XulysucoluachontaisanComponent } from '../modal/xulysucoluachontaisan/xulysucoluachontaisan.component';
 import { ChonVatTuThayTheComponent } from '../screen/chon-vat-tu-thay-the/chon-vat-tu-thay-the.component';
+import { ThemMoiVatTuModalComponent } from '../screen/vattu/them-moi-vat-tu-modal/them-moi-vat-tu-modal.component';
+import { ChonVatTuComponent } from './chon-vat-tu/chon-vat-tu.component';
 
 
 @Component({
@@ -57,6 +59,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.item.listTaiSan = this.item.listTaiSan ? this.item.listTaiSan : [];
     this.title = 'Đề nghị xử lý sự cố'
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
@@ -333,7 +336,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   ChonVatTuThayThe(data: any, index: any) {
     let modalRef = this._modal.open(ChonVatTuThayTheComponent, {
       backdrop: 'static',
-      size:'lg'
+      size: 'lg'
     });
     modalRef.componentInstance.title = 'Chọn vật tư thay thế';
     modalRef.componentInstance.IdTaiSan = this.item.IdTaiSan;
@@ -357,7 +360,9 @@ export class ModaldenghixulisucoComponent implements OnInit {
       arr.forEach(obj => {
         listVatTuThayThe = [...obj.listVatTu, ...listVatTuThayThe];
       })
-      this.listVatTu = [...listVatTuThayThe];
+      this.item.listVatTu = [...listVatTuThayThe].filter(
+        (value, index, self) => self.findIndex((m) => m.IdVatTuThayThe === value.IdVatTuThayThe) === index,
+      );
     }
   }
 
@@ -367,6 +372,27 @@ export class ModaldenghixulisucoComponent implements OnInit {
         this.toastr.error(res.Message);
       } else this.toastr.success(res.Message);
     })
+  }
+
+  ChontVatTu() {
+    let modalRef = this._modal.open(ChonVatTuComponent, {
+      size: 'lg',
+      backdrop: 'static',
+    })
+    modalRef.componentInstance.IdTaiSan = this.item.IdTaiSan;
+    modalRef.componentInstance.listIdVatTuDaChon = this.item.listVatTu ? this.item.listVatTu.map(ele => ele.IdVatTuThayThe) : [];
+    modalRef.result
+      .then((res: any) => {
+        this.item.listVatTu = merge(res, this.item.listVatTu, "IdVatTuThayThe");
+        let listId = res.map((ele: any) => ele.IdVatTuThayThe);
+        this.item.listVatTu = merge(res, this.item.listVatTu ? this.item.listVatTu : [], 'IdVatTuThayThe').filter(ele => listId.includes(ele.IdVatTuThayThe));
+      })
+      .catch((error: any) => { })
+  }
+
+  DaXuLy(data) {
+    data.DenGio = data.IsXuLy ? new Date() : null;
+    this.item.listTaiSan = [...this.item.listTaiSan];
   }
 
 }

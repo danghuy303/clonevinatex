@@ -30,7 +30,7 @@ export class XuatKhoVatTuComponent implements OnInit {
   listdmKhachHang: any = [];
   listTaiSan: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  eAction: string = 'QUYTRINHXUATKHO';
+  eAction: string = 'PHIEUXUATKHO';
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -127,16 +127,21 @@ export class XuatKhoVatTuComponent implements OnInit {
   }
 
   ChuyenTiep() {
-    this._services.PhieuXuatKho().ChuyenTiep(this.setData()).subscribe((res: any) => {
-      if (res) {
-        if (res.StatusCode === 200) {
-          this.toastr.success(res.Message);
-          this.activeModal.close();
-        } else {
-          this.toastr.error(res.Message);
+    let arr = this.item.listItem.filter((x: any) => x.Ton - x.SoLuong >= 0);
+    if (arr?.length) {
+      this._services.PhieuXuatKho().ChuyenTiep(this.setData()).subscribe((res: any) => {
+        if (res) {
+          if (res.StatusCode === 200) {
+            this.toastr.success(res.Message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.Message);
+          }
         }
-      }
-    })
+      })
+    } else {
+      this.toastr.error('Số lượng tồn kho nhỏ hơn số lượng xuất!!!');
+    }
   }
 
   KhongDuyet() {
@@ -180,7 +185,7 @@ export class XuatKhoVatTuComponent implements OnInit {
       IdBoPhanSuDung: this.item.IdBoPhanSuDung
     }
     this._services.GetListTaiSanDangSuDung(data).subscribe((res: any) => {
-      this.listTaiSan = mapArrayForDropDown(res.Data, 'TendmLoaiTaiSan', 'Id')
+      this.listTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id')
     })
   }
 
@@ -206,7 +211,7 @@ export class XuatKhoVatTuComponent implements OnInit {
         return {
           ...ele,
           Ton: ele.SoLuong,
-          SoLuong:0
+          SoLuong: 0
         }
       })
     })

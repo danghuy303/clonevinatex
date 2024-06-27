@@ -179,9 +179,10 @@ export class NhaptaisanComponent implements OnInit {
     modalRef.componentInstance.title = "Cập nhật tài sản";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result.then(res => {
-      this.Loaddata()
+      
     }).catch(er => console.log(er))
       .finally(() => {
+        this.Loaddata()
         this.changeParam(0);
       })
   }

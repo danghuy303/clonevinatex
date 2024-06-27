@@ -204,6 +204,8 @@ import { TheKhoVatTuComponent } from './the-kho-vat-tu/the-kho-vat-tu.component'
 import { ChiTietTheKhoVatTuComponent } from './the-kho-vat-tu/chi-tiet-the-kho-vat-tu/chi-tiet-the-kho-vat-tu.component';
 import { KiemKeKhoVatTuComponent } from './kiem-ke-kho-vat-tu/kiem-ke-kho-vat-tu.component';
 import { ChiTietKiemKhoVatTuComponent } from './kiem-ke-kho-vat-tu/chi-tiet-kiem-kho-vat-tu/chi-tiet-kiem-kho-vat-tu.component';
+import { ChonVatTuComponent } from './modaldenghixulisuco/chon-vat-tu/chon-vat-tu.component';
+import { DanhSachVatTuCanThayTheComponent } from './danh-sach-vat-tu-can-thay-the/danh-sach-vat-tu-can-thay-the.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -357,6 +359,8 @@ import { ChiTietKiemKhoVatTuComponent } from './kiem-ke-kho-vat-tu/chi-tiet-kiem
     ChiTietTheKhoVatTuComponent,
     KiemKeKhoVatTuComponent,
     ChiTietKiemKhoVatTuComponent,
+    ChonVatTuComponent,
+    // DanhSachVatTuCanThayTheComponent,
   ],
   imports: [
     CommonModule,
@@ -398,7 +402,7 @@ import { ChiTietKiemKhoVatTuComponent } from './kiem-ke-kho-vat-tu/chi-tiet-kiem
     TreeTableModule,
     SharedModule,
     QRCodeModule,
-    SelectButtonModule,
+    // SelectButtonModule,
     ToggleButtonModule,
     AccordionModule
   ],

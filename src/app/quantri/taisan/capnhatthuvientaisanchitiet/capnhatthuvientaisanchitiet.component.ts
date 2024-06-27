@@ -62,11 +62,8 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
 
   ngOnInit() {
     this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
-    console.log("this.opt", this.opt);
-
     if (this.opt === 'add') {
       this.item.SoLuong = 1;
-
     }
     else {
       this.GetIem();
@@ -80,7 +77,6 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
     });
-
   }
 
   GetListdmPhanXuong() {
@@ -126,6 +122,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
           this.item = res.Data;
+          this.GetIem();
           // this.activeModal.close();
         } else {
           this.toastr.error(res.Message);
@@ -174,7 +171,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
     modalRef.result
       .then((res: any) => {
-        this.item.TaiSan.listTaiSan[index] = res;
+        this.item.listTaiSan[index] = res;
       })
       .catch((er) => {
       });

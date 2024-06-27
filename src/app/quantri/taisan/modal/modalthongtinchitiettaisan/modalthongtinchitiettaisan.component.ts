@@ -15,7 +15,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 })
 export class ModalthongtinchitiettaisanComponent implements OnInit {
 
-  item: any={};
+  item: any = {};
   getId: any = '';
   XemTheo: any = '';
   lang: any = vn;
@@ -48,17 +48,20 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     let date = new Date();
     this.filter.TuNgay = new Date(date.getFullYear(), 0, 1);
     this.filter.DenNgay = new Date(date.getFullYear(), 11, 31);
-    if(!this.isXemChiTiet) {
+    if (!this.isXemChiTiet) {
       this.GetById();
+    } else {
+      this.item.NgayNhap = new Date(this.item.NgayNhap)
+      this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
     }
-    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan:'', };
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
 
-    Promise.all([ls1,ls2]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");  
-      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");  
-     
+    Promise.all([ls1, ls2]).then((values: any) => {
+      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
+
     });
 
     this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
@@ -71,7 +74,7 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   }
 
   ChonTaiSan() {
-    
+
   }
 
   LayMa(e) {

@@ -18,6 +18,7 @@ export class ChiTietTheKhoVatTuComponent implements OnInit {
   item: any = {};
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 0 };
   tong: any = {};
+  title:string = '';
 
   constructor(
     public _modal: NgbModal,

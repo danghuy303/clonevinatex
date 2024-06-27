@@ -354,6 +354,14 @@ export class QuantriComponent implements OnInit, OnDestroy {
             },
           },
           {
+            label: "Danh sách vật tư cần thay thế",
+            routerLink: "/quantri/quantritaisan/danhsachvattucanthaythe",
+            // separator: this.showTaiSanModule,
+            command: () => {
+              this.close();
+            },
+          },
+          {
             label: "Số giờ dừng máy",
             routerLink: "/quantri/quantritaisan/sogiodungmay",
             separator: !this.showTaiSanModule,
@@ -556,7 +564,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Quản lý kho vật tư",
             items: [
               {
-                label: "Danh sách nhập vật tư",
+                label: "Danh sách nhập vật tư ",
                 routerLink: "/quantri/taisan/danhsachvattu",
                 command: () => {
                   this.close();

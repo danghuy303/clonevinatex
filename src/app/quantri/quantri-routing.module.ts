@@ -127,6 +127,7 @@ import { NhapkhohoiluongdoComponent } from "./quanlykhosanxuat/quytrinh/nhapkhoh
 import { XuatkhohoiluongdoComponent } from "./quanlykhosanxuat/quytrinh/xuatkhohoiluongdo/xuatkhohoiluongdo.component";
 import { KiemkekhohoiluongdoComponent } from "./quanlykhosanxuat/quytrinh/kiemkekhohoiluongdo/kiemkekhohoiluongdo.component";
 import { TonkhohoiluongdoComponent } from "./quanlykhosanxuat/quytrinh/tonkhohoiluongdo/tonkhohoiluongdo.component";
+import { DanhSachVatTuCanThayTheComponent } from "./taisan/danh-sach-vat-tu-can-thay-the/danh-sach-vat-tu-can-thay-the.component";
 
 const routes: Routes = [
   {
@@ -174,7 +175,7 @@ const routes: Routes = [
         path: "quantritaisan/ngansachdukienvathucte",
         component: NgansachdukienvathucteComponent,
       },
-
+      { path: 'quantritaisan/danhsachvattucanthaythe', component: DanhSachVatTuCanThayTheComponent },
       {
         path: "baocaosanxuat/sanluongtonghop",
         component: SanluongtonghopComponent,

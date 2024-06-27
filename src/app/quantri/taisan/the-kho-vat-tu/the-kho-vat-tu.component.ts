@@ -43,7 +43,8 @@ export class TheKhoVatTuComponent implements OnInit {
     }
     this._service.GetLuuKho(data).subscribe((res: any) => {
       this.listHienThi = res.Data;
-      // this.paging = res.paging;
+      // this.paging.TotalItem = res.Data.TotalCount;
+      // this.paging.CurrentPage = res.Data.Page;
     })
   }
 
@@ -58,6 +59,7 @@ export class TheKhoVatTuComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.title = `Danh sách thẻ kho ${item.Ten}`;
     modalRef.result.then((res: any) => {
     })
       .catch(er => {

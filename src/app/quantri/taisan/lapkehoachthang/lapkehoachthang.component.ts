@@ -174,8 +174,6 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   GhiLai() {
-
-
     if (this.ValidateData(false)) {
       this._serviceTaiSan.LichXichThang().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode !== 200 || !res.StatusCode) {

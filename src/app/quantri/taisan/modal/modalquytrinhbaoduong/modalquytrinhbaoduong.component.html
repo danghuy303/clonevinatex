@@ -29,7 +29,7 @@
             <button pButton pRipple type="button" label="Xác nhận bảo dưỡng" class="p-mr-2 p-button-sm"
                 (click)="XacNhan()" *ngIf="checkbutton.XacNhan?false:true"></button>
             <button pButton pRipple type="button" label="Hoàn thành bảo dưỡng" class="p-mr-2 p-button-sm"
-                (click)="HoanThanh()" *ngIf="checkbutton.ChuyenTiep"></button>
+                (click)="HoanThanh()" *ngIf="checkbutton.ChuyenTiep && isHoanThanhBaoDuong"></button>
         </div>
     </div>
     <!-- <div class="p-grid">
@@ -176,14 +176,15 @@
                             <div class="p-col-12 p-xl-8 p-p-0">
                                 <p-calendar dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true"
                                     yearRange="2000:2040" [showTime]="true" [showIcon]="true" inputId="icon"
-                                    placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayBatDau" [disabled]="checkbutton.XacNhan?true:false">
+                                    placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayBatDau"
+                                    [disabled]="checkbutton.XacNhan?true:false">
                                 </p-calendar>
                             </div>
                         </div>
                         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
                             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian kết thúc</label>
                             <div class="p-col-12 p-xl-8 p-p-0">
-                                <p-calendar dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true"
+                                <p-calendar dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" [disabled]="isHoanThanhBaoDuong && !checkbutton.ChuyenTiep"
                                     yearRange="2000:2040" [showTime]="true" [showIcon]="true" inputId="icon"
                                     placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayKetThuc">
                                 </p-calendar>
@@ -193,7 +194,7 @@
                             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đội/người bảo dưỡng<span
                                     class="required">(*)</span></label>
                             <div class="p-col-12 p-xl-8 p-p-0">
-                                <p-dropdown [filter]="true" [options]="listDoiBaoDuong" [(ngModel)]="item.IdDoiBaoDuong"
+                                <p-dropdown [filter]="true" [options]="listDoiBaoDuong" [(ngModel)]="item.IdDoiBaoDuong" [disabled]="isHoanThanhBaoDuong && !checkbutton.ChuyenTiep"
                                     placeholder="Chọn"></p-dropdown>
                             </div>
                         </div>
@@ -231,7 +232,7 @@
                                     <ng-container *ngFor="let x of listCVBaoDuong">
                                         <td class="text-center">
                                             <div *ngIf="x.Id === baoduong.IddmLoaiThucHienBaoDuong">
-                                                <p-checkbox [(ngModel)]="baoduong.isThucHien" binary="true"
+                                                <p-checkbox [(ngModel)]="baoduong.isThucHien" binary="true" [disabled]="baoduong.isThucHien && !checkbutton.ChuyenTiep"
                                                     (onChange)="ThayThe(baoduong)" inputId="binary"></p-checkbox>
                                             </div>
                                         </td>
@@ -244,9 +245,9 @@
             </p-tabPanel>
             <p-tabPanel header="Vật tư">
                 <div class="d-flex p-pb-2">
-                    <button  pButton pRipple type="button" label="Đề xuất cấp vật tư" class="p-mr-2 p-button-sm"
+                    <button *ngIf="checkbutton.ChuyenTiep" pButton pRipple type="button" label="Đề xuất cấp vật tư" class="p-mr-2 p-button-sm"
                         (click)="CapVatTu()"></button>
-                    <button  pButton pRipple type="button" label="Chọn vật tư" class="p-mr-2 p-button-sm"
+                    <button *ngIf="checkbutton.ChuyenTiep" pButton pRipple type="button" label="Chọn vật tư" class="p-mr-2 p-button-sm"
                         (click)="ChonVatTuThayThe()"></button>
                 </div>
                 <p-table [value]="item.listVatTu"

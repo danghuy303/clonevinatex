@@ -49,7 +49,7 @@ export class XuatKhoVatTuDanhSachComponent implements OnInit {
       width: 'unset'
     },
   ];
-  eAction = 'QUYTRINHXUATKHO';
+  eAction = 'PHIEUXUATKHO';
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 
   constructor(public _modal: NgbModal,

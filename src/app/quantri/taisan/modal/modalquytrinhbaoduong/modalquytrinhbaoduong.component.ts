@@ -85,7 +85,6 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     if (this.opt === 'add') {
 
     } else { }
-    this.KiemTraButtonModal();
     this.GetNews();
   }
 
@@ -199,6 +198,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   KiemTraButtonModal() {
     this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
       this.checkbutton = res;
+      this.checkbutton.XacNhan = this.item.Id;
+      this.isHoanThanhBaoDuong = this.item.listCongViec.every(ele => ele.isThucHien);
     });
   }
 
@@ -337,7 +338,6 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       NgayBaoDuong: new Date(this.item.NgayBaoDuong),
       NgayKeHoach: UnixToDate(this.item.NgayKeHoachUnix ? this.item.NgayKeHoachUnix : 0)
     }
-    console.log(this.item);
     this.GetDoiThiCong(this.item.IddmLoaiTaiSan);
     // this.GetListVatTuByIdTaiSan_BaoDuong(this.item.IdTaiSan_BaoDuong);
     // this.GetDanhSachCongViecByIddmLoaiBaoDuong(this.item.IddmLoaiBaoDuong, this.item.IdTaiSan);
@@ -360,10 +360,14 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     this._serviceTaiSan.GetQuyTrinhBaoDuongByIdTaiSan_BaoDuong(IdTaiSan_BaoDuong).subscribe((res: any) => {
       this.item = {
         ...res.Data,
+        NgayBaoDuong: UnixToDate(res.Data.NgayBaoDuongUnix ? res.Data.NgayBaoDuongUnix : 0),
+        NgayBatDau: UnixToDate(res.Data.NgayBatDauUnix ? res.Data.NgayBatDauUnix : 0),
+        NgayKetThuc: UnixToDate(res.Data.NgayKetThucUnix ? res.Data.NgayKetThucUnix : 0),
         NgayKeHoach: UnixToDate(res.Data.NgayKeHoachUnix ? res.Data.NgayKeHoachUnix : 0)
       };
-      this.checkbutton.XacNhan = this.item.Id;
-      this.checkbutton.ChuyenTiep = false;
+      this.KiemTraButtonModal();
+      // this.checkbutton.XacNhan = this.item.Id;
+      // this.checkbutton.ChuyenTiep = false;
       if (!this.item.Id) {
         this.GetNextSoQuyTrinh();
       }
@@ -375,6 +379,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       CurrentPage: 0,
       MaCongDoan: this.listLoaiTaiSanDeep.find(obj => obj.Id === value)?.MaCongDoan
     }
+
     this._danhMucTaiSan.GetListdmCongDoan_DoiBaoDuong(data).subscribe((res: any) => {
       this.listDoiBaoDuong = mapArrayForDropDown(res.Data, "NoiDung", "Id");
     })
@@ -418,9 +423,9 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
         this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((btn: any) => {
           this.checkbutton = {
             ...btn,
-            ChuyenTiep: false,
             XacNhan: res.Data.Id
           };
+          this.isHoanThanhBaoDuong = this.item.listCongViec.every(ele => ele.isThucHien);
         });
       }
     }, (er) => {
@@ -512,7 +517,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     //   }
     // }s
 
-    this.checkbutton.ChuyenTiep = this.item.listCongViec.every(ele => ele.isThucHien);
+    this.isHoanThanhBaoDuong = this.item.listCongViec.every(ele => ele.isThucHien);
   }
 
 }

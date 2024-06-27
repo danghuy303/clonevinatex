@@ -44,7 +44,7 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       IddmLoaiTaiSan: '',
-      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      // IdBoPhanSuDung: this.item.IdBoPhanSuDung,
     }
     this._serviceTaiSan.NhapTaiSan().ChonTuThuVien(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;

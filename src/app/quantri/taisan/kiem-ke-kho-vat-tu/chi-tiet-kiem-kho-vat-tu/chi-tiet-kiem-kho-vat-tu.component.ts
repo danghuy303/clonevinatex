@@ -147,13 +147,12 @@ export class ChiTietKiemKhoVatTuComponent implements OnInit {
       .PhieuKiemKeKhoVatTu()
       .ChuyenTiep(this.item)
       .subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
+          if (res.StatusCode === 200) {
+            this.toastr.success(res.Message);
             this.activeModal.close();
           } else {
-            this.toastr.error(res.message);
+            this.toastr.error(res.Message);
           }
-        }
       });
   }
   KhongDuyet() {
@@ -163,10 +162,11 @@ export class ChiTietKiemKhoVatTuComponent implements OnInit {
       .KhongDuyet(this.item)
       .subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res.StatusCode === 200) {
+            this.toastr.success(res.Message);
             this.activeModal.close();
           } else {
-            this.toastr.error(res.message);
+            this.toastr.error(res.Message);
           }
         }
       });
@@ -186,13 +186,12 @@ export class ChiTietKiemKhoVatTuComponent implements OnInit {
       .PhieuKiemKeKhoVatTu()
       .Set(this.item)
       .subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this.toastr.success(res.Message);
             this.opt = "edit";
             //   this.item = res.objectReturn;
-            this.paginator.changePage(0);
-            this.Id = res.objectReturn.Id;
+            // this.paginator.changePage(0);
+            this.Id = res.Data.Id;
             this.GetQuyTrinh();
             //   this.listItem = res.objectReturn.listItem;
             //   this.paging.CurrentPage = 1;
@@ -205,9 +204,9 @@ export class ChiTietKiemKhoVatTuComponent implements OnInit {
             //   this.item.listItem = res.objectReturn.listItem.slice(0, 10);
             //   this.KiemTraButtonModal();
           } else {
-            this.toastr.error(res.message);
+            this.toastr.error(res.Message);
           }
-        }
+
       });
   }
   XoaQuyTrinh() {
@@ -222,10 +221,11 @@ export class ChiTietKiemKhoVatTuComponent implements OnInit {
           .PhieuKiemKeKhoVatTu()
           .Delete(this.item)
           .subscribe((res: any) => {
-            if (res?.State === 1) {
+            if (res?.StatusCode === 200) {
+              this.toastr.success(res.Message);
               this.activeModal.close();
             } else {
-              this.toastr.error(res.message);
+              this.toastr.error(res.Message);
             }
           });
       })

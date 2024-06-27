@@ -756,6 +756,9 @@ export class TaisanService {
       GetList: (data) => {
         return this.http.post(`${url}QuanLyVatTuDuTru/GetListVatTuCanThayThe`, data, httpOptions);
       },
+      GetListVatTuTonTrongKho: (data) => {
+        return this.http.post(`${url}NhatKySuDung/GetListVatTuTonTrongKho`, data, httpOptions);
+      },
       KiemTraNCC: (data) => {
         return this.http.post(`${url}QuanLyVatTuDuTru/SelectTaiSanQuytrinhThoiHanCungCap`, data, httpOptions);
       },
