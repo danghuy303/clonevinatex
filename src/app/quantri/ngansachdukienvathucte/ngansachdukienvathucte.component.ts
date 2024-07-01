@@ -17,11 +17,13 @@ import * as moment from 'moment';
 export class NgansachdukienvathucteComponent implements OnInit {
   filter = {
     IdBoPhanSuDung: "",
-    LoaiThoiGian: 0,
+    LoaiThoiGian: 2,
     TuNgay: new Date(),
     DenNgay: new Date(),
     namThang: new Date(),
-    nam: 0
+    nam: 0,
+    LoaiChiPhi: 1,
+    IddmTaiSan: ''
   };
   listNam: any = [];
   lang: any = vn;
@@ -29,8 +31,9 @@ export class NgansachdukienvathucteComponent implements OnInit {
 
   PhanXuong: any;
 
-  LoaiThoiGian = [{ label: "Ngày", value: 0 }, { label: "Tháng", value: 2 }, { label: "Năm", value: 3 }]
-
+  LoaiThoiGian = [{ label: "Tháng", value: 2 }, { label: "Năm", value: 3 }];
+  listLoaiChiPhi = [{ label: "vật tư", value: 1 }, { label: "Chi phí khác", value: 2 }]
+  listVatTu: any = [];
   data: any;
 
   chartOptions = {
@@ -94,7 +97,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
     this._servicesSanXuat.GetListdmPhanXuongOpt().subscribe((res: any) => {
       this.PhanXuong = mapArrayForDropDown(res, 'Ten', 'Id')
     })
-
+    this.GetSupplies();
     let date = new Date();
     this.filter.nam = date.getFullYear();
     this.filter.namThang = date;
@@ -253,4 +256,32 @@ export class NgansachdukienvathucteComponent implements OnInit {
     }
     )
   }
+
+  SelectCosts() {
+    if (this.filter.LoaiChiPhi === 1) {
+      this.GetSupplies();
+    } else {
+      this.getDataBaoCao();
+    }
+  }
+
+  GetSupplies() {
+    let data = {
+      PageSize: 20,
+      CurrentPage: 0,
+      Keyword: '',
+      IddmLoaiTaiSan: '',
+      IdBoPhanSuDung: "",
+    };
+    this._servicesTaiSan.NhaCungUng().GetListItem(data).subscribe((res: any) => {
+      let arr = [
+        { Id: '', Ten: 'Tất cả', }
+      ];
+      arr = [...arr, ...res.Data];
+      this.listVatTu = mapArrayForDropDown(arr, 'Ten', 'Id');
+      this.filter.IddmTaiSan = '';
+      this.getDataBaoCao();
+    });
+  }
+
 }

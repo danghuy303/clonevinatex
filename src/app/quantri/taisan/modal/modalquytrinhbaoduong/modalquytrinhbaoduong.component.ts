@@ -130,8 +130,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     // })
     let data = {
       ...this.item,
-      ThoiGianBatDauUnix: DateToUnix(this.item.ThoiGianBatDau),
-      ThoiGianKetThucUnix: DateToUnix(this.item.ThoiGianKetThuc),
+      NgayBatDauUnix: DateToUnix(this.item.NgayBatDau),
+      NgayKetThucUnix: DateToUnix(this.item.NgayKetThuc),
       NgayKeHoachUnix: DateToUnix(this.item.NgayKeHoach),
       NgayBaoDuongUnix: DateToUnix(this.item.NgayBaoDuong),
       listCongViec: this.item?.listCongViec?.map(ele => {
@@ -268,6 +268,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     })
     this.GetListdmLoaiBaoDuongForDanhMuc();
     this.chonBoPhan(this.item.IdBoPhanSuDung);
+    this.isHoanThanhBaoDuong = this.item.listCongViec.every(ele => ele.isThucHien);
 
   }
 
@@ -442,7 +443,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.toastr.error("Vui lòng hoàn thành tất cả công việc trước khi hoàn thành bảo dưỡng");
       return;
     }
-    this.item.ThoiGianKetThuc = new Date();
+    // this.item.ThoiGianKetThuc = new Date();
     this._serviceTaiSan.QuyTrinhBaoDuong().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);

@@ -32,6 +32,18 @@
           <p-dropdown *ngIf="filter.LoaiThoiGian === 3" [filter]="true" [options]="listNam" [(ngModel)]="filter.nam"
             placeholder="Chọn năm" styleClass="p-inputtext-sm" (onChange)="getDataBaoCao()"></p-dropdown>
         </div>
+        <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+          <div class="p-mr-2">
+            <p-dropdown [filter]="true" placeholder="Chọn loại chi phí" [options]="listLoaiChiPhi"
+              styleClass="p-inputtext-sm" [(ngModel)]="filter.LoaiChiPhi" (onChange)="SelectCosts()"></p-dropdown>
+          </div>
+        </div>
+        <div *ngIf="filter.LoaiChiPhi === 1" class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+          <div class="p-mr-2">
+            <p-dropdown [filter]="true" placeholder="Chọn vật tư" [options]="listVatTu"
+              styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmTaiSan" (onChange)="getDataBaoCao()"></p-dropdown>
+          </div>
+        </div>
         <!-- <div class="p-mr-2">
           <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
             placeholder="Từ ngày" [(ngModel)]="filter.TuNgay" (onSelect)="getDataBaoCao()">

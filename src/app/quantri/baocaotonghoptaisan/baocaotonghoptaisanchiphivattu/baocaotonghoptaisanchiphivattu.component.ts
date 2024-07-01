@@ -46,6 +46,8 @@ export class BaocaotonghoptaisanchiphivattuComponent implements OnInit, OnChange
       Ngay: this.filter.Ngay,
       LoaiKeHoach: this.filter.LoaiKeHoach,
       IdDuAn: 0,
+      IddmTaiSan: this.filter.IddmTaiSan,
+      LoaiChiPhi: this.filter.LoaiChiPhi
     };
     this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiVatTu(data).subscribe((res: any) => {
       this.tongGiaTriVatTu = 0;

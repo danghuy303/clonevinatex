@@ -221,7 +221,7 @@
                         <th class="text-center">Đã xử lý</th>
                         <th class="text-center">Thao tác</th>
                         <th class="text-center">
-                            <p-button icon="pi pi-plus" pTooltip="Thêm" tooltipPosition="top"
+                            <p-button icon="pi pi-plus" title="Thêm"
                                 (click)="add()"></p-button>
                         </th>
                     </tr>
@@ -238,11 +238,11 @@
                         </td>
                         <td class="text-center">
                             <p-calendar dateFormat="dd/mm/yy" [showTime]="true" inputStyleClass="p-inputtext-sm"
-                                [showIcon]="true" [locale]="lang" [(ngModel)]="suco.TuGio" inputId="icon">
+                                [showIcon]="true" [locale]="lang" [(ngModel)]="suco.TuGio" inputId="icon" [maxDate]="suco.DenGio">
                             </p-calendar>
                         </td>
                         <td class="text-center">
-                            <p-calendar dateFormat="dd/mm/yy" [showTime]="true" inputStyleClass="p-inputtext-sm"
+                            <p-calendar dateFormat="dd/mm/yy" [showTime]="true" inputStyleClass="p-inputtext-sm" [minDate]="suco.TuGio"
                                 [showIcon]="true" [locale]="lang" [(ngModel)]="suco.DenGio" inputId="icon">
                             </p-calendar>
                         </td>
@@ -267,7 +267,7 @@
         <p-tabPanel header="Vật tư">
             <!-- <button pButton pRipple type="button" label="Chọn vật tư" class="p-mr-2 p-button-sm"
                 (click)="ChontVatTu()"></button> -->
-            <button *ngIf="item.listVatTu.length" pButton pRipple type="button" label="Đề xuất cấp vật tư"
+            <button *ngIf="item.listVatTu.length && item.isDoiBaoDuong" pButton pRipple type="button" label="Đề xuất cấp vật tư"
                 class="p-mr-2 p-button-sm" (click)="DeXuatVatTu()"></button>
             <div class="p-pt-2">
                 <p-table [value]="item.listVatTu" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">

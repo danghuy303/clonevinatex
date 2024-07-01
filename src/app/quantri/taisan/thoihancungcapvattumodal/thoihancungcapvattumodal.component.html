@@ -89,6 +89,7 @@
                 <col>
                 <col>
                 <col>
+                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -99,10 +100,11 @@
                 </th>
                 <th class="text-center">Mã</th>
                 <th class="text-center">Tên</th>
+                <th class="text-center">Số lượng</th>
                 <th class="text-center">Nhà cung ứng</th>
                 <th class="text-center">Đơn giá</th>
-                <th class="text-center">Số lượng</th>
                 <th class="text-center">Thành tiền</th>
+                <th class="text-center">Ngày về dự kiến</th>
                 <th class="text-center">Ghi chú</th>
                 <th class="text-center">Thao tác</th>
             </tr>
@@ -115,17 +117,23 @@
                 <td >{{item.MaTaisan}}</td>
                 <td >{{item.TenTaiSan}}</td>
                 <td class="text-center">
+                    <p-inputNumber inputId="locale-us"  mode="decimal" [min]="0" locale="en-US" Class="p-inputtext-sm"
+                        [(ngModel)]="item.SoLuong" (onBlur)=" Tong()">
+                    </p-inputNumber>
+                </td>
+                <td class="text-center">
                     <p-dropdown [filter]="true" [options]="item.listDeChon" placeholder="Chọn"
                         [(ngModel)]="item.IdNhaCungUng" [showClear]="true" (onChange)="ChonNhaCungUng(item)">
                     </p-dropdown>
                 </td>
                 <td class="text-right"> {{item.DonGia | number:"0.0-0"}}</td>
-                <td class="text-center">
-                    <p-inputNumber inputId="locale-us"  mode="decimal" [min]="0" locale="en-US" Class="p-inputtext-sm"
-                        [(ngModel)]="item.SoLuong" (onBlur)=" Tong()">
-                    </p-inputNumber>
-                </td>
                 <td class="text-right"> {{item.ThanhTien | number:"0.0-0"}}</td>
+                <td class="text-center">
+                    <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+                    [locale]="lang" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon"
+                    [(ngModel)]="item.Ngay" placeholder="dd/mm/yyyy" > 
+                </p-calendar>
+                </td>
                 <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.GhiChu" [ngbTooltip]="item.GhiChu" /></td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-trash"
