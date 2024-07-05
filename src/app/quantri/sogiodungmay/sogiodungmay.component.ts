@@ -196,7 +196,7 @@ export class SogiodungmayComponent implements OnInit {
           weight: 'bold'
         },
         formatter: (value, context) => {
-          return formatNumber(parseFloat(value), 'en-US', '0.0-3')
+          return formatNumber(parseFloat(value), 'en-US', '0.2-2')
         }
       },
       zoom: {
@@ -424,7 +424,7 @@ export class SogiodungmayComponent implements OnInit {
       let dataSoGioDungMay = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
-          dataSoGioDungMay.push(i.SoGio)
+          dataSoGioDungMay.push(formatNumber(parseFloat(i.SoGio), 'en-US', '0.2-2'))
         })
       });
       // console.log(dataSoGioDungMay);
@@ -432,7 +432,7 @@ export class SogiodungmayComponent implements OnInit {
       let dataSoGioHoatDong = [];
       res.Data.forEach((r) => {
         r.listSuCoTheoNgay.forEach((i) => {
-          dataSoGioHoatDong.push(i.SoGioHoatDong)
+          dataSoGioHoatDong.push(formatNumber(parseFloat(i.SoGioHoatDong), 'en-US', '0.2-2'))
         })
       });
       // console.log(dataSoGioHoatDong);

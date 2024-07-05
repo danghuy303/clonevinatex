@@ -42,8 +42,35 @@ export class NgansachdukienvathucteComponent implements OnInit {
       mode: 'single',
       callbacks: {
         label: function (tooltipItems, data) {
-          return formatNumber(Number(tooltipItems.yLabel), 'en-GB', '1.0-0') + " VND";
-        }
+          // return [
+          //   `Chi phí: ${formatNumber(Number(tooltipItems.yLabel), 'en-GB', '1.0-0') + " VND"} `,
+          //   `vật tư: ${data.datasets[0].dataSuppel[tooltipItems.index]}`,
+          // ];
+        
+          // const dataset = data.datasets[tooltipItems.datasetIndex];
+          // const value = dataset.data[tooltipItems.index];
+          // if (dataset.type === 'line') {
+          //   return `Line value: ${value}`;
+          // } else if (dataset.type === 'bar') {
+          //   return `Bar value: ${value}`;
+          // }
+          // return value;
+          const dataset = data.datasets[tooltipItems.datasetIndex];
+          const value = dataset.data[tooltipItems.index];
+          if (dataset.type === 'line') {
+            return `Chi phí: ${formatNumber(Number(tooltipItems.yLabel), 'en-GB', '1.0-0') + " VND"}`
+
+          } else if (dataset.type === 'bar') {
+            return [
+              `Chi phí: ${formatNumber(Number(tooltipItems.yLabel), 'en-GB', '1.0-0') + " VND"} `,
+              `vật tư: ${data.datasets[0].dataSuppel[tooltipItems.index]}`,
+            ]
+          }
+          return value;
+        },
+        // title: function (tooltipItem, data) {
+        //   return 'Custom Title: ';
+        // }
       }
     },
 
@@ -54,7 +81,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
     },
 
     legend: {
-      display: true,
+      display: false,
       position: "bottom",
     },
 
@@ -215,6 +242,8 @@ export class NgansachdukienvathucteComponent implements OnInit {
 
       let luykeKeHoach = res.Data.map((r: any) => { return r.LuyKeKeHoach });
 
+      let dataSuppel = res.Data.map((r: any) => { return r.SoLuongKeHoach });
+
       this.data = {
         labels: labels,
         datasets: [
@@ -223,6 +252,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
             label: "Kế hoạch",
             backgroundColor: "#FF5C00",
             data: dataKeHoach,
+            dataSuppel: dataSuppel,
             borderWidth: 2,
           },
           {

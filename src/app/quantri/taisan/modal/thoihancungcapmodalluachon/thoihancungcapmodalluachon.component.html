@@ -13,27 +13,29 @@
                 (click)="GhiLai()"></button>
         </div>
         <div class="p-d-flex p-flex-row">
-            <div class="p-mr-2">
+            <!-- <div class="p-mr-2">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
                     placeholder="Từ ngày" (onInput)="GetList()" (onSelect)="GetList()" [(ngModel)]="filter.TuNgay">
                 </p-calendar>
             </div>
             <div class="p-mr-2">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [minDate]="filter.TuNgay" [showIcon]="true" inputId="icon" [(ngModel)]="filter.DenNgay"
-                    placeholder="Đến ngày" (onSelect)="GetList()" (onInput)="GetList()" >
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [minDate]="filter.TuNgay"
+                    [showIcon]="true" inputId="icon" [(ngModel)]="filter.DenNgay" placeholder="Đến ngày"
+                    (onSelect)="GetList()" (onInput)="GetList()">
                 </p-calendar>
-            </div>
+            </div> -->
             <div class="p-mr-2 p-inputgroup" sstyle="width:100px">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
                     (keyup.enter)="GetList()" />
-                    <button type="button" pButton pRipple icon="pi pi-search"
+                <button type="button" pButton pRipple icon="pi pi-search"
                     class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh"
                     class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
         </div>
     </div>
-    <p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+    <p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [paginator]="true"
+        [rows]="15">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width:50px" class="text-center">
@@ -56,17 +58,20 @@
                 <td style="width: 150px;">
                     {{item.Ma}}
                 </td>
-                <td >{{item.Ten}}</td>
-                <td > {{item.DonViNangSuat}}</td>
+                <td>{{item.Ten}}</td>
+                <td> {{item.DonViNangSuat}}</td>
                 <!-- <td > {{item.TendmLoaiBaoDuong}}</td> -->
-                <td >{{item.GhiChu}}</td>
+                <td>{{item.GhiChu}}</td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="summary">
+        <!-- <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
                 Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
                     [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
+        </ng-template> -->
+        <ng-template pTemplate="paginatorleft">
+            <b>Tổng số bản ghi {{items.length}}</b>
         </ng-template>
     </p-table>
 </div>

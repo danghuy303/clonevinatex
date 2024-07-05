@@ -35,6 +35,7 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   activeTabIndex: number = 1;
   isCollapsed: boolean = true;
   isXemChiTiet: boolean = false;
+  isVatTu: boolean = true;
 
   constructor(
     private _modal: NgbModal,
@@ -124,6 +125,7 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.isXemChiTiet = true;
+    modalRef.componentInstance.isVatTu = false;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
       .then((res: any) => {

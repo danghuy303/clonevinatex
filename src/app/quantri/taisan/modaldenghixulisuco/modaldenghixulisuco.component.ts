@@ -47,7 +47,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   listMayDeep: any = [];
   listVatTu: any = [];
   listVatTuThayThe: any = [];
-
+  isDeXuat: boolean = false;
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -355,6 +355,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   ChangeTab(e) {
     let listVatTuThayThe = [];
     if (e.index === 1) {
+      this.isDeXuat = this.item.listTaiSan.every(ele => ele.IsXuLy);
       let arr = this.item.listTaiSan.filter(ele =>
         this.listNoiDungVatTuDeep.find(obj => obj.Id === ele?.IddmCongViecThucHien)?.Ma === 'THAYTHE');
       arr.forEach(obj => {

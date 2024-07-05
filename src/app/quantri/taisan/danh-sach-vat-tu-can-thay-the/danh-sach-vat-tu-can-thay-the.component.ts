@@ -47,9 +47,9 @@ export class DanhSachVatTuCanThayTheComponent implements OnInit {
   ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
+    })
     this.labelThang = [];
 
   }
@@ -62,7 +62,9 @@ export class DanhSachVatTuCanThayTheComponent implements OnInit {
     this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listBoPhanSuDung = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    this.labelThang = [];
+    this.labelThang = [
+      { label: 'All', value: 0 }
+    ];
     for (let i = 1; i <= 12; i++) {
       this.labelThang.push({ label: i, value: i })
     }
@@ -81,13 +83,13 @@ export class DanhSachVatTuCanThayTheComponent implements OnInit {
 
   resetFilter() {
     this.filter = {};
-     this.filter.Nam = new Date().getFullYear();
+    this.filter.Nam = new Date().getFullYear();
     this.filter.Thang = new Date().getMonth() + 1;
     this.GetList(true);
   }
 
   GetList(reset?) {
-   
+
     if (reset) {
       this.paging.CurrentPage = 1;
     }
@@ -101,25 +103,38 @@ export class DanhSachVatTuCanThayTheComponent implements OnInit {
       Thang: this.filter.Thang,
       QuaHan: this.filter.QuaHan,
     };
-      this._serviceTaiSan.ListDanhSachVatTu().GetList(data).subscribe((res: any) => {
-        this.paging.CurrentPage = res.Data.Page;
-        this.paging.TotalPages = res.Data.TotalPages;
-        this.paging.TotalCount = res.Data.TotalCount;
-        this.items = res.Data.Items;
-        this.items.forEach(item => {
-          item.ThanhTien = 0;
-          item.ThanhTien = (item.SoLuongCanThayThe || 0) * (item.DonGiaNhapGanNhat || 0);
-        })
-        this.CheckExist(this.items);
-        this.TimCheck(); 
-      });
+    this._serviceTaiSan.ListDanhSachVatTu().GetList(data).subscribe((res: any) => {
+      this.paging.CurrentPage = res.Data.Page;
+      this.paging.TotalPages = res.Data.TotalPages;
+      this.paging.TotalCount = res.Data.TotalCount;
+      this.items = res.Data.Items;
+      // this.CheckExist(this.items);
+      // this.TimCheck();
+      this.items = this.items.map(ele => {
+        return {
+          data: { ...ele, isShow: true, listVatTu: null },
+          children: ele.listVatTu.map(obj => {
+            return {
+              data: {
+                ...obj,
+                SoLuongThayThe: obj.SoLuong,
+                isShow: false
+              },
+              children: []
+            }
+          })
+        }
+      })
+      this.checked();
+    })
   }
 
   KiemTraNCC() {
     // let data = {
     //   ...this.checkList,
     // };
-    this._serviceTaiSan.ListDanhSachVatTu().KiemTraNCC(this.listVatTuDaChon.map(ele => ele.Id)).subscribe((res: any) => {
+    let data = this.items.filter(ele => ele.data.checked).map(obj => obj.data.Id);
+    this._serviceTaiSan.ListDanhSachVatTu().KiemTraNCC(data).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
@@ -132,25 +147,25 @@ export class DanhSachVatTuCanThayTheComponent implements OnInit {
   }
 
   checked() {
-    this.checkButton = this.items.some(ele => ele.checked)
-    this.items.forEach(ele => {
-      let exist = this.listVatTuDaChon.find(obj => obj.Id === ele.Id);
-      if (ele.checked) {
-        if (!!!exist) { // Kiểm tra mảng tạm nhớ, nếu chưa có thì push vào
-          this.listVatTuDaChon.push(ele)
-        }
-        // if (!this.listVatTuDaChon.includes(ele.Id)) { // Kiểm tra mảng tạm nhớ, nếu chưa có thì push vào
-        //   this.listVatTuDaChon.push(ele)
-        // }
-      } else {
-        if (!!exist) { // Kiểm tra mảng tạm nhớ, nếu đã có, mà ta bỏ check thì xóa ra khỏi mảng
-          let index = this.listVatTuDaChon.findIndex(a => a.Id === ele.Id);
-          if (index !== -1) {
-            this.listVatTuDaChon.splice(index, 1)
-          }
-        }
-      }
-    });
+    this.checkButton = this.items.some(ele => ele.data.checked)
+    // this.items.forEach(ele => {
+    //   let exist = this.listVatTuDaChon.find(obj => obj.Id === ele.data.Id);
+    //   if (ele.data.checked) {
+    //     if (!!!exist) { // Kiểm tra mảng tạm nhớ, nếu chưa có thì push vào
+    //       this.listVatTuDaChon.push(ele)
+    //     }
+    //     // if (!this.listVatTuDaChon.includes(ele.Id)) { // Kiểm tra mảng tạm nhớ, nếu chưa có thì push vào
+    //     //   this.listVatTuDaChon.push(ele)
+    //     // }
+    //   } else {
+    //     if (!!exist) { // Kiểm tra mảng tạm nhớ, nếu đã có, mà ta bỏ check thì xóa ra khỏi mảng
+    //       let index = this.listVatTuDaChon.findIndex(a => a.Id === ele.Id);
+    //       if (index !== -1) {
+    //         this.listVatTuDaChon.splice(index, 1)
+    //       }
+    //     }
+    //   }
+    // });
     this.TimCheck();
   }
 
@@ -161,12 +176,12 @@ export class DanhSachVatTuCanThayTheComponent implements OnInit {
     })
   }
   TimCheck() {
-    this.checkedAll = this.items.every(ele => ele.checked);
+    this.checkedAll = this.items.every(ele => ele.data.checked);
   }
 
   checkAll(e) {
     this.items.forEach(ele => {
-      ele.checked = e.checked;
+      ele.data.checked = e.checked;
     })
     this.checked();
   }
@@ -179,21 +194,31 @@ export class DanhSachVatTuCanThayTheComponent implements OnInit {
   }
 
   exportExcel() {
-    let data = this.listVatTuDaChon.map(ele => { 
+    // let data = this.listVatTuDaChon.map(ele => {
+    //   return {
+    //     "Ma": ele.Ma,
+    //     "Ten": ele.Ten,
+    //     "TuoiTho": ele.TuoiTho,
+    //     "TonKho": ele.TonKho,
+    //     "SoLuongCanThayThe": ele.SoLuongCanThayThe,
+    //     "DonGiaNhapGanNhat": ele.DonGiaNhapGanNhat,
+    //     "ThanhTien": ele.ThanhTien,
+    //   }
+    // })
+    let data = this.items.filter(ele => ele.data.checked).map(obj => {
       return {
-        "Ma": ele.Ma,
-        "Ten": ele.Ten,
-        "TuoiTho": ele.TuoiTho,
-        "TonKho": ele.TonKho,
-        "SoLuongCanThayThe": ele.SoLuongCanThayThe,
-        "DonGiaNhapGanNhat": ele.DonGiaNhapGanNhat,
-        "ThanhTien": ele.ThanhTien,
+        ...obj.data,
+        listVatTu: obj.children.map(obj => {
+          return {
+            ...obj.data
+          }
+        })
       }
-    })
+    });
     this._serviceTaiSan.ListDanhSachVatTu().exportExcel(data).subscribe((res: any) => {
       this._serviceTaiSan.ListDanhSachVatTu().download(res.Data);
     })
-    
+
   }
 
 }

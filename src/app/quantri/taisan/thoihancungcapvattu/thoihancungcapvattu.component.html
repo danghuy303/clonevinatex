@@ -57,8 +57,8 @@
                 <th class="text-center">STT</th>
                 <th class="text-center">Số quy trình</th>
                 <th class="text-center">Ngày</th>
-                <th class="text-center">Tổng tiền</th>
                 <th class="text-center">Nội dung</th>
+                <th class="text-center">Tổng tiền</th>
                 <th class="text-center">Trạng thái</th>
                 <th class="text-center">Thao tác</th>
             </tr>
@@ -72,8 +72,8 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
-                <td class="text-right">{{item.TongGiaTri | number:"0.0-0"}}</td>
                 <td>{{item.NoiDung}}</td>
+                <td class="text-right">{{item.TongGiaTri | number:"0.0-0"}}</td>
                 <td>{{item.TenTrangThai}}</td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"

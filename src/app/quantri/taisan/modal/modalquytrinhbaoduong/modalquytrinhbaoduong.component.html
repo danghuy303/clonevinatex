@@ -184,9 +184,10 @@
                         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
                             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian kết thúc</label>
                             <div class="p-col-12 p-xl-8 p-p-0">
-                                <p-calendar dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" [disabled]="isHoanThanhBaoDuong && !checkbutton.ChuyenTiep"
+                                <p-calendar dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true"
+                                    [disabled]="(item.isKhoiTao==false && item.Id!=null)? true : false"
                                     yearRange="2000:2040" [showTime]="true" [showIcon]="true" inputId="icon"
-                                  [minDate]="item.NgayBatDau"  placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayKetThuc">
+                                    [minDate]="item.NgayBatDau" placeholder="dd/mm/yyyy" [(ngModel)]="item.NgayKetThuc">
                                 </p-calendar>
                             </div>
                         </div>
@@ -194,7 +195,8 @@
                             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đội/người bảo dưỡng<span
                                     class="required">(*)</span></label>
                             <div class="p-col-12 p-xl-8 p-p-0">
-                                <p-dropdown [filter]="true" [options]="listDoiBaoDuong" [(ngModel)]="item.IdDoiBaoDuong" [disabled]="isHoanThanhBaoDuong && !checkbutton.ChuyenTiep"
+                                <p-dropdown [filter]="true" [options]="listDoiBaoDuong" [(ngModel)]="item.IdDoiBaoDuong"
+                                    [disabled]="(item.isKhoiTao==false && item.Id!=null)? true : false"
                                     placeholder="Chọn"></p-dropdown>
                             </div>
                         </div>
@@ -231,8 +233,13 @@
                                     </td>
                                     <ng-container *ngFor="let x of listCVBaoDuong">
                                         <td class="text-center">
-                                            <div *ngIf="x.Id === baoduong.IddmLoaiThucHienBaoDuong">
+                                            <!-- <div *ngIf="x.Id === baoduong.IddmLoaiThucHienBaoDuong">
                                                 <p-checkbox [(ngModel)]="baoduong.isThucHien" binary="true" [disabled]="baoduong.isThucHien && !checkbutton.ChuyenTiep"
+                                                    (onChange)="ThayThe(baoduong)" inputId="binary"></p-checkbox>
+                                            </div> -->
+                                            <div *ngIf="x.Id === baoduong.IddmLoaiThucHienBaoDuong">
+                                                <p-checkbox [(ngModel)]="baoduong.isThucHien" binary="true"
+                                                    [disabled]="(item.isKhoiTao==false && item.Id!=null)? true : false"
                                                     (onChange)="ThayThe(baoduong)" inputId="binary"></p-checkbox>
                                             </div>
                                         </td>
@@ -245,10 +252,14 @@
             </p-tabPanel>
             <p-tabPanel header="Vật tư">
                 <div class="d-flex p-pb-2">
-                    <button *ngIf="(item.Id && isHoanThanhBaoDuong) ? false : true" pButton pRipple type="button" label="Đề xuất cấp vật tư" class="p-mr-2 p-button-sm"
+                    <!-- <button *ngIf="(item.Id && isHoanThanhBaoDuong) ? false : item.Id" pButton pRipple type="button" label="Đề xuất cấp vật tư" class="p-mr-2 p-button-sm"
                         (click)="CapVatTu()"></button>
                     <button *ngIf="(item.Id && isHoanThanhBaoDuong) ? false : true" pButton pRipple type="button" label="Chọn vật tư" class="p-mr-2 p-button-sm"
-                        (click)="ChonVatTuThayThe()"></button>
+                        (click)="ChonVatTuThayThe()"></button> -->
+                    <button *ngIf="(item.isKhoiTao==false && item.Id!=null)? false : true" pButton pRipple type="button"
+                        label="Đề xuất cấp vật tư" class="p-mr-2 p-button-sm" (click)="CapVatTu()"></button>
+                    <button *ngIf="(item.isKhoiTao==false && item.Id!=null)? false : true" pButton pRipple type="button"
+                        label="Chọn vật tư" class="p-mr-2 p-button-sm" (click)="ChonVatTuThayThe()"></button>
                 </div>
                 <p-table [value]="item.listVatTu"
                     styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">

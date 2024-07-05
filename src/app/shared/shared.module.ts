@@ -54,6 +54,7 @@ import { ModalquytrinhbaoduongComponent } from '../quantri/taisan/modal/modalquy
 import { ChonmVatTuThayThePopUpComponent } from '../quantri/taisan/modal/chonm-vat-tu-thay-the-pop-up/chonm-vat-tu-thay-the-pop-up.component';
 import { DanhSachVatTuCanThayTheComponent } from '../quantri/taisan/danh-sach-vat-tu-can-thay-the/danh-sach-vat-tu-can-thay-the.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { TreeTableModule } from 'primeng/treetable';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     InputTextModule,
     NgbModule,
     PaginatorModule,
-    SelectButtonModule
+    SelectButtonModule,
+    TreeTableModule
   ],
   exports: [
     isXoaPipe,

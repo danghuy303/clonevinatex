@@ -35,32 +35,38 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.GetList();
-    if (this.filter.DenNgay && this.filter.TuNgay) {
-      this.GetList();
-    }
+    this.GetList();
+    // if (this.filter.DenNgay && this.filter.TuNgay) {
+    //   this.GetList();
+    // }
   }
   resetFilter() {
     this.filter = {};
     this.GetList();
   }
   GetList(e?:any) {
-    console.log(e);
-    
-    let data = {
-      PageSize: 20,
-      CurrentPage: this.paging.CurrentPage,
-      Keyword: this.filter.Keyword,
-      IddmLoaiTaiSan: "",
-      Nam: this.filter.Nam,
-      Thang: this.filter.Thang,
-      TuNgay:DateToUnix(this.filter.TuNgay),
-      DenNgay:DateToUnix(this.filter.DenNgay),
-      QuaHan: true,
-    };
-    this._serviceTaiSan.ThoiHanCungCap().LuaChon(data).subscribe((res: any) => {
-      this.paging.TotalCount = res.Data.TotalCount;
-      this.items = res.Data.Items;
+    // let data = {
+    //   PageSize: 20,
+    //   CurrentPage: this.paging.CurrentPage,
+    //   Keyword: this.filter.Keyword,
+    //   IddmLoaiTaiSan: "",
+    //   Nam: this.filter.Nam,
+    //   Thang: this.filter.Thang,
+    //   TuNgay:DateToUnix(this.filter.TuNgay),
+    //   DenNgay:DateToUnix(this.filter.DenNgay),
+    //   QuaHan: true,
+    // };
+    // this._serviceTaiSan.ThoiHanCungCap().LuaChon(data).subscribe((res: any) => {
+      let data = {
+        PageSize: 20,
+        CurrentPage: 0,
+        Keyword: this.filter.Keyword,
+        IddmLoaiTaiSan: '',
+        IdBoPhanSuDung: this.item.IdBoPhanSuDung || "",
+      };
+      this._serviceTaiSan.NhaCungUng().GetListItem(data).subscribe((res: any) => {
+      // this.paging.TotalCount = res.Data.TotalCount;
+      this.items = res.Data;
       this.items.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.Id);
       });

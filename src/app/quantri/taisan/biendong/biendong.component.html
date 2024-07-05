@@ -1,29 +1,34 @@
-<p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
-    [scrollable]="true">
-    <ng-template pTemplate="colgroup">
-        <colgroup>
-          <col style="width:50px">
-          <col style="width:250px">
-          <col style="width:250px">
-        </colgroup>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th>STT</th>
-          <th>Ngày</th>
-          <th>Nội dung</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-item let-i="rowIndex">
-        <tr>
-            <td class="text-center"> {{i + 1}}</td>
-            <td class="text-center">{{item.Ngay | date:"dd/MM/yyyy"}}</td>
-            <td >{{item.NoiDungBienDong}}</td>
-        
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="footer">
-      
-      </ng-template>
-</p-table>
+<p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
+  <ng-template pTemplate="colgroup">
+    <colgroup>
+      <col style="width:50px">
+      <col style="width:250px">
+      <col>
+      <col style="width:250px">
+      <col *ngIf="isVatTu" style="width:250px">
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>STT</th>
+      <th>Ngày</th>
+      <th>Nội dung</th>
+      <th>Loại biến động</th>
+      <th *ngIf="isVatTu">Vật tư</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item let-i="rowIndex">
+    <tr>
+      <td class="text-center"> {{i + 1}}</td>
+      <td class="text-center">{{item.Ngay | date:"dd/MM/yyyy"}}</td>
+      <td>
+        <span style="color: rgb(25, 126, 221);cursor: pointer" (click)="OpenLink(item)">{{item.NoiDungBienDong}}</span>
+      </td>
+      <td>{{item.LoaiBienDong}}</td>
+      <td *ngIf="isVatTu">{{item.VatTu}}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="footer">
 
+  </ng-template>
+</p-table>

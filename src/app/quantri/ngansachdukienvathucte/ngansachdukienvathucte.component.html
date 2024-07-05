@@ -40,8 +40,8 @@
         </div>
         <div *ngIf="filter.LoaiChiPhi === 1" class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
           <div class="p-mr-2">
-            <p-dropdown [filter]="true" placeholder="Chọn vật tư" [options]="listVatTu"
-              styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmTaiSan" (onChange)="getDataBaoCao()"></p-dropdown>
+            <p-dropdown [filter]="true" placeholder="Chọn vật tư" [options]="listVatTu" styleClass="p-inputtext-sm"
+              [(ngModel)]="filter.IddmTaiSan" (onChange)="getDataBaoCao()"></p-dropdown>
           </div>
         </div>
         <!-- <div class="p-mr-2">
@@ -63,6 +63,17 @@
     <h5 class="text-center">NGÂN SÁCH DỰ KIẾN VÀ THỰC TẾ</h5>
     <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart>
 
+    <div class="p-d-flex p-jc-center">
+      <div class="p-mr-2">
+        <span class="kehoach"></span>
+        <span>Kế hoạch</span>
+      </div>
+      <div class="p-ml-2">
+        <span class="thucte"></span>
+        <span>Thực tế</span>
+      </div>
+    </div>
+
     <!-- <div>
       <p class="p-0 m-0" style="font-weight: bold">Chú thích:</p>
       <div>
@@ -74,6 +85,7 @@
         <span>Thực tế</span>
       </div>
     </div> -->
+
   </div>
 
   <div class="p-grid">

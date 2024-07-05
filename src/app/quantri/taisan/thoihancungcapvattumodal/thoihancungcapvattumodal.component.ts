@@ -17,9 +17,9 @@ import { ThoihancungcapmodalluachonComponent } from '../modal/thoihancungcapmoda
   templateUrl: './thoihancungcapvattumodal.component.html',
   styleUrls: ['./thoihancungcapvattumodal.component.css']
 })
-export class 
+export class
 
-ThoihancungcapvattumodalComponent implements OnInit {
+  ThoihancungcapvattumodalComponent implements OnInit {
 
   opt: any = "";
   title: any = "";
@@ -52,6 +52,12 @@ ThoihancungcapvattumodalComponent implements OnInit {
   ngOnInit(): void {
     if (this.item.NgayUnix !== 0) {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
+      this.item.listTaiSan = this.item.listTaiSan.map(ele => {
+        return {
+          ...ele,
+          Ngay: ele.NgayUnix ? UnixToDate(ele.NgayUnix) : 0
+        }
+      })
     }
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
@@ -75,22 +81,22 @@ ThoihancungcapvattumodalComponent implements OnInit {
     this.getList();
   }
 
- ListNhaCungUng() {
+  ListNhaCungUng() {
     this.item.listTaiSan.forEach(ele => {
       this._serviceTaiSan.ThoiHanCungCap().GetListNhaCungUng(ele.IdTaiSan).subscribe((res: any) => {
-        ele.listNhaCungUngDoiChieu = res.Data.map(nhaCungUng => {
+        ele.listNhaCungUngDoiChieu = res.Data?.map(nhaCungUng => {
           return {
             Id: nhaCungUng.Id,
             DonGia: nhaCungUng.listItem[0]?.DonGia,
             ThongTinNCC: nhaCungUng.listItem[0].ThongTinNCC
           }
-        });
-        ele.listDeChon = res.Data.map(nhaCungUng => {
+        }) || [];
+        ele.listDeChon = res.Data?.map(nhaCungUng => {
           return {
             value: nhaCungUng.Id,
             label: nhaCungUng.listItem[0].ThongTinNCC
           }
-        });
+        }) || [];
       })
     })
   }
@@ -128,12 +134,13 @@ ThoihancungcapvattumodalComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
+    this.chonThang();
     let modalRef = this._modal.open(ThoihancungcapmodalluachonComponent, {
       size: "xl",
       backdrop: "static",
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
-    modalRef.componentInstance.filter = this.item.Ngay ? { DenNgay: this.DenNgay, TuNgay: this.TuNgay} : {};
+    modalRef.componentInstance.filter = this.item.Ngay ? { DenNgay: this.DenNgay, TuNgay: this.TuNgay } : {};
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = {};
@@ -152,13 +159,21 @@ ThoihancungcapvattumodalComponent implements OnInit {
   }
 
   setData() {
-    this.item.NgayUnix = DateToUnix(this.item.Ngay);
-    // this.item.IdDuAn = this.store.getCurrent();
-    return this.item;
+    let data = {
+      ...this.item,
+      NgayUnix: DateToUnix(this.item.Ngay),
+      listTaiSan: this.item.listTaiSan.map(ele => {
+        return {
+          ...ele,
+          NgayUnix: ele.Ngay ? DateToUnix(ele.Ngay) : 0
+        }
+      })
+    }
+    return data;
   }
 
   ValidateData() {
-    if (!validVariable(this.item.Ngay)) { 
+    if (!validVariable(this.item.Ngay)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
       return false;
     }
@@ -171,21 +186,27 @@ ThoihancungcapvattumodalComponent implements OnInit {
 
   GhiLai() {
     if (this.ValidateData()) {
-    this._serviceTaiSan.ThoiHanCungCap().Set(this.setData()).subscribe((res: any) => {
-      if (res.StatusCode !== 200 || !res.StatusCode) {
+      this._serviceTaiSan.ThoiHanCungCap().Set(this.setData()).subscribe((res: any) => {
+        if (res.StatusCode !== 200 || !res.StatusCode) {
+          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+        } else {
+          this.item = res.Data;
+          this.item.listTaiSan = this.item.listTaiSan.map(ele => {
+            return {
+              ...ele,
+              Ngay: ele.NgayUnix ? UnixToDate(ele.NgayUnix) : null
+            }
+          })
+          this.ListNhaCungUng();
+          this.Tong();
+          this.toastr.success(res.Message);
+          this.KiemTraButtonModal();
+          // this.activeModal.close();
+        }
+      }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-      } else {
-        this.item = res.Data;
-        this.ListNhaCungUng();
-        this.Tong();
-        this.toastr.success(res.Message);
-        this.KiemTraButtonModal();
-        // this.activeModal.close();
-      }
-    }, (er) => {
-      this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-    })
-  }
+      })
+    }
   }
 
   KiemTraButtonModal() {

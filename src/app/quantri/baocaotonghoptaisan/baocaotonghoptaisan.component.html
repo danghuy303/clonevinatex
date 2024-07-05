@@ -26,7 +26,7 @@
         <div class="p-d-flex p-flex-row p-jc-end">
             <div class="p-mr-2">
                 <p-dropdown [filter]="true" [options]="listThoiGian" [(ngModel)]="filter.LoaiKeHoach"
-                    placeholder="Chọn tháng năm" (onChange)="loadData(true)" styleClass="p-inputtext-sm"></p-dropdown>
+                    placeholder="Chọn tháng năm" (onChange)="loadData()" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
             <div class="p-mr-2">
                 <p-calendar *ngIf="filter.LoaiKeHoach !== 'NAM'" dateFormat="mm/yy" view="month"
@@ -41,7 +41,7 @@
             <div class="p-mr-2">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
                     styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="filter.IdBoPhanSuDung"
-                    (onChange)="loadData(true)"></p-dropdown>
+                    (onChange)="loadData()"></p-dropdown>
             </div>
             <!-- <div class="p-mr-2">
                 <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản "
@@ -52,7 +52,7 @@
             <div class="p-mr-2">
                 <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
                     styleClass="p-inputtext-sm" [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true"
-                    (onChange)="loadData(true)">
+                    (onChange)="loadData()">
                 </p-dropdown>
             </div>
         </div>
@@ -107,7 +107,7 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td >{{item.KyHieu}}</td>
+                        <td>{{item.KyHieu}}</td>
                         <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian">
                             <div>
                                 <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet"
@@ -311,17 +311,18 @@
             (click)="ChiTietBaoDuongLichXIchThang(lichXichThang)">
             {{lichXichThang.KyHieu}}
         </td> -->
-        <td
-            style="min-width: 160px;; padding: 0.5rem 0 ; max-width: 160px;background-color: white;  z-index: 999;">
+        <td style="min-width: 160px; padding: 0.5rem 0 ; max-width: 160px;background-color: white;  z-index: 999;">
             {{lichXichThang.KyHieu}}
         </td>
         <td style="min-width: 90px;max-width: 90px;background-color: white;" class="text-center"
             *ngFor="let newItem of lichXichThang.listItemTheoThoiGian"
             [ngStyle]="{'background-color': newItem.ColorLabel}">
-            <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" [ngStyle]="{'color': taisan.Mau}"
-                (click)="ChiTietBaoDuongLichXIchThang(taisan)">
-                {{taisan.TenVietTat}}<br>
-            </a>
+            <div *ngFor="let taisan of newItem.listChiTiet" class="p-d-flex">
+                <a href="javascript:void(0)" [ngStyle]="{'color': taisan.Mau}"
+                    (click)="ChiTietBaoDuongLichXIchThang(taisan)">
+                    {{taisan.TenVietTat}}
+                </a> <span *ngIf="taisan.isQuaHan" style="color: '#ffa700'">(!)</span>
+            </div>
         </td>
     </tr>
 </ng-template>
@@ -338,10 +339,13 @@
         <td style="min-width: 90px;max-width: 90px;background-color: white;" class="text-center"
             *ngFor="let newItem of lichXichThang.listItemTheoThoiGian"
             [ngStyle]="{'background-color': newItem.ColorLabel}">
-            <a href="javascript:void(0)" *ngFor="let taisan of newItem.listChiTiet" [ngStyle]="{'color': taisan.Mau}"
-                (click)="ChiTietBaoDuongLichXIchThang(taisan)">
-                {{taisan.KyHieu}}<br>
-            </a>
+
+            <div *ngFor="let taisan of newItem.listChiTiet" class="p-d-flex">
+                <a href="javascript:void(0)" 
+                    [ngStyle]="{'color': taisan.Mau}" (click)="ChiTietBaoDuongLichXIchThang(taisan)">
+                    {{taisan.KyHieu}}<br>
+                </a> <span *ngIf="taisan.isQuaHan" style="color: '#ffa700'">(!)</span>
+            </div>
         </td>
     </tr>
 </ng-template>
