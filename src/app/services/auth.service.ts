@@ -59,6 +59,7 @@ export class
             if (user.access_token) {
                 // if (user.Error === 4) {
                 this.currentAccess_Token.next(user.access_token);
+                localStorage.setItem('access_token', user.access_token);
                 if (data.RememberMe) {
                     localStorage.setItem('loginData', JSON.stringify(data));
                 }
