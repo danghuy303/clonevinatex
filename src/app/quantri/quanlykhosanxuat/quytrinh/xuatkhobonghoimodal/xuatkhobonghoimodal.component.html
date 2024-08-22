@@ -104,13 +104,13 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col style="text-align: center;">
-                        <col style="text-align: center;">
-                        <col style="text-align: center;">
-                        <col>
-                        <col>
-                        <col>
-                        <col style="width:90px">
+                        <col style="text-align: center;width:150px">
+                        <col style="text-align: left;">
+                        <col style="text-align: center;width:150px">
+                        <col style="width:150px">
+                        <col style="width:150px">
+                        <col style="width:150px">
+                        <col style="width:60px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -137,12 +137,12 @@
                         <td style="text-align: center;"><p-inputNumber [minFractionDigits]="0" locale="en-EN"
                                 [(ngModel)]="itemC.ThuTu">
                             </p-inputNumber></td>
-                        <td style="text-align: center;" *ngIf="item.isKetThuc!==true">
+                        <td style="text-align: left;" *ngIf="item.isKetThuc!==true">
                             <p-dropdown [filter]="true" [options]="listKien" placeholder="Chọn kiện"
                                 styleClass="p-inputtext-sm" [(ngModel)]="itemC.IddmItem" (onChange)="getTon(itemC)">
                             </p-dropdown>
                         </td>
-                        <td style="text-align: center;" *ngIf="item.isKetThuc===true">
+                        <td style="text-align: left;" *ngIf="item.isKetThuc===true">
                             {{itemC.TendmItem}}
                         </td>
                         <!-- <td>
@@ -169,7 +169,7 @@
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemC.TrongLuong">
                             </p-inputNumber>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
