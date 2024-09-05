@@ -13,7 +13,7 @@ import { ThongsochatluongmodalComponent } from '../thongsochatluongmodal/thongso
   templateUrl: './thongsochatluong.component.html',
   styleUrls: ['./thongsochatluong.component.css']
 })
-export class ThongsochatluongComponent extends StoreBase implements OnInit,OnDestroy {
+export class ThongsochatluongComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   eAction: any = "PHIEUNHAPLOBONG_CHATLUONG";
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
@@ -62,9 +62,10 @@ export class ThongsochatluongComponent extends StoreBase implements OnInit,OnDes
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listLoBong: any = [];
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, 
-    private router: Router,public store:StoreService) {super(store)
-     }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute,
+    private router: Router, public store: StoreService) {
+      super(store)
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
@@ -74,12 +75,12 @@ export class ThongsochatluongComponent extends StoreBase implements OnInit,OnDes
     })
     let data = {
       Loai: 1,
-      CurrentPage : 0,
+      CurrentPage: 0,
     }
     this._service.GetListLoBong(data).subscribe((res: any) => {
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');;
     })
-      this.KiemTraTabTrangThai();
+    this.KiemTraTabTrangThai();
 
   }
   changeParam(id) {
@@ -163,12 +164,12 @@ export class ThongsochatluongComponent extends StoreBase implements OnInit,OnDes
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-     this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-        this.checkQuyen = res;
-        this.GetListQuyTrinh();
-      })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }
