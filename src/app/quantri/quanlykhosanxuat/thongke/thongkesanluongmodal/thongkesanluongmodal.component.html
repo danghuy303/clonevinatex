@@ -114,14 +114,14 @@
                 styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col style="width:50px">
-                        <col style="width: 10rem;">
-                        <col style="width: 5rem;">
-                        <col style="width: 10rem;">
-                        <col *ngIf="item.CongDoan==='ONG'" style="width: 3rem;">
+                        <col style="width:20px">
+                        <col style="width: 8rem;">
+                        <col style="width: 1rem;">
+                        <col style="width: 8rem;">
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 2rem;">
 
                         <col *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'"
-                            style="width: 10rem;">
+                            style="width: 18rem;">
 
                         <col *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'"
                             style="width: 10rem;">
@@ -142,7 +142,7 @@
 
                         <!-- <col *ngIf="item.CongDoan==='THO'" style="width: 6rem;"> -->
 
-                        <col style="width: 10rem;">
+                        <col style="width: 4rem;">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
