@@ -210,8 +210,9 @@
 
                             </td>
                             <td>
-                                <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" #inputNumber [minFractionDigits]="2"
-                                    locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong" [tabindex]="i*5+1" disabled>
+                                <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0 || itemtbl.DonViNangSuat=== 2"
+                                    #inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong"
+                                    [tabindex]="i*5+1" disabled>
                                 </p-inputNumber>
                                 <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber
                                     (keyup.enter)="enterCon(i*5+1)" [tabindex]="i*5+1" [minFractionDigits]="2"
@@ -230,7 +231,7 @@
                                     (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2">
                                 </p-inputNumber>
                             </td>
-                            <td *ngIf="itemtbl.DonViNangSuat===1 && (item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE')"
+                            <td *ngIf="(itemtbl.DonViNangSuat===1 || itemtbl.DonViNangSuat===2) && (item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE')"
                                 class="text-right">
                                 {{itemtbl.ChieuDai |number:'0.3-3'}}
                                 <div style="display:none">
