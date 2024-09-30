@@ -55,6 +55,7 @@ import { ChonmVatTuThayThePopUpComponent } from '../quantri/taisan/modal/chonm-v
 import { DanhSachVatTuCanThayTheComponent } from '../quantri/taisan/danh-sach-vat-tu-can-thay-the/danh-sach-vat-tu-can-thay-the.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TreeTableModule } from 'primeng/treetable';
+import { CaculateKtexPipe } from '../services/caculate-ktex.pipe';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { TreeTableModule } from 'primeng/treetable';
     SumByKeyPipe,
     CongDoanPipe,
     SortByKeyPipe,
+    CaculateKtexPipe,
     UppercaseFirstletterPipe,
     GetItemByCongDoanPipe,
     BanGiaoTaiSanQuyTrinhComponent,
@@ -130,6 +132,7 @@ import { TreeTableModule } from 'primeng/treetable';
     SumByKeyPipe,
     CongDoanPipe,
     SortByKeyPipe,
+    CaculateKtexPipe,
     UppercaseFirstletterPipe,
     GetItemByCongDoanPipe,
     BanGiaoTaiSanQuyTrinhComponent,

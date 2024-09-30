@@ -39,12 +39,14 @@ import { LoaderInterceptor } from "./services/loader.interceptor";
 import { LoaderService } from "./services/loader.service";
 // import { LoaderComponent } from './loader/loader.component';
 import 'chartjs-plugin-zoom';
+import { CaculateKtexPipe } from './services/caculate-ktex.pipe';
 // import { FilterbykeyCongDoanPipe } from './services/filterbykey-cong-doan.pipe'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    // CaculateKtexPipe,
     // FilterbykeyCongDoanPipe,
 
     // LoaderComponent

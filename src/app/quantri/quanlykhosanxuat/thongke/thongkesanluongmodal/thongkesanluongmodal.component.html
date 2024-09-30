@@ -116,8 +116,10 @@
                     <colgroup>
                         <col style="width:20px">
                         <col style="width: 8rem;">
-                        <col style="width: 2rem;">
-                        <col style="width: 8rem;">
+                        <col style="width: 3rem;">
+                        <col style="width: 3rem;"
+                            *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY || item.CongDoan==='THO">
+                        <col style="width: 4rem;">
                         <col *ngIf="item.CongDoan==='ONG'" style="width: 2rem;">
 
                         <col *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'"
@@ -150,6 +152,9 @@
                         <th>#</th>
                         <th>Số máy</th>
                         <th>Ne</th>
+                        <th
+                            *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY || item.CongDoan==='THO">
+                            Ktex</th>
                         <th>Mặt hàng</th>
 
                         <th *ngIf="item.CongDoan==='ONG'">Kg/Cone</th>
@@ -184,6 +189,9 @@
                             <td>{{i+1}}</td>
                             <td class="text-left">{{itemtbl.TendmMay}}</td>
                             <td class="text-left">{{itemtbl.Ne}}</td>
+                            <td class="text-left"
+                                *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY || item.CongDoan==='THO">
+                                {{itemtbl | caculateKtex}}</td>
                             <td class="text-left">{{itemtbl.Ten}} <span
                                     *ngIf="(item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE')&& itemtbl.IdLoHangDao!==null ">
                                     - Đảo</span></td>
@@ -334,6 +342,9 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td
+                            *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY || item.CongDoan==='THO">
+                        </td>
                         <td></td>
                         <td *ngIf="item.CongDoan==='ONG'"></td>
                         <td *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'" class="text-right">

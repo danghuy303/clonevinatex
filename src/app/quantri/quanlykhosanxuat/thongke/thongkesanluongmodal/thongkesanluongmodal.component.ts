@@ -709,6 +709,29 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.inputKhoiLuongs.toArray()[(index + 1 < length ? index + 1 : 0)].el.nativeElement.children[0].children[0].focus();
     }, 400)
   }
+
+  calculateKtex(data) {
+    let result = 0;
+    console.log("data", data);
+    // let a = result.map((x: any) => {
+    //   return {
+    //     ...x,
+    //     Ktex: 1 / (x.Ne * 1, 693)
+    //   }
+    // })
+    // console.log("a", a);
+
+    return result;
+
+  }
+
+  Tinh() {
+    console.log('====================================');
+    console.log(1);
+    console.log('====================================');
+    return 0;
+  }
+
   ngOnDestroy() {
     this.$typing.unsubscribe()
   }
