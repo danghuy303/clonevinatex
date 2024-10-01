@@ -585,41 +585,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
   }
   TinhTongKhoiLuongBong() {
-    // switch (this.item.CongDoan) {
-    //   case 'CHAICOTTON':
-    //     this.TinhTyLeCottonBongPhe();
-    //     break;
-    //   case 'CHAIPE':
-    //     this.TinhTyLePEBongPhe();
-    //     break;
-    //   case 'CHAIKY':
-    //     this.TinhTyLeBongChaiKy();
-    //     break;
-    //   case 'THO':
-    //     this.TinhTyLeBongCuiHoi();
-    //     break;
-    //   case 'ONG':
-    //     this.TinhTyLeSoiCat();
-    //     break;
-    //   case 'CON':
-    //     this.TinhTyLeBongThoMang();
-    //     break;
-    //   case 'GHEPDAURA':
-    //     this.TinhTyLeCuiHoiGhepDauRa();
-    //     break;
-    //   case 'GHEPSOBOCOTTON':
-    //     this.TinhTyLeCuiHoiGhepSoBoCotton();
-    //     break;
-    //   case 'GHEPTRONA':
-    //     this.TinhTyLeCuiHoiGhepTronA();
-    //     break;
-    //   case 'GHEPTRONB':
-    //     this.TinhTyLeCuiHoiGhepTronB();
-    //     break;
-    //   case 'GHEPSOBOPE':
-    //     this.TinhTyLeCuiHoiGhepSoBoPE();
-    //     break;
-    //   default:
     let TongKhoiLuong = 0;
     TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     let TongBongPhe = this.item.listTyLeBongPhe.find(ele => ele.MaCongDoan === this.item.CongDoan)?.listKhoiLuongBongPhe.reduce((a, b) => a + (b.KhoiLuong || 0), 0);
@@ -637,9 +602,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
       found.isTruVaoSanLuong = this.item.isTruVaoSanLuong;
       this.typing.next('');
     }
-
-    //     break;
-    // }
   }
 
   resetKhoiLuongCuiHoi() {
@@ -691,8 +653,49 @@ export class ThongkesanluongmodalComponent implements OnInit {
     modalRef.result.then((res) => {
       const _idx = this.listItem.findIndex(ele => ele.Id === item.Id);
       this.listItem[_idx] = res;
+      this.handleChangeChieuDai(this.listItem[_idx]);
     })
   }
+
+  handleChangeChieuDai(_item) {
+    switch (this.item.CongDoan) {
+      case 'CHAIPC':
+      case 'GHEPSOBOPC':
+      case 'ONG':
+      case 'DAUXE':
+      case 'XE':
+        this.TinhGiaTri(_item)
+        break;
+      case 'CON':
+        this.TinhCongThucMoi(_item)
+      case 'CHAICOTTON':
+        this.TinhKhoiLuongChaiCotton(_item)
+        break;
+      case 'THO':
+        this.TinhKhoiLuongTho(_item)
+        break;
+      case 'CHAIPE':
+        this.TinhKhoiLuongChaiPE(_item)
+        break;
+      case 'CHAIKY':
+        this.TinhKhoiLuongChaiKy(_item)
+        break;
+      case 'CUONCUI':
+        this.TinhKhoiLuongCuonCui(_item)
+        break;
+      case 'GHEPSOBOCOTTON':
+      case 'GHEPTRONB':
+      case 'GHEPTRONA':
+      case 'GHEPDAURA':
+      case 'GHEPSOBOPE':
+        this.TinhKhoiLuongGhepSoBoChaiCotton(_item)
+        break;
+      default:
+        break;
+    }
+    this.TinhTongKhoiLuongBong();
+  }
+
   checkAll(e) {
     if (e.checked) {
       this.listItem.forEach(item => {
