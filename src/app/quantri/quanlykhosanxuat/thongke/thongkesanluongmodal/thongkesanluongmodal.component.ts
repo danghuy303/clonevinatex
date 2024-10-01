@@ -10,6 +10,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { LohangComponent } from '../lohang/lohang.component';
+import { TinhtoanmodalComponent } from './tinhtoanmodal/tinhtoanmodal.component';
 
 @Component({
   selector: 'app-thongkesanluongmodal',
@@ -684,11 +685,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
   //     this.TongKhoiLuong = this.TongKhoiLuong -  (this.item.TongKhoiLuongCuiHoi || 0);
   //   }
   // }
-  tinhToan(item, opt) {
-    let modalRef = this._modal.open(CalcmodalComponent)
+  tinhToan(item) {
+    let modalRef = this._modal.open(TinhtoanmodalComponent)
+    modalRef.componentInstance.item = item;
     modalRef.result.then((res) => {
-      item[opt] = res;
-      this.TinhTongKhoiLuongBong();
+      const _idx = this.listItem.findIndex(ele => ele.Id === item.Id);
+      this.listItem[_idx] = res;
     })
   }
   checkAll(e) {
@@ -708,28 +710,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     setTimeout(() => {
       this.inputKhoiLuongs.toArray()[(index + 1 < length ? index + 1 : 0)].el.nativeElement.children[0].children[0].focus();
     }, 400)
-  }
-
-  calculateKtex(data) {
-    let result = 0;
-    console.log("data", data);
-    // let a = result.map((x: any) => {
-    //   return {
-    //     ...x,
-    //     Ktex: 1 / (x.Ne * 1, 693)
-    //   }
-    // })
-    // console.log("a", a);
-
-    return result;
-
-  }
-
-  Tinh() {
-    console.log('====================================');
-    console.log(1);
-    console.log('====================================');
-    return 0;
   }
 
   ngOnDestroy() {
