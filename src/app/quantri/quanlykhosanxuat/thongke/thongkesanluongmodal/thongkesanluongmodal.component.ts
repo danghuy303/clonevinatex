@@ -653,7 +653,11 @@ export class ThongkesanluongmodalComponent implements OnInit {
     modalRef.result.then((res) => {
       const _idx = this.listItem.findIndex(ele => ele.Id === item.Id);
       this.listItem[_idx] = res;
+      const _tIndex = this.item.listItem.findIndex(ele => ele.Id === item.Id);
       this.handleChangeChieuDai(this.listItem[_idx]);
+      if (_tIndex > -1) {
+        this.item.listItem[_tIndex] = this.listItem[_idx];
+      }
     })
   }
 
