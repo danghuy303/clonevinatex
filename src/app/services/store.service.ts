@@ -6,15 +6,28 @@ import { Observable, Subject } from 'rxjs';
 })
 export class StoreService {
   private NhaMayStore = new Subject<any>();
-  
+  public TenNhaMayStore = new Subject<any>();
+
   // private IdNhaMay = '';
   private IdNhaMay = 0;
+  TenNhaMay = '';
   public isMobile = false;
   constructor() { }
   setNhaMay(IdNhaMay) {
     this.IdNhaMay = IdNhaMay;
     this.NhaMayStore.next(IdNhaMay);
   }
+
+  setTenNhaMay(label) {
+    this.TenNhaMay = label;
+    localStorage.setItem('TenNhaMay', this.TenNhaMay);
+    this.TenNhaMayStore.next(label);
+  }
+
+  getTenNhaMay() {
+    return this.TenNhaMay;
+  }
+
   getNhaMay(): Observable<any> {
     return this.NhaMayStore;
   }

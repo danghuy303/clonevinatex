@@ -206,6 +206,15 @@ import { KiemKeKhoVatTuComponent } from './kiem-ke-kho-vat-tu/kiem-ke-kho-vat-tu
 import { ChiTietKiemKhoVatTuComponent } from './kiem-ke-kho-vat-tu/chi-tiet-kiem-kho-vat-tu/chi-tiet-kiem-kho-vat-tu.component';
 import { ChonVatTuComponent } from './modaldenghixulisuco/chon-vat-tu/chon-vat-tu.component';
 import { DanhSachVatTuCanThayTheComponent } from './danh-sach-vat-tu-can-thay-the/danh-sach-vat-tu-can-thay-the.component';
+import { DenghicungungvattuComponent } from './denghicungungvattu/denghicungungvattu.component';
+import { DenghicungungvattumodalComponent } from './denghicungungvattu/denghicungungvattumodal/denghicungungvattumodal.component';
+import { DanhsachvattucungungComponent } from './denghicungungvattu/danhsachvattucungung/danhsachvattucungung.component';
+import { DanhsachvattuphaimuaComponent } from './danhsachvattuphaimua/danhsachvattuphaimua.component';
+import { NhacungcapvahangphaimuaComponent } from './danhsachvattuphaimua/nhacungcapvahangphaimua/nhacungcapvahangphaimua.component';
+import { DanhsachnhacungcungungmodalComponent } from './danhsachvattuphaimua/danhsachnhacungcungungmodal/danhsachnhacungcungungmodal.component';
+import { DondathangComponent } from './dondathang/dondathang.component';
+import { DondathangmodalComponent } from './dondathang/dondathangmodal/dondathangmodal.component';
+import { ChitietdondathangComponent } from './dondathang/chitietdondathang/chitietdondathang.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -360,6 +369,15 @@ import { DanhSachVatTuCanThayTheComponent } from './danh-sach-vat-tu-can-thay-th
     KiemKeKhoVatTuComponent,
     ChiTietKiemKhoVatTuComponent,
     ChonVatTuComponent,
+    DenghicungungvattuComponent,
+    DenghicungungvattumodalComponent,
+    DanhsachvattucungungComponent,
+    DanhsachvattuphaimuaComponent,
+    NhacungcapvahangphaimuaComponent,
+    DanhsachnhacungcungungmodalComponent,
+    DondathangComponent,
+    DondathangmodalComponent,
+    ChitietdondathangComponent,
     // DanhSachVatTuCanThayTheComponent,
   ],
   imports: [

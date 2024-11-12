@@ -35,7 +35,7 @@ export class DanhSachKeHoachNamComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.OtherFunction()
+    this.OtherFunction();
   }
 
   ngAfterViewInit() {
@@ -49,8 +49,6 @@ export class DanhSachKeHoachNamComponent implements OnInit {
     this.IdDuAnDaChon = this.store.getCurrent();
     let isDEV = window.location.hostname.includes('localhost');
     this.url = isDEV ? `${host1}/lap-ke-hoach/#/${this.link}/${this.IdDuAnDaChon}` : `/lap-ke-hoach/#/${this.link}/${this.IdDuAnDaChon}`;
-    console.log('url', this.url);
-
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
     this.postMessageToIframe();
   }

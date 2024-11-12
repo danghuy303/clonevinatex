@@ -112,17 +112,17 @@ export class ModalbaoduongComponent implements OnInit {
   GetListdmLoaiTaiSan() {
     let data = {
       PageSize: 20,
-      CurrentPage: this.paging.page,
+      CurrentPage: 0,
       Keyword: this.Keyword,
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
-      this.listTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+      this.listTaiSan = mapArrayForDropDown(res.Data, "Ten", "Id");
     })
     this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).subscribe((res: any) => {
-      res.Data.Items.forEach(ele => {
+      res.Data.forEach(ele => {
         ele.tenValue = `${ele.Ten} - ${ele.ThuTu}`;
       })
-      this.listMucDoUuTien = mapArrayForDropDown(res.Data.Items, "tenValue", "Id",);
+      this.listMucDoUuTien = mapArrayForDropDown(res.Data, "tenValue", "Id",);
     })
   }
   ValidateData() {

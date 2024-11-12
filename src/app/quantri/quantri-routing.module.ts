@@ -595,7 +595,7 @@ const routes: Routes = [
       {
         path: "lap-ke-hoach/danhsachkehoach-nam",
         component: DanhSachKeHoachNamComponent,
-      },
+      }
     ],
   },
 

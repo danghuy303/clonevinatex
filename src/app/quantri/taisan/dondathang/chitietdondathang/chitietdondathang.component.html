@@ -1,0 +1,102 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+        Chi Tiết Đơn Đặt Hàng
+    </h5>
+</div>
+<div class="modal-body">
+    <div class="p-d-flex p-flex-row p-jc-between">
+        <div class="modal-bt p-mb-4 d-flex">
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
+                (click)="activeModal.dismiss()"></button>
+        </div>
+    </div>
+
+    <div class="p-pt-3">
+        <div class="p-d-flex p-flex-row p-jc-between">
+            <h5>Danh sách phiếu đề nghị</h5>
+            <div class="p-inputgroup" [style]="{ width: '20vw', height: '36px' }">
+                <input #inputtt1 type="text" pInputText class="p-inputtext-sm"
+                    (input)="tb.filterGlobal($event.target.value, 'contains')" placeholder="Tìm kiếm" />
+                <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn p-inputtext-sm"
+                    (click)="tb.filterGlobal($event.target.value, '')" (click)="inputtt1.value = ''"></button>
+            </div>
+        </div>
+        <p-table #tb [value]="listDeNghiCungUng" dataKey="IdGuid" [globalFilterFields]="['MaNhanVien','TenDayDu']"
+            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [paginator]="true" [rows]="10">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">STT</th>
+                    <th style="width: 9rem">Ngày</th>
+                    <th style="width: 9rem">Số phiếu</th>
+                    <th style="width: 10rem">Kho</th>
+                    <th>Người yêu cầu</th>
+                    <th style="width: 10rem">Thao tác</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr class="p-selectable-row">
+                    <td class="text-center">{{i+1}}</td>
+                    <td class="text-center">{{item.Ngay | date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.SoQuyTrinh}}</td>
+                    <td class="">{{item.TenKho}}</td>
+                    <td class="">{{item.NguoiYeuCau}}</td>
+                    <td class="text-center">
+                        <button pButton pRipple icon="pi pi-pencil"
+                            class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                            (click)="XemChiTiet(item)" pTooltip="Chi tiết" showDelay="1000"
+                            tooltipPosition="bottom"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorleft">
+                Tổng số bản ghi {{listDeNghiCungUng.length}}.
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="p-pt-3">
+        <div class="p-d-flex p-flex-row p-jc-between">
+            <h5>Danh sách phiếu kiểm tra hàng</h5>
+            <div class="p-inputgroup" [style]="{ width: '20vw', height: '36px' }">
+                <input #inputtt1 type="text" pInputText class="p-inputtext-sm"
+                    (input)="tb1.filterGlobal($event.target.value, 'contains')" placeholder="Tìm kiếm" />
+                <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn p-inputtext-sm"
+                    (click)="tb1.filterGlobal($event.target.value, '')" (click)="inputtt1.value = ''"></button>
+            </div>
+        </div>
+        <p-table #tb1 [value]="listPhieuKiemHang" dataKey="IdGuid" [globalFilterFields]="['MaNhanVien','TenDayDu']"
+            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [paginator]="true" [rows]="10">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">STT</th>
+                    <th style="width: 9rem">Ngày</th>
+                    <th style="width: 9rem">Số phiếu</th>
+                    <th style="width: 9rem">Mã nhà cung ứng</th>
+                    <th style="width: 9rem">Tên nhà cung ứng</th>
+                    <th style="width: 9rem">Thời gian giao hàng</th>
+                    <th>Trạng thái</th>
+                    <th style="width: 10rem">Thao tác</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user let-i="rowIndex">
+                <tr class="p-selectable-row">
+                    <td class="text-center">{{i+1}}</td>
+                    <td class="text-center">{{item.Ngay | date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.SoQuyTrinh}}</td>
+                    <td class="">{{item.ma}}</td>
+                    <td class="">{{item.Ten}}</td>
+                    <td class="text-center">{{item.Ngay | date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.TenTrangThai}}</td>
+                    <td class="text-center">
+                        <button pButton pRipple icon="pi pi-pencil"
+                            class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                            (click)="XemChiTiet(item)" pTooltip="Chi tiết" showDelay="1000"
+                            tooltipPosition="bottom"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorleft">
+                Tổng số bản ghi {{listPhieuKiemHang.length}}.
+            </ng-template>
+        </p-table>
+    </div>
+</div>

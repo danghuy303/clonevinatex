@@ -633,7 +633,7 @@ import { DanhSachKeHoachNamComponent } from './kehoach/danh-sach-ke-hoach-nam/da
     PhucuongComponent,
     DinhmucbaocaodienmodalComponent,
     DanhSachBangGiaComponent,
-    DanhSachKeHoachNamComponent,
+    DanhSachKeHoachNamComponent
   ],
   imports: [
     HttpClientModule,

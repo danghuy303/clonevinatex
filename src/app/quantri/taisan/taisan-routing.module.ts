@@ -52,6 +52,8 @@ import { DanhMucDoiBaoDuongComponent } from './danhmuc/danh-muc-doi-bao-duong/da
 import { TheKhoVatTuComponent } from './the-kho-vat-tu/the-kho-vat-tu.component';
 import { KiemKeKhoVatTuComponent } from './kiem-ke-kho-vat-tu/kiem-ke-kho-vat-tu.component';
 import { DanhSachVatTuCanThayTheComponent } from './danh-sach-vat-tu-can-thay-the/danh-sach-vat-tu-can-thay-the.component';
+import { DenghicungungvattuComponent } from './denghicungungvattu/denghicungungvattu.component';
+import { DondathangComponent } from './dondathang/dondathang.component';
 
 const routes: Routes = [
   { path: '', component: TaisanComponent },
@@ -103,7 +105,9 @@ const routes: Routes = [
   { path: 'danhmuc/maqr', component: DanhMucQrComponent },
   { path: 'danhmuc/doibaoduong', component: DanhMucDoiBaoDuongComponent },
   { path: 'the-kho-vat-tu', component: TheKhoVatTuComponent },
-  { path: 'kiem-ke-kho-vat-tu/:id', component: KiemKeKhoVatTuComponent }
+  { path: 'kiem-ke-kho-vat-tu/:id', component: KiemKeKhoVatTuComponent },
+  { path: 'denghicungungvattu/:id', component: DenghicungungvattuComponent },
+  { path: 'dondathang/:id', component: DondathangComponent }
 ];
 
 @NgModule({
