@@ -15,6 +15,8 @@ import { ThanhtoanhopdongsoimodalComponent } from "../../hopdong/screen/thuchien
 import { fakeData } from "./datafake"
 import { StoreService } from "src/app/services/store.service";
 import { Subscription } from "rxjs";
+import { ImportdanhmucmodelComponent } from "../../danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component";
+import { UploadmodalComponent } from "../../modal/uploadmodal/uploadmodal.component";
 
 @Component({
   selector: 'app-danhsachvattu',
@@ -54,9 +56,9 @@ export class DanhsachvattuComponent implements OnInit {
   ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
+    })
     this.labelThang = [];
 
   }
@@ -93,13 +95,13 @@ export class DanhsachvattuComponent implements OnInit {
 
   resetFilter() {
     this.filter = {};
-     this.filter.Nam = new Date().getFullYear();
+    this.filter.Nam = new Date().getFullYear();
     this.filter.Thang = new Date().getMonth() + 1;
     this.GetList(true);
   }
 
   GetList(reset?) {
-   
+
     if (reset) {
       this.paging.CurrentPage = 1;
     }
@@ -125,8 +127,8 @@ export class DanhsachvattuComponent implements OnInit {
         })
         this.CheckExist(this.items);
         this.TimCheck();
-       
-        
+
+
       });
     }
     if (this.loaiTab === 0) {
@@ -207,7 +209,7 @@ export class DanhsachvattuComponent implements OnInit {
   }
 
   exportExcel() {
-    let data = this.listVatTuDaChon.map(ele => { 
+    let data = this.listVatTuDaChon.map(ele => {
       return {
         "Ma": ele.Ma,
         "Ten": ele.Ten,
@@ -221,7 +223,36 @@ export class DanhsachvattuComponent implements OnInit {
     this._serviceTaiSan.ListDanhSachVatTu().exportExcel(data).subscribe((res: any) => {
       this._serviceTaiSan.ListDanhSachVatTu().download(res.Data);
     })
-    
+  }
+
+  XuatDuLieu() {
+    this._serviceTaiSan.ExportFileMauNhapVatTu().subscribe((res: any) => {
+      this._serviceTaiSan.ListDanhSachVatTu().download(res.Data);
+    })
+  }
+
+  NhapDuLieu() {
+    let modalRef = this._modal.open(UploadmodalComponent, {
+      size: 'md',
+      backdrop: 'static',
+    })
+    modalRef.componentInstance.type = "excel";
+    modalRef.componentInstance.single = true;
+    modalRef.componentInstance.onlyExcel = true;
+    modalRef.result
+      .then((res: any) => {
+        this._serviceTaiSan.ImportDanhMucVatTu(res[0].Name).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.GetList();
+            this.toastr.success(res.Message);
+          } else {
+            this.toastr.error(res.Message);
+          }
+        })
+      })
+      .catch(er => { })
+      .finally(() => {
+      })
   }
 
 }

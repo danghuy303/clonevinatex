@@ -69,7 +69,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   getOSName(url) {
     // if (url.includes("sanxuat")) {
     this.showDropDown = true;
-    this.OSName = "Hệ thống quản trị ngành sợi";
+    this.OSName = "QUẢN LÝ TÀI SẢN";
     this.getListNhaMay();
     // } else {
     //   this.showDropDown = false;
@@ -97,12 +97,16 @@ export class QuantriComponent implements OnInit, OnDestroy {
         } else {
           this.IdNhaMay = this.store.getCurrent();
         }
+        let TenDuAn = this.listNhaMay.find((ele) => ele.value == this.IdNhaMay)?.label;
+        this.store.setTenNhaMay(TenDuAn);
       });
     this.US.push(nm);
   }
   setGlobalNhaMay(event) {
     this.store.setNhaMay(event.value);
     this.GetListQuyTrinhCanXuLy();
+    let TenDuAn = this.listNhaMay.find((ele) => ele.Id == event.value).TenDuAn;
+    this.store.setNhaMay(TenDuAn);
   }
   open(event) {
     this.listNoti.toggle(event);
@@ -2379,13 +2383,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
 
   CaiMeNuQLTS() {
     this.menuQLTS = [
-      {
-        label: "Quản lý tài sản",
-        icon: "fas fa-circle",
-        routerLink: "/quantri/taisan",
-        visible: this.showTaiSanModule,
-        expanded: true,
-        items: [
+      // {
+      //   label: "Quản lý tài sản",
+      //   icon: "fas fa-circle",
+      //   routerLink: "/quantri/taisan",
+      //   visible: this.showTaiSanModule,
+      //   expanded: true,
+      //   items: [
           {
             label: "Quản lý thông tin tài sản",
             expanded: true,
@@ -2580,7 +2584,25 @@ export class QuantriComponent implements OnInit, OnDestroy {
               },
             ],
           },
-
+          {
+            label: "Quản lý cung ứng",
+            items: [
+              {
+                label: "Phiếu ĐNCC vật tư",
+                routerLink: "/quantri/taisan/denghicungungvattu/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Đơn đặt hàng",
+                routerLink: "/quantri/taisan/dondathang/0",
+                command: () => {
+                  this.close();
+                },
+              }
+            ],
+          },
           {
             label: "Danh mục ",
             items: [
@@ -2628,8 +2650,8 @@ export class QuantriComponent implements OnInit, OnDestroy {
               },
             ],
           },
-        ],
-      },
+      //   ],
+      // },
     ];
   }
   ngOnDestroy(): void {

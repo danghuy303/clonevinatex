@@ -383,7 +383,7 @@ export class Hungyenpx1Component implements OnInit {
     };
     if (validVariable(this.item.Id)) {
       for (let i = 1; i <= (60); i++) {
-        let data = this.item.listItem.filter(ele => ele.ThuTu === i).sort((a,b)=>a.isXepChong-b.isXepChong);
+        let data = this.item.listItem.filter(ele => ele.ThuTu === i).sort((a, b) => a.isXepChong - b.isXepChong);
         this.banBong[`${i}`] = {
           _focus: false,
           _ngoaiQuan: data?.[0]?.isNgoaiQuan,
@@ -395,7 +395,6 @@ export class Hungyenpx1Component implements OnInit {
           labelLoBongXepChong: data?.[1]?.TenLoBong
         }
       }
-      console.log(this.banBong)
       this.item.listLoBong.forEach(lobong => {
         lobong.DaXep = this.item.listItem.filter(banbong => (banbong.IdLoBong === lobong.IdLoBong || banbong.IdLoBongXepChong === lobong.IdLoBong) && banbong.TenLoBong !== "Ngoại quan bông")?.length || 0;
       });

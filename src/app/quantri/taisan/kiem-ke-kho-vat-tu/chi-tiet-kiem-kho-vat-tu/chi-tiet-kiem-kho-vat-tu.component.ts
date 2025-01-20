@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { ImportnhapkhothanhphamComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
   selector: 'app-chi-tiet-kiem-kho-vat-tu',
@@ -38,6 +40,7 @@ export class ChiTietKiemKhoVatTuComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private services: SanXuatService,
+    private _serviceTaiSan: TaisanService,
     public toastr: ToastrService,
     public _modal: NgbModal
   ) { }
@@ -68,10 +71,10 @@ export class ChiTietKiemKhoVatTuComponent implements OnInit {
         .subscribe((res: any) => {
           // this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
           // this.listNewMatHang_ref = res;
-          this.item.listItem = res.Data.map((ele:any) => {
+          this.item.listItem = res.Data.map((ele: any) => {
             return {
               ...ele,
-              Ton:ele.SoLuong
+              Ton: ele.SoLuong
             }
           })
         });
@@ -147,12 +150,12 @@ export class ChiTietKiemKhoVatTuComponent implements OnInit {
       .PhieuKiemKeKhoVatTu()
       .ChuyenTiep(this.item)
       .subscribe((res: any) => {
-          if (res.StatusCode === 200) {
-            this.toastr.success(res.Message);
-            this.activeModal.close();
-          } else {
-            this.toastr.error(res.Message);
-          }
+        if (res.StatusCode === 200) {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.Message);
+        }
       });
   }
   KhongDuyet() {
@@ -186,26 +189,26 @@ export class ChiTietKiemKhoVatTuComponent implements OnInit {
       .PhieuKiemKeKhoVatTu()
       .Set(this.item)
       .subscribe((res: any) => {
-          if (res.StatusCode === 200) {
-            this.toastr.success(res.Message);
-            this.opt = "edit";
-            //   this.item = res.objectReturn;
-            // this.paginator.changePage(0);
-            this.Id = res.Data.Id;
-            this.GetQuyTrinh();
-            //   this.listItem = res.objectReturn.listItem;
-            //   this.paging.CurrentPage = 1;
-            //   this.paging.TotalPage = 5;
-            //   if (
-            //       res.objectReturn.listItem != undefined &&
-            //       res.objectReturn.listItem != null
-            //   )
-            //       this.paging.TotalItem = res.objectReturn.listItem.length;
-            //   this.item.listItem = res.objectReturn.listItem.slice(0, 10);
-            //   this.KiemTraButtonModal();
-          } else {
-            this.toastr.error(res.Message);
-          }
+        if (res.StatusCode === 200) {
+          this.toastr.success(res.Message);
+          this.opt = "edit";
+          //   this.item = res.objectReturn;
+          // this.paginator.changePage(0);
+          this.Id = res.Data.Id;
+          this.GetQuyTrinh();
+          //   this.listItem = res.objectReturn.listItem;
+          //   this.paging.CurrentPage = 1;
+          //   this.paging.TotalPage = 5;
+          //   if (
+          //       res.objectReturn.listItem != undefined &&
+          //       res.objectReturn.listItem != null
+          //   )
+          //       this.paging.TotalItem = res.objectReturn.listItem.length;
+          //   this.item.listItem = res.objectReturn.listItem.slice(0, 10);
+          //   this.KiemTraButtonModal();
+        } else {
+          this.toastr.error(res.Message);
+        }
 
       });
   }
@@ -323,4 +326,36 @@ export class ChiTietKiemKhoVatTuComponent implements OnInit {
       itemTon.TrongLuong = value;
     });
   }
+
+  XuatDuLieu() {
+    this._serviceTaiSan.ExportFileMauNhapVatTuCungUng().subscribe((res: any) => {
+      this._serviceTaiSan.ListDanhSachVatTu().download(res.Data);
+    })
+  }
+
+  NhapDuLieu() {
+    let modalRef = this._modal.open(UploadmodalComponent, {
+      size: 'md',
+      backdrop: 'static',
+    })
+    modalRef.componentInstance.type = "excel";
+    modalRef.componentInstance.single = true;
+    modalRef.componentInstance.onlyExcel = true;
+    modalRef.result
+      .then((res: any) => {
+        this._serviceTaiSan.ImportKiemKeVatTu(res[0].Name).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.item.listItem = res.Data
+            this.toastr.success(res.Message);
+          } else {
+            this.toastr.error(res.Message);
+          }
+        })
+      })
+      .catch(er => { })
+      .finally(() => {
+      })
+  }
+
+
 }

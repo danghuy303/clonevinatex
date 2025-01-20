@@ -108,6 +108,14 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     //     return false;
     //   }
     // }
+    if (!validVariable(this.item?.MaQR)) {
+      this.toastr.error("Yêu cầu chọn mã QR tài sản");
+      return false;
+    }
+    // if (!validVariable(this.item?.TendmTaiSan)) {
+    //   this.toastr.error("Yêu cầu chọn nhóm tài sản");
+    //   return false;
+    // }
     if (!validVariable(this.item.DonViNangSuat)) {
       this.toastr.error("Yêu cầu nhập đơn vị");
       return false;

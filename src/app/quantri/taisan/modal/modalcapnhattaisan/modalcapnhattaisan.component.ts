@@ -175,10 +175,18 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item?.TaiSan?.Ten)) {
-      this.toastr.error("Yêu cầu nhập tên");
+    if (!validVariable(this.item?.TaiSan?.Ten) || !validVariable(this.item?.TaiSan?.Ma)) {
+      this.toastr.error("Yêu cầu nhập mã và tên");
       return false;
     }
+    if (!validVariable(this.item?.TaiSan?.MaQR)) {
+      this.toastr.error("Yêu cầu chọn mã QR tài sản");
+      return false;
+    }
+    // if (!validVariable(this.item?.TaiSan?.TendmTaiSan)) {
+    //   this.toastr.error("Yêu cầu chọn nhóm tài sản");
+    //   return false;
+    // }
     if (!validVariable(this.item?.TaiSan?.SoNamKhauHao) || !validVariable(this.item?.TaiSan?.IddmLoaiTaiSan) || !validVariable(this.item?.TaiSan?.TenVietTat)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
       return false;

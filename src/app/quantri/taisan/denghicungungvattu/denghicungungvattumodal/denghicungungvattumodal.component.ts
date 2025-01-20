@@ -1,0 +1,197 @@
+import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/services/auth.service';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { vn } from 'src/app/services/const';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { DanhsachvattucungungComponent } from '../danhsachvattucungung/danhsachvattucungung.component';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+
+@Component({
+  selector: 'app-denghicungungvattumodal',
+  templateUrl: './denghicungungvattumodal.component.html',
+  styleUrls: ['./denghicungungvattumodal.component.css']
+})
+export class DenghicungungvattumodalComponent implements OnInit {
+
+  title: string = '';
+  opt: string = '';
+  quyTrinh: any = {};
+  checkButton: any = {};
+  listDuAn: any = [];
+  listBoPhan: any = [];
+
+  lang: any = vn;
+  yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
+  userInfo: any = {};
+
+  constructor(
+    public activeModal: NgbActiveModal,
+    private _serviceTaiSan: TaisanService,
+    public toastr: ToastrService,
+    public store: StoreService,
+    public _modal: NgbModal,
+    private _services: SanXuatService,
+    private _auth: AuthenticationService
+  ) { this.userInfo = this._auth.currentUserValue; }
+
+  ngOnInit(): void {
+    this.KiemTraButton();
+    this.GetDanhSachDuAnByIdUser();
+    if (this.opt === 'add') {
+      this.GetNextSoQuyTrinh();
+    } else {
+      this.GetById();
+    }
+  }
+
+  GetById() {
+    this.quyTrinh = {
+      ...this.quyTrinh,
+      Ngay: UnixToDate(this.quyTrinh.NgayUnix)
+    }
+    this.GetKho(this.quyTrinh.IdDuAn)
+  }
+
+  KiemTraButton() {
+    this._services.KiemTraButton(this.quyTrinh.Id || "", this.quyTrinh.IdTrangThai || "").subscribe((res: any) => {
+      this.checkButton = res;
+    });
+  }
+
+  GetNextSoQuyTrinh() {
+    this._serviceTaiSan.PhieuDNCU().GetNextSo().subscribe((res: any) => {
+      this.quyTrinh.SoQuyTrinh = res.Data;
+    })
+  }
+
+  GetDanhSachDuAnByIdUser() {
+    this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
+      this.listDuAn = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+    })
+  }
+
+  handleDuAn(value) {
+    this.quyTrinh.IddmKho = null;
+    this.GetKho(value);
+  }
+
+  GetKho(value) {
+    this._serviceTaiSan.GetlistdmKho(value).subscribe((res: any) => {
+      this.listBoPhan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    })
+  }
+
+  ChontVatTu() {
+    this._serviceTaiSan.GetlistdmItem({ currentpage: 0 }).subscribe((res: any) => {
+      let modalRef = this._modal.open(DanhsachvattucungungComponent, {
+        size: 'lg',
+        backdrop: 'static',
+      })
+      modalRef.componentInstance.listItem = res.Data || [];
+      modalRef.componentInstance.listDaChon = [];
+      modalRef.result
+        .then((res: any) => {
+          this.quyTrinh.listItem = res;
+        })
+        .catch((error: any) => { })
+    })
+  }
+
+  xoaItem(idx) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?";
+    modalRef.result.then((res) => {
+      this.quyTrinh.listItem.splice(idx, 1);
+    })
+      .catch((er) => console.log(er));
+  }
+
+  setData() {
+    let data = {
+      ...this.quyTrinh,
+      NgayUnix: DateToUnix(this.quyTrinh.Ngay)
+    }
+    return data;
+  }
+
+  ValidateData() {
+    if (!validVariable(this.quyTrinh.NoiDung)) {
+      this.toastr.error("Yêu cầu nhập nội dung!");
+      return false;
+    }
+    return true;
+  }
+
+  GhiLai() {
+    if (this.ValidateData()) {
+      this._serviceTaiSan.PhieuDNCU().Set(this.setData()).subscribe((res: any) => {
+        if (res.StatusCode === 200) {
+          this.quyTrinh = {
+            ...res.Data,
+            Ngay: UnixToDate(res.Data.NgayUnix)
+          }
+          this.KiemTraButton();
+          this.toastr.success(res.Message);
+        } else this.toastr.error(res.Message);
+      })
+    }
+  }
+
+  KhongDuyet() {
+    this._serviceTaiSan.PhieuDNCU().KhongDuyet(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
+  }
+  ChuyenDuyet() {
+    this._serviceTaiSan.PhieuDNCU().ChuyenTiep(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
+  }
+  XoaQuyTrinh() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.result
+      .then((res) => {
+        this._serviceTaiSan.PhieuDNCU().Delete(this.setData()).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.toastr.success(res.Message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.Message);
+          }
+        })
+      })
+      .catch((er) => console.log(er));
+  }
+
+  exportExcel() {
+    this._serviceTaiSan.PhieuDNCU().Export(this.quyTrinh.Id).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
+  }
+
+  TinhSoLuongGoi(item) {
+    let num = item.SoLuongYeuCau - item.SoLuongTon;
+    item.SoLuongGoi = num < 0 ? 0 : num;
+    this.quyTrinh.listItem = [...this.quyTrinh.listItem];
+  }
+
+}

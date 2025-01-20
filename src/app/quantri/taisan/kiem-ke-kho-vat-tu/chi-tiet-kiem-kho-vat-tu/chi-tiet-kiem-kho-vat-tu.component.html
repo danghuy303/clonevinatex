@@ -44,19 +44,25 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-p-0 p-d-flex p-flex-row p-jc-between">
+        <div class="p-col-12 p-p-0 p-d-flex p-flex-row p-jc-between p-my-3">
             <div>
+                <button pButton pRipple type="button" label="Nhập Excel" class="p-mr-2 p-button-sm"
+                    (click)="NhapDuLieu()"></button>
+                <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm"
+                    (click)="XuatDuLieu()"></button>
             </div>
             <div>
                 <div class="p-inputgroup">
-                    <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="filter()" [(ngModel)]="KeyWord" />
+                    <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="filter()"
+                        [(ngModel)]="KeyWord" />
                     <button type="button" pButton pRipple icon="pi pi-refresh"
                         class="p-button-secondary p-button-sm p-button-text" (click)="refreshFilter()"></button>
                 </div>
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines" [paginator]="true" [rows]="15">
+            <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines"
+                [paginator]="true" [rows]="15">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -70,11 +76,11 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th >#</th>
-                        <th >Mã</th>
-                        <th >Tên</th>
-                        <th >Tồn sổ sách</th>
-                        <th >Tồn thực tế</th>
+                        <th>#</th>
+                        <th>Mã</th>
+                        <th>Tên</th>
+                        <th>Tồn sổ sách</th>
+                        <th>Tồn thực tế</th>
                         <!-- <th ></th> -->
                     </tr>
                 </ng-template>
