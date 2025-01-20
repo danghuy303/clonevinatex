@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -15,6 +15,8 @@ import { Phuhung1Component } from '../layoutmodals/phuhung1/phuhung1.component';
 import { Phuhung2Component } from '../layoutmodals/phuhung2/phuhung2.component';
 import { DetmayhueComponent } from '../layoutmodals/detmayhue/detmayhue.component';
 import { PhucuongComponent } from '../layoutmodals/phucuong/phucuong.component';
+import { Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 
 @Component({
@@ -22,7 +24,9 @@ import { PhucuongComponent } from '../layoutmodals/phucuong/phucuong.component';
   templateUrl: './xepbanbong.component.html',
   styleUrls: ['./xepbanbong.component.css']
 })
-export class XepbanbongComponent extends StoreBase implements OnInit, OnDestroy {
+export class XepbanbongComponent implements OnInit, AfterViewInit, OnDestroy {
+  $sub!: Subscription;
+  paramsSubscription!: Subscription;
   @ViewChild('paginator') paginator: any;
   items: any = [];
   filter: any = {};
@@ -82,21 +86,42 @@ export class XepbanbongComponent extends StoreBase implements OnInit, OnDestroy 
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listdmPhanXuong: any = [];
-  constructor(public _modal: NgbModal, public store: StoreService, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private _store: StoreService) { super(store) }
-
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res: any) => {
-      if (res.id !== '0') {
-        this._service.XepBanBong().Get(res.id).subscribe((res: any) => {
-          this.update(res);
-        })
+  constructor(
+    public _modal: NgbModal,
+    // store: StoreService,
+    public _toastr: ToastrService,
+    private _service: SanXuatService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private _store: StoreService) {
+    // super(store)
+    this.$sub = this._store.getNhaMay().subscribe(res => {
+      if (res) {
+        this.ngOnInit()
       }
     })
+  }
+
+  ngOnInit(): void {
+    if (!this.paramsSubscription) {
+      this.paramsSubscription = this.activatedRoute.params.subscribe((res: any) => {
+        if (res.id !== '0') {
+          this._service.XepBanBong().Get(res.id).subscribe((res: any) => {
+            this.update(res);
+          })
+        }
+      })
+    }
+
     this._service.GetListdmPhanXuong({}).subscribe((res: any) => {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filter.IddmPhanXuong = this.listdmPhanXuong[0].value;
       this.KiemTraTabTrangThai();
     })
+  }
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
   changeParam(id) {
     this.router.navigate([`quantri/trienkhaisanxuat/xepbanbong/${id}`], { replaceUrl: true })
@@ -123,8 +148,6 @@ export class XepbanbongComponent extends StoreBase implements OnInit, OnDestroy 
       this.changeParam(0);
     })
       .catch(er => {
-        this.GetListQuyTrinh();
-        this.changeParam(0);
       })
   }
   changeTab(e) {
@@ -168,6 +191,7 @@ export class XepbanbongComponent extends StoreBase implements OnInit, OnDestroy 
     })
   }
   ngOnDestroy() {
-    super.ngOnDestroy();
+    // super.ngOnDestroy();
+    this.paramsSubscription.unsubscribe();
   }
 }
