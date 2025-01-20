@@ -65,6 +65,10 @@ export class XepbanbongComponent extends StoreBase implements OnInit, OnDestroy 
       '1cf3f340_0f55_4f34_938p_e329318e25et': Hungyenpx1Component,
       '320d695b_2f56_42a7_a68d_14077f85fb93': Hungyenpx1Component
     },
+    '61': {
+      '1cf3f340_0f55_4f34_938p_e329318e25et': Hungyenpx1Component,
+      '320d695b_2f56_42a7_a68d_14077f85fb93': Hungyenpx1Component
+    },
     '65': {
       '1cf3f340_0f55_4f34_938p_e329318e25et': Cnnamdinhpx1Component,
       '1cf3f340_0f55_4f34_938p_e629318e25et': Cnnamdinhpx1Component
