@@ -149,6 +149,9 @@ export class XepbanbongComponent implements OnInit, AfterViewInit, OnDestroy {
     })
       .catch(er => {
       })
+      .finally(() => {
+        this.changeParam(0);
+      })
   }
   changeTab(e) {
     this.trangThai = e.index + 1;
