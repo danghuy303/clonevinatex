@@ -16,10 +16,12 @@ import { CalcmodalComponent } from "src/app/quantri/modal/calcmodal/calcmodal.co
 })
 export class GiaokehoachsanxuatmodalComponent implements OnInit {
   lang: any = vn;
-  checkbutton: any = {Ghi: true,
+  checkbutton: any = {
+    Ghi: true,
     Xoa: false,
     ChuyenTiep: false,
-    KhongDuyet: false,};
+    KhongDuyet: false,
+  };
   opt: any = "";
   listHopDong: any = [];
   listPhanXuong: any = []; listMatHang: any = [];
@@ -30,24 +32,23 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
     { value: 0, label: 'Xuất khẩu' },
     { value: 1, label: 'Nội địa' },
   ]
-  listCaSanXuat:any =[];
+  listCaSanXuat: any = [];
   listQuyCachDongGoi: any = [];
-  yearRange: string = `${
-    new Date().getFullYear() - 50
-  }:${new Date().getFullYear()}`;
+  yearRange: string = `${new Date().getFullYear() - 50
+    }:${new Date().getFullYear()}`;
   constructor(
     public activeModal: NgbActiveModal,
     public _toastr: ToastrService,
     public _modal: NgbModal,
     private _services: HopDongService,
     private _servicesDungChung: SanXuatService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getListCaSanXuat();
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
-    } 
+    }
     else {
       this.KiemTraButtonModal();
     }
@@ -63,9 +64,9 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
       this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');;
     })
   }
-  getListCaSanXuat(){
-    this._servicesDungChung.GetListOptdmCaSanXuat().subscribe((res:any)=>{
-      this.listCaSanXuat = res;    
+  getListCaSanXuat() {
+    this._servicesDungChung.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      this.listCaSanXuat = res;
     })
   }
   getPhanXuong(IdDuAn, update?) {
@@ -80,13 +81,13 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
   }
   KiemTraButtonModal() {
     this._servicesDungChung.KiemTraButton(this.item.id || "", this.item.idTrangThai || "").subscribe((res: any) => {
-        this.checkbutton = res;
-      });
+      this.checkbutton = res;
+    });
   }
   ChuyenDuyet() {
-    if(this.checkTruocKhiLuu()){
+    if (this.checkTruocKhiLuu()) {
 
-    this._services.GiaoKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
+      this._services.GiaoKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res?.statusCode === 200) {
             this._toastr.success(res.message);
@@ -99,9 +100,9 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
     }
   }
   KhongDuyet() {
-    if(this.checkTruocKhiLuu()){
+    if (this.checkTruocKhiLuu()) {
 
-    this._services.GiaoKeHoachSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
+      this._services.GiaoKeHoachSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res?.statusCode === 200) {
             this._toastr.success(res.message);
@@ -121,7 +122,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if(this.checkTruocKhiLuu()){
+    if (this.checkTruocKhiLuu()) {
       this._services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res?.statusCode === 200) {
@@ -135,7 +136,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
         }
       });
     }
-    
+
   }
 
   XoaQuyTrinh() {
@@ -181,13 +182,13 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
       this.item.tongKhoiLuong = 0;
       let KLxChiSo: any = 0;
       this.item.listItem.forEach(obj => {
-          this.item.tongKhoiLuong += (obj.khoiLuong || 0);
-          KLxChiSo += (obj.khoiLuong || 0) * (obj.ne || 0);
+        this.item.tongKhoiLuong += (obj.khoiLuong || 0);
+        KLxChiSo += (obj.khoiLuong || 0) * (obj.ne || 0);
       });
       this.item.chiSoBQ = Math.ceil((KLxChiSo / this.item.tongKhoiLuong) * 100) / 100;
       this.item.ne30 = this.item.tongKhoiLuong * this.item.chiSoBQ / 30 / this.item.tongSoCa;
     }
-    else{
+    else {
       this.item.tongKhoiLuong = 0;
       this.item.chiSoBQ = 0;
       this.item.ne30 = 0;
@@ -200,7 +201,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.items = this.listMatHang;
     modalRef.componentInstance.selectedItems = this.item.listItem;
     modalRef.componentInstance.IdQuyTrinh = this.item.id;
-    modalRef.componentInstance.opt = "";    
+    modalRef.componentInstance.opt = "";
     modalRef.result.then(res => {
       if (res.length > 0) {
         this.item.listItem = res
@@ -237,10 +238,10 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
       }
     }
   }
-  getListMatHang(){
-    this._services.GiaoKeHoachSanXuat().GetListMatHangGiaoKeHoachSanXuat(this.item.idDuAn || '').subscribe((res:any) => {
+  getListMatHang() {
+    this._services.GiaoKeHoachSanXuat().GetListMatHangGiaoKeHoachSanXuat(this.item.idDuAn || '').subscribe((res: any) => {
       this.listMatHang = [];
-      res.data.forEach(obj=>{
+      res.data.forEach(obj => {
         let data: any = {}
         data.idHopDong = obj.idHopDong;
         data.ne = obj.ne;
@@ -289,12 +290,12 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
       this.item.chiSoBQ = Math.ceil((KLxChiSo / this.item.tongKhoiLuong) * 100) / 100;
       this.item.ne30 = this.item.tongKhoiLuong * this.item.chiSoBQ / 30 / this.item.tongSoCa;
     }
-    if(validVariable(item.id)){
+    if (validVariable(item.id)) {
       item.isEdited = true;
     }
   }
   change(index) {
-    if(validVariable(this.item.id)){
+    if (validVariable(this.item.id)) {
       this.item.listItem[index].isEdited = true;
     }
   }
@@ -303,45 +304,46 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
       this.item = res;
       this.item.ngayBatDau = UnixToDate(this.item.ngayBatDauUnix);
       this.item.ngayKetThuc = UnixToDate(this.item.ngayKetThucUnix);
-        if (!validVariable(this.item.listItem)) {
-          this.item.listItem = [];
-        }
-        this.item.listItem.filter(objlistItem => {
-            objlistItem.listQuyCachDongGoi.filter(async objlistItem2 => {
-              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.iddmQuyCachDongGoi == obj.value)[0];
-            });          
-          });
+      if (!validVariable(this.item.listItem)) {
+        this.item.listItem = [];
+      }
+      this.item.listItem.filter(objlistItem => {
+        objlistItem.listQuyCachDongGoi.filter(async objlistItem2 => {
+          objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.iddmQuyCachDongGoi == obj.value)[0];
+        });
+      });
       this.KiemTraButtonModal();
-    } 
-  )}
+    }
+    )
+  }
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt]=res;
+      item[opt] = res;
     })
   }
-  checkTruocKhiLuu(){
-    if(!validVariable(this.item.noiDung)){
+  checkTruocKhiLuu() {
+    if (!validVariable(this.item.noiDung)) {
       this._toastr.error("Bạn chưa nhập nội dung");
       return false;
     }
-    else if(!validVariable(this.item.idDuAn)){
+    else if (!validVariable(this.item.idDuAn)) {
       this._toastr.error("Bạn chưa chọn dự án");
       return false;
     }
-    else if(!validVariable(this.item.iddmPhanXuong)){
+    else if (!validVariable(this.item.iddmPhanXuong)) {
       this._toastr.error("Bạn chưa chọn phân xưởng");
       return false;
     }
-    else if(!validVariable(this.item.ngayBatDau)){
+    else if (!validVariable(this.item.ngayBatDau)) {
       this._toastr.error("Bạn chưa ngày bắt đầu");
       return false;
     }
-    else if(!validVariable(this.item.ngayKetThuc)){
+    else if (!validVariable(this.item.ngayKetThuc)) {
       this._toastr.error("Bạn chưa ngày kết thúc");
       return false;
     }
-    else if(!validVariable(this.item.tongSoCa)){
+    else if (!validVariable(this.item.tongSoCa)) {
       this._toastr.error("Bạn chưa nhập tổng số ca");
       return false;
     }
