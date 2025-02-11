@@ -1,33 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
-import { AuthenticationService } from 'src/app/services/auth.service';
-import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { vn } from 'src/app/services/const';
-import { DateToUnix, handleHTTPResponse, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
-import { StoreService } from 'src/app/services/store.service';
-import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { DanhsachvattucungungComponent } from '../danhsachvattucungung/danhsachvattucungung.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { DateToUnix, handleHTTPResponse, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DanhsachvattucungungComponent } from '../../denghicungungvattu/danhsachvattucungung/danhsachvattucungung.component';
+import { vn } from 'src/app/services/const';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ToastrService } from 'ngx-toastr';
+import { StoreService } from 'src/app/services/store.service';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 
 @Component({
-  selector: 'app-denghicungungvattumodal',
-  templateUrl: './denghicungungvattumodal.component.html',
-  styleUrls: ['./denghicungungvattumodal.component.css']
+  selector: 'app-pheduyetgiahanghoamodal',
+  templateUrl: './pheduyetgiahanghoamodal.component.html',
+  styleUrls: ['./pheduyetgiahanghoamodal.component.css']
 })
-export class DenghicungungvattumodalComponent implements OnInit {
+export class PheduyetgiahanghoamodalComponent implements OnInit {
 
   title: string = '';
   opt: string = '';
   quyTrinh: any = {};
   checkButton: any = {};
-  listDuAn: any = [];
-  listBoPhan: any = [];
-  fileUpload: any;
+  listPheDuyet: any = [{ value: true, label: 'Duyệt' }, { value: false, label: 'Không duyệt' }];
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   userInfo: any = {};
+  fileUpload: any;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -41,7 +40,6 @@ export class DenghicungungvattumodalComponent implements OnInit {
 
   ngOnInit(): void {
     this.KiemTraButton();
-    this.GetDanhSachDuAnByIdUser();
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
     } else {
@@ -54,7 +52,6 @@ export class DenghicungungvattumodalComponent implements OnInit {
       ...this.quyTrinh,
       Ngay: UnixToDate(this.quyTrinh.NgayUnix)
     }
-    this.GetKho(this.quyTrinh.IdDuAn)
   }
 
   KiemTraButton() {
@@ -64,37 +61,20 @@ export class DenghicungungvattumodalComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.PhieuDNCU().GetNextSo().subscribe((res: any) => {
+    this._serviceTaiSan.PheDuyetGia().GetNextSo().subscribe((res: any) => {
       this.quyTrinh.SoQuyTrinh = res.Data;
     })
   }
 
-  GetDanhSachDuAnByIdUser() {
-    this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
-      this.listDuAn = mapArrayForDropDown(res, 'TenDuAn', 'Id');
-    })
-  }
-
-  handleDuAn(value) {
-    this.quyTrinh.IddmKho = null;
-    this.GetKho(value);
-  }
-
-  GetKho(value) {
-    this._serviceTaiSan.GetlistdmKho(value).subscribe((res: any) => {
-      this.listBoPhan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
-    })
-  }
-
-  ChontVatTu() {
-    this._serviceTaiSan.GetlistdmItem({ currentpage: 0 }).subscribe((res: any) => {
+  ChontHangHoa() {
+    this._serviceTaiSan.ListDanhSachVatTu().GetListVatTuTonTrongKho({ currentpage: 0 }).subscribe((res: any) => {
       let modalRef = this._modal.open(DanhsachvattucungungComponent, {
         size: 'lg',
         backdrop: 'static',
       })
       modalRef.componentInstance.listItem = res.Data || [];
-      modalRef.componentInstance.title = 'Danh sách vật tư';
-      modalRef.componentInstance.titleHead = 'vật tư';
+      modalRef.componentInstance.title = 'Danh sách hàng hóa';
+      modalRef.componentInstance.titleHead = 'nhà cung ứng';
       modalRef.componentInstance.listDaChon = this.quyTrinh.listItem?.length ? this.quyTrinh.listItem.map(ele => ele.IddmItem) : [];
       modalRef.result
         .then((res: any) => {
@@ -138,7 +118,7 @@ export class DenghicungungvattumodalComponent implements OnInit {
 
   GhiLai() {
     if (this.ValidateData()) {
-      this._serviceTaiSan.PhieuDNCU().Set(this.setData()).subscribe((res: any) => {
+      this._serviceTaiSan.PheDuyetGia().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.quyTrinh = {
             ...res.Data,
@@ -152,7 +132,7 @@ export class DenghicungungvattumodalComponent implements OnInit {
   }
 
   KhongDuyet() {
-    this._serviceTaiSan.PhieuDNCU().KhongDuyet(this.setData()).subscribe((res: any) => {
+    this._serviceTaiSan.PheDuyetGia().KhongDuyet(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -162,7 +142,7 @@ export class DenghicungungvattumodalComponent implements OnInit {
     })
   }
   ChuyenDuyet() {
-    this._serviceTaiSan.PhieuDNCU().ChuyenTiep(this.setData()).subscribe((res: any) => {
+    this._serviceTaiSan.PheDuyetGia().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -178,7 +158,7 @@ export class DenghicungungvattumodalComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._serviceTaiSan.PhieuDNCU().Delete(this.setData()).subscribe((res: any) => {
+        this._serviceTaiSan.PheDuyetGia().Delete(this.setData()).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.toastr.success(res.Message);
             this.activeModal.close();
@@ -199,7 +179,7 @@ export class DenghicungungvattumodalComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        this._serviceTaiSan.PhieuDNCU().Import(this.fileUpload[0]).subscribe((res: any) => {
+        this._serviceTaiSan.PheDuyetGia().Import(this.fileUpload[0]).subscribe((res: any) => {
           handleHTTPResponse(res, this.toastr, () => {
           })
         })
@@ -210,7 +190,7 @@ export class DenghicungungvattumodalComponent implements OnInit {
   }
 
   exportExcel() {
-    this._serviceTaiSan.PhieuDNCU().ExportId(this.quyTrinh.Id).subscribe((res: any) => {
+    this._serviceTaiSan.PheDuyetGia().ExportId(this.quyTrinh.Id).subscribe((res: any) => {
       if (res.StatusCode === 200) {
         this.toastr.success(res.Message);
         this._services.download(res.Data);
@@ -218,12 +198,6 @@ export class DenghicungungvattumodalComponent implements OnInit {
         this.toastr.error(res.Message);
       }
     })
-  }
-
-  TinhSoLuongGoi(item) {
-    let num = item.SoLuongYeuCau - item.SoLuongTon;
-    item.SoLuongGoi = num < 0 ? 0 : num;
-    this.quyTrinh.listItem = [...this.quyTrinh.listItem];
   }
 
 }

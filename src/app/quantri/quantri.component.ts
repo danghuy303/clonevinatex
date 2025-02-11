@@ -30,7 +30,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   newCanhBao: any = 0;
   // userName: any = 'Vinatex';
   displayCanhBao: boolean = false;
-  OSName: string = "HỆ THỐNG Quản lý Nhà – Đất";
+  OSName: string = "Hệ thống quản trị nghành sợi";
   menu: MenuItem[];
   menuQLTS: MenuItem[];
   menuQLNS: MenuItem[];
@@ -69,7 +69,6 @@ export class QuantriComponent implements OnInit, OnDestroy {
   getOSName(url) {
     // if (url.includes("sanxuat")) {
     this.showDropDown = true;
-    this.OSName = "QUẢN LÝ TÀI SẢN";
     this.getListNhaMay();
     // } else {
     //   this.showDropDown = false;
@@ -2367,6 +2366,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   }
   NavigateToQuanTriSoi() {
     this.isCheckMenu = false;
+    this.OSName = "Hệ thống quản trị nghành sợi";
     localStorage.setItem('isCheckMenu', JSON.stringify(this.isCheckMenu))
     this.display = !this.display;
     this.CaiMeNu();
@@ -2375,6 +2375,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
 
   NavigateToQuanLyTaiSan() {
     this.isCheckMenu = true;
+    this.OSName = "Quản lý tài sản";
     localStorage.setItem('isCheckMenu', JSON.stringify(this.isCheckMenu))
     this.displayAsset = !this.displayAsset;
     this.CaiMeNuQLTS();
@@ -2587,6 +2588,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
           {
             label: "Quản lý cung ứng",
             items: [
+              {
+                label: "Phê duyệt giá hàng hóa",
+                routerLink: "/quantri/taisan/pheduyetgiahanghoa/0",
+                command: () => {
+                  this.close();
+                },
+              },
               {
                 label: "Phiếu ĐNCC vật tư",
                 routerLink: "/quantri/taisan/denghicungungvattu/0",

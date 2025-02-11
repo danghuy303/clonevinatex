@@ -13,18 +13,20 @@ export class DanhsachvattucungungComponent implements OnInit {
   Id: any = [];
   listDaChon: any = [];
   filter: any = {};
+  title: string = 'Danh sách vật tư';
+  titleHead: string = '';
 
   constructor(
     public activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit(): void {
-    this.GetDanhSachNhanVien();
+    this.GetDanhSach();
   }
 
-  GetDanhSachNhanVien() {
+  GetDanhSach() {
     this.listItem.forEach((ele: any) => {
-      ele.checked = this.listDaChon.map((x: any) => x.IddmItem).includes(ele.Id);
+      ele.checked = this.listDaChon.includes(ele.Id);
     })
     this.checked();
   }
@@ -41,9 +43,8 @@ export class DanhsachvattucungungComponent implements OnInit {
 
   ChapNhan() {
     let data = this.listItem.filter((ele: any) => ele.checked).map((ele: any) => {
-      let _newObj = this.listDaChon.find((x: any) => x.IddmItem === ele.Id) ? this.listDaChon.find((x: any) => x.IddmItem === ele.Id) : ele;
       return {
-        ..._newObj,
+        ...ele,
         Id: '',
         IddmItem: ele.Id,
       }

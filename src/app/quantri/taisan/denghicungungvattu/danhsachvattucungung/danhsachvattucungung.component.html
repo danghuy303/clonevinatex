@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h5 class="modal-title">
-       Danh sách vật tư
+        {{title}}
     </h5>
 </div>
 <div class="modal-body">
@@ -12,8 +12,8 @@
                 (click)="ChapNhan()"></button>
         </div>
         <div class="p-inputgroup" [style]="{ width: '20vw', height: '36px' }">
-            <input #inputtt1 type="text" pInputText class="p-inputtext-sm" (input)="tb.filterGlobal($event.target.value, 'contains')"
-                placeholder="Tìm kiếm" />
+            <input #inputtt1 type="text" pInputText class="p-inputtext-sm"
+                (input)="tb.filterGlobal($event.target.value, 'contains')" placeholder="Tìm kiếm" />
             <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn p-inputtext-sm"
                 (click)="tb.filterGlobal($event.target.value, '')" (click)="inputtt1.value = ''"></button>
         </div>
@@ -21,15 +21,16 @@
 
     <div class="p-pt-3">
         <p-table #tb [value]="listItem" dataKey="IdGuid" [globalFilterFields]="['MaNhanVien','TenDayDu']"
-            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [paginator]="true" [rows]="10" >
+            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [paginator]="true" [rows]="10">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 3rem">
-                        <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall" (onChange)="checkAll($event)"></p-checkbox>
+                        <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall"
+                            (onChange)="checkAll($event)"></p-checkbox>
                     </th>
                     <th style="width: 3rem">STT</th>
-                    <th style="width: 10rem">Mã nhân viên</th>
-                    <th >Tên nhân viên</th>
+                    <th style="width: 10rem">Mã {{titleHead}}</th>
+                    <th>Tên {{titleHead}}</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-user let-i="rowIndex">
@@ -48,7 +49,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="paginatorleft">
-                Tổng số bản ghi {{listItem.length}}. 
+                Tổng số bản ghi {{listItem.length}}.
             </ng-template>
         </p-table>
     </div>

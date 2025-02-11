@@ -1243,8 +1243,12 @@ export class TaisanService {
     return this.QuyTrinhBase("DonDatHang", "QuanLyThuMua");
   }
 
+  PheDuyetGia() {
+    return this.QuyTrinhBase("PheDuyetGia", "QuanLyNhaCungUng");
+  }
+
   GetChiTietDonDatHang(data) {
-    return this.http.post(`${API.CungUng}QuanLyThuMua/GetChiTietDonDatHang`,data, httpOptions);
+    return this.http.post(`${API.CungUng}QuanLyThuMua/GetChiTietDonDatHang`, data, httpOptions);
   }
 
   QuyTrinhBase(endpoint, middleName) {
@@ -1281,7 +1285,15 @@ export class TaisanService {
       Export: (data: any) => {
         return this.http
           .post(`${url}Export${endpoint}`, data, httpOptions);
-      }
+      },
+      Import: (FileName) => {
+        return this.http
+          .get(`${url}Import${endpoint}?FileName=${FileName}`, httpOptions);
+      },
+      ExportId: (Id) => {
+        return this.http
+          .get(`${url}Export${endpoint}?Id=${Id}`, httpOptions);
+      },
     };
   }
 

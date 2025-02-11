@@ -44,21 +44,7 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
-            <label>Dự án</label>
-            <div>
-                <p-dropdown [filter]="true" [options]="listDuAn" placeholder="Chọn" class="p-inputtext-sm"
-                    [(ngModel)]="quyTrinh.IdDuAn" [showClear]="true" (onChange)="handleDuAn($event.value)"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
-            <label>Kho</label>
-            <div>
-                <p-dropdown [filter]="true" [options]="listBoPhan" placeholder="Chọn" class="p-inputtext-sm"
-                    [(ngModel)]="quyTrinh.IddmKho" [showClear]="true"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-md-3 p-lg-6 p-d-flex p-flex-column p-p-2">
+        <div class="p-col-12 p-md-12 p-lg-12 p-d-flex p-flex-column p-p-2">
             <label>Ghi chú</label>
             <div>
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.GhiChu" pInputText />
@@ -67,8 +53,8 @@
     </div>
     <div>
         <div class="d-flex p-my-2">
-            <button pButton pRipple type="button" label="Chọn vật tư" class="p-button-sm p-mr-2"
-                (click)="ChontVatTu()"></button>
+            <button pButton pRipple type="button" label="Chọn hàng hóa" class="p-button-sm p-mr-2"
+                (click)="ChontHangHoa()"></button>
             <p-button class="p-button-sm p-mr-2" label="Nhập Excel" (click)="import()"></p-button>
             <button pButton pRipple type="button" label="Xuất excel" class="p-button-sm"
                 (click)="exportExcel()"></button>
@@ -87,6 +73,7 @@
                     <col style="width: 100px;">
                     <col style="width: 100px;">
                     <col>
+                    <col style="width: 150px;">
                     <col style="width: 50px;">
                 </colgroup>
             </ng-template>
@@ -96,12 +83,13 @@
                     <th class="text-center">Mã</th>
                     <th class="text-center">Tên</th>
                     <th class="text-center">ĐVT</th>
-                    <th class="text-center">SL tồn</th>
-                    <th class="text-center">SL yêu cầu</th>
-                    <th class="text-center">SL gọi</th>
-                    <th class="text-center">Lũy kế</th>
-                    <th class="text-center">Định mức</th>
+                    <th class="text-center">Giá hiện hành</th>
+                    <th class="text-center">Giá đề nghị</th>
+                    <th class="text-center">Giá VC</th>
+                    <th class="text-center">Tỷ lệ</th>
+                    <th class="text-center">Nhà cung ứng</th>
                     <th class="text-center">Ghi chú</th>
+                    <th class="text-center">Trạng thái</th>
                     <th class="text-center">Thao tác</th>
                 </tr>
             </ng-template>
@@ -111,19 +99,23 @@
                     <td>{{item.Ma}}</td>
                     <td>{{item.Ten}}</td>
                     <td class="text-right">{{item.DonViDatHang}}</td>
-                    <td class="text-right">{{item.SoLuongTon}}</td>
+                    <td class="text-right">{{item.GiaHienHanh}}</td>
                     <td>
-                        <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongYeuCau" (onBlur)="TinhSoLuongGoi(item)"
+                        <p-inputNumber locale="en-EN" [(ngModel)]="item.GiaDeNghi"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongGoi"
+                        <p-inputNumber locale="en-EN" [(ngModel)]="item.GiaVanChuyen"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                     </td>
-                    <td class="text-right">{{item.SoLuongLuyKe}}</td>
-                    <td class="text-right">{{item.SoLuongDinhMuc}}</td>
+                    <td class="text-right">{{item.TyLe}}</td>
+                    <td class="text-right">{{item.TendmNhaCungUng}}</td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                    </td>
+                    <td>
+                        <p-dropdown [filter]="true" [options]="listPheDuyet" placeholder="Chọn"
+                            [(ngModel)]="item.isPheDuyet" [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
                     </td>
                     <td>
                         <button pButton pRipple icon="pi pi-trash"

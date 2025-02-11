@@ -215,6 +215,9 @@ import { DanhsachnhacungcungungmodalComponent } from './danhsachvattuphaimua/dan
 import { DondathangComponent } from './dondathang/dondathang.component';
 import { DondathangmodalComponent } from './dondathang/dondathangmodal/dondathangmodal.component';
 import { ChitietdondathangComponent } from './dondathang/chitietdondathang/chitietdondathang.component';
+import { PheduyetgiahanghoaComponent } from './pheduyetgiahanghoa/pheduyetgiahanghoa.component';
+import { PheduyetgiahanghoamodalComponent } from './pheduyetgiahanghoa/pheduyetgiahanghoamodal/pheduyetgiahanghoamodal.component';
+import { DanhsachhanghoapopupComponent } from './pheduyetgiahanghoa/danhsachhanghoapopup/danhsachhanghoapopup.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -378,6 +381,9 @@ import { ChitietdondathangComponent } from './dondathang/chitietdondathang/chiti
     DondathangComponent,
     DondathangmodalComponent,
     ChitietdondathangComponent,
+    PheduyetgiahanghoaComponent,
+    PheduyetgiahanghoamodalComponent,
+    DanhsachhanghoapopupComponent,
     // DanhSachVatTuCanThayTheComponent,
   ],
   imports: [
