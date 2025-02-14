@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ToastrService } from 'ngx-toastr';
 import { validVariable } from 'src/app/services/globalfunction';
+import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 
 @Component({
   selector: 'app-chonquycachdonggoimodal',
@@ -27,7 +28,7 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
   ];
   newTableItem: any = {};
 
-  constructor(public _activeModal: NgbActiveModal, public _services: SanXuatService, public toastr: ToastrService) { }
+  constructor(public _activeModal: NgbActiveModal, public _services: SanXuatService, public _modal: NgbModal, public toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.newTableItem = {
@@ -67,6 +68,13 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
         isXoa: false,
       }
     }
+  }
+
+  tinhToan(item, opt) {
+    let modalRef = this._modal.open(CalcmodalComponent)
+    modalRef.result.then((res) => {
+      item[opt] = res;
+    })
   }
 
   delete(index) {

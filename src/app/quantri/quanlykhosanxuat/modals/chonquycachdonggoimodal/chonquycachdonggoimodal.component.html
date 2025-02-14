@@ -47,11 +47,22 @@
                         <td class="text-center">{{i+1}}</td>
                         <td>
                             <p-dropdown [filter]="true" [options]="items" placeholder="Chọn quy cách đóng gói"
-                            (onChange)="select($event)"  styleClass="p-inputtext-sm" [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
+                                (onChange)="select($event)" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.KhoiLuong">
-                            </p-inputNumber>
+                            <div style="display: flex;">
+                                <div style="flex:1">
+                                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.KhoiLuong">
+                                    </p-inputNumber>
+                                </div>
+
+                                <button pButton pRipple icon="pi pi-ellipsis-v"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                    (click)="tinhToan(item,'KhoiLuong')" pTooltip="Tính toán" showDelay="1000"
+                                    tooltipPosition="bottom"></button>
+                            </div>
+
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-times"
@@ -65,12 +76,24 @@
                         <td class="text-center">#
                         </td>
                         <td>
-                            <p-dropdown [filter]="true" [options]="items" placeholder="Chọn quy cách đóng gói" 
+                            <p-dropdown [filter]="true" [options]="items" placeholder="Chọn quy cách đóng gói"
                                 styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.IddmQuyCachDongGoi"></p-dropdown>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.KhoiLuong">
-                            </p-inputNumber>
+                            <div style="display: flex;">
+                                <div style="flex:1">
+                                    <p-inputNumber [minFractionDigits]="0" locale="en-EN"
+                                        [(ngModel)]="newTableItem.KhoiLuong">
+                                    </p-inputNumber>
+                                </div>
+                                <button pButton pRipple icon="pi pi-ellipsis-v"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                    (click)="tinhToan(newTableItem,'KhoiLuong')" pTooltip="Tính toán" showDelay="1000"
+                                    tooltipPosition="bottom"></button>
+
+                            </div>
+
+
                         </td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-plus"
