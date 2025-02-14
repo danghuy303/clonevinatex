@@ -2603,11 +2603,59 @@ export class QuantriComponent implements OnInit, OnDestroy {
                 },
               },
               {
+                label: "Danh sách hàng phải mua",
+                routerLink: "/quantri/taisan/danhsachvattuphaimua",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
                 label: "Đơn đặt hàng",
                 routerLink: "/quantri/taisan/dondathang/0",
                 command: () => {
                   this.close();
                 },
+              },
+              {
+                label: "Phiếu kiểm hàng",
+                routerLink: "/quantri/taisan/phieukiemhang/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Báo cáo",
+                routerLink: "",
+                items: [
+                  {
+                    label: "Nhập hàng",
+                    routerLink: "/quantri/taisan/baocaonhaphang",
+                    command: () => {
+                      this.close();
+                    },
+                  },
+                  {
+                    label: "Nhập xuất tồn",
+                    routerLink: "/quantri/taisan/baocaonhapxuatton",
+                    command: () => {
+                      this.close();
+                    },
+                  },
+                  {
+                    label: "Tổng hợp giá mua hàng",
+                    routerLink: "/quantri/taisan/baocaotonghopgiamuahang",
+                    command: () => {
+                      this.close();
+                    },
+                  },
+                  {
+                    label: "Tổng hợp ĐĐH NCC",
+                    routerLink: "/quantri/taisan/tonghopdondathangncc",
+                    command: () => {
+                      this.close();
+                    },
+                  },
+                ]
               }
             ],
           },

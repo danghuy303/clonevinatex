@@ -10,6 +10,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
+import { DanhsachhanghoapopupComponent } from '../danhsachhanghoapopup/danhsachhanghoapopup.component';
 
 @Component({
   selector: 'app-pheduyetgiahanghoamodal',
@@ -50,7 +51,13 @@ export class PheduyetgiahanghoamodalComponent implements OnInit {
   GetById() {
     this.quyTrinh = {
       ...this.quyTrinh,
-      Ngay: UnixToDate(this.quyTrinh.NgayUnix)
+      Ngay: UnixToDate(this.quyTrinh.NgayUnix),
+      listItem: this.quyTrinh.listItem.map(ele => {
+        return {
+          ...ele,
+          TyLe: ((ele.GiaVanChuyen + ele.GiaDeNghi) / (ele.GiaHienHanh)) * 100 || 0
+        }
+      })
     }
   }
 
@@ -67,26 +74,35 @@ export class PheduyetgiahanghoamodalComponent implements OnInit {
   }
 
   ChontHangHoa() {
-    this._serviceTaiSan.ListDanhSachVatTu().GetListVatTuTonTrongKho({ currentpage: 0 }).subscribe((res: any) => {
-      let modalRef = this._modal.open(DanhsachvattucungungComponent, {
-        size: 'lg',
+    this._serviceTaiSan.GetALLdmNhaCungUng({ currentpage: 0, Keyword: '' }).subscribe((res: any) => {
+      let modalRef = this._modal.open(DanhsachhanghoapopupComponent, {
+        size: 'xl',
         backdrop: 'static',
       })
-      modalRef.componentInstance.listItem = res.Data || [];
+      modalRef.componentInstance.listNhaCungUng = res || [];
       modalRef.componentInstance.title = 'Danh sách hàng hóa';
-      modalRef.componentInstance.titleHead = 'nhà cung ứng';
-      modalRef.componentInstance.listDaChon = this.quyTrinh.listItem?.length ? this.quyTrinh.listItem.map(ele => ele.IddmItem) : [];
+      modalRef.componentInstance.listDaChon = this.quyTrinh.listItem || [];
       modalRef.result
         .then((res: any) => {
-          this.quyTrinh.listItem = res.map(ele => {
-            let _newObj = this.quyTrinh.listItem?.find((x: any) => x.IddmItem === ele.Id) ? this.quyTrinh.listItem.find((x: any) => x.IddmItem === ele.Id) : ele;
+          let data = res.map(ele => {
             return {
-              ..._newObj
+              ...ele,
+              isPheDuyet: true,
+              GiaHienHanh: ele.DonGia,
+              TyLe: ((ele.GiaVanChuyen + ele.GiaDeNghi) / (ele.DonGia)) * 100 || 0
             }
           })
+          this.quyTrinh.listItem = [...this.quyTrinh.listItem || [], ...data].filter(
+            (value, index, self) => self.findIndex((m) => m.IddmItem === value.IddmItem && m.IddmNhaCungUng === value.IddmNhaCungUng) === index,
+          )
         })
         .catch((error: any) => { })
     })
+  }
+
+  tinhTyLe(item) {
+    item.TyLe = ((item.GiaVanChuyen + item.GiaDeNghi) / (item.GiaHienHanh)) * 100 || 0;
+    this.quyTrinh.listItem = [...this.quyTrinh.listItem];
   }
 
   xoaItem(idx) {
@@ -122,7 +138,13 @@ export class PheduyetgiahanghoamodalComponent implements OnInit {
         if (res.StatusCode === 200) {
           this.quyTrinh = {
             ...res.Data,
-            Ngay: UnixToDate(res.Data.NgayUnix)
+            Ngay: UnixToDate(res.Data.NgayUnix),
+            listItem: res.Data.listItem.map(ele => {
+              return {
+                ...ele,
+                TyLe: ((ele.GiaVanChuyen + ele.GiaDeNghi) / (ele.GiaHienHanh)) * 100 || 0
+              }
+            })
           }
           this.KiemTraButton();
           this.toastr.success(res.Message);
@@ -179,8 +201,18 @@ export class PheduyetgiahanghoamodalComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        this._serviceTaiSan.PheDuyetGia().Import(this.fileUpload[0]).subscribe((res: any) => {
+        this._serviceTaiSan.PheDuyetGia().Import(this.fileUpload[0].Name).subscribe((res: any) => {
           handleHTTPResponse(res, this.toastr, () => {
+            this.quyTrinh = {
+              ...res.Data,
+              Ngay: UnixToDate(res.Data.NgayUnix),
+              listItem: res.Data.listItem.map(ele => {
+                return {
+                  ...ele,
+                  TyLe: ((ele.GiaVanChuyen + ele.GiaDeNghi) / (ele.GiaHienHanh)) * 100 || 0
+                }
+              })
+            }
           })
         })
       })

@@ -29,13 +29,19 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-md-3 p-lg-10 p-d-flex p-flex-column p-p-2">
-            <label>Nội dung <span class="text-danger">(*)</span></label>
+        <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
+            <label>Mã</label>
             <div>
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.NoiDung" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.MadmNhaCungUng" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-md-3 p-lg-2 p-d-flex p-flex-column p-p-2">
+        <div class="p-col-12 p-md-6 p-lg-6 p-d-flex p-flex-column p-p-2">
+            <label>Nhà cung cấp</label>
+            <div>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.TendmNhaCungUng" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
             <label>Ngày</label>
             <div>
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
@@ -52,15 +58,19 @@
         </div>
     </div>
     <div>
-        <div class="d-flex p-my-2">
-            <button pButton pRipple type="button" label="Chọn hàng hóa" class="p-button-sm p-mr-2"
-                (click)="ChontHangHoa()"></button>
-            <p-button class="p-button-sm p-mr-2" label="Nhập Excel" (click)="import()"></p-button>
-            <button pButton pRipple type="button" label="Xuất excel" class="p-button-sm"
-                (click)="exportExcel()"></button>
-        </div>
+        <div class="p-d-flex p-flex-row p-jc-between py-2">
+            <div class="modal-bt p-mb-4 d-flex">
 
-        <p-table [value]="quyTrinh.listItem" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+            </div>
+            <div class="p-inputgroup" [style]="{ width: '20vw', height: '36px' }">
+                <input #inputtt1 type="text" pInputText class="p-inputtext-sm"
+                    (input)="tb.filterGlobal($event.target.value, 'contains')" placeholder="Tìm kiếm" />
+                <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn p-inputtext-sm"
+                    (click)="tb.filterGlobal($event.target.value, '')" (click)="inputtt1.value = ''"></button>
+            </div>
+        </div>
+        <p-table #tb [value]="quyTrinh.listItem" [globalFilterFields]="['Ma','Ten']"
+            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
             <ng-template pTemplate="colgroup">
                 <colgroup>
                     <col style="width: 50px;">
@@ -83,13 +93,13 @@
                     <th class="text-center">Mã</th>
                     <th class="text-center">Tên</th>
                     <th class="text-center">ĐVT</th>
-                    <th class="text-center">Giá hiện hành</th>
-                    <th class="text-center">Giá đề nghị</th>
-                    <th class="text-center">Giá VC</th>
-                    <th class="text-center">Tỷ lệ</th>
-                    <th class="text-center">Nhà cung ứng</th>
+                    <th class="text-center">SL đặt</th>
+                    <th class="text-center">SL nhập</th>
+                    <th class="text-center">Còn thiếu</th>
+                    <th class="text-center">Bổ sung</th>
                     <th class="text-center">Ghi chú</th>
-                    <th class="text-center">Trạng thái</th>
+                    <th class="text-center">Đơn giá</th>
+                    <th class="text-center">Thành tiền</th>
                     <th class="text-center">Thao tác</th>
                 </tr>
             </ng-template>
@@ -98,25 +108,22 @@
                     <td class="text-center">{{i + 1}}</td>
                     <td>{{item.Ma}}</td>
                     <td>{{item.Ten}}</td>
-                    <td class="text-right">{{item.DonViDatHang}}</td>
-                    <td class="text-right">{{item.GiaHienHanh | number:'0.0-0'}}</td>
+                    <td class="text-center">{{item.DonViDatHang}}</td>
+                    <td class="text-right">{{item.SoLuongDat | number:'0.0-0'}}</td>
                     <td>
-                        <p-inputNumber locale="en-EN" [(ngModel)]="item.GiaDeNghi" (onBlur)="tinhTyLe(item)"
+                        <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongNhan"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                     </td>
+                    <td class="text-right">{{item.SoLuongGoi | number:'0.0-0'}}</td>
                     <td>
-                        <p-inputNumber locale="en-EN" [(ngModel)]="item.GiaVanChuyen" (onBlur)="tinhTyLe(item)"
+                        <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongBoSung"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                     </td>
-                    <td cclass="text-center">{{item.TyLe}}</td>
-                    <td class="">{{item.TendmNhaCungUng}}</td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                     </td>
-                    <td>
-                        <p-dropdown [filter]="true" [options]="listPheDuyet" placeholder="Chọn"
-                            [(ngModel)]="item.isPheDuyet" [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
-                    </td>
+                    <td class="text-right">{{item.DonGia | number:'0.0-0'}}</td>
+                    <td class="">{{item.ThanhTien | number:'0.0-0'}}</td>
                     <td>
                         <button pButton pRipple icon="pi pi-trash"
                             class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"

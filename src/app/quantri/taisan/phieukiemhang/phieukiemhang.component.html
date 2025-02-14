@@ -1,9 +1,9 @@
 <h4 class="title" style="color:#1f2779">
-    ĐƠN ĐẶT HÀNG
+   PHIẾU KIỂM HÀNG
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+        <button *ngIf="checkQuyen.ThemMoi" pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
@@ -48,19 +48,17 @@
                 <col>
                 <col>
                 <col>
-                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
-                <th class="text-center">Mã PO</th>
-                <th class="text-center">Ngày đặt hàng</th>
-                <th class="text-center">Ngày giao hàng</th>
+                <th class="text-center">Số quy trình</th>
                 <th class="text-center">Mã NCC</th>
                 <th class="text-center">Tên NCC</th>
-                <th class="text-center">Giá trị</th>
+                <th class="text-center">Ngày giao hàng</th>
+                <th class="text-center">Dự án</th>
                 <th class="text-center">Trạng thái</th>
                 <th class="text-center">Thao tác</th>
             </tr>
@@ -73,16 +71,11 @@
                 <td class="text-center">
                     {{item.SoQuyTrinh}}
                 </td>
-                <td class="text-center"> {{item.Ngay|date:"dd/MM/yyyy"}}</td>
+                <td>{{item.Ma}} </td>
+                <td> {{item.Ten}} </td>
                 <td class="text-center"> {{item.NgayGiaoHang|date:"dd/MM/yyyy"}}</td>
                 <td>
-                    {{item.MadmNhaCungUng}}
-                </td>
-                <td>
-                    {{item.TendmNhaCungUng}}
-                </td>
-                <td class="text-right">
-                    {{item.GiaTri}}
+                    {{item.TenDuAn}}
                 </td>
                 <td class="text-center">
                     {{item.TenTrangThai}}

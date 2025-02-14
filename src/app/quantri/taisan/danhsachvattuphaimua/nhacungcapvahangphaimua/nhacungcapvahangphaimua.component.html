@@ -1,1 +1,54 @@
-<p>nhacungcapvahangphaimua works!</p>
+<div class="modal-header">
+    <h5 class="modal-title">
+        {{title}}
+    </h5>
+</div>
+<div class="modal-body">
+    <div class="p-d-flex p-flex-row p-jc-between">
+        <div class="modal-bt p-mb-4 d-flex">
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
+                (click)="activeModal.dismiss()"></button>
+            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm"
+                (click)="ChapNhan()"></button>
+        </div>
+        <div class="p-inputgroup" [style]="{ width: '20vw', height: '36px' }">
+            <input #inputtt1 type="text" pInputText class="p-inputtext-sm"
+                (input)="tb.filterGlobal($event.target.value, 'contains')" placeholder="Tìm kiếm" />
+            <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn p-inputtext-sm"
+                (click)="tb.filterGlobal($event.target.value, '')" (click)="inputtt1.value = ''"></button>
+        </div>
+    </div>
+
+    <div class="p-pt-3">
+        <p-table #tb [value]="listView" dataKey="IdGuid" [globalFilterFields]="['MadmNhaCungUng','TendmNhaCungUng']"
+            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [paginator]="true" [rows]="10">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem"> </th>
+                    <th style="width: 3rem">STT </th>
+                    <th style="width: 10rem">Mã nhà cung cấp</th>
+                    <th>Tên nhà cung cấp </th>
+                    <th>Đơn giá</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user let-i="rowIndex">
+                <tr class="p-selectable-row">
+                    <td class="text-center">
+                        <p-radioButton [value]="user.IddmNhaCungUng" [(ngModel)]="isChon"></p-radioButton>
+                    </td>
+                    <td class="text-center">{{i+1}}</td>
+                    <td>
+                        {{user.MadmNhaCungUng}}
+                    </td>
+                    <td>
+                        {{user.TendmNhaCungUng}}
+                    </td>
+                    <td class="text-right">{{user.DonGia | number:'0.0-0'}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorleft">
+                Tổng số bản ghi {{listView?.length}}.
+            </ng-template>
+        </p-table>
+    </div>
+</div>

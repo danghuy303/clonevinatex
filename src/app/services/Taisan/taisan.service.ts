@@ -1247,8 +1247,68 @@ export class TaisanService {
     return this.QuyTrinhBase("PheDuyetGia", "QuanLyNhaCungUng");
   }
 
+  PhieuKiemHang() {
+    return this.QuyTrinhBase("PhieuKiemHang", "QuanLyThuMua");
+  }
+
+  GetALLdmNhaCungUng(data: any) {
+    return this.http.post(`${API.CungUng}DanhMuc/GetALLdmNhaCungUng`, data, httpOptions);
+  }
+
+  GetlistdmItemByIddmNhaCungUng(Id: any) {
+    return this.http.get(`${API.CungUng}DanhMuc/GetlistdmItemByIddmNhaCungUng?IddmNhaCungUng=${Id}`, httpOptions);
+  }
+
   GetChiTietDonDatHang(data) {
     return this.http.post(`${API.CungUng}QuanLyThuMua/GetChiTietDonDatHang`, data, httpOptions);
+  }
+
+  GetListHangPhaiMua(data) {
+    return this.http.post(`${API.CungUng}QuanLyThuMua/GetListHangPhaiMua`, data, httpOptions);
+  }
+
+  GetListChiTietHangPhaiMua(data) {
+    return this.http.post(`${API.CungUng}QuanLyThuMua/GetListChiTietHangPhaiMua`, data, httpOptions);
+  }
+
+  SetTongHopDonHang(data) {
+    return this.http.post(`${API.CungUng}QuanLyThuMua/SetTongHopDonHang`, data, httpOptions);
+  }
+  TaoDonHang(data) {
+    return this.http.post(`${API.CungUng}QuanLyThuMua/TaoDonHang`, data, httpOptions);
+  }
+
+  GetListdmNhaCungPhuHopTheoNgay(data) {
+    return this.http.post(`${API.CungUng}QuanLyThuMua/GetListdmNhaCungPhuHopTheoNgay`, data, httpOptions);
+  }
+
+  //  báo cáo thu mua
+  BaoCaoNhapHang(data) {
+    return this.http.post(`${API.CungUng}BaoCao/BaoCaoNhapHang`, data, httpOptions);
+  }
+  BaoCaoNhapXuatTon(data) {
+    return this.http.post(`${API.CungUng}BaoCao/BaoCaoNhapXuatTon`, data, httpOptions);
+  }
+  TongHopGiaMuaHang(data) {
+    return this.http.post(`${API.CungUng}BaoCao/TongHopGiaMuaHang`, data, httpOptions);
+  }
+  TongHopDatHang(data) {
+    return this.http.post(`${API.CungUng}BaoCao/TongHopDatHang`, data, httpOptions);
+  }
+  ExportBaoCaoNhapHang(data) {
+    return this.http.post(`${API.CungUng}BaoCao/ExportBaoCaoNhapHang`, data, httpOptions);
+  }
+  ExportBaoCaoNhapXuatTon(data) {
+    return this.http.post(`${API.CungUng}BaoCao/ExportBaoCaoNhapXuatTon`, data, httpOptions);
+  }
+  ExportTongHopGiaMuaHang(data) {
+    return this.http.post(`${API.CungUng}BaoCao/ExportTongHopGiaMuaHang`, data, httpOptions);
+  }
+  ExportTongHopDatHang(data) {
+    return this.http.post(`${API.CungUng}BaoCao/ExportTongHopDatHang`, data, httpOptions);
+  }
+  TongHopDatHang_ChiTiet(data) {
+    return this.http.post(`${API.CungUng}BaoCao/TongHopDatHang_ChiTiet`, data, httpOptions);
   }
 
   QuyTrinhBase(endpoint, middleName) {

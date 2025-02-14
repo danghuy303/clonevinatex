@@ -1,11 +1,23 @@
 <h4 class="title" style="color:#1f2779">
-    ĐƠN ĐẶT HÀNG
+    BÁO CÁO NHẬP HÀNG
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+        <button pButton label="Xuất excel" pRipple class="p-button-sm p-mr-2" (click)="export()"></button>
     </div>
     <div class="p-d-flex p-flex-row">
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listDuAn" placeholder="Chọn dự án" class="p-inputtext-sm"
+                [(ngModel)]="filter.IdDuAn" [showClear]="true" (onChange)="handleDuAn($event.value)"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" class="p-inputtext-sm"
+                [(ngModel)]="filter.IddmKho" [showClear]="true" (onChange)="GetList(true)"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listNhaCungUng" placeholder="Chọn ncc" class="p-inputtext-sm"
+                [(ngModel)]="filter.IddmNhaCungUng" [showClear]="true" (onChange)="GetList(true)"></p-dropdown>
+        </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" [maxDate]="filter.DenNgay" inputId="icon" placeholder="Từ ngày"
@@ -29,14 +41,6 @@
     </div>
 </div>
 
-<p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
-    </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
-    </p-tabPanel>
-    <p-tabPanel header="Tổng hợp">
-    </p-tabPanel>
-</p-tabView>
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
@@ -50,19 +54,23 @@
                 <col>
                 <col>
                 <col style="width: 100px;">
+                <col style="width: 150px;">
+                <col style="width: 150px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
-                <th class="text-center">Mã PO</th>
-                <th class="text-center">Ngày đặt hàng</th>
-                <th class="text-center">Ngày giao hàng</th>
-                <th class="text-center">Mã NCC</th>
-                <th class="text-center">Tên NCC</th>
-                <th class="text-center">Giá trị</th>
-                <th class="text-center">Trạng thái</th>
-                <th class="text-center">Thao tác</th>
+                <th class="text-center">Số quy trình</th>
+                <th class="text-center">Ngày</th>
+                <th class="text-center">Mã NCU</th>
+                <th class="text-center">Tên NCU</th>
+                <th class="text-center">Mã hàng hóa</th>
+                <th class="text-center">Tên hàng hóa</th>
+                <th class="text-center">Đơn vị tính</th>
+                <th class="text-center">Số lượng</th>
+                <th class="text-center">Đơn giá</th>
+                <th class="text-center">Thành tiền</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -74,24 +82,14 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center"> {{item.Ngay|date:"dd/MM/yyyy"}}</td>
-                <td class="text-center"> {{item.NgayGiaoHang|date:"dd/MM/yyyy"}}</td>
-                <td>
-                    {{item.MadmNhaCungUng}}
-                </td>
-                <td>
-                    {{item.TendmNhaCungUng}}
-                </td>
-                <td class="text-right">
-                    {{item.GiaTri}}
-                </td>
-                <td class="text-center">
-                    {{item.TenTrangThai}}
-                </td>
-                <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                        (click)="changeParam(item.Id)"></button>
-                </td>
+                <td> {{item.MadmNhaCungUng}}</td>
+                <td> {{item.TendmNhaCungUng}}</td>
+                <td> {{item.Ma}}</td>
+                <td> {{item.Ten}}</td>
+                <td class="text-center"> {{item.DonViDatHang}}</td>
+                <td class="text-right">{{item.SoLuong | number:'0.0-0'}}</td>
+                <td class="text-right">{{item.DonGia | number:'0.0-0'}}</td>
+                <td class="text-right">{{item.ThanhTien | number:'0.0-0'}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

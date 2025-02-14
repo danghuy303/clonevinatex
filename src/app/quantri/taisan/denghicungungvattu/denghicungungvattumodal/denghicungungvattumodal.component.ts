@@ -44,6 +44,7 @@ export class DenghicungungvattumodalComponent implements OnInit {
     this.GetDanhSachDuAnByIdUser();
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
+      this.quyTrinh.Ngay = new Date();
     } else {
       this.GetById();
     }
@@ -99,7 +100,7 @@ export class DenghicungungvattumodalComponent implements OnInit {
       modalRef.result
         .then((res: any) => {
           this.quyTrinh.listItem = res.map(ele => {
-            let _newObj = this.quyTrinh.listItem?.find((x: any) => x.IddmItem === ele.Id) ? this.quyTrinh.listItem.find((x: any) => x.IddmItem === ele.Id) : ele;
+            let _newObj = this.quyTrinh.listItem?.find((x: any) => x.IddmItem === ele.IddmItem) ? this.quyTrinh.listItem.find((x: any) => x.IddmItem === ele.IddmItem) : ele;
             return {
               ..._newObj
             }
@@ -199,8 +200,9 @@ export class DenghicungungvattumodalComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        this._serviceTaiSan.PhieuDNCU().Import(this.fileUpload[0]).subscribe((res: any) => {
+        this._serviceTaiSan.PhieuDNCU().Import(this.fileUpload[0].Name).subscribe((res: any) => {
           handleHTTPResponse(res, this.toastr, () => {
+            this.quyTrinh.listItem = res.Data;
           })
         })
       })

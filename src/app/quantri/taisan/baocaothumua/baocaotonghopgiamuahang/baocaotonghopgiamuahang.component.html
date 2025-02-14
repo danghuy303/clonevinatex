@@ -1,0 +1,87 @@
+<h4 class="title" style="color:#1f2779">
+    BÁO CÁO TỔNG HỢP GIÁ MUA HÀNG
+</h4>
+<div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
+    <div class="p-d-flex p-flex-row">
+        <button pButton label="Xuất excel" pRipple class="p-button-sm p-mr-2" (click)="export()"></button>
+    </div>
+    <div class="p-d-flex p-flex-row">
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listDuAn" placeholder="Chọn dự án" class="p-inputtext-sm"
+                [(ngModel)]="filter.IdDuAn" [showClear]="true" (onChange)="handleDuAn($event.value)"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" class="p-inputtext-sm"
+                [(ngModel)]="filter.IddmKho" [showClear]="true" (onChange)="GetList(true)"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" class="p-inputtext-sm"
+                [(ngModel)]="filter.Nam" [showClear]="true" (onChange)="GetList(true)"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.TuNgay" [maxDate]="filter.DenNgay" inputId="icon" placeholder="Từ ngày"
+                (onSelect)="GetList(true)">
+            </p-calendar>
+        </div>
+        <div class="p-mr-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.DenNgay" [minDate]="filter.TuNgay" inputId="icon" placeholder="Đến ngày"
+                (onSelect)="GetList(true)">
+            </p-calendar>
+        </div>
+        <div class="p-inputgroup" style="width:200px">
+            <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.Keyword" (keyup.enter)="GetList(true)"
+                class="p-inputtext-sm" pInputText />
+            <button type="button" pButton pRipple icon="pi pi-search"
+                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
+            <button type="button" pButton pRipple icon="pi pi-refresh"
+                class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+        </div>
+    </div>
+</div>
+
+<div class="pintable-container" style="height: calc(36vh) !important; background-color: #fff;"
+    voiPintable [pinnedCols]="3">
+    <table>
+        <thead>
+            <tr>
+                <th class="text-center tc-w-50" rowspan="2">STT</th>
+                <th class="text-center tc-w-150" rowspan="2">Mã hàng hóa</th>
+                <th class="text-center tc-w-250" rowspan="2">Tên hàng hóa</th>
+                <th class="text-center tc-w-100" rowspan="2">ĐVT</th>
+                <th class="text-center tc-w-150" rowspan="2">Tổng SL nhập</th>
+                <th class="text-center tc-w-150" rowspan="2">Giá trị TB</th>
+                <th class="text-center tc-w-150" rowspan="2">Tổng GT hàng nhập</th>
+                <th class="text-center tc-w-200" *ngFor="let label of listLabel" colspan="2">{{label.label}}</th>
+            </tr>
+            <tr>
+                <ng-container *ngFor="let label of listLabel">
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let item of items;let i = index">
+                <!-- <tr>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td class="tc-w-150 bg-white">So Sánh</td>
+                    <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham" class="text-right tc-w-100">
+                        <td class="text-center"
+                            [ngStyle]="{'background-color': sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet?'#a7d1a7':'#f59999'}">
+                            <span *ngIf="sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet">Đạt</span>
+                            <span *ngIf="sosanh.ChiTieuThucTe>sosanh.ChiTieuLyThuyet">K.Đạt</span>
+                        </td>
+                    </ng-container>
+                </tr> -->
+            </ng-container>
+        </tbody>
+    </table>
+    <!-- <div class="flex align-items-center justify-content-between">
+        Tổng số bản ghi {{paging.TotalCount}}.
+        <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20" (onPageChange)="changePage($event)">
+        </p-paginator>
+    </div> -->
+</div>

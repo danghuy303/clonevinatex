@@ -9,7 +9,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 })
 export class ChitietdondathangComponent implements OnInit {
 
-  listDeNghiCungUng: any = [];
+  listPhieuDNCU : any = [];
   listPhieuKiemHang: any = [];
   filter: any = {};
 
@@ -23,12 +23,7 @@ export class ChitietdondathangComponent implements OnInit {
   }
 
   getData() {
-    let data = {
-      CurrentPage: 0
-    };
-    // this._serviceTaiSan.PhieuDNCU().GetList(data).subscribe((res: any) => {
-    //   // this.listDeNghiCungUng = res.Data;
-    // })
+   
   }
 
   XemChiTiet(item) {

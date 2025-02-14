@@ -218,6 +218,12 @@ import { ChitietdondathangComponent } from './dondathang/chitietdondathang/chiti
 import { PheduyetgiahanghoaComponent } from './pheduyetgiahanghoa/pheduyetgiahanghoa.component';
 import { PheduyetgiahanghoamodalComponent } from './pheduyetgiahanghoa/pheduyetgiahanghoamodal/pheduyetgiahanghoamodal.component';
 import { DanhsachhanghoapopupComponent } from './pheduyetgiahanghoa/danhsachhanghoapopup/danhsachhanghoapopup.component';
+import { PhieukiemhangComponent } from './phieukiemhang/phieukiemhang.component';
+import { PhieukiemhangmodalComponent } from './phieukiemhang/phieukiemhangmodal/phieukiemhangmodal.component';
+import { BaocaonhaphangComponent } from './baocaothumua/baocaonhaphang/baocaonhaphang.component';
+import { BaocaonhapxuattonComponent } from './baocaothumua/baocaonhapxuatton/baocaonhapxuatton.component';
+import { BaocaotonghopgiamuahangComponent } from './baocaothumua/baocaotonghopgiamuahang/baocaotonghopgiamuahang.component';
+import { TonghopdondathangnccComponent } from './baocaothumua/tonghopdondathangncc/tonghopdondathangncc.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -384,6 +390,12 @@ import { DanhsachhanghoapopupComponent } from './pheduyetgiahanghoa/danhsachhang
     PheduyetgiahanghoaComponent,
     PheduyetgiahanghoamodalComponent,
     DanhsachhanghoapopupComponent,
+    PhieukiemhangComponent,
+    PhieukiemhangmodalComponent,
+    BaocaonhaphangComponent,
+    BaocaonhapxuattonComponent,
+    BaocaotonghopgiamuahangComponent,
+    TonghopdondathangnccComponent,
     // DanhSachVatTuCanThayTheComponent,
   ],
   imports: [

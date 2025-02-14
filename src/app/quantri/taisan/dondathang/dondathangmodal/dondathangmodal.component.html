@@ -32,7 +32,7 @@
         <div class="p-col-12 p-md-4 p-lg-4 p-d-flex p-flex-column p-p-2">
             <label>Mã PO</label>
             <div>
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.MaPO" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.SoQuyTrinh" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-md-4 p-lg-4 p-d-flex p-flex-column p-p-2">
@@ -54,7 +54,7 @@
         <div class="p-col-12 p-md-6 p-lg-6 p-d-flex p-flex-column p-p-2">
             <label>Nhà cung cấp</label>
             <div>
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.NhaCungCap" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.TendmNhaCungUng" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-md-6 p-lg-6 p-d-flex p-flex-column p-p-2">
@@ -66,8 +66,6 @@
     </div>
     <div>
         <div class="d-flex p-my-2">
-            <button pButton pRipple type="button" label="Thêm mới" class="p-button-sm p-mr-2"
-                (click)="ThemMoiDonHang()"></button>
             <button pButton pRipple type="button" label="Chi tiết phiếu" class="p-button-sm"
                 (click)="ChiTietPhieu()"></button>
         </div>
@@ -106,7 +104,7 @@
                     <td class="text-center">{{i + 1}}</td>
                     <td>{{item.Ma}}</td>
                     <td>{{item.Ten}}</td>
-                    <td class="text-right">{{item.DonViDatHang}}</td>
+                    <td class="text-center">{{item.DonViDatHang}}</td>
                     <td>
                         <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuong"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
@@ -115,7 +113,7 @@
                         <p-inputNumber locale="en-EN" [(ngModel)]="item.DonGia"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                     </td>
-                    <td class="text-right">{{item.ThanhTien}}</td>
+                    <td class="text-right">{{item.ThanhTien | number:'0.0-0'}}</td>
                     <td class="text-right">{{item.TenDuAn}}</td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />

@@ -1,20 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DondathangmodalComponent } from './dondathangmodal/dondathangmodal.component';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { PhieukiemhangmodalComponent } from './phieukiemhangmodal/phieukiemhangmodal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { StoreService } from 'src/app/services/store.service';
-import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { TaisanService } from '../../../services/Taisan/taisan.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StoreService } from '../../../services/store.service';
 import { Subscription } from 'rxjs';
+import {DateToUnix} from '../../../services/globalfunction';
+import { SanXuatService } from '../../../services/callApiSanXuat';
 
 @Component({
-  selector: 'app-dondathang',
-  templateUrl: './dondathang.component.html',
-  styleUrls: ['./dondathang.component.css']
+  selector: 'app-phieukiemhang',
+  templateUrl: './phieukiemhang.component.html',
+  styleUrls: ['./phieukiemhang.component.css']
 })
-export class DondathangComponent implements OnInit {
+export class PhieukiemhangComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -26,17 +26,19 @@ export class DondathangComponent implements OnInit {
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "DONDATHANG";
+  eAction = "PHIEUKIEMHANG";
   listPhanXuong: any = [];
   $sub!: Subscription;
 
-  constructor(private _modal: NgbModal,
+  constructor(
+    private _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
-    private _toastr: ToastrService,
     private _services: SanXuatService,
+    private _toastr: ToastrService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,) {
+    private router: Router
+  ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
         this.ngOnInit()
@@ -49,7 +51,7 @@ export class DondathangComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
-          .DonDatHang()
+          .PhieuKiemHang()
           .GetById(res.id)
           .subscribe((res: any) => {
             this.update(res);
@@ -59,7 +61,7 @@ export class DondathangComponent implements OnInit {
     this.KiemTraTabTrangThai()
   }
   changeParam(id) {
-    this.router.navigate([`quantri/taisan/dondathang/${id}`], {
+    this.router.navigate([`quantri/taisan/phieukiemhang/${id}`], {
       replaceUrl: true,
     });
   }
@@ -81,21 +83,21 @@ export class DondathangComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai
     };
-    this._serviceTaiSan.DonDatHang().GetList(data).subscribe((res: any) => {
+    this._serviceTaiSan.PhieuKiemHang().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
 
   add() {
-    let modalRef = this._modal.open(DondathangmodalComponent, {
+    let modalRef = this._modal.open(PhieukiemhangmodalComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
       keyboard: false
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Chi tiết đơn đặt hàng';
+    modalRef.componentInstance.title = 'Phiếu kiểm hàng';
     modalRef.componentInstance.item = {
       Id: '', IdTrangThai: '', TenTrangThai: "", SoQuyTrinh: '',
       isKetThuc: false, listTaiSan: [], IdDuAn: 0
@@ -109,14 +111,14 @@ export class DondathangComponent implements OnInit {
       })
   }
   update(item) {
-    let modalRef = this._modal.open(DondathangmodalComponent, {
+    let modalRef = this._modal.open(PhieukiemhangmodalComponent, {
       size: "fullscreen-100",
       backdrop: "static",
       keyboard: false,
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Chi tiết đơn đặt hàng';
+    modalRef.componentInstance.title = 'Phiếu kiểm hàng';
     modalRef.componentInstance.quyTrinh = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

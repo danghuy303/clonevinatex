@@ -55,6 +55,12 @@ import { DanhSachVatTuCanThayTheComponent } from './danh-sach-vat-tu-can-thay-th
 import { DenghicungungvattuComponent } from './denghicungungvattu/denghicungungvattu.component';
 import { DondathangComponent } from './dondathang/dondathang.component';
 import { PheduyetgiahanghoaComponent } from './pheduyetgiahanghoa/pheduyetgiahanghoa.component';
+import { DanhsachvattuphaimuaComponent } from './danhsachvattuphaimua/danhsachvattuphaimua.component';
+import { PhieukiemhangComponent } from './phieukiemhang/phieukiemhang.component';
+import { BaocaonhaphangComponent } from './baocaothumua/baocaonhaphang/baocaonhaphang.component';
+import { TonghopdondathangnccComponent } from './baocaothumua/tonghopdondathangncc/tonghopdondathangncc.component';
+import { BaocaonhapxuattonComponent } from './baocaothumua/baocaonhapxuatton/baocaonhapxuatton.component';
+import {BaocaotonghopgiamuahangComponent} from './baocaothumua/baocaotonghopgiamuahang/baocaotonghopgiamuahang.component';
 
 const routes: Routes = [
   { path: '', component: TaisanComponent },
@@ -109,7 +115,13 @@ const routes: Routes = [
   { path: 'kiem-ke-kho-vat-tu/:id', component: KiemKeKhoVatTuComponent },
   { path: 'denghicungungvattu/:id', component: DenghicungungvattuComponent },
   { path: 'dondathang/:id', component: DondathangComponent },
-  { path: 'pheduyetgiahanghoa/:id', component: PheduyetgiahanghoaComponent }
+  { path: 'pheduyetgiahanghoa/:id', component: PheduyetgiahanghoaComponent },
+  { path: 'danhsachvattuphaimua', component: DanhsachvattuphaimuaComponent },
+  { path: 'phieukiemhang/:id', component: PhieukiemhangComponent },
+  { path: 'baocaonhaphang', component: BaocaonhaphangComponent },
+  { path: 'baocaonhapxuatton', component: BaocaonhapxuattonComponent },
+  { path: 'baocaotonghopgiamuahang', component: BaocaotonghopgiamuahangComponent },
+  { path: 'tonghopdondathangncc', component: TonghopdondathangnccComponent },
 ];
 
 @NgModule({

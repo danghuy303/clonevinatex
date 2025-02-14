@@ -21,7 +21,7 @@
                     (click)="tb.filterGlobal($event.target.value, '')" (click)="inputtt1.value = ''"></button>
             </div>
         </div>
-        <p-table #tb [value]="listDeNghiCungUng" dataKey="IdGuid" [globalFilterFields]="['MaNhanVien','TenDayDu']"
+        <p-table #tb [value]="listPhieuDNCU" dataKey="IdGuid" [globalFilterFields]="['MaNhanVien','TenDayDu']"
             styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [paginator]="true" [rows]="10">
             <ng-template pTemplate="header">
                 <tr>
@@ -49,7 +49,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="paginatorleft">
-                Tổng số bản ghi {{listDeNghiCungUng.length}}.
+                Tổng số bản ghi {{listPhieuDNCU.length}}.
             </ng-template>
         </p-table>
     </div>

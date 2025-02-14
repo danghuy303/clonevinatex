@@ -85,7 +85,6 @@
                     <col style="width: 150px;">
                     <col style="width: 150px;">
                     <col style="width: 100px;">
-                    <col style="width: 100px;">
                     <col>
                     <col style="width: 50px;">
                 </colgroup>
@@ -100,7 +99,6 @@
                     <th class="text-center">SL yêu cầu</th>
                     <th class="text-center">SL gọi</th>
                     <th class="text-center">Lũy kế</th>
-                    <th class="text-center">Định mức</th>
                     <th class="text-center">Ghi chú</th>
                     <th class="text-center">Thao tác</th>
                 </tr>
@@ -110,7 +108,7 @@
                     <td class="text-center">{{i + 1}}</td>
                     <td>{{item.Ma}}</td>
                     <td>{{item.Ten}}</td>
-                    <td class="text-right">{{item.DonViDatHang}}</td>
+                    <td class="text-center">{{item.DonViDatHang}}</td>
                     <td class="text-right">{{item.SoLuongTon}}</td>
                     <td>
                         <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongYeuCau" (onBlur)="TinhSoLuongGoi(item)"
@@ -118,10 +116,9 @@
                     </td>
                     <td>
                         <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongGoi"
-                            [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
+                            [inputStyle]="{'text-align': 'right','width':'100%','color':item.SoLuongYeuCau < item.SoLuongGoi ? 'red' : ''}"></p-inputNumber>
                     </td>
                     <td class="text-right">{{item.SoLuongLuyKe}}</td>
-                    <td class="text-right">{{item.SoLuongDinhMuc}}</td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                     </td>

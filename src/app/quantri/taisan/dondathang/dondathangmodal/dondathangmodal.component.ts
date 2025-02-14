@@ -50,7 +50,7 @@ export class DondathangmodalComponent implements OnInit {
   GetById() {
     this.quyTrinh = {
       ...this.quyTrinh,
-      Ngay: UnixToDate(this.quyTrinh.NgayUnix)
+      NgayGiaoHang: UnixToDate(this.quyTrinh.NgayGiaoHangUnix)
     }
   }
 
@@ -97,7 +97,7 @@ export class DondathangmodalComponent implements OnInit {
     let data = {
       ...this.quyTrinh,
       eAction:'DONDATHANG',
-      NgayUnix: DateToUnix(this.quyTrinh.Ngay)
+      NgayGiaoHangUnix: DateToUnix(this.quyTrinh.NgayGiaoHang)
     }
     return data;
   }
@@ -116,7 +116,7 @@ export class DondathangmodalComponent implements OnInit {
         if (res.StatusCode === 200) {
           this.quyTrinh = {
             ...res.Data,
-            Ngay: UnixToDate(res.Data.NgayUnix)
+            NgayGiaoHang: UnixToDate(res.Data.NgayGiaoHangUnix)
           }
           this.KiemTraButton();
           this.toastr.success(res.Message);
@@ -170,9 +170,10 @@ export class DondathangmodalComponent implements OnInit {
         size: 'xl',
         backdrop: 'static',
       })
+      modalRef.componentInstance.listPhieuKiemHang = res.Data.listPhieuKiemHang || [];
+      modalRef.componentInstance.listPhieuDNCU = res.Data.listPhieuDNCU || [];
       modalRef.result
         .then((res: any) => {
-          this.quyTrinh.listItem = res;
         })
         .catch((error: any) => { })
     })

@@ -1,1 +1,70 @@
-<p>danhsachnhacungcungungmodal works!</p>
+<div class="modal-header">
+    <h5 class="modal-title">
+        {{title}}
+    </h5>
+</div>
+<div class="modal-body">
+    <div class="p-d-flex p-flex-row p-jc-between">
+        <div class="modal-bt p-mb-4 d-flex">
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
+                (click)="activeModal.dismiss()"></button>
+            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm"
+                (click)="ChapNhan()"></button>
+        </div>
+        <!-- <div class="p-inputgroup" [style]="{ width: '20vw', height: '36px' }">
+            <input #inputtt1 type="text" pInputText class="p-inputtext-sm"
+                (input)="tb.filterGlobal($event.target.value, 'contains')" placeholder="Tìm kiếm" />
+            <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn p-inputtext-sm"
+                (click)="tb.filterGlobal($event.target.value, '')" (click)="inputtt1.value = ''"></button>
+        </div> -->
+    </div>
+
+    <div class="p-pt-3">
+        <p-treeTable #tb [value]="listView" styleClass="p-treetable p-treetable-caption">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col style="width: 50px;">
+                    <col>
+                    <col style="width: 150px;">
+                    <col style="width: 150px;">
+                    <col style="width: 150px;">
+                    <col>
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Dự án/Bộ phận </th>
+                    <th class="text-center">Số lượng nhu cầu</th>
+                    <th class="text-center">Số lượng phải mua</th>
+                    <th class="text-center">Đơn giá</th>
+                    <th class="text-center">Nhà cung cấp</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr>
+                    <td class="text-center"> {{rowData.STT}}</td>
+                    <td class="">
+                        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                        {{rowData.TenDuAn}}
+                    </td>
+                    <td class="text-right"> {{rowData.SoLuong | number:'0.0-0'}} </td>
+                    <td class="text-right"> {{rowData.SoLuongGoi | number:'0.0-0'}} </td>
+                    <td class="text-right">
+                        <p-inputNumber *ngIf="!rowData.isChildren" locale="en-EN"
+                            [inputStyle]="{'text-align': 'right','width':'100%'}" [(ngModel)]="rowData.DonGia">
+                        </p-inputNumber>
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex p-jc-between p-ai-center">
+                            {{rowData.TendmNhaCungUng}}
+                            <button *ngIf="!rowData.isChildren" pButton pRipple type="button" icon="pi pi-plus"
+                                title="Chọn nhà cung cấp" class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                                (click)="addSupply(rowNode,rowData)"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+    </div>
+</div>
