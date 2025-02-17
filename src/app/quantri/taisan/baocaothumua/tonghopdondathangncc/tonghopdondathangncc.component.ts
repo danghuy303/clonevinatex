@@ -16,6 +16,7 @@ export class TonghopdondathangnccComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  pagingChiTiet: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   filter: any = {};
   listDuAn: any = [];
   listKho: any = [];
@@ -24,6 +25,7 @@ export class TonghopdondathangnccComponent implements OnInit {
   isDispay: boolean = false;
   listLabel: any = Array.from({ length: 2 }, (_, i) => i + 1);
   listChiTiet: any = [];
+  itemChiTiet: any = { Id: '' };
 
   constructor(
     private _serviceTaiSan: TaisanService,
@@ -46,7 +48,6 @@ export class TonghopdondathangnccComponent implements OnInit {
   GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
     }
     let data = {
       PageSize: 20,
@@ -72,7 +73,6 @@ export class TonghopdondathangnccComponent implements OnInit {
 
   handleDuAn(value) {
     this.filter.IddmKho = null;
-    // this.GetKho(value);
     this.GetList(true);
   }
 
@@ -104,14 +104,41 @@ export class TonghopdondathangnccComponent implements OnInit {
       IddmKho: this.filter.IddmKho ? this.filter.IddmKho : '',
       IddmNhaCungUng: this.filter.IddmNhaCungUng ? this.filter.IddmNhaCungUng : '',
     };
-    // this._serviceTaiSan.ExportTongHopDatHang(data).subscribe((res: any) => {
-    //   if (res.StatusCode === 200) {
-    //     const _url = host1 + res.Data;
-    //     this._toastr.success(res.Message)
-    //     window.open(_url);
-    //   } else this._toastr.error(res.Message)
-    // })
+    this._serviceTaiSan.ExportTongHopDatHang(data).subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        const _url = host1 + res.Data;
+        this._toastr.success(res.Message)
+        window.open(_url);
+      } else this._toastr.error(res.Message)
+    })
+  }
+
+  edit(item) {
     this.isDispay = !this.isDispay;
+    this.itemChiTiet = JSON.parse(JSON.stringify(item));
+    this.TongHopDatHang_ChiTiet();
+  }
+
+  TongHopDatHang_ChiTiet() {
+    let data = {
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
+      Keyword: this.filter.Keyword,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
+      IdDuAn: this.filter.IdDuAn ? this.filter.IdDuAn : 0,
+      IddmKho: this.filter.IddmKho ? this.filter.IddmKho : '',
+      IddmNhaCungUng: this.itemChiTiet.Id,
+    };
+    this._serviceTaiSan.TongHopDatHang_ChiTiet(data).subscribe((res: any) => {
+      this.listChiTiet = res.Data.Items;
+      this.pagingChiTiet.TotalCount = res.Data.TotalCount;
+    })
+  }
+
+  changePageChiTiet(event) {
+    this.pagingChiTiet.CurrentPage = event.page + 1;
+    this.TongHopDatHang_ChiTiet();
   }
 
 }

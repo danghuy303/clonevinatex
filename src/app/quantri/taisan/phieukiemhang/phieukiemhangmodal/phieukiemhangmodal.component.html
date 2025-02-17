@@ -1,17 +1,5 @@
-<div class="modal-header">
-    <h5 class="modal-title">
-        {{title}}</h5>
-    <div class="d-flex flex-column flex-lg-row">
-        <div>
-            <span style="font-weight: bold;">Số quy trình:</span> {{quyTrinh.SoQuyTrinh}}
-        </div>
-        <div class="ml-lg-3 mr-lg-3">
-            <span style="font-weight: bold;">TG Tạo:</span> {{quyTrinh.Created|date:"dd/MM/yyyy HH:mm"}}
-        </div>
-        <div>
-            <span style="font-weight: bold;">TG Duyệt:</span> {{quyTrinh.Modified|date:"dd/MM/yyyy HH:mm"}}
-        </div>
-    </div>
+<div class="modal-header" >
+    <app-stepper title="Phiếu kiểm hàng" [quyTrinh]="quyTrinh" style="width: 100%"></app-stepper>
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
@@ -27,22 +15,34 @@
             <button pButton *ngIf="checkButton.KhongDuyet" pRipple type="button" label="Không duyệt"
                 class="p-mr-2 p-button-sm " (click)="KhongDuyet()"></button>
         </div>
+        <div class="d-flex flex-column flex-lg-row">
+            <div>
+                <span style="font-weight: bold;">Số quy trình:</span> {{quyTrinh.SoQuyTrinh}}
+            </div>
+            <div class="ml-lg-3 mr-lg-3">
+                <span style="font-weight: bold;">TG Tạo:</span> {{quyTrinh.Created|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+            <div>
+                <span style="font-weight: bold;">TG Duyệt:</span> {{quyTrinh.Modified|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+        </div>
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
             <label>Mã</label>
             <div>
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.MadmNhaCungUng" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.NoiDung" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-md-6 p-lg-6 p-d-flex p-flex-column p-p-2">
             <label>Nhà cung cấp</label>
             <div>
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.TendmNhaCungUng" pInputText />
+                <p-dropdown [filter]="true" [options]="listNhaCungUng" placeholder="Chọn" class="p-inputtext-sm"
+                    [disabled]="true" [(ngModel)]="quyTrinh.IddmNhaCungUng" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
-            <label>Ngày</label>
+            <label>Ngày giao hàng</label>
             <div>
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                     [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="quyTrinh.Ngay"
@@ -50,7 +50,14 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-md-12 p-lg-12 p-d-flex p-flex-column p-p-2">
+        <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
+            <label>Dự án</label>
+            <div>
+                <p-dropdown [filter]="true" [options]="listDuAn" placeholder="Chọn" class="p-inputtext-sm"
+                    [disabled]="true" [(ngModel)]="quyTrinh.IdDuAn" [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-9 p-md-9 p-lg-9 p-d-flex p-flex-column p-p-2">
             <label>Ghi chú</label>
             <div>
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.GhiChu" pInputText />

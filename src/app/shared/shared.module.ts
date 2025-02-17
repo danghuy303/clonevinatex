@@ -56,6 +56,9 @@ import { DanhSachVatTuCanThayTheComponent } from '../quantri/taisan/danh-sach-va
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TreeTableModule } from 'primeng/treetable';
 import { CaculateKtexPipe } from '../services/caculate-ktex.pipe';
+import { StepperComponent } from './stepper/stepper.component';
+import { ProcessingOrderComponent } from './processing-order/processing-order.component';
+import { StickycolumnDirective } from './stickycolumn.directive';
 
 @NgModule({
   declarations: [
@@ -91,7 +94,10 @@ import { CaculateKtexPipe } from '../services/caculate-ktex.pipe';
     NhapLieuKeHoachModalComponent,
     ModalquytrinhbaoduongComponent,
     ChonmVatTuThayThePopUpComponent,
-    DanhSachVatTuCanThayTheComponent
+    DanhSachVatTuCanThayTheComponent,
+    StepperComponent,
+    ProcessingOrderComponent,
+    StickycolumnDirective
   ],
   imports: [
     AccordionModule,
@@ -117,7 +123,7 @@ import { CaculateKtexPipe } from '../services/caculate-ktex.pipe';
     NgbModule,
     PaginatorModule,
     SelectButtonModule,
-    TreeTableModule
+    TreeTableModule,
   ],
   exports: [
     isXoaPipe,
@@ -152,7 +158,9 @@ import { CaculateKtexPipe } from '../services/caculate-ktex.pipe';
     CheckboxModule,
     SelectButtonModule,
     ChonmVatTuThayThePopUpComponent,
-    DanhSachVatTuCanThayTheComponent
+    DanhSachVatTuCanThayTheComponent,
+    StepperComponent,
+    StickycolumnDirective
   ]
 })
 export class SharedModule { }

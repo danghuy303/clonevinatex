@@ -70,15 +70,16 @@
                 <td class="text-center">
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td> {{item.MadmNhaCungUng}}</td>
-                <td> {{item.TendmNhaCungUng}}</td>
-                <td class="text-right"> {{item.SoDonHang | number:'0.0-0'}}</td>
+                <td> {{item.Ma}}</td>
+                <td> {{item.Ten}}</td>
+                <td class="text-right"> {{item.SoLuong | number:'0.0-0'}}</td>
                 <td class="text-right"> {{item.SoLuongDat | number:'0.0-0'}}</td>
-                <td class="text-right">{{item.GiaTriDonHang | number:'0.0-0'}}</td>
+                <td class="text-right">{{item.ThanhTienDat | number:'0.0-0'}}</td>
                 <td class="text-right">{{item.SoLuongNhap | number:'0.0-0'}}</td>
-                <td class="text-right">{{item.GiaTriNhap | number:'0.0-0'}}</td>
+                <td class="text-right">{{item.ThanhTienNhap | number:'0.0-0'}}</td>
                 <td class="text-center">
-                    {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
+                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -96,7 +97,8 @@
     <ng-template pTemplate="header">
         <div style="display: flex; flex-direction: row;">
             <div style="display: table;margin-right:10px;">
-                <h5 style="margin: 0px; display: table-cell;vertical-align: middle">Chi tiết</h5>
+                <h5 style="margin: 0px; display: table-cell;vertical-align: middle">Chi tiết {{itemChiTiet.Ma}} -
+                    {{itemChiTiet.Ten}}</h5>
             </div>
         </div>
     </ng-template>
@@ -137,26 +139,27 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">
-                            {{ i + 1 }}
+                            {{ 20 * (pagingChiTiet.CurrentPage - 1) + i + 1 }}
                         </td>
-                        <td> {{item.MadmNhaCungUng}}</td>
-                        <td> {{item.TendmNhaCungUng}}</td>
-                        <td class="text-right"> {{item.SoDonHang | number:'0.0-0'}}</td>
+                        <td> {{item.Ma}}</td>
+                        <td> {{item.Ten}}</td>
                         <td class="text-right"> {{item.SoLuongDat | number:'0.0-0'}}</td>
-                        <td class="text-right">{{item.GiaTriDonHang | number:'0.0-0'}}</td>
-                        <td class="text-right">{{item.SoLuongNhap | number:'0.0-0'}}</td>
-                        <td class="text-right">{{item.GiaTriNhap | number:'0.0-0'}}</td>
-                        <td class="text-right">{{item.GiaTriNhap | number:'0.0-0'}}</td>
-                        <td class="text-right">{{item.GiaTriNhap | number:'0.0-0'}}</td>
-                        <td class="text-right">{{item.GiaTriNhap | number:'0.0-0'}}</td>
+                        <td class="text-right"> {{item.DonGiaDat | number:'0.0-0'}}</td>
+                        <td class="text-right"> {{item.ThanhTienDat | number:'0.0-0'}}</td>
+                        <td class="text-right"> {{item.SoLuongNhap | number:'0.0-0'}}</td>
+                        <td class="text-right">{{item.DonGiaDat | number:'0.0-0'}}</td>
+                        <td class="text-right">{{item.ThanhTienNhap | number:'0.0-0'}}</td>
+                        <td class="text-right">{{item.TyTrong | number:'0.0-0'}}</td>
+                        <td class="text-right">{{item.TyTrongTong | number:'0.0-0'}}</td>
                     </tr>
                 </ng-template>
-                <!-- <ng-template pTemplate="summary">
+                <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
-                            [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
+                        Tổng số bản ghi {{pagingChiTiet.TotalCount}}.<p-paginator #paginator
+                            [totalRecords]="pagingChiTiet.TotalCount" [rows]="20"
+                            (onPageChange)="changePageChiTiet($event)"></p-paginator>
                     </div>
-                </ng-template> -->
+                </ng-template>
             </p-table>
         </div>
     </div>

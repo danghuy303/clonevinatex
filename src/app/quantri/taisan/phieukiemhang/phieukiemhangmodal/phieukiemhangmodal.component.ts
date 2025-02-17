@@ -6,6 +6,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaisanService } from '../../../../services/Taisan/taisan.service';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from '../../../../services/callApiSanXuat';
+import { AuthenticationService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-phieukiemhangmodal',
@@ -23,6 +24,8 @@ export class PhieukiemhangmodalComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   userInfo: any = {};
   fileUpload: any;
+  listNhaCungUng: any = [];
+  listDuAn: any = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -30,15 +33,33 @@ export class PhieukiemhangmodalComponent implements OnInit {
     public toastr: ToastrService,
     public _modal: NgbModal,
     private _services: SanXuatService,
-  ) { }
+    private _auth: AuthenticationService
+  ) { this.userInfo = this._auth.currentUserValue;}
 
   ngOnInit(): void {
     this.KiemTraButton();
+    this.GetDanhSachDuAnByIdUser();
+    this.GetALLdmNhaCungUng();
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
     } else {
       this.GetById();
+      if (!this.quyTrinh.SoQuyTrinh) {
+        this.GetNextSoQuyTrinh();
+      }
     }
+  }
+
+  GetDanhSachDuAnByIdUser() {
+    this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
+      this.listDuAn = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+    })
+  }
+
+  GetALLdmNhaCungUng() {
+    this._serviceTaiSan.GetALLdmNhaCungUng({ currentpage: 0, Keyword: '' }).subscribe((res: any) => {
+      this.listNhaCungUng = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
 
   GetById() {
@@ -80,10 +101,10 @@ export class PhieukiemhangmodalComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.quyTrinh.NoiDung)) {
-      this.toastr.error("Yêu cầu nhập nội dung!");
-      return false;
-    }
+    // if (!validVariable(this.quyTrinh.NoiDung)) {
+    //   this.toastr.error("Yêu cầu nhập nội dung!");
+    //   return false;
+    // }
     return true;
   }
 

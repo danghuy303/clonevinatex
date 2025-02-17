@@ -1357,4 +1357,13 @@ export class TaisanService {
     };
   }
 
+  GetLietKeQuyTrinh(data) {
+    return this.http.post(`${API.auth}QuyTrinh/GetLietKeQuyTrinh`, data, httpOptions);
+  }
+
+  GetListUserXuLy(IdTable: any, IdTrangThai?: string) {
+    let url = `${API.auth}//QuyTrinh/GetListUserXuLy`;
+    return this.http.get(`${url}?IdTable=${IdTable}&IdTrangThai=${IdTrangThai ? IdTrangThai : null}`, httpOptions).toPromise();
+  }
+
 }

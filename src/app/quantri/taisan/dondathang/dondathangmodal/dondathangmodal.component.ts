@@ -44,14 +44,24 @@ export class DondathangmodalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     } else {
       this.GetById();
+      if (!this.quyTrinh.SoQuyTrinh) {
+        this.GetNextSoQuyTrinh();
+      }
     }
   }
 
   GetById() {
     this.quyTrinh = {
       ...this.quyTrinh,
-      NgayGiaoHang: UnixToDate(this.quyTrinh.NgayGiaoHangUnix)
+      NgayGiaoHang: UnixToDate(this.quyTrinh.NgayGiaoHangUnix),
+      listItem: this.quyTrinh.listItem.map(ele => {
+        return {
+          ...ele,
+          ThanhTien: (ele.DonGia || 0) * (ele.SoLuong || 0)
+        }
+      })
     }
+    this.quyTrinh.GiaTri = this.quyTrinh.listItem.reduce((a, b) => a + (b.ThanhTien || 0), 0);
   }
 
   KiemTraButton() {
@@ -96,7 +106,7 @@ export class DondathangmodalComponent implements OnInit {
   setData() {
     let data = {
       ...this.quyTrinh,
-      eAction:'DONDATHANG',
+      eAction: 'DONDATHANG',
       NgayGiaoHangUnix: DateToUnix(this.quyTrinh.NgayGiaoHang)
     }
     return data;
@@ -116,7 +126,13 @@ export class DondathangmodalComponent implements OnInit {
         if (res.StatusCode === 200) {
           this.quyTrinh = {
             ...res.Data,
-            NgayGiaoHang: UnixToDate(res.Data.NgayGiaoHangUnix)
+            NgayGiaoHang: UnixToDate(res.Data.NgayGiaoHangUnix),
+            listItem: res.Data.listItem.map(ele => {
+              return {
+                ...ele,
+                ThanhTien: (ele.DonGia || 0 * ele.SoLuong || 0)
+              }
+            })
           }
           this.KiemTraButton();
           this.toastr.success(res.Message);
@@ -177,6 +193,12 @@ export class DondathangmodalComponent implements OnInit {
         })
         .catch((error: any) => { })
     })
+  }
+
+  tinhThanhTien(item) {
+    item.ThanhTien = (item.SoLuong || 0) * (item.DonGia || 0);
+    this.quyTrinh.listItem = [...this.quyTrinh.listItem];
+    this.quyTrinh.GiaTri = this.quyTrinh.listItem.reduce((a, b) => a + (b.ThanhTien || 0), 0);
   }
 
 }

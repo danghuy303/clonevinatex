@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h5>Trình tự xử lý</h5>
+</div>
+<div class="modal-body">
+    <div class="mb-2 flex justify-content-between">
+        <button pButton pRipple type="button" label="Quay lại" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div *ngIf="listUserXuLy" class="d-flex flex-column my-3">
+        <div *ngFor="let user of listUserXuLy" class="d-flex p-my-2">
+            <div class="mr-3">
+                <img style="width: 3rem;border-radius: 50%;" src="./../../../../assets/img/anonymous-user.png" alt="">
+            </div>
+            <div class="p-grid row" [style.color]="user.Mau">
+                <label class="p-col-12 font-bold py-1" (click)="user.open=!user.open"
+                    style="cursor: pointer;">{{user.TenNhanVien || 'null'}} - {{user.TenTrangThai}}</label>
+                <label class="p-col-4 py-1"><span style="font-weight: bold">Ngày nhận:</span>
+                    {{user.Created | date:'dd/MM/yyyy HH:mm'}}</label>
+                <label class="p-col-4 py-1"><span style="font-weight: bold">Ngày cảnh báo:</span>
+                    {{user.NgayCanhBao |date: 'dd/MM/yyyy HH:mm'}}</label>
+                <label class="p-col-4 py-1"><span style="font-weight: bold">Ngày hết hạn:</span>
+                    {{user.NgayHetHan |date: 'dd/MM/yyyy HH:mm'}}</label>
+                <label class="p-col-4 py-1"><span style="font-weight: bold">Ngày chuyển:</span>
+                    {{user.NgayXuLy | date: 'dd/MM/yyyy HH:mm'}}</label>
+                <label class="p-col-4 py-1"><span style="font-weight: bold">Thời gian xử lý:</span>
+                    {{user.ThoiGianXuLy}}</label>
+
+                <div *ngIf="user.open">
+                    <div class="col-12 p-py-1" style="font-weight: bold;" *ngFor="let item of user.listChild">
+                        <div class="col-12 border-bottom-1 border-300 my-3"></div>
+                        <div [style.color]="item.Mau">
+                            <label class="col-12 p-py-1" style="font-weight: bold;">{{item.TenNhanVien || 'null'}} -
+                                {{item.TenTrangThai}}</label>
+                            <label class="col-4 p-py-1"><span style="font-weight: bold">Ngày nhận:</span>
+                                {{item.Created | date: 'dd/MM/yyyy HH:mm'}}</label>
+                            <label class="col-4 p-py-1"><span style="font-weight: bold">Ngày cảnh báo:</span>
+                                {{item.NgayCanhBao | date: 'dd/MM/yyyy HH:mm'}}</label>
+                            <label class="col-4 p-py-1"><span style="font-weight: bold">Ngày hết hạn:</span>
+                                {{item.NgayHetHan | date: 'dd/MM/yyyy HH:mm'}}</label>
+                            <label class="col-4 p-py-1"><span style="font-weight: bold">Ngày chuyển:</span>
+                                {{item.NgayXuLy | date: 'dd/MM/yyyy HH:mm'}}</label>
+                            <label class="col-4 p-py-1"><span style="font-weight: bold">Thời gian xử lý:</span>
+                                {{item.ThoiGianXuLy}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 border-bottom-1 border-300 my-3"></div>
+            </div>
+
+        </div>
+    </div>
+    <div *ngIf="listUserXuLy?.length === 0" class="text-center">
+        Không có dữ liệu trình tự!
+    </div>
+</div>

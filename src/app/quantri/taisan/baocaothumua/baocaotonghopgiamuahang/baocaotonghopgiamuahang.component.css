@@ -18,3 +18,45 @@
     max-width: 200px !important;
     min-width: 200px !important;
 }
+
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+    padding: 0.5rem 0.5rem;
+    border: 1px solid #e9ecef;
+    height: 56px;
+}
+
+thead,
+th {
+    background: #828282;
+    color: white;
+    font-weight: 500;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+table th {
+    background-color: #828282;
+}
+
+table td {
+    background-color: white;
+}
+
+.sticky-table table {
+    border-collapse: separate;
+    border-spacing: unset;
+}
+
+.sticky-table {
+    overflow: auto;
+    height: 70vh;
+}

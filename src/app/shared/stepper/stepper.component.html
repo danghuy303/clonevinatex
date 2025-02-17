@@ -1,0 +1,37 @@
+<div style="width: 100%">
+    <p-accordion>
+        <p-accordionTab header={{title}}>
+            <div class="" style="width: 100%;overflow-x: scroll">
+                <div *ngIf="listStepper" class="steps-list d-flex">
+                    <div *ngFor="let step of listStepper" class="step" (click)="openStepDetail()">
+                        <div class="border"></div>
+                        <div class="step-img" style="z-index: 1;">
+                            <img *ngIf="step.isDaXuLy === 0" class="w-3rem" src="../assets/img/prohibition.png" alt="" />
+                            <img *ngIf="step.isDaXuLy === 1" class="w-3rem" src="../assets/img/check.png" alt="" />
+                            <img *ngIf="step.isDaXuLy === 3" class="w-3rem" src="../assets/img/target.png" alt="" />
+                            <img *ngIf="step.isDaXuLy === 4" class="w-3rem" src="../assets/img/CheckMo.png" alt="" />
+                        </div>
+                        <div class="step-description">
+                            <p *ngIf="step.isDaXuLy === 0" class="tentrangthai" [ngbTooltip]="step.TenTrangThai"
+                                tooltipPosition="top">
+                                {{ step.TenTrangThai | trunk:15 }}
+                            </p>
+                            <p *ngIf="step.isDaXuLy === 1" class="text-teal-600 tentrangthai"
+                                [ngbTooltip]="step.TenTrangThai" tooltipPosition="top">
+                                {{ step.TenTrangThai | trunk:15 }}
+                            </p>
+                            <p *ngIf="step.isDaXuLy === 3" class="text-orange-500 tentrangthai"
+                                [ngbTooltip]="step.TenTrangThai" tooltipPosition="top">
+                                {{ step.TenTrangThai | trunk:15 }}
+                            </p>
+                            <p *ngIf="step.isDaXuLy === 4" class="text-orange-500 tentrangthai"
+                                [ngbTooltip]="step.TenTrangThai" tooltipPosition="top">
+                                {{ step.TenTrangThai | trunk:15 }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
+</div>

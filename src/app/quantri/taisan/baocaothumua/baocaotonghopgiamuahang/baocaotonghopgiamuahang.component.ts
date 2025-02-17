@@ -15,8 +15,10 @@ import { PintableDirective } from 'voi-lib';
 export class BaocaotonghopgiamuahangComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
-  @ViewChild('voiPintable') voiPintable: PintableDirective;
-  items: any = [];
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
+  items: any = [
+    {Ma:'Ma000'}
+  ];
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   filter: any = {};
   listDuAn: any = [];
@@ -72,7 +74,7 @@ export class BaocaotonghopgiamuahangComponent implements OnInit {
       IdDuAn: this.filter.IdDuAn ? this.filter.IdDuAn : 0,
       IddmKho: this.filter.IddmKho ? this.filter.IddmKho : '',
       IddmNhaCungUng: this.filter.IddmNhaCungUng ? this.filter.IddmNhaCungUng : '',
-      Nam: this.filter.Nam ? this.filter.Nam : 2025,
+      Nam: this.filter.Nam ? this.filter.Nam : new Date().getFullYear(),
     };
     this._serviceTaiSan.TongHopGiaMuaHang(data).subscribe((res: any) => {
       this.items = res.Data.Items;
@@ -113,6 +115,7 @@ export class BaocaotonghopgiamuahangComponent implements OnInit {
       IdDuAn: this.filter.IdDuAn ? this.filter.IdDuAn : 0,
       IddmKho: this.filter.IddmKho ? this.filter.IddmKho : '',
       IddmNhaCungUng: this.filter.IddmNhaCungUng ? this.filter.IddmNhaCungUng : '',
+      Nam: this.filter.Nam ? this.filter.Nam : new Date().getFullYear(),
     };
     this._serviceTaiSan.ExportTongHopGiaMuaHang(data).subscribe((res: any) => {
       if (res.StatusCode === 200) {

@@ -41,9 +41,8 @@
     </div>
 </div>
 
-<div class="pintable-container" style="height: calc(36vh) !important; background-color: #fff;"
-    voiPintable [pinnedCols]="3">
-    <table>
+<div class="sticky-table" appStickycolumn [fixedIndex]="3">
+    <table style="width: 100%">
         <thead>
             <tr>
                 <th class="text-center tc-w-50" rowspan="2">STT</th>
@@ -53,35 +52,39 @@
                 <th class="text-center tc-w-150" rowspan="2">Tổng SL nhập</th>
                 <th class="text-center tc-w-150" rowspan="2">Giá trị TB</th>
                 <th class="text-center tc-w-150" rowspan="2">Tổng GT hàng nhập</th>
-                <th class="text-center tc-w-200" *ngFor="let label of listLabel" colspan="2">{{label.label}}</th>
+                <th class="text-center tc-w-250" *ngFor="let label of listLabel" colspan="2">{{label.label}}</th>
             </tr>
             <tr>
                 <ng-container *ngFor="let label of listLabel">
-                    <th>Số lượng</th>
-                    <th>Giá</th>
+                    <th class="text-center tc-w-100">Số lượng</th>
+                    <th class="text-center tc-w-100">Giá</th>
                 </ng-container>
             </tr>
         </thead>
         <tbody>
             <ng-container *ngFor="let item of items;let i = index">
-                <!-- <tr>
-                    <td style="display: none;"></td>
-                    <td style="display: none;"></td>
-                    <td class="tc-w-150 bg-white">So Sánh</td>
-                    <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham" class="text-right tc-w-100">
-                        <td class="text-center"
-                            [ngStyle]="{'background-color': sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet?'#a7d1a7':'#f59999'}">
-                            <span *ngIf="sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet">Đạt</span>
-                            <span *ngIf="sosanh.ChiTieuThucTe>sosanh.ChiTieuLyThuyet">K.Đạt</span>
-                        </td>
+                <tr>
+                    <td class="text-center tc-w-50">
+                        {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
+                    </td>
+                    <td class=" tc-w-150">{{item.Ma}}</td>
+                    <td class=" tc-w-250">{{item.Ten}}</td>
+                    <td class=" tc-w-100">{{item.DonViDatHang}}</td>
+                    <td class="text-right tc-w-150">{{item.SoLuong | number:'0.0-0'}}</td>
+                    <td class="text-right tc-w-150">{{item.ThanhTien / item.SoLuong | number:'0.0-0'}}</td>
+                    <td class="text-right tc-w-150">{{item.ThanhTien | number:'0.0-0'}}</td>
+
+                    <ng-container *ngFor="let thang of item.listItem">
+                        <td class="text-right tc-w-100">{{thang.SoLuong | number:'0.0-0'}}</td>
+                        <td class="text-right tc-w-150">{{thang.ThanhTien | number:'0.0-0'}}</td>
                     </ng-container>
-                </tr> -->
+                </tr>
             </ng-container>
         </tbody>
     </table>
-    <!-- <div class="flex align-items-center justify-content-between">
-        Tổng số bản ghi {{paging.TotalCount}}.
-        <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20" (onPageChange)="changePage($event)">
-        </p-paginator>
-    </div> -->
+</div>
+<div class="d-flex align-items-center justify-content-between">
+    Tổng số bản ghi {{paging.TotalCount}}.
+    <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20" (onPageChange)="changePage($event)">
+    </p-paginator>
 </div>
