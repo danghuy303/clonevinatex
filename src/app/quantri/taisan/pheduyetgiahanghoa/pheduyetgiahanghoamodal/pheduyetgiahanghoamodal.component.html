@@ -27,6 +27,7 @@
             </div>
         </div>
     </div>
+    <app-chuyenbuoc [(quyTrinh)]="quyTrinh"></app-chuyenbuoc>
     <div class="p-grid">
         <div class="p-col-12 p-md-3 p-lg-10 p-d-flex p-flex-column p-p-2">
             <label>Nội dung <span class="text-danger">(*)</span></label>
@@ -54,8 +55,9 @@
         <div class="d-flex p-my-2">
             <button pButton pRipple type="button" label="Chọn hàng hóa" class="p-button-sm p-mr-2"
                 (click)="ChontHangHoa()"></button>
-            <p-button class="p-button-sm p-mr-2" label="Nhập Excel" (click)="import()"></p-button>
-            <button pButton pRipple type="button" label="Xuất excel" class="p-button-sm"
+            <app-upload-file [multiple]="false" label="Nhập excel"
+                (itemChange)="handleUpload($event)"></app-upload-file>
+            <button pButton pRipple type="button" label="Xuất excel" class="p-button-sm p-ml-2"
                 (click)="exportExcel()"></button>
         </div>
 
@@ -69,7 +71,7 @@
                     <col style="width: 100px;">
                     <col style="width: 150px;">
                     <col style="width: 150px;">
-                    <col style="width: 100px;">
+                    <col style="width: 120px;">
                     <col>
                     <col>
                     <col style="width: 150px;">
@@ -85,7 +87,7 @@
                     <th class="text-center">Giá hiện hành</th>
                     <th class="text-center">Giá đề nghị</th>
                     <th class="text-center">Giá VC</th>
-                    <th class="text-center">Tỷ lệ</th>
+                    <th class="text-center">Tỷ lệ (%)</th>
                     <th class="text-center">Nhà cung ứng</th>
                     <th class="text-center">Ghi chú</th>
                     <th class="text-center">Trạng thái</th>
@@ -107,7 +109,7 @@
                         <p-inputNumber locale="en-EN" [(ngModel)]="item.GiaVanChuyen" (onBlur)="tinhTyLe(item)"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                     </td>
-                    <td cclass="text-center">{{item.TyLe}}</td>
+                    <td class="text-center">{{item.TyLe | number:'0.2-2'}}</td>
                     <td class="">{{item.TendmNhaCungUng}}</td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />

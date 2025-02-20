@@ -42,6 +42,7 @@ export class PheduyetgiahanghoamodalComponent implements OnInit {
   ngOnInit(): void {
     this.KiemTraButton();
     if (this.opt === 'add') {
+      this.quyTrinh.Ngay = new Date();
       this.GetNextSoQuyTrinh();
     } else {
       this.GetById();
@@ -89,7 +90,7 @@ export class PheduyetgiahanghoamodalComponent implements OnInit {
               ...ele,
               isPheDuyet: true,
               GiaHienHanh: ele.DonGia,
-              TyLe: ((ele.GiaVanChuyen + ele.GiaDeNghi) / (ele.DonGia)) * 100 || 0
+              TyLe: ((ele.GiaVanChuyen || 0 + ele.GiaDeNghi || 0) / (ele.DonGia || 0)) * 100 || 0
             }
           })
           this.quyTrinh.listItem = [...this.quyTrinh.listItem || [], ...data].filter(
@@ -101,7 +102,7 @@ export class PheduyetgiahanghoamodalComponent implements OnInit {
   }
 
   tinhTyLe(item) {
-    item.TyLe = ((item.GiaVanChuyen + item.GiaDeNghi) / (item.GiaHienHanh)) * 100 || 0;
+    item.TyLe = (((item.GiaVanChuyen || 0 + item.GiaDeNghi || 0) / (item.GiaHienHanh || 0)) * 100) || 0;
     this.quyTrinh.listItem = [...this.quyTrinh.listItem];
   }
 
@@ -192,33 +193,17 @@ export class PheduyetgiahanghoamodalComponent implements OnInit {
       .catch((er) => console.log(er));
   }
 
-  import() {
-    let modalRef = this._modal.open(UploadmodalComponent, {
-      size: 'md',
-      backdrop: 'static',
-    })
-    modalRef.componentInstance.single = true;
-    modalRef.result
-      .then((res: any) => {
-        this.fileUpload = res;
-        this._serviceTaiSan.PheDuyetGia().Import(this.fileUpload[0].Name).subscribe((res: any) => {
-          handleHTTPResponse(res, this.toastr, () => {
-            this.quyTrinh = {
-              ...res.Data,
-              Ngay: UnixToDate(res.Data.NgayUnix),
-              listItem: res.Data.listItem.map(ele => {
-                return {
-                  ...ele,
-                  TyLe: ((ele.GiaVanChuyen + ele.GiaDeNghi) / (ele.GiaHienHanh)) * 100 || 0
-                }
-              })
-            }
-          })
+  handleUpload(e) {
+    this._serviceTaiSan.PheDuyetGia().Import(e.Name).subscribe((res: any) => {
+      handleHTTPResponse(res, this.toastr, () => {
+        this.quyTrinh.listItem = res.Data.map(ele => {
+          return {
+            ...ele,
+            TyLe: ((ele.GiaVanChuyen + ele.GiaDeNghi) / (ele.GiaHienHanh)) * 100 || 0
+          }
         })
       })
-      .catch(er => { })
-      .finally(() => {
-      })
+    })
   }
 
   exportExcel() {

@@ -41,6 +41,8 @@ export class DondathangmodalComponent implements OnInit {
   ngOnInit(): void {
     this.KiemTraButton();
     if (this.opt === 'add') {
+      this.quyTrinh.Ngay = new Date();
+      this.quyTrinh.NgayGiaoHang = new Date();
       this.GetNextSoQuyTrinh();
     } else {
       this.GetById();
@@ -54,6 +56,7 @@ export class DondathangmodalComponent implements OnInit {
     this.quyTrinh = {
       ...this.quyTrinh,
       NgayGiaoHang: UnixToDate(this.quyTrinh.NgayGiaoHangUnix),
+      Ngay: UnixToDate(this.quyTrinh.NgayUnix),
       listItem: this.quyTrinh.listItem.map(ele => {
         return {
           ...ele,
@@ -107,7 +110,8 @@ export class DondathangmodalComponent implements OnInit {
     let data = {
       ...this.quyTrinh,
       eAction: 'DONDATHANG',
-      NgayGiaoHangUnix: DateToUnix(this.quyTrinh.NgayGiaoHang)
+      NgayGiaoHangUnix: DateToUnix(this.quyTrinh.NgayGiaoHang),
+      NgayUnix: DateToUnix(this.quyTrinh.Ngay)
     }
     return data;
   }
@@ -127,6 +131,7 @@ export class DondathangmodalComponent implements OnInit {
           this.quyTrinh = {
             ...res.Data,
             NgayGiaoHang: UnixToDate(res.Data.NgayGiaoHangUnix),
+            Ngay: UnixToDate(res.Data.NgayUnix),
             listItem: res.Data.listItem.map(ele => {
               return {
                 ...ele,

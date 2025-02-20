@@ -59,6 +59,9 @@ import { CaculateKtexPipe } from '../services/caculate-ktex.pipe';
 import { StepperComponent } from './stepper/stepper.component';
 import { ProcessingOrderComponent } from './processing-order/processing-order.component';
 import { StickycolumnDirective } from './stickycolumn.directive';
+import { UploadFileComponent } from './upload-file/upload-file.component';
+import { ChuyenbuocComponent } from './chuyenbuoc/chuyenbuoc.component';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -97,7 +100,9 @@ import { StickycolumnDirective } from './stickycolumn.directive';
     DanhSachVatTuCanThayTheComponent,
     StepperComponent,
     ProcessingOrderComponent,
-    StickycolumnDirective
+    StickycolumnDirective,
+    UploadFileComponent,
+    ChuyenbuocComponent
   ],
   imports: [
     AccordionModule,
@@ -124,6 +129,7 @@ import { StickycolumnDirective } from './stickycolumn.directive';
     PaginatorModule,
     SelectButtonModule,
     TreeTableModule,
+    MultiSelectModule
   ],
   exports: [
     isXoaPipe,
@@ -160,7 +166,9 @@ import { StickycolumnDirective } from './stickycolumn.directive';
     ChonmVatTuThayThePopUpComponent,
     DanhSachVatTuCanThayTheComponent,
     StepperComponent,
-    StickycolumnDirective
+    StickycolumnDirective,
+    UploadFileComponent,
+    ChuyenbuocComponent
   ]
 })
 export class SharedModule { }

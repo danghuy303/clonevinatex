@@ -1,0 +1,4 @@
+<div class="relative">
+    <p-button [label]="label" [icon]="showIcon? 'pi pi-upload' : ''"></p-button>
+    <input class="absolute" #fileInput type="file" (change)="upLoad($event.target.files)" [multiple]="multiple" [accept]="" />
+</div>

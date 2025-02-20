@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div class="p-mt-3">
+<!-- <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
             <colgroup>
@@ -99,4 +99,100 @@
             </div>
         </ng-template>
     </p-table>
+</div> -->
+
+<div class="p-mt-3">
+    <p-table [value]="listView" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center" rowspan="2">Tên</th>
+                <th class="text-center" rowspan="2">Mã</th>
+                <th class="text-center" colspan="2">Khu A</th>
+                <th class="text-center" colspan="2">Khu B</th>
+                <th class="text-center" colspan="2">Khu C</th>
+            </tr>
+            <tr>
+                <th class="text-center">Số lượng</th>
+                <th class="text-center">Đơn giá</th>
+                <th class="text-center">Số lượng</th>
+                <th class="text-center">Đơn giá</th>
+                <th class="text-center">Số lượng</th>
+                <th class="text-center">Đơn giá</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center">
+                    <input type="text" placeholder="Tìm kiếm" [(ngModel)]="item.Ten" class="p-inputtext-sm"
+                        pInputText />
+                </td>
+                <td class="text-center"> {{item.Ma}} </td>
+                <ng-container *ngFor="let x of item.listItem; let colIndex = index">
+                    <td class="text-center">
+                        <p-inputNumber #input [(ngModel)]="x.SoLuong"
+                            (keydown)="onKeyDown($event, i, colIndex, 'SoLuong')">
+                        </p-inputNumber>
+                    </td>
+                    <td class="text-center">
+                        <p-inputNumber #input [(ngModel)]="x.DonGia"
+                            (keydown)="onKeyDown($event, i, colIndex, 'DonGia')">
+                        </p-inputNumber>
+                    </td>
+                </ng-container>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
+
+<!-- <div class="p-mt-3">
+    <p-table [value]="listItem" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center">Tên</th>
+                <th class="text-center">Mã</th>
+                <th class="text-center">Khu A</th>
+                <th class="text-center">Khu B</th>
+                <th class="text-center">Khu C</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center"> {{item.Ten}} </td>
+                <td class="text-center">
+                    <p-dropdown #input [filter]="true" [options]="listNhaCungUng"
+                        placeholder="Chọn ncc" (onChange)="GetList(true)" class="p-inputtext-sm" [(ngModel)]="item.Ma"
+                        [showClear]="true" (keydown)="navigateTable($event, i, 0)"></p-dropdown>
+                </td>
+                <td class="text-center">
+                    <p-inputNumber #input [(ngModel)]="item.KA" (keydown)="navigateTable($event, i, 1)">
+                    </p-inputNumber>
+                </td>
+                <td class="text-center">
+                    <p-inputNumber #input [(ngModel)]="item.KB" (keydown)="navigateTable($event, i,2)">
+                    </p-inputNumber>
+                </td>
+                <td class="text-center">
+                    <p-inputNumber #input [(ngModel)]="item.KC" (keydown)="navigateTable($event, i, 3)">
+                    </p-inputNumber>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div> -->

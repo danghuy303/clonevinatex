@@ -3,7 +3,7 @@
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+        <!-- <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button> -->
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
@@ -42,13 +42,13 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
+                <col style="width:200px">
+                <col>
+                <col style="width: 150px;">
                 <col>
                 <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
+                <col style="width: 150px;">
+                <col style="width: 150px;">
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -82,7 +82,7 @@
                     {{item.TendmNhaCungUng}}
                 </td>
                 <td class="text-right">
-                    {{item.GiaTri}}
+                    {{item.GiaTri | number:'0.0-0'}}
                 </td>
                 <td class="text-center">
                     {{item.TenTrangThai}}

@@ -20,6 +20,7 @@ export class StepperComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.title =  this.title.toUpperCase();
     this.getQuyTrinhSteps();
   }
 

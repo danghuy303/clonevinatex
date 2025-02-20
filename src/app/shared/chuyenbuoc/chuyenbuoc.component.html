@@ -1,0 +1,25 @@
+<div *ngIf="quyTrinh.Id" class="d-flex justify-content-end align-items-center">
+    <div class="d-flex align-items-center">
+        <h6 class="" style="font-weight: bold;">Bước tiếp theo:</h6>
+        <p-dropdown [options]="listTrangThaiTiepTheoCopy" [filter]="true" placeholder="Chọn" [showClear]="isClear"
+            [disabled]="quyTrinh.isDisableTrangThaiTiepTheo" class="mx-2 w-12rem" emptyMessage="Chưa có dữ liệu"
+            [(ngModel)]="IdTrangThaiTiepTheo" (onChange)="getTrangThaiTiepTheo($event.value)">
+            <ng-template let-item pTemplate="selectedItem">
+                <span style="vertical-align:middle" [pTooltip]="item.label" tooltipPosition="top">{{item.label}}</span>
+            </ng-template>
+            <ng-template let-target pTemplate="item">
+                <div class="" [pTooltip]="target.label" tooltipPosition="top">
+                    <span>{{target.label | truncate:25}}</span>
+                </div>
+            </ng-template>
+        </p-dropdown>
+    </div>
+    <div class="d-flex align-items-center">
+        <h6 class="" style="font-weight: bold;">Người xử lý tiếp theo:</h6>
+        <p-multiSelect inputId="multiselect" [disabled]="quyTrinh.isDisableTrangThaiTiepTheo" class="mx-2"
+            [filter]="true" [options]="listUserTiepTheoCopy" display="chip" [style]="{width:'250px'}"
+            [showToggleAll]="true" placeholder="Chọn " [(ngModel)]="listIdUserTiepTheo"
+            (onChange)="UserTiepTheo($event)">
+        </p-multiSelect>
+    </div>
+</div>

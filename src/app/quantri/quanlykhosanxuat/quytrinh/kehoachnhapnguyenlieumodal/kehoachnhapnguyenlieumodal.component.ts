@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -12,7 +12,7 @@ import { KehoachnhapnguyenlieuitemmodalComponent } from '../kehoachnhapnguyenlie
   templateUrl: './kehoachnhapnguyenlieumodal.component.html',
   styleUrls: ['./kehoachnhapnguyenlieumodal.component.css']
 })
-export class KehoachnhapnguyenlieumodalComponent implements OnInit {
+export class KehoachnhapnguyenlieumodalComponent implements OnInit, AfterViewInit {
 
   opt: any = ''
   item: any = {};
@@ -39,6 +39,8 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   editField: any = false;
   nametype: any = '';
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
+
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
   }
@@ -76,7 +78,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if(this.item.IdUserHienTai === this.item.CreatedBy)
+      if (this.item.IdUserHienTai === this.item.CreatedBy)
         this.checkbutton.Ghi = true;
     })
   }
@@ -147,7 +149,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
           obj.ThoiGianCapCangUnix = DateToUnix(obj.ThoiGianCapCang);
         });
       }
-      this.item.NgayUnix =  DateToUnix(this.item.Ngay);
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
       this._services.NhapKeHoachNguyenLieu().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
@@ -175,7 +177,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       });
     }
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix =  DateToUnix(this.item.Ngay);
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
     this._services.NhapKeHoachNguyenLieu().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
@@ -219,7 +221,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
           obj.ThoiGianCapCangUnix = DateToUnix(obj.ThoiGianCapCang);
         });
       }
-      this.item.NgayUnix =  DateToUnix(this.item.Ngay);
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.NhapKeHoachNguyenLieu().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -371,4 +373,58 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       this._services.download(res.TenFile);
     })
   }
+
+  navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
+    const key = event.key;
+    const inputElements: any = this.inputs.toArray();
+    const colsPerRow = 11; // Số cột chứa ô nhập liệu
+
+    let nextIndex = rowIndex * colsPerRow + colIndex;
+    if (key === 'ArrowRight') nextIndex += 1;
+    if (key === 'ArrowLeft') nextIndex -= 1;
+    if (key === 'ArrowDown') nextIndex += colsPerRow;
+    if (key === 'ArrowUp') nextIndex -= colsPerRow;
+    // Kiểm tra nếu index hợp lệ thì focus
+    setTimeout(() => {
+      if (inputElements[nextIndex]) {
+        const nextElement = inputElements[nextIndex]?.nativeElement;
+        const inputInside = nextElement.querySelector('input');
+        if (inputInside) {
+          inputInside.focus();
+          return;
+        }
+        nextElement.focus();
+      }
+    }, 0);
+  }
+
+
+  ngAfterViewInit() {
+    this.inputs.forEach((el) => {
+      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thật
+      if (realInput) {
+        realInput.addEventListener(
+          'keydown',
+          (event: KeyboardEvent) => {
+            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+              event.preventDefault(); // Ngăn hành vi mặc định
+              event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
+              //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+              const indexInList = this.inputs.toArray().findIndex(
+                (inp) => inp.nativeElement.querySelector('input') === realInput
+              );
+              const rowIndex = Math.floor(indexInList / 11);
+              const colIndex = indexInList % 11;
+              console.log('rowIndex', rowIndex);
+              this.navigateTable(event, rowIndex, colIndex);
+            }
+          },
+          { capture: true } // ⚡ Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+        );
+      }
+    });
+  }
+
+
+
 }

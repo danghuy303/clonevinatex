@@ -97,6 +97,7 @@ export class DanhsachvattuphaimuaComponent implements OnInit {
       this._serviceTaiSan.TaoDonHang(listId).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this._toastr.success(res.Message);
+          this.GetList();
         } else this._toastr.error(res.Message);
       })
     } else this._toastr.error('Vui lòng chọn ít nhất một vật tư');

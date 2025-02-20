@@ -27,6 +27,7 @@
             </div>
         </div>
     </div>
+    <app-chuyenbuoc [(quyTrinh)]="quyTrinh"></app-chuyenbuoc>
     <div class="p-grid">
         <div class="p-col-12 p-md-3 p-lg-10 p-d-flex p-flex-column p-p-2">
             <label>Nội dung <span class="text-danger">(*)</span></label>
@@ -44,14 +45,14 @@
             </div>
         </div>
         <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
-            <label>Dự án</label>
+            <label>Dự án <span class="text-danger">(*)</span></label>
             <div>
                 <p-dropdown [filter]="true" [options]="listDuAn" placeholder="Chọn" class="p-inputtext-sm"
                     [(ngModel)]="quyTrinh.IdDuAn" [showClear]="true" (onChange)="handleDuAn($event.value)"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
-            <label>Kho</label>
+            <label>Kho <span class="text-danger">(*)</span></label>
             <div>
                 <p-dropdown [filter]="true" [options]="listBoPhan" placeholder="Chọn" class="p-inputtext-sm"
                     [(ngModel)]="quyTrinh.IddmKho" [showClear]="true"></p-dropdown>
@@ -68,8 +69,8 @@
         <div class="d-flex p-my-2">
             <button pButton pRipple type="button" label="Chọn vật tư" class="p-button-sm p-mr-2"
                 (click)="ChontVatTu()"></button>
-            <p-button class="p-button-sm p-mr-2" label="Nhập Excel" (click)="import()"></p-button>
-            <button pButton pRipple type="button" label="Xuất excel" class="p-button-sm"
+                <app-upload-file [multiple]="false" label="Nhập excel" (itemChange)="handleUpload($event)"></app-upload-file>
+            <button *ngIf="quyTrinh.Id" pButton pRipple type="button" label="Xuất excel" class="p-button-sm p-ml-2"
                 (click)="exportExcel()"></button>
         </div>
 

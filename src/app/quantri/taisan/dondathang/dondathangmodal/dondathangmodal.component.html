@@ -27,14 +27,15 @@
             </div>
         </div>
     </div>
+    <app-chuyenbuoc [(quyTrinh)]="quyTrinh"></app-chuyenbuoc>
     <div class="p-grid">
-        <div class="p-col-12 p-md-4 p-lg-4 p-d-flex p-flex-column p-p-2">
+        <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
             <label>Mã PO</label>
             <div>
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.MaPO" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-md-4 p-lg-4 p-d-flex p-flex-column p-p-2">
+        <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
             <label>Ngày giao hàng</label>
             <div>
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
@@ -43,7 +44,16 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-md-4 p-lg-4 p-d-flex p-flex-column p-p-2">
+        <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
+            <label>Ngày đặt hàng</label>
+            <div>
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+                    [yearNavigator]="true" [yearRange]="yearRange" [disabled]="true" [showButtonBar] [showIcon]="true" [(ngModel)]="quyTrinh.Ngay"
+                    inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
             <label>Giá trị</label>
             <div>
                 <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.GiaTri" class="p-inputtext-sm"
@@ -79,7 +89,7 @@
                     <col style="width: 100px;">
                     <col style="width: 150px;">
                     <col style="width: 150px;">
-                    <col style="width: 100px;">
+                    <col >
                     <col>
                     <col style="width: 50px;">
                 </colgroup>

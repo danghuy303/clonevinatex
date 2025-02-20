@@ -88,26 +88,36 @@ export class DenghicungungvattumodalComponent implements OnInit {
   }
 
   ChontVatTu() {
-    this._serviceTaiSan.GetlistdmItem({ currentpage: 0 }).subscribe((res: any) => {
-      let modalRef = this._modal.open(DanhsachvattucungungComponent, {
-        size: 'lg',
-        backdrop: 'static',
-      })
-      modalRef.componentInstance.listItem = res.Data || [];
-      modalRef.componentInstance.title = 'Danh sách vật tư';
-      modalRef.componentInstance.titleHead = 'vật tư';
-      modalRef.componentInstance.listDaChon = this.quyTrinh.listItem?.length ? this.quyTrinh.listItem.map(ele => ele.IddmItem) : [];
-      modalRef.result
-        .then((res: any) => {
-          this.quyTrinh.listItem = res.map(ele => {
-            let _newObj = this.quyTrinh.listItem?.find((x: any) => x.IddmItem === ele.IddmItem) ? this.quyTrinh.listItem.find((x: any) => x.IddmItem === ele.IddmItem) : ele;
-            return {
-              ..._newObj
-            }
-          })
+    if (this.quyTrinh.IddmKho) {
+      this._serviceTaiSan.GetlistdmItem({ currentpage: 0 }).subscribe((res: any) => {
+        let modalRef = this._modal.open(DanhsachvattucungungComponent, {
+          size: 'lg',
+          backdrop: 'static',
         })
-        .catch((error: any) => { })
-    })
+        modalRef.componentInstance.listItem = res.Data || [];
+        modalRef.componentInstance.title = 'Danh sách vật tư';
+        modalRef.componentInstance.titleHead = 'vật tư';
+        modalRef.componentInstance.listDaChon = this.quyTrinh.listItem?.length ? this.quyTrinh.listItem.map(ele => ele.IddmItem) : [];
+        modalRef.result
+          .then((res: any) => {
+            this.quyTrinh.listItem = res.map(ele => {
+              let _newObj = this.quyTrinh.listItem?.find((x: any) => x.IddmItem === ele.IddmItem) ? this.quyTrinh.listItem.find((x: any) => x.IddmItem === ele.IddmItem) : ele;
+              return {
+                ..._newObj
+              }
+            })
+            this._serviceTaiSan.PhieuDNCU_Item(this.setData()).subscribe((resItem: any) => {
+              this.quyTrinh = {
+                ...resItem.Data,
+                Ngay: UnixToDate(resItem.Data.NgayUnix)
+              }
+              this.GetKho(resItem.Data.IdDuAn)
+            })
+          })
+          .catch((error: any) => { })
+      })
+    }
+    else this.toastr.error("Vui lòng chọn kho!");
   }
 
   xoaItem(idx) {
@@ -132,6 +142,14 @@ export class DenghicungungvattumodalComponent implements OnInit {
   ValidateData() {
     if (!validVariable(this.quyTrinh.NoiDung)) {
       this.toastr.error("Yêu cầu nhập nội dung!");
+      return false;
+    }
+    else if (!validVariable(this.quyTrinh.IdDuAn)) {
+      this.toastr.error("Yêu cầu chọn dự án!");
+      return false;
+    }
+    else if (!validVariable(this.quyTrinh.IddmKho)) {
+      this.toastr.error("Yêu cầu chọn kho!");
       return false;
     }
     return true;
@@ -192,23 +210,34 @@ export class DenghicungungvattumodalComponent implements OnInit {
   }
 
   import() {
-    let modalRef = this._modal.open(UploadmodalComponent, {
-      size: 'md',
-      backdrop: 'static',
-    })
-    modalRef.componentInstance.single = true;
-    modalRef.result
-      .then((res: any) => {
-        this.fileUpload = res;
-        this._serviceTaiSan.PhieuDNCU().Import(this.fileUpload[0].Name).subscribe((res: any) => {
-          handleHTTPResponse(res, this.toastr, () => {
-            this.quyTrinh.listItem = res.Data;
+    if (this.quyTrinh.IddmKho) {
+      let modalRef = this._modal.open(UploadmodalComponent, {
+        size: 'md',
+        backdrop: 'static',
+      })
+      modalRef.componentInstance.single = true;
+      modalRef.result
+        .then((res: any) => {
+          this.fileUpload = res;
+          this._serviceTaiSan.ImportPhieuDNCU(this.fileUpload[0].Name, this.quyTrinh.IddmKho).subscribe((res: any) => {
+            handleHTTPResponse(res, this.toastr, () => {
+              this.quyTrinh.listItem = res.Data;
+            })
           })
         })
+        .catch(er => { })
+        .finally(() => {
+        })
+    }
+    else this.toastr.error("Vui lòng chọn kho!");
+  }
+
+  handleUpload(e) {
+    this._serviceTaiSan.ImportPhieuDNCU(e.Name, this.quyTrinh.IddmKho).subscribe((res: any) => {
+      handleHTTPResponse(res, this.toastr, () => {
+        this.quyTrinh.listItem = res.Data;
       })
-      .catch(er => { })
-      .finally(() => {
-      })
+    })
   }
 
   exportExcel() {

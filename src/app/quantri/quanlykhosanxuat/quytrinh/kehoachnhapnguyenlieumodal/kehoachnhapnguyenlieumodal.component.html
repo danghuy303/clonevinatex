@@ -8,16 +8,16 @@
         </div>
     </div> -->
     <div class="d-flex flex-column flex-lg-row">
-            <div>
-               <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
-            </div>
-            <div class="ml-lg-3 mr-lg-3">
-                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
-            </div>
-            <div>
-                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
-            </div>
+        <div>
+            <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
         </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+    </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="Onclose()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -35,7 +35,8 @@
                 *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" (click)="XuatExcel()" label="Xuất excel" class="p-mr-2 p-button-sm"></button>
+            <button pButton pRipple type="button" (click)="XuatExcel()" label="Xuất excel"
+                class="p-mr-2 p-button-sm"></button>
         </div>
 
     </div>
@@ -47,27 +48,26 @@
                     styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div> -->
-        <div class="p-col-12 p-lg-7 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày <span class="text-danger">*</span>:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+        <div class="p-col-12 p-lg-2 p-p-3 d-flex flex-column">
+            <label>Ngày <span class="text-danger">*</span>:</label>
+            <div>
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
                     [yearRange]="yearRange" [showIcon]="false" [(ngModel)]="item.Ngay" inputId="icon"
                     placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
+        <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column">
+            <label>Nội dung:</label>
+            <div>
+                <input type="text" class="p-inputtext-sm" style="font-size: 1rem" [(ngModel)]="item.NoiDung" pInputText />
+            </div>
+        </div>
 
-        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-lg-11 p-p-0">
-                <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /> -->
-                <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
+        <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column">
+            <label>Ghi chú:</label>
+            <div>
+                <textarea pInputTextarea [(ngModel)]="item.GhiChu" [rows]="1"></textarea>
             </div>
         </div>
         <div class="p-col-12 p-lg-8 p-p-3 d-flex flex-column flex-lg-row">
@@ -86,7 +86,8 @@
                 <button pButton pRipple type="button" label="Chọn danh sách thửa đất" class="p-mr-2 p-button-sm"
                     (click)="chonThuaDat()"></button>
             </div> -->
-            <p-table [value]="item.listItem|isXoa|SortByKey:'ThoiGianCapCangUnix'" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [value]="item.listItem|isXoa|SortByKey:'ThoiGianCapCangUnix'"
+                styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:30px">
@@ -126,49 +127,59 @@
                         <td class="text-center">{{i+1}}</td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
-                                [(ngModel)]="items.IddmLoaiBong" styleClass="p-inputtext-sm" (onChange)="getDacTinhBong(items)">
+                                [(ngModel)]="items.IddmLoaiBong" styleClass="p-inputtext-sm"
+                                #input (keydown)="navigateTable($event, i, 0)" (onChange)="getDacTinhBong(items)">
                             </p-dropdown>
                         </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp bông"
-                                [(ngModel)]="items.IddmCapBong" styleClass="p-inputtext-sm" (onChange)="getDacTinhBong(items)">
+                                [(ngModel)]="items.IddmCapBong" styleClass="p-inputtext-sm"
+                                (onChange)="getDacTinhBong(items)"
+                                #input (keydown)="navigateTable($event, i, 1)">
                             </p-dropdown>
                         </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="items.listDacTinh" placeholder="Chọn đặc tính"
-                                [(ngModel)]="items.IddmDacTinh" styleClass="p-inputtext-sm">
+                                [(ngModel)]="items.IddmDacTinh" styleClass="p-inputtext-sm"
+                                #input (keydown)="navigateTable($event, i, 2)">
                             </p-dropdown>
                             <!-- <input pInputText type="text" [(ngModel)]="items.DacTinh" disabled/> -->
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="items.SoHopDong"/>
+                            <input #input (keydown)="navigateTable($event, i, 3)" pInputText type="text" [(ngModel)]="items.SoHopDong" />
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="8" locale="en-EN" [(ngModel)]="items.GiaBong">
+                            <p-inputNumber [minFractionDigits]="8" locale="en-EN" [(ngModel)]="items.GiaBong"
+                            #input (keydown)="navigateTable($event, i, 4)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="items.SoLuongNhap">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="items.SoLuongNhap"
+                            #input (keydown)="navigateTable($event, i, 5)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.Container">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.Container"
+                            #input (keydown)="navigateTable($event, i, 6)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.TongSoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.TongSoKien"
+                            #input (keydown)="navigateTable($event, i, 7)">
                             </p-inputNumber>
                         </td>
                         <td>
                             <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
                                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
-                                [(ngModel)]="items.ThoiGianCapCang" inputId="icon" placeholder="dd/mm/yyyy">
+                                [(ngModel)]="items.ThoiGianCapCang" inputId="icon" placeholder="dd/mm/yyyy"
+                                #input (keydown)="navigateTable($event, i, 8)">
                             </p-calendar>
                         </td>
                         <td>
                             <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
                                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
-                                [(ngModel)]="items.ThoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy">
+                                [(ngModel)]="items.ThoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy"
+                                #input (keydown)="navigateTable($event, i, 9)">
                             </p-calendar>
                         </td>
                         <!-- <td>    
@@ -176,9 +187,10 @@
                                 [disabled]="true">
                             </p-inputNumber>
                         </td> -->
-                        
+
                         <td>
-                            <input pInputText type="text" [ngbTooltip]="items.GhiChu" [(ngModel)]="items.GhiChu"/>
+                            <input pInputText type="text" [ngbTooltip]="items.GhiChu" [(ngModel)]="items.GhiChu"
+                            #input (keydown)="navigateTable($event, i, 10)" />
                         </td>
                         <!-- <td class="text-center">
                             <button pButton pRipple icon="fas fa-edit"
@@ -203,7 +215,8 @@
                         </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp bông"
-                                [(ngModel)]="newTableItem.IddmCapBong" styleClass="p-inputtext-sm" (onChange)="getDacTinhBong(newTableItem)">
+                                [(ngModel)]="newTableItem.IddmCapBong" styleClass="p-inputtext-sm"
+                                (onChange)="getDacTinhBong(newTableItem)">
                             </p-dropdown>
                         </td>
                         <td>
@@ -213,14 +226,15 @@
                             <!-- <input pInputText type="text" [(ngModel)]="newTableItem.DacTinh" disabled/> -->
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="newTableItem.SoHopDong"/>
+                            <input pInputText type="text" [(ngModel)]="newTableItem.SoHopDong" />
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="8" locale="en-EN" [(ngModel)]="newTableItem.GiaBong">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.SoLuongNhap">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN"
+                                [(ngModel)]="newTableItem.SoLuongNhap">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -231,7 +245,7 @@
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.TongSoKien">
                             </p-inputNumber>
                         </td>
-                        
+
                         <td>
                             <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
                                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
@@ -249,12 +263,12 @@
                                 [disabled]="true">
                             </p-inputNumber>
                         </td> -->
-                        
+
                         <!-- <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.NguonNhap">
                         </td> -->
                         <td>
-                            <input pInputText type="text" [(ngModel)]="newTableItem.GhiChu"/>
+                            <input pInputText type="text" [(ngModel)]="newTableItem.GhiChu" />
                         </td>
                         <!-- <td class="text-center">
                             <button pButton pRipple icon="fas fa-edit"

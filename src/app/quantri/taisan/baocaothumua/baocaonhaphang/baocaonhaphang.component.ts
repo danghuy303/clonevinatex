@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from '../../../../services/callApiSanXuat';
 import { TaisanService } from '../../../../services/Taisan/taisan.service';
@@ -11,7 +11,7 @@ import { host1 } from '../../../../services/host';
   templateUrl: './baocaonhaphang.component.html',
   styleUrls: ['./baocaonhaphang.component.css']
 })
-export class BaocaonhaphangComponent implements OnInit {
+export class BaocaonhaphangComponent implements OnInit, AfterViewInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -21,6 +21,30 @@ export class BaocaonhaphangComponent implements OnInit {
   listKho: any = [];
   listNhaCungUng: any = [];
   userInfo: any = {};
+  listView: any = [
+    {
+      Ten: 'Nhà cung ứng', Ma: 'IddmNhaCungUng',
+      listItem: [
+        { SoLuong: 1, DonGia: 2 },
+        { SoLuong: 2, DonGia: 2 },
+        { SoLuong: 3, DonGia: 2 }
+      ]
+    },
+    {
+      Ten: 'Kho', Ma: 'IddmKho',
+      listItem: [
+        { SoLuong: 2, DonGia: 1 },
+        { SoLuong: 2, DonGia: 2 },
+        { SoLuong: 2, DonGia: 3 }
+      ]
+    },
+  ]
+  @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
+
+  listItem: any = [
+    { Ten: 'Nguyễn văn A', Ma: 'NVA', KA: 1, KB: 2, KC: 2 },
+    { Ten: 'Nguyễn văn B', Ma: 'NVB', KA: 1, KB: 2, KC: 2 },
+  ]
 
   constructor(
     private _serviceTaiSan: TaisanService,
@@ -102,12 +126,151 @@ export class BaocaonhaphangComponent implements OnInit {
       IddmNhaCungUng: this.filter.IddmNhaCungUng ? this.filter.IddmNhaCungUng : '',
     };
     this._serviceTaiSan.ExportBaoCaoNhapHang(data).subscribe((res: any) => {
-      if(res.StatusCode === 200) {
+      if (res.StatusCode === 200) {
         const _url = host1 + res.Data;
         this._toastr.success(res.Message)
         window.open(_url);
       } else this._toastr.error(res.Message)
     })
+  }
+
+  onKeyDown(event: KeyboardEvent, rowIndex: number, colIndex: number, field: string) {
+    const inputElements: any = this.inputs.toArray();
+    const totalRows = this.listView.length;
+    const totalCols = 3;
+    const inputsPerRow = totalCols * 2; // Mỗi cột có 2 ô riêng biệt (SoLuong & DonGia)
+    const currentIndex = rowIndex * inputsPerRow + colIndex * 2 + (field === 'DonGia' ? 1 : 0);
+
+    console.log('inputElements', inputElements);
+    console.log('currentIndex', currentIndex);
+
+    switch (event.key) {
+      case 'ArrowDown': {
+        const nextIndex = currentIndex + inputsPerRow;
+        console.log('nextIndex', nextIndex);
+        console.log('inputElements[nextIndex]', inputElements[nextIndex]);
+        console.log('nativeElement', inputElements[nextIndex]?.el.nativeElement);
+
+        if (nextIndex < inputElements.length) {
+          event.preventDefault();
+          inputElements[nextIndex]?.el.nativeElement.querySelector('input')?.focus();
+        }
+        break;
+      }
+      case 'ArrowUp': {
+        const prevIndex = currentIndex - inputsPerRow;
+        if (prevIndex >= 0) {
+          event.preventDefault();
+          inputElements[prevIndex]?.el.nativeElement.querySelector('input')?.focus();
+        }
+        break;
+      }
+      case 'ArrowRight': {
+        const nextIndex = currentIndex + 1;
+        if (currentIndex % 2 === 0) {
+          // Chuyển từ SoLuong sang DonGia trong cùng cột
+          event.preventDefault();
+          inputElements[nextIndex]?.el.nativeElement.querySelector('input')?.focus();
+        } else if (colIndex < totalCols - 1) {
+          // Chuyển sang ô SoLuong của cột kế tiếp
+          event.preventDefault();
+          inputElements[nextIndex + 1]?.el.nativeElement.querySelector('input')?.focus();
+        }
+        break;
+      }
+      case 'ArrowLeft': {
+        const prevIndex = currentIndex - 1;
+        if (currentIndex % 2 === 1) {
+          // Chuyển từ DonGia về SoLuong trong cùng cột
+          event.preventDefault();
+          inputElements[prevIndex]?.el.nativeElement.querySelector('input')?.focus();
+        } else if (colIndex > 0) {
+          // Chuyển sang ô DonGia của cột trước đó
+          event.preventDefault();
+          inputElements[prevIndex - 1]?.el.nativeElement.querySelector('input')?.focus();
+        }
+        break;
+      }
+    }
+
+  }
+
+  // navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
+  //   const key = event.key;
+  //   const inputElements: any = this.inputs.toArray();
+  //   const colsPerRow = 4; // Số cột có thể focus (Tên, Mã, KA, KB, KC)
+
+  //   let nextIndex = rowIndex * colsPerRow + colIndex;
+  //   switch (key) {
+  //     case "ArrowRight":
+  //       event.preventDefault();
+  //       nextIndex += 1;
+  //       break;
+  //     case "ArrowLeft":
+  //       event.preventDefault();
+  //       nextIndex -= 1;
+  //       break;
+  //     case "ArrowDown":
+  //       event.preventDefault();
+  //       nextIndex += colsPerRow;
+  //       break;
+  //     case "ArrowUp":
+  //       event.preventDefault();
+  //       nextIndex -= colsPerRow;
+  //       break;
+  //   }
+  //   setTimeout(() => {
+  //     if (inputElements[nextIndex]) {
+  //       const nextElement = inputElements[nextIndex]?.el.nativeElement.querySelector('input');
+  //       if (nextElement) {
+  //         nextElement.focus();
+  //       }
+  //     }
+  //   }, 0);
+  // }
+
+  // navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
+  //   const key = event.key;
+  //   const inputElements: any = this.inputs.toArray();
+  //   const colsPerRow = 4; // Số cột chứa ô nhập liệu
+
+  //   let nextIndex = rowIndex * colsPerRow + colIndex;
+  //   if (key === 'ArrowRight') nextIndex += 1;
+  //   if (key === 'ArrowLeft') nextIndex -= 1;
+  //   if (key === 'ArrowDown') nextIndex += colsPerRow;
+  //   if (key === 'ArrowUp') nextIndex -= colsPerRow;
+  //   // Kiểm tra nếu index hợp lệ thì focus
+  //   setTimeout(() => {
+  //     if (inputElements[nextIndex]) {
+  //       inputElements[nextIndex]?.nativeElement.querySelector('input')?.focus();
+  //     }
+  //   }, 0);
+  // }
+
+
+  ngAfterViewInit() {
+    // this.inputs.forEach((el) => {
+    //   const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thật
+    //   if (realInput) {
+    //     realInput.addEventListener(
+    //       'keydown',
+    //       (event: KeyboardEvent) => {
+    //         if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+    //           event.preventDefault(); // Ngăn hành vi mặc định
+    //           event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
+    //           //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+    //           const indexInList = this.inputs.toArray().findIndex(
+    //             (inp) => inp.nativeElement.querySelector('input') === realInput
+    //           );
+    //           const rowIndex = Math.floor(indexInList / 4);
+    //           const colIndex = indexInList % 4;
+    //           this.navigateTable(event, rowIndex, colIndex);
+    //         }
+    //       },
+    //       { capture: true } // ⚡ Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+    //     );
+    //   }
+    // });
   }
 
 }

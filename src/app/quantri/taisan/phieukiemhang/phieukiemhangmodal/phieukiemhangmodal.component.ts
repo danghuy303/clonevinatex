@@ -34,13 +34,14 @@ export class PhieukiemhangmodalComponent implements OnInit {
     public _modal: NgbModal,
     private _services: SanXuatService,
     private _auth: AuthenticationService
-  ) { this.userInfo = this._auth.currentUserValue;}
+  ) { this.userInfo = this._auth.currentUserValue; }
 
   ngOnInit(): void {
     this.KiemTraButton();
     this.GetDanhSachDuAnByIdUser();
     this.GetALLdmNhaCungUng();
     if (this.opt === 'add') {
+      this.quyTrinh.Ngay = new Date();
       this.GetNextSoQuyTrinh();
     } else {
       this.GetById();
@@ -65,7 +66,13 @@ export class PhieukiemhangmodalComponent implements OnInit {
   GetById() {
     this.quyTrinh = {
       ...this.quyTrinh,
-      Ngay: UnixToDate(this.quyTrinh.NgayUnix)
+      Ngay: UnixToDate(this.quyTrinh.NgayUnix),
+      listItem: this.quyTrinh.listItem.map(ele => {
+        return {
+          ...ele,
+          SoLuongGoi: (ele.SoLuongDat || 0) - (ele.SoLuongNhan || 0)
+        }
+      })
     }
   }
 
@@ -114,7 +121,13 @@ export class PhieukiemhangmodalComponent implements OnInit {
         if (res.StatusCode === 200) {
           this.quyTrinh = {
             ...res.Data,
-            Ngay: UnixToDate(res.Data.NgayUnix)
+            Ngay: UnixToDate(res.Data.NgayUnix),
+            listItem: res.Data.listItem.map(ele => {
+              return {
+                ...ele,
+                SoLuongGoi: (ele.SoLuongDat || 0) - (ele.SoLuongNhan || 0)
+              }
+            })
           }
           this.KiemTraButton();
           this.toastr.success(res.Message);
@@ -160,6 +173,11 @@ export class PhieukiemhangmodalComponent implements OnInit {
         })
       })
       .catch((er) => console.log(er));
+  }
+
+  tinhConThieu(item) {
+    item.SoLuongGoi = (item.SoLuongDat || 0) - (item.SoLuongNhan || 0);
+    this.quyTrinh.listItem = [...this.quyTrinh.listItem];
   }
 
 }

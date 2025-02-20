@@ -1259,6 +1259,14 @@ export class TaisanService {
     return this.http.get(`${API.CungUng}DanhMuc/GetlistdmItemByIddmNhaCungUng?IddmNhaCungUng=${Id}`, httpOptions);
   }
 
+  ImportPhieuDNCU(FileName: any, IddmKho: any) {
+    return this.http.get(`${API.CungUng}QuanLyThuMua/ImportPhieuDNCU?FileName=${FileName}&IddmKho=${IddmKho}`, httpOptions);
+  }
+
+  PhieuDNCU_Item(data: any) {
+    return this.http.post(`${API.CungUng}QuanLyThuMua/PhieuDNCU_Item`, data, httpOptions);
+  }
+
   GetChiTietDonDatHang(data) {
     return this.http.post(`${API.CungUng}QuanLyThuMua/GetChiTietDonDatHang`, data, httpOptions);
   }
@@ -1364,6 +1372,12 @@ export class TaisanService {
   GetListUserXuLy(IdTable: any, IdTrangThai?: string) {
     let url = `${API.auth}//QuyTrinh/GetListUserXuLy`;
     return this.http.get(`${url}?IdTable=${IdTable}&IdTrangThai=${IdTrangThai ? IdTrangThai : null}`, httpOptions).toPromise();
+  }
+
+  GetTrangThaiChuyenTiep_listUser(IdDuAn: string, IdTrangThai: string) {
+    return this.http.get(
+      `${API.auth}QuanTriQuyTrinh/GetTrangThaiChuyenTiep_listUser?IdDuAn=${IdDuAn}&IdTrangThai=${IdTrangThai}`
+    );
   }
 
 }

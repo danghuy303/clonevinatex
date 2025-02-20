@@ -27,6 +27,7 @@
             </div>
         </div>
     </div>
+    <app-chuyenbuoc [(quyTrinh)]="quyTrinh"></app-chuyenbuoc>
     <div class="p-grid">
         <div class="p-col-12 p-md-3 p-lg-3 p-d-flex p-flex-column p-p-2">
             <label>Mã</label>
@@ -118,7 +119,7 @@
                     <td class="text-center">{{item.DonViDatHang}}</td>
                     <td class="text-right">{{item.SoLuongDat | number:'0.0-0'}}</td>
                     <td>
-                        <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongNhan"
+                        <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongNhan" (onBlur)="tinhConThieu(item)"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                     </td>
                     <td class="text-right">{{item.SoLuongGoi | number:'0.0-0'}}</td>
