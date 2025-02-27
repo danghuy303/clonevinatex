@@ -140,8 +140,9 @@
                         <td>
                             <div style="display: flex;">
                                 <div style="flex:1">
-                                    <p-inputNumber [minFractionDigits]="0" locale="en-EN"
-                                        [(ngModel)]="item.SoQuaSoiThanhPham" (ngModelChange)="TongKhoiLuong(item)">
+                                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" #input
+                                        (keydown)="navigateTable($event, i, 0)" [(ngModel)]="item.SoQuaSoiThanhPham"
+                                        (ngModelChange)="TongKhoiLuong(item)">
                                     </p-inputNumber>
                                 </div>
                                 <button pButton pRipple icon="pi pi-ellipsis-v"
@@ -152,30 +153,33 @@
 
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien" #input
+                                (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                         </td>
                         <td *ngIf="item.Ma!== 'STK'">
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TongKhoiLuong"
-                                disabled>
+                                #input (keydown)="navigateTable($event, i, 2)" disabled>
                             </p-inputNumber>
                         </td>
                         <td *ngIf="item.Ma === 'STK'">
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TongKhoiLuong"
-                                (ngModelChange)="TinhKgCone(item)">
+                                #input (keydown)="navigateTable($event, i, 2)" (ngModelChange)="TinhKgCone(item)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="item.SoKhoang">
+                            <input pInputText type="text" [(ngModel)]="item.SoKhoang" #input
+                                (keydown)="navigateTable($event, i, 3)">
                         </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listdmQuyCachDongGoi" placeholder="Chọn quy cách"
                                 styleClass="p-inputtext-sm" [(ngModel)]="item.IddmQuyCachDongGoi"
-                                [tooltip]="getTooltip(item.IddmQuyCachDongGoi, listdmQuyCachDongGoi)"
-                                tooltipPosition="top"></p-dropdown>
+                                [tooltip]="getTooltip(item.IddmQuyCachDongGoi, listdmQuyCachDongGoi)" #input
+                                (keydown)="navigateTable($event, i, 4)" tooltipPosition="top"></p-dropdown>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                            <input pInputText type="text" [(ngModel)]="item.GhiChu" #input
+                                (keydown)="navigateTable($event, i, 5)">
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"

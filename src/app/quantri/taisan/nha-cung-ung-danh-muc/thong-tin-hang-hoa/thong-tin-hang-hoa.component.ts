@@ -6,6 +6,7 @@ import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { deepCopy, handleHTTPResponse, merge, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong-tin-hang-hoa-modal.component';
+import { DanhsachduanComponent } from '../danhsachduan/danhsachduan.component'
 
 @Component({
   selector: 'app-thong-tin-hang-hoa',
@@ -23,6 +24,7 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges, AfterViewIni
   fileUpload: any;
   fileUploadHangHoa: any;
   @Input() isDisabled?: boolean = false;
+  @Input() listDuAn: any = [];
 
   constructor(
     public toast: ToastrService,
@@ -34,8 +36,6 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges, AfterViewIni
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('isDisabled', this.isDisabled);
-
     if (this.item.listItem) {
       this.LoadData(true);
     } else {
@@ -79,8 +79,6 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges, AfterViewIni
 
   AddHangHoa() {
     let existedItem = this.item.listItem.map(ele => ele.IddmItem);
-    console.log("existedItem", existedItem);
-
     let modalRef = this.modal.open(ThongTinHangHoaModalComponent, {
       size: "xl",
       backdrop: "static",
@@ -88,10 +86,7 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges, AfterViewIni
     modalRef.componentInstance.checkListItem = existedItem || [];
     modalRef.result
       .then((res: any) => {
-        console.log("res", res);
-        // this.item.listItem = merge(res, this.listItem_copy, 'IddmItem');
         this.item.listItem = merge(res, this.item.listItem, 'IddmItem');
-        console.log("this.item.listItem", this.item.listItem);
         this.LoadData(true);
       })
       .catch(er => { });
@@ -155,6 +150,24 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges, AfterViewIni
       return accumulator;
     }, []);
     return unique;
+  }
+
+  Add(item) {
+    let modalRef = this.modal.open(DanhsachduanComponent, {
+      size: "xl",
+      backdrop: "static",
+    })
+    modalRef.componentInstance.listDuAn = this.listDuAn;
+    modalRef.componentInstance.listDaChon = item.listDuAnUuTien?.length ? item.listDuAnUuTien.map(ele => ele.IdDuAn) : [];
+    modalRef.result
+      .then((res: any) => {
+        item.listDuAnUuTien = res.map(ele => {
+          let _newObj = item.listDuAnUuTien?.find(obj => obj.IdDuAn === ele.IdDuAn) || ele;
+          return _newObj;
+        })
+        this.item.listItem = [...this.item.listItem];
+      })
+      .catch(er => { });
   }
 
 }

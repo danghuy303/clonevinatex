@@ -147,8 +147,8 @@
                         </td>
                         <td style="text-align: center;">{{item.TendmViTri}}</td>
                         <td>
-                            <p-inputNumber tabindex="-1" [minFractionDigits]="0" locale="en-EN"
-                                [(ngModel)]="item.SoLuong">
+                            <p-inputNumber tabindex="-1" [minFractionDigits]="0" locale="en-EN" #input
+                                (keydown)="navigateTable($event, i, 0)" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td class="text-right">

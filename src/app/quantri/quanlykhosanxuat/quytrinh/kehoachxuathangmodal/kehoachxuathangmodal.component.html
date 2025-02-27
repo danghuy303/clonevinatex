@@ -105,19 +105,23 @@
                             {{item.Ten}}
                         </td>
                         <td class="text-center">
-                            <input pInputText type="text" [ngbTooltip]="item.SoHopDong" [(ngModel)]="item.SoHopDong">
+                            <input pInputText type="text" [ngbTooltip]="item.SoHopDong" [(ngModel)]="item.SoHopDong"
+                                #input (keydown)="navigateTable($event, i, 0)">
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.DonGia">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.DonGia" #input
+                                (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.Container">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.Container" #input
+                                (keydown)="navigateTable($event, i, 2)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
                             <div style="display: inline-flex;">
-                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoLuongXuat">
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoLuongXuat"
+                                    #input (keydown)="navigateTable($event, i, 3)">
                                 </p-inputNumber>
                                 <button pButton pRipple icon="pi pi-ellipsis-v"
                                     class="p-button-sm p-button-rounded p-button-secondary p-button-text"

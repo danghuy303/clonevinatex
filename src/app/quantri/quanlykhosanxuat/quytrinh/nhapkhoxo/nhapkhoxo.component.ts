@@ -13,7 +13,7 @@ import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
   templateUrl: './nhapkhoxo.component.html',
   styleUrls: ['./nhapkhoxo.component.css']
 })
-export class NhapkhoxoComponent extends StoreBase implements OnInit,OnDestroy {
+export class NhapkhoxoComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -53,8 +53,8 @@ export class NhapkhoxoComponent extends StoreBase implements OnInit,OnDestroy {
   type: any = "";
   nametype: any = "";
   constructor(public _modal: NgbModal, public _toastr: ToastrService,
-    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {
-      super(store)
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) {
+    super(store)
   }
 
   ngOnInit(): void {
@@ -91,7 +91,7 @@ export class NhapkhoxoComponent extends StoreBase implements OnInit,OnDestroy {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = this.type;
     modalRef.componentInstance.nametype = this.nametype;
-
+    modalRef.componentInstance.isXo = true;
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
@@ -115,6 +115,7 @@ export class NhapkhoxoComponent extends StoreBase implements OnInit,OnDestroy {
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.componentInstance.type = this.type;
       modalRef.componentInstance.nametype = this.nametype;
+      modalRef.componentInstance.isXo = true;
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
         this.changeParam(0);
@@ -189,15 +190,15 @@ export class NhapkhoxoComponent extends StoreBase implements OnInit,OnDestroy {
   exportExcel() {
     if (this.validateFilter()) {
       let data = {
-        TuNgayUnix:DateToUnix(this.filter.TuNgay),
-        DenNgayUnix:DateToUnix(this.filter.DenNgay),
+        TuNgayUnix: DateToUnix(this.filter.TuNgay),
+        DenNgayUnix: DateToUnix(this.filter.DenNgay),
       }
       this._service.QuyTrinhPhieuNhapLoBong().ExportBangKeNhapKhoXo(data).subscribe((res: any) => {
         this._service.download(res.TenFile);
       })
     }
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }

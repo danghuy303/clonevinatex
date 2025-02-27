@@ -126,7 +126,8 @@
                         <td style="text-align: right;">
                             {{item.TonTrongLuong|number:'0.2-2'}}
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" #input (keydown)="navigateTable($event, i, 0)"
+                                locale="en-EN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
                         <!-- <td>
@@ -135,7 +136,8 @@
                             </p-inputNumber>
                         </td> -->
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TrongLuong">
+                            <p-inputNumber [minFractionDigits]="2" #input (keydown)="navigateTable($event, i, 1)"
+                                locale="en-EN" [(ngModel)]="item.TrongLuong">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">

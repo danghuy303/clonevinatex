@@ -1,4 +1,4 @@
-import { ViewChildren } from '@angular/core';
+import { AfterViewInit, ElementRef, ViewChildren } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -14,8 +14,8 @@ import { NhaphoiammathangmodalComponent } from '../nhaphoiammathangmodal/nhaphoi
   templateUrl: './nhapkhohoiammodal.component.html',
   styleUrls: ['./nhapkhohoiammodal.component.css']
 })
-export class NhapkhohoiammodalComponent implements OnInit {
-  @ViewChildren('inputNumber') inputNumbers: any;
+export class NhapkhohoiammodalComponent implements OnInit, AfterViewInit {
+  @ViewChildren('inputNumber', { read: ElementRef }) inputNumbers: any;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -330,6 +330,8 @@ export class NhapkhohoiammodalComponent implements OnInit {
 
   }
   enter(i) {
+    console.log(i);
+    console.log(this.inputNumbers.toArray());
     if (i + 1 < this.inputNumbers.toArray().length) {
       this.inputNumbers.toArray()[i + 1].el.nativeElement.children[0].children[0].focus();
     } else {
@@ -377,4 +379,54 @@ export class NhapkhohoiammodalComponent implements OnInit {
       this.tinhKLTT(item);
     })
   }
+
+  navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
+    const key = event.key;
+    const inputElements: any = this.inputNumbers.toArray();
+    const colsPerRow = 1; // Số cột chứa ô nhập liệu
+
+    let nextIndex = rowIndex * colsPerRow + colIndex;
+    if (key === 'ArrowRight') nextIndex += 1;
+    if (key === 'ArrowLeft') nextIndex -= 1;
+    if (key === 'ArrowDown') nextIndex += colsPerRow;
+    if (key === 'ArrowUp') nextIndex -= colsPerRow;
+    // Kiểm tra nếu index hợp lệ thì focus
+    setTimeout(() => {
+      if (inputElements[nextIndex]) {
+        const nextElement = inputElements[nextIndex]?.nativeElement;
+        const inputInside = nextElement.querySelector('input');
+        if (inputInside) {
+          inputInside.focus();
+          return;
+        }
+        nextElement.focus();
+      }
+    }, 0);
+  }
+
+  ngAfterViewInit() {
+    this.inputNumbers.forEach((el) => {
+      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thật
+      if (realInput) {
+        realInput.addEventListener(
+          'keydown',
+          (event: KeyboardEvent) => {
+            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+              event.preventDefault(); // Ngăn hành vi mặc định
+              event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
+              //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+              const indexInList = this.inputNumbers.toArray().findIndex(
+                (inp) => inp.nativeElement.querySelector('input') === realInput
+              );
+              const rowIndex = Math.floor(indexInList / 1);
+              const colIndex = indexInList % 1;
+              this.navigateTable(event, rowIndex, colIndex);
+            }
+          },
+          { capture: true } // ⚡ Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+        );
+      }
+    });
+  }
+
 }

@@ -9,8 +9,6 @@ export class StickycolumnDirective implements OnInit, AfterViewInit {
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit() {
-    console.log('fixedIndex',this.fixedIndex);
-    
   }
 
   @HostListener('scroll', ['$event.target'])

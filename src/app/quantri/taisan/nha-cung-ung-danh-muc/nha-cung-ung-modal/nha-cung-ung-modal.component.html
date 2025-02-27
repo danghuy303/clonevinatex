@@ -5,11 +5,11 @@
 <div class="modal-body">
   <p-tabView>
     <p-tabPanel header="Thông tin chung">
-      <app-thong-tin-chung [item]="item"></app-thong-tin-chung>
+      <app-thong-tin-chung [item]="item" [listDuAn]="listDuAn"></app-thong-tin-chung>
     </p-tabPanel>
 
     <p-tabPanel header="Thông tin hàng hóa">
-      <app-thong-tin-hang-hoa [item]="item" [isDisabled]="true"></app-thong-tin-hang-hoa>
+      <app-thong-tin-hang-hoa [item]="item" [listDuAn]="listDuAn" [isDisabled]="true"></app-thong-tin-hang-hoa>
     </p-tabPanel>
 
     <p-tabPanel header="Thông tin đánh giá" [disabled]="!(opt!=='update')">

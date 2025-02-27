@@ -120,19 +120,22 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="">
-                            <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
+                            <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" #input
+                                (keydown)="navigateTable($event, i, 0)" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
                         </td>
                         <!-- <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp" styleClass="p-inputtext-sm"
                                 [(ngModel)]="item.IddmCapBong"></p-dropdown>
                         </td> -->
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien" #input
+                                (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCan">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCan" #input
+                                (keydown)="navigateTable($event, i, 2)">
                             </p-inputNumber>
                         </td>
                         <!-- <td class="text-center">
@@ -140,7 +143,8 @@
                                 styleClass="p-inputtext-sm"></p-dropdown>
                         </td> -->
                         <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                            <input pInputText type="text" [(ngModel)]="item.GhiChu" #input
+                                (keydown)="navigateTable($event, i, 3)">
                         </td>
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"

@@ -22,6 +22,7 @@ export class BaocaonhapxuattonComponent implements OnInit {
   listNhaCungUng: any = [];
   userInfo: any = {};
   listLabel: any = Array.from({ length: 4 }, (_, i) => i + 1);
+  item: any = { listData: [], listHeader: [] };
 
   constructor(
     private _serviceTaiSan: TaisanService,
@@ -57,9 +58,52 @@ export class BaocaonhapxuattonComponent implements OnInit {
       IddmNhaCungUng: this.filter.IddmNhaCungUng ? this.filter.IddmNhaCungUng : '',
     };
     this._serviceTaiSan.BaoCaoNhapXuatTon(data).subscribe((res: any) => {
-      this.items = res.Data.Items;
-      this.paging.TotalCount = res.Data.TotalCount;
+      // this.items = res.Data.Items;
+      // this.paging.TotalCount = res.Data.TotalCount;
+
+      this.item.listData = this.mapDeQuy(res.Data.Items.listData, 0)
+      this.item.listHeader = res.Data.Items.listHearder.map((ele: any) => {
+        return {
+          ...ele,
+          Header: ele.Header.map((obj: any) => {
+            return {
+              ...obj,
+              DoRong: `${obj.DoRong ? obj.DoRong : 100}px`
+            }
+          })
+        }
+      });
     })
+  }
+
+  mapDeQuy(lits: any, level: number) {
+    let newItem = lits.map((ele: any) => {
+      return {
+        data: {
+          ...ele.data,
+          level: level,
+          RowData: ele.data.RowData.map((x: any) => {
+            return {
+              ...x,
+              DoRong: `${x.DoRong ? x.DoRong : 100}px`,
+            }
+          })
+        },
+        children: ele.children || [],
+        expanded: ele.data.expanded,
+        showChildren: ele.data.expanded
+      }
+    })
+    newItem.forEach((obj: any) => {
+      if (obj.children && obj.children.length) {
+        obj.children = this.mapDeQuy(obj.children, level + 1)
+      }
+    })
+    return newItem;
+  }
+
+  toggleChildren(parent: any) {
+    parent.showChildren = !parent.showChildren;
   }
 
   GetDanhSachDuAnByIdUser() {

@@ -207,11 +207,13 @@
 
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong" #input
+                                (keydown)="navigateTable($event, i, 0)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TrongLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TrongLuong" #input
+                                (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                             <!-- <div class="p-inputgroup" style="align-items: flex-end">
                                 <p-inputNumber [minFractionDigits]="1" locale="en-EN"
@@ -354,11 +356,13 @@
                         <!-- (onChange)="setNewItemName_BP($event)" -->
 
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="x.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="x.SoLuong" #input
+                                (keydown)="navigateTable($event, i, 0)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="x.TrongLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="x.TrongLuong" #input
+                                (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                             <!-- <div class="p-inputgroup" style="align-items: flex-end">
                                 <p-inputNumber [minFractionDigits]="1" locale="en-EN"

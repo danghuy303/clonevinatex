@@ -195,39 +195,47 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="item.Ten">
+                            <input pInputText type="text" [(ngModel)]="item.Ten" #input
+                                (keydown)="navigateTable($event, i, 0)">
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCan">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCan" #input
+                                (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien" #input
+                                (keydown)="navigateTable($event, i, 2)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKienNgan"
-                                [max]="item.SoKien" (ngModelChange)="TinhSoKienNgan(item)">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKienNgan" #input
+                                (keydown)="navigateTable($event, i, 3)" [max]="item.SoKien"
+                                (ngModelChange)="TinhSoKienNgan(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCanNgan"
-                                [max]="item.SoCan" (ngModelChange)="TinhSoCanNgan(item)">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCanNgan" #input
+                                (keydown)="navigateTable($event, i, 4)" [max]="item.SoCan"
+                                (ngModelChange)="TinhSoCanNgan(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKienDai"
-                                [max]="item.SoKien" (ngModelChange)="TinhSoKienDai(item)">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKienDai" #input
+                                (keydown)="navigateTable($event, i, 5)" [max]="item.SoKien"
+                                (ngModelChange)="TinhSoKienDai(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCanDai"
-                                [max]="item.SoCan" (ngModelChange)="TinhSoCanDai(item)">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCanDai" #input
+                                (keydown)="navigateTable($event, i, 6)" [max]="item.SoCan"
+                                (ngModelChange)="TinhSoCanDai(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
-                            <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmViTri"></p-dropdown>
+                            <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" #input
+                                (keydown)="navigateTable($event, i, 7)" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.IddmViTri"></p-dropdown>
                         </td>
                         <!-- <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"

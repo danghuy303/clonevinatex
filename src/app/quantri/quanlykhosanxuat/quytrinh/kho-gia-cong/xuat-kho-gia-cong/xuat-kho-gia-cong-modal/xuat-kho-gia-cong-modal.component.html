@@ -108,12 +108,13 @@
                             </p-inputNumber>
                         </td>
                         <td class="">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="mathang.SoQua"
-                                (onBlur)="TinhKhoiLuong(mathang)">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="mathang.SoQua" #input
+                                (keydown)="navigateTable($event, i, 0)" (onBlur)="TinhKhoiLuong(mathang)">
                             </p-inputNumber>
                         </td>
                         <td class="">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="mathang.SoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="mathang.SoKien" #input
+                                (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                         </td>
                         <td class="text-right">

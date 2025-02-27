@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -13,7 +13,7 @@ import { XuatkhoxomathangmodalComponent } from '../xuatkhoxomathangmodal/xuatkho
     templateUrl: './khoxokiemkemodal.component.html',
     styleUrls: ['./khoxokiemkemodal.component.css']
 })
-export class KhoxokiemkemodalComponent implements OnInit {
+export class KhoxokiemkemodalComponent implements OnInit, AfterViewInit, AfterViewChecked {
     @ViewChild("paginator") paginator: any;
     opt: any = "";
     Id: any = "";
@@ -54,6 +54,7 @@ export class KhoxokiemkemodalComponent implements OnInit {
     item_new: any = {};
     title: any = "";
     newItem: any = {};
+    @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
     constructor(
         public activeModal: NgbActiveModal,
         private services: SanXuatService,
@@ -357,4 +358,88 @@ export class KhoxokiemkemodalComponent implements OnInit {
             });
         })
     }
+
+    navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
+        const key = event.key;
+        const inputElements: any = this.inputs.toArray();
+        const colsPerRow = 2; // Số cột chứa ô nhập liệu
+
+        let nextIndex = rowIndex * colsPerRow + colIndex;
+        if (key === 'ArrowRight') nextIndex += 1;
+        if (key === 'ArrowLeft') nextIndex -= 1;
+        if (key === 'ArrowDown') nextIndex += colsPerRow;
+        if (key === 'ArrowUp') nextIndex -= colsPerRow;
+
+        setTimeout(() => {
+            while (nextIndex >= 0 && nextIndex < inputElements.length) {
+                const nextElement = inputElements[nextIndex]?.nativeElement;
+                if (!nextElement) break; // Dừng nếu không có phần tử hợp lệ
+                let inputInside = nextElement.querySelector('input');
+                // Nếu không tìm thấy input, thử tìm thẻ con trong PrimeNG component
+                if (!inputInside) {
+                    nextElement.focus();
+                    return;
+                }
+
+                // Kiểm tra nếu ô hiện tại bị disabled
+                const isDisabled =
+                    inputInside.hasAttribute('disabled') ||
+                    inputInside.classList.contains('p-disabled') ||
+                    nextElement.hasAttribute('ng-reflect-disabled') ||
+                    nextElement.classList.contains('p-disabled');
+                // Nếu ô không bị disabled, focus và thoát vòng lặp
+                if (!isDisabled) {
+                    inputInside.focus();
+                    return;
+                }
+                // Nếu bị disabled, tiếp tục kiểm tra ô tiếp theo
+                nextIndex = getNextIndex(nextIndex, key, colsPerRow);
+            }
+        }, 0);
+
+        // Hàm tính toán nextIndex để nhảy ô chính xác
+        function getNextIndex(currentIndex: number, key: string, colsPerRow: number): number {
+            if (key === 'ArrowRight') return currentIndex + 1;
+            if (key === 'ArrowLeft') return currentIndex - 1;
+            if (key === 'ArrowDown') return currentIndex + colsPerRow;
+            if (key === 'ArrowUp') return currentIndex - colsPerRow;
+            return currentIndex;
+        }
+    }
+
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.initInputListeners();
+        }, 0);
+    }
+
+    ngAfterViewChecked() {
+        this.initInputListeners(); // Đảm bảo input được cập nhật khi bảng thay đổi
+    }
+    initInputListeners() {
+        this.inputs.forEach((el) => {
+            const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
+            if (realInput) {
+                realInput.addEventListener(
+                    'keydown',
+                    (event: KeyboardEvent) => {
+                        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                            event.preventDefault(); //  Chặn PrimeNG thay đổi số
+                            event.stopPropagation();
+                            event.stopImmediatePropagation();
+                            //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+                            const indexInList = this.inputs.toArray().findIndex(
+                                (inp) => inp.nativeElement.querySelector('input') === realInput
+                            );
+                            const rowIndex = Math.floor(indexInList / 2);
+                            const colIndex = indexInList % 2;
+                            this.navigateTable(event, rowIndex, colIndex);
+                        }
+                    },
+                    { capture: true } //  Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+                );
+            }
+        });
+    }
+
 }

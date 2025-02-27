@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -13,7 +13,7 @@ import { ChonkienchovaymodalComponent } from '../chonkienchovaymodal/chonkiencho
   templateUrl: './xuatbongchovaymodal.component.html',
   styleUrls: ['./xuatbongchovaymodal.component.css']
 })
-export class XuatbongchovaymodalComponent implements OnInit {
+export class XuatbongchovaymodalComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @ViewChild('paginator') paginator;
   opt: any = '';
   Id: any = '';
@@ -34,11 +34,12 @@ export class XuatbongchovaymodalComponent implements OnInit {
   listHopDong: any = [];
   listHopDongFull: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService,private hopDong: HopDongService,
+  @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, private hopDong: HopDongService,
     public toastr: ToastrService, public _modal: NgbModal) { }
 
   ngOnInit(): void {
-    
+
     let data: any = {
       CurrentPage: 0,
       Loai: 2,
@@ -56,7 +57,7 @@ export class XuatbongchovaymodalComponent implements OnInit {
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
     } else {
-        this.GetQuyTrinh();
+      this.GetQuyTrinh();
     }
   }
   GetQuyTrinh(page?) {
@@ -71,7 +72,7 @@ export class XuatbongchovaymodalComponent implements OnInit {
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
         this.item.Ngay = UnixToDate(this.item.NgayUnix);
       }
-      if(validVariable(page)){
+      if (validVariable(page)) {
         this.changePage(page);
       }
     })
@@ -165,12 +166,12 @@ export class XuatbongchovaymodalComponent implements OnInit {
       item.isXoa = true;
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
-    let listItem = this.item.listItem.filter(e=> e.isXoa !== true);
+    let listItem = this.item.listItem.filter(e => e.isXoa !== true);
     this.paging.TotalItem = listItem.length;
   }
 
   changePage(event) {
-    let listItem = this.item.listItem.filter(e=> e.isXoa !== true);
+    let listItem = this.item.listItem.filter(e => e.isXoa !== true);
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
     var end = start + 15;
@@ -181,8 +182,8 @@ export class XuatbongchovaymodalComponent implements OnInit {
 
   GetQuyTrinhFilter() {
     let items = [];
-    items = deepCopy(this.item.listItem.filter(ele=>ele.Ten.toLowerCase().indexOf(this.filter.KeyWord)!== -1
-                                      || ele.MaKienDoi.toLowerCase().indexOf(this.filter.KeyWord)!== -1)) ;
+    items = deepCopy(this.item.listItem.filter(ele => ele.Ten.toLowerCase().indexOf(this.filter.KeyWord) !== -1
+      || ele.MaKienDoi.toLowerCase().indexOf(this.filter.KeyWord) !== -1));
     this.listItem = deepCopy(items);
     this.paginator.changePage(0)
     this.paging.CurrentPage = 1;
@@ -190,56 +191,140 @@ export class XuatbongchovaymodalComponent implements OnInit {
     this.paging.TotalItem = items.length;
   }
   GetQuyTrinhRefresh() {
-    let listItem = this.item.listItem.filter(e=> e.isXoa !== true);
+    let listItem = this.item.listItem.filter(e => e.isXoa !== true);
     this.filter.KeyWord = '';
     this.listItem = deepCopy(listItem.slice(0, 15));
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = listItem.length;
   }
-  getListLoBong(){
-      let data: any = {}
-      data.IddmLoaiBong = this.item.listItem[0].IddmLoaiBong;
-      data.CurrentPage = 0;
-      this.services.GetListLoBong(data).subscribe((res: any) => {
-        this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
-      });
+  getListLoBong() {
+    let data: any = {}
+    data.IddmLoaiBong = this.item.listItem[0].IddmLoaiBong;
+    data.CurrentPage = 0;
+    this.services.GetListLoBong(data).subscribe((res: any) => {
+      this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
+    });
   }
   GetMatHangTheoKho() {
     this.services.PhieuKiemKeKhoBong()
-        .GetlistdmMatHangKiemKe(
-            this.item.IddmKho || "",
-            this.item.IdLoBong || ""
-        )
-        .subscribe((res1: any) => {
-            res1.forEach((mathang) => {
-                mathang.SoLuong = mathang.TonSoLuong;
-                mathang.TrongLuong = mathang.TonTrongLuong;
-            });
-            this.item.listItem = res1;
-            this.listItem =deepCopy(this.item.listItem.slice(0, 15));
-            this.paging.CurrentPage = 1;
-            this.paging.TotalPage = 5;
-            this.paging.TotalItem = this.item.listItem.length;
+      .GetlistdmMatHangKiemKe(
+        this.item.IddmKho || "",
+        this.item.IdLoBong || ""
+      )
+      .subscribe((res1: any) => {
+        res1.forEach((mathang) => {
+          mathang.SoLuong = mathang.TonSoLuong;
+          mathang.TrongLuong = mathang.TonTrongLuong;
         });
-}
-GetChonKien() {
-  this.services.PhieuKiemKeKhoBong().GetlistdmMatHangKiemKe(this.item.IddmKho || "", this.item.IdLoBong || "").subscribe((res1: any) => {
-    let modalRef = this._modal.open( ChonkienchovaymodalComponent,{
-      size: 'xl',
-      backdrop: 'static'
+        this.item.listItem = res1;
+        this.listItem = deepCopy(this.item.listItem.slice(0, 15));
+        this.paging.CurrentPage = 1;
+        this.paging.TotalPage = 5;
+        this.paging.TotalItem = this.item.listItem.length;
+      });
+  }
+  GetChonKien() {
+    this.services.PhieuKiemKeKhoBong().GetlistdmMatHangKiemKe(this.item.IddmKho || "", this.item.IdLoBong || "").subscribe((res1: any) => {
+      let modalRef = this._modal.open(ChonkienchovaymodalComponent, {
+        size: 'xl',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.listMatHang = res1;
+      modalRef.componentInstance.listItem = deepCopy(this.item.listItem);
+      modalRef.result.then((data) => {
+        this.item.listItem = data.data;
+        this.listItem = deepCopy(this.item.listItem.slice(0, 15));
+        this.paging.CurrentPage = 1;
+        this.paging.TotalPage = 5;
+        this.paging.TotalItem = this.item.listItem.filter(e => e.isXoa !== true).length;
+      }, (reason) => {
+        // không
+      });
     })
-    modalRef.componentInstance.listMatHang = res1;
-    modalRef.componentInstance.listItem = deepCopy(this.item.listItem) ;
-    modalRef.result.then((data) => {
-      this.item.listItem = data.data;
-      this.listItem =deepCopy(this.item.listItem.slice(0, 15));
-      this.paging.CurrentPage = 1;
-      this.paging.TotalPage = 5;
-      this.paging.TotalItem = this.item.listItem.filter(e => e.isXoa !== true).length;
-    }, (reason) => {
-      // không
+  }
+
+  navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
+    const key = event.key;
+    const inputElements: any = this.inputs.toArray();
+    const colsPerRow = 1; // Số cột chứa ô nhập liệu
+
+    let nextIndex = rowIndex * colsPerRow + colIndex;
+    if (key === 'ArrowRight') nextIndex += 1;
+    if (key === 'ArrowLeft') nextIndex -= 1;
+    if (key === 'ArrowDown') nextIndex += colsPerRow;
+    if (key === 'ArrowUp') nextIndex -= colsPerRow;
+
+    setTimeout(() => {
+      while (nextIndex >= 0 && nextIndex < inputElements.length) {
+        const nextElement = inputElements[nextIndex]?.nativeElement;
+        if (!nextElement) break; // Dừng nếu không có phần tử hợp lệ
+        let inputInside = nextElement.querySelector('input');
+        // Nếu không tìm thấy input, thử tìm thẻ con trong PrimeNG component
+        if (!inputInside) {
+          nextElement.focus();
+          return;
+        }
+
+        // Kiểm tra nếu ô hiện tại bị disabled
+        const isDisabled =
+          inputInside.hasAttribute('disabled') ||
+          inputInside.classList.contains('p-disabled') ||
+          nextElement.hasAttribute('ng-reflect-disabled') ||
+          nextElement.classList.contains('p-disabled');
+        // Nếu ô không bị disabled, focus và thoát vòng lặp
+        if (!isDisabled) {
+          inputInside.focus();
+          return;
+        }
+        // Nếu bị disabled, tiếp tục kiểm tra ô tiếp theo
+        nextIndex = getNextIndex(nextIndex, key, colsPerRow);
+      }
+    }, 0);
+
+    // Hàm tính toán nextIndex để nhảy ô chính xác
+    function getNextIndex(currentIndex: number, key: string, colsPerRow: number): number {
+      if (key === 'ArrowRight') return currentIndex + 1;
+      if (key === 'ArrowLeft') return currentIndex - 1;
+      if (key === 'ArrowDown') return currentIndex + colsPerRow;
+      if (key === 'ArrowUp') return currentIndex - colsPerRow;
+      return currentIndex;
+    }
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.initInputListeners();
+    }, 0);
+  }
+
+  ngAfterViewChecked() {
+    this.initInputListeners(); // Đảm bảo input được cập nhật khi bảng thay đổi
+  }
+  initInputListeners() {
+    this.inputs.forEach((el) => {
+      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
+      if (realInput) {
+        realInput.addEventListener(
+          'keydown',
+          (event: KeyboardEvent) => {
+            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+              event.preventDefault(); //  Chặn PrimeNG thay đổi số
+              event.stopPropagation();
+              event.stopImmediatePropagation();
+              //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+              const indexInList = this.inputs.toArray().findIndex(
+                (inp) => inp.nativeElement.querySelector('input') === realInput
+              );
+              const rowIndex = Math.floor(indexInList / 1);
+              const colIndex = indexInList % 1;
+              this.navigateTable(event, rowIndex, colIndex);
+            }
+          },
+          { capture: true } //  Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+        );
+      }
     });
-  })
-}
+  }
+
 }

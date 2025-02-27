@@ -60,7 +60,8 @@ import { PhieukiemhangComponent } from './phieukiemhang/phieukiemhang.component'
 import { BaocaonhaphangComponent } from './baocaothumua/baocaonhaphang/baocaonhaphang.component';
 import { TonghopdondathangnccComponent } from './baocaothumua/tonghopdondathangncc/tonghopdondathangncc.component';
 import { BaocaonhapxuattonComponent } from './baocaothumua/baocaonhapxuatton/baocaonhapxuatton.component';
-import {BaocaotonghopgiamuahangComponent} from './baocaothumua/baocaotonghopgiamuahang/baocaotonghopgiamuahang.component';
+import { BaocaotonghopgiamuahangComponent } from './baocaothumua/baocaotonghopgiamuahang/baocaotonghopgiamuahang.component';
+import { DanhmuckhocungungComponent } from './danhmuc/danhmuckhocungung/danhmuckhocungung.component';
 
 const routes: Routes = [
   { path: '', component: TaisanComponent },
@@ -122,6 +123,7 @@ const routes: Routes = [
   { path: 'baocaonhapxuatton', component: BaocaonhapxuattonComponent },
   { path: 'baocaotonghopgiamuahang', component: BaocaotonghopgiamuahangComponent },
   { path: 'tonghopdondathangncc', component: TonghopdondathangnccComponent },
+  { path: 'danhmuc/khocungung', component: DanhmuckhocungungComponent },
 ];
 
 @NgModule({

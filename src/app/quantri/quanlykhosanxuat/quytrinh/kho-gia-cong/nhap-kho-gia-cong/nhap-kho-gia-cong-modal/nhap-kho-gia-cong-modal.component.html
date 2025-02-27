@@ -103,12 +103,13 @@
                                 styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoHang "></p-dropdown>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" (onBlur)="TinhKhoiLuong(item)" locale="en-EN"
-                                [(ngModel)]="item.SoQua">
+                            <p-inputNumber [minFractionDigits]="0" (onBlur)="TinhKhoiLuong(item)" locale="en-EN" #input
+                                (keydown)="navigateTable($event, i, 0)" [(ngModel)]="item.SoQua">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien" #input
+                                (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                         </td>
                         <td>

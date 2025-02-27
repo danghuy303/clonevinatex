@@ -1,4 +1,4 @@
-import { ElementRef } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +16,7 @@ import { VitrikienmodalComponent } from './vitrikienmodal/vitrikienmodal.compone
   templateUrl: './xuatkhomodal.component.html',
   styleUrls: ['./xuatkhomodal.component.css']
 })
-export class XuatkhomodalComponent implements OnInit {
+export class XuatkhomodalComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @ViewChild('paginator') paginator;
   opt: any = '';
   Id: any = '';
@@ -37,12 +37,13 @@ export class XuatkhomodalComponent implements OnInit {
   listKienDoi: any = [];
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal) { }
 
   ngOnInit(): void {
     this.GetQuyTrinh();
-    
+
     let data: any = {
       CurrentPage: 0
     }
@@ -64,14 +65,13 @@ export class XuatkhomodalComponent implements OnInit {
         this.listKienDoi = res;
         res1.listItem.forEach(element => {
           element.listKienDoi = mapArrayForDropDown(this.listKienDoi.filter(x => x.IdLoBong === element.IdLoBong), 'Ten', 'Ma');
-          if(element.MaKienDoi != null)
-          {
+          if (element.MaKienDoi != null) {
             let itemMoi = {
               value: element.MaKienDoi,
               label: element.MaKienDoi + "-" + element.MicKienDoi,
             }
             element.listKienDoi.push(itemMoi);
-            element.MaKienDoi_root = deepCopy(element.MaKienDoi); ;
+            element.MaKienDoi_root = deepCopy(element.MaKienDoi);;
           }
         });
         this.item.listItem = res1.listItem;
@@ -90,10 +90,10 @@ export class XuatkhomodalComponent implements OnInit {
       if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
         this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix);
       }
-      if(validVariable(page)){
+      if (validVariable(page)) {
         this.changePage(page);
       }
-      
+
     })
   }
   KiemTraButtonModal() {
@@ -107,7 +107,7 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     }
     if (validVariable(this.item.Ngay)) {
-      
+
       this.item.listItem.forEach(element => {
         delete element.listKienDoi;
       });
@@ -157,7 +157,7 @@ export class XuatkhomodalComponent implements OnInit {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
-      
+
       this.item.listItem.forEach(element => {
         delete element.listKienDoi;
       });
@@ -185,7 +185,7 @@ export class XuatkhomodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      
+
       this.item.listItem.forEach(element => {
         delete element.listKienDoi;
       });
@@ -235,7 +235,7 @@ export class XuatkhomodalComponent implements OnInit {
 
   GetQuyTrinhFilter() {
     let items = [];
-    items = this.item.listItem.filter(ele=>ele.Ten?.toLowerCase().includes(this.filter.KeyWord)|| ele.MaKienDoi?.toLowerCase().includes(this.filter.KeyWord));
+    items = this.item.listItem.filter(ele => ele.Ten?.toLowerCase().includes(this.filter.KeyWord) || ele.MaKienDoi?.toLowerCase().includes(this.filter.KeyWord));
     console.log(this.item.listItem)
     this.listItem = deepCopy(items);
     this.paginator.changePage(0)
@@ -262,29 +262,29 @@ export class XuatkhomodalComponent implements OnInit {
     })
   }
   changeKien(item, index) {
-    this.services.GetDanhSachKienCoTheThayThe(item.IddmItem).subscribe(res=>{
+    this.services.GetDanhSachKienCoTheThayThe(item.IddmItem).subscribe(res => {
       let modalRef = this._modal.open(DoikienbongmodalComponent, { size: 'xl' })
       modalRef.componentInstance.IdPhieu = this.item.Id;
       modalRef.componentInstance.CurrentItem = [deepCopy(item)];
       modalRef.componentInstance.items = res;
       modalRef.result
         .then(res => {
-          let page = {page:this.paging.CurrentPage-1};
+          let page = { page: this.paging.CurrentPage - 1 };
           this.GetQuyTrinh(page);
         })
         .catch(er => { console.log('err:', er) })
     })
   }
-  next(event){
+  next(event) {
     let nextIndex = event.srcElement.tabIndex;
-    let items:any = document.querySelectorAll('.focus-tag');
-    if(nextIndex <15){
+    let items: any = document.querySelectorAll('.focus-tag');
+    if (nextIndex < 15) {
       items[nextIndex].focus();
     }
   }
-  changeKienDoi(item){
-    if(item.MaKienDoi !== null){
-      let listItemChange = this.item.listItem.filter(x => x.IdLoBong == item.IdLoBong && x.IddmItem!== item.IddmItem);
+  changeKienDoi(item) {
+    if (item.MaKienDoi !== null) {
+      let listItemChange = this.item.listItem.filter(x => x.IdLoBong == item.IdLoBong && x.IddmItem !== item.IddmItem);
       item.MaKienDoi_root = deepCopy(item.MaKienDoi)
       item.MicKienDoi = item.listKienDoi.find(ele => ele.value == item.MaKienDoi).label.split("-")[1];
       let itemMoi = {
@@ -292,26 +292,26 @@ export class XuatkhomodalComponent implements OnInit {
         label: item.Ten + "-" + item.Mic,
       }
       listItemChange.forEach(element => {
-          let itemChecklist = element.listKienDoi.find(ele => ele.value == item.MaKien);
-          element.listKienDoi = element.listKienDoi.filter(x => x.value !== item.MaKienDoi);
-          if(itemChecklist === undefined || itemChecklist === null)
-            element.listKienDoi.push(itemMoi);
+        let itemChecklist = element.listKienDoi.find(ele => ele.value == item.MaKien);
+        element.listKienDoi = element.listKienDoi.filter(x => x.value !== item.MaKienDoi);
+        if (itemChecklist === undefined || itemChecklist === null)
+          element.listKienDoi.push(itemMoi);
       });
     }
-    else{
+    else {
       let itemMoi = {
         value: item.MaKienDoi_root,
-        label: item.MaKienDoi_root  + "-"  + item.MicKienDoi,
+        label: item.MaKienDoi_root + "-" + item.MicKienDoi,
       }
       item.MicKienDoi = 0;
-      let listItemChange = this.item.listItem.filter(x => x.IdLoBong == item.IdLoBong && x.IddmItem!== item.IddmItem);
+      let listItemChange = this.item.listItem.filter(x => x.IdLoBong == item.IdLoBong && x.IddmItem !== item.IddmItem);
       listItemChange.forEach(element => {
         element.listKienDoi = element.listKienDoi.filter(x => x.value !== item.MaKien);
         element.listKienDoi.push(itemMoi);
-    });
+      });
     }
   }
-  ViTriKien(item){
+  ViTriKien(item) {
     let modalRef = this._modal.open(VitrikienmodalComponent, {
       size: 'lg',
       backdrop: 'static'
@@ -319,7 +319,92 @@ export class XuatkhomodalComponent implements OnInit {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
     })
-      .catch(er => { console.log(er)
+      .catch(er => {
+        console.log(er)
       })
   }
+
+  navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
+    const key = event.key;
+    const inputElements: any = this.inputs.toArray();
+    const colsPerRow = 1; // Số cột chứa ô nhập liệu
+
+    let nextIndex = rowIndex * colsPerRow + colIndex;
+    if (key === 'ArrowRight') nextIndex += 1;
+    if (key === 'ArrowLeft') nextIndex -= 1;
+    if (key === 'ArrowDown') nextIndex += colsPerRow;
+    if (key === 'ArrowUp') nextIndex -= colsPerRow;
+
+    setTimeout(() => {
+      while (nextIndex >= 0 && nextIndex < inputElements.length) {
+        const nextElement = inputElements[nextIndex]?.nativeElement;
+        if (!nextElement) break; // Dừng nếu không có phần tử hợp lệ
+        let inputInside = nextElement.querySelector('input');
+        // Nếu không tìm thấy input, thử tìm thẻ con trong PrimeNG component
+        if (!inputInside) {
+          nextElement.focus();
+          return;
+        }
+
+        // Kiểm tra nếu ô hiện tại bị disabled
+        const isDisabled =
+          inputInside.hasAttribute('disabled') ||
+          inputInside.classList.contains('p-disabled') ||
+          nextElement.hasAttribute('ng-reflect-disabled') ||
+          nextElement.classList.contains('p-disabled');
+        // Nếu ô không bị disabled, focus và thoát vòng lặp
+        if (!isDisabled) {
+          inputInside.focus();
+          return;
+        }
+        // Nếu bị disabled, tiếp tục kiểm tra ô tiếp theo
+        nextIndex = getNextIndex(nextIndex, key, colsPerRow);
+      }
+    }, 0);
+
+    // Hàm tính toán nextIndex để nhảy ô chính xác
+    function getNextIndex(currentIndex: number, key: string, colsPerRow: number): number {
+      if (key === 'ArrowRight') return currentIndex + 1;
+      if (key === 'ArrowLeft') return currentIndex - 1;
+      if (key === 'ArrowDown') return currentIndex + colsPerRow;
+      if (key === 'ArrowUp') return currentIndex - colsPerRow;
+      return currentIndex;
+    }
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.initInputListeners();
+    }, 0);
+  }
+
+  ngAfterViewChecked() {
+    this.initInputListeners(); // Đảm bảo input được cập nhật khi bảng thay đổi
+  }
+  initInputListeners() {
+    this.inputs.forEach((el) => {
+      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
+      if (realInput) {
+        realInput.addEventListener(
+          'keydown',
+          (event: KeyboardEvent) => {
+            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+              event.preventDefault(); //  Chặn PrimeNG thay đổi số
+              event.stopPropagation();
+              event.stopImmediatePropagation();
+              //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+              const indexInList = this.inputs.toArray().findIndex(
+                (inp) => inp.nativeElement.querySelector('input') === realInput
+              );
+              const rowIndex = Math.floor(indexInList / 1);
+              const colIndex = indexInList % 1;
+              this.navigateTable(event, rowIndex, colIndex);
+            }
+          },
+          { capture: true } //  Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+        );
+      }
+    });
+  }
+
 }

@@ -1295,10 +1295,10 @@ export class TaisanService {
     return this.http.post(`${API.CungUng}BaoCao/BaoCaoNhapHang`, data, httpOptions);
   }
   BaoCaoNhapXuatTon(data) {
-    return this.http.post(`${API.CungUng}BaoCao/BaoCaoNhapXuatTon`, data, httpOptions);
+    return this.http.post(`${API.CungUng}BaoCao/BaoCaoNhapXuatTonNew`, data, httpOptions);
   }
   TongHopGiaMuaHang(data) {
-    return this.http.post(`${API.CungUng}BaoCao/TongHopGiaMuaHang`, data, httpOptions);
+    return this.http.post(`${API.CungUng}BaoCao/TongHopGiaMuaHangNew`, data, httpOptions);
   }
   TongHopDatHang(data) {
     return this.http.post(`${API.CungUng}BaoCao/TongHopDatHang`, data, httpOptions);
@@ -1317,6 +1317,10 @@ export class TaisanService {
   }
   TongHopDatHang_ChiTiet(data) {
     return this.http.post(`${API.CungUng}BaoCao/TongHopDatHang_ChiTiet`, data, httpOptions);
+  }
+
+  BaoCaoNhapHangNew(data) {
+    return this.http.post(`${API.CungUng}BaoCao/BaoCaoNhapHangNew`, data, httpOptions);
   }
 
   QuyTrinhBase(endpoint, middleName) {

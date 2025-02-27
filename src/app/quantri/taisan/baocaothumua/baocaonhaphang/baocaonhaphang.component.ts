@@ -39,6 +39,8 @@ export class BaocaonhaphangComponent implements OnInit, AfterViewInit {
       ]
     },
   ]
+  item: any = { listData: [], listHeader: [] };
+
   @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
 
   listItem: any = [
@@ -79,10 +81,54 @@ export class BaocaonhaphangComponent implements OnInit, AfterViewInit {
       IddmKho: this.filter.IddmKho ? this.filter.IddmKho : '',
       IddmNhaCungUng: this.filter.IddmNhaCungUng ? this.filter.IddmNhaCungUng : '',
     };
-    this._serviceTaiSan.BaoCaoNhapHang(data).subscribe((res: any) => {
-      this.items = res.Data.Items;
-      this.paging.TotalCount = res.Data.TotalCount;
+    this._serviceTaiSan.BaoCaoNhapHangNew(data).subscribe((res: any) => {
+      // this.items = res.Data.Items;
+      // this.paging.TotalCount = res.Data.TotalCount;
+
+      this.item.listData = this.mapDeQuy(res.Data.Items.listData, 0)
+      this.item.listHeader = res.Data.Items.listHearder.map((ele: any) => {
+        return {
+          ...ele,
+          Header: ele.Header.map((obj: any) => {
+            return {
+              ...obj,
+              DoRong: `${obj.DoRong ? obj.DoRong : 100}px`
+            }
+          })
+        }
+      });
+
     })
+  }
+
+  mapDeQuy(lits: any, level: number) {
+    let newItem = lits.map((ele: any) => {
+      return {
+        data: {
+          ...ele.data,
+          level: level,
+          RowData: ele.data.RowData.map((x: any) => {
+            return {
+              ...x,
+              DoRong: `${x.DoRong ? x.DoRong : 100}px`,
+            }
+          })
+        },
+        children: ele.children || [],
+        expanded: ele.data.expanded,
+        showChildren: ele.data.expanded
+      }
+    })
+    newItem.forEach((obj: any) => {
+      if (obj.children && obj.children.length) {
+        obj.children = this.mapDeQuy(obj.children, level + 1)
+      }
+    })
+    return newItem;
+  }
+
+  toggleChildren(parent: any) {
+    parent.showChildren = !parent.showChildren;
   }
 
   GetDanhSachDuAnByIdUser() {
@@ -134,66 +180,58 @@ export class BaocaonhaphangComponent implements OnInit, AfterViewInit {
     })
   }
 
-  onKeyDown(event: KeyboardEvent, rowIndex: number, colIndex: number, field: string) {
-    const inputElements: any = this.inputs.toArray();
-    const totalRows = this.listView.length;
-    const totalCols = 3;
-    const inputsPerRow = totalCols * 2; // Mỗi cột có 2 ô riêng biệt (SoLuong & DonGia)
-    const currentIndex = rowIndex * inputsPerRow + colIndex * 2 + (field === 'DonGia' ? 1 : 0);
+  // onKeyDown(event: KeyboardEvent, rowIndex: number, colIndex: number, field: string) {
+  //   const inputElements: any = this.inputs.toArray();
+  //   const totalRows = this.listView.length;
+  //   const totalCols = 3;
+  //   const inputsPerRow = totalCols * 2; // Mỗi cột có 2 ô riêng biệt (SoLuong & DonGia)
+  //   const currentIndex = rowIndex * inputsPerRow + colIndex * 2 + (field === 'DonGia' ? 1 : 0);
+  //   switch (event.key) {
+  //     case 'ArrowDown': {
+  //       const nextIndex = currentIndex + inputsPerRow;
+  //       if (nextIndex < inputElements.length) {
+  //         event.preventDefault();
+  //         inputElements[nextIndex]?.el.nativeElement.querySelector('input')?.focus();
+  //       }
+  //       break;
+  //     }
+  //     case 'ArrowUp': {
+  //       const prevIndex = currentIndex - inputsPerRow;
+  //       if (prevIndex >= 0) {
+  //         event.preventDefault();
+  //         inputElements[prevIndex]?.el.nativeElement.querySelector('input')?.focus();
+  //       }
+  //       break;
+  //     }
+  //     case 'ArrowRight': {
+  //       const nextIndex = currentIndex + 1;
+  //       if (currentIndex % 2 === 0) {
+  //         // Chuyển từ SoLuong sang DonGia trong cùng cột
+  //         event.preventDefault();
+  //         inputElements[nextIndex]?.el.nativeElement.querySelector('input')?.focus();
+  //       } else if (colIndex < totalCols - 1) {
+  //         // Chuyển sang ô SoLuong của cột kế tiếp
+  //         event.preventDefault();
+  //         inputElements[nextIndex + 1]?.el.nativeElement.querySelector('input')?.focus();
+  //       }
+  //       break;
+  //     }
+  //     case 'ArrowLeft': {
+  //       const prevIndex = currentIndex - 1;
+  //       if (currentIndex % 2 === 1) {
+  //         // Chuyển từ DonGia về SoLuong trong cùng cột
+  //         event.preventDefault();
+  //         inputElements[prevIndex]?.el.nativeElement.querySelector('input')?.focus();
+  //       } else if (colIndex > 0) {
+  //         // Chuyển sang ô DonGia của cột trước đó
+  //         event.preventDefault();
+  //         inputElements[prevIndex - 1]?.el.nativeElement.querySelector('input')?.focus();
+  //       }
+  //       break;
+  //     }
+  //   }
 
-    console.log('inputElements', inputElements);
-    console.log('currentIndex', currentIndex);
-
-    switch (event.key) {
-      case 'ArrowDown': {
-        const nextIndex = currentIndex + inputsPerRow;
-        console.log('nextIndex', nextIndex);
-        console.log('inputElements[nextIndex]', inputElements[nextIndex]);
-        console.log('nativeElement', inputElements[nextIndex]?.el.nativeElement);
-
-        if (nextIndex < inputElements.length) {
-          event.preventDefault();
-          inputElements[nextIndex]?.el.nativeElement.querySelector('input')?.focus();
-        }
-        break;
-      }
-      case 'ArrowUp': {
-        const prevIndex = currentIndex - inputsPerRow;
-        if (prevIndex >= 0) {
-          event.preventDefault();
-          inputElements[prevIndex]?.el.nativeElement.querySelector('input')?.focus();
-        }
-        break;
-      }
-      case 'ArrowRight': {
-        const nextIndex = currentIndex + 1;
-        if (currentIndex % 2 === 0) {
-          // Chuyển từ SoLuong sang DonGia trong cùng cột
-          event.preventDefault();
-          inputElements[nextIndex]?.el.nativeElement.querySelector('input')?.focus();
-        } else if (colIndex < totalCols - 1) {
-          // Chuyển sang ô SoLuong của cột kế tiếp
-          event.preventDefault();
-          inputElements[nextIndex + 1]?.el.nativeElement.querySelector('input')?.focus();
-        }
-        break;
-      }
-      case 'ArrowLeft': {
-        const prevIndex = currentIndex - 1;
-        if (currentIndex % 2 === 1) {
-          // Chuyển từ DonGia về SoLuong trong cùng cột
-          event.preventDefault();
-          inputElements[prevIndex]?.el.nativeElement.querySelector('input')?.focus();
-        } else if (colIndex > 0) {
-          // Chuyển sang ô DonGia của cột trước đó
-          event.preventDefault();
-          inputElements[prevIndex - 1]?.el.nativeElement.querySelector('input')?.focus();
-        }
-        break;
-      }
-    }
-
-  }
+  // }
 
   // navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
   //   const key = event.key;
@@ -232,7 +270,7 @@ export class BaocaonhaphangComponent implements OnInit, AfterViewInit {
   // navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
   //   const key = event.key;
   //   const inputElements: any = this.inputs.toArray();
-  //   const colsPerRow = 4; // Số cột chứa ô nhập liệu
+  //   const colsPerRow = 6; // Số cột chứa ô nhập liệu
 
   //   let nextIndex = rowIndex * colsPerRow + colIndex;
   //   if (key === 'ArrowRight') nextIndex += 1;
@@ -262,8 +300,8 @@ export class BaocaonhaphangComponent implements OnInit, AfterViewInit {
     //           const indexInList = this.inputs.toArray().findIndex(
     //             (inp) => inp.nativeElement.querySelector('input') === realInput
     //           );
-    //           const rowIndex = Math.floor(indexInList / 4);
-    //           const colIndex = indexInList % 4;
+    //           const rowIndex = Math.floor(indexInList / 6);
+    //           const colIndex = indexInList % 6;
     //           this.navigateTable(event, rowIndex, colIndex);
     //         }
     //       },

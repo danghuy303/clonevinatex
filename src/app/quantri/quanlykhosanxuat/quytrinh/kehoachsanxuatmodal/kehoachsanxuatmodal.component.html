@@ -28,7 +28,8 @@
                 *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()" class="p-mr-2 p-button-sm"></button>
+            <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()"
+                class="p-mr-2 p-button-sm"></button>
         </div>
 
     </div>
@@ -103,7 +104,7 @@
                 </p-inputNumber>
             </div>
         </div>
-        
+
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ne bình quân 30(Tấn/ca):</label>
             <div class="p-col-12 p-xl-8 p-p-0">
@@ -121,7 +122,7 @@
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto"><strong>Kế hoạch điều chỉnh:</strong></label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isDieuChinh"/>
+                <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isDieuChinh" />
             </div>
         </div>
         <div class="p-col-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
@@ -191,20 +192,21 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr 
-                    [ngStyle]="{'background-color': item.isEdited?'#f5d3ce':''}"
-                    >
+                    <tr [ngStyle]="{'background-color': item.isEdited?'#f5d3ce':''}">
                         <td>{{i+1}}</td>
                         <td>{{item.Ten}}</td>
                         <td>{{item.Ma}}</td>
-                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.HopDong"
-                                (ngModelChange)="change(i)" pInputText /></td>
+                        <td>
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.HopDong" #input
+                                (keydown)="navigateTable($event, i, 0)" (ngModelChange)="change(i)" pInputText />
+                        </td>
                         <td>
                             <div style="display: flex;">
                                 <div style="flex:1">
                                     <p-inputNumber [minFractionDigits]="2" locale="en-EN"
                                         [(ngModel)]="item.KhoiLuongKeHoach"
-                                        (onInput)="changeKeHoachSanXuat($event,item,i)">
+                                        (onInput)="changeKeHoachSanXuat($event,item,i)" #input
+                                        (keydown)="navigateTable($event, i, 1)">
                                     </p-inputNumber>
                                 </div>
                                 <button pButton pRipple icon="pi pi-ellipsis-v"
@@ -214,8 +216,9 @@
                             </div>
                         </td>
                         <td>
-                            <p-dropdown [filter]="true" [options]="listMucDich" placeholder="Chọn loại"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.Loai" (onChange)="change(i)"></p-dropdown>
+                            <p-dropdown [filter]="true" [options]="listMucDich" placeholder="Chọn loại" #input
+                                (keydown)="navigateTable($event, i, 2)" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.Loai" (onChange)="change(i)"></p-dropdown>
                         </td>
                         <td>
                             <div class="p-d-flex p-flex-row p-jc-between">
@@ -234,8 +237,8 @@
                                 </div>
                             </div>
                         </td>
-                        <td><input type="text" class="p-inputtext-sm" [ngbTooltip]="item.GhiChu" [(ngModel)]="item.GhiChu"
-                                (ngModelChange)="change(i)" pInputText /></td>
+                        <td><input type="text" class="p-inputtext-sm" [ngbTooltip]="item.GhiChu"
+                                [(ngModel)]="item.GhiChu" (ngModelChange)="change(i)" pInputText /></td>
                         <!-- <td></td>
                         <td></td>
                         <td></td>

@@ -134,7 +134,7 @@
                 <ng-template pTemplate="body" let-itemC let-i="rowIndex">
                     <tr>
                         <td>{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
-                        <td style="text-align: center;"><p-inputNumber [minFractionDigits]="0" locale="en-EN"
+                        <td style="text-align: center;"><p-inputNumber #input (keydown)="navigateTable($event, input)" [minFractionDigits]="0" locale="en-EN"
                                 [(ngModel)]="itemC.ThuTu">
                             </p-inputNumber></td>
                         <td style="text-align: left;" *ngIf="item.isKetThuc!==true">
@@ -162,11 +162,13 @@
 
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="itemC.SoLuong">
+                            <p-inputNumber #input (keydown)="navigateTable($event, input)" [minFractionDigits]="0"
+                                locale="en-EN" [(ngModel)]="itemC.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemC.TrongLuong">
+                            <p-inputNumber #input (keydown)="navigateTable($event, input)" [minFractionDigits]="2"
+                                locale="en-EN" [(ngModel)]="itemC.TrongLuong">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">

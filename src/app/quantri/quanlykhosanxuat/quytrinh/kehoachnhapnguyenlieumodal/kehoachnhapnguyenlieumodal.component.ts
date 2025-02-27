@@ -415,7 +415,6 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit, AfterViewIni
               );
               const rowIndex = Math.floor(indexInList / 11);
               const colIndex = indexInList % 11;
-              console.log('rowIndex', rowIndex);
               this.navigateTable(event, rowIndex, colIndex);
             }
           },
@@ -424,7 +423,5 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit, AfterViewIni
       }
     });
   }
-
-
 
 }

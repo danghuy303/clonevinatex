@@ -137,28 +137,31 @@
                             {{item.NgayNhapKho| date:'dd/MM/yyyy'}}
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoi"
-                                (ngModelChange)="TinhTongKhoiLuong(item)">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoi" #input
+                                (keydown)="navigateTable($event, i, 0)" (ngModelChange)="TinhTongKhoiLuong(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-right">
                             <p-dropdown [filter]="true" [options]="listKgCone" (onChange)="TinhTongKhoiLuong(item)"
-                                placeholder="Chọn trọng lượng qua sợi" styleClass="p-inputtext-sm"
+                                placeholder="Chọn trọng lượng qua sợi" styleClass="p-inputtext-sm" #input
+                                (keydown)="navigateTable($event, i, 1)"
                                 [(ngModel)]="item.TrongLuongQuaSoi"></p-dropdown>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [disabled]="true"
-                                [(ngModel)]="item.TongTrongLuongChenhLech" (ngModelChange)="TinhTongKhoiLuong(item)">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [disabled]="true" #input
+                                (keydown)="navigateTable($event, i, 2)" [(ngModel)]="item.TongTrongLuongChenhLech"
+                                (ngModelChange)="TinhTongKhoiLuong(item)">
                             </p-inputNumber>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TongTrongLuong"
-                                (onBlur)="TinhChenhLech(item)">
+                                #input (keydown)="navigateTable($event, i, 3)" (onBlur)="TinhChenhLech(item)">
                             </p-inputNumber>
                         </td>
 
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoLuong" #input
+                                (keydown)="navigateTable($event, i, 4)">
                             </p-inputNumber>
                         </td>
                         <!-- <td class="text-right" *ngIf="item.TonSoLuong > 0">

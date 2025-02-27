@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -11,7 +11,7 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } 
   templateUrl: './xuatkhobonghoimodal.component.html',
   styleUrls: ['./xuatkhobonghoimodal.component.css']
 })
-export class XuatkhobonghoimodalComponent implements OnInit {
+export class XuatkhobonghoimodalComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @ViewChild("paginator") paginator: any;
   opt: any = ''
   Id: any = ''
@@ -33,7 +33,10 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   listKienFull: any = [];
   listTrienKhaiKeHoachSanXuat: any = [];
   newTableItem: any = {};
+  initialized: boolean = false;
+  lastInputCount:number = 0;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal) { }
 
@@ -293,4 +296,153 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     }
     return text;
   }
+
+  // navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
+  //   const key = event.key;
+  //   const inputElements: any = this.inputs.toArray();
+  //   const colsPerRow = 2; // Số cột chứa ô nhập liệu
+
+  //   let nextIndex = rowIndex * colsPerRow + colIndex;
+  //   if (key === 'ArrowRight') nextIndex += 1;
+  //   if (key === 'ArrowLeft') nextIndex -= 1;
+  //   if (key === 'ArrowDown') nextIndex += colsPerRow;
+  //   if (key === 'ArrowUp') nextIndex -= colsPerRow;
+
+  //   setTimeout(() => {
+  //     while (nextIndex >= 0 && nextIndex < inputElements.length) {
+  //       const nextElement = inputElements[nextIndex]?.nativeElement;
+  //       if (!nextElement) break; // Dừng nếu không có phần tử hợp lệ
+  //       let inputInside = nextElement.querySelector('input');
+  //       // Nếu không tìm thấy input, thử tìm thẻ con trong PrimeNG component
+  //       if (!inputInside) {
+  //         nextElement.focus();
+  //         return;
+  //       }
+
+  //       // Kiểm tra nếu ô hiện tại bị disabled
+  //       const isDisabled =
+  //         inputInside.hasAttribute('disabled') ||
+  //         inputInside.classList.contains('p-disabled') ||
+  //         nextElement.hasAttribute('ng-reflect-disabled') ||
+  //         nextElement.classList.contains('p-disabled');
+  //       // Nếu ô không bị disabled, focus và thoát vòng lặp
+  //       if (!isDisabled) {
+  //         inputInside.focus();
+  //         return;
+  //       }
+  //       // Nếu bị disabled, tiếp tục kiểm tra ô tiếp theo
+  //       nextIndex = getNextIndex(nextIndex, key, colsPerRow);
+  //     }
+  //   }, 0);
+
+  //   // Hàm tính toán nextIndex để nhảy ô chính xác
+  //   function getNextIndex(currentIndex: number, key: string, colsPerRow: number): number {
+  //     if (key === 'ArrowRight') return currentIndex + 1;
+  //     if (key === 'ArrowLeft') return currentIndex - 1;
+  //     if (key === 'ArrowDown') return currentIndex + colsPerRow;
+  //     if (key === 'ArrowUp') return currentIndex - colsPerRow;
+  //     return currentIndex;
+  //   }
+  // }
+
+  // ngAfterViewInit() {
+  //   setTimeout(() => {
+  //     this.initInputListeners();
+  //   }, 0);
+  // }
+
+  // ngAfterViewChecked() {
+  //   this.initInputListeners(); // Đảm bảo input được cập nhật khi bảng thay đổi
+  // }
+  // initInputListeners() {
+  //   this.inputs.forEach((el) => {
+  //     const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
+  //     if (realInput) {
+  //       realInput.addEventListener(
+  //         'keydown',
+  //         (event: KeyboardEvent) => {
+  //           if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+  //             event.preventDefault(); //  Chặn PrimeNG thay đổi số
+  //             event.stopPropagation();
+  //             event.stopImmediatePropagation();
+  //             //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+  //             const indexInList = this.inputs.toArray().findIndex(
+  //               (inp) => inp.nativeElement.querySelector('input') === realInput
+  //             );
+  //             const rowIndex = Math.floor(indexInList / 2);
+  //             const colIndex = indexInList % 2;
+  //             this.navigateTable(event, rowIndex, colIndex);
+  //           }
+  //         },
+  //         { capture: true } //  Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+  //       );
+  //     }
+  //   });
+  // }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.initInputListeners();
+      this.initialized = true;
+    }, 0);
+  }
+  
+  ngAfterViewChecked() {
+    const currentInputCount = this.inputs.length;
+  
+    // Chỉ cập nhật nếu số lượng inputs thay đổi và chưa được khởi tạo
+    if (!this.initialized || this.lastInputCount !== currentInputCount) {
+      this.lastInputCount = currentInputCount;
+      
+      setTimeout(() => {
+        this.initInputListeners();
+        this.initialized = true;
+      }, 0);
+    }
+  }
+  initInputListeners() {
+    this.inputs.forEach((el) => {
+      const realInput = el.nativeElement.querySelector('input'); // Lấy thẻ input thật trong p-inputNumber
+      if (realInput) {
+        realInput.addEventListener('keydown', (event: KeyboardEvent) => this.navigateTable(event, realInput), {
+          capture: true
+        });
+      }
+    });
+  }
+
+  navigateTable(event: KeyboardEvent, currentInput: HTMLInputElement) {
+    console.log('currentInput', currentInput);
+
+    event.preventDefault(); // Ngăn chặn p-inputNumber tự động thay đổi giá trị khi bấm mũi tên
+    event.stopPropagation();
+    const key = event.key;
+    const inputElements = Array.from(document.querySelectorAll('p-inputNumber input')) as HTMLInputElement[];
+    if (!inputElements.length) return;
+
+    const currentIndex = inputElements.indexOf(currentInput);
+    if (currentIndex === -1) return; // Không tìm thấy phần tử hiện tại
+    let nextIndex = currentIndex;
+
+    if (key === 'ArrowRight') nextIndex = this.findNextIndex(inputElements, currentIndex, 1);
+    if (key === 'ArrowLeft') nextIndex = this.findNextIndex(inputElements, currentIndex, -1);
+    if (key === 'ArrowDown') nextIndex = this.findNextIndex(inputElements, currentIndex, 3); // Nhảy xuống hàng tiếp theo
+    if (key === 'ArrowUp') nextIndex = this.findNextIndex(inputElements, currentIndex, -3); // Nhảy lên hàng trên
+
+    if (nextIndex >= 0 && nextIndex < inputElements.length) {
+      inputElements[nextIndex].focus();
+      return;
+    }
+  }
+
+  findNextIndex(elements: HTMLInputElement[], currentIndex: number, step: number): number {
+    let nextIndex = currentIndex + step;
+    while (nextIndex >= 0 && nextIndex < elements.length) {
+      if (!elements[nextIndex].disabled) return nextIndex;
+      nextIndex += step; // Bỏ qua ô bị disabled
+    }
+    return currentIndex; // Nếu không tìm thấy ô hợp lệ, giữ nguyên
+  }
+
+
 }

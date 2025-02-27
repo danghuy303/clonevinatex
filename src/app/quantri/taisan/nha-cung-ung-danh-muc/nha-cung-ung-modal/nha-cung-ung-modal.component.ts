@@ -3,6 +3,8 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { ToastrService } from 'ngx-toastr';
 import { validVariable } from 'src/app/services/globalfunction';
+import { AuthenticationService } from '../../../../services/auth.service';
+import { SanXuatService } from '../../../../services/callApiSanXuat';
 
 @Component({
   selector: 'app-nha-cung-ung-modal',
@@ -14,21 +16,32 @@ export class NhaCungUngModalComponent implements OnInit {
   item: any = {};
   title: string = "";
   opt: any = "";
+  listDuAn: any = [];
+  userInfo: any = {};
 
   constructor(
     private taiSanService: TaisanService,
     public activeModal: NgbActiveModal,
     public modal: NgbModal,
     public toast: ToastrService,
-  ) { }
+    private _auth: AuthenticationService,
+    private _services: SanXuatService,
+  ) { this.userInfo = this._auth.currentUserValue }
 
   ngOnInit(): void {
     this.GetNhaCungUng();
+    this.GetDanhSachDuAnByIdUser();
+  }
+
+  GetDanhSachDuAnByIdUser() {
+    this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
+      this.listDuAn = res;
+    })
   }
 
   GetNhaCungUng() {
     if (this.item.Id) {
-      this.taiSanService.NhaCungUng().Get(this.item.Id).subscribe((res: any)=>{
+      this.taiSanService.NhaCungUng().Get(this.item.Id).subscribe((res: any) => {
         this.item = res.Data;
       })
     }
@@ -44,14 +57,14 @@ export class NhaCungUngModalComponent implements OnInit {
         this.item.listHopDong = [];
       }
       this.taiSanService.NhaCungUng().Set(this.item)
-      .subscribe((res: any) => {
-        if (res.StatusCode === 200) {
-          this.toast.success(res.Message);
-          this.activeModal.close();
-        } else {
-          this.toast.error(res.Message);
-        }
-      })
+        .subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.toast.success(res.Message);
+            this.activeModal.close();
+          } else {
+            this.toast.error(res.Message);
+          }
+        })
     }
   }
 

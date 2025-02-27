@@ -1,5 +1,5 @@
 import { Validatable } from '@amcharts/amcharts4/core';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -12,7 +12,7 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } 
   templateUrl: './nhapkhomodal.component.html',
   styleUrls: ['./nhapkhomodal.component.css']
 })
-export class NhapkhomodalComponent implements OnInit {
+export class NhapkhomodalComponent implements OnInit, AfterViewInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -39,6 +39,9 @@ export class NhapkhomodalComponent implements OnInit {
   nametype: any = '';
   listLoBongFull: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
+  isXo: boolean = false;
+
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
 
@@ -380,7 +383,6 @@ export class NhapkhomodalComponent implements OnInit {
     if (validVariable(this.item.SoHopDong)) {
       let loBongFind: any = this.listLoBongFull.filter(e => e.Id === this.item.IdLoBong);
       if (loBongFind.length > 0) {
-        console.log(this.item.SoHopDong.trim(), loBongFind[0].SoHopDong.trim())
         if (this.item.SoHopDong.trim() !== loBongFind[0].SoHopDong.trim()) {
           this.toastr.error("Bạn chưa chọn đúng lô bông nằm trong đợt nhập này!");
           return false;
@@ -447,4 +449,92 @@ export class NhapkhomodalComponent implements OnInit {
       })
     }
   }
+
+  navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
+    const key = event.key;
+    const inputElements: any = this.inputs.toArray();
+    const colsPerRow = this.isXo ? 3 : 8; // Số cột chứa ô nhập liệu
+
+    let nextIndex = rowIndex * colsPerRow + colIndex;
+    if (key === 'ArrowRight') nextIndex += 1;
+    if (key === 'ArrowLeft') nextIndex -= 1;
+    if (key === 'ArrowDown') nextIndex += colsPerRow;
+    if (key === 'ArrowUp') nextIndex -= colsPerRow;
+    // Kiểm tra nếu index hợp lệ thì focus
+    // setTimeout(() => {
+    //   if (inputElements[nextIndex]) {
+    //     const nextElement = inputElements[nextIndex]?.nativeElement;
+    //     const inputInside = nextElement.querySelector('input');
+    //     if (inputInside) {
+    //       inputInside.focus();
+    //       return;
+    //     }
+    //     nextElement.focus();
+    //   }
+    // }, 0);
+
+    setTimeout(() => {
+      while (nextIndex >= 0 && nextIndex < inputElements.length) {
+        const nextElement = inputElements[nextIndex]?.nativeElement;
+        if (!nextElement) break; // Dừng nếu không có phần tử hợp lệ
+        let inputInside = nextElement.querySelector('input');
+        // Nếu không tìm thấy input, thử tìm thẻ con trong PrimeNG component
+        if (!inputInside) {
+          nextElement.focus();
+          return;
+        }
+
+        // Kiểm tra nếu ô hiện tại bị disabled
+        const isDisabled =
+          inputInside.hasAttribute('disabled') ||
+          inputInside.classList.contains('p-disabled') ||
+          nextElement.hasAttribute('ng-reflect-disabled') ||
+          nextElement.classList.contains('p-disabled');
+        // Nếu ô không bị disabled, focus và thoát vòng lặp
+        if (!isDisabled) {
+          inputInside.focus();
+          return;
+        }
+        // Nếu bị disabled, tiếp tục kiểm tra ô tiếp theo
+        nextIndex = getNextIndex(nextIndex, key, colsPerRow);
+      }
+    }, 0);
+
+    // Hàm tính toán nextIndex để nhảy ô chính xác
+    function getNextIndex(currentIndex: number, key: string, colsPerRow: number): number {
+      if (key === 'ArrowRight') return currentIndex + 1;
+      if (key === 'ArrowLeft') return currentIndex - 1;
+      if (key === 'ArrowDown') return currentIndex + colsPerRow;
+      if (key === 'ArrowUp') return currentIndex - colsPerRow;
+      return currentIndex;
+    }
+  }
+
+
+  ngAfterViewInit() {
+    this.inputs.forEach((el) => {
+      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thật
+      if (realInput) {
+        realInput.addEventListener(
+          'keydown',
+          (event: KeyboardEvent) => {
+            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+              event.preventDefault(); // Ngăn hành vi mặc định
+              event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
+              //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+              const indexInList = this.inputs.toArray().findIndex(
+                (inp) => inp.nativeElement.querySelector('input') === realInput
+              );
+              const rowIndex = Math.floor(indexInList / (this.isXo ? 3 : 8));
+              const colIndex = indexInList % (this.isXo ? 3 : 8);
+              this.navigateTable(event, rowIndex, colIndex);
+            }
+          },
+          { capture: true } // ⚡ Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+        );
+      }
+    });
+  }
+
+
 }

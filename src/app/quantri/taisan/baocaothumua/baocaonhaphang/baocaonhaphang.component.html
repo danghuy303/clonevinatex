@@ -101,7 +101,54 @@
     </p-table>
 </div> -->
 
-<div class="p-mt-3">
+<div class="sticky-table p-pt-3" appStickycolumn [fixedIndex]="0">
+    <table style="width: 100%;">
+        <thead>
+            <tr *ngFor="let eleHead of item.listHeader; let i=index">
+                <th [style]="{'min-width':x.DoRong,'max-width':x.DoRong,'text-align':'center'}"
+                    *ngFor="let x of eleHead.Header" [attr.rowspan]="x.rowspan" [attr.colspan]="x.colspan">
+                    {{x.name}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngTemplateOutlet="recursiveTable; context:{ rowData: item.listData }"></ng-container>
+        </tbody>
+    </table>
+    <ng-template #recursiveTable let-rowData="rowData">
+        <ng-container *ngFor="let item of rowData">
+            <tr class="">
+                <td *ngFor="let data of item.data.RowData; let index=index">
+                    <div class="flex align-items-center" [appMarginleft]="data.isTree?item.data.level:0">
+                        <Span (click)="toggleChildren(item)" *ngIf="item.children.length && data.isTree"><i
+                                [style]="{'margin-right':'8px'}"
+                                [ngClass]="item.showChildren?'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                        </Span>
+                        <div *ngIf="data.DinhDang === 'float'"
+                            [style]="{width:'100%', 'text-align':data.Horizontal}">
+                            {{data.GiaTri | number:'0.0-0'}}
+                        </div>
+                        <div *ngIf="data.DinhDang !== 'float'" [style]="{width:'100%','text-align':data.Horizontal}">
+                            {{data.GiaTri}}
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+            <ng-container *ngIf="item.showChildren">
+                <ng-container *ngTemplateOutlet="recursiveTable; context:{ rowData: item.children }"></ng-container>
+            </ng-container>
+        </ng-container>
+    </ng-template>
+</div>
+
+<div class="d-flex align-items-center justify-content-between">
+    Tổng số bản ghi {{paging.TotalCount}}.
+    <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20" (onPageChange)="changePage($event)">
+    </p-paginator>
+</div>
+
+<!-- test focus cột arrowdown -->
+<!-- <div class="p-mt-3">
     <p-table [value]="listView" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
             <colgroup>
@@ -150,7 +197,7 @@
             </tr>
         </ng-template>
     </p-table>
-</div>
+</div> -->
 
 <!-- <div class="p-mt-3">
     <p-table [value]="listItem" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">

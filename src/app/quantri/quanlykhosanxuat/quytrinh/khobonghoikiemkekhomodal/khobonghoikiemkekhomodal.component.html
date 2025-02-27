@@ -134,11 +134,13 @@
 
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber #input (keydown)="navigateTable($event, i, 0)" [minFractionDigits]="0"
+                                locale="en-EN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TrongLuong">
+                            <p-inputNumber #input (keydown)="navigateTable($event, i, 1)" [minFractionDigits]="2"
+                                locale="en-EN" [(ngModel)]="item.TrongLuong">
                             </p-inputNumber>
                             <!-- <div class="p-inputgroup" style="align-items: flex-end">
                                 <p-inputNumber [minFractionDigits]="1" locale="en-EN"

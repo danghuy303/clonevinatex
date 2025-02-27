@@ -56,7 +56,8 @@
             </div>
             <div>
                 <div class="p-inputgroup">
-                    <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="filter()" [(ngModel)]="KeyWord" />
+                    <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="filter()"
+                        [(ngModel)]="KeyWord" />
                     <button type="button" pButton pRipple icon="pi pi-refresh"
                         class="p-button-secondary p-button-sm p-button-text" (click)="refreshFilter()"></button>
                 </div>
@@ -106,11 +107,13 @@
                             {{item.TonTrongLuong|number:'0.0-2'}}
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong" #input
+                                (keydown)="navigateTable($event, i, 0)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TrongLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TrongLuong" #input
+                                (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -165,8 +168,9 @@
                 </ng-template>
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Tổng số bản ghi {{item.listItem?.length||0}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
-                            [rows]="10" (onPageChange)="changePage($event)"></p-paginator>
+                        Tổng số bản ghi {{item.listItem?.length||0}}.<p-paginator #paginator
+                            [totalRecords]="paging.TotalItem" [rows]="10"
+                            (onPageChange)="changePage($event)"></p-paginator>
                     </div>
                 </ng-template>
             </p-table>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -39,6 +39,7 @@ export class NhapkhobongphemodalComponent implements OnInit {
   listCaSanXuat: any = [];
   listCaThucTe: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
 
@@ -248,4 +249,85 @@ export class NhapkhobongphemodalComponent implements OnInit {
       this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
     }
   }
+
+  navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
+    const key = event.key;
+    const inputElements: any = this.inputs.toArray();
+    const colsPerRow = 4; // Số cột chứa ô nhập liệu
+
+    let nextIndex = rowIndex * colsPerRow + colIndex;
+    if (key === 'ArrowRight') nextIndex += 1;
+    if (key === 'ArrowLeft') nextIndex -= 1;
+    if (key === 'ArrowDown') nextIndex += colsPerRow;
+    if (key === 'ArrowUp') nextIndex -= colsPerRow;
+
+    setTimeout(() => {
+      while (nextIndex >= 0 && nextIndex < inputElements.length) {
+        const nextElement = inputElements[nextIndex]?.nativeElement;
+        if (!nextElement) break; // Dừng nếu không có phần tử hợp lệ
+        let inputInside = nextElement.querySelector('input');
+        // Nếu không tìm thấy input, thử tìm thẻ con trong PrimeNG component
+        if (!inputInside) {
+          nextElement.focus();
+          return;
+        }
+
+        // Kiểm tra nếu ô hiện tại bị disabled
+        const isDisabled =
+          inputInside.hasAttribute('disabled') ||
+          inputInside.classList.contains('p-disabled') ||
+          nextElement.hasAttribute('ng-reflect-disabled') ||
+          nextElement.classList.contains('p-disabled');
+        // Nếu ô không bị disabled, focus và thoát vòng lặp
+        if (!isDisabled) {
+          inputInside.focus();
+          return;
+        }
+        // Nếu bị disabled, tiếp tục kiểm tra ô tiếp theo
+        nextIndex = getNextIndex(nextIndex, key, colsPerRow);
+      }
+    }, 0);
+
+    // Hàm tính toán nextIndex để nhảy ô chính xác
+    function getNextIndex(currentIndex: number, key: string, colsPerRow: number): number {
+      if (key === 'ArrowRight') return currentIndex + 1;
+      if (key === 'ArrowLeft') return currentIndex - 1;
+      if (key === 'ArrowDown') return currentIndex + colsPerRow;
+      if (key === 'ArrowUp') return currentIndex - colsPerRow;
+      return currentIndex;
+    }
+  }
+
+
+  ngAfterViewInit() {
+    console.log('this.inputs',this.inputs);
+    
+    this.inputs.forEach((el) => {
+      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thật
+      if (realInput) {
+        realInput.addEventListener(
+          'keydown',
+          (event: KeyboardEvent) => {
+            console.log('event',event);
+            
+            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+              event.preventDefault(); // Ngăn hành vi mặc định
+              event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
+              //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+              const indexInList = this.inputs.toArray().findIndex(
+                (inp) => inp.nativeElement.querySelector('input') === realInput
+              );
+              const rowIndex = Math.floor(indexInList / 4);
+              const colIndex = indexInList % 4;
+              console.log('this.inputs', this.inputs);
+              this.navigateTable(event, rowIndex, colIndex);
+            }
+          },
+          { capture: true } // ⚡ Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+        );
+      }
+    });
+  }
+
+
 }

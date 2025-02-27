@@ -62,6 +62,7 @@ import { StickycolumnDirective } from './stickycolumn.directive';
 import { UploadFileComponent } from './upload-file/upload-file.component';
 import { ChuyenbuocComponent } from './chuyenbuoc/chuyenbuoc.component';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { MarginleftDirective } from './marginleft.directive';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     ProcessingOrderComponent,
     StickycolumnDirective,
     UploadFileComponent,
-    ChuyenbuocComponent
+    ChuyenbuocComponent,
+    MarginleftDirective
   ],
   imports: [
     AccordionModule,
@@ -168,7 +170,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     StepperComponent,
     StickycolumnDirective,
     UploadFileComponent,
-    ChuyenbuocComponent
+    ChuyenbuocComponent,
+    MarginleftDirective
   ]
 })
 export class SharedModule { }

@@ -113,21 +113,24 @@
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">
                             <!-- <input pInputText type="text" [(ngModel)]="item.Ten" disabled> -->
-                            <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmLoaiBong"
-                                (onChange)="getnewitem(item)"></p-dropdown>
+                            <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" #input
+                                (keydown)="navigateTable($event, i, 0)" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.IddmLoaiBong" (onChange)="getnewitem(item)"></p-dropdown>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien">
+                            <p-inputNumber #input (keydown)="navigateTable($event, i, 1)" [minFractionDigits]="0"
+                                locale="en-EN" [(ngModel)]="item.SoKien">
                             </p-inputNumber>
                             <!-- <input pInputText type="text" [(ngModel)]="item.SoKien"> -->
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCan">
+                            <p-inputNumber #input (keydown)="navigateTable($event, i, 2)" [minFractionDigits]="2"
+                                locale="en-EN" [(ngModel)]="item.SoCan">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                            <input pInputText type="text" #input (keydown)="navigateTable($event, i, 3)"
+                                [(ngModel)]="item.GhiChu">
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"

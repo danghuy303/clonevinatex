@@ -1,16 +1,16 @@
 <div class="modal-header">
     <h5 class="modal-title">Phiếu xuất hồi ẩm</h5>
     <div class="d-flex flex-column flex-lg-row">
-            <div>
-               <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
-            </div>
-            <div class="ml-lg-3 mr-lg-3">
-                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
-            </div>
-            <div>
-                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
-            </div>
+        <div>
+            <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
         </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+    </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -39,15 +39,15 @@
             <div class="p-col-12 p-lg-7 p-p-0">
                 <p-dropdown [filter]="true" [options]="listKhoHoiAm" placeholder="Chọn kho" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmKhoHoiAm" (onChange)="item.listItem=[]"></p-dropdown>
-                
+
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Kho thành phẩm:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKhoThanhPham" placeholder="Chọn kho" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmKhoThanhPham"></p-dropdown>
-                
+                <p-dropdown [filter]="true" [options]="listKhoThanhPham" placeholder="Chọn kho"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmKhoThanhPham"></p-dropdown>
+
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
@@ -111,36 +111,42 @@
                         <td>{{item.Ten}}</td>
                         <td>{{item.TenLoHang}}</td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiHoiAm" disabled>
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiHoiAm"
+                                disabled>
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiThanhPham" (ngModelChange)="TongKhoiLuong(item)">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiThanhPham"
+                                (ngModelChange)="TongKhoiLuong(item)" #input (keydown)="navigateTable($event, i, 0)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien" #input
+                                (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TongKhoiLuong" disabled>
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TongKhoiLuong"
+                                #input (keydown)="navigateTable($event, i, 2)" disabled>
                             </p-inputNumber>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="item.SoKhoang">
+                            <input pInputText type="text" [(ngModel)]="item.SoKhoang" #input
+                                (keydown)="navigateTable($event, i, 3)">
                         </td>
                         <td>
-                            <p-dropdown [filter]="true" [options]="listdmQuyCachDongGoi" placeholder="Chọn quy cách" styleClass="p-inputtext-sm"
-                            [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
+                            <p-dropdown [filter]="true" [options]="listdmQuyCachDongGoi" placeholder="Chọn quy cách"
+                                #input (keydown)="navigateTable($event, i, 4)" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                            <input pInputText type="text" [(ngModel)]="item.GhiChu" #input
+                                (keydown)="navigateTable($event, i, 5)">
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -153,7 +159,7 @@
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoQuaSoiThanhPham'|number:'0.0'}}
                         </td>
-                        <td class="text-right" >
+                        <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0'}}
                         </td>
                         <td class="text-right">

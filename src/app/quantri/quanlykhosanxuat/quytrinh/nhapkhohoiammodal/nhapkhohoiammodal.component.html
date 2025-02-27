@@ -162,7 +162,11 @@
                         </td> -->
                         <td class="text-center">
                             <div style="display: inline-flex;">
-                                <p-inputNumber #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1"
+                                <!-- <p-inputNumber #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1"
+                                    [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiThucTe"
+                                    (onBlur)="tinhKLTT(item)">
+                                </p-inputNumber> -->
+                                <p-inputNumber #inputNumber (keydown)="navigateTable($event,i,0)" [tabindex]="i" class="focus"
                                     [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiThucTe"
                                     (onBlur)="tinhKLTT(item)">
                                 </p-inputNumber>

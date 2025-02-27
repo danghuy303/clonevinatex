@@ -57,6 +57,22 @@ export class DanhmuctaisanService {
     }
   }
 
+  GetlistdmKho() {
+    let url = API.CungUng
+    return {
+      GetList: (data) => {
+        return this.http.post(`${url}DanhMuc/GetlistdmKho`, data, httpOptions)
+      },
+      Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/SetdmKho`, data, httpOptions)
+      },
+      Delete: (data) => {
+        return this.http.post(`${url}DanhMuc/DeletedmKho`, data, httpOptions)
+      }
+    }
+  }
+
   DanhMucLoaiBaoDuong() {
     let url = API.TaiSan
     return {

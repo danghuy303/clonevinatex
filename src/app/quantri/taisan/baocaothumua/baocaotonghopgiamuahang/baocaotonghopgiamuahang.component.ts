@@ -27,6 +27,8 @@ export class BaocaotonghopgiamuahangComponent implements OnInit {
   listLabel: any = [];
   userInfo: any = {};
 
+  item: any = { listData: [], listHeader: [] };
+
   constructor(
     private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
@@ -77,9 +79,53 @@ export class BaocaotonghopgiamuahangComponent implements OnInit {
       Nam: this.filter.Nam ? this.filter.Nam : new Date().getFullYear(),
     };
     this._serviceTaiSan.TongHopGiaMuaHang(data).subscribe((res: any) => {
-      this.items = res.Data.Items;
+      // this.items = res.Data.Items;
+      // this.paging.TotalCount = res.Data.TotalCount;
+
+      this.item.listData = this.mapDeQuy(res.Data.Items.listData, 0)
+      this.item.listHeader = res.Data.Items.listHearder.map((ele: any) => {
+        return {
+          ...ele,
+          Header: ele.Header.map((obj: any) => {
+            return {
+              ...obj,
+              DoRong: `${obj.DoRong ? obj.DoRong : 100}px`
+            }
+          })
+        }
+      });
       this.paging.TotalCount = res.Data.TotalCount;
     })
+  }
+
+  mapDeQuy(lits: any, level: number) {
+    let newItem = lits.map((ele: any) => {
+      return {
+        data: {
+          ...ele.data,
+          level: level,
+          RowData: ele.data.RowData.map((x: any) => {
+            return {
+              ...x,
+              DoRong: `${x.DoRong ? x.DoRong : 100}px`,
+            }
+          })
+        },
+        children: ele.children || [],
+        expanded: ele.data.expanded,
+        showChildren: ele.data.expanded
+      }
+    })
+    newItem.forEach((obj: any) => {
+      if (obj.children && obj.children.length) {
+        obj.children = this.mapDeQuy(obj.children, level + 1)
+      }
+    })
+    return newItem;
+  }
+
+  toggleChildren(parent: any) {
+    parent.showChildren = !parent.showChildren;
   }
 
   GetDanhSachDuAnByIdUser() {
