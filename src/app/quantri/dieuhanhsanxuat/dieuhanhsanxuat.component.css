@@ -23,13 +23,59 @@
         position: relative;
     }
 }
-.width-150{
-    min-width:150px !important;
-    max-width:150px !important;
+
+.width-50 {
+    width: 50px;
 }
-.pintable-container thead td{
-    font-weight: bold;
+
+.width-80 {
+    width: 80px !important;
+}
+
+.width-100 {
+    width: 100px !important;
+}
+
+.width-150 {
+    width: 150px !important;
+}
+
+.width-120 {
+    width: 120px !important;
+}
+
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+    padding: 0.5rem 0.5rem;
+    border: 1px solid #e9ecef;
+    height: 56px;
+}
+
+thead,
+th {
+    background: #828282;
+    color: white;
+    font-weight: 500;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+table th {
+    background-color: #828282;
+}
+
+table td {
     background-color: white;
-    border-bottom: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+}
+
+table {
+    width: 100%;
 }

@@ -158,19 +158,19 @@
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table [value]="item.listItem|isXoa"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [autoLayout]="true">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
                         <col>
-                        <col>
-                        <col>
+                        <col style="width:120px">
+                        <col style="width:80px">
+                        <col *ngIf="this.type==='bong'" style="width:80px">
+                        <col *ngIf="this.type==='bong'" style="width:120px">
+                        <col *ngIf="this.type==='bong'" style="width:80px">
+                        <col *ngIf="this.type==='bong'" style="width:120px">
                         <col *ngIf="this.type==='bong'">
-                        <col *ngIf="this.type==='bong'">
-                        <col *ngIf="this.type==='bong'">
-                        <col *ngIf="this.type==='bong'">
-                        <col *ngIf="this.type==='bong'">
-                        <col style="width:100px">
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">

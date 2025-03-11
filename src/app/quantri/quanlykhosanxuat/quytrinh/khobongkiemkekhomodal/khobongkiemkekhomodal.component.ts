@@ -39,10 +39,10 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
             label: `Cho vay`,
             value: `ChoVay`,
         },
-        // {
-        //     label: `Điều chuyển`,
-        //     value: `DieuChuyen`,
-        // },
+        {
+            label: `Điều chuyển`,
+            value: `DieuChuyen`,
+        },
         {
             label: `Khác`,
             value: `Khac`,

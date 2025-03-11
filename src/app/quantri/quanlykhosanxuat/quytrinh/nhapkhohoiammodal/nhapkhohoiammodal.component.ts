@@ -187,7 +187,7 @@ export class NhapkhohoiammodalComponent implements OnInit, AfterViewInit {
   }
 
   checkQuaSoiKhacThucTe(func: any) {
-    let arr = []
+    let arr: any = []
     let bool = true;
     let itemSearch: any = {};
     itemSearch.IddmCaSanXuatThucTe = this.item.IddmCaSanXuatThucTe;
@@ -197,7 +197,7 @@ export class NhapkhohoiammodalComponent implements OnInit, AfterViewInit {
     itemSearch.IddmCaSanXuat = this.item.IddmCaSanXuat;
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res: any) => {
       res.forEach((x: any) => {
-        let _thisMatHang = this.item.listItem.find((y: any) => y.IddmItem === x.IddmItem && y.IdLoHang === x.IdLoHang)
+        let _thisMatHang = this.item.listItem.find((y: any) => y.IddmItem === x.IddmItem && y.IdLoHang === x.IdLoHang && y.KgCone === x.KgCone);
         if (_thisMatHang && _thisMatHang.SoQuaSoiThucTe > x.SoQuaSoiManHinh) {
           arr.push(_thisMatHang)
           bool = false;

@@ -1,0 +1,70 @@
+.tc-w-150{
+    max-width: 150px !important;
+    min-width: 150px !important;
+}
+.tc-w-100{
+    max-width: 100px !important;
+    min-width: 100px !important;
+}
+.tc-w-120{
+    max-width: 120px !important;
+    min-width: 120px !important;
+}
+.tc-w-50{
+    max-width: 50px !important;
+    min-width: 50px !important;
+}
+.tc-w-250{
+    max-width: 250px !important;
+    min-width: 250px !important;
+}
+.tc-w-200{
+    max-width: 200px !important;
+    min-width: 200px !important;
+}
+.tc-w-80{
+    max-width: 80px !important;
+    min-width: 80px !important;
+}
+
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+    padding: 0.5rem 0.5rem;
+    border: 1px solid #e9ecef;
+    height: 56px;
+}
+
+thead,
+th {
+    background: #828282;
+    color: white;
+    font-weight: 500;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+table th {
+    background-color: #828282;
+}
+
+table td {
+    background-color: white;
+}
+
+.sticky-table table {
+    border-collapse: separate;
+    border-spacing: unset;
+}
+
+.sticky-table {
+    overflow: auto;
+    height: 70vh;
+}

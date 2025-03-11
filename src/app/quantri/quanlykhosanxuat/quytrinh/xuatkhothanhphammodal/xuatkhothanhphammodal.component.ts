@@ -17,7 +17,7 @@ import { XuatthanhphammathangmodalComponent } from '../xuatthanhphammathangmodal
 export class XuatkhothanhphammodalComponent implements OnInit {
 
   opt: any = ''
-  item: any = {};
+  item: any = { listItem: [] };
   checkbutton: any = {
     Ghi: true,
     KhongDuyet: false,
@@ -64,11 +64,17 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     }
     else {
       if (this.item.listItem.length > 0) {
-        this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
-          obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
-
-        });
+        this.item.listItem = this.item.listItem?.map(ele => {
+          return {
+            ...ele,
+            NgayNhapKho: UnixToDate(ele.NgayNhapKhoUnix),
+            NgaySanXuat: UnixToDate(ele.NgaySanXuatUnix)
+          }
+        })
+        // this.item.listItem.filter(obj => {
+        //   obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+        //   obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
+        // });
       }
       this.TinhTongKhoiLuong();
       this.TinhTongThanhTien();
@@ -159,6 +165,21 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     })
   }
 
+  setData() {
+    let data = {
+      ...this.item,
+      NgayUnix: DateToUnix(this.item.Ngay),
+      listItem: this.item.listItem.map(ele => {
+        return {
+          ...ele,
+          NgayNhapKhoUnix: DateToUnix(this.item.NgayNhapKho),
+          NgaySanXuatUnix: DateToUnix(this.item.NgaySanXuat)
+        }
+      })
+    }
+    return data;
+  }
+
   GhiLai() {
     if (!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
@@ -169,13 +190,20 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn khách hàng!");
     }
     else {
-      this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this._services.PhieuXuatThanhPham().Set(this.item).subscribe((res: any) => {
+      // this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this._services.PhieuXuatThanhPham().Set(this.setData()).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            this.item.listItem = this.item.listItem?.map(ele => {
+              return {
+                ...ele,
+                NgayNhapKho: UnixToDate(ele.NgayNhapKhoUnix),
+                NgaySanXuat: UnixToDate(ele.NgaySanXuatUnix)
+              }
+            })
             if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
               this.item.Ngay = UnixToDate(this.item.NgayUnix);
             }
@@ -252,12 +280,13 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   }
 
   delete(index) {
-    let item = this.item.listItem.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
-    }
+    this.item.listItem.splice(index, 1);
+    // let item = this.item.listItem.splice(index, 1)[0];
+    // if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    // } else {
+    //   item.isXoa = true;
+    //   this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+    // }
   }
 
   Onclose() {

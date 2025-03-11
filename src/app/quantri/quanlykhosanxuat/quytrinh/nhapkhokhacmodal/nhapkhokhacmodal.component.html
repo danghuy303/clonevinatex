@@ -91,9 +91,9 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col>
-                        <col>
-                        <col>
+                        <col style="width:350px">
+                        <col style="width:100px">
+                        <col style="width:150px">
                         <col>
                         <col style="width:100px">
                     </colgroup>
@@ -132,7 +132,7 @@
                             <input pInputText type="text" #input (keydown)="navigateTable($event, i, 3)"
                                 [(ngModel)]="item.GhiChu">
                         </td>
-                        <td>
+                        <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="deleteBongHoi(i)" pTooltip="Xóa" showDelay="1000"

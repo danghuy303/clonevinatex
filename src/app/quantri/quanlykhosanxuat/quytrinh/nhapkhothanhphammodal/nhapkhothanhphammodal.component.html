@@ -86,23 +86,23 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col style="width:220px">
-                        <col style="width:140px">
+                        <!-- <col style="width:220px"> -->
+                        <col style="width:200px">
                         <col style="width:100px">
                         <col style="width:120px">
-                        <col style="width:140px">
+                        <col style="width:120px">
                         <col style="width:80px">
                         <col style="width:120px">
                         <col style="width:80px">
-                        <col style="width:80px">
-                        <col style="width:100px">
+                        <col style="width:130px">
+                        <col>
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Mã</th>
+                        <!-- <th>Mã</th> -->
                         <th>Tên</th>
                         <th>Tên lô</th>
                         <th>Số quả hồi ẩm</th>
@@ -118,7 +118,7 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td>{{item.Ma}}</td>
+                        <!-- <td>{{item.Ma}}</td> -->
                         <td>{{item.Ten}}</td>
                         <td>{{item.TenLoHang}}</td>
                         <!-- <td>
@@ -190,7 +190,7 @@
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <tr>
-                        <td colspan="4">TỔNG: </td>
+                        <td colspan="3">TỔNG: </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoQuaSoiHoiAm'|number:'0.0'}}
                         </td>

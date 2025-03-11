@@ -53,7 +53,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.item.isTruVaoSanLuong = false;
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-      this.GetPhanXuongTheoUser();
+      // this.GetPhanXuongTheoUser();
       this.GetTyLeThongKeSanLuongBongPhe();
     }
     else {
@@ -248,6 +248,9 @@ export class ThongkesanluongmodalComponent implements OnInit {
   getListPhanXuong() {
     this.services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (this.opt !== 'edit') {
+        this.item.IddmPhanXuong = this.listPhanXuong[0].value;
+      }
     })
   }
   getMatHangThongKeSanLuong() {

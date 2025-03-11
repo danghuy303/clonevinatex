@@ -87,13 +87,14 @@
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table [value]="item.listKien|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [value]="item.listKien|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped"
+                [autoLayout]="true">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col>
-                        <col>
-                        <col>
+                        <col style="width:250px">
+                        <col style="width: 100px">
+                        <col style="width:150px">
                         <col>
                         <!-- <col style="width:100px"> -->
                     </colgroup>

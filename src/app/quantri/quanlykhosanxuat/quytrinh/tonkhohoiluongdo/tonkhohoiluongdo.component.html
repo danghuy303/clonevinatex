@@ -40,24 +40,26 @@
     </div> -->
     <div class="p-col-12">
         <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
-            [scrollable]="true">
+            [autoLayout]="true">
             <ng-template pTemplate="colgroup">
                 <colgroup>
-                    <col style="width:50px">
-                    <col style="width: 10rem;">
-                    <col style="width: 10rem;">
-                    <col style="width: 7rem;">
-                    <col style="width: 10rem;">
-                    <col style="width: 7rem;">
+                    <col style="width: 50px"> <!-- STT -->
+                    <col style="min-width: 150px"> <!-- Mã -->
+                    <col style="min-width: 250px"> <!-- Tên -->
+                    <col style="width: 100px"> <!-- Số kiện -->
+                    <col style="width: 150px"> <!-- Trọng lượng -->
+                    <col style="width: 50px"> <!-- Hành động -->
                 </colgroup>
             </ng-template>
+
+            <!-- Header -->
             <ng-template pTemplate="header">
                 <tr>
-                    <th rowspan="2" class="text-center">STT</th>
+                    <th rowspan="2">STT</th>
                     <th rowspan="2">Mã</th>
                     <th rowspan="2">Tên</th>
                     <th colspan="2">Tồn</th>
-                    <th rowspan="2"></th>
+                    <th rowspan="2"></th> <!-- Cột nút xem -->
                 </tr>
                 <tr>
                     <th>Số kiện</th>

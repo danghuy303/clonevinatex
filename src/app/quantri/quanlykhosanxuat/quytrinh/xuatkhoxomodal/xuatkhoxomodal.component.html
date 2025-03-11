@@ -80,19 +80,19 @@
                 <button pButton pRipple type="button" label="Danh mục xơ" class="p-mr-2 p-button-sm"
                     (click)="GetLuuKho('')"></button>
             </div>
-            <p-table [lazy]="true" [scrollable]="true" scrollHeight="40vh" [value]="item.listItem|isXoa"
-                styleClass="p-datatable-sm wrap-text p-datatable-gridlines" selectionMode="single">
+            <p-table scrollHeight="40vh" [value]="item.listItem|isXoa"
+                styleClass="p-datatable-sm wrap-text p-datatable-gridlines" [autoLayout]="true">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col style="width:90px">
+                        <col style="min-width: 150px">
+                        <col style="width:150px">
+                        <col style="width:150px">
+                        <col style="width:80px">
+                        <col style="width:120px">
+                        <col style="width:80px">
+                        <col style="width:150px">
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -116,7 +116,7 @@
                         <td style="text-align: center;">{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <td style="text-align: center;">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.ThuTu">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" class="w-full" style="width: 100%" [(ngModel)]="item.ThuTu">
                             </p-inputNumber>
                         </td>
                         <td style="text-align: center;">{{item.TenLoBong}}</td>

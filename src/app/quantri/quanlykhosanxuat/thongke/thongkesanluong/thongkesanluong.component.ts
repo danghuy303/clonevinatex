@@ -83,7 +83,6 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit, OnDes
 
     })
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh();
     this.getListCaSanXuat();
     this.getListPhanXuong();
   }
@@ -95,6 +94,10 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit, OnDes
   getListPhanXuong() {
     this._service.GetListdmPhanXuong({}).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+      if(this.filter.IddmPhanXuong) {
+        this.GetListQuyTrinh();
+      }
     })
   }
   changeParam(id) {
@@ -152,7 +155,7 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit, OnDes
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
+      // this.paginator.changePage(0);
     }
     let data = {
       PageSize: 20,
@@ -178,7 +181,6 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit, OnDes
   KiemTraTabTrangThai() {
     this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
-      this.GetListQuyTrinh();
     })
   }
   ngOnDestroy() {

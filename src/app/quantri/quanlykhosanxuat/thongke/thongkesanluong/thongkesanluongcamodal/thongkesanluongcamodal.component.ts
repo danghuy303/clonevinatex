@@ -51,7 +51,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     this.userInfo = this._auth.currentUserValue;
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-      this.GetPhanXuongTheoUser();
+      // this.GetPhanXuongTheoUser();
       this.item.width = '100px';
     }
     else {
