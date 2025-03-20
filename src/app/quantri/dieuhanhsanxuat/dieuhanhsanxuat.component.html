@@ -20,7 +20,8 @@
             <div class="p-d-flex flex-column flex-lg-row p-jc-between">
                 <div>
                     <h5>
-                        {{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Sản lượng kế hoạch và thực hiện':'Nhu cầu sử dụng bông'}}
+                        {{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Sản lượng kế hoạch và thực
+                        hiện':'Nhu cầu sử dụng bông'}}
                     </h5>
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
@@ -133,63 +134,63 @@
                         <tr>
                             <!-- <th>Ngày</th> -->
                             <th rowspan="2" class="">Loại bông</th>
-                            <th rowspan="2" class="width-120">Lô bông</th>
-                            <th rowspan="2" class="width-120">Hợp đồng P/O</th>
+                            <th rowspan="2" class="">Lô bông</th>
+                            <th rowspan="2" class="width-260">Hợp đồng P/O</th>
                             <th colspan="2">Tồn đầu</th>
                             <th colspan="2">Nhập trong kỳ</th>
                             <th colspan="2">Xuất trong kỳ</th>
                             <th colspan="2">Tồn cuối kỳ</th>
                         </tr>
                         <tr>
-                            <th class="width-80">Số kiện</th>
-                            <th class="width-120">KL</th>
-                            <th class="width-80">Số kiện</th>
-                            <th class="width-120">KL</th>
-                            <th class="width-80">Số kiện</th>
-                            <th class="width-120">KL</th>
-                            <th class="width-80">Số kiện</th>
-                            <th class="width-120">KL</th>
+                            <th class="width-70">Số kiện</th>
+                            <th class="width-100">KL</th>
+                            <th class="width-70">Số kiện</th>
+                            <th class="width-100">KL</th>
+                            <th class="width-70">Số kiện</th>
+                            <th class="width-100">KL</th>
+                            <th class="width-70">Số kiện</th>
+                            <th class="width-100">KL</th>
                         </tr>
-                        <tr>
-                            <td class="bg-white">Tổng</td>
-                            <td class="width-100 bg-white"></td>
-                            <td class="width-100 bg-white"></td>
-                            <td class="text-right width-80">{{Tong.DauSoKien|number:'0.0-0' }}</td>
-                            <td class="text-right width-120">{{Tong.DauSoCan|number:'0.2-2' }}</td>
-                            <td class="text-right width-80">{{Tong.NhapSoKien|number:'0.0-0' }}</td>
-                            <td class="text-right width-120">{{Tong.NhapSoCan|number:'0.2-2' }}</td>
-                            <td class="text-right width-80">{{Tong.XuatSoKien|number:'0.0-0' }}</td>
-                            <td class="text-right width-120">{{Tong.XuatSoCan|number:'0.2-2' }}</td>
-                            <td class="text-right width-80">{{Tong.CuoiSoKien|number:'0.0-0' }}</td>
-                            <td class="text-right width-120">{{Tong.CuoiSoCan|number:'0.2-2' }}</td>
+                        <tr style="font-weight: bold;">
+                            <td class="">Tổng</td>
+                            <td class=""></td>
+                            <td class="width-120"></td>
+                            <td class="text-right width-70">{{Tong.DauSoKien|number:'0.0-0' }}</td>
+                            <td class="text-right width-100">{{Tong.DauSoCan|number:'0.2-2' }}</td>
+                            <td class="text-right width-70">{{Tong.NhapSoKien|number:'0.0-0' }}</td>
+                            <td class="text-right width-100">{{Tong.NhapSoCan|number:'0.2-2' }}</td>
+                            <td class="text-right width-70">{{Tong.XuatSoKien|number:'0.0-0' }}</td>
+                            <td class="text-right width-100">{{Tong.XuatSoCan|number:'0.2-2' }}</td>
+                            <td class="text-right width-70">{{Tong.CuoiSoKien|number:'0.0-0' }}</td>
+                            <td class="text-right width-100">{{Tong.CuoiSoCan|number:'0.2-2' }}</td>
                         </tr>
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let item of listItem">
                             <tr [ngStyle]="{'font-weight':item.TendmLoaiBong !== 'TỔNG'?'normal':'bold'}">
                                 <td class="bg-white">{{item.TendmLoaiBong}}</td>
-                                <td class="width-100 bg-white">{{item.TenLoBong}}</td>
-                                <td class="width-100 bg-white">{{item.SoHopDong}}</td>
-                                <td class="text-right width-80">{{item.DauSoKien|number:'0.0-0' }}</td>
-                                <td class="text-right width-120">{{item.DauSoCan|number:'0.2-2' }}</td>
-                                <td class="text-right width-80">{{item.NhapSoKien|number:'0.0-0' }}</td>
-                                <td class="text-right width-120">
+                                <td class="bg-white">{{item.TenLoBong}}</td>
+                                <td class="width-120 bg-white">{{item.SoHopDong}}</td>
+                                <td class="text-right width-70">{{item.DauSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-100">{{item.DauSoCan|number:'0.2-2' }}</td>
+                                <td class="text-right width-70">{{item.NhapSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-100">
                                     <a href="javascript:void(0)" *ngIf="item.TendmLoaiBong!=='TỔNG'"
                                         (click)="callDataXuatNhap('Nhap', item)"> {{item.NhapSoCan|number:'0.2-2' }}</a>
                                     <ng-container *ngIf="item.TendmLoaiBong === 'TỔNG'">
                                         {{item.NhapSoCan|number:'0.2-2' }}
                                     </ng-container>
                                 </td>
-                                <td class="text-right width-80">{{item.XuatSoKien|number:'0.0-0' }}</td>
-                                <td class="text-right width-120">
+                                <td class="text-right width-70">{{item.XuatSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-100">
                                     <a href="javascript:void(0)" *ngIf="item.TendmLoaiBong!=='TỔNG'"
                                         (click)="callDataXuatNhap('Xuat', item)">{{item.XuatSoCan|number:'0.2-2'}}</a>
                                     <ng-container *ngIf="item.TendmLoaiBong === 'TỔNG'">
                                         {{item.XuatSoCan|number:'0.2-2' }}
                                     </ng-container>
                                 </td>
-                                <td class="text-right width-80">{{item.CuoiSoKien|number:'0.0-0' }}</td>
-                                <td class="text-right width-120">{{item.CuoiSoCan|number:'0.2-2' }}</td>
+                                <td class="text-right width-70">{{item.CuoiSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-100">{{item.CuoiSoCan|number:'0.2-2' }}</td>
                             </tr>
                         </ng-container>
                     </tbody>

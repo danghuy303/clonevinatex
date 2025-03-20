@@ -281,6 +281,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
 
   delete(index) {
     this.item.listItem.splice(index, 1);
+    this.TinhTongKhoiLuong();
     // let item = this.item.listItem.splice(index, 1)[0];
     // if (item.Id === '' || item.Id === null || item.Id === undefined) {
     // } else {
@@ -312,14 +313,12 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
         console.log("data", data);
-
         if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
           this.item.listItem.forEach(element => {
             element.isXoa = true;
           });
         }
-
-        let listdatapush = [];
+        let listdatapush:any = [];
         data.data.forEach(element => {
           let datapush: any = {
             Ten: element.Ten,
@@ -332,6 +331,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             IdNhapKhoGoc: element.IdNhapKhoGoc,
             IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
             TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
+            NgayNhapKho: new Date(element.NgayNhapKho),
           };
           var isCheck: any = false
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
@@ -348,6 +348,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
                 this.item.listItem[i].IdNhapKhoGoc = element.IdNhapKhoGoc;
                 this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
                 this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
+                this.item.listItem[i].NgayNhapKho = new Date(element.NgayNhapKho);
                 isCheck = true;
                 break;
               }
@@ -358,15 +359,13 @@ export class XuatkhothanhphammodalComponent implements OnInit {
           else
             listdatapush.push(datapush);
         });
-        console.log("listdatapush", listdatapush);
-
         if (this.item.listItem !== undefined && this.item.listItem !== null) {
           this.item.listItem = this.item.listItem.concat(listdatapush);
         }
         else {
           this.item.listItem = listdatapush
         }
-        console.log("this.item.listItem", this.item.listItem);
+        this.TinhTongKhoiLuong();
 
       }, (reason) => {
         // không

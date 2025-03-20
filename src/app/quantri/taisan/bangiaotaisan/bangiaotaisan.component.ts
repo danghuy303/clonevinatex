@@ -60,7 +60,7 @@ export class BangiaotaisanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.resetFilter();
+    // this.resetFilter();
     this.getListdmPhanXuong();
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
@@ -94,6 +94,10 @@ export class BangiaotaisanComponent implements OnInit {
   getListdmPhanXuong() {
     this._serviceDungChung.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listdmPhanXuong[0].value;
+      if(this.filter.IddmPhanXuong) {
+        this.Loaddata();
+      }
     })
   }
 

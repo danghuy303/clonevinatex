@@ -17,10 +17,13 @@ export class ChonhanghoamodalComponent implements OnInit {
   KeyWord: any = '';
   opt: any = '';
   checkedAll: boolean = false;
+  listDaChon: any = [];
+  isCheckFocus: boolean = false;
+
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.items = this.items.sort((a, b) => a.Ne-b.Ne);
+    this.items = this.items.sort((a, b) => a.Ne - b.Ne);
     this.items.forEach(item => {
       item.checked = false;
     });
@@ -160,15 +163,33 @@ export class ChonhanghoamodalComponent implements OnInit {
         console.log(this.items.filter(item => item.checked));
         break;
       default:
-        this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
-          return {
-            ...ele,
-            // Ten: `${ele.Ma} - ${ele.Ten}`,
-            IdGiaoKeHoachSanXuat: this.IdQuyTrinh,
-            IddmItem: ele.Id,
-            Id: '',
-          }
-        }));
+        let _newData: any = [];
+        if (!this.isCheckFocus) {
+          _newData = this.items.filter(item => item.checked).map(ele => {
+            return {
+              ...ele,
+              // Ten: `${ele.Ma} - ${ele.Ten}`,
+              IdGiaoKeHoachSanXuat: this.IdQuyTrinh,
+              IddmItem: ele.Id,
+              Id: '',
+            }
+          })
+        } else { // sửa
+          _newData = this.items.filter(item => item.checked).map(ele => {
+            let _item = this.listDaChon?.find(obj => obj.IddmItem === ele.Id);
+            let _newObj = _item ? _item : {
+              ...ele,
+              IdGiaoKeHoachSanXuat: this.IdQuyTrinh,
+              IddmItem: ele.Id,
+              Id: '',
+            };
+            return {
+              ..._newObj
+            }
+          })
+        }
+
+        this._activeModal.close(_newData.sort((a, b) => a.Ne - b.Ne));
     }
   }
 }

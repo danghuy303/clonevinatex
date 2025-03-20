@@ -88,53 +88,53 @@
                         (click)="XuatBaoCaoCanDoiTon()">Xuất báo cáo</a>
                 </div>
             </div>
-            <div class="" style="height: calc( 50vh - 72.25px );width: 100%;">
+            <div class="" style="height: calc( 50vh - 72.25px ); width: 100%">
                 <table>
                     <thead>
                         <tr>
                             <th rowspan="2" class="width-50">#</th>
                             <th rowspan="2" class="">Mặt hàng</th>
                             <!-- <th rowspan="2" class="width-220">Mã</th> -->
-                            <th rowspan="2" class="width-100">Lô</th>
+                            <th rowspan="2">Lô</th>
                             <th colspan="3">Tồn đầu</th>
                             <th colspan="3">Nhập trong kỳ</th>
                             <th colspan="3">Xuất trong kỳ</th>
                             <th colspan="3">Tồn cuối kỳ</th>
                         </tr>
                         <tr>
-                            <th class="width-100">Số quả sợi</th>
-                            <th class="width-80">Số kiện</th>
-                            <th class="width-120">KL</th>
-                            <th class="width-100">Số quả sợi</th>
-                            <th class="width-80">Số kiện</th>
-                            <th class="width-120">KL</th>
-                            <th class="width-100">Số quả sợi</th>
-                            <th class="width-80">Số kiện</th>
-                            <th class="width-120">KL</th>
-                            <th class="width-100">Số quả sợi</th>
-                            <th class="width-80">Số kiện</th>
-                            <th class="width-120">KL</th>
+                            <th class="width-80">Số quả sợi</th>
+                            <th class="width-70">Số kiện</th>
+                            <th class="width-100">KL</th>
+                            <th class="width-80">Số quả sợi</th>
+                            <th class="width-70">Số kiện</th>
+                            <th class="width-100">KL</th>
+                            <th class="width-80">Số quả sợi</th>
+                            <th class="width-70">Số kiện</th>
+                            <th class="width-100">KL</th>
+                            <th class="width-80">Số quả sợi</th>
+                            <th class="width-70">Số kiện</th>
+                            <th class="width-100">KL</th>
                         </tr>
-                        <tr>
+                        <tr style="font-weight: bold;">
                             <td class="width-35"></td>
                             <td class="w-mathang">Tổng</td>
                             <!-- <td class="width-220"></td> -->
                             <td class="w-lo"></td>
-                            <td class="text-right width-100">{{Tong.DauSoQuaSoi | number:'0.0-0' }}</td>
-                            <td class="text-right width-80">{{Tong.DauSoKien | number:'0.0-0' }}</td>
-                            <td class="text-right width-120">{{( Tong.DauSoCan) | number:'0.2-2'
+                            <td class="text-right width-80">{{Tong.DauSoQuaSoi | number:'0.0-0' }}</td>
+                            <td class="text-right width-70">{{Tong.DauSoKien | number:'0.0-0' }}</td>
+                            <td class="text-right width-100">{{( Tong.DauSoCan) | number:'0.2-2'
                                 }}</td>
-                            <td class="text-right width-100">{{Tong.NhapSoQuaSoi | number:'0.0-0' }}</td>
-                            <td class="text-right width-80">{{Tong.NhapSoKien | number:'0.0-0' }}</td>
-                            <td class="text-right width-120">{{(Tong.NhapSoCan) |
+                            <td class="text-right width-80">{{Tong.NhapSoQuaSoi | number:'0.0-0' }}</td>
+                            <td class="text-right width-70">{{Tong.NhapSoKien | number:'0.0-0' }}</td>
+                            <td class="text-right width-100">{{(Tong.NhapSoCan) |
                                 number:'0.2-2' }}</td>
-                            <td class="text-right width-100">{{Tong.XuatSoQuaSoi | number:'0.0-0' }}</td>
-                            <td class="text-right width-80">{{Tong.XuatSoKien | number:'0.0-0' }}</td>
-                            <td class="text-right width-120">{{(Tong.XuatSoCan) |
+                            <td class="text-right width-80">{{Tong.XuatSoQuaSoi | number:'0.0-0' }}</td>
+                            <td class="text-right width-70">{{Tong.XuatSoKien | number:'0.0-0' }}</td>
+                            <td class="text-right width-100">{{(Tong.XuatSoCan) |
                                 number:'0.2-2' }}</td>
-                            <td class="text-right width-100">{{Tong.CuoiSoQuaSoi|number:'0.0-0' }}</td>
-                            <td class="text-right width-80">{{Tong.CuoiSoKien | number:'0.0-0' }}</td>
-                            <td class="text-right width-120">{{(Tong.CuoiSoCan) |
+                            <td class="text-right width-80">{{Tong.CuoiSoQuaSoi|number:'0.0-0' }}</td>
+                            <td class="text-right width-70">{{Tong.CuoiSoKien | number:'0.0-0' }}</td>
+                            <td class="text-right width-100">{{(Tong.CuoiSoCan) |
                                 number:'0.2-2' }}</td>
                         </tr>
                     </thead>
@@ -149,14 +149,14 @@
                                     {{item.TendmItem!==null?item.TendmItem:item.TendmLoaiBong}} </td>
                                 <!-- <td class="width-220 bg-white">{{item.TendmItem!==null?item.MadmItem:item.MadmLoaiBong}}
                                 </td> -->
-                                <td class="width-100 bg-white">{{item.TenLoHang}}</td>
-                                <td class="text-right width-100">{{item.DauSoQuaSoi | number:'0.0-0' }}</td>
-                                <td class="text-right width-80">{{item.DauSoKien | number:'0.0-0' }}</td>
-                                <td class="text-right width-120">{{(item.DauSoCan) |
+                                <td class="bg-white">{{item.TenLoHang}}</td>
+                                <td class="text-right width-80">{{item.DauSoQuaSoi | number:'0.0-0' }}</td>
+                                <td class="text-right width-70">{{item.DauSoKien | number:'0.0-0' }}</td>
+                                <td class="text-right width-100">{{(item.DauSoCan) |
                                     number:'0.2-2' }}</td>
-                                <td class="text-right width-100">{{item.NhapSoQuaSoi | number:'0.0-0' }}</td>
-                                <td class="text-right width-80">{{item.NhapSoKien | number:'0.0-0' }}</td>
-                                <td class="text-right width-120">
+                                <td class="text-right width-80">{{item.NhapSoQuaSoi | number:'0.0-0' }}</td>
+                                <td class="text-right width-70">{{item.NhapSoKien | number:'0.0-0' }}</td>
+                                <td class="text-right width-100">
                                     <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"
                                         (click)="callDataXuatNhap('Nhap', item)"> {{(item.NhapSoCan
                                         ) | number:'0.2-2' }}</a>
@@ -164,9 +164,9 @@
                                         ) | number:'0.2-2' }}
                                     </ng-container>
                                 </td>
-                                <td class="text-right width-100">{{item.XuatSoQuaSoi | number:'0.0-0' }}</td>
-                                <td class="text-right width-80">{{item.XuatSoKien | number:'0.0-0' }}</td>
-                                <td class="text-right width-120">
+                                <td class="text-right width-80">{{item.XuatSoQuaSoi | number:'0.0-0' }}</td>
+                                <td class="text-right width-70">{{item.XuatSoKien | number:'0.0-0' }}</td>
+                                <td class="text-right width-100">
                                     <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"
                                         (click)="callDataXuatNhap('Xuat', item)">{{( item.XuatSoCan
                                         ) | number:'0.2-2' }}</a>
@@ -174,9 +174,9 @@
                                         ) | number:'0.2-2' }}
                                     </ng-container>
                                 </td>
-                                <td class="text-right width-100">{{item.CuoiSoQuaSoi | number:'0.0-0' }}</td>
-                                <td class="text-right width-80">{{item.CuoiSoKien | number:'0.0-0' }}</td>
-                                <td class="text-right width-120">
+                                <td class="text-right width-80">{{item.CuoiSoQuaSoi | number:'0.0-0' }}</td>
+                                <td class="text-right width-70">{{item.CuoiSoKien | number:'0.0-0' }}</td>
+                                <td class="text-right width-100">
                                     {{( item.CuoiSoCan) | number:'0.2-2' }}
                                 </td>
                             </tr>

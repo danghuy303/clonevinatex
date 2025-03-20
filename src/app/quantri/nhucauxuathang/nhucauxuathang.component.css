@@ -28,6 +28,10 @@
     width: 50px;
 }
 
+.width-70 {
+    width: 70px !important;
+}
+
 .width-80 {
     width: 80px !important;
 }
@@ -50,9 +54,9 @@ tfoot,
 tr,
 td,
 th {
-    padding: 0.5rem 0.5rem;
+    padding: 0.3rem 0.5rem;
     border: 1px solid #e9ecef;
-    height: 56px;
+    height: 30px;
 }
 
 thead,
@@ -60,6 +64,12 @@ th {
     background: #828282;
     color: white;
     font-weight: 500;
+}
+
+thead,
+td {
+    background: #DCCDAF;
+    color: black;
 }
 
 thead {
@@ -72,10 +82,12 @@ table th {
     background-color: #828282;
 }
 
-table td {
+table tbody td {
     background-color: white;
+    color: black;
 }
 
 table {
+    /* table-layout: fixed; */
     width: 100%;
 }

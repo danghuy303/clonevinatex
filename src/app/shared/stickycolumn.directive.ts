@@ -1,11 +1,10 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appStickycolumn]'
 })
 export class StickycolumnDirective implements OnInit, AfterViewInit {
   @Input() fixedIndex: number = 0;
-
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit() {

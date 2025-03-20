@@ -64,6 +64,9 @@ export class KiemKeBanChePhamHueModalComponent implements OnInit {
   GetListdmPhanXuong() {
     this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (!this.item.IddmPhanXuong) {
+        this.item.IddmPhanXuong = this.listPhanXuong[0].value;
+      }
     })
   }
   GetListdmCaSanXuatThucTe() {

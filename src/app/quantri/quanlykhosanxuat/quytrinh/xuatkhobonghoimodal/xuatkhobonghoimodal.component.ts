@@ -34,7 +34,7 @@ export class XuatkhobonghoimodalComponent implements OnInit, AfterViewInit, Afte
   listTrienKhaiKeHoachSanXuat: any = [];
   newTableItem: any = {};
   initialized: boolean = false;
-  lastInputCount:number = 0;
+  lastInputCount: number = 0;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
@@ -386,14 +386,14 @@ export class XuatkhobonghoimodalComponent implements OnInit, AfterViewInit, Afte
       this.initialized = true;
     }, 0);
   }
-  
+
   ngAfterViewChecked() {
     const currentInputCount = this.inputs.length;
-  
+
     // Chỉ cập nhật nếu số lượng inputs thay đổi và chưa được khởi tạo
     if (!this.initialized || this.lastInputCount !== currentInputCount) {
       this.lastInputCount = currentInputCount;
-      
+
       setTimeout(() => {
         this.initInputListeners();
         this.initialized = true;
@@ -412,10 +412,8 @@ export class XuatkhobonghoimodalComponent implements OnInit, AfterViewInit, Afte
   }
 
   navigateTable(event: KeyboardEvent, currentInput: HTMLInputElement) {
-    console.log('currentInput', currentInput);
 
-    event.preventDefault(); // Ngăn chặn p-inputNumber tự động thay đổi giá trị khi bấm mũi tên
-    event.stopPropagation();
+   
     const key = event.key;
     const inputElements = Array.from(document.querySelectorAll('p-inputNumber input')) as HTMLInputElement[];
     if (!inputElements.length) return;
@@ -424,12 +422,18 @@ export class XuatkhobonghoimodalComponent implements OnInit, AfterViewInit, Afte
     if (currentIndex === -1) return; // Không tìm thấy phần tử hiện tại
     let nextIndex = currentIndex;
 
+    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Enter', 'Escape', '.', ',', '-', '+'];
+    if ((key >= '0' && key <= '9') || allowedKeys.includes(key)) {
+      return; // Cho phép nhập số
+    }
     if (key === 'ArrowRight') nextIndex = this.findNextIndex(inputElements, currentIndex, 1);
     if (key === 'ArrowLeft') nextIndex = this.findNextIndex(inputElements, currentIndex, -1);
     if (key === 'ArrowDown') nextIndex = this.findNextIndex(inputElements, currentIndex, 3); // Nhảy xuống hàng tiếp theo
     if (key === 'ArrowUp') nextIndex = this.findNextIndex(inputElements, currentIndex, -3); // Nhảy lên hàng trên
 
     if (nextIndex >= 0 && nextIndex < inputElements.length) {
+      event.preventDefault(); // Ngăn chặn p-inputNumber tự động thay đổi giá trị khi bấm mũi tên
+      event.stopPropagation();
       inputElements[nextIndex].focus();
       return;
     }

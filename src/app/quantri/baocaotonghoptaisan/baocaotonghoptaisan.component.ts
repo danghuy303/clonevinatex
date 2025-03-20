@@ -95,6 +95,10 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     })
     this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+      if (this.filter.IddmPhanXuong) {
+        this.loadData();
+      }
     })
     this.loadData();
     this.getListCongDoan();

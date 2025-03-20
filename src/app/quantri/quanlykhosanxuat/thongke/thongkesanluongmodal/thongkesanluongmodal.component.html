@@ -109,42 +109,37 @@
             </div>
         </div> -->
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table [lazy]="true"
+            <!-- <p-table [lazy]="true"
                 [value]="listItem.concat(['clone','clone','clone','clone','clone','clone','clone']) |isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col style="width:20px">
-                        <col style="width: 8rem;">
-                        <col style="width: 3rem;">
-                        <col style="width: 3rem;"
+                        <col style="width:50px" class="text-center">
+                        <col style="width: 220px">
+                        <col style="width: 90px">
+                        <col style="width: 100px"
                             *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
-                        <col style="width: 4rem;">
-                        <col *ngIf="item.CongDoan==='ONG'" style="width: 2rem;">
+                        <col style="width: 230px">
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 80px;">
 
                         <col *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'"
-                            style="width: 18rem;">
+                            style="width: 130px">
 
                         <col *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'"
-                            style="width: 10rem;">
-                        <col *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'" style="width: 10rem;">
+                            style="width: 100px">
+                        <col *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'" style="width: 160px">
                         <col *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'"
-                            style="width: 5rem;">
+                            style="width: 100px">
 
                         <col *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'"
-                            style="width: 10rem;">
+                            style="width: 120px">
 
                         <col *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'"
-                            style="width: 5rem;">
-
-
-                        <col *ngIf="item.CongDoan=='CON'" style="width: 9rem;">
-                        <col *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" style="width: 5rem;">
-                        <col *ngIf="item.CongDoan==='CON'" style="width: 5rem;">
-
-                        <!-- <col *ngIf="item.CongDoan==='THO'" style="width: 6rem;"> -->
-
-                        <col style="width: 4rem;">
+                            style="width: 100px">
+                        <col *ngIf="item.CongDoan=='CON' || item.CongDoan==='THO'" style="width: 12rem;">
+                        <col *ngIf="item.CongDoan==='CON'" style="width: 100px;">
+                        <col *ngIf="item.CongDoan==='CON'" style="width: 100px;">
+                        <col>
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -156,7 +151,6 @@
                             *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
                             Ktex</th>
                         <th>Mặt hàng</th>
-
                         <th *ngIf="item.CongDoan==='ONG'">Kg/Cone</th>
                         <th *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'">Lô hàng</th>
                         <th *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">SL màn
@@ -171,24 +165,21 @@
 
                         <th *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">Số quả sợi
                         </th>
-
-                        <!-- <th *ngIf="item.CongDoan==='GHEPSOBOCOTTON'">Cúi hồi (kg)</th> -->
-                        <th *ngIf="item.CongDoan==='CON'">Chữ đồng hồ (g/cọc)
+                        <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">Chữ đồng hồ (g/cọc)
                             <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
                                 inputId="binary"></p-checkbox>
                         </th>
                         <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">Cọc chết (cọc)</th>
                         <th *ngIf="item.CongDoan==='CON'">Hút mối (kg)</th>
-
                         <th>Ghi chú</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-itemtbl let-i="rowIndex">
                     <ng-container *ngIf="itemtbl!=='clone'">
-                        <tr>
-                            <td>{{i+1}}</td>
+                        <tr [style.color]="itemtbl.KhoiLuong > itemtbl.KhoiLuongTinhToan ? 'red' : ''">
+                            <td class="text-center">{{i+1}}</td>
                             <td class="text-left">{{itemtbl.TendmMay}}</td>
-                            <td class="text-left">{{itemtbl.Ne}}</td>
+                            <td class="text-center">{{itemtbl.Ne}}</td>
                             <td class="text-left"
                                 *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
                                 {{itemtbl | caculateKtex}}</td>
@@ -197,7 +188,6 @@
                                     - Đảo</span></td>
                             <td *ngIf="itemtbl.CongDoan==='ONG'">
                                 {{itemtbl.KgCone}}
-
                             </td>
                             <td *ngIf="itemtbl.CongDoan==='ONG' || itemtbl.CongDoan ==='XE'">
                                 <div class="p-inputgroup">
@@ -228,7 +218,6 @@
                                     (ngModelChange)="TinhTongKhoiLuongBong()">
                                 </p-inputNumber>
                             </td>
-
                             <td class="text-right"
                                 *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">
                                 {{itemtbl.KhoiLuongTinhToan |number:'0.2-2'}}
@@ -249,8 +238,8 @@
                                     </p-inputNumber>
                                 </div>
                             </td>
-
-                            <td *ngIf="itemtbl.DonViNangSuat===0">
+                            <td
+                                *ngIf="itemtbl.DonViNangSuat===0 && (item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE')">
 
                                 <div style="display: flex;">
                                     <div style="flex:1">
@@ -305,15 +294,18 @@
 
 
                             </td>
-                            <td *ngIf="item.CongDoan==='CON'" class="p-d-flex p-flex-row ">
-                                <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+3)" [tabindex]="i*5+3"
-                                    [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChuDongHo"
-                                    (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
-                                    [disabled]="itemtbl.DonViNangSuat===1 || itemtbl.isM === true">
-                                </p-inputNumber>
-                                <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="itemtbl.isM"
-                                    (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)" style="margin: 5px!important" />
-                                <label>M</label>
+                            <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">
+                                <div class="p-d-flex p-ai-center">
+                                    <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+3)" [tabindex]="i*5+3"
+                                        [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChuDongHo"
+                                        (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
+                                        [disabled]="itemtbl.DonViNangSuat===1 || itemtbl.isM === true">
+                                    </p-inputNumber>
+                                    <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="itemtbl.isM"
+                                        (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
+                                        style="margin: 5px!important" />
+                                    <label>M</label>
+                                </div>
                             </td>
                             <td *ngIf="item.CongDoan==='CON'">
                                 <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+4)" [tabindex]="i*5+4"
@@ -340,18 +332,559 @@
                             </td>
                         </tr>
                     </ng-container>
-                    <!-- <ng-container *ngIf="itemtbl==='clone' && item.CongDoan==='ONG'">
-                        <tr style="height: 40px;">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td
+                            *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
+                        </td>
+                        <td></td>
+                        <td *ngIf="item.CongDoan==='ONG'"></td>
+                        <td *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'" class="text-right">
+                        </td>
+
+
+                        <td class="text-right">
+                            {{listItem|isXoa|SumByKey:'KhoiLuong'|number:'0.3-3'}}
+                        </td>
+                        <td class="text-right"
+                            *ngIf="item.CongDoan==='ONG'|| item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">
+                            {{listItem|isXoa|SumByKey:'SoQuaSoi'}}
+                        </td>
+                        <td class="text-right"
+                            *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">
+                            {{listItem|isXoa|SumByKey:'KhoiLuongTinhToan'|number:'0.3-3'}}
+                        </td>
+                        <td class="text-right"
+                            *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">
+                            {{listItem|isXoa|SumByKey:'ChieuDai'|number:'0.3-3'}}
+                        </td>
+
+                        <td *ngIf="item.CongDoan==='CON'" class="text-right">
+                            {{listItem|isXoa|SumByKey:'ChuDongHo'|number:'0.3-3'}}
+                        </td>
+                        <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" class="text-right">
+                            {{listItem|isXoa|SumByKey:'CocChet'|number:'0.0'}}
+                        </td>
+                        <td *ngIf="item.CongDoan==='CON'" class="text-right">
+                            {{listItem|isXoa|SumByKey:'HutMoi'|number:'0.3-3'}}
+                        </td>
+                        <td></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+
+                </ng-template>
+            </p-table> -->
+
+            <!-- <div #scrollContainer class="sticky-table" appStickycolumn [fixedIndex]="3">
+                <table style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th class="tc-w-50 z-3">#</th>
+                            <th class="tc-w-280 z-3">Số máy</th>
+                            <th class="tc-w-80 z-3">Ne</th>
+                            <th class="tc-w-100 z-2"
+                                *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
+                                Ktex</th>
+                            <th class="tc-w-280 z-3">Mặt hàng</th>
+                            <th class="tc-w-100 z-1" *ngIf="item.CongDoan==='ONG'">Kg/Cone</th>
+                            <th class="tc-w-200 z-1" *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'">Lô hàng</th>
+
+                            <th class="tc-w-150"
+                                *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">SL màn
+                                hình (kg)</th>
+                            <th class="tc-w-150"
+                                *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">Khối
+                                lượng (kg)</th>
+                            <th class="tc-w-150"
+                                *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">Sản
+                                lượng định mức</th>
+                            <th class="tc-w-200"
+                                *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">Chiều
+                                dài (m)</th>
+                            <th class="tc-w-150"
+                                *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">Số quả
+                                sợi </th>
+
+                            <th class="tc-w-200" *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">Chữ đồng hồ
+                                (g/cọc)
+                                <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
+                                    inputId="binary"></p-checkbox>
+                            </th>
+                            <th class="tc-w-100" *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">Cọc chết (cọc)
+                            </th>
+                            <th class="tc-w-100" *ngIf="item.CongDoan==='CON'">Hút mối (kg)</th>
+                            <th class="tc-w-280">Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let itemtbl of listItem;let i = index">
+                            <tr [style.color]="itemtbl.KhoiLuong > itemtbl.KhoiLuongTinhToan ? 'red' : ''">
+                                <td class="text-center z-3">{{i+1}}</td>
+                                <td class="text-left z-3">{{itemtbl.TendmMay}}</td>
+                                <td class="text-center z-3">{{itemtbl.Ne}}</td>
+                                <td class="text-left z-2"
+                                    *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
+                                    {{itemtbl | caculateKtex}}</td>
+                                <td class="text-left z-3">{{itemtbl.Ten}} <span
+                                        *ngIf="(item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE')&& itemtbl.IdLoHangDao!==null ">
+                                        - Đảo</span></td>
+                                <td *ngIf="itemtbl.CongDoan==='ONG'" class="z-1">
+                                    {{itemtbl.KgCone}}
+                                </td>
+                                <td *ngIf="itemtbl.CongDoan==='ONG' || itemtbl.CongDoan ==='XE'" class="z-1">
+                                    <div class="p-inputgroup">
+                                        <div style="flex:1; width: calc(100% - 21px);">
+                                            <p-dropdown [filter]="true" [options]="listLoHang" [autofocusFilter]="true"
+                                                placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
+                                                [(ngModel)]="itemtbl.IdLoHang">
+                                                <ng-template let-target pTemplate="selectedItem">
+                                                    <span [pTooltip]="target.label"
+                                                        style="vertical-align:middle">{{target.label}}</span>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </div>
+                                        <button pButton pRipple icon="pi pi-copy"
+                                            class="p-button-sm p-button-rounded p-button-text"
+                                            (click)="ApDung(itemtbl)"></button>
+                                    </div>
+
+                                </td>
+                                <td class="z-1">
+                                    <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0 || itemtbl.DonViNangSuat=== 2"
+                                        #inputNumber [minFractionDigits]="2" locale="en-EN"
+                                        [(ngModel)]="itemtbl.KhoiLuong" [tabindex]="i*5+1" disabled>
+                                    </p-inputNumber>
+                                    <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber
+                                        (keyup.enter)="enterCon(i*5+1)" [tabindex]="i*5+1" [minFractionDigits]="2"
+                                        locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong"
+                                        (ngModelChange)="TinhTongKhoiLuongBong()">
+                                    </p-inputNumber>
+                                </td>
+                                <td class="text-right"
+                                    *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">
+                                    {{itemtbl.KhoiLuongTinhToan |number:'0.2-2'}}
+                                </td>
+                                <td class="text-right"
+                                    *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">
+                                    <p-inputNumber locale="en-EN" [(ngModel)]="itemtbl.SoQuaSoi" #inputNumber
+                                        (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2">
+                                    </p-inputNumber>
+                                </td>
+                                <td *ngIf="(itemtbl.DonViNangSuat===1 || itemtbl.DonViNangSuat===2) && (item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE')"
+                                    class="text-right">
+                                    {{itemtbl.ChieuDai |number:'0.3-3'}}
+                                    <div style="display:none">
+                                        <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3"
+                                            locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                            (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
+                                            (ngModelChange)="TinhCongThucMoi(itemtbl)">
+                                        </p-inputNumber>
+                                    </div>
+                                </td>
+                                <td
+                                    *ngIf="itemtbl.DonViNangSuat === 0 && (item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE')">
+
+                                    <div style="display: flex;">
+                                        <div style="flex:1">
+                                            <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                                *ngIf="item.CongDoan==='CHAIPC' || item.CongDoan==='GHEPSOBOPC' || item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE' "
+                                                [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
+                                                #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                                (ngModelChange)="TinhGiaTri(itemtbl)">
+                                            </p-inputNumber>
+                                            <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                                *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
+                                                [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                                (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
+                                                (ngModelChange)="TinhCongThucMoi(itemtbl)">
+                                            </p-inputNumber>
+                                            <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                                *ngIf="item.CongDoan==='CHAICOTTON'" [minFractionDigits]="3"
+                                                locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                                (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
+                                                (ngModelChange)="TinhKhoiLuongChaiCotton(itemtbl)">
+                                            </p-inputNumber>
+                                            <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0" *ngIf="item.CongDoan==='GHEPSOBOCOTTON' || item.CongDoan==='GHEPTRONB' || item.CongDoan==='GHEPTRONA' 
+                                        || item.CongDoan==='GHEPDAURA' || item.CongDoan==='GHEPSOBOPE'"
+                                                [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
+                                                #inputNumber (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
+                                                (ngModelChange)="TinhKhoiLuongGhepSoBoChaiCotton(itemtbl)">
+                                            </p-inputNumber>
+                                            <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0" #inputNumber
+                                                *ngIf="item.CongDoan==='THO'" [minFractionDigits]="3" locale="en-EN"
+                                                [(ngModel)]="itemtbl.ChieuDai"
+                                                (ngModelChange)="TinhKhoiLuongTho(itemtbl)"
+                                                (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2">
+                                            </p-inputNumber>
+                                            <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                                *ngIf="item.CongDoan==='CHAIPE'" [minFractionDigits]="3" locale="en-EN"
+                                                [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                                (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
+                                                (ngModelChange)="TinhKhoiLuongChaiPE(itemtbl)">
+                                            </p-inputNumber>
+                                            <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                                *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3" locale="en-EN"
+                                                [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                                (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
+                                                (ngModelChange)="TinhKhoiLuongChaiKy(itemtbl)">
+                                            </p-inputNumber>
+                                            <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                                *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="en-EN"
+                                                [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                                (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
+                                                (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
+                                            </p-inputNumber>
+                                        </div>
+                                        <button pButton pRipple icon="pi pi-ellipsis-v"
+                                            class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                            (click)="tinhToan(itemtbl)" pTooltip="Tính toán" showDelay="1000"
+                                            tooltipPosition="bottom"></button>
+                                    </div>
+
+
+                                </td>
+                                <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">
+                                    <div class="p-d-flex p-ai-center">
+                                        <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+3)" [tabindex]="i*5+3"
+                                            [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChuDongHo"
+                                            (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
+                                            [disabled]="itemtbl.DonViNangSuat===1 || itemtbl.isM === true">
+                                        </p-inputNumber>
+                                        <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="itemtbl.isM"
+                                            (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
+                                            style="margin: 5px!important" />
+                                        <label>M</label>
+                                    </div>
+                                </td>
+                                <td *ngIf="item.CongDoan==='CON'|| item.CongDoan==='THO'">
+                                    <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+4)" [tabindex]="i*5+4"
+                                        [minFractionDigits]="0" locale="en-EN" [(ngModel)]="itemtbl.CocChet"
+                                        (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
+                                        [disabled]="itemtbl.DonViNangSuat===1">
+                                    </p-inputNumber>
+                                </td>
+                                <td *ngIf="item.CongDoan==='CON'">
+                                    <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+5)" [tabindex]="i*5+5"
+                                        [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.HutMoi"
+                                        (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
+                                        [disabled]="itemtbl.DonViNangSuat===1">
+                                    </p-inputNumber>
+                                </td>
+                                <td>
+                                    <input type="text" class="p-inputtext-sm" [(ngModel)]="itemtbl.GhiChu" pInputText />
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                    <tfoot>
+                        <tr *ngIf="listItem?.length > 0">
+                            <td class="z-3"></td>
+                            <td class="z-3"></td>
+                            <td class="z-3"> </td>
+                            <td class="z-2"
+                                *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
+                            </td>
+                            <td class="z-3"></td>
+                            <td *ngIf="item.CongDoan==='ONG'" class="z-1"></td>
+                            <td *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'" class="text-right z-1">
+                            </td>
+
+                            <td *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'" class="text-right z-1">
+                                {{listItem|isXoa|SumByKey:'KhoiLuong'|number:'0.3-3'}}
+                            </td>
+                            <td class="text-right"
+                                *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">
+                                {{listItem|isXoa|SumByKey:'KhoiLuongTinhToan'|number:'0.3-3'}}
+                            </td>
+                            <td class="text-right"
+                                *ngIf="item.CongDoan==='ONG'|| item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">
+                                {{listItem|isXoa|SumByKey:'SoQuaSoi'}}
+                            </td>
+                            <td class="text-right"
+                                *ngIf="(item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE')">
+                                {{listItem|isXoa|SumByKey:'ChieuDai'|number:'0.3-3'}}
+                            </td>
+
+                            <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" class="text-right">
+                                {{listItem|isXoa|SumByKey:'ChuDongHo'|number:'0.3-3'}}
+                            </td>
+                            <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" class="text-right">
+                                {{listItem|isXoa|SumByKey:'CocChet'|number:'0.0'}}
+                            </td>
+                            <td *ngIf="item.CongDoan==='CON'" class="text-right">
+                                {{listItem|isXoa|SumByKey:'HutMoi'|number:'0.3-3'}}
+                            </td>
                             <td></td>
                         </tr>
-                    </ng-container> -->
+                    </tfoot>
+                </table>
+            </div> -->
+
+            <p-table [lazy]="true"
+                [value]="listItem.concat(['clone','clone','clone','clone','clone','clone','clone']) |isXoa"
+                styleClass="p-datatable-sm wrap-text p-datatable-striped">
+                <ng-template pTemplate="colgroup">
+                    <!-- <colgroup>
+                        <col [ngStyle]="{width:'50px'}">
+                        <col [ngStyle]="{width:(item.CongDoan==='THO' || item.CongDoan==='CON') ? '120px':'300px'}">
+                        <col [ngStyle]="{width:'80px'}">
+                        <col [ngStyle]="{width:'100px'}"
+                            *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
+                        <col [ngStyle]="{width:(item.CongDoan==='THO' || item.CongDoan==='CON') ? '120px':'280px'}">
+
+                        <col [ngStyle]="{width:'80px'}" *ngIf="item.CongDoan==='ONG'"> //kg
+                        <col class="tc-300" *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'"> //lo
+
+                        <col [ngStyle]="{width:(item.CongDoan==='THO' || item.CongDoan==='CON') ? '100px':'130px'}"
+                            *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'"> //màn
+                        <col [ngStyle]="{width:(item.CongDoan==='THO' || item.CongDoan==='CON') ? '100px':'140px'}"
+                            *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">
+                        //khoiluong
+                        <col [ngStyle]="{width:(item.CongDoan==='THO' || item.CongDoan==='CON') ? '100px':'140px'}"
+                            *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">
+                        //sanluong
+                        <col [ngStyle]="{width:'150px'}"
+                            *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'"> //chieu
+                        dai
+                        <col [ngStyle]="{width:'110px'}"
+                            *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'"> // qua
+                        soi
+                        <col [ngStyle]="{width:'170px'}" *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'"> //chu dong ho
+
+                        <col [ngStyle]="{width:'100px'}" *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">
+                        <col [ngStyle]="{width:'110px'}" *ngIf="item.CongDoan==='CON'">
+                        <col [ngStyle]="">
+                    </colgroup> -->
+
+                    <colgroup>
+                        <col [ngStyle]="{width:'50px'}">
+                        <!-- <col [ngClass]="(item.CongDoan==='THO' || item.CongDoan==='CON' || item.CongDoan==='ONG') ? 'mathangmd' : (item.CongDoan.includes('GHEP')) ? 'mathangghep' : 'mathangkhac'"> -->
+                        <col style="width: 40%">
+                        <col [ngStyle]="{width:'80px'}">
+                        <col [ngStyle]="{width:'100px'}"
+                            *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
+                        <!-- <col [ngClass]="(item.CongDoan==='THO' || item.CongDoan==='CON' || item.CongDoan==='ONG') ? 'mathangmd' : 'mathangkhac'"> -->
+                        <col style="width: 40%">
+                        <col [ngStyle]="{width:'80px'}" *ngIf="item.CongDoan==='ONG'"> //kg
+                        <col class="tc-300" *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'"> //lo
+
+                        <col [ngStyle]="{width:(item.CongDoan==='THO' || item.CongDoan==='CON') ? '100px':'130px'}"
+                            *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'"> //màn
+                        <col [ngStyle]="{width:(item.CongDoan==='THO' || item.CongDoan==='CON') ? '100px':'140px'}"
+                            *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">
+                        //khoiluong
+                        <col [ngStyle]="{width:(item.CongDoan==='THO' || item.CongDoan==='CON') ? '100px':'140px'}"
+                            *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">
+                        //sanluong
+                        <col [ngStyle]="{width:'150px'}"
+                            *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'"> //chieu
+                        dai
+                        <col [ngStyle]="{width:'110px'}"
+                            *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'"> // qua
+                        soi
+                        <col [ngStyle]="{width:'170px'}" *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'"> //chu
+                        dong ho
+
+                        <col [ngStyle]="{width:'100px'}" *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">
+                        <col [ngStyle]="{width:'110px'}" *ngIf="item.CongDoan==='CON'">
+                        <col [ngStyle]="{width:'90px'}">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>#</th>
+                        <th>Số máy</th>
+                        <th>Ne</th>
+                        <th
+                            *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
+                            Ktex</th>
+                        <th>Mặt hàng</th>
+                        <th *ngIf="item.CongDoan==='ONG'">Kg/Cone</th>
+                        <th *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'">Lô hàng</th>
+                        <th *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">SL màn
+                            hình (kg)</th>
+                        <th *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">Khối
+                            lượng (kg)</th>
+
+                        <th *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">Sản lượng
+                            định mức</th>
+                        <th *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">Chiều dài
+                            (m)</th>
+
+                        <th *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">Số quả sợi
+                        </th>
+                        <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">Chữ đồng hồ (g/cọc)
+                            <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
+                                inputId="binary"></p-checkbox>
+                        </th>
+                        <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">Cọc chết (cọc)</th>
+                        <th *ngIf="item.CongDoan==='CON'">Hút mối (kg)</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-itemtbl let-i="rowIndex">
+                    <ng-container *ngIf="itemtbl!=='clone'">
+                        <tr [style.color]="itemtbl.KhoiLuong > itemtbl.KhoiLuongTinhToan ? 'red' : ''">
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-left">{{itemtbl.TendmMay}}</td>
+                            <td class="text-center">{{itemtbl.Ne}}</td>
+                            <td class="text-left"
+                                *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
+                                {{itemtbl | caculateKtex}}</td>
+                            <td class="text-left">{{itemtbl.Ten}} <span
+                                    *ngIf="(item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE')&& itemtbl.IdLoHangDao!==null ">
+                                    - Đảo</span></td>
+                            <td *ngIf="itemtbl.CongDoan==='ONG'">
+                                {{itemtbl.KgCone}}
+                            </td>
+                            <td *ngIf="itemtbl.CongDoan==='ONG' || itemtbl.CongDoan ==='XE'">
+                                <div class="p-inputgroup">
+                                    <div style="flex:1; width: calc(100% - 21px);">
+                                        <p-dropdown [filter]="true" [options]="listLoHang" [autofocusFilter]="true"
+                                            placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
+                                            [(ngModel)]="itemtbl.IdLoHang">
+                                            <ng-template let-target pTemplate="selectedItem">
+                                                <span [pTooltip]="target.label"
+                                                    style="vertical-align:middle">{{target.label}}</span>
+                                            </ng-template>
+                                        </p-dropdown>
+                                    </div>
+                                    <button pButton pRipple icon="pi pi-copy"
+                                        class="p-button-sm p-button-rounded p-button-text"
+                                        (click)="ApDung(itemtbl)"></button>
+                                </div>
+
+                            </td>
+                            <td>
+                                <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0 || itemtbl.DonViNangSuat=== 2"
+                                    #inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong"
+                                    [tabindex]="i*5+1" disabled>
+                                </p-inputNumber>
+                                <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber
+                                    (keyup.enter)="enterCon(i*5+1)" [tabindex]="i*5+1" [minFractionDigits]="2"
+                                    locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong"
+                                    (ngModelChange)="TinhTongKhoiLuongBong()">
+                                </p-inputNumber>
+                            </td>
+                            <td class="text-right"
+                                *ngIf="item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE'">
+                                {{itemtbl.KhoiLuongTinhToan |number:'0.2-2'}}
+                            </td>
+                            <td class="text-right"
+                                *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">
+                                <p-inputNumber locale="en-EN" [(ngModel)]="itemtbl.SoQuaSoi" #inputNumber
+                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2">
+                                </p-inputNumber>
+                            </td>
+                            <td *ngIf="(itemtbl.DonViNangSuat===1 || itemtbl.DonViNangSuat===2) && (item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE')"
+                                class="text-right">
+                                {{itemtbl.ChieuDai |number:'0.3-3'}}
+                                <div style="display:none">
+                                    <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
+                                        [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                        [tabindex]="i*5+2" (ngModelChange)="TinhCongThucMoi(itemtbl)">
+                                    </p-inputNumber>
+                                </div>
+                            </td>
+                            <td
+                                *ngIf="itemtbl.DonViNangSuat===0 && (item.CongDoan!=='ONG' && item.CongDoan !=='DAUXE' && item.CongDoan !=='XE')">
+
+                                <div style="display: flex;">
+                                    <div style="flex:1">
+                                        <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                            *ngIf="item.CongDoan==='CHAIPC' || item.CongDoan==='GHEPSOBOPC' || item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE' "
+                                            [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
+                                            #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                            (ngModelChange)="TinhGiaTri(itemtbl)">
+                                        </p-inputNumber>
+                                        <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                            *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
+                                            [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                            [tabindex]="i*5+2" (ngModelChange)="TinhCongThucMoi(itemtbl)">
+                                        </p-inputNumber>
+                                        <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                            *ngIf="item.CongDoan==='CHAICOTTON'" [minFractionDigits]="3" locale="en-EN"
+                                            [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                            [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongChaiCotton(itemtbl)">
+                                        </p-inputNumber>
+                                        <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0" *ngIf="item.CongDoan==='GHEPSOBOCOTTON' || item.CongDoan==='GHEPTRONB' || item.CongDoan==='GHEPTRONA' 
+                                || item.CongDoan==='GHEPDAURA' || item.CongDoan==='GHEPSOBOPE'" [minFractionDigits]="3"
+                                            locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                            (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
+                                            (ngModelChange)="TinhKhoiLuongGhepSoBoChaiCotton(itemtbl)">
+                                        </p-inputNumber>
+                                        <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0" #inputNumber
+                                            *ngIf="item.CongDoan==='THO'" [minFractionDigits]="3" locale="en-EN"
+                                            [(ngModel)]="itemtbl.ChieuDai" (ngModelChange)="TinhKhoiLuongTho(itemtbl)"
+                                            (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2">
+                                        </p-inputNumber>
+                                        <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                            *ngIf="item.CongDoan==='CHAIPE'" [minFractionDigits]="3" locale="en-EN"
+                                            [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                            [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongChaiPE(itemtbl)">
+                                        </p-inputNumber>
+                                        <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                            *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3" locale="en-EN"
+                                            [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                            [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongChaiKy(itemtbl)">
+                                        </p-inputNumber>
+                                        <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
+                                            *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="en-EN"
+                                            [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                            [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
+                                        </p-inputNumber>
+                                    </div>
+                                    <button pButton pRipple icon="pi pi-ellipsis-v"
+                                        class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                        (click)="tinhToan(itemtbl)" pTooltip="Tính toán" showDelay="1000"
+                                        tooltipPosition="bottom"></button>
+                                </div>
+
+
+                            </td>
+                            <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">
+                                <div class="p-d-flex p-ai-center">
+                                    <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+3)" [tabindex]="i*5+3"
+                                        [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChuDongHo"
+                                        (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
+                                        [disabled]="itemtbl.DonViNangSuat===1 || itemtbl.isM === true">
+                                    </p-inputNumber>
+                                    <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="itemtbl.isM"
+                                        (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
+                                        style="margin: 5px!important" />
+                                    <label>M</label>
+                                </div>
+                            </td>
+                            <td *ngIf="item.CongDoan==='CON'">
+                                <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+4)" [tabindex]="i*5+4"
+                                    [minFractionDigits]="0" locale="en-EN" [(ngModel)]="itemtbl.CocChet"
+                                    (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
+                                    [disabled]="itemtbl.DonViNangSuat===1">
+                                </p-inputNumber>
+                            </td>
+                            <td *ngIf="item.CongDoan==='CON'">
+                                <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+5)" [tabindex]="i*5+5"
+                                    [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.HutMoi"
+                                    (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
+                                    [disabled]="itemtbl.DonViNangSuat===1">
+                                </p-inputNumber>
+                            </td>
+                            <td *ngIf="item.CongDoan==='THO'">
+                                <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+5)" [tabindex]="i*5+5"
+                                    [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.CocChet"
+                                    (ngModelChange)="TinhKhoiLuongTho(itemtbl)" [disabled]="itemtbl.DonViNangSuat===1">
+                                </p-inputNumber>
+                            </td>
+                            <td>
+                                <input type="text" class="p-inputtext-sm" [(ngModel)]="itemtbl.GhiChu" pInputText />
+                            </td>
+                        </tr>
+                    </ng-container>
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <tr>
@@ -399,6 +932,7 @@
 
                 </ng-template>
             </p-table>
+
         </div>
     </div>
 </div>

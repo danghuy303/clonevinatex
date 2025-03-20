@@ -43,7 +43,6 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   getAllOpt() {
     forkJoin([this._services.GetListdmPhanXuongForIdDuAn(), this._services.GetListOptdmCaSanXuat(), this._services.GetListOptdmCaSanXuatThucTe()])
       .subscribe((res: any[]) => {
-        console.log(res);
         this.listPhanXuong = mapArrayForDropDown(res[0], "Ten", "Id");
         this.listCaSanXuat = mapArrayForDropDown(res[1], "Ten", "Id");
         this.listCaSanXuatThucTe = mapArrayForDropDown(res[2], "Ten", "Id");

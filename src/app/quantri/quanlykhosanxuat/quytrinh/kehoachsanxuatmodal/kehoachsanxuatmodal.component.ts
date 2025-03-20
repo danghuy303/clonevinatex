@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, DoCheck, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
@@ -48,7 +48,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
   @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
 
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
-    private _servicesDungChung: SanXuatService) {
+    private _servicesDungChung: SanXuatService, private cdr: ChangeDetectorRef) {
 
   }
 
@@ -276,7 +276,10 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
         return false;
       }
     }
+    console.log('this.item.listItem', this.item.listItem);
+
     let checkArray = this.item.listItem.every(ele => validVariable(ele.KhoiLuongKeHoach) && ele.KhoiLuongKeHoach !== 0)
+    console.log('checkArray', checkArray);
     if (!checkArray) {
       this.toastr.error('Có mặt hàng không nhập khối lượng!')
       return false;
@@ -290,14 +293,15 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
     modalRef.componentInstance.items = this.listMatHang;
     modalRef.componentInstance.listSelectedItems = this.item.listItem.length ? this.item.listItem.map(ele => ele.IddmItem) : [];
     modalRef.componentInstance.selectedItems = [];
+    modalRef.componentInstance.listDaChon = this.item.listItem || [];
+    modalRef.componentInstance.isCheckFocus = true;
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       // if (res.length > 0) {
       //   res.forEach(obj => this.item.listItem.push(obj))
       //   this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
       // }
-      this.item.listItem = merge(res, this.item.listItem, 'IddmItem')
-      this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
+      this.item.listItem = res;
     }).catch(er => {
       console.log(er);
     })
@@ -384,6 +388,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
   }
 
   SetData() {
+    this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
     let data = {
       ...this.item,
       TongSanLuong: this.item.TongKhoiLuongMatHang
@@ -392,28 +397,28 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
   }
   GhiLai() {
     if (this.validData()) {
-      this.services.GiaoKeHoachSanXuat().Set(this.SetData()).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.item = res.objectReturn;
-            if (this.item.listItem != undefined && this.item.listItem != null) {
-              this.item.listItem.filter(objlistItem => {
-                objlistItem.listItem.filter(objlistItem2 => {
-                  objlistItem2.objQuyCachDongGoi = this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
-                });
-              });
-            }
-            this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
-            this.KiemTraButtonModal();
-            this.Calculate();
-          } else {
-            this.Calculate();
-            this.toastr.error(res.message);
-          }
-        }
-      })
+      // this.services.GiaoKeHoachSanXuat().Set(this.SetData()).subscribe((res: any) => {
+      //   if (res) {
+      //     if (res.State === 1) {
+      //       this.toastr.success(res.message)
+      //       this.opt = 'edit';
+      //       this.item = res.objectReturn;
+      //       if (this.item.listItem != undefined && this.item.listItem != null) {
+      //         this.item.listItem.filter(objlistItem => {
+      //           objlistItem.listItem.filter(objlistItem2 => {
+      //             objlistItem2.objQuyCachDongGoi = this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+      //           });
+      //         });
+      //       }
+      //       this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
+      //       this.KiemTraButtonModal();
+      //       this.Calculate();
+      //     } else {
+      //       this.Calculate();
+      //       this.toastr.error(res.message);
+      //     }
+      //   }
+      // })
     }
   }
   XoaQuyTrinh() {
@@ -498,15 +503,14 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
 
   navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
     const key = event.key;
+    // if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
     const inputElements: any = this.inputs.toArray();
-    const colsPerRow = 3; // Số cột chứa ô nhập liệu
-
+    const colsPerRow = 2; // Số cột chứa ô nhập liệu
     let nextIndex = rowIndex * colsPerRow + colIndex;
     if (key === 'ArrowRight') nextIndex += 1;
     if (key === 'ArrowLeft') nextIndex -= 1;
     if (key === 'ArrowDown') nextIndex += colsPerRow;
     if (key === 'ArrowUp') nextIndex -= colsPerRow;
-
     setTimeout(() => {
       while (nextIndex >= 0 && nextIndex < inputElements.length) {
         const nextElement = inputElements[nextIndex]?.nativeElement;
@@ -533,8 +537,6 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
         nextIndex = getNextIndex(nextIndex, key, colsPerRow);
       }
     }, 0);
-
-    // Hàm tính toán nextIndex để nhảy ô chính xác
     function getNextIndex(currentIndex: number, key: string, colsPerRow: number): number {
       if (key === 'ArrowRight') return currentIndex + 1;
       if (key === 'ArrowLeft') return currentIndex - 1;
@@ -542,6 +544,11 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
       if (key === 'ArrowUp') return currentIndex - colsPerRow;
       return currentIndex;
     }
+    // }
+
+
+    // Hàm tính toán nextIndex để nhảy ô chính xác
+
   }
 
   ngAfterViewInit() {
@@ -555,25 +562,26 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
   }
   initInputListeners() {
     this.inputs.forEach((el) => {
-      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
-      if (realInput) {
+      const realInput = el?.nativeElement?.querySelector('input');
+      if (realInput && !realInput.hasAttribute('data-keydown')) {
+        realInput.setAttribute('data-keydown', 'true'); // Chỉ đăng ký 1 lần
         realInput.addEventListener(
           'keydown',
           (event: KeyboardEvent) => {
-            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-              event.preventDefault(); //  Chặn PrimeNG thay đổi số
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+              event.preventDefault();
               event.stopPropagation();
               event.stopImmediatePropagation();
-              //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+              this.cdr.detectChanges();
               const indexInList = this.inputs.toArray().findIndex(
                 (inp) => inp.nativeElement.querySelector('input') === realInput
               );
-              const rowIndex = Math.floor(indexInList / 3);
-              const colIndex = indexInList % 3;
+              const rowIndex = Math.floor(indexInList / 2);
+              const colIndex = indexInList % 2;
               this.navigateTable(event, rowIndex, colIndex);
             }
           },
-          { capture: true } //  Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+          { capture: true }
         );
       }
     });

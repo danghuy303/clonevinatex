@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
@@ -20,6 +20,7 @@ import { TinhtoanmodalComponent } from './tinhtoanmodal/tinhtoanmodal.component'
 export class ThongkesanluongmodalComponent implements OnInit {
   @ViewChildren('inputNumber') inputNumbers: any;
   @ViewChildren('inputKhoiLuong') inputKhoiLuongs: any;
+  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -40,7 +41,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   userInfo: any;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   typing: Subject<string> = new Subject<string>();
-  $typing: Subscription
+  $typing: Subscription;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
     public _modal: NgbModal,) {
@@ -232,6 +233,9 @@ export class ThongkesanluongmodalComponent implements OnInit {
   getListCaThucTe() {
     this.services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
       this.listCaThucTe = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (this.opt !== 'edit') {
+        this.item.IddmCaSanXuatThucTe = this.listCaThucTe[0].value;
+      }
     })
   }
   getListCaSanXuat() {
@@ -392,7 +396,11 @@ export class ThongkesanluongmodalComponent implements OnInit {
     });
   }
   getItemTheoCongDoan() {
-    console.log(this.item.CongDoan)
+   setTimeout(() => {
+        if (this.scrollContainer && this.scrollContainer.nativeElement) {
+          this.scrollContainer.nativeElement.scrollLeft = 0;
+        }
+      }, 0);
     if (this.item.CongDoan != undefined && this.item.listItem != undefined && this.item.listItem != null) {
       this.listItem = []
       this.item.listItem.forEach(element => {
@@ -598,7 +606,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     } else {
       this.TongKhoiLuong = TongKhoiLuong;
     }
-    console.log(this.TongKhoiLuong);
     let found = this.item.listTyLeBongPhe.find(ele => ele.MaCongDoan === this.item.CongDoan);
     if (found) {
       found.TongKhoiLuongCongDoan = this.TongKhoiLuong;

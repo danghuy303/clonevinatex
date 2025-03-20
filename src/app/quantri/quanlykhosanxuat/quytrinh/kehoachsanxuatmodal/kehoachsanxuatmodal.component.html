@@ -216,8 +216,7 @@
                             </div>
                         </td>
                         <td>
-                            <p-dropdown [filter]="true" [options]="listMucDich" placeholder="Chọn loại" #input
-                                (keydown)="navigateTable($event, i, 2)" styleClass="p-inputtext-sm"
+                            <p-dropdown [filter]="true" [options]="listMucDich" placeholder="Chọn loại"  styleClass="p-inputtext-sm"
                                 [(ngModel)]="item.Loai" (onChange)="change(i)"></p-dropdown>
                         </td>
                         <td>

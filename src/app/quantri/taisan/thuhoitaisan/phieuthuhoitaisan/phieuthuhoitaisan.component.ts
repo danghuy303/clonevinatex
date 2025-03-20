@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './phieuthuhoitaisan.component.html',
   styleUrls: ['./phieuthuhoitaisan.component.css']
 })
-export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDestroy {
+export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
@@ -26,7 +26,7 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "QUYTRINHTHUHOITAISAN";
-  listPhanXuong:any=[];
+  listPhanXuong: any = [];
   $sub!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
@@ -38,10 +38,10 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
     super(store);
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit();
+        this.ngOnInit();
       }
-  })
-   }
+    })
+  }
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe((res: any) => {
@@ -54,7 +54,7 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
           });
       }
     });
-    this.GetList();
+    // this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
@@ -63,7 +63,7 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
     this.filter = {};
     this.GetList(true);
   }
-  
+
   GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
@@ -79,14 +79,17 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung
     };
     this._serviceTaiSan.PhieuThuHoiTaiSan().GetList(data).subscribe((res: any) => {
-      this.items = res.Data.Items;  
+      this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
   GetListdmPhanXuong() {
     this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.GetList();
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+      if (this.filter.IddmPhanXuong) {
+        this.GetList();
+      }
     })
   }
   changeParam(id) {
@@ -98,14 +101,14 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
     let modalRef = this._modal.open(ModalthuhoitaisanComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
-      keyboard:false
+      keyboard: false
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới thu hồi tài sản';
     modalRef.componentInstance.item = {
-      Id: '',IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",TendmPhanXuong:"",
-      isKetThuc: false,listFileDinhKem:[],listTaiSan:[],
+      Id: '', IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "", TendmPhanXuong: "",
+      isKetThuc: false, listFileDinhKem: [], listTaiSan: [],
     };
     modalRef.result.then(res => {
     }).catch(er => console.log(er))

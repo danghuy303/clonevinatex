@@ -54,7 +54,7 @@ export class CapnhatthuvienComponent implements OnInit {
           });
       }
     });
-    this.getList();
+    // this.getList();
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
@@ -62,6 +62,10 @@ export class CapnhatthuvienComponent implements OnInit {
     this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       res.push({ Ten: "Chưa có bộ phận sử dụng", Id: "Chưa có bộ phận sử dụng" })
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+      if(this.filter.IddmPhanXuong) {
+        this.getList();
+      }
     })
   }
 

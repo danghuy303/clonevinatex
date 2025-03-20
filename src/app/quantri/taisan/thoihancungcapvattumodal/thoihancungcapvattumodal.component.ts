@@ -29,7 +29,7 @@ export class
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
-  listPhanXuong = [];
+  listPhanXuong:any = [];
   listLoaiTaiSan = [];
   listNhaCungUng = [];
   store: any;
@@ -75,6 +75,9 @@ export class
 
     this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (!this.item.IddmPhanXuong) {
+        this.item.IddmPhanXuong = this.listPhanXuong[0].value;
+      }
     })
     this.ListNhaCungUng();
     this.KiemTraButtonModal();
