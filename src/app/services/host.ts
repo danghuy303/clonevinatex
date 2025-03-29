@@ -10,7 +10,7 @@ export const host1 = `${window.location.origin.includes("localhost")
   // ? "http://soindt.vinatex.com.vn"
   // ? "http://soihdm.vinatex.com.vn"
     // ? "http://27.71.231.140/"
-    ? "http://soid83.vinatex.com.vn/"
+    ? "http://soihdm.vinatex.com.vn/"
     //  ? "http://soispc.vinatex.com.vn/"
     // ? "http://103.130.212.35:2370"
     : window.location.origin

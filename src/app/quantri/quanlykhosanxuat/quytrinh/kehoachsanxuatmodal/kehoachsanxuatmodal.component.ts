@@ -276,10 +276,8 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
         return false;
       }
     }
-    console.log('this.item.listItem', this.item.listItem);
 
     let checkArray = this.item.listItem.every(ele => validVariable(ele.KhoiLuongKeHoach) && ele.KhoiLuongKeHoach !== 0)
-    console.log('checkArray', checkArray);
     if (!checkArray) {
       this.toastr.error('Có mặt hàng không nhập khối lượng!')
       return false;
@@ -397,28 +395,28 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
   }
   GhiLai() {
     if (this.validData()) {
-      // this.services.GiaoKeHoachSanXuat().Set(this.SetData()).subscribe((res: any) => {
-      //   if (res) {
-      //     if (res.State === 1) {
-      //       this.toastr.success(res.message)
-      //       this.opt = 'edit';
-      //       this.item = res.objectReturn;
-      //       if (this.item.listItem != undefined && this.item.listItem != null) {
-      //         this.item.listItem.filter(objlistItem => {
-      //           objlistItem.listItem.filter(objlistItem2 => {
-      //             objlistItem2.objQuyCachDongGoi = this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
-      //           });
-      //         });
-      //       }
-      //       this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
-      //       this.KiemTraButtonModal();
-      //       this.Calculate();
-      //     } else {
-      //       this.Calculate();
-      //       this.toastr.error(res.message);
-      //     }
-      //   }
-      // })
+      this.services.GiaoKeHoachSanXuat().Set(this.SetData()).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.opt = 'edit';
+            this.item = res.objectReturn;
+            if (this.item.listItem != undefined && this.item.listItem != null) {
+              this.item.listItem.filter(objlistItem => {
+                objlistItem.listItem.filter(objlistItem2 => {
+                  objlistItem2.objQuyCachDongGoi = this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+                });
+              });
+            }
+            this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
+            this.KiemTraButtonModal();
+            this.Calculate();
+          } else {
+            this.Calculate();
+            this.toastr.error(res.message);
+          }
+        }
+      })
     }
   }
   XoaQuyTrinh() {
