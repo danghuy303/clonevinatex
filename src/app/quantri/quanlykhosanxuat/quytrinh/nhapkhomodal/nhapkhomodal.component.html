@@ -165,6 +165,8 @@
                         <col>
                         <col style="width:120px">
                         <col style="width:80px">
+                        <col style="width:120px">
+                        <col style="width:80px">
                         <col *ngIf="this.type==='bong'" style="width:80px">
                         <col *ngIf="this.type==='bong'" style="width:120px">
                         <col *ngIf="this.type==='bong'" style="width:80px">
@@ -177,18 +179,23 @@
                     <tr>
                         <th rowspan="2">#</th>
                         <th rowspan="2">Container</th>
-                        <th rowspan="2">Tổng khối lượng (kg)</th>
-                        <th rowspan="2">Số kiện (kiện)</th>
+                        <!-- <th rowspan="2">Tổng khối lượng (kg)</th>
+                        <th rowspan="2">Số kiện (kiện)</th> -->
+                        <th colspan="2">Theo Invoice</th>
+                        <th rowspan="2">Tổng khối lượng thực tế (kg)</th>
+                        <th rowspan="2">Số kiện thực tế (kiện)</th>
                         <th *ngIf="this.type==='bong'" colspan="2">Số kiện ngắn (kiện)</th>
                         <th *ngIf="this.type==='bong'" colspan="2">Số kiện dài (kiện)</th>
                         <th *ngIf="this.type==='bong'" rowspan="2">Vị trí</th>
                         <th rowspan="2"></th>
                     </tr>
-                    <tr *ngIf="this.type==='bong'">
-                        <th class="text-center">Số kiện</th>
-                        <th class="text-center">Tổng khối lượng (kg)</th>
-                        <th class="text-center">Số kiện</th>
-                        <th class="text-center">Tổng khối lượng (kg)</th>
+                    <tr>
+                        <th class="text-center">Tổng khối lượng</th>
+                        <th class="text-center">Tổng kiện</th>
+                        <th *ngIf="this.type==='bong'" class="text-center">Số kiện</th>
+                        <th *ngIf="this.type==='bong'" class="text-center">Tổng khối lượng (kg)</th>
+                        <th *ngIf="this.type==='bong'" class="text-center">Số kiện</th>
+                        <th *ngIf="this.type==='bong'" class="text-center">Tổng khối lượng (kg)</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -197,6 +204,14 @@
                         <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="item.Ten" #input
                                 (keydown)="navigateTable($event, i, 0)">
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCanInvoice" disabled>
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKienInvoice" disabled>
+                            </p-inputNumber>
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCan" #input
@@ -258,6 +273,19 @@
                         </td>
                         <td>
                             <div class="p-inputgroup">
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.SoCanInvoice">
+                                </p-inputNumber>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="p-inputgroup">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoKienInvoice"
+                                    [min]="0">
+                                </p-inputNumber>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="p-inputgroup">
                                 <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.SoCan">
                                 </p-inputNumber>
                             </div>
@@ -315,6 +343,8 @@
                         </td>
                     </tr>
                     <tr>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td class="text-right">

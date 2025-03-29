@@ -175,6 +175,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
       item.SanLuongCa = 0;
       item.SoCocTu = null;
       item.SoCocDen = null;
+      item.KgCone = null;
     }
     if (item.isDieuChinh) {
       item.isDieuChinh = false;

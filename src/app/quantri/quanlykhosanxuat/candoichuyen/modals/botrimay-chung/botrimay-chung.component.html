@@ -50,7 +50,7 @@
                             <col *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE' "
                                 style="width:150px">
                             <col style="width: 100px;">
-                            <col style="width:200px" *ngIf="addonData.CongDoan==='CON'">
+                            <!-- <col style="width:200px" *ngIf="addonData.CongDoan==='CON'"> -->
                             <!-- <col style="width:100px"> -->
                         </colgroup>
                     </ng-template>
@@ -63,7 +63,7 @@
                             <th>Tốc độ</th>
                             <th *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE'">Kg/cone</th>
                             <th>Năng suất</th>
-                            <th *ngIf="addonData.CongDoan==='CON'">Màu</th>
+                            <!-- <th *ngIf="addonData.CongDoan==='CON'">Màu</th> -->
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -100,8 +100,7 @@
                                 <td class="text-right" [ngStyle]="{'background-color': item.isDieuChinh?'red':''}">
                                     {{item.SanLuongCa|number:'0.2-2'}}
                                 </td>
-                                <td *ngIf="addonData.CongDoan==='CON'">
-                                    <!--  -->
+                                <!-- <td *ngIf="addonData.CongDoan==='CON'">
                                     <div style="display: flex; flex-direction: row;"
                                         *ngIf="item.IdCanDoiChuyen_CanBoTri!==null">
                                         <div style="width:28px">
@@ -112,7 +111,7 @@
                                         <input type="text" placeholder="Màu" class="p-inputtext-sm" pInputText
                                             [(ngModel)]="item.TenMau" />
                                     </div>
-                                </td>
+                                </td> -->
                             </tr>
                         </ng-template>
                         <ng-template #empty>
@@ -122,7 +121,7 @@
                                 <td></td>
                                 <td *ngIf="this.filter.CongDoan === 'DAUXE' || this.filter.CongDoan === 'XE'"></td>
                                 <td></td>
-                                <td *ngIf="addonData.CongDoan==='CON'"></td>
+                                <!-- <td *ngIf="addonData.CongDoan==='CON'"></td> -->
                             </tr>
                         </ng-template>
                     </ng-template>

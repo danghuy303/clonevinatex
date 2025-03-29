@@ -255,11 +255,12 @@ export class NhapkhovattuphumodalComponent implements OnInit, AfterViewInit, Aft
   initInputListeners() {
     this.inputs.forEach((el) => {
       const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
-      if (realInput) {
+      if (realInput && !realInput.hasAttribute('data-keydown')) {
+        realInput.setAttribute('data-keydown', 'true'); // Chỉ đăng ký 1 lần
         realInput.addEventListener(
           'keydown',
           (event: KeyboardEvent) => {
-            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
               event.preventDefault(); //  Chặn PrimeNG thay đổi số
               event.stopPropagation();
               event.stopImmediatePropagation();

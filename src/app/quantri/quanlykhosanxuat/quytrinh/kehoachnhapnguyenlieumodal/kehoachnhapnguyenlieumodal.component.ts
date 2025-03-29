@@ -406,7 +406,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit, AfterViewIni
         realInput.addEventListener(
           'keydown',
           (event: KeyboardEvent) => {
-            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
               event.preventDefault(); // Ngăn hành vi mặc định
               event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
               //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện

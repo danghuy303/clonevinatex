@@ -198,7 +198,6 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     this.inputChange()
   }
   chonMatHang(item, event) {
-    console.log(event);
     if (event.value) {
       item.Ten = this.listHangHoa.find(mathang => mathang.value === event.value)?.label;
       // if(validVariable(item.SoCocDen)&& validVariable(item.SoCocTu)){
@@ -223,6 +222,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       item.SanLuongCa = 0;
       item.SoCocTu = null;
       item.SoCocDen = null;
+      item.KgCone = null;
     }
     this.inputChange();
   }

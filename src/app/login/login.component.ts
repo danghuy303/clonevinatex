@@ -101,20 +101,25 @@ export class LoginComponent implements OnInit, OnDestroy {
           (window as any).autoLogin = true;
           this.loginState = true;
           this.error = 0;
-          this.toastr.success('Đăng nhập thành công!');
           const us1 = this._auth.GetCurrentUser().subscribe((res: any) => {
-            const us2 = this._SXservices
-              .GetOptions()
-              .GetDanhSachDuAnByIdUser(res.Id)
-              .subscribe((res: any) => {
-                this.store.setNhaMay(res[0].Id)
-                if ((window as any).routeSnapShot !== undefined) {
-                  this._router.navigate([(window as any).routeSnapShot])
-                } else {
-                  this._router.navigate(['/quantri'])
-                }
-              });
-            this.usA.push(us2);
+            if (res.sError === 'ChuaDangNhap') {
+              this.toastr.error(res?.Detail);
+            }
+            else {
+              const us2 = this._SXservices
+                .GetOptions()
+                .GetDanhSachDuAnByIdUser(res.Id)
+                .subscribe((res: any) => {
+                  this.store.setNhaMay(res[0].Id)
+                  if ((window as any).routeSnapShot !== undefined) {
+                    this._router.navigate([(window as any).routeSnapShot])
+                  } else {
+                    this._router.navigate(['/quantri'])
+                  }
+                });
+              this.usA.push(us2);
+              this.toastr.success('Đăng nhập thành công!');
+            }
           })
           this.usA.push(us1)
         }

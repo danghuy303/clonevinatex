@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -11,7 +11,7 @@ import { deepCopy, mapArrayForDropDown, UnixToDate, DateToUnix } from 'src/app/s
   templateUrl: './nhapkhokhacmodal.component.html',
   styleUrls: ['./nhapkhokhacmodal.component.css']
 })
-export class NhapkhokhacmodalComponent implements OnInit {
+export class NhapkhokhacmodalComponent implements OnInit, AfterViewInit, AfterViewChecked {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -319,27 +319,40 @@ export class NhapkhokhacmodalComponent implements OnInit {
     }
   }
 
-
   ngAfterViewInit() {
+    setTimeout(() => {
+      this.initInputListeners();
+    }, 0);
+  }
+
+  ngAfterViewChecked() {
+    this.initInputListeners(); // Đảm bảo input được cập nhật khi bảng thay đổi
+  }
+  initInputListeners() {
     this.inputs.forEach((el) => {
-      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thật
-      if (realInput) {
+      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
+      if (realInput && !realInput.hasAttribute('data-keydown')) {
+        realInput.setAttribute('data-keydown', 'true'); // Chỉ đăng ký 1 lần
         realInput.addEventListener(
           'keydown',
           (event: KeyboardEvent) => {
-            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-              event.preventDefault(); // Ngăn hành vi mặc định
-              event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+              event.preventDefault(); //  Chặn PrimeNG thay đổi số
+              event.stopPropagation();
+              event.stopImmediatePropagation();
               //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+              console.log(this.inputs.toArray());
+              
               const indexInList = this.inputs.toArray().findIndex(
                 (inp) => inp.nativeElement.querySelector('input') === realInput
               );
+                
               const rowIndex = Math.floor(indexInList / 4);
               const colIndex = indexInList % 4;
               this.navigateTable(event, rowIndex, colIndex);
             }
           },
-          { capture: true } // ⚡ Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+          { capture: true } //  Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
         );
       }
     });

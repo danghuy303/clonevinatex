@@ -1,5 +1,5 @@
 import { Validatable } from '@amcharts/amcharts4/core';
-import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -12,7 +12,7 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } 
   templateUrl: './nhapkhomodal.component.html',
   styleUrls: ['./nhapkhomodal.component.css']
 })
-export class NhapkhomodalComponent implements OnInit, AfterViewInit {
+export class NhapkhomodalComponent implements OnInit, AfterViewInit, AfterViewChecked {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -453,25 +453,13 @@ export class NhapkhomodalComponent implements OnInit, AfterViewInit {
   navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
     const key = event.key;
     const inputElements: any = this.inputs.toArray();
-    const colsPerRow = this.isXo ? 3 : 8; // Số cột chứa ô nhập liệu
+    const colsPerRow = (this.isXo ? 3 : 8); // Số cột chứa ô nhập liệu
 
     let nextIndex = rowIndex * colsPerRow + colIndex;
     if (key === 'ArrowRight') nextIndex += 1;
     if (key === 'ArrowLeft') nextIndex -= 1;
     if (key === 'ArrowDown') nextIndex += colsPerRow;
     if (key === 'ArrowUp') nextIndex -= colsPerRow;
-    // Kiểm tra nếu index hợp lệ thì focus
-    // setTimeout(() => {
-    //   if (inputElements[nextIndex]) {
-    //     const nextElement = inputElements[nextIndex]?.nativeElement;
-    //     const inputInside = nextElement.querySelector('input');
-    //     if (inputInside) {
-    //       inputInside.focus();
-    //       return;
-    //     }
-    //     nextElement.focus();
-    //   }
-    // }, 0);
 
     setTimeout(() => {
       while (nextIndex >= 0 && nextIndex < inputElements.length) {
@@ -510,27 +498,40 @@ export class NhapkhomodalComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   ngAfterViewInit() {
+    setTimeout(() => {
+      this.initInputListeners();
+    }, 0);
+  }
+
+  ngAfterViewChecked() {
+    this.initInputListeners(); // Đảm bảo input được cập nhật khi bảng thay đổi
+  }
+  initInputListeners() {
     this.inputs.forEach((el) => {
-      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thật
-      if (realInput) {
+      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
+      if (realInput && !realInput.hasAttribute('data-keydown')) {
+        realInput.setAttribute('data-keydown', 'true'); // Chỉ đăng ký 1 lần
         realInput.addEventListener(
           'keydown',
           (event: KeyboardEvent) => {
-            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-              event.preventDefault(); // Ngăn hành vi mặc định
-              event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+              event.preventDefault(); //  Chặn PrimeNG thay đổi số
+              event.stopPropagation();
+              event.stopImmediatePropagation();
               //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+              console.log(this.inputs.toArray());
+              
               const indexInList = this.inputs.toArray().findIndex(
                 (inp) => inp.nativeElement.querySelector('input') === realInput
               );
+                
               const rowIndex = Math.floor(indexInList / (this.isXo ? 3 : 8));
               const colIndex = indexInList % (this.isXo ? 3 : 8);
               this.navigateTable(event, rowIndex, colIndex);
             }
           },
-          { capture: true } // ⚡ Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+          { capture: true } //  Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
         );
       }
     });

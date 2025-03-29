@@ -372,7 +372,7 @@ export class HoiamkiemkekhomodalComponent implements OnInit, AfterViewInit, Afte
                 realInput.addEventListener(
                     'keydown',
                     (event: KeyboardEvent) => {
-                        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
                             event.preventDefault(); //  Chặn PrimeNG thay đổi số
                             event.stopPropagation();
                             event.stopImmediatePropagation();

@@ -318,7 +318,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             element.isXoa = true;
           });
         }
-        let listdatapush:any = [];
+        let listdatapush: any = [];
         data.data.forEach(element => {
           let datapush: any = {
             Ten: element.Ten,
@@ -331,7 +331,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             IdNhapKhoGoc: element.IdNhapKhoGoc,
             IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
             TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
-            NgayNhapKho: new Date(element.NgayNhapKho),
+            NgayNhapKho: UnixToDate(element.NgayNhapKhoUnix),
+            NgaySanXuat: UnixToDate(element.NgaySanXuatUnix)
           };
           var isCheck: any = false
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
@@ -348,7 +349,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
                 this.item.listItem[i].IdNhapKhoGoc = element.IdNhapKhoGoc;
                 this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
                 this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
-                this.item.listItem[i].NgayNhapKho = new Date(element.NgayNhapKho);
+                this.item.listItem[i].NgayNhapKho = UnixToDate(element.NgayNhapKhoUnix);
+                this.item.listItem[i].NgaySanXuat = UnixToDate(element.NgaySanXuatUnix);
                 isCheck = true;
                 break;
               }
@@ -480,7 +482,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
         realInput.addEventListener(
           'keydown',
           (event: KeyboardEvent) => {
-            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
               event.preventDefault(); // Ngăn hành vi mặc định
               event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
               //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện

@@ -456,7 +456,7 @@ export class KiemkekhomodalComponent implements OnInit, AfterViewInit {
                     realInput.addEventListener(
                         'keydown',
                         (event: KeyboardEvent) => {
-                            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
                                 setTimeout(() => {
                                     event.preventDefault();
                                     event.stopImmediatePropagation();

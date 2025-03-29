@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -14,7 +14,7 @@ import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.co
   templateUrl: './nhapkhothanhphammodal.component.html',
   styleUrls: ['./nhapkhothanhphammodal.component.css']
 })
-export class NhapkhothanhphammodalComponent implements OnInit {
+export class NhapkhothanhphammodalComponent implements OnInit, AfterViewInit, AfterViewChecked {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -349,7 +349,24 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     const colsPerRow = 6; // Số cột chứa ô nhập liệu
 
     let nextIndex = rowIndex * colsPerRow + colIndex;
-    nextIndex = getNextIndex(nextIndex, key, colsPerRow);
+    switch (key) {
+      case "ArrowRight":
+        event.preventDefault();
+        nextIndex += 1;
+        break;
+      case "ArrowLeft":
+        event.preventDefault();
+        nextIndex -= 1;
+        break;
+      case "ArrowDown":
+        event.preventDefault();
+        nextIndex += colsPerRow;
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        nextIndex -= colsPerRow;
+        break;
+    }
 
     setTimeout(() => {
       while (nextIndex >= 0 && nextIndex < inputElements.length) {
@@ -388,17 +405,27 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     }
   }
 
-
   ngAfterViewInit() {
+    setTimeout(() => {
+      this.initInputListeners();
+    }, 0);
+  }
+
+  ngAfterViewChecked() {
+    this.initInputListeners(); // Đảm bảo input được cập nhật khi bảng thay đổi
+  }
+  initInputListeners() {
     this.inputs.forEach((el) => {
-      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thật
-      if (realInput) {
+      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
+      if (realInput && !realInput.hasAttribute('data-keydown')) {
+        realInput.setAttribute('data-keydown', 'true'); // Chỉ đăng ký 1 lần
         realInput.addEventListener(
           'keydown',
           (event: KeyboardEvent) => {
-            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-              event.preventDefault(); // Ngăn hành vi mặc định
-              event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+              event.preventDefault(); // ❌ Chặn PrimeNG thay đổi số
+              event.stopPropagation();
+              event.stopImmediatePropagation();
               //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
               const indexInList = this.inputs.toArray().findIndex(
                 (inp) => inp.nativeElement.querySelector('input') === realInput

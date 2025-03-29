@@ -105,14 +105,14 @@
                     <colgroup>
                         <col style="width:30px">
                         <!-- <col style="width:15rem"> -->
-                        <col style="width:210px">
-                        <col style="width:150px">
+                        <col style="width:20%">
+                        <col style="width:30%">
                         <col style="width:100px">
                         <col style="width:120px">
-                        <col style="width:120px">
+                        <col style="width:180px">
                         <!-- <col> -->
                         <!-- <col> -->
-                        <col>
+                        <col style="width:150px">
                         <!-- <col> -->
                         <!-- <col> -->
                         <col style="width:50px">
@@ -167,7 +167,7 @@
                                     [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiThucTe"
                                     (onBlur)="tinhKLTT(item)">
                                 </p-inputNumber> -->
-                                <p-inputNumber #inputNumber (keydown)="navigateTable($event,i,0)" [tabindex]="i"
+                                <p-inputNumber #input (keydown)="navigateTable($event,i,0)" [tabindex]="i"
                                     class="focus" [minFractionDigits]="0" locale="en-EN"
                                     [(ngModel)]="item.SoQuaSoiThucTe" (onBlur)="tinhKLTT(item)">
                                 </p-inputNumber>
@@ -204,7 +204,6 @@
                         <td></td>
                         <td></td>
                         <td class="text-center">TỔNG</td>
-                        <td></td>
                         <td></td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoQuaSoiThucTe'|number:'0.0-0'}}

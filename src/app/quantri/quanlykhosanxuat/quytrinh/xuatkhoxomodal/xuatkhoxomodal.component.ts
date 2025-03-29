@@ -223,7 +223,7 @@ export class XuatkhoxomodalComponent implements OnInit, AfterViewInit, AfterView
             element.isXoa = true;
           });
         }
-        let listdatapush = [];
+        let listdatapush:any = [];
         data.data.forEach(element => {
           let datapush: any = {};
           datapush.TonSoLuong = element.SoLuong;
@@ -310,7 +310,7 @@ export class XuatkhoxomodalComponent implements OnInit, AfterViewInit, AfterView
   navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
     const key = event.key;
     const inputElements: any = this.inputs.toArray();
-    const colsPerRow = 2; // Số cột chứa ô nhập liệu
+    const colsPerRow = 3; // Số cột chứa ô nhập liệu
 
     let nextIndex = rowIndex * colsPerRow + colIndex;
     if (key === 'ArrowRight') nextIndex += 1;
@@ -367,20 +367,24 @@ export class XuatkhoxomodalComponent implements OnInit, AfterViewInit, AfterView
   initInputListeners() {
     this.inputs.forEach((el) => {
       const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
-      if (realInput) {
+      if (realInput && !realInput.hasAttribute('data-keydown')) {
+        realInput.setAttribute('data-keydown', 'true'); // Chỉ đăng ký 1 lần
         realInput.addEventListener(
           'keydown',
           (event: KeyboardEvent) => {
-            if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
               event.preventDefault(); //  Chặn PrimeNG thay đổi số
               event.stopPropagation();
               event.stopImmediatePropagation();
               //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
+              console.log(this.inputs.toArray());
+              
               const indexInList = this.inputs.toArray().findIndex(
                 (inp) => inp.nativeElement.querySelector('input') === realInput
               );
-              const rowIndex = Math.floor(indexInList / 2);
-              const colIndex = indexInList % 2;
+                
+              const rowIndex = Math.floor(indexInList / 3);
+              const colIndex = indexInList % 3;
               this.navigateTable(event, rowIndex, colIndex);
             }
           },

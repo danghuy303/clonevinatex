@@ -156,7 +156,24 @@ export class ThongkesanluongmodalComponent implements OnInit {
     if (isCheck) {
       this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
       result = false;
-    } else if (this.item.IddmCaSanXuatThucTe === undefined || this.item.IddmCaSanXuatThucTe === null) {
+    }
+    else if (!this.item.Ngay) {
+      this.toastr.error("Bạn chưa chọn ngày");
+      result = false;
+    }
+    else if (!this.item.IddmCaSanXuat) {
+      this.toastr.error("Bạn chưa chọn ca");
+      result = false;
+    }
+    else if (!this.item.IddmPhanXuong) {
+      this.toastr.error("Bạn chưa chọn phân xưởng");
+      result = false;
+    }
+    else if (!this.item.CongDoan) {
+      this.toastr.error("Bạn chưa chọn công đoạn");
+      result = false;
+    }
+    else if (this.item.IddmCaSanXuatThucTe === undefined || this.item.IddmCaSanXuatThucTe === null) {
       this.toastr.error("Bạn chưa chọn ca thống kê");
       result = false;
     } else if (arr.length > 0) {
@@ -396,11 +413,11 @@ export class ThongkesanluongmodalComponent implements OnInit {
     });
   }
   getItemTheoCongDoan() {
-   setTimeout(() => {
-        if (this.scrollContainer && this.scrollContainer.nativeElement) {
-          this.scrollContainer.nativeElement.scrollLeft = 0;
-        }
-      }, 0);
+    setTimeout(() => {
+      if (this.scrollContainer && this.scrollContainer.nativeElement) {
+        this.scrollContainer.nativeElement.scrollLeft = 0;
+      }
+    }, 0);
     if (this.item.CongDoan != undefined && this.item.listItem != undefined && this.item.listItem != null) {
       this.listItem = []
       this.item.listItem.forEach(element => {

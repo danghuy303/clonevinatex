@@ -42,7 +42,7 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
@@ -52,14 +52,14 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Ca" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmCaSanXuat" (onChange)="getMatHangThongKeSanLuong()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong" (onChange)="ThayDoiPhanXuong()">
@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.CongDoan" (onChange)="getItemTheoCongDoan()">
@@ -670,7 +670,7 @@
                             *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
                         <!-- <col [ngClass]="(item.CongDoan==='THO' || item.CongDoan==='CON' || item.CongDoan==='ONG') ? 'mathangmd' : 'mathangkhac'"> -->
                         <col style="width: 40%">
-                        <col [ngStyle]="{width:'80px'}" *ngIf="item.CongDoan==='ONG'"> //kg
+                        <col [ngStyle]="{width:'80px'}" *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'"> //kg
                         <col class="tc-300" *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'"> //lo
 
                         <col [ngStyle]="{width:(item.CongDoan==='THO' || item.CongDoan==='CON') ? '100px':'130px'}"
@@ -704,7 +704,7 @@
                             *ngIf="item.CongDoan==='CHAICOTTON' || item.CongDoan==='CHAIPE' || item.CongDoan==='CHAIKY' || item.CongDoan==='THO' || item.CongDoan==='CUONCUI'">
                             Ktex</th>
                         <th>Mặt hàng</th>
-                        <th *ngIf="item.CongDoan==='ONG'">Kg/Cone</th>
+                        <th *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'">Kg/Cone</th>
                         <th *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'">Lô hàng</th>
                         <th *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">SL màn
                             hình (kg)</th>
@@ -739,7 +739,7 @@
                             <td class="text-left">{{itemtbl.Ten}} <span
                                     *ngIf="(item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE')&& itemtbl.IdLoHangDao!==null ">
                                     - Đảo</span></td>
-                            <td *ngIf="itemtbl.CongDoan==='ONG'">
+                            <td *ngIf="itemtbl.CongDoan==='ONG'|| item.CongDoan ==='XE'" class="text-center">
                                 {{itemtbl.KgCone}}
                             </td>
                             <td *ngIf="itemtbl.CongDoan==='ONG' || itemtbl.CongDoan ==='XE'">

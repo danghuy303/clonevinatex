@@ -361,7 +361,7 @@ export class XuatkhobonghoimodalComponent implements OnInit, AfterViewInit, Afte
   //       realInput.addEventListener(
   //         'keydown',
   //         (event: KeyboardEvent) => {
-  //           if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+  //           if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
   //             event.preventDefault(); //  Chặn PrimeNG thay đổi số
   //             event.stopPropagation();
   //             event.stopImmediatePropagation();
@@ -412,8 +412,6 @@ export class XuatkhobonghoimodalComponent implements OnInit, AfterViewInit, Afte
   }
 
   navigateTable(event: KeyboardEvent, currentInput: HTMLInputElement) {
-
-   
     const key = event.key;
     const inputElements = Array.from(document.querySelectorAll('p-inputNumber input')) as HTMLInputElement[];
     if (!inputElements.length) return;
