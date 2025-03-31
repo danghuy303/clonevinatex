@@ -66,11 +66,10 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
-    console.log(this.listItem)
     if (this.listItem != undefined && this.listItem != null && this.listItem.length > 0) {
       for (let i = 0; i < this.listItem.length; i++) {
         let itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang && ele.IddmQuyCachDongGoi == this.listItem[i].IddmQuyCachDongGoi && ele.IdNhapKho == this.listItem[i].IdNhapKho)
+          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang && ele.IddmQuyCachDongGoi == this.listItem[i].IddmQuyCachDongGoi && ele.IdNhapKho == this.listItem[i].IdNhapKho && ele.IdNhapKhoGoc == this.listItem[i].IdNhapKhoGoc)
         );
         if (itemFind !== undefined)
           itemFind.checked = true;
