@@ -30,7 +30,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   newCanhBao: any = 0;
   // userName: any = 'Vinatex';
   displayCanhBao: boolean = false;
-  OSName: string = "Hệ thống quản trị nghành sợi";
+  OSName: string = "Hệ thống quản trị ngành sợi";
   menu: MenuItem[];
   menuQLTS: MenuItem[];
   menuQLNS: MenuItem[];
@@ -2366,7 +2366,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   }
   NavigateToQuanTriSoi() {
     this.isCheckMenu = false;
-    this.OSName = "Hệ thống quản trị nghành sợi";
+    this.OSName = "Hệ thống quản trị ngành sợi";
     localStorage.setItem('isCheckMenu', JSON.stringify(this.isCheckMenu))
     this.display = !this.display;
     this.CaiMeNu();

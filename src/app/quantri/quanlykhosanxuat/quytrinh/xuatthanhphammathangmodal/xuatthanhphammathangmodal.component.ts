@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { UnixToDate } from '../../../../services/globalfunction';
 
 @Component({
   selector: 'app-xuatthanhphammathangmodal',
@@ -66,16 +67,28 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
-    if (this.listItem != undefined && this.listItem != null && this.listItem.length > 0) {
-      for (let i = 0; i < this.listItem.length; i++) {
-        let itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang && ele.IddmQuyCachDongGoi == this.listItem[i].IddmQuyCachDongGoi && ele.IdNhapKho == this.listItem[i].IdNhapKho && ele.IdNhapKhoGoc == this.listItem[i].IdNhapKhoGoc)
-        );
-        if (itemFind !== undefined)
-          itemFind.checked = true;
-      }
-    }
+    console.log(this.listItem)
+    // if (this.listItem != undefined && this.listItem != null && this.listItem.length > 0) {
+    //   for (let i = 0; i < this.listItem.length; i++) {
+    //     let itemFind = this.listMatHang.find(
+    //       ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang && ele.IddmQuyCachDongGoi == this.listItem[i].IddmQuyCachDongGoi && ele.IdNhapKho == this.listItem[i].IdNhapKho)
+    //     );
+    //     if (itemFind !== undefined)
+    //       itemFind.checked = true;
+    //   }
+    // }
 
+    if (this.listItem != undefined && this.listItem != null && this.listItem.length > 0) {
+      this.listMatHang = this.listMatHang?.map((x: any) => {
+        let itemFind = this.listItem.find(
+          ele => (ele.IddmItem === x.IddmItem && ele.IdLoHang == x.IdLoHang && ele.IddmQuyCachDongGoi == x.IddmQuyCachDongGoi && ele.IdNhapKhoGoc == x.IdNhapKhoGoc)
+        );
+        return {
+          ...x,
+          checked: itemFind ? true : false
+        }
+      })
+    }
     let _listIdLoHang = [...new Set(this.listMatHang.map((x: any) => x.Ma))]
     let results = [];
     _listIdLoHang.forEach((x: any) => {
@@ -185,13 +198,35 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
   }
 
   accept() {
-    var itemFind: any = this.listMatHang.filter(function (obj) {
-      return obj.checked == true;
+    // var itemFind: any = this.listMatHang.filter(function (obj) {
+    //   return obj.checked == true;
+    // });
+    // console.log(itemFind);
+    // this.activeModal.close(
+    //   { data: itemFind }
+    // );
+    let _newArr: any = [];
+    this.item.listItem?.forEach((ele: any) => {
+      ele?.listChild?.forEach((x: any) => {
+        _newArr.push(x);
+      })
     });
-    console.log(itemFind);
-    this.activeModal.close(
-      { data: itemFind }
-    );
+    this.activeModal.close(_newArr.filter((x: any) => x.checked)?.map((element: any) => {
+      return {
+        Ten: element.Ten,
+        IddmItem: element.IddmItem,
+        TenLoHang: element.TenLoHang,
+        TonSoLuong: element.SoLuong,
+        KhoiLuong: element.TrongLuong,
+        IdLoHang: element.IdLoHang,
+        IdNhapKho: element.IdNhapKho,
+        IdNhapKhoGoc: element.IdNhapKhoGoc,
+        IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
+        TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
+        NgayNhapKho: UnixToDate(element.NgayNhapKhoUnix),
+        NgaySanXuat: UnixToDate(element.NgaySanXuatUnix)
+      }
+    }));
   }
   checkAll(e) {
     if (e.checked) {
