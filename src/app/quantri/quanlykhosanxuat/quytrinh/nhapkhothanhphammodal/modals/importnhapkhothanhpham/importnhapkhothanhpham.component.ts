@@ -43,16 +43,15 @@ export class ImportnhapkhothanhphamComponent implements OnInit {
 
   onCompleteItem = (item: any, response: any, status: any, headers: any) => {
     let res = JSON.parse(response);
-    console.log(res)
-    this.TepImport.TenGui = res[0].Name;
-    this.TepImport.TenGoc = res[0].NameLocal;
-    this.TepImport.DuongDan = res[0].Url;
+    this.TepImport.TenGui = res.Name;
+    this.TepImport.TenGoc = res.NameLocal;
+    this.TepImport.DuongDan = res.Url;
   };
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
   }
-  accept(){
+  accept() {
     this.service.ImportPhieuKiemKeKho(this.TepImport.TenGui).subscribe((res: any) => {
-      this._modalActive.close({items:res})
+      this._modalActive.close({ items: res })
     })
   }
 }
