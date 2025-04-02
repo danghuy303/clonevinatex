@@ -263,7 +263,7 @@
             </p-table> -->
         </div>
 
-        <div class="sticky-table" appStickycolumn [fixedIndex]="3">
+        <div class="sticky-table" appStickycolumn [fixedIndex]="4">
             <table style="width: 100%">
                 <thead>
                     <tr>
@@ -286,14 +286,45 @@
                         <th class="tc-w-100">Tổng khối lượng (kg)</th>
                         <th class="tc-w-100">Trọng lượng quả sợi</th>
                     </tr>
+                    <tr>
+                        <td></td>
+                        <td>TỔNG:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'TongTrongLuongChenhLech'|number:'0.2-2'}}
+                        </td>
+                        <td class="text-right">
+                            {{TongKhoiLuong|number:'0.2-2'}}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'DonGia'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{TongThanhTien|number:'0.0'}}
+                        </td>
+                        <td></td>
+                    </tr>
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let item of item.listItem;let i = index">
                         <tr>
-                            <td class="text-center">{{i+1}}</td>
-                            <td class="text-center">{{item.Ten}}</td>
-                            <td class="text-center">{{item.TenLoHang}}</td>
-                            <td class="text-center">{{item.TendmQuyCachDongGoi}}</td>
+                            <td class="text-center" style="z-index: 1;">{{i+0}}</td>
+                            <td class="text-center" style="z-index: 1;">{{item.Ten}}</td>
+                            <td class="text-center" style="z-index: 1;">{{item.TenLoHang}}</td>
+                            <td class="text-center" style="z-index: 1;">{{item.TendmQuyCachDongGoi}}</td>
                             <td class="text-center">
                                 <input pInputText type="text" [(ngModel)]="item.HopDong" #input
                                     (keydown)="navigateTable($event, i, 0)">
@@ -382,10 +413,11 @@
                         </tr>
                     </ng-container>
                 </tbody>
-                <tfoot >
+                <!-- <tfoot>
                     <tr>
                         <td></td>
-                        <td colspan="4">TỔNG:</td>
+                        <td colspan="3">TỔNG:</td>
+                        <td></td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0-0'}}
                         </td>
@@ -411,7 +443,7 @@
                         </td>
                         <td></td>
                     </tr>
-                </tfoot>
+                </tfoot> -->
             </table>
         </div>
 

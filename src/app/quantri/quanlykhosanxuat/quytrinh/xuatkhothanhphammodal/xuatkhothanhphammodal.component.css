@@ -45,18 +45,26 @@ th {
     font-weight: 500;
 }
 
+thead,
+td {
+    background: #DCCDAF;
+    color: black;
+    z-index: 0;
+}
+
 thead {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
 }
 
 table th {
     background-color: #828282;
 }
 
-table td {
+table tbody td {
     background-color: white;
+    color: black;
 }
 
 .sticky-table table {

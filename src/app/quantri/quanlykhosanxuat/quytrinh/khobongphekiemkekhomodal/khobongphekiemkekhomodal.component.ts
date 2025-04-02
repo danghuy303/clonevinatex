@@ -320,7 +320,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit, AfterViewInit,
     navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
         const key = event.key;
         const inputElements: any = this.inputs.toArray();
-        const colsPerRow = 3; // Số cột chứa ô nhập liệu
+        const colsPerRow = 2; // Số cột chứa ô nhập liệu
 
         let nextIndex = rowIndex * colsPerRow + colIndex;
         if (key === 'ArrowRight') nextIndex += 1;

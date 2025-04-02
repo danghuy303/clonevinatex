@@ -1,11 +1,11 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from '../../../../services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { XuatthanhphammathangmodalComponent } from '../xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
 
@@ -14,7 +14,7 @@ import { XuatthanhphammathangmodalComponent } from '../xuatthanhphammathangmodal
   templateUrl: './xuatkhothanhphammodal.component.html',
   styleUrls: ['./xuatkhothanhphammodal.component.css']
 })
-export class XuatkhothanhphammodalComponent implements OnInit {
+export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   opt: any = ''
   item: any = { listItem: [] };
@@ -128,7 +128,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     }
     else {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this._services.PhieuXuatThanhPham().ChuyenTiep(this.item).subscribe((res: any) => {
+      this._services.PhieuXuatThanhPham().ChuyenTiep(this.setData()).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.activeModal.close();
@@ -147,7 +147,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     else {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
-      this._services.PhieuXuatThanhPham().KhongDuyet(this.item).subscribe((res: any) => {
+      this._services.PhieuXuatThanhPham().KhongDuyet(this.setData()).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.activeModal.close();
@@ -172,8 +172,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       listItem: this.item.listItem.map(ele => {
         return {
           ...ele,
-          NgayNhapKhoUnix: DateToUnix(this.item.NgayNhapKho),
-          NgaySanXuatUnix: DateToUnix(this.item.NgaySanXuat)
+          NgayNhapKhoUnix: DateToUnix(ele.NgayNhapKho),
+          NgaySanXuatUnix: DateToUnix(ele.NgaySanXuat)
         }
       })
     }
@@ -313,62 +313,69 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
         console.log("data", data);
-        if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
-          this.item.listItem.forEach(element => {
-            element.isXoa = true;
-          });
-        }
-        let listdatapush: any = [];
-        data.data.forEach(element => {
-          let datapush: any = {
-            Ten: element.Ten,
-            IddmItem: element.IddmItem,
-            TenLoHang: element.TenLoHang,
-            TonSoLuong: element.SoLuong,
-            KhoiLuong: element.TrongLuong,
-            IdLoHang: element.IdLoHang,
-            IdNhapKho: element.IdNhapKho,
-            IdNhapKhoGoc: element.IdNhapKhoGoc,
-            IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
-            TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
-            NgayNhapKho: UnixToDate(element.NgayNhapKhoUnix),
-            NgaySanXuat: UnixToDate(element.NgaySanXuatUnix)
-          };
-          var isCheck: any = false
-          if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
-            for (let i = 0; i < this.item.listItem.length; i++) {
-              if (this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi && this.item.listItem[i].IdNhapKhoGoc == element.IdNhapKhoGoc) {
-                this.item.listItem[i].isXoa = false;
-                this.item.listItem[i].Ten = element.Ten;
-                this.item.listItem[i].IddmItem = element.IddmItem;
-                this.item.listItem[i].TenLoHang = element.TenLoHang;
-                this.item.listItem[i].TonSoLuong = element.SoLuong;
-                this.item.listItem[i].KhoiLuong = element.TrongLuong;
-                this.item.listItem[i].IdLoHang = element.IdLoHang;
-                this.item.listItem[i].IdNhapKho = element.IdNhapKho;
-                this.item.listItem[i].IdNhapKhoGoc = element.IdNhapKhoGoc;
-                this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
-                this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
-                this.item.listItem[i].NgayNhapKho = UnixToDate(element.NgayNhapKhoUnix);
-                this.item.listItem[i].NgaySanXuat = UnixToDate(element.NgaySanXuatUnix);
-                isCheck = true;
-                break;
-              }
-            }
-            if (isCheck === false)
-              listdatapush.push(datapush);
+        // if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
+        //   this.item.listItem.forEach(element => {
+        //     element.isXoa = true;
+        //   });
+        // }
+        // let listdatapush: any = [];
+        // data.data.forEach(element => {
+        //   let datapush: any = {
+        //     Ten: element.Ten,
+        //     IddmItem: element.IddmItem,
+        //     TenLoHang: element.TenLoHang,
+        //     TonSoLuong: element.SoLuong,
+        //     KhoiLuong: element.TrongLuong,
+        //     IdLoHang: element.IdLoHang,
+        //     IdNhapKho: element.IdNhapKho,
+        //     IdNhapKhoGoc: element.IdNhapKhoGoc,
+        //     IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
+        //     TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
+        //     NgayNhapKho: UnixToDate(element.NgayNhapKhoUnix),
+        //     NgaySanXuat: UnixToDate(element.NgaySanXuatUnix)
+        //   };
+        //   var isCheck: any = false
+        //   if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
+        //     for (let i = 0; i < this.item.listItem.length; i++) {
+        //       if (this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi && this.item.listItem[i].IdNhapKhoGoc == element.IdNhapKhoGoc) {
+        //         this.item.listItem[i].isXoa = false;
+        //         this.item.listItem[i].Ten = element.Ten;
+        //         this.item.listItem[i].IddmItem = element.IddmItem;
+        //         this.item.listItem[i].TenLoHang = element.TenLoHang;
+        //         this.item.listItem[i].TonSoLuong = element.SoLuong;
+        //         this.item.listItem[i].KhoiLuong = element.TrongLuong;
+        //         this.item.listItem[i].IdLoHang = element.IdLoHang;
+        //         this.item.listItem[i].IdNhapKho = element.IdNhapKho;
+        //         this.item.listItem[i].IdNhapKhoGoc = element.IdNhapKhoGoc;
+        //         this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
+        //         this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
+        //         this.item.listItem[i].NgayNhapKho = UnixToDate(element.NgayNhapKhoUnix);
+        //         this.item.listItem[i].NgaySanXuat = UnixToDate(element.NgaySanXuatUnix);
+        //         isCheck = true;
+        //         break;
+        //       }
+        //     }
+        //     if (isCheck === false)
+        //       listdatapush.push(datapush);
+        //   }
+        //   else
+        //     listdatapush.push(datapush);
+        // });
+        // if (this.item.listItem !== undefined && this.item.listItem !== null) {
+        //   this.item.listItem = this.item.listItem.concat(listdatapush);
+        // }
+        // else {
+        //   this.item.listItem = listdatapush
+        // }
+        this.item.listItem = data?.map(ele => {
+          let _newObj = this.item.listItem?.find(obj => obj.IdNhapKhoGoc === ele.IdNhapKhoGoc && obj.IddmItem === ele.IddmItem && obj.IdLoHang === ele.IdLoHang && obj.IddmQuyCachDongGoi === ele.IddmQuyCachDongGoi);
+          let _newData = _newObj ? _newObj : ele;
+          return {
+            ..._newData
           }
-          else
-            listdatapush.push(datapush);
-        });
-        if (this.item.listItem !== undefined && this.item.listItem !== null) {
-          this.item.listItem = this.item.listItem.concat(listdatapush);
-        }
-        else {
-          this.item.listItem = listdatapush
-        }
-        this.TinhTongKhoiLuong();
+        })
 
+        this.TinhTongKhoiLuong();
       }, (reason) => {
         // không
       });
@@ -424,18 +431,6 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     if (key === 'ArrowLeft') nextIndex -= 1;
     if (key === 'ArrowDown') nextIndex += colsPerRow;
     if (key === 'ArrowUp') nextIndex -= colsPerRow;
-    // Kiểm tra nếu index hợp lệ thì focus
-    // setTimeout(() => {
-    //   if (inputElements[nextIndex]) {
-    //     const nextElement = inputElements[nextIndex]?.nativeElement;
-    //     const inputInside = nextElement.querySelector('input');
-    //     if (inputInside) {
-    //       inputInside.focus();
-    //       return;
-    //     }
-    //     nextElement.focus();
-    //   }
-    // }, 0);
 
     setTimeout(() => {
       while (nextIndex >= 0 && nextIndex < inputElements.length) {
@@ -474,17 +469,27 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     }
   }
 
-
   ngAfterViewInit() {
+    setTimeout(() => {
+      this.initInputListeners();
+    }, 0);
+  }
+
+  ngAfterViewChecked() {
+    this.initInputListeners(); // Đảm bảo input được cập nhật khi bảng thay đổi
+  }
+  initInputListeners() {
     this.inputs.forEach((el) => {
-      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thật
-      if (realInput) {
+      const realInput = el?.nativeElement?.querySelector('input'); // Lấy phần tử <input> thực tế
+      if (realInput && !realInput.hasAttribute('data-keydown')) {
+        realInput.setAttribute('data-keydown', 'true'); // Chỉ đăng ký 1 lần
         realInput.addEventListener(
           'keydown',
           (event: KeyboardEvent) => {
             if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
-              event.preventDefault(); // Ngăn hành vi mặc định
-              event.stopImmediatePropagation(); // Chặn PrimeNG xử lý tiếp
+              event.preventDefault(); //  Chặn PrimeNG thay đổi số
+              event.stopPropagation();
+              event.stopImmediatePropagation();
               //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
               const indexInList = this.inputs.toArray().findIndex(
                 (inp) => inp.nativeElement.querySelector('input') === realInput
@@ -494,7 +499,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
               this.navigateTable(event, rowIndex, colIndex);
             }
           },
-          { capture: true } // ⚡ Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
+          { capture: true } //  Quan trọng: chặn sự kiện trước khi PrimeNG xử lý
         );
       }
     });
