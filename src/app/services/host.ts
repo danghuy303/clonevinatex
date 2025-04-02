@@ -9,11 +9,11 @@ import { HttpHeaders } from "@angular/common/http";
 export const host1 = `${window.location.origin.includes("localhost")
   // ? "http://soindt.vinatex.com.vn"
   // ? "http://soihdm.vinatex.com.vn"
-    // ? "http://27.71.231.140/"
-    // ? "http://soihdm.vinatex.com.vn/"
-    //  ? "http://soispc.vinatex.com.vn/"
-    ? "http://103.130.212.35:2370"
-    : window.location.origin
+  // ? "http://27.71.231.140/"
+  ? "http://soihdm.vinatex.com.vn/"
+  //  ? "http://soispc.vinatex.com.vn/"
+  // ? "http://103.130.212.35:2370"
+  : window.location.origin
   }`;
 // export const host1 = `http://27.71.231.140`;
 // export const host2 = 'http://10.0.5.25:7169';
