@@ -71,6 +71,15 @@ export class KhobongphekiemkekhomodalComponent implements OnInit, AfterViewInit,
 
 
     }
+
+    generateUUID(): string {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            const r = (Math.random() * 16) | 0,
+                v = c === 'x' ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+        });
+    }
+
     checklistMatHang(item) {
         if (this.listNewMatHang !== undefined && this.listNewMatHang !== null) {
             for (let i = 0; i < this.listNewMatHang.length; i++) {
@@ -115,7 +124,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit, AfterViewInit,
                 this.item.listItem = res1.listItem.map(x => {
                     return {
                         ...x,
-                        GUID: crypto.randomUUID()
+                        GUID: this.generateUUID()
                     }
                 });
                 this.listItem = this.item.listItem.slice(0, 10);
@@ -307,7 +316,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit, AfterViewInit,
         this.newItem.Ma = selected?.Ma;
     }
     add() {
-        this.newItem.GUID = crypto.randomUUID();
+        this.newItem.GUID = this.generateUUID();
         if (validVariable(this.newItem.IddmItem)) {
             this.item.listItem.push(deepCopy(this.newItem));
             this.checklistMatHang(this.newItem);
