@@ -718,7 +718,11 @@
 
                         <th *ngIf="item.CongDoan==='ONG' || item.CongDoan==='DAUXE' || item.CongDoan ==='XE'">Số quả sợi
                         </th>
-                        <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">Chữ đồng hồ (g/cọc)
+                        <th *ngIf="item.CongDoan==='CON'">Chữ đồng hồ (g/cọc)
+                            <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
+                                inputId="binary"></p-checkbox>
+                        </th>
+                        <th *ngIf="item.CongDoan==='THO'">Chữ đồng hồ (kg/cọc)
                             <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
                                 inputId="binary"></p-checkbox>
                         </th>
