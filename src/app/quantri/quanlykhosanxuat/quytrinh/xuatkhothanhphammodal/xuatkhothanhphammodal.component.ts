@@ -312,7 +312,7 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
-        console.log("data", data);
+        // console.log("data", data);
         // if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
         //   this.item.listItem.forEach(element => {
         //     element.isXoa = true;

@@ -32,11 +32,11 @@
         <colgroup>
             <!-- <col style="width:50px"> -->
             <col style="width:50px">
-            <col *ngFor="let col of cols">
-            <col>
-            <col>
-            <col>
-            <col>
+            <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
+            <col style="width: 100px;">
+            <col style="width: 100px;">
+            <col style="width: 100px;">
+            <col style="width: 100px;">
             <col style="width: 100px;">
         </colgroup>
     </ng-template>

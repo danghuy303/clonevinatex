@@ -3284,6 +3284,9 @@ export class SanXuatService {
     GetListQuyTrinhCanXuLy() {
         return this.http.get(API.auth + `DanhMuc/GetListQuyTrinhCanXuLy?IdDuAn=${this.store.getCurrent()}`)
     }
+    GetListQuyTrinhCanXuLySCM() {
+        return this.http.get(API.SCM + `DanhMuc/GetListQuyTrinhCanXuLy?IdDuAn=${this.store.getCurrent()}`)
+    }
 
     XuatBaoCao_KeHoachNhapNguyenLieu(Id: string) {
         return this.http.get(API.SCM + `BaoCao/XuatBaoCao_KeHoachNhapNguyenLieu?Id=${Id}`)

@@ -179,63 +179,68 @@ export class XuatKhoGiaCongModalComponent implements OnInit, AfterViewInit, Afte
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
-        if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
-          this.item.listItem.forEach(element => {
-            element.isXoa = true;
-          });
-        }
+        // if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
+        //   this.item.listItem.forEach(element => {
+        //     element.isXoa = true;
+        //   });
+        // }
 
-        let listdatapush = [];
-        data.data.forEach(element => {
-          let datapush: any = {
-            ...element,
-            Ten: element.Ten,
-            IddmItem: element.IddmItem,
-            TenLoHang: element.TenLoHang,
-            TonSoLuong: element.SoLuong,
-            KhoiLuong: element.TrongLuong,
-            IdLoHang: element.IdLoHang,
-            IdNhapKho: element.IdNhapKho,
-            IdNhapKhoGoc: element.IdNhapKhoGoc,
-            IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
-            TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
-            SoQuaSoi: element.SoLuong,
-          };
-          var isCheck: any = false
-          if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
-            for (let i = 0; i < this.item.listItem.length; i++) {
-              if (this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi && this.item.listItem[i].IdNhapKhoGoc == element.IdNhapKhoGoc) {
-                this.item.listItem[i] = element;
-                this.item.listItem[i].isXoa = false;
-                this.item.listItem[i].Ten = element.Ten;
-                this.item.listItem[i].IddmItem = element.IddmItem;
-                this.item.listItem[i].TenLoHang = element.TenLoHang;
-                this.item.listItem[i].TonSoLuong = element.SoLuong;
-                this.item.listItem[i].KhoiLuong = element.TrongLuong;
-                this.item.listItem[i].IdLoHang = element.IdLoHang;
-                this.item.listItem[i].IdNhapKho = element.IdNhapKho;
-                this.item.listItem[i].IdNhapKhoGoc = element.IdNhapKhoGoc;
-                this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
-                this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
-                this.item.listItem[i].SoQuaSoi = element.SoLuong;
-                isCheck = true;
-                break;
-              }
-            }
-            if (isCheck === false)
-              listdatapush.push(datapush);
+        // let listdatapush = [];
+        // data.data.forEach(element => {
+        //   let datapush: any = {
+        //     ...element,
+        //     Ten: element.Ten,
+        //     IddmItem: element.IddmItem,
+        //     TenLoHang: element.TenLoHang,
+        //     TonSoLuong: element.SoLuong,
+        //     KhoiLuong: element.TrongLuong,
+        //     IdLoHang: element.IdLoHang,
+        //     IdNhapKho: element.IdNhapKho,
+        //     IdNhapKhoGoc: element.IdNhapKhoGoc,
+        //     IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
+        //     TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
+        //     SoQuaSoi: element.SoLuong,
+        //   };
+        //   var isCheck: any = false
+        //   if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
+        //     for (let i = 0; i < this.item.listItem.length; i++) {
+        //       if (this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi && this.item.listItem[i].IdNhapKhoGoc == element.IdNhapKhoGoc) {
+        //         this.item.listItem[i] = element;
+        //         this.item.listItem[i].isXoa = false;
+        //         this.item.listItem[i].Ten = element.Ten;
+        //         this.item.listItem[i].IddmItem = element.IddmItem;
+        //         this.item.listItem[i].TenLoHang = element.TenLoHang;
+        //         this.item.listItem[i].TonSoLuong = element.SoLuong;
+        //         this.item.listItem[i].KhoiLuong = element.TrongLuong;
+        //         this.item.listItem[i].IdLoHang = element.IdLoHang;
+        //         this.item.listItem[i].IdNhapKho = element.IdNhapKho;
+        //         this.item.listItem[i].IdNhapKhoGoc = element.IdNhapKhoGoc;
+        //         this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
+        //         this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
+        //         this.item.listItem[i].SoQuaSoi = element.SoLuong;
+        //         isCheck = true;
+        //         break;
+        //       }
+        //     }
+        //     if (isCheck === false)
+        //       listdatapush.push(datapush);
+        //   }
+        //   else
+        //     listdatapush.push(datapush);
+        // });
+        // if (this.item.listItem !== undefined && this.item.listItem !== null) {
+        //   this.item.listItem = this.item.listItem.concat(listdatapush);
+        // }
+        // else {
+        //   this.item.listItem = listdatapush
+        // }
+        this.item.listItem = data?.map(ele => {
+          let _newObj = this.item.listItem?.find(obj => obj.IdNhapKhoGoc === ele.IdNhapKhoGoc && obj.IddmItem === ele.IddmItem && obj.IdLoHang === ele.IdLoHang && obj.IddmQuyCachDongGoi === ele.IddmQuyCachDongGoi);
+          let _newData = _newObj ? _newObj : ele;
+          return {
+            ..._newData
           }
-          else
-            listdatapush.push(datapush);
-        });
-        console.log("listdatapush", listdatapush);
-
-        if (this.item.listItem !== undefined && this.item.listItem !== null) {
-          this.item.listItem = this.item.listItem.concat(listdatapush);
-        }
-        else {
-          this.item.listItem = listdatapush
-        }
+        })
         this.MapTinhKhoiLuong();
       }, (reason) => {
         // không
@@ -252,7 +257,7 @@ export class XuatKhoGiaCongModalComponent implements OnInit, AfterViewInit, Afte
   }
 
   MapTinhKhoiLuong() {
-    this.item.listItem = this.item.listItem.map(ele => {
+    this.item.listItem = this.item.listItem?.map(ele => {
       return {
         ...ele,
         KhoiLuongQua: (ele.SoQua || 0) * (ele.KhoiLuong || 0)

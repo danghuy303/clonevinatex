@@ -40,7 +40,13 @@ export class MathangComponent implements OnInit {
     {
       header: 'Loại sợi',
       field: 'TendmLoaiSoi',
-      width: '200px',
+      width: '100px',
+      align: 'center'
+    },
+    {
+      header: 'Hình thức sợi',
+      field: 'TendmHinhThucSoi',
+      width: '100px',
       align: 'center'
     },
     {

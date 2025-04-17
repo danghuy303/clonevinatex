@@ -78,7 +78,11 @@ export class QuantriComponent implements OnInit, OnDestroy {
   }
 
   GetListQuyTrinhCanXuLy() {
-    this._services.GetListQuyTrinhCanXuLy().subscribe((res: any) => {
+    // this._services.GetListQuyTrinhCanXuLy().subscribe((res: any) => {
+    //   this.SluongListQuyTrinhCanXuLy = res.SoLuong;
+    //   this.listQuyTrinh = res.Items;
+    // })
+    this._services.GetListQuyTrinhCanXuLySCM().subscribe((res: any) => {
       this.SluongListQuyTrinhCanXuLy = res.SoLuong;
       this.listQuyTrinh = res.Items;
     })
