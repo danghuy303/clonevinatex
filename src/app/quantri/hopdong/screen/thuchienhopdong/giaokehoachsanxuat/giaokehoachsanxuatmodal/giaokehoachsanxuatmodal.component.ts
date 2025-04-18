@@ -76,6 +76,9 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
     }
     this._servicesDungChung.GetOptions().GetPhanXuong(IdDuAn).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
+      if (this.opt !== "edit") {
+        this.item.iddmPhanXuong = this.listPhanXuong[0].value;
+      }
     });
     this.getListMatHang();
   }

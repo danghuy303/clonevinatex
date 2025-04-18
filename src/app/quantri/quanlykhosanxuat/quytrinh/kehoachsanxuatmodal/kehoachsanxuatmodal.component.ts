@@ -167,6 +167,9 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
     }
     this.services.GetOptions().GetPhanXuong(IdDuAn).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
+      if (this.opt !== "edit") {
+        this.item.IddmPhanXuong = this.listPhanXuong[0].value;
+      }
     })
   }
   taiLenFileDinhKem() {

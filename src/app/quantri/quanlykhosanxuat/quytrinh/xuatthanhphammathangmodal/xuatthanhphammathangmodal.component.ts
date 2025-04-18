@@ -217,6 +217,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
         IddmItem: element.IddmItem,
         TenLoHang: element.TenLoHang,
         TonSoLuong: element.SoLuong,
+        SoQuaSoi: element.SoLuong,
         KhoiLuong: element.TrongLuong,
         IdLoHang: element.IdLoHang,
         IdNhapKho: element.IdNhapKho,

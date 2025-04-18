@@ -60,6 +60,9 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   getListPhanXuong() {
     this._services.GetOptions().GetPhanXuong().subscribe((res: Array<any>) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (this.opt !== "edit") {
+        this.item.IddmPhanXuong = this.listPhanXuong[0].value;
+      }
       if (validVariable(this.item.IddmPhanXuong)) {
         this.getListGiaoKeHoach({ value: this.item.IddmPhanXuong });
       }
