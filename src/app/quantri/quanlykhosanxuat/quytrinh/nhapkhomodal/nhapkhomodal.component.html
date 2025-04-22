@@ -16,7 +16,7 @@
             <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
         </div>
         <div>
-            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.NgayDuyet|date:"dd/MM/yyyy HH:mm"}}
         </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -158,7 +158,7 @@
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table [value]="item.listItem|isXoa"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [autoLayout]="true">
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -206,11 +206,13 @@
                                 (keydown)="navigateTable($event, i, 0)">
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCanInvoice" disabled>
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCanInvoice"
+                                disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKienInvoice" disabled>
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKienInvoice"
+                                disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -247,10 +249,20 @@
                                 (ngModelChange)="TinhSoCanDai(item)">
                             </p-inputNumber>
                         </td>
-                        <td class="text-center" *ngIf="this.type==='bong'">
+                        <td class="" *ngIf="this.type==='bong'">
                             <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" #input
                                 (keydown)="navigateTable($event, i, 7)" styleClass="p-inputtext-sm"
-                                [(ngModel)]="item.IddmViTri"></p-dropdown>
+                                [(ngModel)]="item.IddmViTri">
+                                <ng-template let-item pTemplate="selectedItem">
+                                    <span style="vertical-align:middle" [pTooltip]="item.label"
+                                        tooltipPosition="top">{{item.label | truncate:20}}</span>
+                                </ng-template>
+                                <ng-template let-target pTemplate="item">
+                                    <div class="" [pTooltip]="target.label" tooltipPosition="top">
+                                        <span>{{target.label | truncate:20}}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
                         </td>
                         <!-- <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
@@ -273,14 +285,15 @@
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.SoCanInvoice">
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN"
+                                    [(ngModel)]="newTableItem.SoCanInvoice">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoKienInvoice"
-                                    [min]="0">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN"
+                                    [(ngModel)]="newTableItem.SoKienInvoice" [min]="0">
                                 </p-inputNumber>
                             </div>
                         </td>
@@ -331,7 +344,16 @@
                         </td>
                         <td *ngIf="this.type==='bong'">
                             <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí"
-                                styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.IddmViTri"></p-dropdown>
+                                styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.IddmViTri">
+                                <ng-template let-item pTemplate="selectedItem">
+                                    <span style="vertical-align:middle" [pTooltip]="item.label"
+                                        tooltipPosition="top">{{item.label | truncate:20}}</span>
+                                </ng-template>
+                                <ng-template let-target pTemplate="item">
+                                    <div class="" [pTooltip]="target.label" tooltipPosition="top">
+                                        <span>{{target.label | truncate:20}}</span>
+                                    </div>
+                                </ng-template></p-dropdown>
                         </td>
                         <!-- <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
