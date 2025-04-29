@@ -297,7 +297,7 @@
                                     ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
                                 </ng-container>
                             </td>
-                            <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                            <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}" >
                                 <ng-container *ngIf="isEditing">
                                     <input style="width: 100%; text-align: right; border: transparent; color:#495057"
                                         [tabindex]="-1" type="number" [(ngModel)]="lobong.SoLuongKien_KiemKe">

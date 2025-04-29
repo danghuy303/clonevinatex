@@ -34,6 +34,7 @@ td.tc-w-151{
 }
 .z1{
     z-index: 1 !important;
+    background-color:  white;
 }
 .drag-zone>.drag-point *{
     visibility: hidden;
