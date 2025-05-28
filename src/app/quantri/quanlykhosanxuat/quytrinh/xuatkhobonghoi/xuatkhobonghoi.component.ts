@@ -93,7 +93,6 @@ export class XuatkhobonghoiComponent extends StoreBase implements OnInit, OnDest
 
     })
       .catch(er => {
-        console.log(er)
         this.GetListQuyTrinh();
         this.changeParam(0);
       })
@@ -132,12 +131,12 @@ export class XuatkhobonghoiComponent extends StoreBase implements OnInit, OnDest
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
-      sFilter: this.filter.KeyWord,
+      sFilter: this.filter.KeyWord || '',
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      IddmPhanXuong: this.filter.IddmPhanXuong,
+      IddmPhanXuong: this.filter.IddmPhanXuong || '',
       Loai: 6
     }
     this._service.PhieuXuatSanXuat().GetList(data).subscribe((res: any) => {

@@ -47,6 +47,7 @@ export class DmphannhommaymodalComponent implements OnInit {
     DAUXE: 'MATHANG',
     XE: 'MATHANG',
   }
+  listCaSanXuat: any = [];
 
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) {
 
@@ -284,7 +285,10 @@ export class DmphannhommaymodalComponent implements OnInit {
   }
 
   tinhNangSuatLyThuyet() {
+    console.log('this.item.lstdmItem', this.item.lstdmItem);
+
     if (this.item.lstdmItem.length > 0) {
+      console.log('this.item.CongDoan', this.item.CongDoan);
       if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI" || this.item.CongDoan == "DAYBONG" || this.item.CongDoan == "DAYPE" || this.item.CongDoan == "CHAICOTTON" || this.item.CongDoan == "CHAIPE" || this.item.CongDoan == "CHAIPC") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm))) {
@@ -337,7 +341,12 @@ export class DmphannhommaymodalComponent implements OnInit {
       else if (this.item.CongDoan == "DAUXE") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(obj.Ne))) {
-            obj.NangSuat = obj.TocDo * (this.item.TocDoQuay || 0) / (obj.Nm * 1000);
+            console.log('(this.item.SoCoc', this.item.SoCoc);
+            // obj.NangSuat = obj.TocDo * (this.item.TocDoQuay || 0) / (obj.Nm * 1000);
+            // obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
+
+            // 0.06*tốc đô * Số cọc *Số phút trên ca/60/Nm
+            obj.NangSuat = this.item.HeSo * obj.TocDo * this.item.SoCoc * this.item.TocDoQuay / 60 / obj.Nm;
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -468,4 +477,5 @@ export class DmphannhommaymodalComponent implements OnInit {
     }
     return text;
   }
+
 }

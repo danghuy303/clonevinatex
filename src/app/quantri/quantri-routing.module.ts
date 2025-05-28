@@ -589,13 +589,13 @@ const routes: Routes = [
         component: KiemKeKhoGiaCongComponent,
       },
       {
-        path: "lap-ke-hoach/danhsachbanggia",
+        path: "lap-ke-hoach/danhsachbanggia/:id",
         component: DanhSachBangGiaComponent,
       },
       {
-        path: "lap-ke-hoach/danhsachkehoach-nam",
+        path: "lap-ke-hoach/danhsachkehoach-nam/:id",
         component: DanhSachKeHoachNamComponent,
-      }
+      },
     ],
   },
 

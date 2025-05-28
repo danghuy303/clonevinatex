@@ -9,7 +9,8 @@ import { ImportdanhmucmodelComponent } from '../danhmucsanxuat/modals/importdanh
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 import { DmphannhommaymodalComponent } from '../dmphannhommaymodal/dmphannhommaymodal.component';
 import { DmphannhommaybanchephammodalComponent } from './dmphannhommaybanchephammodal/dmphannhommaybanchephammodal.component';
-import { PintableDirective } from 'voi-lib';
+import { StoreService } from '../../../services/store.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dmphannhommay',
@@ -69,8 +70,14 @@ export class DmphannhommayComponent implements OnInit {
   listCongDoan: any = [];
   listPhanXuong: any = [];
   filter: any = {};
-  constructor(private _modal: NgbModal, private _services: SanXuatService, private _toastr: ToastrService, private _auth: AuthenticationService) {
+  $sub!: Subscription;
+  constructor(private _modal: NgbModal, private _services: SanXuatService, private _toastr: ToastrService, private _auth: AuthenticationService, private store: StoreService) {
     this.userInfo = this._auth.currentUserValue;
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
+        this.GetListCongDoan();
+      }
+    })
   }
 
   ngOnInit(): void {

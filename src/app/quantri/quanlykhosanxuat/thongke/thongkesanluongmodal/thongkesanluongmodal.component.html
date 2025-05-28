@@ -46,7 +46,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
-                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy"
+                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy" [maxDate]="date"
                     (onSelect)="getMatHangThongKeSanLuong()">
                 </p-calendar>
             </div>

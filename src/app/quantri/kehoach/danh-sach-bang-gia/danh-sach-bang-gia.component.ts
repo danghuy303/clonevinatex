@@ -35,7 +35,8 @@ export class DanhSachBangGiaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.OtherFunction()
+    this.OtherFunction();
+    window.addEventListener('message', this.handleMessageFromReact.bind(this));
   }
 
   ngAfterViewInit() {
@@ -45,12 +46,10 @@ export class DanhSachBangGiaComponent implements OnInit {
   }
 
   OtherFunction() {
-    this.link = `danh-sach-bang-gia`
+    this.link = `danhsachbanggia`
     this.IdDuAnDaChon = this.store.getCurrent();
     let isDEV = window.location.hostname.includes('localhost');
-    this.url = isDEV ? `${host1}/lap-ke-hoach/#/${this.link}/${this.IdDuAnDaChon}` : `/lap-ke-hoach/#/${this.link}/${this.IdDuAnDaChon}`;
-    console.log('url', this.url);
-    
+    this.url = isDEV ? `${host1}/lap-ke-hoach/#/${this.IdDuAnDaChon}/${this.link}` : `/lap-ke-hoach/#/${this.IdDuAnDaChon}/${this.link}`;
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
     this.postMessageToIframe();
   }
@@ -64,4 +63,15 @@ export class DanhSachBangGiaComponent implements OnInit {
       console.log(error);
     }
   }
+
+  handleMessageFromReact(event: MessageEvent) {
+    const message = event.data;
+    if (message?.payload) {
+      const id = message.payload;
+      this.router.navigate([`/quantri/lap-ke-hoach/danhsachbanggia/${id}`], {
+        replaceUrl: true,
+      });
+    }
+  }
+
 }

@@ -42,6 +42,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   typing: Subject<string> = new Subject<string>();
   $typing: Subscription;
+  date: Date = new Date();
+
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
     public _modal: NgbModal,) {

@@ -635,7 +635,7 @@ import { TinhtoanmodalComponent } from './quanlykhosanxuat/thongke/thongkesanluo
     DinhmucbaocaodienmodalComponent,
     DanhSachBangGiaComponent,
     DanhSachKeHoachNamComponent,
-    TinhtoanmodalComponent,
+    TinhtoanmodalComponent
   ],
   imports: [
     HttpClientModule,

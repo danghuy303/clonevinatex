@@ -445,3 +445,7 @@ span.required {
   text-overflow: ellipsis !important;
   color: var(--orange-500) !important;
 }
+
+iframe {
+  overflow: hidden;
+}
