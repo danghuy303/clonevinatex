@@ -18,7 +18,7 @@ export class NhapvattuphuComponent implements OnInit {
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "PHIEUNHAPVATTUPHU";
+  eAction: any = "PHIEUNHAPKHO";
   listKho:any=[];
 
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };

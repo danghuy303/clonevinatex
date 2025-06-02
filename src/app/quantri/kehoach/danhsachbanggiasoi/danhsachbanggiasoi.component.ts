@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -7,11 +7,11 @@ import { StoreService } from '../../../services/store.service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-danh-sach-ke-hoach-nam',
-  templateUrl: './danh-sach-ke-hoach-nam.component.html',
-  styleUrls: ['./danh-sach-ke-hoach-nam.component.css']
+  selector: 'app-danhsachbanggiasoi',
+  templateUrl: './danhsachbanggiasoi.component.html',
+  styleUrls: ['./danhsachbanggiasoi.component.css']
 })
-export class DanhSachKeHoachNamComponent implements OnInit, OnDestroy {
+export class DanhsachbanggiasoiComponent implements OnInit, OnDestroy {
 
   @ViewChild('iframe', { static: false }) _iframe!: ElementRef;
   private $sub!: Subscription;
@@ -36,26 +36,27 @@ export class DanhSachKeHoachNamComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const fullPath = window.location.hash || window.location.pathname;
-    const segments = fullPath.split('/');
-    this.link = segments[segments.length - 2];
-
     this.OtherFunction();
     this.messageSubscription = window.addEventListener('message', (event) => {
-      console.log('event', event);
       if (event.origin !== window.location.origin) return;
+
       if (event.data.type !== 'banggia') return;
+
       let id = event.data.payload;
-      this.router.navigate([`/quantri/lap-ke-hoach/${this.link}/${id}`], {
+      console.log('id', id)
+
+      this.router.navigate([`/quantri/lap-ke-hoach/danhsachbanggiasoi/${id}`], {
         replaceUrl: true,
       });
     });
   }
 
   OtherFunction() {
+    this.link = `danhsachbanggiasoi`
     this.IdDuAnDaChon = this.store.getCurrent();
     let isDEV = window.location.hostname.includes('localhost');
     this.url = isDEV ? `${host1}/lap-ke-hoach/#/${this.IdDuAnDaChon}/${this.link}` : `/lap-ke-hoach/#/${this.IdDuAnDaChon}/${this.link}`;
+    console.log('this.url', this.url);
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
 

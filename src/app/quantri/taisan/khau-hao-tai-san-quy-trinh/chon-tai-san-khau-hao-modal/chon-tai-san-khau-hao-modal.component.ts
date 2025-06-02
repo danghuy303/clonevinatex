@@ -43,7 +43,7 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
     list.forEach(ele => {
       ele.children = list.filter(a => a.data.IdTaiSan === ele.data.Id)
     })
-    return list.filter(ele => ele.data.IdTaiSan === null)
+    return list.filter(ele => !ele.data.IdTaiSan)
   }
 
   changePage(event) {
@@ -86,7 +86,7 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
   }
 
   CheckExistedTaiSan(list: Array<any>) {
-    let newArr = [];
+    let newArr:any = [];
     list.forEach((ele) => {
       newArr.push(ele);
       if (validVariable(ele.children) && ele.children.length !== 0) {
@@ -105,7 +105,7 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
   }
 
   GhiLai() {
-    let listTaiSanKhauHao = [];
+    let listTaiSanKhauHao:any = [];
     let data = this.SetData();
     this._serviceTaiSan.KhauHaoTaiSan().GetKhauHao(data).subscribe((res: any) => {
       data.ListIdTaiSan.forEach(ele=>{
@@ -121,9 +121,6 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
   }
 
   nodeSelect() {
-    console.log(this.selectedNodes);
   }
-
-
 
 }

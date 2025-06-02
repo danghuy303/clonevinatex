@@ -3,8 +3,7 @@
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
-            ></button>
+        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
@@ -32,11 +31,11 @@
     </div>
 </div>
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
+    <p-tabPanel header="Chưa xử lý" *ngIf="checkQuyen.ChuaXuLy">
     </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
+    <p-tabPanel header="Đã xử lý" *ngIf="checkQuyen.DaXyLy">
     </p-tabPanel>
-    <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
+    <p-tabPanel header="Tổng hợp" *ngIf="checkQuyen.TongHop">
     </p-tabPanel>
 </p-tabView>
 <div class="p-mt-3">

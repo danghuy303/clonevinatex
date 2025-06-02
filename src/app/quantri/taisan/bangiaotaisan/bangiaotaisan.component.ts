@@ -61,6 +61,7 @@ export class BangiaotaisanComponent implements OnInit {
 
   ngOnInit(): void {
     // this.resetFilter();
+    this.KiemTraTabTrangThai();
     this.getListdmPhanXuong();
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {

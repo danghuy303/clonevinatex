@@ -304,6 +304,16 @@ export class ModalthuhoitaisanComponent implements OnInit {
       }
     })
   }
+  KhongDuyet() {
+    this._serviceTaiSan.PhieuThuHoiTaiSan().KhongDuyet(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
+  }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",

@@ -3,7 +3,7 @@
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <!-- <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button> -->
+        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
@@ -30,9 +30,9 @@
 </div>
 
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
+    <p-tabPanel header="Chưa xử lý" *ngIf="checkQuyen.ChuaXuLy">
     </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
+    <p-tabPanel header="Đã xử lý" *ngIf="checkQuyen.DaXyLy">
     </p-tabPanel>
     <p-tabPanel header="Tổng hợp">
     </p-tabPanel>

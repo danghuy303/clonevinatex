@@ -345,6 +345,7 @@ import { DinhmucbaocaodienmodalComponent } from './danhmuc/thongkedientheoca/bao
 import { DanhSachBangGiaComponent } from './kehoach/danh-sach-bang-gia/danh-sach-bang-gia.component';
 import { DanhSachKeHoachNamComponent } from './kehoach/danh-sach-ke-hoach-nam/danh-sach-ke-hoach-nam.component';
 import { TinhtoanmodalComponent } from './quanlykhosanxuat/thongke/thongkesanluongmodal/tinhtoanmodal/tinhtoanmodal.component';
+import { DanhsachbanggiasoiComponent } from './kehoach/danhsachbanggiasoi/danhsachbanggiasoi.component';
 
 @NgModule({
   declarations: [
@@ -635,7 +636,8 @@ import { TinhtoanmodalComponent } from './quanlykhosanxuat/thongke/thongkesanluo
     DinhmucbaocaodienmodalComponent,
     DanhSachBangGiaComponent,
     DanhSachKeHoachNamComponent,
-    TinhtoanmodalComponent
+    TinhtoanmodalComponent,
+    DanhsachbanggiasoiComponent
   ],
   imports: [
     HttpClientModule,

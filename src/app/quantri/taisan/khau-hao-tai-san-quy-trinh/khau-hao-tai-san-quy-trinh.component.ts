@@ -46,6 +46,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUser = this._serviceAuth.currentUserValue.Id;
+    this.KiemTraTabTrangThai();
     this.resetFilter();
     this.getListdmPhanXuong();
     this.activatedRoute.params.subscribe((res: any) => {
@@ -106,7 +107,6 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
   KiemTraTabTrangThai() {
     this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
-      this.Loaddata();
     })
   }
 

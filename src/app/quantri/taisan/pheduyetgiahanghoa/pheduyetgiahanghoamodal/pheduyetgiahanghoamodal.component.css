@@ -1,0 +1,85 @@
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+    padding: 0.5rem 0.5rem;
+    border: 1px solid #e9ecef;
+    height: 52px;
+}
+
+thead,
+th {
+    background: #828282;
+    color: white;
+    font-weight: 500;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+table th {
+    background-color: #828282;
+}
+
+table td {
+    background-color: white;
+}
+
+.tw-50 {
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.tw-200 {
+    min-width: 200px;
+    max-width: 200px;
+}
+.tw-250 {
+    min-width: 250px;
+    max-width: 250px;
+}
+
+.tw-100 {
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.tw-150 {
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.sticky-table table {
+    border-collapse: separate;
+    border-spacing: unset;
+}
+
+.sticky-table {
+    overflow: auto;
+    height: 65vh;
+}
+
+.child-1 {
+    position: sticky;
+    left: 0;
+}
+
+.child-2 {
+    position: sticky;
+    left: 50px;
+}
+
+.child-3 {
+    position: sticky;
+    left: 200px;
+}
+
+.child-4 {
+    position: sticky;
+    left: 450px;
+}

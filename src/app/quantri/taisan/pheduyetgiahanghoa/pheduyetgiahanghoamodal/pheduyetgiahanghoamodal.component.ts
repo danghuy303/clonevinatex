@@ -102,7 +102,7 @@ export class PheduyetgiahanghoamodalComponent implements OnInit {
   }
 
   tinhTyLe(item) {
-    item.TyLe = (((item.GiaVanChuyen || 0 + item.GiaDeNghi || 0) / (item.GiaHienHanh || 0)) * 100) || 0;
+    item.TyLe = ((((item.GiaVanChuyen || 0) + (item.GiaDeNghi || 0)) / (item.GiaHienHanh || 0)) * 100);
     this.quyTrinh.listItem = [...this.quyTrinh.listItem];
   }
 

@@ -26,7 +26,7 @@ export class QuytrinhnhapvattuComponent implements OnInit {
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "NHAPVATTUDUTRU";
+  eAction = "PHIEUNHAPKHO";
   listPhanXuong:any=[];
   $sub!: Subscription;
 

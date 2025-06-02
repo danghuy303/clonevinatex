@@ -33,8 +33,10 @@
             <button pButton pRipple type="button" label="Lưu vào thư viện" class="p-mr-2 p-button-sm"
                 (click)="AddThuVien()"></button>
             <button pButton pRipple type="button" label="Chọn QR" class="p-mr-2 p-button-sm" (click)="TaoQR()"></button>
+            <button *ngIf="item.TaiSan.MaQR" pButton pRipple type="button" label="In QR" class="p-mr-2 p-button-sm" (click)="InQrCode()"></button>
+              <!-- <button *ngIf="item.TaiSan.MaQR" pButton pRipple type="button" label="In QR" class="p-mr-2 p-button-sm" (click)="printQRCode()"></button> -->
         </div>
-        <div class="modal-bt text-center p-col-4 maQR d-flex p-jc-center p-ai-center">
+        <div #qrCodeContainer class="modal-bt text-center p-col-4 maQR d-flex p-jc-center p-ai-center">
             <!-- <qrcode [qrdata]="dataQR" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode> -->
 
             <qrcode #parent [qrdata]="item.TaiSan.MaQR" [elementType]="elementType" [width]="100" [level]="'M'">

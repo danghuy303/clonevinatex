@@ -37,9 +37,12 @@
     </div>
 </div>
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý"></p-tabPanel>
-    <p-tabPanel header="Đã xử lý"></p-tabPanel>
-    <p-tabPanel header="Tổng hợp"></p-tabPanel>
+        <p-tabPanel header="Chưa xử lý" *ngIf="checkQuyen.ChuaXuLy">
+    </p-tabPanel>
+    <p-tabPanel header="Đã xử lý" *ngIf="checkQuyen.DaXyLy">
+    </p-tabPanel>
+    <p-tabPanel header="Tổng hợp" *ngIf="checkQuyen.TongHop">
+    </p-tabPanel>
 </p-tabView>
 <p-treeTable [value]="items" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped">
     <ng-template pTemplate="colgroup">

@@ -130,6 +130,7 @@ import { TonkhohoiluongdoComponent } from "./quanlykhosanxuat/quytrinh/tonkhohoi
 import { DanhSachVatTuCanThayTheComponent } from "./taisan/danh-sach-vat-tu-can-thay-the/danh-sach-vat-tu-can-thay-the.component";
 import { DanhSachBangGiaComponent } from "./kehoach/danh-sach-bang-gia/danh-sach-bang-gia.component";
 import { DanhSachKeHoachNamComponent } from "./kehoach/danh-sach-ke-hoach-nam/danh-sach-ke-hoach-nam.component";
+import { DanhsachbanggiasoiComponent } from "./kehoach/danhsachbanggiasoi/danhsachbanggiasoi.component";
 
 const routes: Routes = [
   {
@@ -593,7 +594,15 @@ const routes: Routes = [
         component: DanhSachBangGiaComponent,
       },
       {
-        path: "lap-ke-hoach/danhsachkehoach-nam/:id",
+        path: "lap-ke-hoach/lapkehoachnam/:id",
+        component: DanhSachKeHoachNamComponent,
+      },
+      {
+        path: "lap-ke-hoach/danhsachbanggiasoi/:id",
+        component: DanhsachbanggiasoiComponent,
+      },
+       {
+        path: "lap-ke-hoach/lapkehoachthang/:id",
         component: DanhSachKeHoachNamComponent,
       },
     ],

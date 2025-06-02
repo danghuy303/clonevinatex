@@ -14,6 +14,7 @@ import { ModalcapnhattaisanconComponent } from '../modalcapnhattaisancon/modalca
 import { ModalthemmoiluachontaisanComponent } from '../modalthemmoiluachontaisan/modalthemmoiluachontaisan.component';
 import { QRCodeElementType } from 'angularx-qrcode';
 import { TaoQrPopupComponent } from '../tao-qr-popup/tao-qr-popup.component';
+import { API } from '../../../../services/host';
 
 @Component({
   selector: 'app-modalcapnhattaisan',
@@ -22,6 +23,7 @@ import { TaoQrPopupComponent } from '../tao-qr-popup/tao-qr-popup.component';
 })
 export class ModalcapnhattaisanComponent implements OnInit {
 
+  @ViewChild('qrCodeContainer', { static: false }) qrCodeContainer!: ElementRef;
   item: any = {};
   opt: any = "";
   title: any = "";
@@ -93,21 +95,16 @@ export class ModalcapnhattaisanComponent implements OnInit {
   saveAsImage(parent: any) {
     let parentElement = null
     if (this.elementType === "canvas") {
-      // fetches base 64 data from canvas
       parentElement = parent.qrcElement.nativeElement
         .querySelector("canvas")
         .toDataURL("image/png")
     } else if (this.elementType === "img" || this.elementType === "url") {
-      // fetches base 64 data from image
-      // parentElement contains the base64 encoded image src
-      // you might use to store somewhere
       parentElement = parent.qrcElement.nativeElement.querySelector("img").src
     } else {
       alert("Set elementType to 'canvas', 'img' or 'url'.")
     }
 
     if (parentElement) {
-      // converts base 64 encoded image to blobData
       let blobData = this.convertBase64ToBlob(parentElement)
       // saves as image
       const blob = new Blob([blobData], { type: "image/png" })
@@ -389,7 +386,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
           SoQuyTrinh: this.item.SoQuyTrinh,
           TaiSan: {
             ...res,
-            MaQR:'',
+            MaQR: '',
             IdThuVien: res.Id,
             Id: this.item.TaiSan.Id ? this.item.TaiSan.Id : (this.opt === 'add') ? '' : res.Id,
             // ThoiGianDuaVaoSuDung: UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix),
@@ -405,7 +402,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
             listTaiSan: res.listTaiSan.map((taisan: any) => {
               return {
                 ...taisan,
-                MaQR:'',
+                MaQR: '',
                 IdThuVien: taisan.Id,
                 Id: null,
               }
@@ -454,6 +451,47 @@ export class ModalcapnhattaisanComponent implements OnInit {
     //     this.item.Ma = res.Data;
     //   }
     // })
+  }
+
+  InQrCode() {
+    let listMaQr: any = [];
+    listMaQr.push(this.item.TaiSan.MaQR);
+    let data = {
+      listMaQr: listMaQr,
+      SoLuong: 1,
+      SoBanIn: 1,
+      SoLuongIn: 1,
+    }
+    this._danhMucTaiSan.InQrCode(data).subscribe((res: any) => {
+      if (res.State === 1) {
+        let url = res.Data
+        window.open(API.imgURL + url);
+        this.toastr.success(res.message)
+      } else this.toastr.error(res.message)
+    })
+
+  }
+
+ printQRCode() {
+    const printContents = this.qrCodeContainer.nativeElement.innerHTML;
+    const popupWin = window.open('', '_blank', 'width=300,height=300');
+    if (popupWin) {
+      popupWin.document.open();
+      popupWin.document.write(`
+        <html>
+          <head>
+            <title>In Mã QR</title>
+            <style>
+              body { text-align: center; margin-top: 50px; }
+            </style>
+          </head>
+          <body onload="window.print(); window.close()">
+            ${printContents}
+          </body>
+        </html>
+      `);
+      popupWin.document.close();
+    }
   }
 
 }
