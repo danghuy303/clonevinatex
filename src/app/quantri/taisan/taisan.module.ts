@@ -227,6 +227,8 @@ import { TonghopdondathangnccComponent } from './baocaothumua/tonghopdondathangn
 import { DanhmuckhocungungComponent } from './danhmuc/danhmuckhocungung/danhmuckhocungung.component';
 import { DanhmuckhocungungmodalComponent } from './danhmuc/danhmuckhocungung/danhmuckhocungungmodal/danhmuckhocungungmodal.component';
 import { DanhsachduanComponent } from './nha-cung-ung-danh-muc/danhsachduan/danhsachduan.component';
+import { DanhmuctaisanComponent } from './danhmuc/danhmuctaisan/danhmuctaisan.component';
+import { DanhmuctaisanmodalComponent } from './danhmuc/danhmuctaisan/danhmuctaisanmodal/danhmuctaisanmodal.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -402,6 +404,8 @@ import { DanhsachduanComponent } from './nha-cung-ung-danh-muc/danhsachduan/danh
     DanhmuckhocungungComponent,
     DanhmuckhocungungmodalComponent,
     DanhsachduanComponent,
+    DanhmuctaisanComponent,
+    DanhmuctaisanmodalComponent,
     // DanhSachVatTuCanThayTheComponent,
   ],
   imports: [

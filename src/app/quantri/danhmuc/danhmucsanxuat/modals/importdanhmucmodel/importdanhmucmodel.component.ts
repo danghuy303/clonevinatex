@@ -7,6 +7,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix } from 'src/app/services/globalfunction';
 import { API } from 'src/app/services/host';
 import { StoreService } from 'src/app/services/store.service';
+import { TaisanService } from "src/app/services/Taisan/taisan.service";
 
 @Component({
   selector: 'app-importdanhmucmodel',
@@ -26,7 +27,7 @@ export class ImportdanhmucmodelComponent implements OnInit {
   data: any = {};
   dataImport: any = {};
   IdDuAn: any;
-  constructor(public _modalActive: NgbActiveModal, private _modal: NgbModal,
+  constructor(public _modalActive: NgbActiveModal, private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private service: SanXuatService, private _toastr: ToastrService, private store: StoreService) { }
   ngOnInit(): void {
     this.IdDuAn = this.store.getCurrent();
@@ -72,8 +73,8 @@ export class ImportdanhmucmodelComponent implements OnInit {
     }
     else if (this.Name == 'BCP') { //Import BÁn chế phẩm tô hiệu
       let data = {
-        Id:this.importFunc,
-        FileName:this.TepImport.TenGui
+        Id: this.importFunc,
+        FileName: this.TepImport.TenGui
       }
       this.service.KiemKeBanChePham().ImportKiemKeBanChePhamToHieu(data).subscribe((res: any) => {
         if (res.State === 1) {
@@ -85,8 +86,8 @@ export class ImportdanhmucmodelComponent implements OnInit {
     }
     else if (this.Name == 'BCPHUECHUNG') { //Import Bán chế phẩm huế
       let data = {
-        Id:this.importFunc,
-        FileName:this.TepImport.TenGui
+        Id: this.importFunc,
+        FileName: this.TepImport.TenGui
       }
       this.service.KiemKeBanChePham().ImportKiemKeBanChePhamHue(data).subscribe((res: any) => {
         if (res.State === 1) {
@@ -102,7 +103,7 @@ export class ImportdanhmucmodelComponent implements OnInit {
         Ngay: DateToUnix(this.dataImport.Ngay),
         IddmCaSanXuat: this.dataImport.IddmCaSanXuat,
         IddmPhanXuong: this.dataImport.IddmPhanXuong,
-        FileName:this.TepImport.TenGui
+        FileName: this.TepImport.TenGui
       }
       this.service.KiemKeBanChePham().ImportThoDuTru(data).subscribe((res: any) => {
         if (res.State === 1) {
@@ -110,6 +111,16 @@ export class ImportdanhmucmodelComponent implements OnInit {
           this._modalActive.close(res.Data)
         } else {
           this._toastr.error(res.message);
+        }
+      })
+    }
+    else if (this.Name == 'VatTuTonKho') {
+      this._serviceTaiSan.ImportDanhMucVatTu(this.TepImport.TenGui).subscribe((res: any) => {
+        if (res.StatusCode === 200) {
+          this._toastr.success(res.Message);
+           this._modalActive.close()
+        } else {
+          this._toastr.error(res.Message);
         }
       })
     }

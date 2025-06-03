@@ -346,4 +346,35 @@ export class DanhmuctaisanService {
   InQrCode(data) {
     return this.http.post(`${API.SCM}DanhMuc/InQrCode`, data, httpOptions)
   }
+
+
+  DanhMucTaiSan() {
+    let url = API.TaiSan
+    return {
+      GetList: (data) => {
+        return this.http.post(`${url}QuanLyTaiSan/GetListdmTaiSan`, data, httpOptions)
+      },
+      ById: (id) => {
+        return this.http.get(`${url}QuanLyTaiSan/GetdmTaiSanById?id=${id}`, httpOptions)
+      },
+      Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}QuanLyTaiSan/SetdmTaiSan`, data, httpOptions)
+      },
+      Delete: (data) => {
+        return this.http.post(`${url}QuanLyTaiSan/DeleteListdmLoaiTaiSan`, data, httpOptions)
+      },
+      DeleteList: (ListId) => {
+        return this.http.get(`${url}QuanLyTaiSan/DeletedmTaiSanById?ListId=${ListId}`, httpOptions)
+      },
+      Importdm: (FileName) => {
+        return this.http.get(`${url}QuanLyTaiSan/ImportdmLoaiTaiSan?FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}QuanLyTaiSan/ExportdmLoaiTaiSan`, data, httpOptions)
+      }
+    }
+  }
+
 }

@@ -658,8 +658,8 @@ export class TaisanService {
   GetListVatTuTheoLoaiTaiSan(IddmLoaiTaiSan: string) {
     return this.http.get(`${API.TaiSan}QuanLyTaiSan/GetListVatTuTheoLoaiTaiSan?IddmLoaiTaiSan=${IddmLoaiTaiSan}`, httpOptions);
   }
-  GetListVatTuThuVienTaiSanTheoLoaiTaiSan(IddmLoaiTaiSan: string) {
-    return this.http.get(`${API.TaiSan}QuanLyTaiSan/GetListVatTuThuVienTaiSanTheoLoaiTaiSan?IddmLoaiTaiSan=${IddmLoaiTaiSan}`, httpOptions);
+  GetListVatTuThuVienTaiSanTheoLoaiTaiSan(data: any) {
+    return this.http.post(`${API.TaiSan}QuanLyTaiSan/GetListVatTuThuVienTaiSanTheoLoaiTaiSan`,data, httpOptions);
   }
   GetDanhSachCongViecByIddmLoaiBaoDuong(IddmLoaiBaoDuong: string, IdTaiSan: string) {
     return this.http.get(`${API.TaiSan}DanhMuc/GetDanhSachCongViecByIddmLoaiBaoDuong?IddmLoaiBaoDuong=${IddmLoaiBaoDuong}&IdTaiSan=${IdTaiSan}`, httpOptions);

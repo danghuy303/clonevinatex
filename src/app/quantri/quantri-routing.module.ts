@@ -131,6 +131,7 @@ import { DanhSachVatTuCanThayTheComponent } from "./taisan/danh-sach-vat-tu-can-
 import { DanhSachBangGiaComponent } from "./kehoach/danh-sach-bang-gia/danh-sach-bang-gia.component";
 import { DanhSachKeHoachNamComponent } from "./kehoach/danh-sach-ke-hoach-nam/danh-sach-ke-hoach-nam.component";
 import { DanhsachbanggiasoiComponent } from "./kehoach/danhsachbanggiasoi/danhsachbanggiasoi.component";
+import { TheodoikehoachComponent } from "./kehoach/theodoikehoach/theodoikehoach.component";
 
 const routes: Routes = [
   {
@@ -601,9 +602,13 @@ const routes: Routes = [
         path: "lap-ke-hoach/danhsachbanggiasoi/:id",
         component: DanhsachbanggiasoiComponent,
       },
-       {
+      {
         path: "lap-ke-hoach/lapkehoachthang/:id",
         component: DanhSachKeHoachNamComponent,
+      },
+      {
+        path: "lap-ke-hoach/charts",
+        component: TheodoikehoachComponent,
       },
     ],
   },

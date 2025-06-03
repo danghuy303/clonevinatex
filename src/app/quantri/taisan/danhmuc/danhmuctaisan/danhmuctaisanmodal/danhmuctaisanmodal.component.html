@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+        {{title}}</h5>
+</div>
+<div class="modal-body">
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
+            <label class="">Mã : </label>
+            <div class="">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
+            <label class="">Tên : </label>
+            <div class="">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
+            <label class="">Loại vật tư <span class="text-danger">(*)</span> : </label>
+            <div class="">
+                <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmLoaiTaiSan"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
+            <label class="">Catalog No. : </label>
+            <div class="">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Catalog" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
+            <label class="">Part No. : </label>
+            <div class="">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.PartNo" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
+            <label class="">Xuất xứ : </label>
+            <div class="">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NuocSanXuat" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
+            <label class="">Tuổi thọ : </label>
+            <div class="">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TuoiTho" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
+            <label class="">Vị trí : </label>
+            <div class="">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ViTri" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
+            <label class="">Đơn vị tính : </label>
+            <div class="">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViTinh" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-pt-0 d-flex flex-column">
+            <label class="">Địa chỉ giá kho : </label>
+            <div class="">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DiaChiGiaKho" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
+            <label class="">Ghi chú : </label>
+            <div class="">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-end p-mb-3">
+    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2 p-button-secondary"
+        (click)="activeModal.dismiss()"></button>
+    <button pButton pRipple label="Chấp nhận" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
+</div>

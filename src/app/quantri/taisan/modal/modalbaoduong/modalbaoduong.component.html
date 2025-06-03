@@ -32,10 +32,9 @@
             <label class="p-col-12 p-xl-3 p-lg-12 p-p-0 my-auto">Loại tài sản <span
                     class="text-danger">(*)</span>:</label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
-                <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn loại tài sản"
-                    [(ngModel)]="item.IddmLoaiTaiSan" (onChange)="ChonLoaiTaiSan($event.value)"
-                    styleClass="p-inputtext-sm" showClear="true">
-                </p-dropdown>
+                <p-multiSelect [options]="listTaiSan" [(ngModel)]="item.listIddmLoaiTaiSan"
+                    (onChange)="ChonLoaiTaiSan()" selectedItemsLabel="{0} chọn loại tài sản"
+                    defaultLabel="Chọn"></p-multiSelect>
             </div>
         </div>
         <div class="p-col-12 p-lg-12 p-grid" style="border: 1px solid #e8e8e8;">
@@ -145,42 +144,49 @@
                 </div>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-5 p-lg-12 p-p-0 my-auto">Số lượng:</label>
-            <div class="p-col-12 p-xl-7 p-lg-12 p-p-0">
+        <div class="p-col-12 p-lg-2 p-p-3 d-flex flex-column">
+            <label class="p-p-0 my-auto">Số lượng:</label>
+            <div class="">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoMay">
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn vị tính:</label>
-            <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+        <div class="p-col-12 p-lg-2 p-p-3 d-flex flex-column">
+            <label class="p-p-0 my-auto">Đơn vị tính:</label>
+            <div class="">
                 <p-dropdown [filter]="true" [options]="listDonViTinh" placeholder="Chọn " [(ngModel)]="item.DonViTinh"
                     styleClass="p-inputtext-sm" showClear="true">
                 </p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-5 p-lg-12 p-p-0 my-auto">Thời gian định mức (phút):</label>
-            <div class="p-col-12 p-xl-7 p-lg-12 p-p-0">
+        <div class="p-col-12 p-lg-2 p-p-3 d-flex flex-column">
+            <label class="p-p-0 my-auto">Thời gian định mức (phút):</label>
+            <div class="">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.ThoiGianDinhMuc">
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-5 p-lg-12 p-p-0 my-auto">Số người:</label>
-            <div class="p-col-12 p-xl-7 p-lg-12 p-p-0">
+        <div class="p-col-12 p-lg-2 p-p-3 d-flex flex-column">
+            <label class="p-p-0 my-auto">Số người:</label>
+            <div class="">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNguoi">
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-5 p-lg-12 p-p-0 my-auto">Độ ưu tiên <span class="text-danger">(*)</span>
+        <div class="p-col-12 p-lg-2 p-p-3 d-flex flex-column">
+            <label class="p-p-0 my-auto">Độ ưu tiên <span class="text-danger">(*)</span>
                 :</label>
-            <div class="p-col-12 p-xl-7 p-lg-12 p-p-0 d-flex flex-column flex-xl-row">
+            <div class="">
                 <p-dropdown [filter]="true" [options]="listMucDoUuTien" placeholder="Chọn mức độ ưu tiên"
                     [(ngModel)]="item.IddmMucDoUuTien" style="width: 100%" styleClass="p-inputtext-sm">
                 </p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-xl-row">
+            <div class="p-col-12 p-lg-2 p-p-0 my-auto"></div>
+            <div class="p-field-checkbox p-col-12 p-lg-10 p-p-0 my-auto">
+                <p-checkbox [(ngModel)]="item.isHoatDong" binary="true" inputId="binary"></p-checkbox>
+                <label for="binary">Hoạt động </label>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
@@ -195,24 +201,16 @@
                 <input locale="en-EN" [(ngModel)]="item.ThoiGianVaSoNguoiThucTe" pInputText />
             </div>
         </div> -->
-        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2  p-lg-12 p-p-0 my-auto">Nội dung:</label>
-            <div class="p-col-12 p-xl-10 p-lg-12 p-p-0">
-                <textarea pInputTextarea [(ngModel)]="item.NoiDung"></textarea>
+        <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column">
+            <label class="p-p-0 my-auto">Nội dung:</label>
+            <div class="">
+                <textarea pInputTextarea [(ngModel)]="item.NoiDung" [rows]="1"></textarea>
             </div>
         </div>
-        <div class="p-col-12 p-lg-8 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-lg-12 p-pl-1 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column">
+            <label class="">Ghi chú:</label>
+            <div class="">
                 <input locale="en-EN" [(ngModel)]="item.GhiChu" pInputText />
-            </div>
-        </div>
-
-        <div class="p-col-12 p-lg-3  p-p-3 d-flex flex-column flex-xl-row">
-            <div class="p-col-12 p-lg-2 p-p-0 my-auto"></div>
-            <div class="p-field-checkbox p-col-12 p-lg-10 p-p-0 my-auto">
-                <p-checkbox [(ngModel)]="item.isHoatDong" binary="true" inputId="binary"></p-checkbox>
-                <label for="binary">Hoạt động </label>
             </div>
         </div>
     </div>

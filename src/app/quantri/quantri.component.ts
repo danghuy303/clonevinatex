@@ -2105,9 +2105,15 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Danh sách kế hoạch năm ",
             routerLink: "/quantri/lap-ke-hoach/lapkehoachnam/0",
             command: () => this.close(),
-          },{
+          },
+          {
             label: "Danh sách kế hoạch tháng ",
             routerLink: "/quantri/lap-ke-hoach/lapkehoachthang/0",
+            command: () => this.close(),
+          },
+           {
+            label: "Theo dõi kế hoạch",
+            routerLink: "/quantri/lap-ke-hoach/charts",
             command: () => this.close(),
           }
         ],
@@ -2683,6 +2689,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
           {
             label: "Loại tài sản",
             routerLink: "/quantri/taisan/danhmuc/danhmucloaitaisan",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Tài sản",
+            routerLink: "/quantri/taisan/danhmuc/danhmuctaisan",
             command: () => {
               this.close();
             },

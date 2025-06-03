@@ -46,6 +46,9 @@ export class DanhSachKeHoachNamComponent implements OnInit, OnDestroy {
       if (event.origin !== window.location.origin) return;
       if (event.data.type !== 'banggia') return;
       let id = event.data.payload;
+      if (event.data?.from) {
+        this.link = 'lapkehoachnam'
+      }
       this.router.navigate([`/quantri/lap-ke-hoach/${this.link}/${id}`], {
         replaceUrl: true,
       });

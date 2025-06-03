@@ -62,6 +62,7 @@ import { TonghopdondathangnccComponent } from './baocaothumua/tonghopdondathangn
 import { BaocaonhapxuattonComponent } from './baocaothumua/baocaonhapxuatton/baocaonhapxuatton.component';
 import { BaocaotonghopgiamuahangComponent } from './baocaothumua/baocaotonghopgiamuahang/baocaotonghopgiamuahang.component';
 import { DanhmuckhocungungComponent } from './danhmuc/danhmuckhocungung/danhmuckhocungung.component';
+import { DanhmuctaisanComponent } from './danhmuc/danhmuctaisan/danhmuctaisan.component';
 
 const routes: Routes = [
   { path: '', component: TaisanComponent },
@@ -75,6 +76,7 @@ const routes: Routes = [
   { path: 'danhmuc/danhmucloaicongviecbaoduong', component: LoaiCongViecBaoDuongComponent },
   { path: 'danhmuc/danhmucdonvitinh', component: DanhmucdonvitinhComponent },
   { path: 'danhmuc/danhmucloaitaisan', component: DanhmucloaitaisanComponent },
+   { path: 'danhmuc/danhmuctaisan', component: DanhmuctaisanComponent },
   { path: 'danhmuc/donvinangsuat', component: DonvinangsuatComponent },
   { path: 'danhmuc/hangsannxuat', component: HangsanxuatComponent },
   { path: 'danhmuc/tinhtrangtaisan', component: TinhtrangtaisanComponent },

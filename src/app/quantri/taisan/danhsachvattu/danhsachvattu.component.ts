@@ -232,27 +232,38 @@ export class DanhsachvattuComponent implements OnInit {
   }
 
   NhapDuLieu() {
-    let modalRef = this._modal.open(UploadmodalComponent, {
-      size: 'md',
+    // let modalRef = this._modal.open(UploadmodalComponent, {
+    //   size: 'md',
+    //   backdrop: 'static',
+    // })
+    // modalRef.componentInstance.type = "excel";
+    // modalRef.componentInstance.single = true;
+    // modalRef.componentInstance.onlyExcel = true;
+    // modalRef.result
+    //   .then((res: any) => {
+    //     this._serviceTaiSan.ImportDanhMucVatTu(res[0].Name).subscribe((res: any) => {
+    //       if (res.StatusCode === 200) {
+    //         this.GetList();
+    //         this.toastr.success(res.Message);
+    //       } else {
+    //         this.toastr.error(res.Message);
+    //       }
+    //     })
+    //   })
+    //   .catch(er => { })
+    //   .finally(() => {
+    //   })
+
+
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
       backdrop: 'static',
     })
-    modalRef.componentInstance.type = "excel";
-    modalRef.componentInstance.single = true;
-    modalRef.componentInstance.onlyExcel = true;
-    modalRef.result
-      .then((res: any) => {
-        this._serviceTaiSan.ImportDanhMucVatTu(res[0].Name).subscribe((res: any) => {
-          if (res.StatusCode === 200) {
-            this.GetList();
-            this.toastr.success(res.Message);
-          } else {
-            this.toastr.error(res.Message);
-          }
-        })
-      })
-      .catch(er => { })
-      .finally(() => {
-      })
+    modalRef.componentInstance.importFunc = 'ImportDanhMucVatTu';
+    modalRef.componentInstance.Name = 'VatTuTonKho';
+    modalRef.result.then(res => {
+      this.GetList();
+    })
+      .catch(er => console.log(er))
   }
 
 }

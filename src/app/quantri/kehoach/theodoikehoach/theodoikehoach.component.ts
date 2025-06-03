@@ -1,17 +1,16 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { host1 } from '../../../services/host';
 import { StoreService } from '../../../services/store.service';
-import { Location } from '@angular/common';
+import { host1 } from '../../../services/host';
 
 @Component({
-  selector: 'app-danhsachbanggiasoi',
-  templateUrl: './danhsachbanggiasoi.component.html',
-  styleUrls: ['./danhsachbanggiasoi.component.css']
+  selector: 'app-theodoikehoach',
+  templateUrl: './theodoikehoach.component.html',
+  styleUrls: ['./theodoikehoach.component.css']
 })
-export class DanhsachbanggiasoiComponent implements OnInit, OnDestroy {
+export class TheodoikehoachComponent implements OnInit, OnDestroy {
 
   @ViewChild('iframe', { static: false }) _iframe!: ElementRef;
   private $sub!: Subscription;
@@ -23,7 +22,8 @@ export class DanhsachbanggiasoiComponent implements OnInit, OnDestroy {
   link: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute, private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     private location: Location,
     private store: StoreService,
     private sanitizer: DomSanitizer,
@@ -41,14 +41,14 @@ export class DanhsachbanggiasoiComponent implements OnInit, OnDestroy {
       if (event.origin !== window.location.origin) return;
       if (event.data.type !== 'banggia') return;
       let id = event.data.payload;
-      this.router.navigate([`/quantri/lap-ke-hoach/danhsachbanggiasoi/${id}`], {
+      this.router.navigate([`/quantri/lap-ke-hoach/charts`], {
         replaceUrl: true,
       });
     });
   }
 
   OtherFunction() {
-    this.link = `danhsachbanggiasoi`
+    this.link = `charts`
     this.IdDuAnDaChon = this.store.getCurrent();
     let isDEV = window.location.hostname.includes('localhost');
     this.url = isDEV ? `${host1}/lap-ke-hoach/#/${this.IdDuAnDaChon}/${this.link}` : `/lap-ke-hoach/#/${this.IdDuAnDaChon}/${this.link}`;

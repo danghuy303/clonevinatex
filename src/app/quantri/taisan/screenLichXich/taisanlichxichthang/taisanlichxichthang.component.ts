@@ -21,6 +21,7 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
   labelThang = [];
   selectedItems = [];
   copyItemsBaoDuong = [];
+  listDaChon: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -54,4 +55,12 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
     this.keyword = '';
   }
 
+  handlDel() {
+    this.listTaiSan = this.listTaiSan.map(ele => {
+      return {
+        ...ele,
+        listBaoDuongThang: ele.listBaoDuongThang.filter(obj => !obj.checked) 
+      };
+    });
+  }
 }

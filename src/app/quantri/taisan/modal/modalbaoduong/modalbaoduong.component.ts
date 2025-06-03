@@ -45,7 +45,7 @@ export class ModalbaoduongComponent implements OnInit {
     this.item.listCongViec = this.item.listCongViec ? this.item.listCongViec : [];
     this.GetListdmLoaiTaiSan();
     this.getData();
-    this.GetListVatTuTheoLoaiTaiSan(this.item.IddmLoaiTaiSan ? this.item.IddmLoaiTaiSan : '');
+    this.GetListVatTuTheoLoaiTaiSan();
   }
   getData() {
     this.listTuan = [
@@ -73,13 +73,13 @@ export class ModalbaoduongComponent implements OnInit {
 
   }
 
-  ChonLoaiTaiSan(Id) {
+  ChonLoaiTaiSan() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thay đổi loại tài sản';
     modalRef.result.then(res => {
-      this.GetListVatTuTheoLoaiTaiSan(Id);
+      this.GetListVatTuTheoLoaiTaiSan();
       this.item.listCongViec = this.item.listCongViec.map(ele => {
         return {
           ...ele,
@@ -89,8 +89,8 @@ export class ModalbaoduongComponent implements OnInit {
     })
   }
 
-  GetListVatTuTheoLoaiTaiSan(Id) {
-      this._service.GetListVatTuThuVienTaiSanTheoLoaiTaiSan(Id).subscribe((res: any) => {
+  GetListVatTuTheoLoaiTaiSan() {
+      this._service.GetListVatTuThuVienTaiSanTheoLoaiTaiSan(this.item.listIddmLoaiTaiSan).subscribe((res: any) => {
         this.listVatTu = mapArrayForDropDown(res.Data, 'Ten', 'Id');
       })
   }
