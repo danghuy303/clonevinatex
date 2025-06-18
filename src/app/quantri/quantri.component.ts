@@ -241,10 +241,10 @@ export class QuantriComponent implements OnInit, OnDestroy {
     this._services.GetAllQuyen().subscribe((res: any) => {
       this.dataphanquyen = res;
       for (let key in res) {
-            if (res[key]?.length !== 0) {
-              this.permissions.push(key)
-            }
-          }
+        if (res[key]?.length !== 0) {
+          this.permissions.push(key)
+        }
+      }
       this.CaiMeNu();
     });
     this.userBtn = [
@@ -2083,7 +2083,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       {
         label: "Lập kế hoạch",
         icon: "fas fa-circle",
-        // routerLink: "/",
+        routerLink: "/",
         visible: this.permissions?.includes('P_LAPKEHOACHKINHDOANH'),
         items: [
           // {
@@ -2102,21 +2102,68 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
           {
-            label: "Danh sách kế hoạch năm ",
+            label: "Kế hoạch năm",
             routerLink: "/quantri/lap-ke-hoach/lapkehoachnam/0",
             command: () => this.close(),
           },
           {
-            label: "Danh sách kế hoạch tháng ",
+            label: "Kế hoạch tháng",
             routerLink: "/quantri/lap-ke-hoach/lapkehoachthang/0",
             command: () => this.close(),
           },
-           {
-            label: "Theo dõi kế hoạch",
-            routerLink: "/quantri/lap-ke-hoach/charts",
+          {
+            label: "Kế hoạch xuất hàng",
+            routerLink: "/quantri/lap-ke-hoach/kehoachxuathang/0",
             command: () => this.close(),
           }
         ],
+      },
+      {
+        label: "Lập kế hoạch",
+         routerLink: "/",
+        // visible: this.permissions?.includes('P_LAPKEHOACHKINHDOANH'),
+        items: [
+          {
+            label: "Kết quả kinh doanh",
+            routerLink: "/quantri/lap-ke-hoach/BusinessChart",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí/kg sợi trong kỳ",
+            routerLink: "/quantri/lap-ke-hoach/FiberCost",
+            command: () => this.close(),
+          },
+          {
+            label: "Tồn kho theo đơn giá và chi số",
+            routerLink: "/quantri/lap-ke-hoach/InventoryPriceChart",
+            command: () => this.close(),
+          },
+          {
+            label: "Tồn kho và sản xuất",
+            routerLink: "/quantri/lap-ke-hoach/InventoryProductionChart",
+            command: () => this.close(),
+          },
+          {
+            label: "Tồn kho theo đơn vị (tấn)",
+            routerLink: "/quantri/lap-ke-hoach/TreeMapCharts",
+            command: () => this.close(),
+          },
+          {
+            label: "Tồn kho theo loại sợi (tấn)",
+            routerLink: "/quantri/lap-ke-hoach/SunburstChart",
+            command: () => this.close(),
+          },
+          {
+            label: "Giá bông đưa vào sản xuất trong kỳ",
+            routerLink: "/quantri/lap-ke-hoach/CottonPriceChart",
+            command: () => this.close(),
+          },
+          {
+            label: "Cắt chuyền",
+            routerLink: "/quantri/lap-ke-hoach/catchuyen/0",
+            command: () => this.close(),
+          }
+        ]
       },
 
       {

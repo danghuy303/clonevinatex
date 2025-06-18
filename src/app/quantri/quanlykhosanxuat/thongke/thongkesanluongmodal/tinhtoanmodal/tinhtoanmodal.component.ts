@@ -13,7 +13,6 @@ export class TinhtoanmodalComponent implements OnInit {
     public toastr: ToastrService,) { }
 
   ngOnInit(): void {
-    console.log(this.item);
     this.item = {
       ...this.item,
       ChieuDai_Cuoi: this.item.ChieuDai_Cuoi || 0,
@@ -22,11 +21,10 @@ export class TinhtoanmodalComponent implements OnInit {
   }
 
   accept() {
-    console.log(this.item);
-
     try {
-      let result = this.item.ChieuDai_Cuoi - this.item.ChieuDai_Dau;
-      this.item.ChieuDai = result;
+      if (this.item.ChieuDai_Cuoi < this.item.ChieuDai_Dau) {
+        this.item.ChieuDai = (1000 - this.item.ChieuDai_Dau + this.item.ChieuDai_Cuoi);
+      } else this.item.ChieuDai = this.item.ChieuDai_Cuoi - this.item.ChieuDai_Dau;
       this.activeModal.close(this.item)
     } catch (error) {
     }

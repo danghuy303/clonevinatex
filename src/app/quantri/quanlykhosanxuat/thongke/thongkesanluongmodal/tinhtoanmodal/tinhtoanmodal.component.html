@@ -8,11 +8,11 @@
     <div class="p-grid">
         <div class="col-6">
             <label>Chiều dài đầu</label>
-            <input pInputText type="text" [(ngModel)]="item.ChieuDai_Dau" disabled>
+            <p-inputNumber [min]="0" [(ngModel)]="item.ChieuDai_Dau"> </p-inputNumber>
         </div>
         <div class="col-6">
             <label>Chiều dài cuối</label>
-            <input pInputText [(ngModel)]="item.ChieuDai_Cuoi" (keyup.enter)="accept()" type="number">
+            <p-inputNumber [min]="0" [(ngModel)]="item.ChieuDai_Cuoi"> </p-inputNumber>
         </div>
     </div>
 </div>

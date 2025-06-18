@@ -97,6 +97,10 @@ table td {
         width: 380px !important;
     }
 
+    .tc-200 {
+        width: 200px !important;
+    }
+
     .mathangmd {
         width: 130px !important;
     }
@@ -104,15 +108,20 @@ table td {
     .mathangkhac {
         width: 220px !important;
     }
+
     .mathangghep {
         width: 290px !important;
     }
 }
 
 /* Màn hình lớn hơn () */
-@media screen and (min-width: 1471px) and (max-width: 1700px) {
+@media screen and (min-width: 1441px) and (max-width: 1700px) {
     .tc-300 {
         width: 380px !important;
+    }
+
+    .tc-200 {
+        width: 200px !important;
     }
 
     .mathangmd {
@@ -122,6 +131,7 @@ table td {
     .mathangkhac {
         width: 350px !important;
     }
+
     .mathangghep {
         width: 450px !important;
     }
@@ -132,6 +142,10 @@ table td {
         width: 380px !important;
     }
 
+    .tc-200 {
+        width: 380px !important;
+    }
+
     .mathangmd {
         width: 130px !important;
     }
@@ -139,6 +153,7 @@ table td {
     .mathangkhac {
         width: 320px !important;
     }
+
     .mathangghep {
         width: 290px !important;
     }

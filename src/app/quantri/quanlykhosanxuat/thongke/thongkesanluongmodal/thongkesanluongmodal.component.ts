@@ -72,6 +72,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.getListCaSanXuat();
     this.getListCaThucTe();
     this.$typing = this.typing.asObservable().pipe(debounceTime(200)).subscribe(_ => { this.TinhTyLeThongKeSanLuongBongPhe() });
+    console.log('this.item.listItem',this.item.listItem.filter(ele =>  ele.CongDoan === 'THO'));
+    
   }
   Typing(event) {
     // console.log(event.value);
@@ -86,7 +88,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   TinhTyLeThongKeSanLuongBongPhe() {
-    console.log(this.item)
     this.services.ThongKeSanLuong().TinhTyLeThongKeSanLuongBongPhe(this.item.listTyLeBongPhe).subscribe((res: any) => {
       this.item.listTyLeBongPhe = res;
     })
@@ -94,8 +95,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if (this.item.CreatedBy == this.userInfo.Id)
-        this.checkbutton.Ghi = true;
+    //   if (this.item.CreatedBy == this.userInfo.Id)
+    //     this.checkbutton.Ghi = true;
     })
   }
 
@@ -225,7 +226,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
       this.services.ThongKeSanLuong().Delete(this.item).subscribe((res: any) => {
-        console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
         } else {
@@ -330,6 +330,22 @@ export class ThongkesanluongmodalComponent implements OnInit {
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
+
+  TinhGiaTriXE(item) {
+    // IF (số cuối<số đầu,  => 
+    //  chiều dài: (1000-(số đầu+số cuối))
+    //   KL = chiều dài*216*100/(chi số*1.693*1000*2),
+    // else 
+    //  chiều dài: (1000-(số đầu+số cuối))
+    // KL = chiều dài*216*100/(chi số*1.693*1000*2)
+    if (item.ChieuDai_Cuoi < item.ChieuDai_Dau) {
+      item.KhoiLuong = item.ChieuDai * 216 * 100 / ((item.Ne) * 1.693 * 1000 * 2);
+    } else {
+      item.KhoiLuong = item.ChieuDai * 216 * 100 / ((item.Ne) * 1.693 * 1000 * 2);
+    }
+    this.TinhTongKhoiLuongBong();
+  }
+
   TinhCongThucMoi(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0) {
@@ -429,7 +445,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
       })
       this.TinhTongKhoiLuongBong();
     }
-    console.log(this.listItem)
   }
   TinhSoQuaSoi(item, event) {
     if (item.KhoiLuong !== undefined && item.KhoiLuong !== null) {
@@ -597,8 +612,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
   }
   enterCon(i) {
-    console.log(i)
-    console.log(this.inputNumbers.toArray().map(ele => ele.tabindex))
     if (this.item.CongDoan === 'CON') {
       if (i + 4 <= (this.listItem.length * 5 - 1)) {
         this.inputNumbers.toArray()[i + 4].el.nativeElement.children[0].children[0].focus();
@@ -618,8 +631,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     let TongKhoiLuong = 0;
     TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     let TongBongPhe = this.item.listTyLeBongPhe.find(ele => ele.MaCongDoan === this.item.CongDoan)?.listKhoiLuongBongPhe.reduce((a, b) => a + (b.KhoiLuong || 0), 0);
-    console.log(TongBongPhe);
-    console.log(TongKhoiLuong);
     if (this.item.isTruVaoSanLuong) {
       this.TongKhoiLuong = TongKhoiLuong - TongBongPhe;
     } else {
@@ -666,7 +677,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
       item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) - (item.HutMoi || 0);
     }
     else {
-      item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) / 1000 - (item.HutMoi || 0);
+      // item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) / 1000 - (item.HutMoi || 0);
+        item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) - (item.HutMoi || 0); // a dai sửa cong thuc
     }
     this.TinhTongKhoiLuongBong();
   }
@@ -676,16 +688,15 @@ export class ThongkesanluongmodalComponent implements OnInit {
   //     this.TongKhoiLuong = this.TongKhoiLuong -  (this.item.TongKhoiLuongCuiHoi || 0);
   //   }
   // }
-  tinhToan(item) {
+  tinhToan(item, index) {
     let modalRef = this._modal.open(TinhtoanmodalComponent)
     modalRef.componentInstance.item = item;
     modalRef.result.then((res) => {
-      const _idx = this.listItem.findIndex(ele => ele.Id === item.Id);
-      this.listItem[_idx] = res;
-      const _tIndex = this.item.listItem.findIndex(ele => ele.Id === item.Id);
-      this.handleChangeChieuDai(this.listItem[_idx]);
+      this.listItem[index] = res;
+      this.handleChangeChieuDai(this.listItem[index]);
+      const _tIndex = this.item.listItem.findIndex(ele => ele.IddmItem === item.IddmItem && ele.IddmMay === item.IddmMay && ele.CongDoan === this.item.CongDoan);
       if (_tIndex > -1) {
-        this.item.listItem[_tIndex] = this.listItem[_idx];
+        this.item.listItem[_tIndex] = this.listItem[index];
       }
     })
   }
@@ -697,7 +708,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
       case 'ONG':
       case 'DAUXE':
       case 'XE':
-        this.TinhGiaTri(_item)
+        // this.TinhGiaTri(_item)
+        this.TinhGiaTriXE(_item)
         break;
       case 'CON':
         this.TinhCongThucMoi(_item)

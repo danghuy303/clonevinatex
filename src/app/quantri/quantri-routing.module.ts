@@ -610,6 +610,44 @@ const routes: Routes = [
         path: "lap-ke-hoach/charts",
         component: TheodoikehoachComponent,
       },
+      {
+        path: "lap-ke-hoach/kehoachxuathang/:id",
+        component: DanhSachKeHoachNamComponent,
+      },
+
+
+      {
+        path: "lap-ke-hoach/catchuyen/:id",
+        component: DanhSachKeHoachNamComponent,
+      },
+      {
+        path: "lap-ke-hoach/BusinessChart",
+        component: TheodoikehoachComponent,
+      },
+      {
+        path: "lap-ke-hoach/FiberCost",
+        component: TheodoikehoachComponent,
+      },
+      {
+        path: "lap-ke-hoach/InventoryPriceChart",
+        component: TheodoikehoachComponent,
+      },
+      {
+        path: "lap-ke-hoach/InventoryProductionChart",
+        component: TheodoikehoachComponent,
+      },
+      {
+        path: "lap-ke-hoach/TreeMapCharts",
+        component: TheodoikehoachComponent,
+      },
+      {
+        path: "lap-ke-hoach/SunburstChart",
+        component: TheodoikehoachComponent,
+      },
+      {
+        path: "lap-ke-hoach/CottonPriceChart",
+        component: TheodoikehoachComponent,
+      },
     ],
   },
 

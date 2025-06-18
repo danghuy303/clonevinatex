@@ -40,11 +40,9 @@ export class DanhSachBangGiaComponent implements OnInit, OnDestroy {
     this.messageSubscription = window.addEventListener('message', (event) => {
       if (event.origin !== window.location.origin) return;
       
-      if (event.data.type !== 'banggia') return;
+      if (event.data.from !== this.link) return;
       
       let id = event.data.payload;
-      console.log('id',id)
-      
       this.router.navigate([`/quantri/lap-ke-hoach/danhsachbanggia/${id}`], {
         replaceUrl: true,
       });
@@ -58,7 +56,6 @@ export class DanhSachBangGiaComponent implements OnInit, OnDestroy {
     this.url = isDEV 
       ? `${host1}/lap-ke-hoach/#/${this.IdDuAnDaChon}/${this.link}`
       : `/lap-ke-hoach/#/${this.IdDuAnDaChon}/${this.link}`;
-      console.log('this.url',this.url);
       
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
