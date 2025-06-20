@@ -53,48 +53,51 @@ import { DanhmuctygiangoaiteComponent } from './danhmuc/danhmuctygiangoaite/danh
 import { ChiphibongComponent } from './danhsach/chiphibong/chiphibong.component';
 import { ChiphixoComponent } from './danhsach/chiphixo/chiphixo.component';
 import { ChiphidienComponent } from './danhsach/chiphidien/chiphidien.component';
+import { NhapkhomuiComponent } from './screen/thuchienhopdong/nhapkhomui/nhapkhomui.component';
+import { XuatkhomuiComponent } from './screen/thuchienhopdong/xuatkhomui/xuatkhomui.component';
+import { KiemkekhomuiComponent } from './screen/thuchienhopdong/kiemkekhomui/kiemkekhomui.component';
 
 
 const routes: Routes = [
-  {path:'',component:HopdongComponent},
-  {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
-  {path:'danhmuc/danhmucloaihopdong',component:DanhmucloaihopdongComponent},
-  {path:'danhmuc/danhmucloaitiente',component:DanhmucloaitienteComponent},
-  {path:'danhmuc/danhmuctrangthaibaolanh',component:DanhmuctrangthaibaolanhComponent},
-  {path:'danhmuc/danhmucthutucthanhtoan',component:DanhmucthutucthanhtoanComponent},
-  {path:'danhmuc/danhmucvattuphu',component: DanhmucvattuphuComponent},
-  {path:'danhmuc/danhmuccocaunhansu',component: DanhmuccocaunhansuComponent},
-  {path:'danhmuc/danhmuctinhluong',component: DanhmuctinhluongComponent},
-  {path:'danhmuc/danhmuctaisan',component: DanhmuctaisanComponent},
-  {path:'danhmuc/danhmucphibanhang',component: DanhmucphibanhangComponent},
-  {path:'danhmuc/danhmucdinhmucmathang',component: DanhmucdinhmucmathangComponent},
+  { path: '', component: HopdongComponent },
+  { path: 'danhmuc/danhmuchinhthucthanhtoan', component: DanhmuchinhthucthanhtoanComponent },
+  { path: 'danhmuc/danhmucloaihopdong', component: DanhmucloaihopdongComponent },
+  { path: 'danhmuc/danhmucloaitiente', component: DanhmucloaitienteComponent },
+  { path: 'danhmuc/danhmuctrangthaibaolanh', component: DanhmuctrangthaibaolanhComponent },
+  { path: 'danhmuc/danhmucthutucthanhtoan', component: DanhmucthutucthanhtoanComponent },
+  { path: 'danhmuc/danhmucvattuphu', component: DanhmucvattuphuComponent },
+  { path: 'danhmuc/danhmuccocaunhansu', component: DanhmuccocaunhansuComponent },
+  { path: 'danhmuc/danhmuctinhluong', component: DanhmuctinhluongComponent },
+  { path: 'danhmuc/danhmuctaisan', component: DanhmuctaisanComponent },
+  { path: 'danhmuc/danhmucphibanhang', component: DanhmucphibanhangComponent },
+  { path: 'danhmuc/danhmucdinhmucmathang', component: DanhmucdinhmucmathangComponent },
 
-  {path:'danhmuc/kehoachkinhdoanhnam/:id',component: KehoachkinhdoanhdanhsachComponent},
-  {path:'danhmuc/kehoachkinhdoanhthang/:id',component: KehoachkinhdoanhthangComponent},
-  {path:'danhmuc/kehoachsanxuatnam/:id',component: KehoachsanxuatnamComponent},
-  {path:'danhmuc/kehoachsanxuatthang/:id',component: KehoachsanxuatthangComponent},
+  { path: 'danhmuc/kehoachkinhdoanhnam/:id', component: KehoachkinhdoanhdanhsachComponent },
+  { path: 'danhmuc/kehoachkinhdoanhthang/:id', component: KehoachkinhdoanhthangComponent },
+  { path: 'danhmuc/kehoachsanxuatnam/:id', component: KehoachsanxuatnamComponent },
+  { path: 'danhmuc/kehoachsanxuatthang/:id', component: KehoachsanxuatthangComponent },
 
-  {path:'danhmuc/danhsachtinhluong',component: DanhsachtinhluongComponent},
-  {path:'danhmuc/mucluongcocaunhansu',component: MucluongcocaunhansuComponent},
-  {path:'danhmuc/chiphibanhangtheonam',component: ChiphibanhangtheonamComponent},
-  {path:'danhmuc/dinhmucsanxuat',component: DinhmucsanxuatComponent},
-  {path:'danhmuc/dmtieuchidanhgia',component:DanhmuctieuchidanhgiaComponent},
-  {path:'danhmuc/dmtieuchichatluong',component: DmtieuchichatluonghopdongComponent},
-  {path:'danhmuc/dongiasanpham/:id',component: DanhmucdongiasanphamComponent},
-  {path:'danhmuc/tygiangoaite/:id',component: DanhmuctygiangoaiteComponent},
-  {path:'danhmuc/chiphibongnam',component: ChiphibongComponent},
-  {path:'danhmuc/chiphixonam',component: ChiphixoComponent},
-  {path:'danhmuc/chiphidiennam',component: ChiphidienComponent},
-
-
+  { path: 'danhmuc/danhsachtinhluong', component: DanhsachtinhluongComponent },
+  { path: 'danhmuc/mucluongcocaunhansu', component: MucluongcocaunhansuComponent },
+  { path: 'danhmuc/chiphibanhangtheonam', component: ChiphibanhangtheonamComponent },
+  { path: 'danhmuc/dinhmucsanxuat', component: DinhmucsanxuatComponent },
+  { path: 'danhmuc/dmtieuchidanhgia', component: DanhmuctieuchidanhgiaComponent },
+  { path: 'danhmuc/dmtieuchichatluong', component: DmtieuchichatluonghopdongComponent },
+  { path: 'danhmuc/dongiasanpham/:id', component: DanhmucdongiasanphamComponent },
+  { path: 'danhmuc/tygiangoaite/:id', component: DanhmuctygiangoaiteComponent },
+  { path: 'danhmuc/chiphibongnam', component: ChiphibongComponent },
+  { path: 'danhmuc/chiphixonam', component: ChiphixoComponent },
+  { path: 'danhmuc/chiphidiennam', component: ChiphidienComponent },
 
 
-  {path:'theodoihopdongnhapkhau',component:TheodoihopdongnhapkhauComponent},
+
+
+  { path: 'theodoihopdongnhapkhau', component: TheodoihopdongnhapkhauComponent },
 
   { path: 'dmloaihopdong', component: DmLoaiHopDongComponent },
   { path: 'danhsachhopdongbongxo/:id', component: DanhsachhopdongbongxoComponent },
   { path: 'kehoachnhapbong/:id', component: KehoachnhapbongComponent },
-  { path: 'nhapkho/:id', component: NhapkhoComponent },  
+  { path: 'nhapkho/:id', component: NhapkhoComponent },
   { path: 'xuatkhothanhpham/:id', component: XuatkhothanhphamhopdongComponent },
   { path: 'giaonhanhanghoa/:id', component: GiaonhanhanghoaComponent },
   { path: 'phathopdong/:id', component: PhathopdongComponent },
@@ -115,8 +118,15 @@ const routes: Routes = [
   { path: 'doanhthu/:id', component: DoanhthuComponent },
 
   //
-  
- 
+  // kho bổ sung
+  { path: "khotho/nhapkho/:id", component: NhapkhomuiComponent },
+  { path: "khotho/xuatkho/:id", component: XuatkhomuiComponent },
+  { path: "khotho/kiemkekho/:id", component: KiemkekhomuiComponent },
+
+  { path: "khocui/nhapkho/:id", component: NhapkhomuiComponent },
+  { path: "khocui/xuatkho/:id", component: XuatkhomuiComponent },
+  { path: "khocui/kiemkekho/:id", component: KiemkekhomuiComponent },
+
 ];
 
 @NgModule({

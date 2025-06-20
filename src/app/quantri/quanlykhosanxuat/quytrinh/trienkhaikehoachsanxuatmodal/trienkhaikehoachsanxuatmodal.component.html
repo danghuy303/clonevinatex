@@ -181,6 +181,8 @@
                 <div class="p-d-flex p-flex-row">
                     <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
                         (click)="chonHangHoa()"></button>
+                    <button pButton pRipple type="button" label="Chọn phiếu" class="p-mr-2 p-button-sm"
+                        (click)="chonNhieuMatHang()"></button>
                     <p-dropdown [filter]="true" [options]="listCongDoan" styleClass="p-inputtext-sm pl-2"
                         [(ngModel)]="filter.CongDoan" (onChange)="chonCongDoan($event.value)"></p-dropdown>
                     <div style="display: flex; align-items: center; height: 100%;"
@@ -219,10 +221,10 @@
                         <col style="width:50px">
                         <col>
                         <col *ngIf="filter.CongDoan ==='THO'">
-                        <col>
-                        <col>
-                        <col>
-                        <col>
+                        <col style="width:150px">
+                        <col style="width:150px">
+                        <col style="width:150px">
+                        <col style="width:150px">
                         <!-- <col> -->
                         <!-- <col style="width:130px"> -->
                     </colgroup>
@@ -243,24 +245,24 @@
                 <ng-template pTemplate="body" let-mathang let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">{{mathang.Ten}}</td>
+                        <td class="">{{mathang.Ten}}</td>
                         <td class="text-center" *ngIf="filter.CongDoan ==='THO'">
                             <p-dropdown [options]="mathang.listNMtemp" placeholder="Chọn Nm" styleClass="p-inputtext-sm"
                                 [(ngModel)]="mathang.ChiSoMoi" (onChange)="SetChiSo($event,mathang)"></p-dropdown>
                         </td>
-                        <td class="text-center">
+                        <td class="text-right">
                             {{mathang.KhoiLuongSanXuat|number:'0.0-2'}}
                             <!-- <p-inputNumber [minFractionDigits]="2" locale="en-EN" [max]="mathang.KhoiLuongKeHoach"
                                 [(ngModel)]="mathang.KhoiLuongSanXuat">
                             </p-inputNumber> -->
                         </td>
-                        <td class="text-center">
+                        <td class="text-right">
                             {{mathang.SanLuongCa|number:'0.0-2'}}
                         </td>
-                        <td class="text-center">
+                        <td class="text-right">
                             {{mathang.NangSuatDinhMuc|number:'0.0-2'}}
                         </td>
-                        <td class="text-center">
+                        <td class="text-right">
                             {{mathang.SoMayTinhToan|number:'0.0-2'}}
                         </td>
                         <!-- <td class="text-center">

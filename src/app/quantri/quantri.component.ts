@@ -1471,6 +1471,70 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ],
       },
       {
+        label: "Quản lý kho thô",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/hopdongsanxuat",
+        expanded: false,
+        visible: this.showHopDongModule,
+        items: [
+          {
+            label: "Nhập kho",
+            routerLink:
+              "/quantri/hopdongsanxuat/khotho/nhapkho/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Xuất kho",
+            routerLink:
+              "/quantri/hopdongsanxuat/khotho/xuatkho/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Kiểm kê kho",
+            routerLink:
+              "/quantri/hopdongsanxuat/khotho/kiemkekho/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Thẻ kho",
+            routerLink: "/quantri/quanlykhosanxuat/tonkho/khotho/0",
+            command: () => this.close(),
+          },
+        ],
+      },
+      {
+        label: "Quản lý kho cũi",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/hopdongsanxuat",
+        expanded: false,
+        visible: this.showHopDongModule,
+        items: [
+          {
+            label: "Nhập kho",
+            routerLink:
+              "/quantri/hopdongsanxuat/khocui/nhapkho/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Xuất kho",
+            routerLink:
+              "/quantri/hopdongsanxuat/khocui/xuatkho/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Kiểm kê kho",
+            routerLink:
+              "/quantri/hopdongsanxuat/khocui/kiemkekho/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Thẻ kho",
+            routerLink: "/quantri/quanlykhosanxuat/tonkho/khocui/0",
+            command: () => this.close(),
+          },
+        ],
+      },
+      {
         label: "Thông tin hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
@@ -2119,9 +2183,10 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ],
       },
       {
-        label: "Lập kế hoạch",
-         routerLink: "/",
-        // visible: this.permissions?.includes('P_LAPKEHOACHKINHDOANH'),
+        label: "Theo dõi kế hoạch",
+        routerLink: "/",
+        icon: "fas fa-circle",
+        visible: this.permissions?.includes('P_LAPKEHOACHKINHDOANH'),
         items: [
           {
             label: "Kết quả kinh doanh",

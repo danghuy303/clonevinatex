@@ -648,6 +648,8 @@ const routes: Routes = [
         path: "lap-ke-hoach/CottonPriceChart",
         component: TheodoikehoachComponent,
       },
+
+     
     ],
   },
 

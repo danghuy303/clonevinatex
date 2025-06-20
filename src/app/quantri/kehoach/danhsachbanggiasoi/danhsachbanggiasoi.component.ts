@@ -38,7 +38,8 @@ export class DanhsachbanggiasoiComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.OtherFunction();
     this.messageSubscription = window.addEventListener('message', (event) => {
-      if (event.origin !== window.location.origin) return;
+       console.log('event',event);
+      // if (event.origin !== window.location.origin) return;
       if (event.data.from !== this.link) return;
       let id = event.data.payload;
       this.router.navigate([`/quantri/lap-ke-hoach/danhsachbanggiasoi/${id}`], {

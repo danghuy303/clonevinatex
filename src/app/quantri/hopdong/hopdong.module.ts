@@ -189,6 +189,12 @@ import { ModalchiphibongComponent } from './danhsach/modal/modalchiphibong/modal
 import { ModalchiphixoComponent } from './danhsach/modal/modalchiphixo/modalchiphixo.component';
 import { ModalchiphidienComponent } from './danhsach/modal/modalchiphidien/modalchiphidien.component';
 import { ChiphimodalComponent } from './modals/chiphimodal/chiphimodal.component';
+import { NhapkhomuiComponent } from './screen/thuchienhopdong/nhapkhomui/nhapkhomui.component';
+import { XuatkhomuiComponent } from './screen/thuchienhopdong/xuatkhomui/xuatkhomui.component';
+import { KiemkekhomuiComponent } from './screen/thuchienhopdong/kiemkekhomui/kiemkekhomui.component';
+import { NhapkhomuimodalComponent } from './screen/thuchienhopdong/nhapkhomui/nhapkhomuimodal/nhapkhomuimodal.component';
+import { XuatkhomuimodalComponent } from './screen/thuchienhopdong/xuatkhomui/xuatkhomuimodal/xuatkhomuimodal.component';
+import { KiemkekhomuimodalComponent } from './screen/thuchienhopdong/kiemkekhomui/kiemkekhomuimodal/kiemkekhomuimodal.component';
 
 
 @NgModule({
@@ -376,6 +382,18 @@ import { ChiphimodalComponent } from './modals/chiphimodal/chiphimodal.component
     ModalchiphidienComponent,
     
     ChiphimodalComponent,
+    
+    NhapkhomuiComponent,
+    
+    XuatkhomuiComponent,
+    
+    KiemkekhomuiComponent,
+    
+    NhapkhomuimodalComponent,
+    
+    XuatkhomuimodalComponent,
+    
+    KiemkekhomuimodalComponent,
     
    
     

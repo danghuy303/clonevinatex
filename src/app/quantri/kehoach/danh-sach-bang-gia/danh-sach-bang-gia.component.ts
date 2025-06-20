@@ -38,7 +38,7 @@ export class DanhSachBangGiaComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.OtherFunction();
     this.messageSubscription = window.addEventListener('message', (event) => {
-      if (event.origin !== window.location.origin) return;
+      // if (event.origin !== window.location.origin) return;
       
       if (event.data.from !== this.link) return;
       

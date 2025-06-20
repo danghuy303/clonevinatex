@@ -3465,4 +3465,67 @@ export class SanXuatService {
     SetdmKiemKeBanChePham(data) {
         return this.http.post(`${API.SCMKiemKeBanChePham}SetdmKiemKeBanChePham`, data, httpOptions)
     }
+    // kho tho- cui
+    GetDanhMatHangLienKet(data) {
+        return this.http.post(`${API.SCMQuanLyKho}GetDanhMatHangLienKet`, data, httpOptions)
+    }
+    GetListTrienKhaiKeHoachSanXuatLienKet(Id) {
+        return this.http.get(`${API.SCMQuanLyKho}GetListTrienKhaiKeHoachSanXuatLienKet?Id=${Id}`, httpOptions)
+    }
+    TinhNangSuatLienKet(data) {
+        return this.http.post(`${API.SCMQuanLyKho}TinhNangSuatLienKet`, data, httpOptions)
+    }
+
+    BasicApi(endpoint) {
+        let url = API.SCMQuanLyKho;
+        let idDuAn = this.store.getCurrent();
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + `GetNextSoQuyTrinh${endpoint}`, httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + `GetList${endpoint}`, data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `Get${endpoint}?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + `Set${endpoint}`, data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + `Delete${endpoint}`, data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + `ChuyenTiep${endpoint}`, data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + `KhongDuyet${endpoint}`, data, httpOptions)
+            },
+            luuKhoKiemKeKhoVatTuPhu: (IddmKho) => {
+                return this.http.get(url + `getLuuKhoKiemKeKhoVatTuPhu?IdDuAn=0&IddmKho=${IddmKho}&sFilter=`, httpOptions);
+            }
+        }
+    }
+
+    PhieuNhapSoiTho() {
+        return this.BasicApi('PhieuNhapSoiTho')
+    }
+    PhieuXuatSoiTho() {
+        return this.BasicApi('PhieuXuatSoiTho')
+    }
+    PhieuKiemKeSoiTho() {
+        return this.BasicApi('PhieuKiemKeSoiTho')
+    }
+    PhieuNhapSoiCui() {
+        return this.BasicApi('PhieuNhapSoiCui')
+    }
+    PhieuXuatSoiCui() {
+        return this.BasicApi('PhieuXuatSoiCui')
+    }
+    PhieuKiemKeSoiCui() {
+        return this.BasicApi('PhieuKiemKeSoiCui')
+    }
 }

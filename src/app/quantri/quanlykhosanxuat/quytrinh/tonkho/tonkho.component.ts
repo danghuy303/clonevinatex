@@ -58,6 +58,8 @@ export class TonkhoComponent extends StoreBase implements OnInit, OnDestroy {
     khobongphe: 7,
     khohoiam: 10,
     khothanhpham: 11,
+    khotho: 204,
+    khocui: 205,
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listPhanXuong: any = [];
@@ -71,11 +73,22 @@ export class TonkhoComponent extends StoreBase implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(res => {
       console.log(this.mapLoaiKhoBong[`${res.kho}`])
-      console.log(res);
       this.getListdmKho(this.mapLoaiKhoBong[`${res.kho}`]);
       this.loai = this.mapLoaiKhoBong[`${res.kho}`];
-      if (this.loai === 10)
-        this.tenkho = "kho hồi ẩm";
+      // if (this.loai === 10) {
+      //   this.tenkho = "kho hồi ẩm";
+      // }
+      switch (this.loai) {
+        case 10: this.tenkho = "kho hồi ẩm";
+          break;
+        case 204: this.tenkho = "kho thô";
+          break;
+        case 205: this.tenkho = "kho cũi";
+          break;
+        default:
+          break;
+      }
+
     })
     this.filter.KeyWord = '';
   }

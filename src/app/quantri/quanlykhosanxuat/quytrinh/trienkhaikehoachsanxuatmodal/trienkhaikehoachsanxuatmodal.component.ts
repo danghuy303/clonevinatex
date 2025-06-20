@@ -9,6 +9,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { BotrimaymodalComponent } from '../../modals/botrimaymodal/botrimaymodal.component';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
+import { MathanglienketComponent } from '../../modals/mathanglienket/mathanglienket.component';
 
 @Component({
   selector: 'app-trienkhaikehoachsanxuatmodal',
@@ -510,4 +511,28 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     }
     return text;
   }
+
+  chonNhieuMatHang() {
+    let modalRef = this._modal.open(MathanglienketComponent, {
+      size: 'xl',
+    })
+    modalRef.componentInstance.title = "Chọn phiếu liên kết";
+    modalRef.componentInstance.quyTrinh = this.item;
+    modalRef.componentInstance.listCongDoan = this.listCongDoan;
+    modalRef.componentInstance.listDaChon = this.item.listItemMay;
+    modalRef.result.then(res => {
+      let data = {
+        ...this.item,
+        listItemLienKet: res
+      }
+      this._services.TinhNangSuatLienKet(data).subscribe((res: any) => {
+        res.listItemMay.sort((a, b) => {
+          return ('' + a.Ten).localeCompare(b.Ten);
+        })
+        this.item.listItemMay = res.listItemMay;
+      })
+    }).catch(er => {
+    })
+  }
+
 }
