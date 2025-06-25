@@ -72,8 +72,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.getListCaSanXuat();
     this.getListCaThucTe();
     this.$typing = this.typing.asObservable().pipe(debounceTime(200)).subscribe(_ => { this.TinhTyLeThongKeSanLuongBongPhe() });
-    console.log('this.item.listItem',this.item.listItem.filter(ele =>  ele.CongDoan === 'THO'));
-    
+    console.log('this.item.listItem', this.item.listItem.filter(ele => ele.CongDoan === 'THO'));
+
   }
   Typing(event) {
     // console.log(event.value);
@@ -95,8 +95,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-    //   if (this.item.CreatedBy == this.userInfo.Id)
-    //     this.checkbutton.Ghi = true;
+      //   if (this.item.CreatedBy == this.userInfo.Id)
+      //     this.checkbutton.Ghi = true;
     })
   }
 
@@ -678,7 +678,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
     else {
       // item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) / 1000 - (item.HutMoi || 0);
-        item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) - (item.HutMoi || 0); // a dai sửa cong thuc
+      let _numPhaiChia = this.item.CongDoan === 'THO' ? 1 : 1000; // a dai sửa cong thuc
+      item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) / _numPhaiChia - (item.HutMoi || 0);
     }
     this.TinhTongKhoiLuongBong();
   }

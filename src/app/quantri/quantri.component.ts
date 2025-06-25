@@ -6,7 +6,7 @@ import { AuthenticationService } from "../services/auth.service";
 import { ModaldoimatkhauComponent } from "./modal/modaldoimatkhau/modaldoimatkhau.component";
 import { filter } from "rxjs/operators";
 import { SanXuatService } from "../services/callApiSanXuat";
-import { StoreService } from "../services/store.service";
+import { MenuService, StoreService } from "../services/store.service";
 import { mapArrayForDropDown, validVariable } from "../services/globalfunction";
 import { SignalRService } from "../services/signalR.service";
 import { mapQuyTrinhRoute } from "../services/mapquytrinhroute";
@@ -59,6 +59,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
     private store: StoreService,
     private _signalRService: SignalRService,
     private _toastr: ToastrService,
+    private menuService: MenuService
   ) {
     this.userInfo = this._auth.currentUserValue;
     this.getOSName(this._router.url);
@@ -1503,7 +1504,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ],
       },
       {
-        label: "Quản lý kho cũi",
+        label: "Quản lý kho cuộn cũi",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
         expanded: false,
@@ -2492,7 +2493,10 @@ export class QuantriComponent implements OnInit, OnDestroy {
   }
 
   Dislay() {
-    let isCheckMenu = JSON.parse(localStorage.getItem('isCheckMenu'));
+    // let isCheckMenu = JSON.parse(localStorage.getItem('isCheckMenu'));
+    let isCheckMenu = this.menuService.isCheckMenuValue;
+    console.log('isCheckMenu',isCheckMenu);
+    
     if (isCheckMenu) {
       this.CaiMeNuQLTS();
       this.displayAsset = true;
@@ -2501,21 +2505,31 @@ export class QuantriComponent implements OnInit, OnDestroy {
     }
   }
   NavigateToQuanTriSoi() {
-    this.isCheckMenu = false;
-    this.OSName = "Hệ thống quản trị ngành sợi";
-    localStorage.setItem('isCheckMenu', JSON.stringify(this.isCheckMenu))
-    this.display = !this.display;
+    // this.isCheckMenu = false;
+    // this.OSName = "Hệ thống quản trị ngành sợi";
+    // localStorage.setItem('isCheckMenu', JSON.stringify(this.isCheckMenu))
+    // this.display = !this.display;
+    // this.CaiMeNu();
+    // this._router.navigate([`quantri/quantrisanxuat/tonghop`])
+
+    this.menuService.setIsCheckMenu(false);
+    this.display = true;
     this.CaiMeNu();
-    this._router.navigate([`quantri/quantrisanxuat/tonghop`])
+    this._router.navigate(['quantri/quantrisanxuat/tonghop']);
   }
 
   NavigateToQuanLyTaiSan() {
-    this.isCheckMenu = true;
-    this.OSName = "Quản lý tài sản";
-    localStorage.setItem('isCheckMenu', JSON.stringify(this.isCheckMenu))
-    this.displayAsset = !this.displayAsset;
+    // this.isCheckMenu = true;
+    // this.OSName = "Quản lý tài sản";
+    // localStorage.setItem('isCheckMenu', JSON.stringify(this.isCheckMenu))
+    // this.displayAsset = !this.displayAsset;
+    // this.CaiMeNuQLTS();
+    // this._router.navigate([`quantri/taisan/danhsachtaisan`])
+
+    this.menuService.setIsCheckMenu(true);
+    this.displayAsset = true;
     this.CaiMeNuQLTS();
-    this._router.navigate([`quantri/taisan/danhsachtaisan`])
+    this._router.navigate(['quantri/taisan/danhsachtaisan']);
   }
 
   CaiMeNuQLTS() {
@@ -2806,7 +2820,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             },
           },
           {
-            label: "Tài sản",
+            label: "Nhóm tài sản/vật tư",
             routerLink: "/quantri/taisan/danhmuc/danhmuctaisan",
             command: () => {
               this.close();
@@ -2866,4 +2880,5 @@ export class QuantriComponent implements OnInit, OnDestroy {
       us.unsubscribe();
     });
   }
+
 }

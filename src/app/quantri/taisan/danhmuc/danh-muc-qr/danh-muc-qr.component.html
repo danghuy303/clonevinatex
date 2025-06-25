@@ -3,7 +3,7 @@
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-py-3">
-        <div class="p-mr-6">
+        <div class="p-mr-3">
             <h5>Tạo mã QR:</h5>
             <div class="p-inputgroup" style="width: 160px;">
                 <p-inputNumber [(ngModel)]="filter.SoLuong" placeholder="Nhập số lượng"></p-inputNumber>
@@ -11,11 +11,11 @@
                     styleClass="p-button-warn "></button>
             </div>
         </div>
-        <div class="p-mr-6" style="width: 140px;">
+        <div class="p-mr-3" style="width: 140px;">
             <h5>Số QR cần dùng:</h5>
             <p-inputNumber [(ngModel)]="filter.SoLuongIn" placeholder="Số qr cần dùng"></p-inputNumber>
         </div>
-        <div class="p-mr-6" style="width: 80px;">
+        <div class="p-mr-3" style="width: 80px;">
             <h5>Số bản in:</h5>
             <p-inputNumber [(ngModel)]="filter.SoBanIn" placeholder="Số bản in"></p-inputNumber>
         </div>
@@ -24,14 +24,21 @@
                 (click)="InQrCode()"></button>
         </div>
     </div>
-    <div class="p-inputgroup p-py-3" style="width:200px;margin-top: 28px">
-        <input type="text" placeholder="Tìm kiếm" [(ngModel)]="Keyword" (keyup.enter)="GetList()" class="p-inputtext-sm"
-            pInputText />
-        <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-text"
-            (click)="GetList()" pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
-        <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-text"
-            (click)="resetFilter()" pTooltip="Làm mới" showDelay="1000" tooltipPosition="bottom"></button>
+    <div class="d-flex p-py-3" style="margin-top: 28px">
+        <div class="p-mr-2">
+            <p-dropdown [options]="listLoai" placeholder="Chọn loại" styleClass="p-inputtext-sm" style="width: 37px"
+                [(ngModel)]="filter.Loai" (onChange)="GetList()" [showClear]="true" [filter]="true"></p-dropdown>
+        </div>
+        <div class="p-inputgroup" style="width:200px">
+            <input type="text" placeholder="Tìm kiếm" [(ngModel)]="Keyword" (keyup.enter)="GetList()"
+                class="p-inputtext-sm" pInputText />
+            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-text"
+                (click)="GetList()" pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
+            <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-text"
+                (click)="resetFilter()" pTooltip="Làm mới" showDelay="1000" tooltipPosition="bottom"></button>
+        </div>
     </div>
+
 </div>
 
 <p-table [value]="listHienThi" styleClass="p-datatable-gridlines p-datatable-sm wrap-text p-datatable-striped">
@@ -39,7 +46,9 @@
         <colgroup>
             <col style="width:50px">
             <col style="width:50px">
-            <col style="width:150px">
+            <col style="width:100px">
+            <col style="width:200px">
+            <col style="width:250px">
             <col>
             <col style="width:150px">
         </colgroup>
@@ -52,6 +61,8 @@
             </th>
             <th class="text-center">STT</th>
             <th class="text-center">Mã QR</th>
+            <th class="text-center">Mã code</th>
+            <th class="text-center">Loại</th>
             <th class="text-center">Sử dụng cho</th>
             <th class="text-center">Trạng thái</th>
         </tr>
@@ -71,11 +82,13 @@
                     </qrcode>
                 </div>
             </td>
-            <td class="text-center">
+            <td class="">{{item.MaQr}} </td>
+            <td class="">{{item.TenLoai}} </td>
+            <td class="">
                 {{item.ViTri}}
             </td>
             <td class="text-center">
-                {{item.TrangThai}}
+                {{item.TenTrangThai}}
             </td>
         </tr>
     </ng-template>

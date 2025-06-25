@@ -5,6 +5,9 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { LobongcopymodalComponent } from '../lobongcopymodal/lobongcopymodal.component';
+import { DanhmuctaisanService } from "../../../services/Taisan/danhmuctaisan.service"
+import { base64ToBlob } from '../../../services/globalfunction';
+import { API } from '../../../services/host';
 
 @Component({
   selector: 'app-lobongmodal',
@@ -19,9 +22,17 @@ export class LobongmodalComponent implements OnInit {
   item: any = {};
   khongclicknhieu: any = false;
   lang: any = vn;
+  isQR: any = false;
+  listKichThuoc: any = [
+    { value: 100, label: '100' },
+    { value: 200, label: '200' },
+    { value: 400, label: '400' },
+  ]
+
   constructor(public activeModal: NgbActiveModal,
-     private services: SanXuatService,
-      public toastr: ToastrService, private _modal: NgbModal) { }
+    private services: SanXuatService,
+    private _danhMucTaiSan: DanhmuctaisanService,
+    public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
     this.getListdmCapBong();
@@ -30,9 +41,8 @@ export class LobongmodalComponent implements OnInit {
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
-    console.log(this.item)
   }
-  
+
   accept() {
     this.item.HoatDong = true;
     this.khongclicknhieu = !this.khongclicknhieu;
@@ -56,43 +66,43 @@ export class LobongmodalComponent implements OnInit {
     }
   }
 
-  GetListdmLoaiBong(){
-    let data={
+  GetListdmLoaiBong() {
+    let data = {
       CurrentPage: 0,
     }
-    this.services.GetListdmLoaiBong(data).subscribe((res:any)=>{
-      
+    this.services.GetListdmLoaiBong(data).subscribe((res: any) => {
+
       this.listdmLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  GetListLoBong(){
-    let data={
+  GetListLoBong() {
+    let data = {
       CurrentPage: 0,
     }
-    this.services.GetListLoBong(data).subscribe((res:any)=>{
-    
+    this.services.GetListLoBong(data).subscribe((res: any) => {
+
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  getListdmCapBong(){
-    this.services.GetListOptdmCapBong().subscribe((res:any)=>{
+  getListdmCapBong() {
+    this.services.GetListOptdmCapBong().subscribe((res: any) => {
       this.listdmCapBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   Onclose() {
     this.activeModal.close();
   }
-  CopyLoBong(){
+  CopyLoBong() {
     let data = {
       IdLoBong_Nguon: this.item.IdLoBongCopy,
       IdLoBong_Dich: this.item.Id
     }
-    this.services.CopyLoBong(data).subscribe((res:any)=>{
+    this.services.CopyLoBong(data).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.khongclicknhieu = !this.khongclicknhieu;
           this.toastr.success(res.message)
-          this.services.getLoBong(this.item.Id).subscribe((res:any)=>{
+          this.services.getLoBong(this.item.Id).subscribe((res: any) => {
             this.item = res;
           })
         } else {
@@ -102,13 +112,12 @@ export class LobongmodalComponent implements OnInit {
       }
     })
   }
-  CopyLoBongModal(){
+  CopyLoBongModal() {
     let modalRef = this._modal.open(LobongcopymodalComponent, {
       size: 'lg',
       backdrop: 'static'
     })
     modalRef.result.then((res: any) => {
-      console.log(res)
       this.item.TrongLuong = res.data.TrongLuong;
       this.item.Nep = res.data.Nep;
       this.item.Mic = res.data.Mic;
@@ -125,7 +134,34 @@ export class LobongmodalComponent implements OnInit {
       // })
     })
   }
-  TinhGiaKien(){
-    this.item.GiaKien = (this.item.TrongLuong || 0) *  (this.item.GiaBong || 0)
+  TinhGiaKien() {
+    this.item.GiaKien = (this.item.TrongLuong || 0) * (this.item.GiaBong || 0)
   }
+
+  TaoQR() {
+    this._danhMucTaiSan.SetQRCODELoBong(this.item).subscribe((res: any) => {
+      if (res.StatusCode === 0) {
+        this.item.MaQR = res.Data;
+        this.toastr.success(res.message)
+      } else this.toastr.error(res.message)
+    })
+  }
+
+  InQrCode() {
+    this._danhMucTaiSan.InQrCodeLoBong(this.item.Id, this.item.IdKichThuoc || 100).subscribe((res: any) => {
+      if (res.State === 1) {
+        let url = res.Data
+        window.open(API.imgURL + url);
+        this.toastr.success(res.message)
+      } else this.toastr.error(res.message)
+    });
+  }
+
+
+  handleQR() {
+    if (this.item.MaQR) {
+      this.isQR = !this.isQR
+    } else this.TaoQR();
+  }
+
 }

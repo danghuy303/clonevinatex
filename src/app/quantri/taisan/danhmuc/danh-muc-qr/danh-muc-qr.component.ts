@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { API } from 'src/app/services/host';
+import {mapArrayForDropDown} from '../../../../services/globalfunction'
 
 @Component({
   selector: 'app-danh-muc-qr',
@@ -15,8 +16,9 @@ export class DanhMucQrComponent implements OnInit {
   listHienThi: any = [];
   Keyword: any = '';
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
-  filter: any = {};
+  filter: any = {Loai:''};
   checkedAll: boolean = false;
+  listLoai: any = [];
 
   constructor(
     private _modal: NgbModal,
@@ -25,8 +27,16 @@ export class DanhMucQrComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.GetlistLoaiQR();
     this.GetList();
   }
+
+  GetlistLoaiQR() {
+    this._danhMucTaiSan.GetlistLoaiQR().subscribe((res:any) => {
+      this.listLoai = mapArrayForDropDown(res.Data, "Ten", "Ma");
+    })
+  }
+
   resetFilter() {
     this.filter = {};
     this.Keyword = '';
@@ -41,7 +51,8 @@ export class DanhMucQrComponent implements OnInit {
       listMaQr: this.listHienThi ? this.listHienThi.filter(obj => obj.checked).map(ele => ele.MaQr) : [],
       SoLuong: this.filter.SoLuong,
       CurrentPage: this.paging.CurrentPage,
-      PageSize: 20
+      PageSize: 20,
+      Loai: this.filter.Loai
     }
     this._danhMucTaiSan.GetListQRCODE(data).subscribe((res: any) => {
       this.listHienThi = res.items;
@@ -64,11 +75,11 @@ export class DanhMucQrComponent implements OnInit {
       let data = {
         listMaQr: this.listHienThi ? this.listHienThi.filter(obj => obj.checked).map(ele => ele.MaQr) : [],
         SoLuong: this.filter.SoLuong,
-        SoBanIn:this.filter.SoBanIn,
-        SoLuongIn:this.filter.SoLuongIn,
+        SoBanIn: this.filter.SoBanIn,
+        SoLuongIn: this.filter.SoLuongIn,
       }
       this._danhMucTaiSan.InQrCode(data).subscribe((res: any) => {
-        if(res.State === 1 ) {
+        if (res.State === 1) {
           let url = res.Data
           window.open(API.imgURL + url);
           this._toastr.success(res.message)

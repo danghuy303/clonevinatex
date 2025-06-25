@@ -189,29 +189,29 @@ export function merge(newArr: Array<any>, existingArr: Array<any>, diffProp: str
     return existingArr;
 }
 
-export function MergeArr(newArr: Array<any>, existingArr: Array<any>, diffProp: string): Array<any>{
+export function MergeArr(newArr: Array<any>, existingArr: Array<any>, diffProp: string): Array<any> {
     let removeIndex = [];
     newArr.forEach((newEle) => {
-      let index = existingArr?.findIndex(
-        (oldEle) => newEle[diffProp] === oldEle[diffProp]
-      );
-      if (index === -1) {
-        existingArr.push(newEle);
-      }
+        let index = existingArr?.findIndex(
+            (oldEle) => newEle[diffProp] === oldEle[diffProp]
+        );
+        if (index === -1) {
+            existingArr.push(newEle);
+        }
     });
     existingArr?.forEach((oldEle, index) => {
-      let indexCheck = newArr.findIndex(
-        (newEle) => newEle[diffProp] === oldEle[diffProp]
-      );
-      if (indexCheck === -1) {
-        removeIndex.push(index);
-      }
+        let indexCheck = newArr.findIndex(
+            (newEle) => newEle[diffProp] === oldEle[diffProp]
+        );
+        if (indexCheck === -1) {
+            removeIndex.push(index);
+        }
     });
     for (var i = removeIndex.length - 1; i >= 0; i--) {
-      existingArr.splice(removeIndex[i], 1);
+        existingArr.splice(removeIndex[i], 1);
     }
     return existingArr;
-  }
+}
 
 export function CVMic(array: Array<any>, sokien: number) {
     // array là mảng chứa mic và số lượng của từng lô từng bàn từ bông hồi
@@ -253,7 +253,18 @@ export function getSTT(list) {
         ele.data.isCha = true;
         ele.data.STT = index + 1;
         ele.children?.forEach((child, index) => {
-          child.data.STT = `${ele.data.STT}.${index+1}`
+            child.data.STT = `${ele.data.STT}.${index + 1}`
         })
-      }) 
+    })
 }
+
+export function base64ToBlob(base64: string, contentType: string): Blob {
+  const data = base64.includes(',') ? base64.split(',')[1] : base64;
+  const bytes = atob(data);
+  const array = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) {
+    array[i] = bytes.charCodeAt(i);
+  }
+  return new Blob([array], { type: contentType });
+}
+

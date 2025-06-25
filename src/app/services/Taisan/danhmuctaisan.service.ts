@@ -338,13 +338,25 @@ export class DanhmuctaisanService {
   SetQRCODE(data) {
     return this.http.post(`${API.SCM}DanhMuc/SetQRCODE`, data, httpOptions)
   }
-
+  SetQRCODELoBong(data) {
+    return this.http.post(`${API.SCM}DanhMuc/SetQRCODELoBong`, data, httpOptions)
+  }
+  InQrCodeLoHang(MaQR, SoLuong, KichThuoc) {
+    return this.http.get(`${API.SCM}DanhMuc/InQrCodeLoHang?MaQR=${MaQR}&SoLuong=${SoLuong}&KichThuoc=${KichThuoc}`, httpOptions)
+  }
   GetListQRCODE(data) {
     return this.http.post(`${API.SCM}DanhMuc/GetListQRCODE`, data, httpOptions)
+  }
+  InQrCodeLoBong(IdLoBong, KichThuoc) {
+    return this.http.get(`${API.SCM}DanhMuc/InQrCodeLoBong?IdLoBong=${IdLoBong}&KichThuoc=${KichThuoc}`, httpOptions)
   }
 
   InQrCode(data) {
     return this.http.post(`${API.SCM}DanhMuc/InQrCode`, data, httpOptions)
+  }
+
+  GetlistLoaiQR() {
+    return this.http.get(`${API.SCM}DanhMuc/GetlistLoaiQR`, httpOptions)
   }
 
 

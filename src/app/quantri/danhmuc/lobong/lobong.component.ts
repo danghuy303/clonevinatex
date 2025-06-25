@@ -14,7 +14,7 @@ import { LoxomodalComponent } from '../loxomodal/loxomodal.component';
   templateUrl: './lobong.component.html',
   styleUrls: ['./lobong.component.css']
 })
-export class LobongComponent extends StoreBase implements OnInit,OnDestroy {
+export class LobongComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   filter: any = {};
@@ -82,7 +82,7 @@ export class LobongComponent extends StoreBase implements OnInit,OnDestroy {
   ];
 
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService,
-    private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {super(store) }
+    private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) { super(store) }
 
   ngOnInit(): void {
     this.filter.isDaDuyet = this.listisDaDuyet[0].value;
@@ -91,7 +91,7 @@ export class LobongComponent extends StoreBase implements OnInit,OnDestroy {
     this.GetListdmLoaiBong();
   }
   update(item) {
-    if(this.filter.Loai === 2){
+    if (this.filter.Loai === 2) {
       let modalRef = this._modal.open(LobongmodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -99,10 +99,12 @@ export class LobongComponent extends StoreBase implements OnInit,OnDestroy {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
       modalRef.result.then((res: any) => {
-        this.GetListQuyTrinh();
-      }).catch(er=>{})
+      }).catch(er => { })
+        .finally(() => {
+          this.GetListQuyTrinh();
+        })
     }
-    else if(this.filter.Loai === 5){
+    else if (this.filter.Loai === 5) {
       let modalRef = this._modal.open(LoxomodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -110,8 +112,10 @@ export class LobongComponent extends StoreBase implements OnInit,OnDestroy {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
       modalRef.result.then((res: any) => {
-        this.GetListQuyTrinh();
-      }).catch(er=>{})
+      }).catch(er => { })
+        .finally(() => {
+          this.GetListQuyTrinh();
+        })
     }
   }
 
@@ -153,7 +157,7 @@ export class LobongComponent extends StoreBase implements OnInit,OnDestroy {
       this.listdmLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }

@@ -49,7 +49,7 @@ export class XuatkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
   link: any = {};
   listRouter: any = [
     { value: 'khotho', lable: 'thô',Loai:204, api: () => this._service.PhieuXuatSoiTho() },
-    { value: 'khocui', lable: 'cũi',Loai:205, api: () => this._service.PhieuXuatSoiCui() },
+    { value: 'khocui', lable: 'cuộn cũi',Loai:205, api: () => this._service.PhieuXuatSoiCui() },
   ]
 
 

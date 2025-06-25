@@ -83,7 +83,7 @@ export class TonkhoComponent extends StoreBase implements OnInit, OnDestroy {
           break;
         case 204: this.tenkho = "kho thô";
           break;
-        case 205: this.tenkho = "kho cũi";
+        case 205: this.tenkho = "kho cuộn cũi";
           break;
         default:
           break;
@@ -143,8 +143,10 @@ export class TonkhoComponent extends StoreBase implements OnInit, OnDestroy {
     }
     // this._service.getLuuKhoKhac(this.filter.IddmKho, '', this.paging.CurrentPage, this.filter.KeyWord).subscribe((res: any) => {
     this._service.GetLuuKhoTheKho(data).subscribe((res: any) => {
-      this.items = res.items;
-      this.paging = res.paging;
+      if (res.items.length) {
+        this.items = res.items;
+        this.paging = res.paging;
+      }
     })
   }
   resetFilter() {

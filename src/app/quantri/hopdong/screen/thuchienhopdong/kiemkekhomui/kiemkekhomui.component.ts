@@ -47,7 +47,7 @@ export class KiemkekhomuiComponent extends StoreBase implements OnInit, OnDestro
   link: any = {};
   listRouter: any = [
     { value: 'khotho', lable: 'thô', Loai: 204, api: () => this._service.PhieuKiemKeSoiTho() },
-    { value: 'khocui', lable: 'cũi', Loai: 205, api: () => this._service.PhieuKiemKeSoiCui() },
+    { value: 'khocui', lable: 'cuộn cũi', Loai: 205, api: () => this._service.PhieuKiemKeSoiCui() },
   ]
 
 

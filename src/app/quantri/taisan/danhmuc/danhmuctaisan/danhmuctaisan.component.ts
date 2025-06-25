@@ -131,7 +131,7 @@ export class DanhmuctaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới tài sản';
+    modalRef.componentInstance.title = 'Thêm mới Nhóm tài sản/vật tư';
     modalRef.result.then(res => {
       this.GetList()
     }).catch(er => console.log(er))
@@ -145,7 +145,7 @@ export class DanhmuctaisanComponent implements OnInit {
       });
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.type = 'capnhat';
-      modalRef.componentInstance.title = 'Cập nhật tài sản';
+      modalRef.componentInstance.title = 'Cập nhật Nhóm tài sản/vật tư';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
       modalRef.result.then(res => {
         this.GetList()
