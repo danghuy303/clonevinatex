@@ -321,17 +321,26 @@
                 <tbody>
                     <ng-container *ngFor="let item of item.listItem;let i = index">
                         <tr>
-                            <td class="text-center" style="z-index: 1;">{{i+0}}</td>
-                            <td class="text-center" style="z-index: 1;">{{item.Ten}}</td>
-                            <td class="text-center" style="z-index: 1;">{{item.TenLoHang}}</td>
-                            <td class="text-center" style="z-index: 1;">{{item.TendmQuyCachDongGoi}}</td>
+                            <td class="text-center" style="z-index: 1;">{{i+1}}</td>
+                            <td class="" style="z-index: 1;">{{item.Ten}}</td>
+                            <td class="" style="z-index: 1;">{{item.TenLoHang}}</td>
+                            <td class="" style="z-index: 1;">{{item.TendmQuyCachDongGoi}}</td>
                             <td class="text-center">
-                                <input pInputText type="text" [(ngModel)]="item.HopDong" #input
-                                    (keydown)="navigateTable($event, i, 0)">
+
+                                <div style="display: flex;">
+                                    <div style="flex:1">
+                                        <input pInputText type="text" [(ngModel)]="item.HopDong" disabled #input
+                                            (keydown)="navigateTable($event, i, 0)">
+                                    </div>
+                                    <button pButton pRipple icon="pi pi-ellipsis-v"
+                                        class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                        (click)="chonHopDong(item,i)" pTooltip="Tính toán" showDelay="1000"
+                                        tooltipPosition="bottom"></button>
+                                </div>
                             </td>
                             <td class="text-center">
                                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TonSoLuong"
-                                    disabled #input (keydown)="navigateTable($event, i, 1)">
+                                    disabled #input (keydown)="navigateTable($event, i, 0)">
                                 </p-inputNumber>
                             </td>
                             <td class="text-center">
@@ -339,7 +348,7 @@
                                     <div style="flex:1">
                                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong"
                                             (onBlur)="TinhTongKhoiLuong()" #input
-                                            (keydown)="navigateTable($event, i, 2)">
+                                            (keydown)="navigateTable($event, i, 1)">
                                         </p-inputNumber>
                                     </div>
                                     <button pButton pRipple icon="pi pi-ellipsis-v"
@@ -350,13 +359,13 @@
                             </td>
                             <td class="text-center">
                                 <p-inputNumber locale="en-EN" [(ngModel)]="item.SoKien" (onBlur)="TinhTongKhoiLuong()"
-                                    #input (keydown)="navigateTable($event, i, 3)">
+                                    #input (keydown)="navigateTable($event, i, 2)">
                                 </p-inputNumber>
                             </td>
 
                             <td class="text-center">
                                 <p-inputNumber [minFractionDigits]="2" locale="en-EN" #input
-                                    (keydown)="navigateTable($event, i, 4)" [(ngModel)]="item.TongTrongLuongChenhLech"
+                                    (keydown)="navigateTable($event, i, 3)" [(ngModel)]="item.TongTrongLuongChenhLech"
                                     (onBlur)="TinhTongKhoiLuong()">
                                 </p-inputNumber>
                             </td>

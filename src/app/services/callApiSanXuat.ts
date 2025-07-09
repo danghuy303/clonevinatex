@@ -3479,7 +3479,7 @@ export class SanXuatService {
     BasicApi(endpoint) {
         let url = API.SCMQuanLyKho;
         let idDuAn = this.store.getCurrent();
-        
+
         return {
             GetNextSo: () => {
                 return this.http.get(url + `GetNextSoQuyTrinh${endpoint}`, httpOptions);
@@ -3528,5 +3528,9 @@ export class SanXuatService {
     }
     PhieuKiemKeSoiCui() {
         return this.BasicApi('PhieuKiemKeCuonCui')
+    }
+
+    GetListHopDongForPhieuXuatHang(IddmItem) {
+        return this.http.get(`${API.HopDong}HopDong/GetListHopDongForPhieuXuatHang?IddmItem=${IddmItem}`, httpOptions)
     }
 }

@@ -16,6 +16,7 @@ export class PhanxuongmodalComponent implements OnInit {
   listCongDoan:any=[];
   listNhomKho : any = [];
   khongclicknhieu: any = false;
+  listLoaiSoi: any = [];
   constructor(public activeModal: NgbActiveModal,
      private services: SanXuatService,
       public toastr: ToastrService, private _modal: NgbModal) { }

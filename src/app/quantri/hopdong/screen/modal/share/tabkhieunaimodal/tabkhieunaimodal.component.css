@@ -1,0 +1,35 @@
+.form-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.col-label {
+  width: 120px;
+  min-width: 120px;
+  text-align: left;
+  margin-right: 8px;
+  margin-bottom: 0;
+}
+.col-input {
+  flex: 1 1 220px;
+  min-width: 180px;
+  margin-right: 24px;
+}
+.col-input-full {
+  flex: 3 1 100%;
+  min-width: 300px;
+  margin-right: 0;
+}
+.col-checkbox {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+.form-label {
+  font-weight: normal;
+}
+@media (max-width: 900px) {
+  .form-row { flex-direction: column; align-items: flex-start; }
+  .col-label, .col-input, .col-input-full, .col-checkbox { width: 100%; min-width: 0; margin-right: 0; }
+}
+

@@ -26,14 +26,39 @@
             </div>
         </div> -->
         <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Vạn cọc:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.VanCoc">
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Định mức sản xuất:</label>
+            <div class="p-col-12 p-lg-8 p-p-0 d-flex align-items-center">
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.DinhMucSanXuat" class="p-mr-3">
+                </p-inputNumber>
+                (Tấn / tháng)
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại sợi sản xuất</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-multiSelect [options]="listLoaiSoi" [(ngModel)]="item.listIddmLoaiSoi"
+                    selectedItemsLabel="{0} loại sợi đã chọn" defaultLabel="Chọn"></p-multiSelect>
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu"
+                    pInputText />
             </div>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()" [disabled]="khongclicknhieu"></button>
-    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2" (click)="activeModal.dismiss()"></button>
+    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
+        [disabled]="khongclicknhieu"></button>
+    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+        (click)="activeModal.dismiss()"></button>
 </div>

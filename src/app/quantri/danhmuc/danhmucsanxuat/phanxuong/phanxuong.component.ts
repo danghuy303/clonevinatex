@@ -16,112 +16,138 @@ import { PhanxuongmodalComponent } from '../modals/phanxuongmodal/phanxuongmodal
 })
 export class PhanxuongComponent implements OnInit {
 
- 
+
   @ViewChild('paginator') paginator: any;
   items: any = [
   ];
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 0 };
-  keyWord:any='';
-  filter:any={
+  keyWord: any = '';
+  filter: any = {
   };
   cols: any = [
     {
       header: 'Mã',
       field: 'Ma',
       width: '200px',
-      align:'center'
+      align: ''
     },
     {
       header: 'Tên',
       field: 'Ten',
       width: 'unset',
-      align:'center'
+      align: ''
+    },
+    {
+      header: 'Vạn cọc',
+      field: 'VanCoc',
+      width: '150px',
+      align: 'text-right'
+    },
+    {
+      header: 'ĐỊnh mức sản xuất(tấn/tháng)',
+      field: 'DinhMucSanXuat',
+      width: '150px',
+      align: 'right'
+    },
+    {
+      header: 'Loại sợi sản xuất',
+      field: 'TendmLoaiSoi',
+      width: 'unset',
+      align: ''
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',
-      center:'center'
+      center: ''
     }
   ];
-  listCongDoan:any = [];
-  selectedItems:any=[];
-  listNhomKho : any = [];
-  constructor(private _modal:NgbModal,
-    private _services:SanXuatService,
-    private _toastr:ToastrService) 
-    { }
+  listCongDoan: any = [];
+  selectedItems: any = [];
+  listNhomKho: any = [];
+  listLoaiSoi: any = [];
+  constructor(private _modal: NgbModal,
+    private _services: SanXuatService,
+    private _toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getListCongDoan();
     this.GetListdm();
     this.getListNhomKho();
+    this.getListLoaiSoi();
   }
-  resetFilter(){
+
+  getListLoaiSoi() {
+    this._services.GetListOptdmLoaiSoi().subscribe((res: any) => {
+      this.listLoaiSoi = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  resetFilter() {
     this.filter = {
     };
     this.GetListdm();
   }
-  getListNhomKho(){
-    var data: any={}
+  getListNhomKho() {
+    var data: any = {}
     data.CurrentPage = 0;
     this._services.GetListdmNhomKho(data).subscribe((res: any) => {
       this.listNhomKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  getListCongDoan(){
+  getListCongDoan() {
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
     })
   }
-  GetListdm(reset?){
-    if(reset){
-      this.paging.CurrentPage=1;
+  GetListdm(reset?) {
+    if (reset) {
+      this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
     let data = {
-      PageSize:20, 
-      CurrentPage:this.paging.CurrentPage,
-      sFilter:this.filter.keyWord?this.filter.keyWord:'',
-      CongDoan:this.filter.CongDoan?this.filter.CongDoan:'',
-      Ma:"", 
-      Ten:""
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
+      sFilter: this.filter.keyWord ? this.filter.keyWord : '',
+      CongDoan: this.filter.CongDoan ? this.filter.CongDoan : '',
+      Ma: "",
+      Ten: ""
     };
-    this._services.GetListdmPhanXuong(data,true).subscribe((res:any)=>{
+    this._services.GetListdmPhanXuong(data, true).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
   }
-  add(){
-    let modalRef = this._modal.open(PhanxuongmodalComponent,{
-      backdrop:'static'
+  add() {
+    let modalRef = this._modal.open(PhanxuongmodalComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.opt='add';
+    modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.listNhomKho = this.listNhomKho;
-
-    modalRef.result.then(res=>{
+    modalRef.componentInstance.listLoaiSoi = this.listLoaiSoi;
+    modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetListdm()
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  edit(item){
-    let modalRef = this._modal.open(PhanxuongmodalComponent,{
-      backdrop:'static'
+  edit(item) {
+    let modalRef = this._modal.open(PhanxuongmodalComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.opt='edit';
+    modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.listNhomKho = this.listNhomKho;
-    modalRef.result.then(res=>{
+    modalRef.componentInstance.listLoaiSoi = this.listLoaiSoi;
+    modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetListdm()
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  delete(item){
-    let modalRef = this._modal.open(ModalthongbaoComponent,{
-      backdrop:'static'
+  delete(item) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
       this._services.DeletedmPhanXuong(item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -132,14 +158,14 @@ export class PhanxuongComponent implements OnInit {
           }
         }
       })
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  deleteAll(){
-    let modalRef = this._modal.open(ModalthongbaoComponent,{
-      backdrop:'static'
+  deleteAll() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
       this._services.DeletedmPhanXuong(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -151,24 +177,24 @@ export class PhanxuongComponent implements OnInit {
           }
         }
       })
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  changePage(event){
-    this.paging.CurrentPage = event.page+1;
+  changePage(event) {
+    this.paging.CurrentPage = event.page + 1;
     this.GetListdm();
   }
-  importExcel(){
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
-      backdrop:'static',
+  importExcel() {
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
+      backdrop: 'static',
     })
     modalRef.componentInstance.importFunc = 'phanxuong';
-    modalRef.result.then(res=>{
+    modalRef.result.then(res => {
       this.GetListdm();
       this._toastr.success(res.mess);
     })
-    .catch(er=>console.log(er))
+      .catch(er => console.log(er))
   }
-  exportExcel(){
+  exportExcel() {
     let dataSearch: any = {}
     dataSearch.TableName = 'SCM_dmPhanXuong';
     dataSearch.CurrentPage = 0;
@@ -176,4 +202,9 @@ export class PhanxuongComponent implements OnInit {
       this._services.download(res.TenFile);
     })
   }
+
+  isNumeric(value: any): boolean {
+    return !isNaN(value) && !isNaN(parseFloat(value));
+  }
+
 }

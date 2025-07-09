@@ -8,6 +8,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from '../../../../services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { XuatthanhphammathangmodalComponent } from '../xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
+import { DanhsachhopdongmodalComponent } from '../../../modal/danhsachhopdongmodal/danhsachhopdongmodal.component';
 
 @Component({
   selector: 'app-xuatkhothanhphammodal',
@@ -424,7 +425,7 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
   navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
     const key = event.key;
     const inputElements: any = this.inputs.toArray();
-    const colsPerRow = 5; // Số cột chứa ô nhập liệu
+    const colsPerRow = 4; // Số cột chứa ô nhập liệu
 
     let nextIndex = rowIndex * colsPerRow + colIndex;
     if (key === 'ArrowRight') nextIndex += 1;
@@ -494,8 +495,8 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
               const indexInList = this.inputs.toArray().findIndex(
                 (inp) => inp.nativeElement.querySelector('input') === realInput
               );
-              const rowIndex = Math.floor(indexInList / 5);
-              const colIndex = indexInList % 5;
+              const rowIndex = Math.floor(indexInList / 4);
+              const colIndex = indexInList % 4;
               this.navigateTable(event, rowIndex, colIndex);
             }
           },
@@ -503,6 +504,19 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
         );
       }
     });
+  }
+
+  chonHopDong(item, idx) {
+    let modalRef = this._modal.open(DanhsachhopdongmodalComponent, {
+      size: "xl",
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.result.then((res) => {
+      this.item.listItem[idx].IdHopDong = res.idHopDong;
+      this.item.listItem[idx].HopDong = res.soHopDong;
+      this.item.listItem = [...this.item.listItem];
+    })
   }
 
 }

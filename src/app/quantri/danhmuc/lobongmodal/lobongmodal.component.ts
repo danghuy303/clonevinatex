@@ -8,6 +8,8 @@ import { LobongcopymodalComponent } from '../lobongcopymodal/lobongcopymodal.com
 import { DanhmuctaisanService } from "../../../services/Taisan/danhmuctaisan.service"
 import { base64ToBlob } from '../../../services/globalfunction';
 import { API } from '../../../services/host';
+import { exhaustMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-lobongmodal',
@@ -27,7 +29,8 @@ export class LobongmodalComponent implements OnInit {
     { value: 100, label: '100' },
     { value: 200, label: '200' },
     { value: 400, label: '400' },
-  ]
+  ];
+  inQrCode$ = new Subject<void>();
 
   constructor(public activeModal: NgbActiveModal,
     private services: SanXuatService,
@@ -35,6 +38,7 @@ export class LobongmodalComponent implements OnInit {
     public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
+    this.InQrCodeLoBong();
     this.getListdmCapBong();
     this.GetListdmLoaiBong();
     this.GetListLoBong();
@@ -147,17 +151,24 @@ export class LobongmodalComponent implements OnInit {
     })
   }
 
-  InQrCode() {
-    this._danhMucTaiSan.InQrCodeLoBong(this.item.Id, this.item.IdKichThuoc || 100).subscribe((res: any) => {
+  InQrCodeLoBong() {
+    this.inQrCode$.pipe(
+      exhaustMap(() =>
+        this._danhMucTaiSan.InQrCodeLoBong(this.item.Id, this.item.IdKichThuoc || 100)
+      )
+    ).subscribe((res: any) => {
       if (res.State === 1) {
-        let url = res.Data
+        let url = res.Data;
         window.open(API.imgURL + url);
-        this.toastr.success(res.message)
-      } else this.toastr.error(res.message)
+        this.toastr.success(res.message);
+      } else {
+        this.toastr.error(res.message);
+      }
     });
   }
-
-
+  InQrCode() {
+    this.inQrCode$.next();
+  }
   handleQR() {
     if (this.item.MaQR) {
       this.isQR = !this.isQR

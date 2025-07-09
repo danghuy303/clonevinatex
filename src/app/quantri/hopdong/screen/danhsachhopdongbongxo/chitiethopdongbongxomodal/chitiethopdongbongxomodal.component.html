@@ -12,28 +12,33 @@
         </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
 
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
-            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+                (click)="activeModal.dismiss('close')"></button>
         </div>
     </div>
     <div class="p-d-flex p-flex-row p-jc-between">
         <p-tabView>
             <p-tabPanel header="Thông tin hợp đồng">
-                <app-chitiethopdongbongxo [(item)]="item.hopDong" [(listLoaiMatHang)]="listLoaiMatHang" [(listHangHoa)]="item.listHangHoa[0]" [(lstFileUploadCu)]="item.lstFileUploadCu">
+                <app-chitiethopdongbongxo [(item)]="item.hopDong" [(listLoaiMatHang)]="listLoaiMatHang"
+                    [(listHangHoa)]="item.listHangHoa[0]" [(lstFileUploadCu)]="item.lstFileUploadCu">
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
-            <p-tabPanel header="Thông tin hàng hóa">                
-                <app-chitietdanhsachhanghoa [isBong]="isBong" [res1]="res1" [(hopDong)]="item.hopDong" [(listHangHoa)]="item.listHangHoa[0]" [(listTieuChuanChatLuong)]="item.listTieuChuanChatLuong" [listLoaiMatHang]="listLoaiMatHang">
+            <p-tabPanel header="Thông tin hàng hóa">
+                <app-chitietdanhsachhanghoa [isBong]="isBong" [res1]="res1" [(hopDong)]="item.hopDong"
+                    [(listHangHoa)]="item.listHangHoa[0]" [(listTieuChuanChatLuong)]="item.listTieuChuanChatLuong"
+                    [listLoaiMatHang]="listLoaiMatHang">
                 </app-chitietdanhsachhanghoa>
             </p-tabPanel>
             <p-tabPanel header="Điều khoản thanh toán">
-                <app-chitietdieukhoanthanhtoan [(hopDong)]="item.hopDong" [(listDieuKhoanThanhToan)]="item.listDieuKhoanThanhToan"></app-chitietdieukhoanthanhtoan>
+                <app-chitietdieukhoanthanhtoan [(hopDong)]="item.hopDong"
+                    [(listDieuKhoanThanhToan)]="item.listDieuKhoanThanhToan"></app-chitietdieukhoanthanhtoan>
             </p-tabPanel>
             <p-tabPanel header="Bảo lãnh">
                 <app-chitietbaolanh [(listBaoLanh)]="item.listBaoLanh"></app-chitietbaolanh>
@@ -43,6 +48,9 @@
             </p-tabPanel>
             <p-tabPanel header="Phạt hợp đồng">
                 <app-chitietphathopdong [(phatHopDong)]="item.phatHopDong"></app-chitietphathopdong>
+            </p-tabPanel>
+            <p-tabPanel header="Thông tin Khiếu nại">
+                <app-tabkhieunai [(quyTrinh)]="item" [isSoi]="false"></app-tabkhieunai>
             </p-tabPanel>
         </p-tabView>
         <div class="modal-footer">

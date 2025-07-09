@@ -61,11 +61,21 @@ export class ThongsochatluongmodalComponent implements OnInit {
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
         this.item.Ngay = UnixToDate(this.item.NgayUnix);
       }
-      this.listItem = res1.listItem;
+      this.listItem = res1.listItem?.map(ele => {
+        return {
+          ...ele,
+          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}}`
+        }
+      });
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
-      this.item.listItem = res1.listItem.slice(0, 15);
+      this.item.listItem = res1.listItem.slice(0, 15)?.map(ele => {
+        return {
+          ...ele,
+          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
+        }
+      });
       this.item_new = this.item;
       this.KiemTraButtonModal();
     })
@@ -131,12 +141,22 @@ export class ThongsochatluongmodalComponent implements OnInit {
           this.opt = 'edit';
           this.item = res.objectReturn;
           this.item.Ngay = UnixToDate(this.item.NgayUnix)
-          this.listItem = res.objectReturn.listItem;
+          this.listItem = res.objectReturn.listItem?.map(ele => {
+        return {
+          ...ele,
+          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}}`
+        }
+      });
           this.paging.CurrentPage = 1;
           this.paging.TotalPage = 5;
           if (res.objectReturn.listItem != undefined && res.objectReturn.listItem != null)
             this.paging.TotalItem = res.objectReturn.listItem.length;
-          this.item.listItem = res.objectReturn.listItem.slice(0, 15);
+          this.item.listItem = res.objectReturn.listItem.slice(0, 15)?.map(ele => {
+        return {
+          ...ele,
+          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}}`
+        }
+      });
           this.KiemTraButtonModal();
         } else {
           this.toastr.error(res.message);
@@ -195,7 +215,6 @@ export class ThongsochatluongmodalComponent implements OnInit {
     this.activeModal.close();
   }
   changePage(event) {
-    console.log(event)
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
     var end = start + 15;

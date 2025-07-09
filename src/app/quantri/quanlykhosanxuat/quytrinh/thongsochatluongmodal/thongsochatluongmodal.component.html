@@ -131,7 +131,7 @@
             </div>
 
             <p-table [lazy]="true" [scrollable]="true" scrollHeight="40vh" [value]="item.listItem|isXoa"
-                styleClass="p-datatable-sm wrap-text p-datatable-gridlines" selectionMode="single">
+                styleClass="p-datatable-sm wrap-text p-datatable-gridlines custom-scroll-hidden" selectionMode="single">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -149,6 +149,8 @@
                         <col style="text-align: center;">
                         <col style="text-align: center;">
                         <col style="width:100px">
+                        <col style="width:80px">
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -158,6 +160,7 @@
                         <th rowspan="2">Tên</th>
                         <th colspan="11">Chất lượng bông</th>
                         <th rowspan="2">Kiện dài</th>
+                        <th rowspan="2">Mã QR</th>
                         <th rowspan="2"></th>
                     </tr>
                     <tr>
@@ -176,7 +179,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <td>
+                        <td class="text-center">
                             {{ 15 * (paging.CurrentPage - 1) + i + 1 }}
                         </td>
                         <td class="text-center">{{item.Ma}}</td>
@@ -229,7 +232,12 @@
                         <td class="text-center">
                             <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isKienDai" />
                         </td>
-                        <td>
+                        <td class="text-center">
+                            <qrcode [qrdata]="item.QRType"
+                                [width]="50" [errorCorrectionLevel]="'M'" [elementType]="'svg'">
+                            </qrcode>
+                        </td>
+                        <td class="text-center">
                             <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text"
                                 (click)="editChiTiet(item,i)" pTooltip="Sửa" showDelay="1000"

@@ -648,6 +648,14 @@ const routes: Routes = [
         path: "lap-ke-hoach/CottonPriceChart",
         component: TheodoikehoachComponent,
       },
+       {
+        path: "lap-ke-hoach/CombinedChart",
+        component: TheodoikehoachComponent,
+      },
+       {
+        path: "lap-ke-hoach/ComparisonChart",
+        component: TheodoikehoachComponent,
+      },
 
      
     ],

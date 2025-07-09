@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CalcmodalComponent implements OnInit {
   calcString: string;
+
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService,) { }
 

@@ -2225,6 +2225,16 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => this.close(),
           },
           {
+            label: "So sánh sản lượng",
+            routerLink: "/quantri/lap-ke-hoach/ComparisonChart",
+            command: () => this.close(),
+          },
+          {
+            label: "So sánh chi phí",
+            routerLink: "/quantri/lap-ke-hoach/CombinedChart",
+            command: () => this.close(),
+          },
+          {
             label: "Cắt chuyền",
             routerLink: "/quantri/lap-ke-hoach/catchuyen/0",
             command: () => this.close(),
@@ -2495,8 +2505,8 @@ export class QuantriComponent implements OnInit, OnDestroy {
   Dislay() {
     // let isCheckMenu = JSON.parse(localStorage.getItem('isCheckMenu'));
     let isCheckMenu = this.menuService.isCheckMenuValue;
-    console.log('isCheckMenu',isCheckMenu);
-    
+    console.log('isCheckMenu', isCheckMenu);
+
     if (isCheckMenu) {
       this.CaiMeNuQLTS();
       this.displayAsset = true;

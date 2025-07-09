@@ -27,8 +27,8 @@
                     inputId="icon" placeholder="dd/mm/yyyy" disabled>
                 </p-calendar>
             </div>
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Năm:</label>
-            <div class="p-col-12 p-lg-4 p-p-0">
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Năm:</label>
+            <div class="p-col-12 p-lg-5 p-p-0">
                 <input type="number" class="p-inputtext-sm text-right" [(ngModel)]="item.Nam" pInputText disabled />
             </div>
         </div>
@@ -96,8 +96,13 @@
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mic:</label>
-            <div class="p-col-12 p-lg-4 p-p-0">
+            <div class="p-col-12 p-lg-2 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.Mic" [min]="0">
+                </p-inputNumber>
+            </div>
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Tỷ giá:</label>
+            <div class="p-col-12 p-lg-1 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TyGia" [min]="0">
                 </p-inputNumber>
             </div>
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rd:</label>
@@ -183,9 +188,12 @@
 
 <p-dialog header="In QR" [(visible)]="isQR" [style]="{ width: '20vw' }" [modal]="true" [baseZIndex]="10000">
     <div class="p-grid">
-        <div class="p-col-12 p-p-3 d-flex flex-column">
-            <p-dropdown [filter]="true" [options]="listKichThuoc" placeholder="Chọn kích thước in"
-                [(ngModel)]="item.IdKichThuoc" styleClass="p-inputtext-sm"></p-dropdown>
+        <div class="p-col-12 p-p-2 d-flex flex-column">
+            <div class="p-mb-1">Chọn kích thước in:</div>
+            <div>
+                <p-dropdown [filter]="true" [options]="listKichThuoc" placeholder="Chọn"
+                    [(ngModel)]="item.IdKichThuoc" styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
         </div>
     </div>
     <ng-template pTemplate="footer">

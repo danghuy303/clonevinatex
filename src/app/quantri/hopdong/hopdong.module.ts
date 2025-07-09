@@ -195,6 +195,8 @@ import { KiemkekhomuiComponent } from './screen/thuchienhopdong/kiemkekhomui/kie
 import { NhapkhomuimodalComponent } from './screen/thuchienhopdong/nhapkhomui/nhapkhomuimodal/nhapkhomuimodal.component';
 import { XuatkhomuimodalComponent } from './screen/thuchienhopdong/xuatkhomui/xuatkhomuimodal/xuatkhomuimodal.component';
 import { KiemkekhomuimodalComponent } from './screen/thuchienhopdong/kiemkekhomui/kiemkekhomuimodal/kiemkekhomuimodal.component';
+import { TabkhieunaiComponent } from './screen/modal/share/tabkhieunai/tabkhieunai.component';
+import { TabkhieunaimodalComponent } from './screen/modal/share/tabkhieunaimodal/tabkhieunaimodal.component';
 
 
 @NgModule({
@@ -394,6 +396,10 @@ import { KiemkekhomuimodalComponent } from './screen/thuchienhopdong/kiemkekhomu
     XuatkhomuimodalComponent,
     
     KiemkekhomuimodalComponent,
+    
+    TabkhieunaiComponent,
+    
+    TabkhieunaimodalComponent,
     
    
     

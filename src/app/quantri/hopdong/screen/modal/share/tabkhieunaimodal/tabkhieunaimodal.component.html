@@ -1,0 +1,78 @@
+<div class="modal-header">
+    <h5 class="modal-title">Thông tin khiếu nại</h5>
+</div>
+<div class="modal-body">
+    <div class="p-mb-3">
+        <button pButton pRipple type="button" label="Quay lại" class="p-button-sm p-mr-2"
+            (click)="activeModal.dismiss('close')"></button>
+        <button pButton pRipple type="button" label="Chấp nhận" class="p-button-sm" (click)="chapNhan()"></button>
+    </div>
+    <form>
+        <!-- Dòng 1: Ngày khiếu nại + checkbox -->
+        <div class="form-row align-items-center mb-3">
+            <label class="form-label col-label">Ngày khiếu nại:</label>
+            <div class="col-input" style="max-width: 220px;">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
+                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
+                    [(ngModel)]="item.NgayKhieuNai" inputId="icon" placeholder="Ngày" name="NgayKhieuNai">
+                </p-calendar>
+            </div>
+            <div class="col-checkbox">
+                <p-checkbox [(ngModel)]="item.isChatLuongKem" binary="true" inputId="isChatLuongKem"
+                    name="isChatLuongKem"></p-checkbox>
+                <label for="isChatLuongKem" class="p-ml-1 p-mt-2">Chất lượng kém</label>
+            </div>
+            <div class="col-checkbox">
+                <p-checkbox [(ngModel)]="item.isGiaoHangCham" binary="true" inputId="isGiaoHangCham"
+                    name="isGiaoHangCham"></p-checkbox>
+                <label for="isGiaoHangCham" class="p-ml-1 p-mt-2">Tiến độ giao hàng chậm</label>
+            </div>
+            <div class="col-checkbox">
+                <p-checkbox [(ngModel)]="item.isKhac" binary="true" inputId="isKhac" name="isKhac"></p-checkbox>
+                <label for="isKhac" class="p-ml-1 p-mt-2">Khác</label>
+            </div>
+        </div>
+        <!-- Dòng 2: Khách hàng + Trạng thái -->
+        <div class="form-row mb-3">
+            <label class="form-label col-label">Khách hàng:</label>
+            <div class="col-input">
+                <input type="text" [(ngModel)]="item.KhachHang" class="p-inputtext-sm" pInputText name="khachHang" />
+            </div>
+            <label class="form-label col-label">Trạng thái:</label>
+            <div class="col-input">
+                <p-dropdown [filter]="true" [(ngModel)]="item.IddmTrangThaiKhieuNai" [options]='listTrangThai'
+                    placeholder="Chọn" styleClass="p-inputtext-sm" name="trangThai"></p-dropdown>
+            </div>
+        </div>
+        <!-- Dòng 3: Lô hàng + Ngày sản xuất -->
+        <div class="form-row mb-3">
+            <label class="form-label col-label">{{isSoi ? 'Lô hàng' : 'Lô bông'}}:</label>
+            <div class="col-input">
+                <p-dropdown [filter]="true" [(ngModel)]="item.IdLo" [options]='listLoHang' [virtualScroll]="true"
+                    [itemSize]="25" placeholder="Chọn" styleClass="p-inputtext-sm" name="loHang"></p-dropdown>
+            </div>
+            <label class="form-label col-label">{{isSoi ? 'Ngày sản xuất' : 'Ngày nhập'}}:</label>
+            <div class="col-input">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
+                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
+                    [(ngModel)]="item.NgayLo" inputId="icon2" placeholder="Ngày" name="ngayLo">
+                </p-calendar>
+            </div>
+        </div>
+        <!-- Dòng 4: Nội dung -->
+        <div class="form-row mb-3">
+            <label class="form-label col-label">Nội dung:</label>
+            <div class="col-input">
+                <input type="text" [(ngModel)]="item.NoiDung" class="p-inputtext-sm" pInputText name="noiDung" />
+            </div>
+        </div>
+        <!-- Dòng 5: Ghi chú -->
+        <div class="form-row">
+            <label class="form-label col-label">Ghi chú:</label>
+            <div class="col-input">
+                <textarea [(ngModel)]="item.GhiChu" class="p-inputtext-sm" pInputTextarea rows="3"
+                    name="ghiChu"></textarea>
+            </div>
+        </div>
+    </form>
+</div>

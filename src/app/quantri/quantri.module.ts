@@ -41,7 +41,6 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 // import localeVi from '@angular/common/locales/vi';
 // registerLocaleData(localeVi);
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModaldanhmucchungComponent } from './danhmuc/modal/modaldanhmucchung/modaldanhmucchung.component';
 import { ModaldmloaidienComponent } from './danhmuc/modal/modaldmloaidien/modaldmloaidien.component';
@@ -348,6 +347,7 @@ import { TinhtoanmodalComponent } from './quanlykhosanxuat/thongke/thongkesanluo
 import { DanhsachbanggiasoiComponent } from './kehoach/danhsachbanggiasoi/danhsachbanggiasoi.component';
 import { TheodoikehoachComponent } from './kehoach/theodoikehoach/theodoikehoach.component';
 import { MathanglienketComponent } from './quanlykhosanxuat/modals/mathanglienket/mathanglienket.component';
+import { DanhsachhopdongmodalComponent } from './modal/danhsachhopdongmodal/danhsachhopdongmodal.component';
 
 @NgModule({
   declarations: [
@@ -509,8 +509,8 @@ import { MathanglienketComponent } from './quanlykhosanxuat/modals/mathanglienke
     TonkhobongxoComponent,
     TonkhobongxomodalComponent,
     TonkhobonghoiComponent,
-    TonkhobongpheComponent,
     TonkhobonghoimodalComponent,
+    TonkhobongpheComponent,
     TonkhobongphemodalComponent,
     KhoxokiemkemathangmodalComponent,
     LoxomodalComponent,
@@ -641,10 +641,10 @@ import { MathanglienketComponent } from './quanlykhosanxuat/modals/mathanglienke
     TinhtoanmodalComponent,
     DanhsachbanggiasoiComponent,
     TheodoikehoachComponent,
-    MathanglienketComponent
+    MathanglienketComponent,
+    DanhsachhopdongmodalComponent
   ],
   imports: [
-    HttpClientModule,
     CommonModule,
     QuantriRoutingModule,
     SharedModule,
@@ -824,10 +824,10 @@ import { MathanglienketComponent } from './quanlykhosanxuat/modals/mathanglienke
     SanXuatService,
     Dat09Service,
     SignalRService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     // { provide: LOCALE_ID, useValue: 'vi-VN' },
-    LoaderService,
+    // LoaderService, // Đã có ở AppModule, không cần đăng ký lại
+    // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, // Đã có ở AppModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

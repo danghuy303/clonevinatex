@@ -62,8 +62,6 @@ export class MathangmodelComponent implements OnInit {
       this.item.Nm = this.item.Ne * 1.693;
     }
     this.getListLoaiSoi();
-    console.log(this.item);
-    
   }
 
   getListLoaiSoi() {
