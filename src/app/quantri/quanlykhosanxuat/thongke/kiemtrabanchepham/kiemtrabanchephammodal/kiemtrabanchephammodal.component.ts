@@ -9,6 +9,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChonmathangkiemtrabanchephammodalComponent } from '../chonmathangkiemtrabanchephammodal/chonmathangkiemtrabanchephammodal.component';
+import { AnhmaukiemtrabanchephamComponent } from '../../../../anhmaukiemtrabanchepham/anhmaukiemtrabanchepham.component';
 
 @Component({
   selector: 'app-kiemtrabanchephammodal',
@@ -288,6 +289,18 @@ export class KiemtrabanchephammodalComponent implements OnInit {
         obj.GiaTri = eval(obj.text);
       }
     });
+  }
+
+  handleDanhGia(data) {
+    let modalRef = this._modal.open(AnhmaukiemtrabanchephamComponent, {
+      backdrop: 'static', size: 'lg'
+    });
+    modalRef.componentInstance.data = data;
+    modalRef.result.then(res => {
+      data.listIdFileAnh = res.listIdFileAnh;
+      data.isDat = res.isDat;
+      this.item.listItem = [...this.item.listItem];
+    }).catch(er => console.log(er))
   }
 
 }

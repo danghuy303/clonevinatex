@@ -73,19 +73,19 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center"> {{ 20 * (paging.currentPage - 1) + i + 1 }} </td>
-                <td class="text-left">{{item.soHopDong}} - {{item.tenHopDong}} </td>
-                <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
-                <td class="text-left">{{item.tendmLoaiTienTe}}</td>
-                <td class="text-right">{{item.giaTri |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.giaTriQuyetToan |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.giaTriThanhToan |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.giaTriConLai |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.soLuongDaMua |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.soLuongDaVe |number:'0.0-0'}}</td>
-                <td class="text-left">{{item.benA}}</td>
-                <td class="text-left">{{item.benB}}</td>
+                <td class="text-left">{{item.SoHopDong}} - {{item.TenHopDong}} </td>
+                <td class="text-center">{{item.NgayKy | date:'dd/MM/yyyy'}}</td>
+                <td class="text-left">{{item.TendmLoaiTienTe}}</td>
+                <td class="text-right">{{item.GiaTri |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.GiaTriQuyetToan |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.GiaTriThanhToan |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.GiaTriConLai |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.SoLuongDaMua |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.SoLuongDaVe |number:'0.0-0'}}</td>
+                <td class="text-left">{{item.BenA}}</td>
+                <td class="text-left">{{item.BenB}}</td>
                 <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xem chi tiết" (click)="changeParam(item.id)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xem chi tiết" (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>

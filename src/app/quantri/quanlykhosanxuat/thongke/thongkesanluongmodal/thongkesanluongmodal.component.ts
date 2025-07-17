@@ -72,7 +72,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.getListCaSanXuat();
     this.getListCaThucTe();
     this.$typing = this.typing.asObservable().pipe(debounceTime(200)).subscribe(_ => { this.TinhTyLeThongKeSanLuongBongPhe() });
-    console.log('this.item.listItem', this.item.listItem.filter(ele => ele.CongDoan === 'THO'));
 
   }
   Typing(event) {
@@ -405,7 +404,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   getListLoHang() {
     var data = {
       CurrentPage: 0,
-      IddmPhanXuong: this.item.IddmPhanXuong,
+      // IddmPhanXuong: this.item.IddmPhanXuong,
     }
     this.services.LoHang().GetList(data).subscribe((res: any) => {
       this.listLoHang = mapArrayForDropDown(res, 'Ten', 'Id');

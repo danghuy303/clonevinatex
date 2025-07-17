@@ -30,7 +30,8 @@ export class LohangmodalComponent implements OnInit {
     { value: 100, label: '100' },
     { value: 200, label: '200' },
     { value: 400, label: '400' },
-  ]
+  ];
+  isQRZoomed: boolean = false;
 
   constructor(public activeModal: NgbActiveModal,
     private services: SanXuatService,
@@ -46,6 +47,7 @@ export class LohangmodalComponent implements OnInit {
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
+    this.item.QRType = `{"MaQR":"${this.item.MaQR}","Type":"${this.item.Type}"}`
   }
 
   getOptions() {
@@ -143,6 +145,9 @@ export class LohangmodalComponent implements OnInit {
 
   handleQR() {
     this.isQR = !this.isQR
+  }
+  toggleZoomQR() {
+    this.isQRZoomed = !this.isQRZoomed;
   }
 
 }

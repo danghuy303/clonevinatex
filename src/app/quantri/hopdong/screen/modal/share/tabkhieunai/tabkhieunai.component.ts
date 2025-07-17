@@ -26,8 +26,8 @@ export class TabkhieunaiComponent implements OnInit, OnChanges {
     this.quyTrinh.listKhieuNai = this.quyTrinh.listKhieuNai?.map((ele: any) => {
       return {
         ...ele,
-        NgayLo: UnixToDate(ele.ngayLoUnix),
-        NgayKhieuNai: UnixToDate(ele.ngayKhieuNaiUnix),
+        NgayLo: UnixToDate(ele.NgayLoUnix),
+        NgayKhieuNai: UnixToDate(ele.NgayKhieuNaiUnix),
       }
     })
   }
@@ -44,11 +44,11 @@ export class TabkhieunaiComponent implements OnInit, OnChanges {
         ...res,
         NgayLo: UnixToDate(res.NgayLoUnix),
         NgayKhieuNai: UnixToDate(res.NgayKhieuNaiUnix),
-        ngayLoUnix: res.NgayLoUnix,
-        ngayKhieuNaiUnix: res.NgayKhieuNaiUnix,
-        khachHang: res.KhachHang,
-        noiDung: res.NoiDung,
-        ghiChu: res.GhiChu,
+        NgayLoUnix: res.NgayLoUnix,
+        NgayKhieuNaiUnix: res.NgayKhieuNaiUnix,
+        KhachHang: res.KhachHang,
+        NoiDung: res.NoiDung,
+        GhiChu: res.GhiChu,
       })
     }).catch(er => { console.log(er) });
   }
@@ -65,11 +65,11 @@ export class TabkhieunaiComponent implements OnInit, OnChanges {
         ...res,
         NgayLo: UnixToDate(res.NgayLoUnix),
         NgayKhieuNai: UnixToDate(res.NgayKhieuNaiUnix),
-        ngayLoUnix: res.NgayLoUnix,
-        ngayKhieuNaiUnix: res.NgayKhieuNaiUnix,
-        khachHang: res.KhachHang,
-        noiDung: res.NoiDung,
-        ghiChu: res.GhiChu,
+        NgayLoUnix: res.NgayLoUnix,
+        NgayKhieuNaiUnix: res.NgayKhieuNaiUnix,
+        KhachHang: res.KhachHang,
+        NoiDung: res.NoiDung,
+        GhiChu: res.GhiChu,
       };
     }).catch(er => { console.log(er) });
   }

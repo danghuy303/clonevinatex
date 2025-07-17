@@ -82,78 +82,78 @@ export class ModallaphopdongsoiComponent implements OnInit {
       });
       this.title = "Chỉnh sửa hợp đồng sợi";
       this.KiemTraButtonModal();
-      this.GetQuyTrinh(this.item.hopDong.id);
+      this.GetQuyTrinh(this.item.HopDong.Id);
     }
   }
 
   KiemTraButtonModal() {
     this._servicesSanXuat
-      .KiemTraButton(this.item.hopDong.id || "", this.item.hopDong.idTrangThai || "")
+      .KiemTraButton(this.item.HopDong.Id || "", this.item.HopDong.IdTrangThai || "")
       .subscribe((res: any) => {
         this.checkbutton = res;
       });
   }
   GetQuyTrinh(id) {
     this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
-      this.item = res1.data
-      this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai;
-      this.item.hopDong.id = res1.data.hopDong.id;
-      this.item.hopDong.ngayKy = UnixToDate(this.item.hopDong.ngayKyUnix);
-      this.item.hopDong.ngayHieuLuc = UnixToDate(this.item.hopDong.ngayHieuLucUnix);
-      this.item.hopDong.ngayGiaoHang = UnixToDate(this.item.hopDong.ngayGiaoHangUnix);
+      this.item = res1.Data
+      this.item.HopDong.IdTrangThai = res1.Data.HopDong.IdTrangThai;
+      this.item.HopDong.Id = res1.Data.HopDong.Id;
+      this.item.HopDong.NgayKy = UnixToDate(this.item.HopDong.NgayKyUnix);
+      this.item.HopDong.NgayHieuLuc = UnixToDate(this.item.HopDong.NgayHieuLucUnix);
+      this.item.HopDong.NgayGiaoHang = UnixToDate(this.item.HopDong.NgayGiaoHangUnix);
       if (this.item.listHangHoa.length > 0) {
-          this.item.hopDong.thanhTien = this.item.listHangHoa.reduce((total, ele) => {
-              return total + ((ele.soLuong || 0) * (ele.donGia || 0)* (1 + (ele.thueGTGT || 0)/100))}, 0)
+          this.item.HopDong.ThanhTien = this.item.listHangHoa.reduce((total, ele) => {
+              return total + ((ele.SoLuong || 0) * (ele.DonGia || 0)* (1 + (ele.ThueGTGT || 0)/100))}, 0)
       }
-      if (this.item.hopDong.isBenBanChiu) {
-        this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;
-        this.item.hopDong.BenMuaChiu = !this.item.hopDong.BenBanChiu;
+      if (this.item.HopDong.isBenBanChiu) {
+        this.item.HopDong.BenBanChiu = this.item.HopDong.isBenBanChiu;
+        this.item.HopDong.BenMuaChiu = !this.item.HopDong.BenBanChiu;
       }
       else {
-        this.item.hopDong.BenMuaChiu = !this.item.hopDong.isBenBanChiu;
-        this.item.hopDong.BenBanChiu = !this.item.hopDong.BenMuaChiu;
+        this.item.HopDong.BenMuaChiu = !this.item.HopDong.isBenBanChiu;
+        this.item.HopDong.BenBanChiu = !this.item.HopDong.BenMuaChiu;
       }
       this.KiemTraButtonModal();
       if (this.item.listDieuKhoanThanhToan.length > 0) {
         this.item.listDieuKhoanThanhToan.forEach(element => {
-          element.ngayThanhToan = UnixToDate(element.ngayThanhToanUnix);
+          element.NgayThanhToan = UnixToDate(element.NgayThanhToanUnix);
           if (element.listThanhToanThuTuc === null)
             element.listThanhToanThuTuc = [];
         });
       }
       if (this.item.listBaoLanh.length > 0) {
         this.item.listBaoLanh.forEach(element => {
-          element.hieuLucBaoLanh = UnixToDate(element.hieuLucBaoLanhUnix);
+          element.HieuLucBaoLanh = UnixToDate(element.HieuLucBaoLanhUnix);
         });
       }
-      if (validVariable(this.item.hopDong.idHopDong)) {
-        this.item.hopDong.isPhuLuc = true;
+      if (validVariable(this.item.HopDong.IdHopDong)) {
+        this.item.HopDong.isPhuLuc = true;
       }
     })
   }
   GetNextSoQuyTrinh() {
     this._service.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.hopDong.soQuyTrinh = res.data;
+      this.item.HopDong.SoQuyTrinh = res.Data;
     });
   }
 
   ValidData() {
-    if (!validVariable(this.item.hopDong.tenHopDong)) {
+    if (!validVariable(this.item.HopDong.TenHopDong)) {
       this._toastr.error("Vui lòng chọn tên hợp đồng");
       return false;
     }
-    if (!validVariable(this.item.hopDong.soHopDong)) {
+    if (!validVariable(this.item.HopDong.SoHopDong)) {
       this._toastr.error("Vui lòng chọn số hợp đồng");
       return false;
     }
     return true;
   }
   GhiLai() {
-    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
-    this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
-    if (this.item.hopDong.BenBanChiu) {
-      this.item.hopDong.isBenBanChiu = true;
+    this.item.HopDong.NgayKyUnix = DateToUnix(this.item.HopDong.NgayKy);
+    this.item.HopDong.NgayHieuLucUnix = DateToUnix(this.item.HopDong.NgayHieuLuc);
+    this.item.HopDong.NgayGiaoHangUnix = DateToUnix(this.item.HopDong.NgayGiaoHang);
+    if (this.item.HopDong.BenBanChiu) {
+      this.item.HopDong.isBenBanChiu = true;
     }
     this.item.listHangHoa.forEach((element, index) => {
       element.thutu = index + 1;
@@ -164,10 +164,10 @@ export class ModallaphopdongsoiComponent implements OnInit {
         if (res) {
           if (res?.statusCode === 200) {
             this.item.Loai = 2
-            this._toastr.success(res.message);
-            this.GetQuyTrinh(res.data)
+            this._toastr.success(res.Message);
+            this.GetQuyTrinh(res.Data)
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       });
@@ -184,25 +184,25 @@ export class ModallaphopdongsoiComponent implements OnInit {
       .then((res) => {
         this._service
           .QuyTrinhHopDong()
-          .Deletes(this.item.hopDong.id)
+          .Deletes(this.item.HopDong.Id)
           .subscribe((res: any) => {
             console.log(res);
             if (res?.statusCode === 200) {
               this.activeModal.close();
-              this._toastr.success(res.message);
+              this._toastr.success(res.Message);
             } else {
-              this._toastr.error(res.message);
+              this._toastr.error(res.Message);
             }
           });
       })
       .catch((er) => console.log(er));
   }
   ChuyenTiep() {
-    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
-    this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
-    if (this.item.hopDong.BenBanChiu) {
-      this.item.hopDong.isBenBanChiu = true;
+    this.item.HopDong.NgayKyUnix = DateToUnix(this.item.HopDong.NgayKy);
+    this.item.HopDong.NgayHieuLucUnix = DateToUnix(this.item.HopDong.NgayHieuLuc);
+    this.item.HopDong.NgayGiaoHangUnix = DateToUnix(this.item.HopDong.NgayGiaoHang);
+    if (this.item.HopDong.BenBanChiu) {
+      this.item.HopDong.isBenBanChiu = true;
     }
     this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
       console.log(res);
@@ -210,29 +210,29 @@ export class ModallaphopdongsoiComponent implements OnInit {
       if (res) {
         console.log(res);
         if (res?.statusCode === 200) {
-          this._toastr.success(res.message)
+          this._toastr.success(res.Message)
           this.activeModal.close();
         } else {
-          this._toastr.error(res.message);
+          this._toastr.error(res.Message);
         }
       }
     })
 
   }
   KhongDuyet() {
-    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
-    this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
-    if (this.item.hopDong.BenBanChiu) {
-      this.item.hopDong.isBenBanChiu = true;
+    this.item.HopDong.NgayKyUnix = DateToUnix(this.item.HopDong.NgayKy);
+    this.item.HopDong.NgayHieuLucUnix = DateToUnix(this.item.HopDong.NgayHieuLuc);
+    this.item.HopDong.NgayGiaoHangUnix = DateToUnix(this.item.HopDong.NgayGiaoHang);
+    if (this.item.HopDong.BenBanChiu) {
+      this.item.HopDong.isBenBanChiu = true;
     }
     this._service.QuyTrinhHopDong().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
         if (res?.statusCode === 200) {
-          this._toastr.success(res.message)
+          this._toastr.success(res.Message)
           this.activeModal.close();
         } else {
-          this._toastr.error(res.message);
+          this._toastr.error(res.Message);
         }
       }
     })

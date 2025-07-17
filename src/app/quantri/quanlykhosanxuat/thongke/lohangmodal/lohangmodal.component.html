@@ -1,27 +1,8 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} lô hàng</h5>
-    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-    </button>
+   <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} lô hàng</h5>
 </div>
 <div class="modal-body">
     <div class="p-grid">
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Lô bông:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="options.listLoBong" placeholder="Chọn"
-                    [(ngModel)]="item.IdLoBong" styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chọn mặt hàng:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="options.listMatHang" placeholder="Chọn"
-                    [(ngModel)]="item._IddmItem" styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-        </div>
-
-
         <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mã<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
@@ -41,50 +22,6 @@
                     [monthNavigator]="true" [yearNavigator]="true" [showIcon]="true" [(ngModel)]="item.Ngay"
                     inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
-            </div>
-        </div>
-
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Phương án pha bông:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="options.listPhaBong" placeholder="Chọn"
-                    [(ngModel)]="item.PhuongAnPhaBong" styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Màu lõi:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.MauLoi"
-                    pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Quy cách đóng gói:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="options.listQuyCach" placeholder="Chọn"
-                    [(ngModel)]="item.QuyCachDongGoi" styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Trọng lượng (Kg/cone):</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="options.listKgCone" placeholder="Chọn"
-                    [(ngModel)]="item.TrongLuongKg_Cone" styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chất lượng:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.ChatLuong"
-                    pInputText />
-            </div>
-        </div>
-
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu"
-                    pInputText />
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
@@ -118,25 +55,156 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button *ngIf="item.MaQR" (click)="handleQR()" pButton pRipple label="In QR" class="p-button-sm p-mr-2"></button>
     <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
         [disabled]="khongclicknhieu"></button>
     <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
         (click)="activeModal.dismiss()"></button>
 </div>
-<p-dialog header="In QR" [(visible)]="isQR" [style]="{ width: '20vw' }" [modal]="true" [baseZIndex]="10000">
-    <div class="p-grid">
-        <div class="p-col-12 p-p-3 d-flex flex-column">
-            <p-dropdown [filter]="true" [options]="listKichThuoc" placeholder="Chọn kích thước in"
-                [(ngModel)]="item.IdKichThuoc" styleClass="p-inputtext-sm"></p-dropdown>
-        </div>
-        <div class="p-col-12 p-p-3 d-flex flex-column">
-            <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuong" placeholder="nhập số lượng">
-            </p-inputNumber>
+
+<!-- update new -->
+<!-- <div>
+    <div class="modal-header">
+        <div class="d-flex p-ai-center justify-content-between w-100">
+            <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} lô hàng</h5>
+            <div *ngIf="item.MaQR" (click)="toggleZoomQR()" [ngClass]="{ 'zoomed': isQRZoomed }"
+                style="display: inline-block; cursor: zoom-in; transition: transform 0.3s ease;">
+                <qrcode *ngIf="item.MaQR" [qrdata]="item.QRType" [width]="isQRZoomed ? 200 : 50"
+                    [errorCorrectionLevel]="'M'" [elementType]="'svg'">
+                </qrcode>
+            </div>
         </div>
     </div>
-    <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="displayBasic = false" label="Xác nhận in" (click)="InQrCode()"
-            styleClass="p-button-sm"></p-button>
-    </ng-template>
-</p-dialog>
+    <div class="modal-body">
+        <div class="p-grid">
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Lô bông:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <p-dropdown [filter]="true" [options]="options.listLoBong" placeholder="Chọn"
+                        [(ngModel)]="item.IdLoBong" styleClass="p-inputtext-sm"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chọn mặt hàng:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <p-dropdown [filter]="true" [options]="options.listMatHang" placeholder="Chọn"
+                        [(ngModel)]="item._IddmItem" styleClass="p-inputtext-sm"></p-dropdown>
+                </div>
+            </div>
+
+
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mã<span class="text-danger">*</span>:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.Ma"
+                        pInputText />
+                </div>
+            </div>
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tên<span class="text-danger">*</span>:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
+                </div>
+            </div>
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày<span class="text-danger">*</span>:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
+                        [monthNavigator]="true" [yearNavigator]="true" [showIcon]="true" [(ngModel)]="item.Ngay"
+                        inputId="icon" placeholder="dd/mm/yyyy">
+                    </p-calendar>
+                </div>
+            </div>
+
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Phương án pha bông:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <p-dropdown [filter]="true" [options]="options.listPhaBong" placeholder="Chọn"
+                        [(ngModel)]="item.PhuongAnPhaBong" styleClass="p-inputtext-sm"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Màu lõi:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.MauLoi"
+                        pInputText />
+                </div>
+            </div>
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Quy cách đóng gói:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <p-dropdown [filter]="true" [options]="options.listQuyCach" placeholder="Chọn"
+                        [(ngModel)]="item.QuyCachDongGoi" styleClass="p-inputtext-sm"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Trọng lượng (Kg/cone):</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <p-dropdown [filter]="true" [options]="options.listKgCone" placeholder="Chọn"
+                        [(ngModel)]="item.TrongLuongKg_Cone" styleClass="p-inputtext-sm"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chất lượng:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.ChatLuong"
+                        pInputText />
+                </div>
+            </div>
+
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu"
+                        pInputText />
+                </div>
+            </div>
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Giao kế hoạch:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <p-dropdown [filter]="true" [options]="listGiaoKeHoach" placeholder="Chọn kế hoạch giao"
+                        [(ngModel)]="item.IdGiaoKeHoachSanXuat" styleClass="p-inputtext-sm"
+                        (onChange)="giaoKeHoach($event)"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Triển khai:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <p-dropdown [filter]="true" [options]="listGiaoKeHoach_TrienKhai"
+                        placeholder="Chọn kế hoạch triển khai" [(ngModel)]="item.IdGiaoKeHoachSanXuat_TrienKhai"
+                        styleClass="p-inputtext-sm"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 flex-column flex-lg-row d-flex">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Hoạt động:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.HoatDong" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button *ngIf="item.MaQR" (click)="handleQR()" pButton pRipple label="In QR"
+            class="p-button-sm p-mr-2"></button>
+        <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
+            [disabled]="khongclicknhieu"></button>
+        <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+            (click)="activeModal.dismiss()"></button>
+    </div>
+    <p-dialog header="In QR" [(visible)]="isQR" [style]="{ width: '20vw' }" [modal]="true" [baseZIndex]="10000">
+        <div class="p-grid">
+            <div class="p-col-12 p-p-3 d-flex flex-column">
+                <p-dropdown [filter]="true" [options]="listKichThuoc" placeholder="Chọn kích thước in"
+                    [(ngModel)]="item.IdKichThuoc" styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+            <div class="p-col-12 p-p-3 d-flex flex-column">
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuong" placeholder="nhập số lượng">
+                </p-inputNumber>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayBasic = false" label="Xác nhận in" (click)="InQrCode()"
+                styleClass="p-button-sm"></p-button>
+        </ng-template>
+    </p-dialog>
+
+</div> -->

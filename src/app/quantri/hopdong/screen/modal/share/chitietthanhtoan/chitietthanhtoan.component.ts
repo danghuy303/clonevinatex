@@ -20,13 +20,13 @@ export class ChitietthanhtoanComponent implements OnInit {
 
   viewThanhToan(item){
     if(item.loai === 11){
-      window.open(`#${this.mapXuatNhapRoute.Soi}${item.id || ''}`, "_blank");
+      window.open(`#${this.mapXuatNhapRoute.Soi}${item.Id || ''}`, "_blank");
     }
     else if(item.loai === 23){
-      window.open(`#${this.mapXuatNhapRoute.VatTuPhu}${item.id ||''}`, "_blank");
+      window.open(`#${this.mapXuatNhapRoute.VatTuPhu}${item.Id ||''}`, "_blank");
     }
     else{
-      window.open(`#${this.mapXuatNhapRoute.BongXo}${item.id || ''}`, "_blank");
+      window.open(`#${this.mapXuatNhapRoute.BongXo}${item.Id || ''}`, "_blank");
     }
   }
 }

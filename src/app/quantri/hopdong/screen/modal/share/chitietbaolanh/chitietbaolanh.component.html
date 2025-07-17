@@ -30,15 +30,15 @@
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
-                <td class="text-center">{{item.tendmLoaiBaoLanh}}</td>
-                <td class="text-center">{{item.soQuyTrinh}}</td>
-                <td class="text-right">{{item.giaTri |number:'0.0-2'}}</td>
-                <td class="text-center">{{item.hieuLucBaoLanh|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.tendmTinhTrangBaoLanh}}</td>
-                <td class="text-center">{{item.ghiChu}}</td>
+                <td class="text-center">{{item.TendmLoaiBaoLanh}}</td>
+                <td class="text-center">{{item.SoQuyTrinh}}</td>
+                <td class="text-right">{{item.GiaTri |number:'0.0-2'}}</td>
+                <td class="text-center">{{item.HieuLucBaoLanh|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.TendmTinhTrangBaoLanh}}</td>
+                <td class="text-center">{{item.GhiChu}}</td>
                 <td class="text-center">
                     <div *ngFor="let items of item.listFileDinhKem">
-                        {{items.fileName}}
+                        {{items.FileName}}
                     </div>
                 </td>
                 <td class="text-center date">

@@ -1,5 +1,5 @@
 import { ChonthutucthanhtoanmodalComponent } from './chonthutucthanhtoanmodal/chonthutucthanhtoanmodal.component';
-import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
+import { DanhMucHopDongService } from '../../../../../../../services/Hopdong/danhmuchopdong.service';
 import { vn } from 'src/app/services/const';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
@@ -14,15 +14,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ChitietdieukhoanmodalComponent implements OnInit {
   lang: any = vn;
-  isThoiDiem: boolean = false;
+  isThoIdiem: boolean = false;
   opt: any = '';
   item: any = {
     TheoHopDong: true,
     TheoGiaTri: false,
     listThanhToanThuTuc: [],
-    id: "",
-    giaTri: 0,
-    tyLe: 0,
+    Id: "",
+    GiaTri: 0,
+    TyLe: 0,
   };
   listLoaiThanhToan: any = []
   listTheoLoaiThanhToan: any = []
@@ -31,7 +31,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   listThuTucThanhToan_ref: any = []
   listThuTucThanhToan: any = [];
   IdQuyTrinh: any;
-  hopDong: any = {};
+  HopDong: any = {};
   optionsLoaiThanhToan = [
     { label: 'Tạm ứng', value: 0 },
     { label: 'Thanh toán', value: 1 },
@@ -55,7 +55,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       if (this.item.isTheoGiaTriHopDong) {
         this.item.TheoHopDong = this.item.isTheoGiaTriHopDong;
         this.item.TheoGiaTri = !this.item.TheoHopDong;
-        this.item.ngayThanhToan = UnixToDate(this.item.ngayThanhToanUnix);
+        this.item.NgayThanhToan = UnixToDate(this.item.NgayThanhToanUnix);
       }
       else {
         this.item.TheoGiaTri = !this.item.isTheoGiaTriHopDong;
@@ -69,20 +69,20 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       .DanhMucTrangThaiBaoLanh()
       .GetdmTrangThaiBaoLanh()
       .subscribe((res: any) => {
-        this.listTinhTrangBaoLanh = mapArrayForDropDown(res, "ten", "id");
+        this.listTinhTrangBaoLanh = mapArrayForDropDown(res, "ten", "Id");
       });
 
     this._serviceDungChung
       .GetListThanhToanTheo()
       .subscribe((res: any) => {
-        this.listLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
+        this.listLoaiThanhToan = mapArrayForDropDown(res, "ten", "Id");
       });
   }
 
   toggleVisibility() {
-    if (this.item.isChonThoiDiemKhac) {
-      this.item.soNgayCong = undefined;
-      this.item.loaiNgay = undefined;
+    if (this.item.isChonThoIdiemKhac) {
+      this.item.SoNgayCong = undefined;
+      this.item.LoaiNgay = undefined;
     }
   }
 
@@ -93,7 +93,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
 
   onChangeLoaiNgay(even) {
     console.log('onChangeLoaiNgay>>>>>>>>>>', even.value);
-    this.item.theoThoiGian = even.value
+    this.item.TheoThoiGian = even.value
   }
 
   chonDanhMuc() {
@@ -112,26 +112,26 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   }
 
   accept(opt) {
-    if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
-      this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+    if (this.item.NgayThanhToan !== undefined && this.item.NgayThanhToan !== null) {
+      this.item.NgayThanhToanUnix = DateToUnix(this.item.NgayThanhToan);
     }
     if(this.item.soNgay == null || this.item.soNgay === undefined)
       this.item.soNgay = 0;
-    if(this.item.giaTri === null)
-      this.item.giaTri = 0;
-    if(this.item.tyLe === null)
-      this.item.tyLe = 0;
+    if(this.item.GiaTri === null)
+      this.item.GiaTri = 0;
+    if(this.item.TyLe === null)
+      this.item.TyLe = 0;
     this.item.isTheoGiaTriHopDong = this.item.TheoHopDong;
     if (this.item.loaiThanhToan!=undefined) {
-      this.item.tenLoaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
+      this.item.TenLoaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
     }
     this.activeModal.close({ opt: opt, item: this.item });
   }
 
   changeGiaTri() {
     if (this.item.TheoHopDong) {
-      if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
-        this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
+      if (this.HopDong.GiaTri != undefined && this.HopDong.GiaTri > 0) {
+        this.item.TyLe = (this.item.GiaTri / this.HopDong.GiaTri) * 100;
       }
       else {
         this._toastr.error("Yêu cầu nhập giá trị trong tab Hợp đồng", "Thông báo");
@@ -141,8 +141,8 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
 
   changeTyLe() {
     if (this.item.TheoHopDong) {
-      if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
-        this.item.giaTri = (this.item.tyLe / 100) * this.hopDong.giaTri;
+      if (this.HopDong.GiaTri != undefined && this.HopDong.GiaTri > 0) {
+        this.item.GiaTri = (this.item.TyLe / 100) * this.HopDong.GiaTri;
       }
       else {
         this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
@@ -152,8 +152,8 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
 
   selectTheoGiaTriHopDong() {
     this.item.TheoGiaTri = !this.item.TheoHopDong;
-    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0 && this.item.TheoHopDong === true) {
-      this.item.giaTri = (this.hopDong.giaTri || 0) * (this.item.tyLe || 0);
+    if (this.HopDong.GiaTri != undefined && this.HopDong.GiaTri > 0 && this.item.TheoHopDong === true) {
+      this.item.GiaTri = (this.HopDong.GiaTri || 0) * (this.item.TyLe || 0);
     }
     else {
       this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
@@ -161,16 +161,16 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   }
   selectTheoTyLeHopDong() {
     this.item.TheoGiaTri = !this.item.TheoHopDong;
-    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0 && this.item.TheoHopDong === true) {
-      this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
+    if (this.HopDong.GiaTri != undefined && this.HopDong.GiaTri > 0 && this.item.TheoHopDong === true) {
+      this.item.TyLe = (this.item.GiaTri / this.HopDong.GiaTri) * 100;
     }
     else {
       this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
     }
   }
-  selectTheoGiaTriDotGiaoHang() {
+  selectTheoGiaTridotGiaoHang() {
     this.item.TheoHopDong = !this.item.TheoGiaTri;
-    this.item.tyLe = 0;
-    this.item.giaTri = 0;
+    this.item.TyLe = 0;
+    this.item.GiaTri = 0;
   }
 }

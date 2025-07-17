@@ -36,6 +36,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColorPickerModule } from 'primeng/colorpicker';
+import { TreeTableModule } from 'primeng/treetable';
+import { CarouselModule } from 'primeng/Carousel';
 
 // import { FileUploadModule } from 'primeng/fileupload';
 // import localeVi from '@angular/common/locales/vi';
@@ -348,6 +350,10 @@ import { DanhsachbanggiasoiComponent } from './kehoach/danhsachbanggiasoi/danhsa
 import { TheodoikehoachComponent } from './kehoach/theodoikehoach/theodoikehoach.component';
 import { MathanglienketComponent } from './quanlykhosanxuat/modals/mathanglienket/mathanglienket.component';
 import { DanhsachhopdongmodalComponent } from './modal/danhsachhopdongmodal/danhsachhopdongmodal.component';
+import { XuatbongtheohopdongComponent } from './quanlykhosanxuat/xuatbongtheohopdong/xuatbongtheohopdong.component';
+import { XuatkhotheohopdongmodalComponent } from './quanlykhosanxuat/xuatbongtheohopdong/xuatkhotheohopdongmodal/xuatkhotheohopdongmodal.component';
+import { AnhmauchatluongbanchphamComponent } from './danhmuc/anhmauchatluongbanchpham/anhmauchatluongbanchpham.component';
+import { AnhmaukiemtrabanchephamComponent } from './anhmaukiemtrabanchepham/anhmaukiemtrabanchepham.component';
 
 @NgModule({
   declarations: [
@@ -642,7 +648,11 @@ import { DanhsachhopdongmodalComponent } from './modal/danhsachhopdongmodal/danh
     DanhsachbanggiasoiComponent,
     TheodoikehoachComponent,
     MathanglienketComponent,
-    DanhsachhopdongmodalComponent
+    DanhsachhopdongmodalComponent,
+    XuatbongtheohopdongComponent,
+    XuatkhotheohopdongmodalComponent,
+    AnhmauchatluongbanchphamComponent,
+    AnhmaukiemtrabanchephamComponent,
   ],
   imports: [
     CommonModule,
@@ -685,6 +695,8 @@ import { DanhsachhopdongmodalComponent } from './modal/danhsachhopdongmodal/danh
     ColorPickerModule,
     QRCodeModule,
     SharedModule,
+    TreeTableModule,
+    CarouselModule,
     NgxMaskModule.forRoot(),
   ],
   entryComponents: [

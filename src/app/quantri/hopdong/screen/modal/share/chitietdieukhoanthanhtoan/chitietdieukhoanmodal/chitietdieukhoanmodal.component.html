@@ -19,7 +19,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" [(ngModel)]="item.noiDung" class="p-inputtext-sm" pInputText />
+                <input type="text" [(ngModel)]="item.NoiDung" class="p-inputtext-sm" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -34,7 +34,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Giá trị: </label>
             <div class="p-col-12 p-lg-6 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="en-EN" (onBlur)="changeGiaTri()" [disabled]="item.TheoGiaTri">
+                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.GiaTri" locale="en-EN" (onBlur)="changeGiaTri()" [disabled]="item.TheoGiaTri">
                 </p-inputNumber>
             </div>
             <label class="p-col-12 p-lg-2 my-auto">Phần trăm: </label>
@@ -50,10 +50,10 @@
             <div class="p-col-12  p-lg-6 p-mb-3 p-p-0 d-flex flex-column flex-lg-row  p-py-0 ">
 
                 <div class="p-col-12 p-lg-2 p-d-flex p-ml-lg-0 p-p-0">
-                    <p-checkbox binary="true" [(ngModel)]="item.TheoHopDong" inputId="theogiatrihopdong"
+                    <p-checkbox binary="true" [(ngModel)]="item.TheoHopDong" inputId="theoGiaTrihopdong"
                         (onChange)="selectTheoGiaTriHopDong()"></p-checkbox>
                 </div>
-                <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="theogiatrihopdong">Theo giá trị hợp đồng</label>
+                <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="theoGiaTrihopdong">Theo giá trị hợp đồng</label>
             </div>
 
             <div class="p-col-12  p-lg-6 p-mb-3 d-flex flex-column flex-lg-row p-px-0 p-py-0">
@@ -71,7 +71,7 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
-                 [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ngayThanhToan" inputId="icon" placeholder="dd/mm/yyyy">
+                 [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayThanhToan" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
@@ -87,7 +87,7 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số ngày: </label>
             <div class="p-col-12 p-lg-10   p-p-0">
 
-                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.soNgay" (ngModelChange)="item.soNgay = dinhDangSo($event)" locale="en-EN">
+                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.SoNgay" (ngModelChange)="item.SoNgay = dinhDangSo($event)" locale="en-EN">
                 </p-inputNumber>
 
             </div>
@@ -95,7 +95,7 @@
         <div *ngIf="item.isChonThoiDiemKhac" class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Theo :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [(ngModel)]="item.iddmTheoLoaiThanhToan"
+                <p-dropdown [filter]="true" [(ngModel)]="item.IddmTheoLoaiThanhToan"
                     [options]="listLoaiThanhToan" placeholder="Chọn loại thanh toán" styleClass="p-inputtext-sm">
                 </p-dropdown>
             </div>
@@ -104,7 +104,7 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
 
-                <input type="text" [(ngModel)]="item.ghiChu" class="p-inputtext-sm" pInputText />
+                <input type="text" [(ngModel)]="item.GhiChu" class="p-inputtext-sm" pInputText />
                 <!-- <span class="p-inputgroup-addon">%</span> -->
 
             </div>
@@ -122,8 +122,6 @@
                             <col>
                             <col>
                             <col>
-
-
                         </colgroup>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -141,16 +139,16 @@
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
                         <tr>
                             <td class="text-center">{{ i + 1 }}</td>
-                            <td class="text-center">{{ item.tendmThanhToanThuTuc }}</td>
+                            <td class="text-center">{{ item.TendmThanhToanThuTuc }}</td>
                             <!-- <td class="text-center">
                                 <p-dropdown [options]="item.banGoc" placeholder="Chọn Nm" styleClass="p-inputtext-sm" [(ngModel)]="item.ChiSoMoi" (onChange)="SetChiSo($event, item)"></p-dropdown>
                             </td> -->
                             <td class="text-center">
-                                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.banGoc" (ngModelChange)="item.banGoc = dinhDangSo($event)" locale="en-EN">
+                                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.BanGoc" (ngModelChange)="item.BanGoc = dinhDangSo($event)" locale="en-EN">
                                 </p-inputNumber>
                             </td>
                             <td class="text-center">
-                                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.banPhoTo" (ngModelChange)="item.banPhoTo = dinhDangSo($event)" locale="en-EN">
+                                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.BanPhoTo" (ngModelChange)="item.BanPhoTo = dinhDangSo($event)" locale="en-EN">
                                 </p-inputNumber>
                             </td>
                         </tr>

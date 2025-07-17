@@ -22,7 +22,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     iddmLoaiVatTu: '',
   };
   @Input('listHangHoaSoi') listHangHoaSoi: any = [];
-  @Input('hopDong') hopDong: any = {};
+  @Input('HopDong') HopDong: any = {};
   @Input('listTieuChuanChatLuong') listTieuChuanChatLuong: any = [];
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
   @Input() isXo: boolean
@@ -68,7 +68,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     this.listHangHoaChange.emit(this.item);    
-    this.hopDongChange.emit(this.hopDong);
+    this.hopDongChange.emit(this.HopDong);
     this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
     this.listHangHoaSoiChange.emit(this.listHangHoaSoi);
     this.listTieuChuanChatLuongChange.emit(this.listTieuChuanChatLuong);
@@ -78,9 +78,9 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   //   if (typeof changes['loaiNguyenVatLieu'].currentValue !== 'number') {
   //   const loaiNguyenVatLieu = Number(changes['loaiNguyenVatLieu'].currentValue);
   //   if (Number.isNaN(loaiNguyenVatLieu)) {
-  //   this.hopDong.loaiNguyenVatLieu = null;
+  //   this.HopDong.loaiNguyenVatLieu = null;
   //   } else {
-  //   this.hopDong.loaiNguyenVatLieu = this.item.iddmLoaiVatTu;
+  //   this.HopDong.loaiNguyenVatLieu = this.item.IddmLoaiVatTu;
   //   }
   //   }
   //   }
@@ -94,7 +94,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       this._servicesSanXuat.GetListOptdmCapBong().subscribe((res: any) => {
         this.listdmCapBong = mapArrayForDropDown(res, "Ten", "Id");
       });
-      if(!validVariable(this.hopDong.loai)){
+      if(!validVariable(this.HopDong.loai)){
         let data: any = {CurrentPage : 0}
         this._servicesSanXuat.dmDacTinhBong().GetList(data).subscribe((res: any) => {
           this.listdmDacTinh = mapArrayForDropDown(res, "DacTinh", "Id");
@@ -105,7 +105,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
   }
   getlistCapBong(){
-    this._servicesSanXuat.dmDacTinhBong().GetDacTinh(this.item.iddmLoaiBong || '', this.item.iddmCapBong || '').subscribe((res: any) => {
+    this._servicesSanXuat.dmDacTinhBong().GetDacTinh(this.item.IddmLoaiBong || '', this.item.IddmCapBong || '').subscribe((res: any) => {
       this.listdmDacTinh = mapArrayForDropDown(res, "DacTinh", "Id");
     });
   }
@@ -114,13 +114,13 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     let modalRef = this._modal.open(ChitiethanghoamodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.selectedItems = this.listTieuChuanChatLuong;
-    modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
+    modalRef.componentInstance.IdQuyTrinh = this.HopDong.Id;
     modalRef.result.then(res => {
       this.listTieuChuanChatLuong= deepCopy(res);  
     }).catch(er => { console.log(er) });
   }
   delete(index) {
-    if (!validVariable(this.listHangHoaSoi[index].id)) {
+    if (!validVariable(this.listHangHoaSoi[index].Id)) {
       this.listHangHoaSoi.splice(index, 1);
     } else {
       let item = this.listHangHoaSoi.splice(index, 1)[0];
@@ -143,41 +143,41 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listThanhToanThuTuc = res1;
       modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
-      modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
+      modalRef.componentInstance.IdQuyTrinh = this.HopDong.Id;
       modalRef.result.then(res => {
         this.listHangHoaSoi= deepCopy(res);  
       }).catch(er => { console.log(er) });
     })
   }
   tinhDonGiaThanhToan() {
-    this.item.donGia = this.dinhDangSo(this.item.donGia);
-    this.item.thueGTGT = this.dinhDangSo(this.item.thueGTGT);
+    this.item.DonGia = this.dinhDangSo(this.item.DonGia);
+    this.item.ThueGTGT = this.dinhDangSo(this.item.ThueGTGT);
     this.item.DonGiaThanhToan = 0;
-    this.item.DonGiaThanhToan = this.item.donGia *(100 +(this.item.thueGTGT || 0))/100 ;
+    this.item.DonGiaThanhToan = this.item.DonGia *(100 +(this.item.ThueGTGT || 0))/100 ;
     this.tinhgiaTriHopDong();
   }
 
   tinhgiaTriHopDong() {
-    this.item.soLuong = this.dinhDangSo(this.item.soLuong);
-    this.item.giaTriHopDongMatHang = this.item.DonGiaThanhToan * this.item.soLuong;
-    if(this.hopDong.isLayTheoGiaTriHangHoa === true)
-      this.hopDong.giaTri = this.item.giaTriHopDongMatHang;
+    this.item.SoLuong = this.dinhDangSo(this.item.SoLuong);
+    this.item.giaTriHopDongMatHang = this.item.DonGiaThanhToan * this.item.SoLuong;
+    if(this.HopDong.isLayTheoGiaTriHangHoa === true)
+      this.HopDong.giaTri = this.item.giaTriHopDongMatHang;
   }
   tinhgiaTriHopDongSoi(e) {
     if(e!= ""){
-      e.soLuong = dinhDangSo(e.soLuong);
-      e.donGia = dinhDangSo(e.donGia);
-      e.thueGTGT = dinhDangSo(e.thueGTGT);
+      e.SoLuong = dinhDangSo(e.SoLuong);
+      e.DonGia = dinhDangSo(e.DonGia);
+      e.ThueGTGT = dinhDangSo(e.ThueGTGT);
     }
-    this.hopDong.thanhTien = 0;
+    this.HopDong.ThanhTien = 0;
 
     this.listHangHoaSoi.forEach(ele => {
       if(ele.isXoa !== true)
-        this.hopDong.thanhTien = this.hopDong.thanhTien + (ele.soLuong || 0) * (ele.donGia || 0)* (1 + (ele.thueGTGT || 0)/100)
+        this.HopDong.ThanhTien = this.HopDong.ThanhTien + (ele.SoLuong || 0) * (ele.DonGia || 0)* (1 + (ele.ThueGTGT || 0)/100)
     });
     
-    if(this.hopDong.isLayTheoGiaTriHangHoa === true)
-      this.hopDong.giaTri = this.hopDong.thanhTien;
+    if(this.HopDong.isLayTheoGiaTriHangHoa === true)
+      this.HopDong.giaTri = this.HopDong.ThanhTien;
   }
   
   chonVatTuPhu() {
@@ -188,7 +188,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
-      modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
+      modalRef.componentInstance.IdQuyTrinh = this.HopDong.Id;
       modalRef.componentInstance.listThanhToanThuTuc = res1;
       modalRef.result.then(res => {
         this.listHangHoaSoi= res;  

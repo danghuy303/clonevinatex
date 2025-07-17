@@ -57,42 +57,42 @@ Id:any = "";
 
   ngOnInit(): void {
     this.GetQuyTrinh();
-    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loai || 0).subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.HopDong.loai || 0).subscribe((res: any) => {
       this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
       this.listLoaiMatHang_ref = res;
     })
   }
   GetQuyTrinh() {
     this._service.QuyTrinhHopDong().Get(this.Id).subscribe((res1: any) => {
-      this.item = res1.data
-      this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai;
-      this.item.hopDong.id = res1.data.hopDong.id;
-      this.item.hopDong.ngayKy = UnixToDate(this.item.hopDong.ngayKyUnix);
-      this.item.hopDong.ngayHieuLuc = UnixToDate(this.item.hopDong.ngayHieuLucUnix );
-      this.item.hopDong.ngayGiaoHang = UnixToDate(this.item.hopDong.ngayGiaoHangUnix);
-      this.item.hopDong.ngayDuKienVeKho = UnixToDate(this.item.hopDong.ngayDuKienVeKhoUnix);
+      this.item = res1.Data
+      this.item.HopDong.IdTrangThai = res1.Data.HopDong.IdTrangThai;
+      this.item.HopDong.Id = res1.Data.HopDong.Id;
+      this.item.HopDong.NgayKy = UnixToDate(this.item.HopDong.NgayKyUnix);
+      this.item.HopDong.NgayHieuLuc = UnixToDate(this.item.HopDong.NgayHieuLucUnix );
+      this.item.HopDong.NgayGiaoHang = UnixToDate(this.item.HopDong.NgayGiaoHangUnix);
+      this.item.HopDong.NgayDuKienVeKho = UnixToDate(this.item.HopDong.NgayDuKienVeKhoUnix);
       if(this.item.listHangHoa.length > 0){
-        this.item.listHangHoa[0].DonGiaThanhToan =  (this.item.listHangHoa[0].donGia || 0) * 1.1;
-        this.item.listHangHoa[0].giaTriHopDongMatHang =  (this.item.listHangHoa[0].DonGiaThanhToan || 0) * (this.item.listHangHoa[0].soLuong || 0);
+        this.item.listHangHoa[0].DonGiaThanhToan =  (this.item.listHangHoa[0].DonGia || 0) * 1.1;
+        this.item.listHangHoa[0].GiaTriHopDongMatHang =  (this.item.listHangHoa[0].DonGiaThanhToan || 0) * (this.item.listHangHoa[0].SoLuong || 0);
       }
-        this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;
-        this.item.hopDong.BenMuaChiu = !this.item.hopDong.BenBanChiu;
+        this.item.HopDong.BenBanChiu = this.item.HopDong.isBenBanChiu;
+        this.item.HopDong.BenMuaChiu = !this.item.HopDong.BenBanChiu;
       
       if(this.item.listDieuKhoanThanhToan.length > 0){
         this.item.listDieuKhoanThanhToan.forEach(element => {
-          element.ngayThanhToan = UnixToDate(element.ngayThanhToanUnix);
+          element.NgayThanhToan = UnixToDate(element.NgayThanhToanUnix);
           if(element.listThanhToanThuTuc === null)
             element.listThanhToanThuTuc  = [];
         });
       }
       if(this.item.listBaoLanh.length > 0){
         this.item.listBaoLanh.forEach(element => {
-          element.hieuLucBaoLanh = UnixToDate(element.hieuLucBaoLanhUnix);
+          element.HieuLucBaoLanh = UnixToDate(element.HieuLucBaoLanhUnix);
         });
       }
-      if(validVariable(this.item.hopDong.idHopDong))
+      if(validVariable(this.item.HopDong.IdHopDong))
       {
-        this.item.hopDong.isPhuLuc = true;
+        this.item.HopDong.isPhuLuc = true;
       }
     })
   }

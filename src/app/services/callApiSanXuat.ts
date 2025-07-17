@@ -3510,7 +3510,6 @@ export class SanXuatService {
             }
         }
     }
-
     PhieuNhapSoiTho() {
         return this.BasicApi('PhieuNhapSoiTho')
     }
@@ -3532,5 +3531,24 @@ export class SanXuatService {
 
     GetListHopDongForPhieuXuatHang(IddmItem) {
         return this.http.get(`${API.HopDong}HopDong/GetListHopDongForPhieuXuatHang?IddmItem=${IddmItem}`, httpOptions)
+    }
+    GetListHopDongForPhieuXuatBong() {
+        return this.http.get(`${API.HopDong}HopDong/GetListHopDongForPhieuXuatBong`, httpOptions)
+    }
+    // tủ hồ sơ - bán chế phẩm
+    GetListdmTieuChiChatLuongBCPTheoCongDoan(CongDoan) {
+        return this.http.get(`${API.SCMDanhMuc}GetListdmTieuChiChatLuongBCPTheoCongDoan?CongDoan=${CongDoan}`, httpOptions)
+    }
+    SetdmAnhMauTieuChiChatLuongBanChePham(data) {
+        return this.http.post(`${API.SCMDanhMuc}SetdmAnhMauTieuChiChatLuongBanChePham`, data, httpOptions)
+    }
+    GetListFolderAll(data) {
+        return this.http.post(`${API.auth}TuHoSoNew/GetListFolderAll`, data, httpOptions)
+    }
+     GetListFileByListId(data) {
+        return this.http.post(`${API.auth}TuHoSoNew/GetListFileByListId`, data, httpOptions)
+    }
+     GetListFileFolder(data) {
+        return this.http.post(`${API.auth}TuHoSoNew/GetListFileFolder`, data, httpOptions)
     }
 }

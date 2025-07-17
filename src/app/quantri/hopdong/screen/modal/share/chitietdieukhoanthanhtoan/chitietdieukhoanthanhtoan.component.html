@@ -27,20 +27,19 @@
                 <th class="text-center">Giá trị thanh toán</th>
                 <th class="text-center">Phần trăm thanh toán</th>
                 <th></th>
-
             </tr>
 
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
-                <td class="text-center">{{item.tenLoaiThanhToan}}</td>
+                <td class="text-center">{{item.TenLoaiThanhToan}}</td>
 
-                <td class="text-center">{{item.noiDung}}</td>
+                <td class="text-center">{{item.NoiDung}}</td>
 
-                <td class="text-center">{{item.ngayThanhToan|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.giaTri|number:'0.0'}}</td>
-                <td class="text-center">{{item.tyLe|number:'0.0'}}</td>
+                <td class="text-center">{{item.NgayThanhToan|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.GiaTri|number:'0.0'}}</td>
+                <td class="text-center">{{item.TyLe|number:'0.0'}}</td>
                 <td class="text-center date">
                     <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item, i)"></button>
                     <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-text p-button-sm p-button-secondary" (click)="delete(i)"></button>

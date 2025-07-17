@@ -29,7 +29,7 @@ export class LaphopdongbongxoComponent implements OnInit {
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
-  paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
+  paging: any = { CurrentPage: 1, totalPages: 1, TotalItem: number };
   hopDong: any = {};
   listLoaiBongXo: any = [{ label: 'Bông', value: 2 },{ label: 'Xơ', value: 5 }];
   listdmLoaiHopDong: any = [];
@@ -49,13 +49,13 @@ export class LaphopdongbongxoComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
-      if (res.id !== '0') {
-        this.update(res.id);
+      if (res.Id !== '0') {
+        this.update(res.Id);
       }
     });
     this.KiemTraTabTrangThai();
     this._servicesdmHopDong.DanhMucLoaiHopDong().GetListAll().subscribe((res: any) => {
-      this.listdmLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
+      this.listdmLoaiHopDong = mapArrayForDropDown(res, "Ten", "Id");
       })
     }
   changeParam(id) {
@@ -80,7 +80,7 @@ export class LaphopdongbongxoComponent implements OnInit {
       listTaiLieu: [],
       lstFileUploadCu: [],
     };
-    modalRef.componentInstance.item.hopDong = {id: "",
+    modalRef.componentInstance.item.hopDong = {Id: "",
     isLayTheoGiaTriHangHoa: true,
   };
     modalRef.componentInstance.item.listHangHoa = [{}
@@ -113,7 +113,7 @@ export class LaphopdongbongxoComponent implements OnInit {
       listTaiLieu: [],
       lstFileUploadCu: [],
     };
-    modalRef.componentInstance.item.hopDong = {id: "",
+    modalRef.componentInstance.item.hopDong = {Id: "",
     isLayTheoGiaTriHangHoa: true,
     isPhuLuc: true,
   };
@@ -121,7 +121,6 @@ export class LaphopdongbongxoComponent implements OnInit {
     ]
     modalRef.result
       .then((res: any) => {
-        console.log(res);
         this._toastr.success("Cập nhật thành công");
         this.GetListQuyTrinh();
         this.changeParam(0);
@@ -174,7 +173,7 @@ export class LaphopdongbongxoComponent implements OnInit {
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
-      iddmLoaiHopDong: this.filter.iddmLoaiHopDong,
+      iddmLoaiHopDong: this.filter.IddmLoaiHopDong,
       loai: this.filter.loai || 0,
     };
     if(isXuatExcel === true){
@@ -191,12 +190,12 @@ export class LaphopdongbongxoComponent implements OnInit {
       .QuyTrinhHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        this.items = res.data?.items;
-        this.paging.TotalItem = res.data?.totalCount;
-        this.paging.TotalPage = res.data?.totalPages;
+        this.items = res.Data?.Items;
+        this.paging.TotalItem = res.Data?.totalCount;
+        this.paging.TotalPage = res.Data?.totalPages;
 
         this.items.forEach(element => {
-          element.ngayKy = UnixToDate(element.ngayKyUnix);
+          element.NgayKy = UnixToDate(element.NgayKyUnix);
         });
       });
     }

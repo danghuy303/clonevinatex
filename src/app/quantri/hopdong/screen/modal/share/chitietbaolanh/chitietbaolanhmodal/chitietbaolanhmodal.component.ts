@@ -23,7 +23,7 @@ export class ChitietbaolanhmodalComponent implements OnInit {
   dinhDangSo = dinhDangSo;
 
   opt: any = '';
-  item: any = { id: "", listFileDinhKem: [] };
+  item: any = { Id: "", listFileDinhKem: [] };
   yearRange: string = `${new Date().getFullYear() - 50
     }:${new Date().getFullYear()}`;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private _servicedmHopDong: DanhMucHopDongService) { }
@@ -33,9 +33,9 @@ export class ChitietbaolanhmodalComponent implements OnInit {
     this.GetOptions();
     if (this.opt == 'edit') {
       this.item.listTen = "";
-      this.item.hieuLucBaoLanh = UnixToDate(this.item.hieuLucBaoLanhUnix);
+      this.item.HieuLucBaoLanh = UnixToDate(this.item.HieuLucBaoLanhUnix);
       this.item.listFileDinhKem.forEach(element => {
-        this.item.listTen += `${element.fileName}`+ '; ';
+        this.item.listTen += `${element.FileName}`+ '; ';
       });
     }
   }
@@ -44,24 +44,24 @@ export class ChitietbaolanhmodalComponent implements OnInit {
       .DanhMucTrangThaiBaoLanh()
       .GetdmTrangThaiBaoLanh()
       .subscribe((res: any) => {
-        this.listTinhTrangBaoLanh = mapArrayForDropDown(res, "ten", "id");
+        this.listTinhTrangBaoLanh = mapArrayForDropDown(res, "Ten", "Id");
       });
 
     this._servicedmHopDong
       .DanhMucTrangThaiBaoLanh()
       .GetListAlldmLoaiBaoLanh()
       .subscribe((res: any) => {
-        this.listLoaiBaoLanh = mapArrayForDropDown(res, "ten", "id");
+        this.listLoaiBaoLanh = mapArrayForDropDown(res, "Ten", "Id");
       });
   }
   accept(opt) {
-    if (this.item.hieuLucBaoLanh !== undefined && this.item.hieuLucBaoLanh !== null) {
-      this.item.hieuLucBaoLanhUnix = DateToUnix(this.item.hieuLucBaoLanh);
+    if (this.item.HieuLucBaoLanh !== undefined && this.item.HieuLucBaoLanh !== null) {
+      this.item.HieuLucBaoLanhUnix = DateToUnix(this.item.HieuLucBaoLanh);
     }
-    if(validVariable(this.item.iddmLoaiBaoLanh))
-      this.item.tendmLoaiBaoLanh = this.listLoaiBaoLanh.find(obj => obj.value == this.item.iddmLoaiBaoLanh).label;
-    if(validVariable(this.item.iddmTinhTrangBaoLanh))
-      this.item.tendmTinhTrangBaoLanh = this.listTinhTrangBaoLanh.find(obj => obj.value == this.item.iddmTinhTrangBaoLanh).label;
+    if(validVariable(this.item.IddmLoaiBaoLanh))
+      this.item.tendmLoaiBaoLanh = this.listLoaiBaoLanh.find(obj => obj.value == this.item.IddmLoaiBaoLanh).label;
+    if(validVariable(this.item.IddmTinhTrangBaoLanh))
+      this.item.tendmTinhTrangBaoLanh = this.listTinhTrangBaoLanh.find(obj => obj.value == this.item.IddmTinhTrangBaoLanh).label;
     this.activeModal.close({ opt: opt, item: this.item });
   }
 
@@ -69,16 +69,16 @@ export class ChitietbaolanhmodalComponent implements OnInit {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.result.then((data) => {
       let item: any = {}
-      item.id = '';
-      item.fileNameGui = data[data.length - 1].Name;
-      item.fileName = data[data.length - 1].NameLocal;
+      item.Id = '';
+      item.FileNameGui = data[data.length - 1].Name;
+      item.FileName = data[data.length - 1].NameLocal;
       item.Link = data[data.length - 1].Url;
       // "idDuAn": 0,
       // "maDuAn": "string",
       this.item.listFileDinhKem.push(item);
       this.item.listTen = "";
       this.item.listFileDinhKem.forEach(element => {
-        this.item.listTen += `${element.fileName}` + '; ';
+        this.item.listTen += `${element.FileName}` + '; ';
       });
     }, (reason) => {
 

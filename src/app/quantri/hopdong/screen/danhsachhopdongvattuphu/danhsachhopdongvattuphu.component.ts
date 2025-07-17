@@ -66,7 +66,6 @@ export class DanhsachhopdongvattuphuComponent implements OnInit {
           .catch((er) => {
             console.log(er);
             this.GetListQuyTrinh();
-            
             this.changeParam(0);
           });
       });
@@ -104,64 +103,64 @@ export class DanhsachhopdongvattuphuComponent implements OnInit {
     };
     if(this.loaiTab == 0){
       this._service.QuyTrinhHopDong().GetList(data).subscribe((res: any) => {
-        this.items = res.data?.items;
-        this.paging.TotalItem = res.data?.totalCount;
+        this.items = res.Data?.Items;
+        this.paging.TotalItem = res.Data?.TotalCount;
         this.items.forEach(element => {
-          element.ngayKy = UnixToDate(element.ngayKyUnix);
+          element.NgayKy = UnixToDate(element.NgayKyUnix);
         });
       });
     }
     else if(this.loaiTab === 1){
       this._service.QuyTrinhHopDong().GetListHopDongSapHetHanBanGiao(data).subscribe((res: any) => {
-        this.items = res.data?.items;
-        this.paging.TotalItem = res.data?.totalCount;
+        this.items = res.Data?.Items;
+        this.paging.TotalItem = res.Data?.TotalCount;
         this.items.forEach(element => {
-          element.ngayKy = UnixToDate(element.ngayKyUnix);
+          element.NgayKy = UnixToDate(element.NgayKyUnix);
         });
       });
     }
     else if(this.loaiTab === 2){
       this._service.QuyTrinhHopDong().GetListHopDongSapHetHanBaoLanh(data).subscribe((res: any) => {
-        this.items = res.data?.items;
-        this.paging.TotalItem = res.data?.totalCount;
+        this.items = res.Data?.Items;
+        this.paging.TotalItem = res.Data?.TotalCount;
         this.items.forEach(element => {
-          element.ngayKy = UnixToDate(element.ngayKyUnix);
+          element.NgayKy = UnixToDate(element.NgayKyUnix);
         });
       });
     }
     else if(this.loaiTab === 3){
       this._service.QuyTrinhHopDong().GetListHopDongSapDenHanTT(data).subscribe((res: any) => {
-        this.items = res.data?.items;
-        this.paging.TotalItem = res.data?.totalCount;
+        this.items = res.Data?.Items;
+        this.paging.TotalItem = res.Data?.TotalCount;
         this.items.forEach(element => {
-          element.ngayKy = UnixToDate(element.ngayKyUnix);
+          element.NgayKy = UnixToDate(element.NgayKyUnix);
         });
       });
     }
     else if(this.loaiTab === 4){
       this._service.QuyTrinhHopDong().GetListHopDongQuaHanBanGiao(data).subscribe((res: any) => {
-        this.items = res.data?.items;
-        this.paging.TotalItem = res.data?.totalCount;
+        this.items = res.Data?.Items;
+        this.paging.TotalItem = res.Data?.TotalCount;
         this.items.forEach(element => {
-          element.ngayKy = UnixToDate(element.ngayKyUnix);
+          element.NgayKy = UnixToDate(element.NgayKyUnix);
         });
       });
     }
     else if(this.loaiTab === 5){
       this._service.QuyTrinhHopDong().GetListHopDongQuaHanBaoLanh(data).subscribe((res: any) => {
-        this.items = res.data?.items;
-        this.paging.TotalItem = res.data?.totalCount;
+        this.items = res.Data?.Items;
+        this.paging.TotalItem = res.Data?.TotalCount;
         this.items.forEach(element => {
-          element.ngayKy = UnixToDate(element.ngayKyUnix);
+          element.NgayKy = UnixToDate(element.NgayKyUnix);
         });
       });
     }
     else if(this.loaiTab === 6){
       this._service.QuyTrinhHopDong().GetListHopDongQuaHanTT(data).subscribe((res: any) => {
-        this.items = res.data?.items;
-        this.paging.TotalItem = res.data?.totalCount;
+        this.items = res.Data?.Items;
+        this.paging.TotalItem = res.Data?.TotalCount;
         this.items.forEach(element => {
-          element.ngayKy = UnixToDate(element.ngayKyUnix);
+          element.NgayKy = UnixToDate(element.NgayKyUnix);
         });
       });
     }

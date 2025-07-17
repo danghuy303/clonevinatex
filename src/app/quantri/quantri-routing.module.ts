@@ -132,6 +132,9 @@ import { DanhSachBangGiaComponent } from "./kehoach/danh-sach-bang-gia/danh-sach
 import { DanhSachKeHoachNamComponent } from "./kehoach/danh-sach-ke-hoach-nam/danh-sach-ke-hoach-nam.component";
 import { DanhsachbanggiasoiComponent } from "./kehoach/danhsachbanggiasoi/danhsachbanggiasoi.component";
 import { TheodoikehoachComponent } from "./kehoach/theodoikehoach/theodoikehoach.component";
+import { XuatbongtheohopdongComponent } from "./quanlykhosanxuat/xuatbongtheohopdong/xuatbongtheohopdong.component"
+import { AnhmauchatluongbanchphamComponent } from "./danhmuc/anhmauchatluongbanchpham/anhmauchatluongbanchpham.component";
+import { AnhmaukiemtrabanchephamComponent } from "./anhmaukiemtrabanchepham/anhmaukiemtrabanchepham.component";
 
 const routes: Routes = [
   {
@@ -477,6 +480,10 @@ const routes: Routes = [
         component: KhobongkiemkekhoComponent,
       },
       {
+        path: "quanlykhosanxuat/khobong/xuatkhotheohopdong/:id",
+        component: XuatbongtheohopdongComponent,
+      },
+      {
         path: "quanlykhosanxuat/khoxo/kiemkekhoxo/:id",
         component: KhoxokiemkeComponent,
       },
@@ -648,16 +655,15 @@ const routes: Routes = [
         path: "lap-ke-hoach/CottonPriceChart",
         component: TheodoikehoachComponent,
       },
-       {
+      {
         path: "lap-ke-hoach/CombinedChart",
         component: TheodoikehoachComponent,
       },
-       {
+      {
         path: "lap-ke-hoach/ComparisonChart",
         component: TheodoikehoachComponent,
       },
-
-     
+      { path: "danhmucsanxuat/anhmauchatluongbcp", component: AnhmauchatluongbanchphamComponent }
     ],
   },
 

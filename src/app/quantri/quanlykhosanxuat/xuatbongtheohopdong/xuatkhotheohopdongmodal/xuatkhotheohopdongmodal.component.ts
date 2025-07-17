@@ -1,0 +1,270 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { mapArrayForDropDown, validVariable } from '../../../../services/globalfunction';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { SanXuatService } from '../../../../services/callApiSanXuat';
+import { ModalthongbaoComponent } from '../../../../quantri/modal/modalthongbao/modalthongbao.component'
+
+@Component({
+  selector: 'app-xuatkhotheohopdongmodal',
+  templateUrl: './xuatkhotheohopdongmodal.component.html',
+  styleUrls: ['./xuatkhotheohopdongmodal.component.css']
+})
+export class XuatkhotheohopdongmodalComponent implements OnInit {
+
+  @ViewChild("paginator") paginator: any;
+  opt: any = "";
+  Id: any = "";
+  item: any = {};
+  checkbutton: any = {
+    Ghi: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
+  };
+  InfoDialog: any = false;
+  listdmKho: any = [];
+  listdmKhoFull: any = [];
+  listLoBong: any = [];
+  isKhoThanhPham: any = false;
+  paging: any = {};
+  listItem: any = [];
+  newItem: any = {};
+  filter: any = {};
+  itemInfo: any = {};
+  listKhachHang: any = [];
+  listHopDong: any = [];
+  constructor(
+    public activeModal: NgbActiveModal,
+    private services: SanXuatService,
+    public toastr: ToastrService,
+    public _modal: NgbModal
+  ) { }
+
+  ngOnInit(): void {
+    this.getListKhachHang();
+    this.GetListHopDongForPhieuXuatBong();
+    if (this.opt !== "edit") {
+      this.GetNextSoQuyTrinh();
+    } else {
+      this.GetQuyTrinh();
+    }
+    var data: any = {};
+    data.CurrentPage = 0;
+    data.Loai = 2;
+    this.item.Loai = 2;
+    this.services.GetListdmKho(data).subscribe((res: any) => {
+      this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
+      this.listdmKhoFull = res;
+    });
+    this.services.GetListLoBong(data).subscribe((res: any) => {
+      this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
+    });
+  }
+  GetListHopDongForPhieuXuatBong() {
+    this.services.GetListHopDongForPhieuXuatBong().subscribe((res: any) => {
+      this.listHopDong = mapArrayForDropDown(res.data, 'soTenHopDong', 'id');
+    })
+  }
+  getListKhachHang() {
+    this.services.dmKhachHang().GetListOpt().subscribe((res: any) => {
+      this.listKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
+  GetQuyTrinh() {
+    this.services
+      .PhieuXuatBongChoVay()
+      .Get(this.Id)
+      .subscribe((res1: any) => {
+        this.item = res1;
+        this.item.listItem = res1.listItem;
+        this.paging.CurrentPage = 1;
+        this.paging.TotalPage = 5;
+        this.paging.TotalItem = res1.listItem.length;
+        this.listItem = res1.listItem.slice(0, 10);
+        this.KiemTraButtonModal();
+      });
+  }
+  KiemTraButtonModal() {
+    this.services
+      .KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "")
+      .subscribe((res) => {
+        this.checkbutton = res;
+      });
+  }
+
+  ChuyenDuyet() {
+    this.services
+      .PhieuXuatBongChoVay()
+      .ChuyenTiep(this.item)
+      .subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      });
+  }
+  KhongDuyet() {
+    this.services
+      .PhieuXuatBongChoVay()
+      .KhongDuyet(this.item)
+      .subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      });
+  }
+
+  GetNextSoQuyTrinh() {
+    this.services
+      .PhieuXuatBongChoVay()
+      .GetNextSo()
+      .subscribe((res: any) => {
+        this.item.SoQuyTrinh = res.SoQuyTrinh;
+      });
+  }
+
+  GhiLai() {
+    this.services
+      .PhieuXuatBongChoVay()
+      .Set(this.item)
+      .subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.opt = "edit";
+            this.Id = res.objectReturn.Id;
+            this.GetQuyTrinh();
+            this.refreshFilter();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      });
+  }
+  XoaQuyTrinh() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message =
+      "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.result
+      .then((res) => {
+        this.services
+          .PhieuXuatBongChoVay()
+          .Delete(this.item)
+          .subscribe((res: any) => {
+            if (res?.State === 1) {
+              this.activeModal.close();
+            } else {
+              this.toastr.error(res.message);
+            }
+          });
+      })
+      .catch((er) => console.log(er));
+  }
+
+  delete(index) {
+    let item = this.item.listItem.splice((this.paging.CurrentPage - 1) * 10 + index, 1)[0];
+    this.toastr.warning("Thao tác này đồng nghĩa việc không kiểm kê, không đồng nghĩa việc xóa khỏi kho");
+    if (item.Id === "" || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+    }
+    this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage - 1) * 10, 10);
+    this.paging.TotalItem = Math.ceil(this.item.listItem.filter(ele => ele.isXoa !== true).length);
+  }
+  GetMatHangTheoKho() {
+    this.services.PhieuKiemKeKhoBong()
+      .GetlistdmMatHangKiemKe(
+        this.item.IddmKho || "",
+        this.item.IdLoBong || ""
+      )
+      .subscribe((res1: any) => {
+        res1.forEach((mathang) => {
+          mathang.SoLuong = mathang.TonSoLuong;
+          mathang.TrongLuong = mathang.TonTrongLuong;
+        });
+        this.item.listItem = res1;
+        this.listItem = res1.slice(0, 10);
+        this.paging.CurrentPage = 1;
+        this.paging.TotalPage = 5;
+        this.paging.TotalItem = res1.length;
+
+        this.item.SoLuong = res1.length || 0;
+        this.item.MicBQ = 0;
+        let Mic = 0;
+        let iCount = 0;
+        res1.forEach(element => {
+          if (element.Mic > 0) {
+            Mic += element.Mic || 0;
+            iCount += 1;
+          }
+        });
+        if (iCount > 0)
+          this.item.MicBQ = Mic / iCount;
+      });
+  }
+
+  changePage(event) {
+    this.paging.CurrentPage = event.page + 1;
+    let start = 10 * (event.page);
+    let end = start + 10;
+    if (validVariable(this.filter.KeyWord)) {
+      let clone = this.item.listItem.filter(ele => ele.Ten.includes(this.filter.KeyWord))
+      if ((start + 10) > clone.length + 1) {
+        end = clone.length;
+      }
+      this.paging.TotalItem = clone.length
+      this.listItem = clone.slice(start, end);
+    } else {
+      if ((start + 10) > this.item.listItem.length) {
+        end = this.item.listItem.length;
+      }
+      this.paging.TotalItem = this.item.listItem.length;
+      this.listItem = this.item.listItem.slice(start, end);
+    }
+  }
+  copy(value) {
+    this.item.listItem.forEach(itemTon => {
+      itemTon.TrongLuong = value;
+    });
+    this.item.listItem.forEach(itemTon => {
+      this.checkSoLuong(itemTon, 1)
+    })
+  }
+  refreshFilter() {
+    this.filter.KeyWord = null;
+    this.changePage({ page: 0 })
+    this.paginator.changePage(0);
+  }
+  showItemInfo(item) {
+    this.services.GetThongTinKien(item.IddmItem).subscribe(res => {
+      this.InfoDialog = true;
+      this.itemInfo = res;
+    })
+  }
+  checkSoLuong(item, check) {
+    switch (check) {
+      case 0:
+        if (item.SoLuong === 0)
+          item.TrongLuong = 0;
+        break;
+      case 1:
+        if (item.TrongLuong === 0)
+          item.SoLuong = 0;
+        break;
+      default:
+        break;
+    }
+  }
+}

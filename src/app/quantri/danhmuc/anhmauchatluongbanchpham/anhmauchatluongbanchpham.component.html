@@ -1,0 +1,79 @@
+<h4 class="title">
+    Danh mục ảnh mẫu chất lượng BCP
+</h4>
+<div class="p-d-flex p-mb-3">
+    <button pButton pRipple label="Update" class="p-button-sm p-mr-2"
+        (click)="upDate()"></button>
+    <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn" [(ngModel)]="item.CongDoan"
+        (onChange)="handleCongDoan($event.value)" styleClass="p-inputtext-sm">
+    </p-dropdown>
+</div>
+<div class="p-pt-3">
+    <p-table [value]="item.dmTieuChiChatLuongs"
+        styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width: 40%">
+                <col style="width: 40%">
+                <col style="width: 20%">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Tiêu chí</th>
+                <th>Mặt hàng</th>
+                <th>Thư mục</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-tieuChi let-i="rowIndex">
+            <ng-container *ngFor="let matHang of tieuChi.listAnhMauTieuChiChatLuongBanChePham; let i = index">
+                <tr>
+                    <td class="" *ngIf="i === 0" [attr.rowspan]="tieuChi.listAnhMauTieuChiChatLuongBanChePham.length">
+                        {{tieuChi.Ten}}</td>
+                    <td class="">{{matHang.TendmLoaiSoi}}</td>
+                    <td class="">
+                        <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                            <span *ngIf="matHang.TenDuongDanFolder; else emptyLabel">
+                                {{ matHang.TenDuongDanFolder }}
+                            </span>
+                            <ng-template #emptyLabel>
+                                <span>&nbsp;</span>
+                            </ng-template>
+                            <button pButton pRipple icon="pi pi-ellipsis-v"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                (click)="chonThuMuc(tieuChi, matHang)" pTooltip="" showDelay="1000"
+                                tooltipPosition="top">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="display" [style]="{ width: '50vw', height: '70vh' }" [baseZIndex]="1000">
+    <ng-template pTemplate="header">
+        <h5>Tủ hồ sơ</h5>
+    </ng-template>
+    <p-button label="Chấp nhận" (click)="handleChapNhan()" styleClass="p-button-sm p-mb-2"></p-button>
+    <p-treeTable [value]="lisFolder" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center" style="width: 50px"></th>
+                <th class="text-center">Tên thư mục</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+            <tr>
+                <td class="text-center" style="width: 50px">
+                    <input type="radio" (change)="handleAssignIdThuMuc(rowData)" name="folderRadio" />
+                </td>
+                <td class="">
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    {{rowData.Ten}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-treeTable>
+</p-dialog>

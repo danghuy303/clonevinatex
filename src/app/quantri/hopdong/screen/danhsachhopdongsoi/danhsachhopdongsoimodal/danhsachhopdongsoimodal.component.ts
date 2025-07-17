@@ -52,43 +52,43 @@ export class DanhsachhopdongsoimodalComponent implements OnInit {
       this._servicesSanXuat.GetListdmItemByHangHoa(1).subscribe((res: any) => {
         this.listdmMatHang = res;
       });
-      this.GetQuyTrinh(this.item.hopDong.id);
+      this.GetQuyTrinh(this.item.HopDong.Id);
   }
   
   GetQuyTrinh(id) {
     this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
-      this.item = res1.data
-      this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai;
-      this.item.hopDong.id = res1.data.hopDong.id;
-      this.item.hopDong.ngayKy = UnixToDate(this.item.hopDong.ngayKyUnix);
-      this.item.hopDong.ngayHieuLuc = UnixToDate(this.item.hopDong.ngayHieuLucUnix);
-      this.item.hopDong.ngayGiaoHang = UnixToDate(this.item.hopDong.ngayGiaoHangUnix);
+      this.item = res1.Data
+      this.item.HopDong.IdTrangThai = res1.Data.HopDong.IdTrangThai;
+      this.item.HopDong.Id = res1.Data.HopDong.Id;
+      this.item.HopDong.NgayKy = UnixToDate(this.item.HopDong.NgayKyUnix);
+      this.item.HopDong.NgayHieuLuc = UnixToDate(this.item.HopDong.NgayHieuLucUnix);
+      this.item.HopDong.NgayGiaoHang = UnixToDate(this.item.HopDong.NgayGiaoHangUnix);
       if (this.item.listHangHoa.length > 0) {
-          this.item.hopDong.thanhTien = this.item.listHangHoa.reduce((total, ele) => {
-              return total + ((ele.soLuong || 0) * (ele.donGia || 0)* (1 + (ele.thueGTGT || 0)/100))}, 0)
+          this.item.HopDong.thanhTien = this.item.listHangHoa.reduce((total, ele) => {
+              return total + ((ele.SoLuong || 0) * (ele.DonGia || 0)* (1 + (ele.ThueGTGT || 0)/100))}, 0)
       }
-      if (this.item.hopDong.isBenBanChiu) {
-        this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;
-        this.item.hopDong.BenMuaChiu = !this.item.hopDong.BenBanChiu;
+      if (this.item.HopDong.isBenBanChiu) {
+        this.item.HopDong.BenBanChiu = this.item.HopDong.isBenBanChiu;
+        this.item.HopDong.BenMuaChiu = !this.item.HopDong.BenBanChiu;
       }
       else {
-        this.item.hopDong.BenMuaChiu = !this.item.hopDong.isBenBanChiu;
-        this.item.hopDong.BenBanChiu = !this.item.hopDong.BenMuaChiu;
+        this.item.HopDong.BenMuaChiu = !this.item.HopDong.isBenBanChiu;
+        this.item.HopDong.BenBanChiu = !this.item.HopDong.BenMuaChiu;
       }
       if (this.item.listDieuKhoanThanhToan.length > 0) {
         this.item.listDieuKhoanThanhToan.forEach(element => {
-          element.ngayThanhToan = UnixToDate(element.ngayThanhToanUnix);
+          element.NgayThanhToan = UnixToDate(element.NgayThanhToanUnix);
           if (element.listThanhToanThuTuc === null)
             element.listThanhToanThuTuc = [];
         });
       }
       if (this.item.listBaoLanh.length > 0) {
         this.item.listBaoLanh.forEach(element => {
-          element.hieuLucBaoLanh = UnixToDate(element.hieuLucBaoLanhUnix);
+          element.HieuLucBaoLanh = UnixToDate(element.HieuLucBaoLanhUnix);
         });
       }
-      if (validVariable(this.item.hopDong.idHopDong)) {
-        this.item.hopDong.isPhuLuc = true;
+      if (validVariable(this.item.HopDong.IdHopDong)) {
+        this.item.HopDong.isPhuLuc = true;
       }
     })
   }

@@ -39,30 +39,30 @@ export class TabkhieunaimodalComponent implements OnInit, OnChanges {
     if (this.opt === 'edit') {
       this.item = {
         ...this.item,
-        KhachHang: this.item.khachHang,
-        NoiDung: this.item.noiDung,
-        GhiChu: this.item.ghiChu,
-        NgayLo: UnixToDate(this.item.ngayLoUnix),
-        NgayKhieuNai: UnixToDate(this.item.ngayKhieuNaiUnix),
+        KhachHang: this.item.KhachHang,
+        NoiDung: this.item.NoiDung,
+        GhiChu: this.item.GhiChu,
+        NgayLo: UnixToDate(this.item.NgayLoUnix),
+        NgayKhieuNai: UnixToDate(this.item.NgayKhieuNaiUnix),
       }
     }
   }
   getListLoHang() {
-    let api$ = this.isSoi ? this._hopDong.GetListLoHang(this.quyTrinh.hopDong.id, this.quyTrinh.hopDong.soHopDong) : this._hopDong.GetListLoBong(this.quyTrinh.hopDong.id, this.quyTrinh.hopDong.soHopDong)
+    let api$ = this.isSoi ? this._hopDong.GetListLoHang(this.quyTrinh.HopDong.Id, this.quyTrinh.HopDong.SoHopDong) : this._hopDong.GetListLoBong(this.quyTrinh.HopDong.Id, this.quyTrinh.HopDong.SoHopDong)
     api$.subscribe((res: any) => {
       this.listLoHang = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   GetlistdmTrangThaiKhieuNai() {
     this._hopDong.GetlistdmTrangThaiKhieuNai({}).subscribe((res: any) => {
-      this.listTrangThai = mapArrayForDropDown(res, 'ten', 'id');
+      this.listTrangThai = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
   setData() {
     return {
       ...this.item,
-      IdHopDong: this.quyTrinh.hopDong.id,
+      IdHopDong: this.quyTrinh.HopDong.Id,
       NgayLoUnix: DateToUnix(this.item.NgayLo),
       NgayKhieuNaiUnix: DateToUnix(this.item.NgayKhieuNai),
       TendmTrangThaiKhieuNai: this.listTrangThai.find(ele => ele.value === this.item.IddmTrangThaiKhieuNai)?.label

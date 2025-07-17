@@ -16,7 +16,7 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
   item: any = {};
 
   @Input('listDieuKhoanThanhToan') listDieuKhoanThanhToan: any = [];
-  @Input('hopDong') hopDong: any = {};
+  @Input('HopDong') HopDong: any = {};
 
   @Output('listDieuKhoanThanhToan') itemChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
@@ -32,25 +32,25 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
     this.itemChange.emit(this.listDieuKhoanThanhToan);
   }
   add() {
-    if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
-      this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+    if (this.item.NgayThanhToan !== undefined && this.item.NgayThanhToan !== null) {
+      this.item.NgayThanhToanUnix = DateToUnix(this.item.NgayThanhToan);
     }
-    this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+    this.item.NgayThanhToanUnix = DateToUnix(this.item.NgayThanhToan);
     let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });    
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.hopDong = deepCopy(this.hopDong);
+    modalRef.componentInstance.HopDong = deepCopy(this.HopDong);
     modalRef.result.then(res => {
       this.listDieuKhoanThanhToan.push(res.item);
       this.itemChange.emit(this.listDieuKhoanThanhToan);
     }).catch(er => { console.log(er) });
   }
   edit(item, i) {
-    if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
-      this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+    if (this.item.NgayThanhToan !== undefined && this.item.NgayThanhToan !== null) {
+      this.item.NgayThanhToanUnix = DateToUnix(this.item.NgayThanhToan);
     }
     let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = deepCopy(item);
-    modalRef.componentInstance.hopDong = deepCopy(this.hopDong);    
+    modalRef.componentInstance.HopDong = deepCopy(this.HopDong);    
     modalRef.componentInstance.opt = 'edit';
     modalRef.result.then(res => {
       this.listDieuKhoanThanhToan[i] = res.item;

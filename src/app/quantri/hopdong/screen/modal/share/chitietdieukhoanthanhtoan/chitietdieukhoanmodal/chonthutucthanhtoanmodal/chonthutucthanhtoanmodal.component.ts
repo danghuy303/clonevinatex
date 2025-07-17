@@ -3,7 +3,7 @@ import { validVariable } from 'src/app/services/globalfunction';
 
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
+import { DanhMucHopDongService } from '../../../../../../../../services/Hopdong/danhmuchopdong.service';
 
 
 @Component({
@@ -20,12 +20,12 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã',
-      field: 'ma',
+      field: 'Ma',
       width: 'unset'
     },
     {
       header: 'Tên',
-      field: 'ten',
+      field: 'Ten',
       width: 'unset'
     },
  
@@ -49,7 +49,7 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
       this.listDieuKhoanThanhToan.forEach(obj => {
         obj.checked = false;
         if (this.listThanhToanThuTuc.length > 0) {
-          if (this.listThanhToanThuTuc.some(item => obj.id === item.iddmThanhToanThuTuc && (item.isXoa != true || item.isXoa == undefined))) {
+          if (this.listThanhToanThuTuc.some(item => obj.Id === item.IddmThanhToanThuTuc && (item.isXoa != true || item.isXoa == undefined))) {
             obj.checked = true;
           }
         }
@@ -74,11 +74,11 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
     this.activeModal.close(this.listDieuKhoanThanhToan.filter(item => item.checked).map(ele => {
       return {
         ...ele,
-        idHopDong: this.IdQuyTrinh,
-        iddmThanhToanThuTuc: ele.id,
-        tendmThanhToanThuTuc: ele.ten,
+        IdHopDong: this.IdQuyTrinh,
+        IddmThanhToanThuTuc: ele.Id,
+        TendmThanhToanThuTuc: ele.Ten,
         isXoa: false,
-        id: '',      
+        Id: '',      
       }
     }));
   }
@@ -117,15 +117,15 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   
   if(item.checked == true)
   {
-    let itemFind: any = this.listThanhToanThuTuc.filter((e: any) =>e.iddmThanhToanThuTuc === item.id)[0]
+    let itemFind: any = this.listThanhToanThuTuc.filter((e: any) =>e.IddmThanhToanThuTuc === item.Id)[0]
     if(itemFind === undefined){
-      let itemFinds = this.listDieuKhoanThanhToan.find(e => e.checked === true && e.id === item.id);
+      let itemFinds = this.listDieuKhoanThanhToan.find(e => e.checked === true && e.Id === item.Id);
       itemFinds = {
-        idHopDong: this.IdQuyTrinh,
-        iddmThanhToanThuTuc: itemFinds.id,
-        tendmThanhToanThuTuc: itemFinds.ten,
+        IdHopDong: this.IdQuyTrinh,
+        IddmThanhToanThuTuc: itemFinds.Id,
+        TendmThanhToanThuTuc: itemFinds.Ten,
         isXoa: false,
-        id: '',      
+        Id: '',      
       }
       this.listThanhToanThuTuc.push(itemFinds)
     }
@@ -133,7 +133,7 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
       itemFind.isXoa = false;
   }
     else{
-      let itemFind = this.listThanhToanThuTuc.filter((e: any) =>e.iddmThanhToanThuTuc === item.id)[0]
+      let itemFind = this.listThanhToanThuTuc.filter((e: any) =>e.IddmThanhToanThuTuc === item.Id)[0]
       itemFind.isXoa = true;
     }
   }

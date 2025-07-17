@@ -78,7 +78,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     if (isChange === false)
       IddmKhachHang = event.value;
     else
-      IddmKhachHang = this.item.iddmKhachHangA;
+      IddmKhachHang = this.item.IddmKhachHangA;
     let selected = this.getKhachHang.find(
       (ele) => ele.Id === IddmKhachHang
     );
@@ -98,7 +98,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     if (isChange === false)
       IddmKhachHang = event.value;
     else
-      IddmKhachHang = this.item.iddmKhachHangB;
+      IddmKhachHang = this.item.IddmKhachHangB;
     let selected1 = this.getKhachHang.find(
       (ele) => ele.Id === IddmKhachHang
     );
@@ -134,7 +134,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   //   this.onChangBenB("",true);
   //   for (const propName in changes) {
   //     const chng = changes[propName];
-  //     const cur = JSON.stringify(chng.currentValue.soQuyTrinh);
+  //     const cur = JSON.stringify(chng.currentValue.SoQuyTrinh);
   //     const prev = JSON.stringify(chng.previousValue);
   //   }
   // }
@@ -143,7 +143,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     this.GetFormOptions();
     if (this.item.isPhuLuc) {
       this._service.QuyTrinhHopDong().GetListHopDongForPhuLuc(this.item.loai || 2).subscribe((res: any) => {
-        this.listHopDong = mapArrayForDropDown(res, "soTenHopDong", "id");
+        this.listHopDong = mapArrayForDropDown(res, "SoTenHopDong", "Id");
         this.listHopDongFull = res;
       });
     }
@@ -178,7 +178,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
       .DanhMucLoaiHopDong()
       .GetListAll()
       .subscribe((res: any) => {
-        this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
+        this.listLoaiHopDong = mapArrayForDropDown(res, "Ten", "Id");
         this.listLoaiHopDongFull = res;
         if (this.opt === "edit")
           this.chonHopDongGoc();
@@ -203,14 +203,14 @@ export class ChitiethopdongbongxoComponent implements OnInit {
       .DanhMucHinhThucThanhToan()
       .GetListAll()
       .subscribe((res: any) => {
-        this.listHinhThucThanhToan = mapArrayForDropDown(res, "ten", "id");
+        this.listHinhThucThanhToan = mapArrayForDropDown(res, "Ten", "Id");
       });
     this._servicesdmHopDong
       .DanhMucLoaiTienTe()
       .GetListAll()
       .subscribe((res: any) => {
 
-        this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
+        this.listLoaiTienTe = mapArrayForDropDown(res, "Ten", "Id");
       });
   }
   Loai(loai: boolean) {
@@ -219,7 +219,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   chonHopDongGoc() {
     this.isHienHopDongGoc = false;
     if (this.isSoi !== true) {
-      let itemFind = this.listLoaiHopDongFull.filter(el => el.id == this.item.iddmLoaiHopDong)
+      let itemFind = this.listLoaiHopDongFull.filter(el => el.Id == this.item.IddmLoaiHopDong)
       if (itemFind !== undefined) {
         if (itemFind[0].ma == "BAN") {
           this.getListHopDongGoc();
@@ -229,24 +229,24 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     }
   }
   getListHopDongGoc() {
-    this._service.QuyTrinhHopDong().GetListAll(this.item.loai || 0)
+    this._service.QuyTrinhHopDong().GetListAll(this.item.Loai || 0)
       .subscribe((res: Array<any>) => {
-        this.listHopDongGoc = mapArrayForDropDown(res, "soTenHopDong", "id");
+        this.listHopDongGoc = mapArrayForDropDown(res, "soTenHopDong", "Id");
       });
   }
   listHangHoaTheoHopDong() {
-    this._service.QuyTrinhHopDong().getListMatHang(this.item.idHopDongGoc || '')
+    this._service.QuyTrinhHopDong().getListMatHang(this.item.IdHopDongGoc || '')
       .subscribe((res: any) => {
-        if (res.data.length > 0) {
-          let data: any = res.data[0];
-          data.id = '';
-          data.soLuong = 0;
-          data.soKien = 0;
-          data.soContainer = 0;
-          data.DonGiaThanhToan = data.donGia *(100 +(data.thueGTGT || 0))/100 ;
+        if (res.Data.length > 0) {
+          let data: any = res.Data[0];
+          data.Id = '';
+          data.SoLuong = 0;
+          data.SoKien = 0;
+          data.SoContainer = 0;
+          data.DonGiaThanhToan = data.DonGia *(100 +(data.ThueGTGT || 0))/100 ;
           data.giaTriHopDongMatHang = 0;
           if(this.item.isLayTheoGiaTriHangHoa === true){
-            this.item.giaTri =  data.giaTriHopDongMatHang;
+            this.item.GiaTri =  data.GiaTriHopDongMatHang;
           }
           this.listHangHoaChange.emit(data);
         }
@@ -255,14 +255,14 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.result.then((data) => {
-      this.item.file="sdfkhsldkfjhsldkjf";
+      this.item.File="sdfkhsldkfjhsldkjf";
       if(!validVariable(this.lstFileUploadCu))
         this.lstFileUploadCu = []
       data.forEach(element => {
         let item: any = {}
-        item.id = '';
-        item.fileNameGui = element.Name;
-        item.fileName = element.NameLocal;
+        item.Id = '';
+        item.FileNameGui = element.Name;
+        item.FileName = element.NameLocal;
         item.link = element.Url;
         this.lstFileUploadCu.push(item);
         
@@ -272,15 +272,15 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     });
   }
   chonHopDong(e) {
-    let itemFind = this.listHopDongFull.filter(el => el.id == e.value)
+    let itemFind = this.listHopDongFull.filter(el => el.Id == e.value)
     if (itemFind !== undefined) {
-      this.item.iddmLoaiHopDong = itemFind[0].iddmLoaiHopDong;
+      this.item.IddmLoaiHopDong = itemFind[0].IddmLoaiHopDong;
     }
   }
   removeItemDinhKem(item){
     let i = this.lstFileUploadCu.indexOf(item)
     let itemFind = this.lstFileUploadCu.splice(i, 1)[0];
-    if(itemFind.id !== ''){
+    if(itemFind.Id !== ''){
       itemFind.isXoa = true;
       this.lstFileUploadCu.push(JSON.parse(JSON.stringify(itemFind)));
     }

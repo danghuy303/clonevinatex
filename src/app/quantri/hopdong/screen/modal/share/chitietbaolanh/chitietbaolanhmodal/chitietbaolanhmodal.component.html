@@ -20,7 +20,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bảo lãnh:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
 
-                <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiBaoLanh" [options]='listLoaiBaoLanh'
+                <p-dropdown [filter]="true" [(ngModel)]="item.IddmLoaiBaoLanh" [options]='listLoaiBaoLanh'
                     placeholder="Chọn loại bảo lãnh" styleClass="p-inputtext-sm"></p-dropdown>
 
             </div>
@@ -29,7 +29,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số bảo lãnh:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
 
-                <input type="text" [(ngModel)]="item.soQuyTrinh" class="p-inputtext-sm" pInputText />
+                <input type="text" [(ngModel)]="item.SoQuyTrinh" class="p-inputtext-sm" pInputText />
 
             </div>
         </div>
@@ -37,7 +37,7 @@
 
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị bảo lãnh <span class="required">*</span> :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber class="p-col-6" [(ngModel)]="item.giaTri" [minFractionDigits]="2" locale="en-EN" (ngModelChange)="item.giaTri = dinhDangSo($event)">
+                <p-inputNumber class="" [(ngModel)]="item.GiaTri" [minFractionDigits]="2" locale="en-EN" (ngModelChange)="item.GiaTri = dinhDangSo($event)">
                 </p-inputNumber>
             </div>
         </div>
@@ -47,7 +47,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
 
                 <div class="p-inputgroup p-d-flex">
-                    <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.tyLe" (ngModelChange)="item.tyLe = dinhDangSo($event)">
+                    <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TyLe" (ngModelChange)="item.TyLe = dinhDangSo($event)">
                     </p-inputNumber>
                     <span class="p-inputgroup-addon">%</span>
                 </div>
@@ -57,7 +57,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hiệu lực bảo lãnh:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true"
-                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.hieuLucBaoLanh"
+                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.HieuLucBaoLanh"
                 inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
@@ -65,14 +65,14 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tình trạng bảo lãnh:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [(ngModel)]="item.iddmTinhTrangBaoLanh" [options]="listTinhTrangBaoLanh"
+                <p-dropdown [filter]="true" [(ngModel)]="item.IddmTinhTrangBaoLanh" [options]="listTinhTrangBaoLanh"
                     placeholder="Chọn tình trạng" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
         <div class="pp-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú</label>
             <div class="p-col-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
 
             </div>
         </div>

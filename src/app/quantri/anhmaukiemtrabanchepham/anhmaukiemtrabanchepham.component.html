@@ -1,0 +1,117 @@
+<div class="modal-header">
+    <h5 class="modal-title">Kiểm tra bán chế phẩm</h5>
+</div>
+<div class="modal-body">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex">
+            <button pButton pRipple label="Quay lại" class="p-button-sm p-button-outlined p-mr-2"
+                (click)="activeModal.dismiss()"></button>
+            <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
+        </div>
+        <div class="p-field-checkbox align-items-center p-mr-2 p-mt-2">
+            <p-checkbox [(ngModel)]="isDat" binary="true" inputId="isDat"></p-checkbox>
+            <label for="isDat">Đạt</label>
+        </div>
+    </div>
+    <div class="p-pt-3">
+        <div class="anhmau">
+            <h5>Ảnh mẫu</h5>
+            <p-carousel [value]="products" [numVisible]="Math?.min(products.length, 6)" [numScroll]="1"
+                [circular]="false" [showIndicators]="true" [showNavigators]="true"
+                [responsiveOptions]="responsiveOptions">
+                <ng-template let-product pTemplate="item">
+                    <div class="text-center">
+                        <div class="image-box">
+                            <img [src]="product.Name" class="slide-image" />
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+        <div class="divider"></div>
+        <div class="anhchon p-mt-2">
+            <button pButton pRipple label="Chọn ảnh" class="p-button-sm p-mr-2 p-mb-2"
+                (click)="handleChonAnhThuVien(mypicture)"></button>
+            <p-carousel [value]="listAnhDaChon" [numVisible]="Math?.min(products.length, 6)" [numScroll]="1"
+                [circular]="false" [showIndicators]="true" [showNavigators]="true"
+                [responsiveOptions]="responsiveOptions">
+                <ng-template let-product pTemplate="item" let-index="index">
+                    <div class="text-center">
+                        <div class="image-box">
+                            <button class="delete-btn" (click)="onDeleteImage(index)">✕</button>
+                            <img [src]="product.Name" class="slide-image" />
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+
+    </div>
+</div>
+<p-dialog [(visible)]="isThuVienMau" [style]="{ width: '50vw', height: '70vh' }" [modal]="true" [baseZIndex]="1000">
+    <ng-template pTemplate="header">
+        <h4 class="modal-title" id="modal-basic-title">Chọn ảnh từ thư mục</h4>
+    </ng-template>
+    <div class="d-flex p-grid">
+        <div class="p-col-5 p-p-3">
+            <div class="boder-title">
+                <h5 class="p-p-2 bg-title">Thư mục lưu</h5>
+                <div>
+                    <p-treeTable [value]="lisFolder"
+                        styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center" style="width: 50px"></th>
+                                <th class="text-center">Tên thư mục</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                            <tr>
+                                <td class="text-center" style="width: 50px">
+                                    <input type="radio" (change)="handleAssignIdThuMuc(rowData)" name="folderRadio" />
+                                </td>
+                                <td class="">
+                                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                    {{rowData.Ten}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-treeTable>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-7 p-p-3">
+            <div class="boder-title">
+                <h5 class="p-p-2 bg-title">Tài liệu</h5>
+                <div>
+                    <p-table [value]="listTaiLieu" [paginator]="true" [rows]="10"
+                        styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 50px;"></th>
+                                <th>Tên tệp</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-taiLieu let-i="rowIndex">
+                            <tr>
+                                <td class="text-center" style="width: 50px;">
+                                    <p-checkbox [(ngModel)]="taiLieu.checked" binary="true"
+                                        inputId="binary"></p-checkbox>
+                                </td>
+                                <td class="">{{taiLieu.Ten}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="paginatorleft">
+                            <b>Tổng số bản ghi {{listTaiLieu.length}}</b>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Quay lại" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+            (click)="isThuVienMau = false"></button>
+        <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="chaNhanTuThuMuc()"></button>
+    </ng-template>
+</p-dialog>

@@ -25,7 +25,7 @@ export class HopdongvattuphuComponent implements OnInit {
   title:string
   denNgay: number = 0;
   trangThai: any = 1;
-  paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
+  paging: any = { CurrentPage: 1, totalPages: 1, TotalItem: number };
   hopDong: any = {};
 
   
@@ -42,8 +42,6 @@ export class HopdongvattuphuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      
-    console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this.update(res.id);
@@ -78,7 +76,7 @@ export class HopdongvattuphuComponent implements OnInit {
     };
     modalRef.componentInstance.item.hopDong = {
       isLayTheoGiaTriHangHoa: true,
-      id: "",
+      Id: "",
       loai: 23
     };
     modalRef.componentInstance.item.listHangHoa = []
@@ -112,7 +110,7 @@ export class HopdongvattuphuComponent implements OnInit {
     };
     modalRef.componentInstance.item.hopDong = {
       isLayTheoGiaTriHangHoa: true,
-      id: "",
+      Id: "",
       loai: 23,
       isPhuLuc: true,
     };
@@ -137,7 +135,7 @@ export class HopdongvattuphuComponent implements OnInit {
         });
         modalRef.componentInstance.opt = "edit";
         modalRef.componentInstance.item = JSON.parse(
-          JSON.stringify(res1.data)
+          JSON.stringify(res1.Data)
         );
         modalRef.result
           .then((res: any) => {
@@ -159,17 +157,17 @@ export class HopdongvattuphuComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    this.paging.currentPage = event.page + 1;
+    this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?, isXuatExcel?) {
     if (reset) {
-      this.paging.currentPage = 1;
+      this.paging.CurrentPage = 1;
       // this.paginator.changePage(0);
     }
     let data = {
       pageSize: 20,
-      currentPage: this.paging.currentPage,
+      CurrentPage: this.paging.CurrentPage,
       tabTrangThai: this.trangThai,
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
@@ -187,10 +185,10 @@ export class HopdongvattuphuComponent implements OnInit {
     }
     else{
     this._service.QuyTrinhHopDong().GetListVatTuPhu(data).subscribe((res: any) => {
-      this.items = res.data?.items;
-      this.paging.TotalItem = res.data?.totalCount;
+      this.items = res.Data?.Items;
+      this.paging.TotalItem = res.Data?.TotalCount;
       this.items.forEach(element => {
-        element.ngayKy = UnixToDate(element.ngayKyUnix);
+        element.NgayKy = UnixToDate(element.NgayKyUnix);
       });
     });
     }

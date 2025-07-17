@@ -32,14 +32,14 @@ export class ChitiethanghoamodalComponent implements OnInit {
   ) { }
 
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.selectedItemsGoc = deepCopy(this.selectedItems);
     this._serviceHopDong.QuyTrinhHopDong().GetListAlldmTieuChuanChatLuong().subscribe((res: any) => {
       this.items = res;
       this.items.forEach(obj => {
         obj.checked = false;
         if (this.selectedItems.length > 0) {
-          if (this.selectedItems.some(item => obj.id === item.iddmTieuChuanChatLuong && (item.isXoa != true || item.isXoa == undefined))) {
+          if (this.selectedItems.some(item => obj.Id === item.IddmTieuChuanChatLuong && (item.isXoa != true || item.isXoa == undefined))) {
             obj.checked = true;
           }
         }
@@ -66,17 +66,17 @@ checkItem(item){
 
 if(item.checked == true)
 {
-  let itemFind: any = this.selectedItems.filter((e: any) =>e.iddmTieuChuanChatLuong === item.id)[0]
+  let itemFind: any = this.selectedItems.filter((e: any) =>e.IddmTieuChuanChatLuong === item.Id)[0]
   if(itemFind === undefined){
-    let itemFinds = this.items.find(e => e.checked === true && e.id === item.id);
+    let itemFinds = this.items.find(e => e.checked === true && e.Id === item.Id);
     itemFinds = {
-      idHopDong: this.IdQuyTrinh,
-      iddmTieuChuanChatLuong: itemFinds.id,
-      dacTinh: itemFinds.dacTinh,
-      donVi: itemFinds.donVi,
-      tieuChuan: itemFinds.tieuChuan,
+      IdHopDong: this.IdQuyTrinh,
+      IddmTieuChuanChatLuong: itemFinds.Id,
+      DacTinh: itemFinds.DacTinh,
+      DonVi: itemFinds.DonVi,
+      TieuChuan: itemFinds.TieuChuan,
       isXoa: false,
-      id: '',
+      Id: '',
     }
     this.selectedItems.push(itemFinds)
   }
@@ -84,7 +84,7 @@ if(item.checked == true)
     itemFind.isXoa = false;
 }
   else{
-    let itemFind = this.selectedItems.filter((e: any) =>e.iddmTieuChuanChatLuong === item.id)[0];
+    let itemFind = this.selectedItems.filter((e: any) =>e.IddmTieuChuanChatLuong === item.Id)[0];
     if(itemFind !== undefined){
       itemFind.isXoa = true;
     }

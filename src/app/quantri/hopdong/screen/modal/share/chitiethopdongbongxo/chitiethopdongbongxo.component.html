@@ -3,7 +3,7 @@
         <div [ngStyle]="{'display':item.isPhuLuc ? 'flex' : 'none' }" class="p-col-12 p-lg-6   flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Chọn hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <p-dropdown [filter]="true" [(ngModel)]="item.idHopDong" [options]="listHopDong"
+                <p-dropdown [filter]="true" [(ngModel)]="item.IdHopDong" [options]="listHopDong"
                     placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm"
                     (onChange)="chonHopDong($event)"></p-dropdown>
             </div>
@@ -12,7 +12,7 @@
             class="p-col-12 p-lg-6   flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Loại hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiHopDong" [options]="listLoaiHopDong"
+                <p-dropdown [filter]="true" [(ngModel)]="item.IddmLoaiHopDong" [options]="listLoaiHopDong"
                     placeholder="Chọn loại hợp đồng" styleClass="p-inputtext-sm"
                     (onChange)="chonHopDongGoc()"></p-dropdown>
             </div>
@@ -22,7 +22,7 @@
             <label class="p-col-12 p-xl-3 p-lg-6 p-p-0 my-auto">Chọn loại hàng hóa<span
                     class="required">*</span>:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <p-dropdown [options]="optionsVatLieu" [(ngModel)]="item.loai" placeholder="Chọn nguyên/vật liệu"
+                <p-dropdown [options]="optionsVatLieu" [(ngModel)]="item.Loai" placeholder="Chọn nguyên/vật liệu"
                     (onChange)="GetListdmLoaiBongForHopDong()"></p-dropdown>
             </div>
         </div>
@@ -30,28 +30,28 @@
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Số hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
-                <input type="text" [(ngModel)]="item.soHopDong" class="p-inputtext-sm" pInputText />
+                <input type="text" [(ngModel)]="item.SoHopDong" class="p-inputtext-sm" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6   d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-lg-4 p-p-0 my-auto">Tên hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <input type="text" [(ngModel)]="item.tenHopDong" class="p-inputtext-sm" pInputText />
+                <input type="text" [(ngModel)]="item.TenHopDong" class="p-inputtext-sm" pInputText />
             </div>
         </div>
 
         <div class="p-col-12 p-lg-12   d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-1 p-p-0 my-auto">Trích yếu:</label>
             <div class="p-col-12 p-xl-11 p-p-0 p-pl-theokieunaodo">
-                <input type="text" [(ngModel)]="item.trichYeu" class="p-inputtext-sm" pInputText />
+                <input type="text" [(ngModel)]="item.TrichYeu" class="p-inputtext-sm" pInputText />
             </div>
         </div>
 
         <div class="p-col-12 p-lg-6  d-flex flex-column flex-xl-row ">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Giá trị hợp đồng:</label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="en-EN"
-                    (ngModelChange)="item.giaTri = dinhDangSo($event)">
+                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.GiaTri" locale="en-EN"
+                    (ngModelChange)="item.GiaTri = dinhDangSo($event)">
                 </p-inputNumber>
             </div>
         </div>
@@ -66,14 +66,14 @@
             <div class="p-col-12 p-lg-5 d-flex p-p-0 flex-column flex-xl-row">
                 <label class="p-col-12 p-lg-7 p-p-0 my-auto">Đơn vị tính:</label>
                 <div class="p-col-12 p-lg-5 p-p-0 my-auto" style="margin-left: 0.4rem;">
-                    <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiTienTe" [options]="listLoaiTienTe"
+                    <p-dropdown [filter]="true" [(ngModel)]="item.IddmLoaiTienTe" [options]="listLoaiTienTe"
                         placeholder="Chọn" styleClass="p-inputtext-sm"></p-dropdown>
                 </div>
             </div>
             <div class="p-col-12 p-lg-7 d-flex flex-column flex-xl-row">
                 <label class="p-col-12 p-lg-4 p-p-0 my-auto p-ml-2">Hình thức thanh toán:</label>
                 <div class="p-col-12 p-lg-8 p-p-0 my-auto">
-                    <p-dropdown [filter]="true" [(ngModel)]="item.iddmHinhThucThanhToan"
+                    <p-dropdown [filter]="true" [(ngModel)]="item.IddmHinhThucThanhToan"
                         [options]="listHinhThucThanhToan" placeholder="Chọn hình thức thanh toán"
                         styleClass="p-inputtext-sm"></p-dropdown>
                 </div>
@@ -85,7 +85,7 @@
                 <label class="p-col-12 p-lg-6 p-p-0 my-auto">Ngày ký:</label>
                 <div class="p-col-12 p-lg-6 p-p-0 my-auto">
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
-                        [monthNavigator]="true" [yearNavigator]="true" [showIcon]="true" [(ngModel)]="item.ngayKy"
+                        [monthNavigator]="true" [yearNavigator]="true" [showIcon]="true" [(ngModel)]="item.NgayKy"
                         inputId="icon" placeholder="dd/mm/yyyy">
                     </p-calendar>
                 </div>
@@ -95,7 +95,7 @@
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày hiệu lực:</label>
                 <div class="p-col-12 p-lg-9 p-p-0 p-ml-1 my-auto">
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
-                        [monthNavigator]="true" [yearNavigator]="true" [showIcon]="true" [(ngModel)]="item.ngayHieuLuc"
+                        [monthNavigator]="true" [yearNavigator]="true" [showIcon]="true" [(ngModel)]="item.NgayHieuLuc"
                         inputId="icon" placeholder="dd/mm/yyyy">
                     </p-calendar>
                 </div>
@@ -105,7 +105,7 @@
             [ngStyle]="{'display':isHienHopDongGoc ? 'flex' : 'none' }">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">HĐ gốc: </label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
-                <p-dropdown [filter]="true" [(ngModel)]="item.idHopDongGoc" [options]="listHopDongGoc"
+                <p-dropdown [filter]="true" [(ngModel)]="item.IdHopDongGoc" [options]="listHopDongGoc"
                     placeholder="Chọn hợp đồng gốc" styleClass="p-inputtext-sm"
                     (onChange)="listHangHoaTheoHopDong()"></p-dropdown>
             </div>
@@ -122,7 +122,7 @@
             <div class="p-col-12 p-xl-9 p-p-0">
                 <span *ngFor="let item1 of lstFileUploadCu">
                     <span *ngIf="item1.isXoa !== true">
-                        {{item1.fileName}}
+                        {{item1.FileName}}
                         <a title="Xóa" style="color: red;cursor: pointer;font-size: 15px;"
                             (click)="removeItemDinhKem(item1)">
                             <i class="fa fa-times"></i></a>,
@@ -134,7 +134,7 @@
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
-                <input type="text" [(ngModel)]="item.ghiChu" class="p-inputtext-sm" pInputText />
+                <input type="text" [(ngModel)]="item.GhiChu" class="p-inputtext-sm" pInputText />
             </div>
         </div>
         <!-- thông tin nhà cung cấp -->
@@ -146,9 +146,9 @@
         <div class="p-col-12 p-lg-12   d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-xl-1 p-p-0 my-auto">Tên công ty:</label>
             <div class="p-col-12 p-xl-11 p-p-0 p-pl-theokieunaodo">
-                <!-- <p-dropdown [options]="listdmKhachHang" [(ngModel)]="item.iddmKhachHangA" (onChange)="onReportChange($event)" name="selectedCity" placeholder="Chọn nguyên/vật liệu" optionLabel="Ten" optionValue="Id"></p-dropdown> -->
+                <!-- <p-dropdown [options]="listdmKhachHang" [(ngModel)]="item.IddmKhachHangA" (onChange)="onReportChange($event)" name="selectedCity" placeholder="Chọn nguyên/vật liệu" optionLabel="Ten" optionValue="Id"></p-dropdown> -->
 
-                <p-dropdown [filter]="true" [options]="listdmKhachHang" [(ngModel)]="item.iddmKhachHangA"
+                <p-dropdown [filter]="true" [options]="listdmKhachHang" [(ngModel)]="item.IddmKhachHangA"
                     name="iddmKhachHangA" (onChange)="onChangBenA($event)" placeholder="Chọn công ty"
                     styleClass="p-inputtext-sm"></p-dropdown>
                 <!-- <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm" (click)="CopydmKhachHang()" [disabled]="!canCopy"></button> -->
@@ -209,7 +209,7 @@
             <label class="p-col-12 p-lg-3 p-xl-1 p-p-0 my-auto">Tên công ty:</label>
             <div class="p-col-12 p-xl-11 p-p-0 p-pl-theokieunaodo">
                 <p-dropdown [filter]="true" [options]="listdmKhachHang" (onChange)="onChangBenB($event)"
-                    [(ngModel)]="item.iddmKhachHangB" placeholder="Chọn công ty" styleClass="p-inputtext-sm">
+                    [(ngModel)]="item.IddmKhachHangB" placeholder="Chọn công ty" styleClass="p-inputtext-sm">
                 </p-dropdown>
                 <!-- <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm" (click)="CopydmKhachHang()" [disabled]="!canCopy"></button> -->
             </div>

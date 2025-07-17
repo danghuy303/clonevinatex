@@ -353,7 +353,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             command: () => {
               this.close();
             },
-          },
+          }
         ],
       },
       {
@@ -1261,6 +1261,12 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Xuất kho",
             routerLink: "/quantri/quanlykhosanxuat/khobong/xuatkho/0",
             separator: this.checkmenu("PHIEUXUATBONG"),
+            command: () => this.close(),
+          },
+          {
+            label: "Xuất bông theo HĐ",
+            routerLink: "/quantri/quanlykhosanxuat/khobong/xuatkhotheohopdong/0",
+            // separator: this.checkmenu("KIEMKEKHOBONG"),
             command: () => this.close(),
           },
           {
@@ -2272,6 +2278,11 @@ export class QuantriComponent implements OnInit, OnDestroy {
           {
             label: "Tiêu chí chất lượng sợi",
             routerLink: "/quantri/danhmucsanxuat/dmtieuchichatluongsoi",
+            command: () => this.close(),
+          },
+          {
+            label: "Ảnh mẫu chất lượng BCP",
+            routerLink: "/quantri/danhmucsanxuat/anhmauchatluongbcp",
             command: () => this.close(),
           },
           {

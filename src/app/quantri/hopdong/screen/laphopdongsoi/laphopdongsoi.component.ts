@@ -29,7 +29,7 @@ export class LaphopdongsoiComponent implements OnInit {
   title:string
   denNgay: number = 0;
   trangThai: any = 1;
-  paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
+  paging: any = { CurrentPage: 1, totalPages: 1, TotalItem: number };
   hopDong: any = {};
 
   
@@ -46,8 +46,6 @@ export class LaphopdongsoiComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      
-    console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this.update(res.id);
@@ -78,7 +76,7 @@ export class LaphopdongsoiComponent implements OnInit {
     };
     modalRef.componentInstance.item.hopDong = {
       isLayTheoGiaTriHangHoa: true,
-      id: "",
+      Id: "",
       loai: 11
     };
     modalRef.componentInstance.item.listHangHoa = []
@@ -108,7 +106,7 @@ export class LaphopdongsoiComponent implements OnInit {
       listTaiLieu: [],
       lstFileUploadCu: [],
     };
-    modalRef.componentInstance.item.hopDong = {id: "",
+    modalRef.componentInstance.item.hopDong = {Id: "",
     isLayTheoGiaTriHangHoa: true,
     isPhuLuc: true,
     loai: 11
@@ -117,7 +115,6 @@ export class LaphopdongsoiComponent implements OnInit {
     ]
     modalRef.result
       .then((res: any) => {
-        console.log(res);
         this._toastr.success("Cập nhật thành công");
         this.GetListQuyTrinh();
         this.changeParam(0);
@@ -135,7 +132,7 @@ export class LaphopdongsoiComponent implements OnInit {
         });
         modalRef.componentInstance.opt = "edit";
         modalRef.componentInstance.item = JSON.parse(
-          JSON.stringify(res1.data)
+          JSON.stringify(res1.Data)
         );
         modalRef.result
           .then((res: any) => {
@@ -157,17 +154,17 @@ export class LaphopdongsoiComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    this.paging.currentPage = event.page + 1;
+    this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?, isXuatExcel?) {
     if (reset) {
-      this.paging.currentPage = 1;
+      this.paging.CurrentPage = 1;
       // this.paginator.changePage(0);
     }
     let data = {
       pageSize: 20,
-      currentPage: this.paging.currentPage,
+      CurrentPage: this.paging.CurrentPage,
       tabTrangThai: this.trangThai,
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
@@ -177,19 +174,19 @@ export class LaphopdongsoiComponent implements OnInit {
     if(isXuatExcel === true){
       this._service.QuyTrinhHopDong().XuatExcel(data).subscribe((res: any) => {
         if (res?.statusCode === 200) {
-          this._toastr.success(res.message);
+          this._toastr.success(res.Message);
         } else {
-          this._toastr.error(res.message);
+          this._toastr.error(res.Message);
         }
       });
     }
     else{
       this._service.QuyTrinhHopDong().GetListSoi(data).subscribe((res: any) => {
-        this.items = res.data?.items;
-        this.paging.TotalItem = res.data?.totalCount;
-        this.paging.TotalPage = res.data?.totalPages;
+        this.items = res.Data?.items;
+        this.paging.TotalItem = res.Data?.TotalCount;
+        this.paging.TotalPage = res.Data?.TotalPages;
         this.items.forEach(element => {
-          element.ngayKy = UnixToDate(element.ngayKyUnix);
+          element.NgayKy = UnixToDate(element.NgayKyUnix);
         });
       });
     }

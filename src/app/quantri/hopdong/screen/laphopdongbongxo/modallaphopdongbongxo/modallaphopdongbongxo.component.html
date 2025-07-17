@@ -2,13 +2,13 @@
     <h5 class="modal-title">{{ title }}</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
-            <span style="font-weight: bold">Số quy trình:</span> {{ item.hopDong.soQuyTrinh }}
+            <span style="font-weight: bold">Số quy trình:</span> {{ item.HopDong.SoQuyTrinh }}
         </div>
         <div class="ml-lg-3 mr-lg-3">
-            <span style="font-weight: bold">TG Tạo:</span> {{ item.hopDong.created | date: "dd/MM/yyyy HH:mm" }}
+            <span style="font-weight: bold">TG Tạo:</span> {{ item.HopDong.Created | date: "dd/MM/yyyy HH:mm" }}
         </div>
         <div>
-            <span style="font-weight: bold">TG Duyệt:</span> {{ item.hopDong.modified | date: "dd/MM/yyyy HH:mm" }}
+            <span style="font-weight: bold">TG Duyệt:</span> {{ item.HopDong.Modified | date: "dd/MM/yyyy HH:mm" }}
         </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -33,15 +33,15 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <p-tabView>
             <p-tabPanel header="Thông tin hợp đồng">
-                <app-chitiethopdongbongxo [(item)]="item.hopDong" [opt]="opt" [(listLoaiMatHang)]="listLoaiMatHang" [(lstFileUploadCu)]="item.lstFileUploadCu" [(listHangHoa)]="item.listHangHoa[0]">
+                <app-chitiethopdongbongxo [(item)]="item.HopDong" [opt]="opt" [(listLoaiMatHang)]="listLoaiMatHang" [(lstFileUploadCu)]="item.lstFileUploadCu" [(listHangHoa)]="item.listHangHoa[0]">
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
             <p-tabPanel header="Thông tin hàng hóa">                
-                <app-chitietdanhsachhanghoa [isBong]="isBong" [(hopDong)]="item.hopDong" [(listHangHoa)]="item.listHangHoa[0]" [(listTieuChuanChatLuong)]="item.listTieuChuanChatLuong" [listLoaiMatHang]="listLoaiMatHang">
+                <app-chitietdanhsachhanghoa [isBong]="isBong" [(HopDong)]="item.HopDong" [(listHangHoa)]="item.listHangHoa[0]" [(listTieuChuanChatLuong)]="item.listTieuChuanChatLuong" [listLoaiMatHang]="listLoaiMatHang">
                 </app-chitietdanhsachhanghoa>
             </p-tabPanel>
             <p-tabPanel header="Điều khoản thanh toán">
-                <app-chitietdieukhoanthanhtoan [(hopDong)]="item.hopDong" [(listDieuKhoanThanhToan)]="item.listDieuKhoanThanhToan"></app-chitietdieukhoanthanhtoan>
+                <app-chitietdieukhoanthanhtoan [(HopDong)]="item.HopDong" [(listDieuKhoanThanhToan)]="item.listDieuKhoanThanhToan"></app-chitietdieukhoanthanhtoan>
             </p-tabPanel>
             <p-tabPanel header="Bảo lãnh">
                 <app-chitietbaolanh [(listBaoLanh)]="item.listBaoLanh"></app-chitietbaolanh>
