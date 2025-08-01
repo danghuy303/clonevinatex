@@ -182,7 +182,7 @@ export class LaphopdongsoiComponent implements OnInit {
     }
     else{
       this._service.QuyTrinhHopDong().GetListSoi(data).subscribe((res: any) => {
-        this.items = res.Data?.items;
+        this.items = res.Data?.Items;
         this.paging.TotalItem = res.Data?.TotalCount;
         this.paging.TotalPage = res.Data?.TotalPages;
         this.items.forEach(element => {

@@ -1,0 +1,19 @@
+/* Custom scroll hidden - Ẩn thanh scroll nhưng vẫn giữ chức năng cuộn */
+::ng-deep .custom-scroll-hidden {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+::ng-deep .custom-scroll-hidden::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+/* Loại bỏ padding-right của header box để tránh lệch layout */
+::ng-deep .custom-scroll-hidden .p-datatable-scrollable-header-box {
+  padding-right: 0 !important;
+}
+
+/* Loại bỏ padding-right của body box */
+::ng-deep .custom-scroll-hidden .p-datatable-scrollable-body-box {
+  padding-right: 0 !important;
+}

@@ -38,6 +38,7 @@
                     <colgroup>
                         <col style="width: 50px">
                         <col style="width: 50px">
+                        <col style="width: 150px">
                         <col>
                         <col style="width: 120px">
                         <col style="width: 120px">
@@ -54,6 +55,7 @@
                                 inputId="binary"></p-checkbox>
                         </th>
                         <th>STT</th>
+                        <th>Nhà máy</th>
                         <th>Mặt hàng</th>
                         <th>Kế hoạch triển khai gốc</th>
                         <th>Kế hoạch triển khai</th>
@@ -70,23 +72,22 @@
                                 inputId="binary"></p-checkbox>
                         </td>
                         <td class="text-center">{{i + 1}}</td>
+                        <td>{{item.TenNhaMay}}</td>
                         <td>{{item.Ten}}</td>
 
-                        <td>
-                            <p-inputNumber locale="en-EN" [(ngModel)]="item.KhoiLuongSanXuat" [min]="0"
-                                [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
-                        </td>
+                        <td class="text-right"> {{item.KhoiLuongSanXuat | number:'0.2-2'}} </td>
                         <td>
                             <p-inputNumber locale="en-EN" [(ngModel)]="item.SanLuongCanSX" [min]="0"
                                 [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
                         </td>
-                          <td class="text-right"> {{item.SanLuongTon| number:0.0-0}}</td>
+                        <td class="text-right"> {{item.SanLuongTon| number:0.0-0}}</td>
                         <td class="text-right"> {{(item.SanLuongCanSX - item.SanLuongTon) | number:0.0-0}}</td>
                         <td>
                             <p-inputNumber locale="en-EN" [(ngModel)]="item.SanLuongDat" [minFractionDigits]="0"
-                                (onBlur)="nhapSoTanDat(item)"></p-inputNumber>
+                                [max]="item.KhoiLuongSanXuat" (onBlur)="nhapSoTanDat(item)"></p-inputNumber>
                         </td>
-                        <td class="text-right">{{(item.SanLuongCanSX - item.SanLuongTon - item.SanLuongDat) | number:0.0-0}}</td>
+                        <td class="text-right">{{(item.SanLuongCanSX - item.SanLuongTon - item.SanLuongDat) |
+                            number:0.0-0}}</td>
                     </tr>
                 </ng-template>
             </p-table>

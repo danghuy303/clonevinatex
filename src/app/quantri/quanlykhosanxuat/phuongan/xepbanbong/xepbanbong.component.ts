@@ -83,6 +83,9 @@ export class XepbanbongComponent implements OnInit, AfterViewInit, OnDestroy {
     '68': {
       '1cf3f340_0f55_4f34_938p_e329318e25et': PhucuongComponent
     },
+    '69': {
+      'e277d4ee-c938-47c1-8341-7f89b21da167': PhucuongComponent
+    },
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listdmPhanXuong: any = [];
@@ -108,6 +111,8 @@ export class XepbanbongComponent implements OnInit, AfterViewInit, OnDestroy {
       this.paramsSubscription = this.activatedRoute.params.subscribe((res: any) => {
         if (res.id !== '0') {
           this._service.XepBanBong().Get(res.id).subscribe((res: any) => {
+            console.log('res', res);
+
             this.update(res);
           })
         }
@@ -127,7 +132,8 @@ export class XepbanbongComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate([`quantri/trienkhaisanxuat/xepbanbong/${id}`], { replaceUrl: true })
   }
   update(item) {
-    let component = this.defineComponent[`${this._store.getCurrent()}`][item.IddmPhanXuong.split('-').join('_')];
+    // const key = item.IddmPhanXuong.split('-').join('_');
+    let component = this.defineComponent[`${this._store.getCurrent()}`][item.IddmPhanXuong];
     item.PhuongAnPhaBong = undefined;
     if (!validVariable(item.ViTriNgoaiQuan)) {
       item.ViTriNgoaiQuan = ''

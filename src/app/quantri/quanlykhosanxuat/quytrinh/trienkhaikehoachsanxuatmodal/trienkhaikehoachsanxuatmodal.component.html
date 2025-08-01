@@ -181,21 +181,21 @@
                 <div class="p-d-flex p-flex-row">
                     <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
                         (click)="chonHangHoa()"></button>
-                    <button pButton pRipple type="button" label="Chọn phiếu" class="p-mr-2 p-button-sm"
+                    <button pButton pRipple type="button" label="Bổ sung cúi" class="p-mr-2 p-button-sm"
                         (click)="chonNhieuMatHang()"></button>
                     <p-dropdown [filter]="true" [options]="listCongDoan" styleClass="p-inputtext-sm pl-2"
                         [(ngModel)]="filter.CongDoan" (onChange)="chonCongDoan($event.value)"></p-dropdown>
                     <div style="display: flex; align-items: center; height: 100%;"
                         *ngIf="mapCongDoan_TinhTrangMay[filter.CongDoan]!==undefined">
-                        <span class="mr-5 ml-5">
+                        <span class="mr-2 ml-2">
                             Tổng kế hoạch triển khai(Tấn): &nbsp;
                             <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.TongKhoiLuong|number:'0.0-2'}}</strong>
                         </span>
-                        <span class="mr-5 ml-5">
+                        <span class="mr-2 ml-2">
                             Số máy hiện có: &nbsp;
                             <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayHienCo|number:'0.0-2'}}</strong>
                         </span>
-                        <span class="mr-5">
+                        <span class="mr-2">
                             Số máy cần: &nbsp;
                             <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayTinhToan|number:'0.0-2'}}</strong>
                         </span>

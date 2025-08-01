@@ -514,9 +514,9 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
 
   chonNhieuMatHang() {
     let modalRef = this._modal.open(MathanglienketComponent, {
-      size: 'xl',
+      size: 'fullscreen',
     })
-    modalRef.componentInstance.title = "Chọn phiếu liên kết";
+    modalRef.componentInstance.title = "Chọn phiếu";
     modalRef.componentInstance.quyTrinh = this.item;
     modalRef.componentInstance.listCongDoan = this.listCongDoan;
     modalRef.componentInstance.listDaChon = this.item.listItemMay;

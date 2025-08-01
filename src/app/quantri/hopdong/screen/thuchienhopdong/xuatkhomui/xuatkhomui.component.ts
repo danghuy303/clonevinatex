@@ -48,8 +48,8 @@ export class XuatkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
   listdmKho: any = [];
   link: any = {};
   listRouter: any = [
-    { value: 'khotho', lable: 'thô',Loai:204, api: () => this._service.PhieuXuatSoiTho() },
-    { value: 'khocui', lable: 'cuộn cũi',Loai:205, api: () => this._service.PhieuXuatSoiCui() },
+    { value: 'khotho', lable: 'thô', Loai: 204, eAction: 'PHIEUXUATSOITHO', api: () => this._service.PhieuXuatSoiTho() },
+    { value: 'khocui', lable: 'cuộn cúi', Loai: 205, eAction: 'PHIEUXUATCUONCUI', api: () => this._service.PhieuXuatSoiCui() },
   ]
 
 
@@ -160,7 +160,7 @@ export class XuatkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
+    this._service.KiemTraTabTrangThai(this.link.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })

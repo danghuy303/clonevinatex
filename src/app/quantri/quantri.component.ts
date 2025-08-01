@@ -125,12 +125,10 @@ export class QuantriComponent implements OnInit, OnDestroy {
       .Notifications()
       .MarkAllRead()
       .subscribe((res) => {
-        console.log(res);
         this.refreshNotis();
       });
   }
   readOne(item) {
-    console.log(item);
     this._services
       .Notifications()
       .XemNotification({ Item: item })
@@ -1482,24 +1480,27 @@ export class QuantriComponent implements OnInit, OnDestroy {
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
         expanded: false,
-        visible: this.showHopDongModule,
+        visible: this.permissions?.includes('P_SOITHO'),
         items: [
           {
             label: "Nhập kho",
             routerLink:
               "/quantri/hopdongsanxuat/khotho/nhapkho/0",
+            visible: this.permissions?.includes('PHIEUNHAPSOITHO'),
             command: () => this.close(),
           },
           {
             label: "Xuất kho",
             routerLink:
               "/quantri/hopdongsanxuat/khotho/xuatkho/0",
+            visible: this.permissions?.includes('PHIEUXUATSOITHO'),
             command: () => this.close(),
           },
           {
             label: "Kiểm kê kho",
             routerLink:
               "/quantri/hopdongsanxuat/khotho/kiemkekho/0",
+            visible: this.permissions?.includes('PHIEUKIEMKESOITHO'),
             command: () => this.close(),
           },
           {
@@ -1510,28 +1511,31 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ],
       },
       {
-        label: "Quản lý kho cuộn cũi",
+        label: "Quản lý kho cuộn cúi",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
         expanded: false,
-        visible: this.showHopDongModule,
+        visible: this.permissions?.includes('P_CUONCUI'),
         items: [
           {
             label: "Nhập kho",
             routerLink:
               "/quantri/hopdongsanxuat/khocui/nhapkho/0",
+            visible: this.permissions?.includes('PHIEUNHAPCUONCUI'),
             command: () => this.close(),
           },
           {
             label: "Xuất kho",
             routerLink:
               "/quantri/hopdongsanxuat/khocui/xuatkho/0",
+            visible: this.permissions?.includes('PHIEUXUATCUONCUI'),
             command: () => this.close(),
           },
           {
             label: "Kiểm kê kho",
             routerLink:
               "/quantri/hopdongsanxuat/khocui/kiemkekho/0",
+            visible: this.permissions?.includes('PHIEUKIEMKECUONCUI'),
             command: () => this.close(),
           },
           {
@@ -2516,8 +2520,6 @@ export class QuantriComponent implements OnInit, OnDestroy {
   Dislay() {
     // let isCheckMenu = JSON.parse(localStorage.getItem('isCheckMenu'));
     let isCheckMenu = this.menuService.isCheckMenuValue;
-    console.log('isCheckMenu', isCheckMenu);
-
     if (isCheckMenu) {
       this.CaiMeNuQLTS();
       this.displayAsset = true;

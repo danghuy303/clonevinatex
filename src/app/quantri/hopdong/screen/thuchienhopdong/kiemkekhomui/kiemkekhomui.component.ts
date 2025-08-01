@@ -46,8 +46,8 @@ export class KiemkekhomuiComponent extends StoreBase implements OnInit, OnDestro
   eAction = 'PHIEUKIEMKEVATTUPHU'
   link: any = {};
   listRouter: any = [
-    { value: 'khotho', lable: 'thô', Loai: 204, api: () => this._service.PhieuKiemKeSoiTho() },
-    { value: 'khocui', lable: 'cuộn cũi', Loai: 205, api: () => this._service.PhieuKiemKeSoiCui() },
+    { value: 'khotho', lable: 'thô', Loai: 204, eAction: 'PHIEUKIEMKESOITHO', api: () => this._service.PhieuKiemKeSoiTho() },
+    { value: 'khocui', lable: 'cuộn cúi', Loai: 205, eAction: 'PHIEUKIEMKECUONCUI', api: () => this._service.PhieuKiemKeSoiCui() },
   ]
 
 
@@ -157,7 +157,7 @@ export class KiemkekhomuiComponent extends StoreBase implements OnInit, OnDestro
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
+    this._service.KiemTraTabTrangThai(this.link.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })

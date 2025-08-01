@@ -27,17 +27,17 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   cols: any = [
     {
       header: 'Tổng sản lượng(Tấn)',
-      field: 'tongKhoiLuong',
+      field: 'TongKhoiLuong',
       width: '80px'
     },
     {
       header: 'Tổng số ca',
-      field: 'tongSoCa',
+      field: 'TongSoCa',
       width: '80px'
     },
     {
       header: 'Trạng thái',
-      field: 'tenTrangThai',
+      field: 'TenTrangThai',
       width: '80px'
     },
   ];
@@ -48,7 +48,6 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== '0') {
         this.update(res.id)
@@ -88,7 +87,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
         }
           item.listItem.filter(objlistItem => {
             objlistItem.listQuyCachDongGoi.filter(async objlistItem2 => {
-              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.iddmQuyCachDongGoi == obj.value)[0];
+              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
             });          
           });
           let modalRef = this._modal.open(GiaokehoachsanxuatmodalComponent, {
@@ -117,7 +116,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    this.paging.CurrentPage = event.page + 1;
+    this.paging.CurrentPage = event.Page + 1;
     this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?, isXuatExcel?) {
@@ -135,21 +134,21 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
     }
     if(isXuatExcel === true){
       this._HopDongService.GiaoKeHoachSanXuat().XuatExcel(data).subscribe((res: any) => {
-        if (res?.statusCode === 200) {
-          this._toastr.success(res.message);
+        if (res?.StatusCode === 200) {
+          this._toastr.success(res.Message);
         } else {
-          this._toastr.error(res.message);
+          this._toastr.error(res.Message);
         }
       });
     }
     else{
     this._HopDongService.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
-      this.items = res.data.items;
-      this.paging.TotalItem = res.data?.totalCount;
-      this.paging.TotalPage = res.data?.totalPages;
-      this.items.forEach(element => {
-        element.ngayBatDau = UnixToDate(element.ngayBatDauUnix);
-        element.ngayKetThuc = UnixToDate(element.ngayKetThucUnix);
+      this.items = res.Data.Items;
+      this.paging.TotalItem = res.Data?.TotalCount;
+      this.paging.TotalPage = res.Data?.TotalPages;
+      this.items?.forEach(element => {
+        element.NgayBatDau = UnixToDate(element.NgayBatDauUnix);
+        element.NgayKetThuc = UnixToDate(element.NgayKetThucUnix);
       });
     })
   }

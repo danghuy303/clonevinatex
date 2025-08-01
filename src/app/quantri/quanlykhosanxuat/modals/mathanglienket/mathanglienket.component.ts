@@ -68,9 +68,8 @@ export class MathanglienketComponent implements OnInit {
   }
 
   nhapSoTanDat(item) {
-    if (item.SanLuongDat <= item.KhoiLuongSanXuat) {
-      item.SanLuongDat = item.KhoiLuongSanXuat + 1;
-      this._toastr.error('Vui lòng nhập Số tấn đặt > Kế hoạch triển khai gốc')
+    if (item.SanLuongDat >= item.KhoiLuongSanXuat) {
+      this._toastr.error('Vui lòng nhập Số tấn đặt < Kế hoạch triển khai gốc') // alap số lượng đặt < số lượng triển khai
     }
   }
 

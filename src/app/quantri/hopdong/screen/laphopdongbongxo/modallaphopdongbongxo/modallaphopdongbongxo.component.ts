@@ -25,7 +25,7 @@ export class ModallaphopdongbongxoComponent implements OnInit {
   opt: any = "add";
   title: string
   item: any = {};
-  hopDong: any = {};
+  HopDong: any = {};
   listLoaiMatHang: any = []
   listLoaiMatHang_ref: any = []
   listDieuKhoanThanhToan: any = [];
@@ -44,7 +44,7 @@ export class ModallaphopdongbongxoComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   };
-Id:any = "";
+  Id: any = "";
   yearRange: string = `${new Date().getFullYear()}:${new Date().getFullYear() + 5
     }`;
   constructor(
@@ -59,7 +59,7 @@ Id:any = "";
   }
 
   ngOnInit(): void {
-    
+
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
       this.title = 'Thêm mới hợp đồng bông xơ'
@@ -69,21 +69,21 @@ Id:any = "";
       this.title = "Chỉnh sửa hợp đồng bông xơ"
       this.GetQuyTrinh();
     }
-    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.HopDong.Loai || 0).subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.HopDong.loai || 0).subscribe((res: any) => {
       this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
       this.listLoaiMatHang_ref = res;
     })
   }
   KiemTraButtonModal() {
     this._servicesSanXuat.KiemTraButton(this.item.HopDong.Id || "", this.item.HopDong.IdTrangThai || "").subscribe((res: any) => {
-        this.checkbutton = res;
-      });
+      this.checkbutton = res;
+    });
   }
 
   GetNextSoQuyTrinh() {
     this._service.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
-        this.item.HopDong.SoQuyTrinh = res.Data;
-      });
+      this.item.HopDong.SoQuyTrinh = res.Data;
+    });
   }
   GetQuyTrinh() {
     this._service.QuyTrinhHopDong().Get(this.Id).subscribe((res1: any) => {
@@ -91,31 +91,30 @@ Id:any = "";
       this.item.HopDong.IdTrangThai = res1.Data.HopDong.IdTrangThai;
       this.item.HopDong.Id = res1.Data.HopDong.Id;
       this.item.HopDong.NgayKy = UnixToDate(this.item.HopDong.NgayKyUnix);
-      this.item.HopDong.NgayHieuLuc = UnixToDate(this.item.HopDong.NgayHieuLucUnix );
+      this.item.HopDong.NgayHieuLuc = UnixToDate(this.item.HopDong.NgayHieuLucUnix);
       this.item.HopDong.NgayGiaoHang = UnixToDate(this.item.HopDong.NgayGiaoHangUnix);
       this.item.HopDong.NgayDuKienVeKho = UnixToDate(this.item.HopDong.NgayDuKienVeKhoUnix);
-      if(this.item.listHangHoa.length > 0){
-        this.item.listHangHoa[0].DonGiaThanhToan =  (this.item.listHangHoa[0].DonGia || 0) * 1.1;
-        this.item.listHangHoa[0].GiaTriHopDongMatHang =  (this.item.listHangHoa[0].DonGiaThanhToan || 0) * (this.item.listHangHoa[0].SoLuong || 0);
+      if (this.item.listHangHoa.length > 0) {
+        this.item.listHangHoa[0].DonGiaThanhToan = (this.item.listHangHoa[0].DonGia || 0) * 1.1;
+        this.item.listHangHoa[0].GiaTriHopDongMatHang = (this.item.listHangHoa[0].DonGiaThanhToan || 0) * (this.item.listHangHoa[0].SoLuong || 0);
       }
-        this.item.HopDong.BenBanChiu = this.item.HopDong.isBenBanChiu;
-        this.item.HopDong.BenMuaChiu = !this.item.HopDong.BenBanChiu;
-      
+      this.item.HopDong.BenBanChiu = this.item.HopDong.isBenBanChiu;
+      this.item.HopDong.BenMuaChiu = !this.item.HopDong.BenBanChiu;
+
       this.KiemTraButtonModal();
-      if(this.item.listDieuKhoanThanhToan.length > 0){
+      if (this.item.listDieuKhoanThanhToan.length > 0) {
         this.item.listDieuKhoanThanhToan.forEach(element => {
           element.NgayThanhToan = UnixToDate(element.NgayThanhToanUnix);
-          if(element.listThanhToanThuTuc === null)
-            element.listThanhToanThuTuc  = [];
+          if (element.listThanhToanThuTuc === null)
+            element.listThanhToanThuTuc = [];
         });
       }
-      if(this.item.listBaoLanh.length > 0){
+      if (this.item.listBaoLanh.length > 0) {
         this.item.listBaoLanh.forEach(element => {
           element.HieuLucBaoLanh = UnixToDate(element.HieuLucBaoLanhUnix);
         });
       }
-      if(validVariable(this.item.HopDong.IdHopDong))
-      {
+      if (validVariable(this.item.HopDong.IdHopDong)) {
         this.item.HopDong.isPhuLuc = true;
       }
     })
@@ -150,17 +149,17 @@ Id:any = "";
     }
     if (this.ValidData()) {
       this._service.QuyTrinhHopDong().Set(this.item).subscribe((res: any) => {
-          console.log(res);
-          if (res) {
-            if (res?.statusCode === 200) {
-              this._toastr.success(res.Message);
-              this.Id = res.Data;
-              this.GetQuyTrinh()
-            } else {
-              this._toastr.error(res.Message);
-            }
+        console.log(res);
+        if (res) {
+          if (res?.statusCode === 200) {
+            this._toastr.success(res.Message);
+            this.Id = res.Data;
+            this.GetQuyTrinh()
+          } else {
+            this._toastr.error(res.Message);
           }
-        });
+        }
+      });
     }
   }
 

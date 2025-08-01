@@ -21,13 +21,13 @@ export class NhapkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
   filter: any = {};
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "PHIEUNHAPVATTUPHU";
+  eAction: any = "";
   listKho: any = [];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   link: any = {};
   listRouter: any = [
-    { value: 'khotho', lable: 'thô', Loai: 204, api: () => this._service.PhieuNhapSoiTho() },
-    { value: 'khocui', lable: 'cuộn cũi', Loai: 205, api: () => this._service.PhieuNhapSoiCui() },
+    { value: 'khotho', lable: 'thô', Loai: 204, eAction: 'PHIEUNHAPSOITHO', api: () => this._service.PhieuNhapSoiTho() },
+    { value: 'khocui', lable: 'cuộn cúi', Loai: 205, eAction: 'PHIEUNHAPCUONCUI', api: () => this._service.PhieuNhapSoiCui() },
   ]
 
   constructor(
@@ -145,7 +145,7 @@ export class NhapkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
+    this._service.KiemTraTabTrangThai(this.link.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
