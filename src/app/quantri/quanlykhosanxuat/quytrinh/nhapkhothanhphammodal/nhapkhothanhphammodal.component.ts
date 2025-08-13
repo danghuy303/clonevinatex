@@ -8,6 +8,7 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } 
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { DecimalPipe } from '@angular/common';
 import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
+import { Label } from '@amcharts/amcharts4/core';
 
 @Component({
   selector: 'app-nhapkhothanhphammodal',
@@ -28,6 +29,7 @@ export class NhapkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
   listKhoHoiAm: any = [];
   listKhoThanhPham: any = [];
   listdmQuyCachDongGoi: any = [];
+  listdmQuyCachDongGoiAll: any = [];
   lang: any = vn;
   data: any = {};
   type: any = '';
@@ -152,6 +154,7 @@ export class NhapkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+             this.getListQuyCachTheoMatHang();
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -190,16 +193,34 @@ export class NhapkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
   }
   getListdmQuyCachDongGoi() {
     this._services.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
+      this.listdmQuyCachDongGoiAll = res;
       this.listdmQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (this.item.listItem?.length > 0) {
+        this.item.listItem = this.item.listItem?.map(ele => {
+          return {
+            ...ele,
+            listQuyCach: res?.filter(obj => obj.Kg_Cone === ele.KgCone)
+              .map(obj => {
+                return {
+                  value: obj.Id,
+                  label: obj.Ten
+                }
+              })
+          }
+        })
+      }
     })
   }
   delete(index) {
-    let item = this.item.listItem.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
-    }
+    // let item = this.item.listItem.splice(index, 1)[0];
+    // if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    // } else {
+    //   item.isXoa = true;
+    //   this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+    // }
+
+    this.item.listItem.splice(index, 1)
+    this.item.listItem = [...this.item.listItem];
   }
 
   Onclose() {
@@ -279,12 +300,25 @@ export class NhapkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
             element.Id = "";
             element.TongKhoiLuong = element.KgCone * element.SoQuaSoiThanhPham;
           }
+          this.getListQuyCachTheoMatHang();
         });
       }, (reason) => {
         // không
       });
     })
   }
+
+  getListQuyCachTheoMatHang() {
+    this.item.listItem?.forEach(ele => {
+      ele.listQuyCach = this.listdmQuyCachDongGoiAll
+        ?.filter(obj => obj.Kg_Cone === ele.KgCone)
+        .map(obj => ({
+          value: obj.Id,
+          label: obj.Ten
+        }));
+    });
+  }
+
   TongKhoiLuong(item) {
     item.TongKhoiLuong = (item.SoQuaSoiThanhPham || 0) * (item.KgCone || 0);
   }
@@ -439,6 +473,23 @@ export class NhapkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
         );
       }
     });
+  }
+
+  chonQuyCach(data) {
+    console.log('data', data);
+    let _objQuyCach = this.listdmQuyCachDongGoiAll.find(ele => ele.Id === data.IddmQuyCachDongGoi);
+    let _soQuaQuyCach = _objQuyCach.SoQua || 0;
+    let _trongLuongQuyCach = _objQuyCach.TrongLuong || 0;
+    console.log('_soQuaQuyCach', _soQuaQuyCach);
+    console.log('_trongLuongQuyCach', _trongLuongQuyCach);
+    data.SoQuaSoiThanhPham = (data.SoKien || 0) * (_soQuaQuyCach || 0);
+    data.TongKhoiLuong = (data.SoQuaSoiThanhPham) * (_trongLuongQuyCach || 0);
+    this.item.listItem = [...this.item.listItem];
+    console.log('listItem', this.item.listItem);
+  }
+
+  nhapSoKien(data) {
+    this.chonQuyCach(data)
   }
 
 }

@@ -64,7 +64,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.listItem = res1.listItem?.map(ele => {
         return {
           ...ele,
-          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}}`
+          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
         }
       });
       this.paging.CurrentPage = 1;

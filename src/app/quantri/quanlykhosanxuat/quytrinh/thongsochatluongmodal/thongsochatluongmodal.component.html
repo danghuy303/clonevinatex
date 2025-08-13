@@ -233,7 +233,7 @@
                             <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isKienDai" />
                         </td>
                         <td class="text-center">
-                            <qrcode [qrdata]="item.QRType"
+                            <qrcode [qrdata]="item.QRType" *ngIf="item.MaQR"
                                 [width]="50" [errorCorrectionLevel]="'M'" [elementType]="'svg'">
                             </qrcode>
                         </td>

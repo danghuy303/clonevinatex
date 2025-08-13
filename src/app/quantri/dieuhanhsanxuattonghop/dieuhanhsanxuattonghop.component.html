@@ -9,7 +9,7 @@
             [(ngModel)]="filter.IddmPhanXuong" (onChange)="filterdata()"></p-dropdown>
       </div>
       <div>
-         <p-dropdown [options]="Nams" styleClass="p-inputtext-sm" [(ngModel)]="filter.nNam" (onChange)="filterdata()">
+         <p-dropdown [options]="Nams" styleClass="p-inputtext-sm" [(ngModel)]="filter.nNam" (onChange)="handleNam()">
          </p-dropdown>
       </div>
    </div>
@@ -33,7 +33,7 @@
                </div>
                <div class="p-mr-2">
                   <p-dropdown [filter]="true" [options]="listThang" styleClass="p-inputtext-sm"
-                     [(ngModel)]="filter.nThang" (onChange)="filterdatatonghop()"></p-dropdown>
+                     [(ngModel)]="filter.nThang" (onChange)="handleThang()"></p-dropdown>
                </div>
                <div class="p-mr-2">
                   <p-dropdown [filter]="true" [options]="listNgay" placeholder="Chọn ngày" styleClass="p-inputtext-sm"
@@ -409,16 +409,16 @@
 </p-dialog>
 
 <p-dialog [header]="labelLuyKeChiTiet" [(visible)]="showLuyKeChiTiet" [modal]="true"
-   [style]="{ width: '95vw', height: 'auto' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+   [style]="{ width: '95vw', height: 'auto' }" [baseZIndex]="100" [draggable]="false" [resizable]="false">
    <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
       <div class="p-d-flex p-flex-row">
          <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [appendTo]="'body'"
                [(ngModel)]="timKiem.TuNgayDate" inputId="icon" placeholder="Từ ngày" (onSelect)="getBaoCaoLuyKe()">
             </p-calendar>
          </div>
          <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [appendTo]="'body'"
                [(ngModel)]="timKiem.DenNgayDate" inputId="icon" placeholder="Đến ngày" (onSelect)="getBaoCaoLuyKe()">
             </p-calendar>
          </div>

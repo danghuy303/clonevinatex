@@ -18,16 +18,24 @@ export class MathanglienketComponent implements OnInit {
   checkedAll: boolean = false;
   listCongDoan: any = [];
   listPhieuLienKet: any = [];
+  listPhieuLienKetAll: any = [];
   listDaChon: any = [];
+  listPhanXuong: any = [];
 
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getListPhanXuong();
     this.getListPhieuLienKet();
+  }
+
+  getListPhanXuong() {
+    this.listPhanXuong = this.listPhanXuong.filter(ele => ele.value !== this.quyTrinh.IddmPhanXuong);
   }
 
   getListPhieuLienKet() {
     this._services.GetListTrienKhaiKeHoachSanXuatLienKet(this.quyTrinh.Id).subscribe((res: any) => {
+      this.listPhieuLienKetAll = res.Data;
       this.listPhieuLienKet = mapArrayForDropDown(res.Data, 'NoiDung', 'Id');
     })
   }
@@ -40,9 +48,10 @@ export class MathanglienketComponent implements OnInit {
     this._services.GetDanhMatHangLienKet(data).subscribe((res: any) => {
       this.listView = res.Data?.map((ele: any) => {
         const matched = this.listDaChon
-          .find(daChon => daChon.IddmLoaiSoi === ele.IddmLoaiSoi && daChon.CM === ele.CM && daChon.ChiSo  === ele.ChiSo  && daChon.PE === ele.PE && daChon.CD === ele.CD && daChon.CongDoan === ele.CongDoan);
+          .find(daChon => daChon.IddmLoaiSoi === ele.IddmLoaiSoi && daChon.CM === ele.CM && daChon.ChiSo === ele.ChiSo && daChon.PE === ele.PE && daChon.CD === ele.CD && daChon.CongDoan === ele.CongDoan);
         return {
           ...ele,
+          SanLuongDat: matched ? matched.SanLuongDat : ele.SanLuongDat,
           checked: matched ? true : false
         }
       });
@@ -75,6 +84,11 @@ export class MathanglienketComponent implements OnInit {
 
   accept() {
     this._activeModal.close(this.listView.filter(ele => ele.checked));
+  }
+
+  handleNhaMay() {
+    let _newPhieuLienKet = this.filter.IddmPhanXuong ? this.listPhieuLienKetAll.filter(ele => ele.IddmPhanXuong === this.filter.IddmPhanXuong) : this.listPhieuLienKetAll;
+    this.listPhieuLienKet = mapArrayForDropDown(_newPhieuLienKet, 'NoiDung', 'Id');
   }
 
 }

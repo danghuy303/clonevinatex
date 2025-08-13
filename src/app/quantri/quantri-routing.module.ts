@@ -135,6 +135,7 @@ import { TheodoikehoachComponent } from "./kehoach/theodoikehoach/theodoikehoach
 import { XuatbongtheohopdongComponent } from "./quanlykhosanxuat/xuatbongtheohopdong/xuatbongtheohopdong.component"
 import { AnhmauchatluongbanchphamComponent } from "./danhmuc/anhmauchatluongbanchpham/anhmauchatluongbanchpham.component";
 import { AnhmaukiemtrabanchephamComponent } from "./anhmaukiemtrabanchepham/anhmaukiemtrabanchepham.component";
+import { XuatkhocapdauComponent } from "./quanlykhosanxuat/quytrinh/xuatkhocapdau/xuatkhocapdau.component";
 
 const routes: Routes = [
   {
@@ -383,7 +384,10 @@ const routes: Routes = [
         path: "quanlysanxuatkhohoiam/khohoiam/xuatkho/:id",
         component: XuatkhohoiamComponent,
       },
-
+      {
+        path: "quanlysanxuat/khocapdau/xuatkho/:id",
+        component: XuatkhocapdauComponent,
+      },
       {
         path: "quanlykhosanxuatbong/khohoiluongdo/nhapkho/:id",
         component: NhapkhohoiluongdoComponent,

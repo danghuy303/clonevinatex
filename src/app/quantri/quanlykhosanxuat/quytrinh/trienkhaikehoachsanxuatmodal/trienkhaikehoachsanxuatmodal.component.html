@@ -148,7 +148,7 @@
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ca :</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <div class="p-col-12 p-lg-8 p-p-0" style="margin-left: .3rem;">
                 <p-inputNumber locale="en-EN" [(ngModel)]="item.SoCa" (onBlur)="ThayDoiSoCa()">
                 </p-inputNumber>
             </div>
@@ -160,8 +160,8 @@
             </div>
         </div>
         <div class="p-col-12 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú :</label>
-            <div class="p-col-12 p-lg-11 p-p-0">
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto" style="width: 7.9%">Ghi chú :</label>
+            <div class="p-col-12 p-lg-11 p-p-0" style="width: 92%">
                 <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /> -->
                 <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
             </div>
@@ -221,10 +221,12 @@
                         <col style="width:50px">
                         <col>
                         <col *ngIf="filter.CongDoan ==='THO'">
-                        <col style="width:150px">
-                        <col style="width:150px">
-                        <col style="width:150px">
-                        <col style="width:150px">
+                        <col style="width:120px">
+                        <col style="width:120px">
+                        <col style="width:120px">
+                        <col style="width:120px">
+                        <col style="width:120px">
+                        <col>
                         <!-- <col> -->
                         <!-- <col style="width:130px"> -->
                     </colgroup>
@@ -235,9 +237,11 @@
                         <th>Mặt hàng</th>
                         <th *ngIf="filter.CongDoan ==='THO'">Nm</th>
                         <th>Kế hoạch triển khai(Tấn)</th>
+                        <th>Số tấn đặt</th>
                         <th>Sản lượng ca (kg)</th>
                         <th>Năng suất định mức (kg/ca/máy)</th>
                         <th>Số máy cần</th>
+                        <th>Ghi chú</th>
                         <!-- <th>Số máy bố trí</th> -->
                         <!-- <th>Thao tác</th> -->
                     </tr>
@@ -257,6 +261,9 @@
                             </p-inputNumber> -->
                         </td>
                         <td class="text-right">
+                            {{mathang.SanLuongDat|number:'0.0-2'}}
+                        </td>
+                        <td class="text-right">
                             {{mathang.SanLuongCa|number:'0.0-2'}}
                         </td>
                         <td class="text-right">
@@ -264,6 +271,9 @@
                         </td>
                         <td class="text-right">
                             {{mathang.SoMayTinhToan|number:'0.0-2'}}
+                        </td>
+                        <td>
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                         </td>
                         <!-- <td class="text-center">
                             {{mathang.SoMay|number:'0.0-1'}}

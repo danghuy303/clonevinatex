@@ -520,6 +520,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.quyTrinh = this.item;
     modalRef.componentInstance.listCongDoan = this.listCongDoan;
     modalRef.componentInstance.listDaChon = this.item.listItemMay;
+    modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
     modalRef.result.then(res => {
       let data = {
         ...this.item,

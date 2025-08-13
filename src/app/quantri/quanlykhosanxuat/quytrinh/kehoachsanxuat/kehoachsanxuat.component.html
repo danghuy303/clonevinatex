@@ -32,12 +32,10 @@
     </div>
 </div>
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" *ngIf="checkQuyen.ChuaXuLy">
-    </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" *ngIf="checkQuyen.DaXyLy">
-    </p-tabPanel>
-    <p-tabPanel header="Tổng hợp" *ngIf="checkQuyen.TongHop">
-    </p-tabPanel>
+    <ng-container *ngFor="let tab of listTabTrangThai">
+        <p-tabPanel [header]="tab.label" *ngIf="checkQuyen[tab.prop]">
+        </p-tabPanel>
+    </ng-container>
 </p-tabView>
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped custom-scroll-hidden" [scrollable]="true">

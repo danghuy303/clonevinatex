@@ -123,8 +123,8 @@ export class CandoichuyenComponent extends StoreBase implements OnInit, OnDestro
                     this.filter._tuNgay,
                     this.filter._denNgay
                 );
-              
-                
+
+
                 for (let i = 0; i < this.listDates.length; i++) {
                     this.listDates[i] = { ...this.listDates[i], ...res[i] }
                 }
@@ -141,10 +141,9 @@ export class CandoichuyenComponent extends StoreBase implements OnInit, OnDestro
         }
     }
     boTriMay(index, date?) {
-        console.log(date);
         if (date?.header === 'none') {
         } else {
-            if (this.filter.CongDoan === "ONG" || this.filter.CongDoan === "XE" || this.filter.CongDoan === "DAUXE" ) {
+            if (this.filter.CongDoan === "ONG" || this.filter.CongDoan === "XE" || this.filter.CongDoan === "DAUXE") {
                 this._services.CanDoiChuyen().GetCanDoiChuyen(this.filter.IddmPhanXuong, this.filter.CongDoan, date.Unix).subscribe(res => {
                     console.log(res);
                     let modalRef = this._modal.open(BotrimayOngComponent, {
@@ -186,6 +185,7 @@ export class CandoichuyenComponent extends StoreBase implements OnInit, OnDestro
                     });
                     modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan];
                     modalRef.componentInstance.checkbutton = this.checkNavigationButton(index);
+                    modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
                     modalRef.componentInstance.filter = this.filter;
                     modalRef.componentInstance.item = deepCopy(res);
                     // modalRef.componentInstance.canDieuChinh = (date.labelHienThi === this.today);

@@ -32,7 +32,7 @@ export class XuatkhomuimodalComponent implements OnInit {
   paging: any = { CurrentPage: 1 };
   TongKhoiLuong = 0;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  
+
   @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal, private decimalPipe: DecimalPipe,) { }
@@ -47,6 +47,9 @@ export class XuatkhomuimodalComponent implements OnInit {
     data.Loai = 23;
     this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (this.link.eAction === 'PHIEUXUATCUONCUI') {
+        this.item.IddmKho = res?.find(ele => ele.Ma === 'CUONCUI').Id
+      }
     })
     this.services.dmKhachHang().GetListOpt().subscribe((res: any) => {
       this.listKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');

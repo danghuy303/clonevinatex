@@ -32,6 +32,8 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   optionMatHang: string = '';
   userInfo: any;
   listKgcone: any = [];
+  isShowCapNhaMay: boolean = false;
+  listPhanXuong: any = [];
 
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
     private _auth: AuthenticationService,) {
@@ -249,4 +251,9 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     }
     return text;
   }
+
+  capNhaMayKhac() {
+    this.isShowCapNhaMay = !this.isShowCapNhaMay
+  }
+
 }

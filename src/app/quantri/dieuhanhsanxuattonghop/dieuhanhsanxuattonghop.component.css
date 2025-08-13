@@ -54,3 +54,7 @@
     border-radius: 50%;
     transition-duration: 0.2s;
 }
+
+::ng-deep .p-dialog-mask.p-component-overlay.p-dialog-mask-scrollblocker {
+    z-index: 100 !important;
+}

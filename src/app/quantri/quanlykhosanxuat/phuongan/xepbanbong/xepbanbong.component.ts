@@ -133,7 +133,10 @@ export class XepbanbongComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   update(item) {
     // const key = item.IddmPhanXuong.split('-').join('_');
-    let component = this.defineComponent[`${this._store.getCurrent()}`][item.IddmPhanXuong];
+  
+    let id = item.IddmPhanXuong.replace(/-/g, '_');
+    let component = this.defineComponent[`${this._store.getCurrent()}`]?.[id];
+
     item.PhuongAnPhaBong = undefined;
     if (!validVariable(item.ViTriNgoaiQuan)) {
       item.ViTriNgoaiQuan = ''

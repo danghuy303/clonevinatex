@@ -58,7 +58,8 @@
                                 <col style="width:100px">
                                 <col style="width:150px">
                                 <col *ngIf="addonData.CongDoan === 'DAUXE'" style="width:200px">
-                                <col style="width:70px">
+                                <col *ngIf="addonData.CongDoan === 'ONG'">
+                                <col style="width:50px">
                             </colgroup>
                         </ng-template>
                         <ng-template pTemplate="header">
@@ -69,6 +70,7 @@
                                 <th>Tốc độ</th>
                                 <th>Kg/cone</th>
                                 <th *ngIf="addonData.CongDoan === 'DAUXE'">Màu</th>
+                                <th *ngIf="addonData.CongDoan === 'ONG'">Lô hàng</th>
                                 <th></th>
                             </tr>
                         </ng-template>
@@ -119,6 +121,17 @@
                                             [(ngModel)]="item.MaMau" />
                                         <input type="text" placeholder="Màu" class="p-inputtext-sm" pInputText
                                             [(ngModel)]="item.TenMau" />
+                                    </div>
+                                </td>
+                                <td class="" *ngIf="addonData.CongDoan === 'ONG'">
+                                    <div class="p-inputgroup w-full">
+                                        <p-dropdown [options]="listLoHang" placeholder="Chọn"
+                                            styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoHang"
+                                            style="width: 80%;"></p-dropdown>
+                                        <button pButton pRipple type="button" icon="pi pi-copy"
+                                            class="p-button-rounded p-button-sm p-button-text"
+                                            (click)="handleLoHangCopy(item, this.mapCa_Id[ca.prop])"
+                                            style="width: 20%;"></button>
                                     </div>
                                 </td>
                                 <td class="text-center">

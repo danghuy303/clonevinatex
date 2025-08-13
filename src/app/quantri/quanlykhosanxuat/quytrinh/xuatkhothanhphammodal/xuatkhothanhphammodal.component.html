@@ -272,13 +272,14 @@
                         <th rowspan="2" class="tc-w-150">Lô</th>
                         <th rowspan="2" class="tc-w-100">Quy cách đóng gói</th>
                         <th rowspan="2" class="tc-w-150">Hợp đồng</th>
-                        <th colspan="6">Số lượng</th>
+                        <th colspan="5">Số lượng</th>
                         <th rowspan="2" class="tc-w-120">Ngày nhập kho</th>
                         <th rowspan="2" class="tc-w-120">Ngày sản xuất</th>
                         <th rowspan="2" class="tc-w-250">Ghi chú</th>
                         <th rowspan="2" class="tc-w-50"></th>
                     </tr>
-                    <tr>
+                    <!-- yc chỉnh sửa nhập theo kiện a_cong 11/8/2025 -->
+                    <!-- <tr>
                         <th class="tc-w-100">Số quả sợi trong kho</th>
                         <th class="tc-w-100">Số quả sợi</th>
                         <th class="tc-w-80">Số kiện</th>
@@ -286,7 +287,7 @@
                         <th class="tc-w-100">Tổng khối lượng (kg)</th>
                         <th class="tc-w-100">Trọng lượng quả sợi</th>
                     </tr>
-                    <tr>
+                     <tr>
                         <td></td>
                         <td>TỔNG:</td>
                         <td></td>
@@ -317,10 +318,42 @@
                         </td>
                         <td></td>
                     </tr>
+                     -->
+                    <tr>
+                        <th class="tc-w-80">Số kiện</th>
+                        <th class="tc-w-100">Số quả sợi</th>
+                        <th class="tc-w-100">Số quả sợi trong kho</th>
+                        <th class="tc-w-100">Tổng khối lượng (kg)</th>
+                        <th class="tc-w-100">Trọng lượng quả sợi</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>TỔNG:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{TongKhoiLuong|number:'0.2-2'}}
+                        </td>
+                        <td class="text-right"> {{item.listItem|isXoa|SumByKey:'KhoiLuong'|number:'0.2-2'}}</td>
+                        <td></td>
+                        <td> </td>
+                        <td> </td>
+                        <td></td>
+                    </tr>
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let item of item.listItem;let i = index">
-                        <tr>
+                        <!-- <tr>
                             <td class="text-center" style="z-index: 1;">{{i+1}}</td>
                             <td class="" style="z-index: 1;">{{item.Ten}}</td>
                             <td class="" style="z-index: 1;">{{item.TenLoHang}}</td>
@@ -381,8 +414,8 @@
                             </td>
                             <td class="text-right">
                                 {{(item.KhoiLuong * item.SoLuong)/ item.SoLuong|number:'0.3-3'}}
-                            </td>
-                            <!-- <td class="text-center">
+                            </td> -->
+                        <!-- <td class="text-center">
                                 <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.DonGia"
                                     (onBlur)="TinhTongThanhTien()">
                                 </p-inputNumber>
@@ -398,6 +431,78 @@
                                     {{item.DonGia * (item.SoLuong * item.KhoiLuong)|number:'0.2-2'}}
                                 </span>
                             </td> -->
+                        <!-- <td>
+                                <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
+                                    [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
+                                    [(ngModel)]="item.NgayNhapKho" inputId="icon" placeholder="dd/mm/yyyy">
+                                </p-calendar>
+                            </td>
+                            <td>
+                                <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
+                                    [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
+                                    [(ngModel)]="item.NgaySanXuat" inputId="icon" placeholder="dd/mm/yyyy">
+                                </p-calendar>
+                            </td>
+                            <td>
+                                <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                            </td>
+                            <td class="text-center">
+                                <button pButton pRipple icon="pi pi-times"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                    (click)="delete(i)" pTooltip="Hủy" tooltipPosition="bottom"></button>
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td class="text-center" style="z-index: 1;">{{i+1}}</td>
+                            <td class="" style="z-index: 1;">{{item.Ten}}</td>
+                            <td class="" style="z-index: 1;">{{item.TenLoHang}}</td>
+                            <td class="" style="z-index: 1;">{{item.TendmQuyCachDongGoi}}</td>
+                            <td class="text-center">
+                                <div style="display: flex;">
+                                    <div style="flex:1">
+                                        <input pInputText type="text" [(ngModel)]="item.HopDong" #input
+                                            (keydown)="navigateTable($event, i, 0)">
+                                    </div>
+                                    <button pButton pRipple icon="pi pi-ellipsis-v"
+                                        class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                        (click)="chonHopDong(item,i)" pTooltip="Tính toán" showDelay="1000"
+                                        tooltipPosition="bottom"></button>
+                                </div>
+                            </td>
+
+                            <td class="text-center">
+                                <p-inputNumber locale="en-EN" [(ngModel)]="item.SoKien" (onBlur)="nhapSoKien(item)"
+                                    #input (keydown)="navigateTable($event, i, 1)">
+                                </p-inputNumber>
+                            </td>
+                            <td class="text-center">
+                                <div style="display: flex;">
+                                    <div style="flex:1">
+                                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong"
+                                            #input disabled (keydown)="navigateTable($event, i, 2)">
+                                        </p-inputNumber>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TonSoLuong"
+                                    disabled #input (keydown)="navigateTable($event, i, 3)">
+                                </p-inputNumber>
+                            </td>
+                            <td class="text-right">
+                                <span
+                                    *ngIf="item.TongTrongLuongChenhLech === null || item.TongTrongLuongChenhLech === undefined">
+                                    {{(item.KhoiLuong * item.SoLuong)|number:'0.2-2'}}
+                                </span>
+                                <span
+                                    *ngIf="item.TongTrongLuongChenhLech !== null && item.TongTrongLuongChenhLech !== undefined">
+                                    {{((item.KhoiLuong * item.SoLuong) +
+                                    (item.TongTrongLuongChenhLech))|number:'0.2-2'}}
+                                </span>
+                            </td>
+                            <td class="text-right">
+                                {{(item.KhoiLuong * item.SoLuong)/ item.SoLuong|number:'0.3-3'}}
+                            </td>
                             <td>
                                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
                                     [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
@@ -421,45 +526,7 @@
                         </tr>
                     </ng-container>
                 </tbody>
-                <!-- <tfoot>
-                    <tr>
-                        <td></td>
-                        <td colspan="3">TỔNG:</td>
-                        <td></td>
-                        <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0-0'}}
-                        </td>
-                        <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-0'}}
-                        </td>
-                        <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0-0'}}
-                        </td>
-                        <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'TongTrongLuongChenhLech'|number:'0.2-2'}}
-                        </td>
-                        <td class="text-right">
-                            {{TongKhoiLuong|number:'0.2-2'}}
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'DonGia'|number:'0.0'}}
-                        </td>
-                        <td class="text-right">
-                            {{TongThanhTien|number:'0.0'}}
-                        </td>
-                        <td></td>
-                    </tr>
-                </tfoot> -->
             </table>
         </div>
-
-
     </div>
-</div>
-<div class="modal-footer">
-    <!-- <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-        (click)="activeModal.dismiss()"></button> -->
 </div>

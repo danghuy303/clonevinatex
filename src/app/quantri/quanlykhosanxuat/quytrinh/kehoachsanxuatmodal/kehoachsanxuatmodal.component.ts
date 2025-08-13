@@ -124,6 +124,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
     let cloneData = deepCopy({
       ...this.GiaoKeHoachForCopy,
       SoQuyTrinh: this.item.SoQuyTrinh,
+      isKetThuc: false,
       Id: ''
     });
     cloneData.TuNgay = DateToDatePicker(this.GiaoKeHoachForCopy.TuNgay);
@@ -302,7 +303,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
       //   res.forEach(obj => this.item.listItem.push(obj))
       //   this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
       // }
-      this.item.listItem = res;
+      this.item.listItem = [...this.item.listItem, ...res];
     }).catch(er => {
       console.log(er);
     })

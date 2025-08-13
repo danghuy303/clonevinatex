@@ -14,6 +14,11 @@
                     <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
                 </div>
                 <div class="d-flex">
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listPhanXuong" styleClass="p-inputtext-sm"
+                            (onChange)="handleNhaMay()" [showClear]="true" placeholder="Chọn nhà máy"
+                            [(ngModel)]="filter.IddmPhanXuong"></p-dropdown>
+                    </div>
                     <div class="p-mr-2 w-full">
                         <p-dropdown [options]="listPhieuLienKet" styleClass="p-inputtext-sm" [virtualScroll]="true"
                             [itemSize]="20" [showClear]="true" [filter]="true" placeholder="Chọn phiếu liên kết"
@@ -38,7 +43,7 @@
                     <colgroup>
                         <col style="width: 50px">
                         <col style="width: 50px">
-                        <col style="width: 150px">
+                        <!-- <col style="width: 150px"> -->
                         <col>
                         <col style="width: 120px">
                         <col style="width: 120px">
@@ -55,7 +60,7 @@
                                 inputId="binary"></p-checkbox>
                         </th>
                         <th>STT</th>
-                        <th>Nhà máy</th>
+                        <!-- <th>Nhà máy</th> -->
                         <th>Mặt hàng</th>
                         <th>Kế hoạch triển khai gốc</th>
                         <th>Kế hoạch triển khai</th>
@@ -72,7 +77,7 @@
                                 inputId="binary"></p-checkbox>
                         </td>
                         <td class="text-center">{{i + 1}}</td>
-                        <td>{{item.TenNhaMay}}</td>
+                        <!-- <td>{{item.TendmPhanXuong}}</td> -->
                         <td>{{item.Ten}}</td>
 
                         <td class="text-right"> {{item.KhoiLuongSanXuat | number:'0.2-2'}} </td>
@@ -81,12 +86,13 @@
                                 [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
                         </td>
                         <td class="text-right"> {{item.SanLuongTon| number:0.0-0}}</td>
-                        <td class="text-right"> {{(item.SanLuongCanSX - item.SanLuongTon) | number:0.0-0}}</td>
+                        <!-- 13/82025 alap đổi ct -->
+                        <td class="text-right"> {{(item.SanLuongCanSX + item.SanLuongTon) | number:0.0-0}}</td> 
                         <td>
                             <p-inputNumber locale="en-EN" [(ngModel)]="item.SanLuongDat" [minFractionDigits]="0"
                                 [max]="item.KhoiLuongSanXuat" (onBlur)="nhapSoTanDat(item)"></p-inputNumber>
                         </td>
-                        <td class="text-right">{{(item.SanLuongCanSX - item.SanLuongTon - item.SanLuongDat) |
+                        <td class="text-right">{{(item.SanLuongCanSX - item.SanLuongTon + item.SanLuongDat) |
                             number:0.0-0}}</td>
                     </tr>
                 </ng-template>

@@ -20,7 +20,12 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit, OnDest
   items: any = [];
   filter: any = {};
   listLoaiPhuongAn: any = [];
-  trangThai: any = 1;
+  trangThai: any = 0;
+  listTabTrangThai: any = [
+    { label: 'Chưa xử lý', value: 1, prop: 'ChuaXuLy' },
+    { label: 'Đã xử lý', value: 2, prop: 'DaXyLy' },
+    { label: 'Tổng hợp', value: 3, prop: 'TongHop' },
+  ]
   eAction = 'GIAOKEHOACHSANXUAT';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
@@ -114,7 +119,7 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit, OnDest
     })
   }
   changeTab(e) {
-    this.trangThai = e.index + 1;
+    this.trangThai = this.listTabTrangThai[e.index].value;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
@@ -148,6 +153,10 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit, OnDest
   KiemTraTabTrangThai() {
     this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
+      const firstValidTab = this.listTabTrangThai.find(tab => this.checkQuyen[tab.prop]);
+      if (firstValidTab) {
+        this.trangThai = firstValidTab.value;
+      }
       this.GetListQuyTrinh();
     })
   }

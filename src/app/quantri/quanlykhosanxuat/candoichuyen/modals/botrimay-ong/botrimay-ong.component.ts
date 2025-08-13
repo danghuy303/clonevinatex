@@ -37,6 +37,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   lang: any = vn;
   userInfo: any;
   TenCongDoan: any = '';
+  listLoHang: any = [];
 
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
     private _auth: AuthenticationService,
@@ -65,6 +66,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     //   return parseInt(a.label.split(' ')[0])-parseInt(b.label.split(' ')[0]);
     // })
     this.getKgcone();
+    this.getListLoHang();
 
     this.sort();
     this.initSpeedOption();
@@ -87,8 +89,20 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       this.listCanBoTri[`${ca.prop}`] = deepCopy(this.item.listCanBoTri);
       this.TongMatHang[`${ca.prop}`] = {};
     });
-    // console.log(this.listCanBoTri);
+    console.log(this.arrCa);
     this.inputChange()
+  }
+
+  getListLoHang() {
+    let data = {
+      CurrentPage: 0
+    }
+    this.services.LoHang().GetList(data).subscribe((res: any) => {
+      if (res) {
+        console.log(123);
+        this.listLoHang = mapArrayForDropDown(res, 'Ten', 'Id');
+      }
+    })
   }
 
   getKgcone() {
@@ -385,5 +399,16 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       text = _thisObj.label
     }
     return text;
+  }
+
+  handleLoHangCopy(_item: any, ca: any) {
+    let temp = this.item.listDaBoTri;
+    temp = temp.map((x: any) => {
+      if (x.IddmCaSanXuat === ca) {
+        x.IdLoHang = _item.IdLoHang;
+      }
+      return x;
+    })
+    this.item.listDaBoTri = temp;
   }
 }

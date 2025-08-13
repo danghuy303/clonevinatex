@@ -164,11 +164,15 @@ export class NhapkhomuimodalComponent implements OnInit {
     this.data.Loai = 23;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (this.link.eAction === 'PHIEUNHAPCUONCUI') {
+        this.item.IddmKho = res?.find(ele => ele.Ma === 'CUONCUI').Id
+      }
     })
   }
   getListMatHang() {
     this.data.Loai = 23;
-    this._services.GetOptions().GetMatHangVatTuPhu().subscribe((res: any) => {
+    let _api = this.link.value === 'khotho' ? this._services.GetOptions().GetListdmItemLoaiSoiTho() : this._services.GetOptions().GetListdmItemLoaiCuonCui();
+    _api.subscribe((res: any) => {
       this.listMatHang = mapArrayForDropDown(res, 'Ten', 'IddmItem');
     })
   }

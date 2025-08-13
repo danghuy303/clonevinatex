@@ -20,6 +20,7 @@ export class ModaldanhmucchungComponent implements OnInit {
   listLoaiCongTo: any = [];
   listLoaiBongPhe: any = [];
   listCongDoan: any = [];
+  listKgCone: any = [];
   listCachTinh: any = [{
     label: `Tất cả công đoạn`,
     value: false
@@ -42,6 +43,15 @@ export class ModaldanhmucchungComponent implements OnInit {
       this.GetDanhSachLoaiCongTo();
       this.GetListCongDoan()
     }
+    if (this.type === 'quycachdonggoi') {
+      this.GetListKgCone();
+    }
+  }
+
+  GetListKgCone() {
+    this.sanXuatService.GetListKgCone().subscribe((res: any[]) => {
+      this.listKgCone = mapArrayForDropDown(res, 'GiaTri', 'Id')
+    })
   }
 
   GetListCongDoan() {
@@ -175,6 +185,16 @@ export class ModaldanhmucchungComponent implements OnInit {
     this.sanXuatService.GetListLoaiBong().subscribe((res: any) => {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Loai');
     })
+  }
+
+  tinhTrongLuong() {
+    this.item.TrongLuong = (this.item.Kg_Cone || 0) * (this.item.SoQua || 0)
+  }
+
+  chonKgCone() {
+    let _giaTriKg = this.listKgCone.find(ele => ele.value === this.item.IdKg_Cone)?.label || 0;
+    this.item.Kg_Cone = parseFloat(_giaTriKg)
+    this.tinhTrongLuong()
   }
 
 }

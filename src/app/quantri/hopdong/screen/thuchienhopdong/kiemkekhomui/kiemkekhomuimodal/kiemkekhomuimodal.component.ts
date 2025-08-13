@@ -53,6 +53,9 @@ export class KiemkekhomuimodalComponent implements OnInit, AfterViewInit, AfterV
     this.item.Loai = 23;
     this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
+       if (this.link.eAction === 'PHIEUKIEMKECUONCUI') {
+        this.item.IddmKho = res?.find(ele => ele.Ma === 'CUONCUI').Id
+      }
     });
   }
   checklistMatHang(item) {

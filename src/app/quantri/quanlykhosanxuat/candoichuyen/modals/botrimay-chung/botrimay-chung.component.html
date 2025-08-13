@@ -21,6 +21,8 @@
                 class="p-mr-2 p-button-sm" (click)="endDieuChinh()"></button>
             <button *ngIf="dangDieuChinh" pButton pRipple type="button" label="Hủy điều chỉnh"
                 class="p-mr-2 p-button-danger p-button-sm" (click)="HuyDieuChinh()"></button>
+            <button *ngIf="this.filter.CongDoan !== 'CON'" pButton pRipple type="button" label="Cấp nhà máy khác" class="p-mr-2 p-button-sm"
+                (click)="capNhaMayKhac()"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
         </div>
 
@@ -180,3 +182,35 @@
     <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
         (click)="activeModal.dismiss()"></button> -->
 </div>
+
+<p-dialog header="Cấp cho nhà máy khác" [(visible)]="isShowCapNhaMay" [modal]="true"
+    [style]="{ width: '50vw', height: 'auto' }" [baseZIndex]="100" [draggable]="false" [resizable]="false">
+    <p-table [value]="item.listDaBoTri.concat([{},{},{},{},{},{},{},{},{},{},{}])|isDieuChinh"
+        styleClass="p-datatable-sm wrap-text  p-datatable-gridlines" [scrollable]="true" scrollHeight="60vh">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width: 50px;">
+                <col style="width: 200px;">
+                <col>
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>STT</th>
+                <th>Máy {{TenCongDoan|lowercase}}</th>
+                <th>Cấp cho</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{item.TenMay}}</td>
+                <td>
+                    <p-dropdown [filter]="true" showClear="true" [options]="listPhanXuong" placeholder="Chọn"
+                        styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuongCap">
+                    </p-dropdown>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>

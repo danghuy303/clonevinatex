@@ -44,6 +44,7 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
   TongKhoiLuong = 0;
   TongThanhTien = 0;
   listdmKhachHang: any = [];
+  listdmQuyCachDongGoi: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
 
@@ -53,6 +54,7 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
 
   ngOnInit(): void {
     this.GetListdmLoaiSoi();
+    this.getListdmQuyCachDongGoi();
     if (this.opt !== 'edit') {
       this.item = {
         NhaMay: '',
@@ -517,6 +519,25 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
       this.item.listItem[idx].HopDong = res.soHopDong;
       this.item.listItem = [...this.item.listItem];
     })
+  }
+
+  getListdmQuyCachDongGoi() {
+    this._services.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
+      this.listdmQuyCachDongGoi = res;
+    })
+  }
+
+  nhapSoKien(data) {
+    console.log('data', data);
+    let _objQuyCach = this.listdmQuyCachDongGoi.find(ele => ele.Id === data.IddmQuyCachDongGoi);
+    let _soQuaQuyCach = _objQuyCach.SoQua || 0;
+    let _trongLuongQuyCach = _objQuyCach.TrongLuong || 0;
+    console.log('_soQuaQuyCach', _soQuaQuyCach);
+    console.log('_trongLuongQuyCach', _trongLuongQuyCach);
+    data.SoLuong = (data.SoKien || 0) * (_soQuaQuyCach || 0);
+    data.TongKhoiLuong = (data.SoQuaSoiThanhPham) * (_trongLuongQuyCach || 0);
+    this.item.listItem = [...this.item.listItem];
+    console.log('listItem', this.item.listItem);
   }
 
 }

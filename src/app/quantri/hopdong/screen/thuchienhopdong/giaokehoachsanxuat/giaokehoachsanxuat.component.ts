@@ -44,7 +44,8 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listQuyCachDongGoi: any = [];
 
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService,private _HopDongService: HopDongService,) {super(store)
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService, private _HopDongService: HopDongService,) {
+    super(store)
   }
 
   ngOnInit(): void {
@@ -85,27 +86,27 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
         if (!validVariable(item.listItem)) {
           item.listItem = [];
         }
-          item.listItem.filter(objlistItem => {
-            objlistItem.listQuyCachDongGoi.filter(async objlistItem2 => {
-              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
-            });          
+        item.listItem.filter(objlistItem => {
+          objlistItem.listQuyCachDongGoi.filter(async objlistItem2 => {
+            objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
           });
-          let modalRef = this._modal.open(GiaokehoachsanxuatmodalComponent, {
-            size: 'fullscreen-100',
-            backdrop: 'static'
-          })
-          modalRef.componentInstance.opt = 'edit';
-          modalRef.componentInstance.item = item;
-          modalRef.result.then((res: any) => {
-            console.log(res);
-            this._toastr.success('Cập nhật thành công');
-            this.GetListQuyTrinh();
-            this.changeParam(0)
-          })
-            .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
-      })  
-    },(err)=>{
-      if(err.status ===500){
+        });
+        let modalRef = this._modal.open(GiaokehoachsanxuatmodalComponent, {
+          size: 'fullscreen-100',
+          backdrop: 'static'
+        })
+        modalRef.componentInstance.opt = 'edit';
+        modalRef.componentInstance.item = item;
+        modalRef.result.then((res: any) => {
+          console.log(res);
+          this._toastr.success('Cập nhật thành công');
+          this.GetListQuyTrinh();
+          this.changeParam(0)
+        })
+          .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
+      })
+    }, (err) => {
+      if (err.status === 500) {
         this._toastr.error('Hệ thống không tìm thấy dữ liệu bạn cần!')
       }
       console.log(err);
@@ -132,7 +133,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
     }
-    if(isXuatExcel === true){
+    if (isXuatExcel === true) {
       this._HopDongService.GiaoKeHoachSanXuat().XuatExcel(data).subscribe((res: any) => {
         if (res?.StatusCode === 200) {
           this._toastr.success(res.Message);
@@ -141,24 +142,24 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
         }
       });
     }
-    else{
-    this._HopDongService.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
-      this.items = res.Data.Items;
-      this.paging.TotalItem = res.Data?.TotalCount;
-      this.paging.TotalPage = res.Data?.TotalPages;
-      this.items?.forEach(element => {
-        element.NgayBatDau = UnixToDate(element.NgayBatDauUnix);
-        element.NgayKetThuc = UnixToDate(element.NgayKetThucUnix);
-      });
-    })
-  }
+    else {
+      this._HopDongService.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
+        this.items = res.Data.Items;
+        this.paging.TotalItem = res.Data?.TotalCount;
+        this.paging.TotalPage = res.Data?.TotalPages;
+        this.items?.forEach(element => {
+          element.NgayBatDau = UnixToDate(element.NgayBatDauUnix);
+          element.NgayKetThuc = UnixToDate(element.NgayKetThucUnix);
+        });
+      })
+    }
   }
   resetFilter() {
     this.filter = {};
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })

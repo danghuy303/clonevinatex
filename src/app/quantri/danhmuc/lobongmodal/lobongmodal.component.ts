@@ -31,6 +31,8 @@ export class LobongmodalComponent implements OnInit {
     { value: 400, label: '400' },
   ];
   inQrCode$ = new Subject<void>();
+  listFromTo: any = [];
+  isChon: any = null;
 
   constructor(public activeModal: NgbActiveModal,
     private services: SanXuatService,
@@ -154,12 +156,21 @@ export class LobongmodalComponent implements OnInit {
   InQrCodeLoBong() {
     this.inQrCode$.pipe(
       exhaustMap(() =>
-        this._danhMucTaiSan.InQrCodeLoBong(this.item.Id, this.item.IdKichThuoc || 100)
+        this._danhMucTaiSan.InQrCodeLoBong({
+          KichThuoc: this.item.IdKichThuoc || 100,
+          IdLoBong: this.item.Id,
+          SoBan: this.item.SoBan || 1,
+          Tu: this.item.Tu || 1,
+          Den: this.item.Den || this.item.SoLuongKien
+        })
       )
     ).subscribe((res: any) => {
       if (res.State === 1) {
-        let url = res.Data;
-        window.open(API.imgURL + url);
+        // let url = res.Data;
+        // window.open(API.imgURL + url);
+
+        const url = API.imgURL + res.Data;
+  
         this.toastr.success(res.message);
       } else {
         this.toastr.error(res.message);
@@ -171,8 +182,28 @@ export class LobongmodalComponent implements OnInit {
   }
   handleQR() {
     if (this.item.MaQR) {
-      this.isQR = !this.isQR
+      this.isQR = !this.isQR;
+      this.listFromTo = this.splitRanges(this.item.SoLuongKien);
     } else this.TaoQR();
+  }
+
+  splitRanges(total: number, rangeSize: number = 100) {
+    const ranges: { from: number; to: number }[] = [];
+
+    if (total <= rangeSize) {
+      ranges.push({ from: 1, to: total });
+    } else {
+      for (let start = 1; start <= total; start += rangeSize) {
+        const end = Math.min(start + rangeSize - 1, total);
+        ranges.push({ from: start, to: end });
+      }
+    }
+    return ranges;
+  }
+
+  handleFromTo(data) {
+    this.item.Tu = data.from;
+    this.item.Den = data.to;
   }
 
 }

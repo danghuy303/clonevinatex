@@ -242,6 +242,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   }
 
   ngOnInit(): void {
+    this.filter.nNgay = (new Date()).getDate();
+    this.filter.nThang = (new Date()).getMonth() + 1;
+    this.filter.nNam = (new Date()).getFullYear();
     for (let i = 0; i < 20; i++) {
       this.Nams.push({ value: (new Date()).getFullYear() - i, label: (new Date()).getFullYear() - i });
     }
@@ -252,7 +255,11 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         prop: `Thang${i}`
       })
     }
-    for (let i = 1; i <= 31; i++) {
+    // for (let i = 1; i <= 31; i++) {
+    //   this.listNgay.push({ value: i, label: `${i}` });
+    // }
+    let _newlistNgay = this.getListNgay(this.filter.nThang, this.filter.nNam);
+    for (let i = 1; i <= _newlistNgay?.length; i++) {
       this.listNgay.push({ value: i, label: `${i}` });
     }
     let date = new Date();
@@ -260,9 +267,6 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.filterBieuDo_TienDien.DenNgay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     this.filterBieuDo_TyLe.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filterBieuDo_TyLe.DenNgay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    this.filter.nNgay = (new Date()).getDate();
-    this.filter.nThang = (new Date()).getMonth() + 1;
-    this.filter.nNam = (new Date()).getFullYear();
     this.getAllOptions();
   }
 
@@ -799,4 +803,29 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       }
     })
   }
+
+  getListNgay(thang, nam = new Date().getFullYear()) {
+    const soNgay = new Date(nam, thang, 0).getDate();
+    return Array.from({ length: soNgay }, (_, i) => i + 1);
+  }
+
+
+  handleThang() {
+    this.listNgay = [];
+    let _newlistNgay = this.getListNgay(this.filter.nThang, this.filter.nNam);
+    for (let i = 1; i <= _newlistNgay?.length; i++) {
+      this.listNgay.push({ value: i, label: `${i}` });
+    }
+    this.filterdatatonghop();
+  }
+
+  handleNam() {
+    this.listNgay = [];
+    let _newlistNgay = this.getListNgay(this.filter.nThang, this.filter.nNam);
+    for (let i = 1; i <= _newlistNgay?.length; i++) {
+      this.listNgay.push({ value: i, label: `${i}` });
+    }
+    this.filterdata();
+  }
+
 }

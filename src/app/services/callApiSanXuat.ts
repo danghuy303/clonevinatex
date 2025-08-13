@@ -735,6 +735,12 @@ export class SanXuatService {
             GetMatHangVatTuPhu: () => {
                 return this.http.get(`${API.SCMDanhMuc}GetListdmItemLoaiVatTuPhu`, httpOptions)
             },
+            GetListdmItemLoaiSoiTho: () => {
+                return this.http.get(`${API.SCMDanhMuc}GetListdmItemLoaiSoiTho`, httpOptions)
+            },
+            GetListdmItemLoaiCuonCui: () => {
+                return this.http.get(`${API.SCMDanhMuc}GetListdmItemLoaiCuonCui`, httpOptions)
+            },
             //  api lisstt
             GetDanhMucNoiDiaXuatKhau: () => {
                 return this.http.get(`${API.KeHoach}DanhMuc/GetDanhMucNoiDiaXuatKhau`, httpOptions)
@@ -3529,6 +3535,13 @@ export class SanXuatService {
         return this.BasicApi('PhieuKiemKeCuonCui')
     }
 
+    PhieuXuatHoiAmCapDau() {
+        return this.BasicApi('PhieuXuatHoiAmCapDau')
+    }
+    GetlistdmMatHangXuatHoiAmCapDau(data) {
+        return this.http.post(`${API.SCMQuanLyKho}GetlistdmMatHangXuatHoiAmCapDau`, data, httpOptions)
+    }
+
     GetListHopDongForPhieuXuatHang(IddmItem) {
         return this.http.get(`${API.HopDong}HopDong/GetListHopDongForPhieuXuatHang?IddmItem=${IddmItem}`, httpOptions)
     }
@@ -3545,10 +3558,10 @@ export class SanXuatService {
     GetListFolderAll(data) {
         return this.http.post(`${API.auth}TuHoSoNew/GetListFolderAll`, data, httpOptions)
     }
-     GetListFileByListId(data) {
+    GetListFileByListId(data) {
         return this.http.post(`${API.auth}TuHoSoNew/GetListFileByListId`, data, httpOptions)
     }
-     GetListFileFolder(data) {
+    GetListFileFolder(data) {
         return this.http.post(`${API.auth}TuHoSoNew/GetListFileFolder`, data, httpOptions)
     }
 }

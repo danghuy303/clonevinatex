@@ -175,16 +175,26 @@ export class ChonhanghoamodalComponent implements OnInit {
             }
           })
         } else { // sửa
+          // _newData = this.items.filter(item => item.checked).map(ele => {
+          // let _item = this.listDaChon?.find(obj => obj.IddmItem === ele.Id);
+          // let _newObj = _item ? _item : {
+          // let _newObj = _item ? _item : {
+          //   ...ele,
+          //   IdGiaoKeHoachSanXuat: this.IdQuyTrinh,
+          //   IddmItem: ele.Id,
+          //   Id: '',
+          // };
+          // return {
+          //   ..._newObj
+          // }
+          // })
+
           _newData = this.items.filter(item => item.checked).map(ele => {
-            let _item = this.listDaChon?.find(obj => obj.IddmItem === ele.Id);
-            let _newObj = _item ? _item : {
+            return {
               ...ele,
               IdGiaoKeHoachSanXuat: this.IdQuyTrinh,
               IddmItem: ele.Id,
               Id: '',
-            };
-            return {
-              ..._newObj
             }
           })
         }

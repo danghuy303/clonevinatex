@@ -106,6 +106,32 @@
                 </div>
             </div>
         </div>
+
+        <div *ngIf="type === 'quycachdonggoi'" class="p-col-12 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số quả sợi:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" [maxFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQua"
+                    (onBlur)="tinhTrongLuong()">
+                </p-inputNumber>
+            </div>
+        </div>
+        <div *ngIf="type === 'quycachdonggoi'" class="p-col-12 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Trọng lượng 1 quả:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [options]="listKgCone" placeholder="Chọn" styleClass="p-inputtext-sm"
+                    (onChange)="chonKgCone()" [(ngModel)]="item.IdKg_Cone" [showClear]="true"
+                    [filter]="true"></p-dropdown>
+            </div>
+        </div>
+        <div *ngIf="type === 'quycachdonggoi'" class="p-col-12 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng KL/ĐV quy cách:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"
+                    [(ngModel)]="item.TrongLuong">
+                </p-inputNumber>
+            </div>
+        </div>
+
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">

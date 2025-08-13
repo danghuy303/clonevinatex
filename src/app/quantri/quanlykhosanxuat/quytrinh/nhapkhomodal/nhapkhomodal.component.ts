@@ -383,7 +383,7 @@ export class NhapkhomodalComponent implements OnInit, AfterViewInit, AfterViewCh
     if (validVariable(this.item.SoHopDong)) {
       let loBongFind: any = this.listLoBongFull.filter(e => e.Id === this.item.IdLoBong);
       if (loBongFind.length > 0) {
-        if (this.item.SoHopDong.trim() !== loBongFind[0].SoHopDong.trim()) {
+        if (this.item.SoHopDong?.trim() !== loBongFind[0].SoHopDong?.trim()) {
           this.toastr.error("Bạn chưa chọn đúng lô bông nằm trong đợt nhập này!");
           return false;
         }
@@ -521,11 +521,11 @@ export class NhapkhomodalComponent implements OnInit, AfterViewInit, AfterViewCh
               event.stopImmediatePropagation();
               //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
               console.log(this.inputs.toArray());
-              
+
               const indexInList = this.inputs.toArray().findIndex(
                 (inp) => inp.nativeElement.querySelector('input') === realInput
               );
-                
+
               const rowIndex = Math.floor(indexInList / (this.isXo ? 3 : 8));
               const colIndex = indexInList % (this.isXo ? 3 : 8);
               this.navigateTable(event, rowIndex, colIndex);
