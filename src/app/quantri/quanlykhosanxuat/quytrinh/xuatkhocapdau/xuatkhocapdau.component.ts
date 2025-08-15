@@ -49,7 +49,7 @@ export class XuatkhocapdauComponent extends StoreBase implements OnInit, OnDestr
       }
       let data = {
         CurrentPage: 0,
-        Loai: 11
+        Loai: 10
       };
       this._service.GetListdmKho(data).subscribe((res: any) => {
         this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -66,13 +66,13 @@ export class XuatkhocapdauComponent extends StoreBase implements OnInit, OnDestr
   }
 
   update(data) {
-
     let modalRef = this._modal.open(XuatkhocapdaumodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.nametype = 'kho cấp đậu';
+    modalRef.componentInstance.listKhoHoiAm = this.listdmKho;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(data));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
@@ -92,6 +92,7 @@ export class XuatkhocapdauComponent extends StoreBase implements OnInit, OnDestr
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.nametype = 'kho cấp đậu';
+    modalRef.componentInstance.listKhoHoiAm = this.listdmKho;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify({}));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
@@ -124,7 +125,7 @@ export class XuatkhocapdauComponent extends StoreBase implements OnInit, OnDestr
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      IddmKho: this.filter.IddmKho,
+      IddmKho: this.filter.IddmKho || '',
     }
     this._service.PhieuXuatHoiAmCapDau().GetList(data).subscribe((res: any) => {
       if (res.items) {

@@ -2,10 +2,10 @@
     <h5 class="modal-title">Quy trình xuất lô bông/xơ</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
-            <span style="font-weight: bold;">Số phiếu:</span> {{item.soQuyTrinh}}
+            <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
         </div>
         <div class="ml-lg-3 mr-lg-3">
-            <span style="font-weight: bold;">TG Tạo:</span> {{item.created|date:"dd/MM/yyyy HH:mm"}}
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
         </div>
         <div>
             <span style="font-weight: bold;">TG Duyệt:</span> {{item.NgayDuyet|date:"dd/MM/yyyy HH:mm"}}
@@ -33,7 +33,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.idDuAn" (onChange)="getListHopDong()"></p-dropdown>
+                    [(ngModel)]="item.IdDuAn" (onChange)="getListHopDong()"></p-dropdown>
             </div>
         </div> -->
     </div>
@@ -41,26 +41,26 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung<span class="text-danger">*</span> :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.noiDung" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng<span class="text-danger">*</span> :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.idHopDong" (onChange)="chonHopDong()"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdHopDong" (onChange)="chonHopDong()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Mặt hàng :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tenLoaiBongXo" pInputText disabled />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenLoaiBongXo" pInputText disabled />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Xuất xứ :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.xuatXu" pInputText disabled />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.XuatXu" pInputText disabled />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -68,7 +68,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
-                    [(ngModel)]="item.ngay" inputId="icon" placeholder="dd/mm/yyyy">
+                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
@@ -76,27 +76,27 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô bông"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.idLoBong" (onChange)="chonLoBongAll()"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoBong" (onChange)="chonLoBongAll()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số kiện :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.soKien" disabled>
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien" disabled>
                 </p-inputNumber>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số lượng :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.soLuong" disabled>
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong" disabled>
                 </p-inputNumber>
             </div>
         </div> -->
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
@@ -127,14 +127,14 @@
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
-                            styleClass="p-inputtext-sm" [(ngModel)]="itemTable.iddmKho" (onChange)="chonLoBong(itemTable)"></p-dropdown>
+                            styleClass="p-inputtext-sm" [(ngModel)]="itemTable.IddmKho" (onChange)="chonLoBong(itemTable)"></p-dropdown>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="itemTable.tonKho" disabled>
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="itemTable.TonKho" disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="itemTable.soKien" (ngModelChange)="tinhTongSoKien()">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="itemTable.SoKien" (ngModelChange)="tinhTongSoKien()">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -154,14 +154,14 @@
                         <td></td>
                         <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
-                            styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.iddmKho" (onChange)="chonLoBong(newTableItem)"></p-dropdown>
+                            styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.IddmKho" (onChange)="chonLoBong(newTableItem)"></p-dropdown>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.tonKho" disabled>
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.TonKho" disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-right">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.soKien" (ngModelChange)="tinhTongSoKien()">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoKien" (ngModelChange)="tinhTongSoKien()">
                             </p-inputNumber>
                         </td>
                         <td>

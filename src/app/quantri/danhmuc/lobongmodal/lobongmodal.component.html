@@ -186,7 +186,7 @@
         (click)="activeModal.dismiss()"></button>
 </div>
 
-<p-dialog header="In QR" [(visible)]="isQR" [style]="{ width: '20vw' }" [modal]="true" [baseZIndex]="10000">
+<p-dialog header="In QR" [(visible)]="isQR" [style]="{ width: '25vw' }" [modal]="true" [baseZIndex]="10000">
     <div class="p-grid">
         <div class="p-col-6 p-p-2 d-flex flex-column">
             <div class="p-mb-1">Chọn kích thước in:</div>
@@ -195,10 +195,17 @@
                     styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-6 p-p-2 d-flex flex-column">
+        <div class="p-col-3 p-p-2 d-flex flex-column">
             <div class="p-mb-1">Số bản:</div>
             <div>
                 <p-inputNumber locale="en-EN" [(ngModel)]="item.SoBan" styleClass="p-inputtext-sm" [min]="0">
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-3 p-p-2 d-flex flex-column">
+            <div class="p-mb-1">Khổ giấy:</div>
+            <div>
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.KhoGiay" styleClass="p-inputtext-sm" [min]="0" placeholder="inch">
                 </p-inputNumber>
             </div>
         </div>

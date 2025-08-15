@@ -10,6 +10,7 @@ import { base64ToBlob } from '../../../services/globalfunction';
 import { API } from '../../../services/host';
 import { exhaustMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import * as printJS from 'print-js';
 
 @Component({
   selector: 'app-lobongmodal',
@@ -161,7 +162,8 @@ export class LobongmodalComponent implements OnInit {
           IdLoBong: this.item.Id,
           SoBan: this.item.SoBan || 1,
           Tu: this.item.Tu || 1,
-          Den: this.item.Den || this.item.SoLuongKien
+          Den: this.item.Den || this.item.SoLuongKien,
+          KhoGiay: this.item.KhoGiay || 8
         })
       )
     ).subscribe((res: any) => {
@@ -170,7 +172,12 @@ export class LobongmodalComponent implements OnInit {
         // window.open(API.imgURL + url);
 
         const url = API.imgURL + res.Data;
-  
+        printJS({
+          printable: url, // đường dẫn file PDF
+          type: 'pdf',       // kiểu dữ liệu
+          showModal: false   // bỏ popup loading, chỉ hiện hộp thoại in
+        });
+
         this.toastr.success(res.message);
       } else {
         this.toastr.error(res.message);

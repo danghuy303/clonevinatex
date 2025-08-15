@@ -8,7 +8,7 @@
         </div>
     </div> -->
     <div class="d-flex flex-column flex-lg-row">
-        <p-dropdown [filter]="true" [options]="listduan" placeholder="Chọn dự án" [(ngModel)]="item.idDuAn"
+        <p-dropdown [filter]="true" [options]="listduan" placeholder="Chọn dự án" [(ngModel)]="item.IdDuAn"
             styleClass="p-inputtext-sm" (onChange)="GetDanhSachHopDongByNhaThau()"></p-dropdown>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="Onclose()">
@@ -32,8 +32,8 @@
 
         <div class="modal-bt p-mb-4 ">
             <div>
-                <span style="font-weight: bold;">Số phiếu:</span> {{item.soQuyTrinh}}
-                <span style="font-weight: bold;">Thời gian Tạo:</span> {{item.created|date:"dd/MM/yyyy HH:mm"}}
+                <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
+                <span style="font-weight: bold;">Thời gian Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
             </div>
             <div>
 
@@ -46,33 +46,33 @@
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Hợp đồng <span class="text-danger">*</span>:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
                     <p-dropdown [filter]="true" [options]="listhopdong" placeholder="Chọn hợp đồng"
-                        [(ngModel)]="item.idHopDong" styleClass="p-inputtext-sm"
+                        [(ngModel)]="item.IdHopDong" styleClass="p-inputtext-sm"
                         (onChange)="GetListdmLoaiBongForHopDong()"></p-dropdown>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Loại bông/xơ:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tenLoaiBongXo" pInputText disabled/>
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenLoaiBongXo" pInputText disabled/>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Mã invoice:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.maInvoice" pInputText />
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaInvoice" pInputText />
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Cấp bông:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tendmCapBong" pInputText disabled/>
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TendmCapBong" pInputText disabled/>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Thời gian cập cảng <span class="text-danger">*</span>:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
                     <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
-                        [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.thoiGianCapCang" inputId="icon"
+                        [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianCapCang" inputId="icon"
                         placeholder="dd/mm/yyyy">
                     </p-calendar>
                 </div>
@@ -81,7 +81,7 @@
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Thời gian dự kiến về kho <span class="text-danger">*</span>:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
                     <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
-                        [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.thoiGianDuKien" inputId="icon"
+                        [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianDuKien" inputId="icon"
                         placeholder="dd/mm/yyyy">
                     </p-calendar>
                 </div>
@@ -89,47 +89,47 @@
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Đặc tính bông:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.dacTinhBong" pInputText disabled/>
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DacTinhBong" pInputText disabled/>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Giá CIF:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.giaCif" disabled>
+                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaCif" disabled>
                     </p-inputNumber>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Số lượng (kg):</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.soLuong" disabled>
+                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong" disabled>
                     </p-inputNumber>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Số container:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.soContainer" disabled>
+                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoContainer" disabled>
                     </p-inputNumber>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Số kiện:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.soKien" disabled>
+                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien" disabled>
                     </p-inputNumber>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Nội dung:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.noiDung" pInputText />
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
                 </div>
             </div>
             <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
                 <div class="p-col-12 p-lg-11 p-p-0 p-pl-theokieunaodo">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                 </div>
             </div>
         </div>
@@ -182,35 +182,35 @@
                                 <input pInputText type="text" [(ngModel)]="items.ten" />
                             </td>
                             <td>
-                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.soLuong">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.SoLuong">
                                 </p-inputNumber>
                             </td>
                             <td>
-                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.soContainer">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.SoContainer">
                                 </p-inputNumber>
                             </td>
                             <td>
-                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.soKien">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.SoKien">
                                 </p-inputNumber>
                             </td>
                             <td>
                                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
                                     [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
-                                    [(ngModel)]="items.thoiGianCapCang" inputId="icon" placeholder="dd/mm/yyyy">
+                                    [(ngModel)]="items.ThoiGianCapCang" inputId="icon" placeholder="dd/mm/yyyy">
                                 </p-calendar>
                             </td>
                             <td>
                                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
                                     [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
-                                    [(ngModel)]="items.thoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy">
+                                    [(ngModel)]="items.ThoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy">
                                 </p-calendar>
                             </td>
                             <td>
-                                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" [(ngModel)]="items.iddmKho"
+                                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" [(ngModel)]="items.IddmKho"
                                     [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
                             </td>
                             <td>
-                                <input pInputText type="text" [(ngModel)]="items.ghiChu" />
+                                <input pInputText type="text" [(ngModel)]="items.GhiChu" />
                             </td>
                             <td class="text-center">
                                 <button pButton pRipple icon="pi pi-times"
@@ -224,40 +224,40 @@
                             <td>
                             </td>
                             <td>
-                                <input pInputText type="text" [(ngModel)]="newTableItem.ten" />
+                                <input pInputText type="text" [(ngModel)]="newTableItem.Ten" />
                             </td>
                             <td>
                                 <p-inputNumber [minFractionDigits]="0" locale="en-EN"
-                                    [(ngModel)]="newTableItem.soLuong">
+                                    [(ngModel)]="newTableItem.SoLuong">
                                 </p-inputNumber>
                             </td>
                             <td>
                                 <p-inputNumber [minFractionDigits]="0" locale="en-EN"
-                                    [(ngModel)]="newTableItem.soContainer">
+                                    [(ngModel)]="newTableItem.SoContainer">
                                 </p-inputNumber>
                             </td>
                             <td>
-                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.soKien">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoKien">
                                 </p-inputNumber>
                             </td>
                             <td>
                                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
                                     [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
-                                    [(ngModel)]="newTableItem.thoiGianCapCang" inputId="icon" placeholder="dd/mm/yyyy">
+                                    [(ngModel)]="newTableItem.ThoiGianCapCang" inputId="icon" placeholder="dd/mm/yyyy">
                                 </p-calendar>
                             </td>
                             <td>
                                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
                                     [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
-                                    [(ngModel)]="newTableItem.thoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy">
+                                    [(ngModel)]="newTableItem.ThoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy">
                                 </p-calendar>
                             </td>
                             <td>
-                                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" [(ngModel)]="newTableItem.iddmKho"
+                                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" [(ngModel)]="newTableItem.IddmKho"
                                     [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
                             </td>
                             <td>
-                                <input pInputText type="text" [(ngModel)]="newTableItem.ghiChu" />
+                                <input pInputText type="text" [(ngModel)]="newTableItem.GhiChu" />
                             </td>
                             <td class="text-center">
                                 <button pButton pRipple type="button" icon="pi pi-plus"

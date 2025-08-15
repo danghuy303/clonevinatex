@@ -20,15 +20,14 @@
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="Onclose()"></button>
-            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " 
-                (click)="GhiLai()"
+            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()"
                 *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
                 (click)="XoaQuyTrinh()"></button>
             <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
                 *ngIf="checkbutton.KhongDuyet"></button>
-            <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
-                (click)="ChuyenTiep()" *ngIf="checkbutton.ChuyenTiep"></button>
+            <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm" (click)="ChuyenTiep()"
+                *ngIf="checkbutton.ChuyenTiep"></button>
         </div>
     </div>
     <div class="p-grid">
@@ -57,9 +56,8 @@
     </div>
     <div class="">
         <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
-            <button
-                    pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
-                    (click)="GetMatHangTheoKho()"></button>
+            <button pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
+                (click)="GetMatHangTheoKho()"></button>
         </div>
         <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped"
             [autoLayout]="true">
@@ -69,6 +67,7 @@
                     <col style="width:200px">
                     <col style="width:150px">
                     <col style="width:120px">
+                    <col style="width:100px">
                     <col style="width:100px">
                     <col style="width:120px">
                     <col>
@@ -82,6 +81,7 @@
                     <th>Tên lô</th>
                     <th>Số quả hồi ẩm</th>
                     <th>Số quả xuất</th>
+                    <th>Kg/cone</th>
                     <th>Tổng khối lượng(kg)</th>
                     <th>Ghi chú</th>
                     <th>Thao tác</th>
@@ -93,14 +93,15 @@
                     <td>{{item.Ten}}</td>
                     <td>{{item.TenLoHang}}</td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiHoiAm" disabled>
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TonSoLuong" disabled>
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiThanhPham"
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiHoiAm"
                             (ngModelChange)="TongKhoiLuong(item)" #input (keydown)="navigateTable($event, i, 0)">
                         </p-inputNumber>
                     </td>
+                    <td class="text-right">{{item.KgCone}}</td>
                     <td>
                         <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TongKhoiLuong" #input
                             (keydown)="navigateTable($event, i, 1)" disabled>
@@ -121,14 +122,18 @@
                 <tr>
                     <td colspan="3">TỔNG: </td>
                     <td class="text-right">
+                        {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0'}}
+                    </td>
+                    <td class="text-right">
                         {{item.listItem|isXoa|SumByKey:'SoQuaSoiHoiAm'|number:'0.0'}}
                     </td>
                     <td class="text-right">
-                        {{item.listItem|isXoa|SumByKey:'SoQuaSoiThanhPham'|number:'0.0'}}
+                        {{item.listItem|isXoa|SumByKey:'KgCone'|number:'0.0'}}
                     </td>
                     <td class="text-right">
                         {{item.listItem|isXoa|SumByKey:'TongKhoiLuong'|number:'0.2-2'}}
                     </td>
+                    <td class="text-center"></td>
                     <td class="text-center"></td>
                 </tr>
             </ng-template>

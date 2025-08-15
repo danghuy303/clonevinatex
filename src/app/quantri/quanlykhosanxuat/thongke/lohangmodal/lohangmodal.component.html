@@ -1,4 +1,4 @@
-<div class="modal-header">
+<!-- <div class="modal-header">
     <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} lô hàng</h5>
 </div>
 <div class="modal-body">
@@ -31,15 +31,15 @@
                     [(ngModel)]="item.IdGiaoKeHoachSanXuat" styleClass="p-inputtext-sm"
                     (onChange)="giaoKeHoach($event)"></p-dropdown>
             </div>
-        </div>
-        <!-- <div class="p-col-12 flex-column flex-lg-row d-flex">
+        </div> -->
+<!-- <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mặt hàng:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listGiaoKeHoach_MatHang" placeholder="Chọn kế hoạch giao" [(ngModel)]="item.IdGiaoKeHoachSanXuat_MatHang"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div> -->
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
+<!-- <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Triển khai:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listGiaoKeHoach_TrienKhai" placeholder="Chọn kế hoạch triển khai"
@@ -66,10 +66,10 @@
         [disabled]="khongclicknhieu"></button>
     <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
         (click)="activeModal.dismiss()"></button>
-</div>
+</div> -->
 
 <!-- update new -->
-<!-- <div>
+<div>
     <div class="modal-header">
         <div class="d-flex p-ai-center justify-content-between w-100">
             <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} lô hàng</h5>
@@ -199,13 +199,20 @@
     </div>
     <p-dialog header="In QR" [(visible)]="isQR" [style]="{ width: '20vw' }" [modal]="true" [baseZIndex]="10000">
         <div class="p-grid">
-            <div class="p-col-12 p-p-3 d-flex flex-column">
+            <div class="p-col-12 p-p-2 d-flex flex-column">
                 <p-dropdown [filter]="true" [options]="listKichThuoc" placeholder="Chọn kích thước in"
                     [(ngModel)]="item.IdKichThuoc" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
-            <div class="p-col-12 p-p-3 d-flex flex-column">
-                <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuong" placeholder="nhập số lượng">
+            <div class="p-col-6 p-p-2 d-flex flex-column">
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.SoBan" placeholder="Số bản" styleClass="p-inputtext-sm">
                 </p-inputNumber>
+            </div>
+            <div class="p-col-6 p-p-2 d-flex flex-column">
+                <div>
+                    <p-inputNumber locale="en-EN" [(ngModel)]="item.KhoGiay" styleClass="p-inputtext-sm" [min]="0"
+                        placeholder="Nhập khổ giấy( inch)">
+                    </p-inputNumber>
+                </div>
             </div>
         </div>
         <ng-template pTemplate="footer">
@@ -214,4 +221,4 @@
         </ng-template>
     </p-dialog>
 
-</div> -->
+</div>

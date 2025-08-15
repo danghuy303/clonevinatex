@@ -15,7 +15,7 @@ import { ThanhtoanhopdongsoimodalComponent } from './thanhtoanhopdongsoimodal/th
 })
 export class ThanhtoanhopdongsoiComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
-  items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
+  items: any = [{ Id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
@@ -44,7 +44,7 @@ export class ThanhtoanhopdongsoiComponent implements OnInit {
     })
     this.IdDuAn = this.store.getCurrent();
     this._service.GetOptions().GetDanhSachHopDongByNhaThauSoi(this.IdDuAn).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
+      this.listHopDong = mapArrayForDropDown(res, 'TenHopDong', 'Id');
     })
     this.KiemTraTabTrangThai();
   }
@@ -129,15 +129,15 @@ export class ThanhtoanhopdongsoiComponent implements OnInit {
       Loai: 11,
     }
     this._hopdong.QuyTrinhThanhToan().GetList(data).subscribe((res: any) => {
-      this.items = res.data.items;
+      this.items = res.Data.Items;
       if (this.items.length > 0) {
         this.items.forEach(element => {
           element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
         });
       }
-      this.paging.CurrentPage = res.data.page;
-      this.paging.TotalPage = res.data.totalPages;
-      this.paging.TotalItem = res.data.totalCount;
+      this.paging.CurrentPage = res.Data.Page;
+      this.paging.TotalPage = res.Data.TotalPages;
+      this.paging.TotalItem = res.Data.TotalCount;
     })
   }
   resetFilter() {

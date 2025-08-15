@@ -315,7 +315,6 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
-        // console.log("data", data);
         // if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
         //   this.item.listItem.forEach(element => {
         //     element.isXoa = true;
@@ -370,6 +369,9 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
         // else {
         //   this.item.listItem = listdatapush
         // }
+
+        console.log('listItem',this.item.listItem);
+         console.log("data", data);
         this.item.listItem = data?.map(ele => {
           let _newObj = this.item.listItem?.find(obj => obj.IdNhapKhoGoc === ele.IdNhapKhoGoc && obj.IddmItem === ele.IddmItem && obj.IdLoHang === ele.IdLoHang && obj.IddmQuyCachDongGoi === ele.IddmQuyCachDongGoi);
           let _newData = _newObj ? _newObj : ele;
@@ -528,16 +530,12 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
   }
 
   nhapSoKien(data) {
-    console.log('data', data);
     let _objQuyCach = this.listdmQuyCachDongGoi.find(ele => ele.Id === data.IddmQuyCachDongGoi);
     let _soQuaQuyCach = _objQuyCach.SoQua || 0;
     let _trongLuongQuyCach = _objQuyCach.TrongLuong || 0;
-    console.log('_soQuaQuyCach', _soQuaQuyCach);
-    console.log('_trongLuongQuyCach', _trongLuongQuyCach);
     data.SoLuong = (data.SoKien || 0) * (_soQuaQuyCach || 0);
     data.TongKhoiLuong = (data.SoQuaSoiThanhPham) * (_trongLuongQuyCach || 0);
     this.item.listItem = [...this.item.listItem];
-    console.log('listItem', this.item.listItem);
   }
 
 }

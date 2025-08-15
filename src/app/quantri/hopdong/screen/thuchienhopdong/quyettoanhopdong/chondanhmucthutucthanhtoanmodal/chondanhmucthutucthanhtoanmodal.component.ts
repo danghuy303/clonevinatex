@@ -17,12 +17,12 @@ export class ChondanhmucthutucthanhtoanmodalComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã',
-      field: 'ma',
+      field: 'Ma',
       width: 'unset'
     },
     {
       header: 'Tên ',
-      field: 'ten',
+      field: 'Ten',
       width: 'unset'
     },
   ];
@@ -46,7 +46,7 @@ export class ChondanhmucthutucthanhtoanmodalComponent implements OnInit {
     {
       for(let i = 0; i < this.listHangHoa.length; i++){
         let itemFind = this.listThanhToanThuTuc.find(
-          ele => (ele.id === this.listHangHoa[i].iddmThanhToanThuTuc && this.listHangHoa[i].isXoa !== true)
+          ele => (ele.Id === this.listHangHoa[i].IddmThanhToanThuTuc && this.listHangHoa[i].isXoa !== true)
          )
         if(validVariable(itemFind)){
           itemFind.checked = true;
@@ -102,15 +102,15 @@ export class ChondanhmucthutucthanhtoanmodalComponent implements OnInit {
 checkItem(item){
 if(item.checked == true)
 {
-  let itemFind: any = this.listHangHoa.filter((e: any) =>e.iddmThanhToanThuTuc === item.id)[0]
+  let itemFind: any = this.listHangHoa.filter((e: any) =>e.IddmThanhToanThuTuc === item.Id)[0]
   if(itemFind === undefined){
-    let itemFinds = this.listThanhToanThuTuc.find(e => e.checked === true && e.id === item.id);
+    let itemFinds = this.listThanhToanThuTuc.find(e => e.checked === true && e.Id === item.Id);
     itemFinds = {
-      idHopDong: this.IdQuyTrinh || '',
-      iddmThanhToanThuTuc: itemFinds.id,
-      ten: itemFinds.ten,
+      IdHopDong: this.IdQuyTrinh || '',
+      IddmThanhToanThuTuc: itemFinds.Id,
+      Ten: itemFinds.Ten,
       isXoa: false,
-      id: '',
+      Id: '',
     }
     this.listHangHoa.push(itemFinds)
   }
@@ -118,7 +118,7 @@ if(item.checked == true)
     itemFind.isXoa = false;
 }
   else{
-    let itemFind = this.listHangHoa.filter((e: any) =>e.iddmThanhToanThuTuc === item.id)[0];
+    let itemFind = this.listHangHoa.filter((e: any) =>e.IddmThanhToanThuTuc === item.Id)[0];
     if(itemFind !== undefined){
       itemFind.isXoa = true;
     }

@@ -45,29 +45,29 @@ export class PhathopdongmodalComponent implements OnInit {
     }
     else{
       this.KiemTraButtonModal();
-      this.item.ngayPhatHanh = UnixToDate(this.item.ngayPhatHanhUnix)
+      this.item.NgayPhatHanh = UnixToDate(this.item.NgayPhatHanhUnix)
     }
     this.getListHopDong();
   }
 
   ValidData() {
-    if (!validVariable(this.item.lyDoKhongDuyet)) {
-      this._toastr.error("Vui lòng chọn lý do");
-      return false;
-    }
+    // if (!validVariable(this.item.LyDoKhongDuyet)) {
+    //   this._toastr.error("Vui lòng chọn lý do");
+    //   return false;
+    // }
     return true;
   }
 
 
   GetFormOptions() {
-    this._servicesDungChung.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 0).subscribe((res: any) => {
-        this.listHopDong = mapArrayForDropDown(res, "soTenHopDong", "id");
+    this._servicesDungChung.GetOptions().GetDanhSachHopDongByNhaThau(this.item.IdDuAn, 0).subscribe((res: any) => {
+        this.listHopDong = mapArrayForDropDown(res, "SoTenHopDong", "Id");
       });
   }
 
   KiemTraButtonModal() {
     this._servicesDungChung
-      .KiemTraButton(this.item.id || "", this.item.idTrangThai || "")
+      .KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "")
       .subscribe((res: any) => {
         console.log(this.checkbutton = res);
         this.checkbutton = res;
@@ -81,10 +81,10 @@ export class PhathopdongmodalComponent implements OnInit {
       .subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
-            this._toastr.success(res.message);
+            this._toastr.success(res.Message);
             this.activeModal.close();
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       });
@@ -96,10 +96,10 @@ export class PhathopdongmodalComponent implements OnInit {
       .subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
-            this._toastr.success(res.message);
+            this._toastr.success(res.Message);
             this.activeModal.close();
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       });
@@ -115,10 +115,10 @@ export class PhathopdongmodalComponent implements OnInit {
     //   this._services.QuyTrinhPhieuBongPhe().KhongDuyet(this.item).subscribe((res: any) => {
     //     if (res) {
     //       if (res.State === 1) {
-    //         this._toastr.success(res.message)
+    //         this._toastr.success(res.Message)
     //         this.activeModal.close();
     //       } else {
-    //         this._toastr.error(res.message);
+    //         this._toastr.error(res.Message);
     //       }
     //     }
     //   })
@@ -131,12 +131,12 @@ export class PhathopdongmodalComponent implements OnInit {
     .GetNextSoQuyTrinh()
     .subscribe((res: any) => {
       console.log(res);
-      this.item.soQuyTrinh = res.data;
+      this.item.SoQuyTrinh = res.Data;
     });
   }
 
   GhiLai() {
-    this.item.ngayPhatHanhUnix = DateToUnix(this.item.ngayPhatHanh);
+    this.item.NgayPhatHanhUnix = DateToUnix(this.item.NgayPhatHanh);
 
     if (this.ValidData()) {
       this._services
@@ -144,11 +144,11 @@ export class PhathopdongmodalComponent implements OnInit {
         .Set(this.item)
         .subscribe((res: any) => {
           if (res) {
-            if (res?.statusCode === 200) {
+            if (res?.StatusCode === 200) {
               this.activeModal.close();
-              this._toastr.success(res.message);
+              this._toastr.success(res.Message);
             } else {
-              this._toastr.error(res.message);
+              this._toastr.error(res.Message);
             }
           }
         });
@@ -171,9 +171,9 @@ export class PhathopdongmodalComponent implements OnInit {
             if (res) {
               if (res?.statusCode === 200) {
                 this.activeModal.close();
-                this._toastr.success(res.message);
+                this._toastr.success(res.Message);
               } else {
-                this._toastr.error(res.message);
+                this._toastr.error(res.Message);
               }
             }
           });

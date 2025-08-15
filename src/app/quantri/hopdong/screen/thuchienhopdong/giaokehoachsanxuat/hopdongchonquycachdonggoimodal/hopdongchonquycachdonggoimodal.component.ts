@@ -37,7 +37,7 @@ export class HopdongchonquycachdonggoimodalComponent implements OnInit {
     };
     if (this.selectedItems == undefined || this.selectedItems == null) {
       this.selectedItems.filter(objselectedItems => {
-        objselectedItems.objQuyCachDongGoi = this.items.filter(obj => this.newTableItem.iddmQuyCachDongGoi == obj.value)[0];
+        objselectedItems.objQuyCachDongGoi = this.items.filter(obj => this.newTableItem.IddmQuyCachDongGoi == obj.value)[0];
       });
     }
     // this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
@@ -52,14 +52,14 @@ export class HopdongchonquycachdonggoimodalComponent implements OnInit {
   }
 
   add() {
-    if (this.newTableItem.iddmQuyCachDongGoi == undefined || this.newTableItem.iddmQuyCachDongGoi == null)
+    if (this.newTableItem.IddmQuyCachDongGoi == undefined || this.newTableItem.IddmQuyCachDongGoi == null)
       this.toastr.error("Bạn chưa chọn quy cách đóng gòi");
-    if (this.newTableItem.khoiLuong == undefined || this.newTableItem.khoiLuong == null || this.newTableItem.khoiLuong <= 0)
+    if (this.newTableItem.KhoiLuong == undefined || this.newTableItem.KhoiLuong == null || this.newTableItem.KhoiLuong <= 0)
       this.toastr.error("Bạn chưa nhập số lượng");
     else {
       if (this.selectedItems == undefined || this.selectedItems == null)
         this.selectedItems = [];
-      this.newTableItem.objQuyCachDongGoi = this.items.filter(obj => this.newTableItem.iddmQuyCachDongGoi == obj.value)[0];
+      this.newTableItem.objQuyCachDongGoi = this.items.filter(obj => this.newTableItem.IddmQuyCachDongGoi == obj.value)[0];
       this.selectedItems.push(this.newTableItem);
       this.newTableItem = {
         id: "",
@@ -71,7 +71,7 @@ export class HopdongchonquycachdonggoimodalComponent implements OnInit {
 
   delete(index) {
     let item = this.selectedItems.splice(index, 1)[0];
-    if (item.id === '' || item.id === null || item.id === undefined) {
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
     } else {
       item.isXoa = true;
       item.isDelete = true;
@@ -80,7 +80,7 @@ export class HopdongchonquycachdonggoimodalComponent implements OnInit {
   }
 
   accept() {
-    if(validVariable(this.newTableItem.iddmQuyCachDongGoi) && validVariable(this.newTableItem.khoiLuong) && this.newTableItem.khoiLuong>0){
+    if(validVariable(this.newTableItem.IddmQuyCachDongGoi) && validVariable(this.newTableItem.KhoiLuong) && this.newTableItem.KhoiLuong>0){
       this.add()
     }
     // let tong = 0;

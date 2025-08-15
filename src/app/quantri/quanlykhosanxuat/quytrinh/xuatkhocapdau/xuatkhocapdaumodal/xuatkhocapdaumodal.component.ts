@@ -35,10 +35,12 @@ export class XuatkhocapdaumodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getListKho();
+    // this.getListKho();
     this.KiemTraButton();
     if (this.type === 'add') {
       this.GetNextSoQuyTrinh();
+    } else {
+      this.tinhTongKhoiLuong();
     }
   }
 
@@ -53,22 +55,50 @@ export class XuatkhocapdaumodalComponent implements OnInit {
     })
   }
 
+  TongKhoiLuong(item) {
+    item.TongKhoiLuong = (item.SoQuaSoiHoiAm || 0) * (item.KgCone || 0);
+  }
+
+  tinhTongKhoiLuong() {
+    this.item.Ngay = UnixToDate(this.item.NgayUnix)
+    this.item.listItem = this.item.listItem?.map(ele => {
+      return {
+        ...ele,
+        TongKhoiLuong: (ele.SoQuaSoiHoiAm || 0) * (ele.KgCone || 0)
+      }
+    })
+  }
+
   GetMatHangTheoKho() {
     let data = {
-
+      IddmKho: this.item.IddmKhoHoiAm,
+      Ngay: DateToUnix(this.item.Ngay)
     }
     this._services.GetlistdmMatHangXuatHoiAmCapDau(data).subscribe((res: any) => {
       let modalRef = this._modal.open(DanhsachmathangmuiComponent, {
         backdrop: 'static', size: 'lg'
       });
       modalRef.componentInstance.listDaChon = this.item.listItem?.length ? this.item.listItem?.map(ele => ele.IddmItem) : [];
-      modalRef.componentInstance.title = 'Danh sách mặt hàng'
+      modalRef.componentInstance.title = 'Danh sách mặt hàng',
+        modalRef.componentInstance.listView = res || []
       modalRef.result.then(res => {
-        this.item.listItem = [this.item.listItem, ...res]
+        this.item.listItem = res?.map(ele => {
+          let itemDaChon = this.item.listItem?.find(obj => obj.IddmItem === ele.IddmItem);
+          let _newObj = itemDaChon ? itemDaChon : {
+            ...ele,
+            TonSoLuong: ele.SoLuong,
+            KgCone: ele.TrongLuong,
+          };
+          return _newObj;
+        })
       }).catch(er => console.log(er))
     })
   }
 
+  delete(idx) {
+    this.item.listItem.splice(idx, 1);
+    this.item.listItem = [...this.item.listItem];
+  }
 
   getListKho() {
     this._services.GetListdmKho({ Loai: 10 }).subscribe((res: any) => {
@@ -82,13 +112,26 @@ export class XuatkhocapdaumodalComponent implements OnInit {
   setData() {
     let data = {
       ...this.item,
-      NgayUnix: DateToUnix(this.item.Ngay)
+      NgayUnix: DateToUnix(this.item.Ngay),
+      listItem: this.item.listItem?.map(ele => {
+        return {
+          ...ele,
+          IddmKho: this.item.IddmKhoHoiAm
+        }
+      })
     }
     return data;
   }
 
   GhiLai() {
     this._services.PhieuXuatHoiAmCapDau().Set(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        this.item = res.Data;
+        this.tinhTongKhoiLuong();
+        this.toastr.success(res.message);
+      } else {
+        this.toastr.error(res.message);
+      }
     })
   }
 
@@ -209,5 +252,6 @@ export class XuatkhocapdaumodalComponent implements OnInit {
       }
     });
   }
+
 
 }

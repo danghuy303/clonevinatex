@@ -73,7 +73,7 @@ export class KehoachnhapbongComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = res1.data;
+    modalRef.componentInstance.item = res1.Data;
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
       this.changeParam(0);
@@ -112,8 +112,8 @@ export class KehoachnhapbongComponent implements OnInit {
       Loai: 0
     }
     this._service.KeHoachNhapBong().GetList(data).subscribe((res: any) => {    
-      this.items = res.data?.items;
-      this.paging.TotalItem = res.data?.totalCount;
+      this.items = res.Data?.Items;
+      this.paging.TotalItem = res.Data?.TotalCount;
     })
   }
   resetFilter() {

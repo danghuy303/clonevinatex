@@ -27,14 +27,14 @@
                             (onChange)="checkAll($event)"></p-checkbox>
                     </th>
                     <th style="width: 3rem">STT</th>
-                    <th style="width: 10rem">Mã </th>
+                    <th style="width: 15rem">Mã </th>
                     <th>Tên</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item let-i="rowIndex">
                 <tr class="p-selectable-row">
                     <td class="text-center">
-                        <p-checkbox [(ngModel)]="user.checked" binary="true" inputId="binary" (onChange)="checked()">
+                        <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked()">
                         </p-checkbox>
                     </td>
                     <td class="text-center">{{i+1}}</td>

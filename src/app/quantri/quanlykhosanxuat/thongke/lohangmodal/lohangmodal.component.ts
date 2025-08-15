@@ -7,6 +7,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from '../../../../services/Taisan/danhmuctaisan.service';
 import { API } from '../../../../services/host';
+import * as printJS from 'print-js';
 
 @Component({
   selector: 'app-lohangmodal',
@@ -130,13 +131,21 @@ export class LohangmodalComponent implements OnInit {
     this.listGiaoKeHoach_TrienKhai = mapArrayForDropDown(dataFilter, 'SoQuyTrinh', 'Id');
   }
 
-
-
   InQrCode() {
-    this._danhMucTaiSan.InQrCodeLoHang(this.item.MaQR, this.item.SoLuong, this.item.IdKichThuoc || 100).subscribe((res: any) => {
+    let data = {
+      KichThuoc: this.item.IdKichThuoc || 100,
+      MaQR: this.item.MaQR,
+      SoBan: this.item.SoBan || 1,
+      KhoGiay: this.item.KhoGiay || 8
+    }
+    this._danhMucTaiSan.InQrCodeLoHang(data).subscribe((res: any) => {
       if (res.State === 1) {
-        let url = res.Data
-        window.open(API.imgURL + url);
+        const url = API.imgURL + res.Data;
+        printJS({
+          printable: url,
+          type: 'pdf',
+          showModal: false
+        });
         this.toastr.success(res.message)
       } else this.toastr.error(res.message)
     });

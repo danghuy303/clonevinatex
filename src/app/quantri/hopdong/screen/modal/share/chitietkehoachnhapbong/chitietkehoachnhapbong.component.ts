@@ -28,7 +28,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
   newTableItem: any = {
     "id": "",
-    "idKeHoachNhapBong": this.item.id,
+    "idKeHoachNhapBong": this.item.Id,
   };
   editTableItem: any = [];
   listLoBong: any = [];
@@ -61,15 +61,15 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.GetDanhSachDuAnByIdUser();
     if (this.opt !== 'edit') {
       this.item = {
-        id: "",
+        Id: "",
         listInvoice: [],
       }
-      this.item.idDuAn = this.store.getCurrent();
+      this.item.IdDuAn = this.store.getCurrent();
       this.GetDanhSachHopDongByNhaThau();
       this.GetNextSoQuyTrinh();
     }
     else {
-      this.GetItem(this.item.id);
+      this.GetItem(this.item.Id);
     }
     this.data.CurrentPage = 0;
     
@@ -79,10 +79,10 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
    
   }
   KiemTraButtonModal() {
-    this._services.KiemTraButton(this.item.id || '', this.item.idTrangThai || '').subscribe(res => {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
       if(this.item.isKetThuc === true){
-          this._services.CheckEditPhieuInvoice(this.item.id || '').subscribe(res => {
+          this._services.CheckEditPhieuInvoice(this.item.Id || '').subscribe(res => {
           if(res == true){
             this.item.isEdit = true;
             this.checkbutton.Ghi = true;
@@ -99,25 +99,25 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   GetDanhSachHopDongByNhaThau() {
-    this._servicesHopDong.QuyTrinhHopDong().GetDanhSachHopDongMua(this.item.idDuAn).subscribe((res: any) => {//lay bong va xo
+    this._servicesHopDong.QuyTrinhHopDong().GetDanhSachHopDongMua(this.item.IdDuAn).subscribe((res: any) => {//lay bong va xo
       this.listhopdong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
       this.listhopdong_copy = deepCopy(res);
     })
   }
 
   GetListdmLoaiBongForHopDong() {
-    let item = this.listhopdong_copy.find(obj => obj.id == this.item.idHopDong);
-    this.item.soLuong = item.soLuong;
-    this.item.giaCif = item.giaCif;
+    let item = this.listhopdong_copy.find(obj => obj.Id == this.item.IdHopDong);
+    this.item.SoLuong = item.SoLuong;
+    this.item.GiaCif = item.GiaCif;
     this.item.tenLoaiBongXo = item.tenLoaiBongXo;
-    this.item.iddmLoaiBong = item.iddmLoaiBong;
-    this.item.iddmCapBong = item.iddmCapBong;
-    this.item.iddmDacTinh = item.iddmDacTinh;
-    this.item.soContainer = item.soContainer;
-    this.item.soKien = item.soKien;
-    this.item.tendmCapBong = validVariable(this.item.iddmCapBong) ? this.listdmCapBong.find(e=> e.value == this.item.iddmCapBong).label : '';
-    this._services.dmDacTinhBong().GetDacTinh(this.item.iddmLoaiBong || '', this.item.iddmCapBong || '').subscribe((res: any) => {
-      this.item.dacTinhBong = validVariable(this.item.iddmDacTinh) ? res.find(e=> e.Id == this.item.iddmDacTinh).DacTinh : '';
+    this.item.IddmLoaiBong = item.IddmLoaiBong;
+    this.item.IddmCapBong = item.IddmCapBong;
+    this.item.IddmDacTinh = item.IddmDacTinh;
+    this.item.SoContainer = item.SoContainer;
+    this.item.SoKien = item.SoKien;
+    this.item.TendmCapBong = validVariable(this.item.IddmCapBong) ? this.listdmCapBong.find(e=> e.value == this.item.IddmCapBong).label : '';
+    this._services.dmDacTinhBong().GetDacTinh(this.item.IddmLoaiBong || '', this.item.IddmCapBong || '').subscribe((res: any) => {
+      this.item.dacTinhBong = validVariable(this.item.IddmDacTinh) ? res.find(e=> e.Id == this.item.IddmDacTinh).DacTinh : '';
     });
     this.data.Loai = item.loai;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
@@ -130,10 +130,10 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
       this._services.KeHoachNhapBong().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.statusCode === 200) {
-            this.toastr.success(res.message);
+            this.toastr.success(res.Message);
             this.activeModal.close();
           } else {
-            this.toastr.error(res.message);
+            this.toastr.error(res.Message);
           }
         }
       })
@@ -147,7 +147,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
           if (res.statusCode === 200) {
             this.activeModal.close();
           } else {
-            this.toastr.error(res.message);
+            this.toastr.error(res.Message);
           }
         }
       })
@@ -156,13 +156,13 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
 
   GetNextSoQuyTrinh() {
     this._services.KeHoachNhapBong().GetNextSo().subscribe((res: any) => {
-      this.item.soQuyTrinh = res.data;
+      this.item.SoQuyTrinh = res.Data;
     })
   }
 
   setdata() {
-    if(validVariable(this.newTableItem.soContainer) && validVariable(this.newTableItem.soLuong) && validVariable(this.newTableItem.soKien)
-    && validVariable(this.newTableItem.thoiGianCapCang) && validVariable(this.newTableItem.thoiGianDuKien)){
+    if(validVariable(this.newTableItem.SoContainer) && validVariable(this.newTableItem.SoLuong) && validVariable(this.newTableItem.SoKien)
+    && validVariable(this.newTableItem.ThoiGianCapCang) && validVariable(this.newTableItem.ThoiGianDuKien)){
       this.add()
     }
     let isCheckThoiGian : any = false;
@@ -170,11 +170,11 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     
     if(validVariable(this.item.listInvoice)){
       for(let i = 0; i < this.item.listInvoice.length; i ++){
-        if(!validVariable(this.item.listInvoice[i].thoiGianDuKien) || !validVariable(this.item.listInvoice[i].thoiGianCapCang)){
+        if(!validVariable(this.item.listInvoice[i].ThoiGianDuKien) || !validVariable(this.item.listInvoice[i].ThoiGianCapCang)){
           isCheckThoiGian = true;
           break;
         }
-        if(!validVariable(this.item.listInvoice[i].iddmKho)){
+        if(!validVariable(this.item.listInvoice[i].IddmKho)){
           isCheckKho = true;
           break;
         }
@@ -191,25 +191,25 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
       this.toastr.error('Vui lòng chọn kho')
       return false;
     }
-    else if (!validVariable(this.item.idHopDong)) {
+    else if (!validVariable(this.item.IdHopDong)) {
       this.toastr.error('Vui lòng chọn hợp đồng')
       return false;
     }
-    else if (!validVariable(this.item.thoiGianDuKien)) {
+    else if (!validVariable(this.item.ThoiGianDuKien)) {
       this.toastr.error('Vui lòng chọn thời gian dự kiến')
       return false;
     }
-    else if (!validVariable(this.item.thoiGianCapCang)) {
+    else if (!validVariable(this.item.ThoiGianCapCang)) {
       this.toastr.error('Vui lòng chọn thời gian cập cảng')
       return false;
     }
     else{
-      this.item.thoiGianDuKienUnix = DateToUnix(this.item.thoiGianDuKien);
-      this.item.thoiGianCapCangUnix = DateToUnix(this.item.thoiGianCapCang);
+      this.item.ThoiGianDuKienUnix = DateToUnix(this.item.ThoiGianDuKien);
+      this.item.ThoiGianCapCangUnix = DateToUnix(this.item.ThoiGianCapCang);
       if (this.item.listInvoice.length > 0) {
         this.item.listInvoice.forEach(obj => {
-          obj.thoiGianDuKienUnix = DateToUnix(obj.thoiGianDuKien);
-          obj.thoiGianCapCangUnix = DateToUnix(obj.thoiGianCapCang);
+          obj.ThoiGianDuKienUnix = DateToUnix(obj.ThoiGianDuKien);
+          obj.ThoiGianCapCangUnix = DateToUnix(obj.ThoiGianCapCang);
         });
       }
       return true;
@@ -222,11 +222,11 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
       this._services.KeHoachNhapBong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.statusCode === 200) {
-            this.toastr.success(res.message)
+            this.toastr.success(res.Message)
             this.opt = 'edit';
-            this.GetItem(res.data);
+            this.GetItem(res.Data);
           } else {
-            this.toastr.error(res.message);
+            this.toastr.error(res.Message);
           }
         }
       })
@@ -235,16 +235,16 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
 
   GetItem(Id) {
     this._services.KeHoachNhapBong().Get(Id).subscribe((res: any) => {
-      this.item = res.data;
-      this.item.thoiGianDuKien = UnixToDate(this.item.thoiGianDuKienUnix);
-      this.item.thoiGianCapCang = UnixToDate(this.item.thoiGianCapCangUnix);
+      this.item = res.Data;
+      this.item.ThoiGianDuKien = UnixToDate(this.item.ThoiGianDuKienUnix);
+      this.item.ThoiGianCapCang = UnixToDate(this.item.ThoiGianCapCangUnix);
       if (this.item.listInvoice.length > 0) {
         this.item.listInvoice.forEach(obj => {
-          obj.thoiGianDuKien = UnixToDate(obj.thoiGianDuKienUnix);
-          obj.thoiGianCapCang = UnixToDate(obj.thoiGianCapCangUnix);
+          obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
+          obj.ThoiGianCapCang = UnixToDate(obj.ThoiGianCapCangUnix);
         });
       }
-      this._servicesHopDong.QuyTrinhHopDong().GetDanhSachHopDongMua(this.item.idDuAn).subscribe((res: any) => {
+      this._servicesHopDong.QuyTrinhHopDong().GetDanhSachHopDongMua(this.item.IdDuAn).subscribe((res: any) => {
         this.listhopdong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
         this.listhopdong_copy = deepCopy(res);
         this.GetListdmLoaiBongForHopDong();
@@ -264,7 +264,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
         if (res?.statusCode === 200) {
           this.activeModal.close();
         } else {
-          this.toastr.error(res.message);
+          this.toastr.error(res.Message);
         }
       })
     }).catch(er => console.log(er))
@@ -297,24 +297,24 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   add() {
-    if(!validVariable(this.newTableItem.thoiGianCapCang) || !validVariable(this.newTableItem.thoiGianDuKien)){
+    if(!validVariable(this.newTableItem.ThoiGianCapCang) || !validVariable(this.newTableItem.ThoiGianDuKien)){
       this.toastr.error('Vui lòng chọn thời gian')
     }
     if (this.item.listInvoice == undefined || this.item.listInvoice == null)
       this.item.listInvoice = [];
-    this.newTableItem.id = "";
-    this.newTableItem.idKeHoachNhapBong = this.item.id;
-    if(!validVariable(this.newTableItem.soContainer))
-      this.newTableItem.soContainer = 0;
-    if(!validVariable(this.newTableItem.soLuong))
-      this.newTableItem.soLuong = 0;
-    if(!validVariable(this.newTableItem.soKien))
-      this.newTableItem.soKien = 0;
+    this.newTableItem.Id = "";
+    this.newTableItem.IdKeHoachNhapBong = this.item.Id;
+    if(!validVariable(this.newTableItem.SoContainer))
+      this.newTableItem.SoContainer = 0;
+    if(!validVariable(this.newTableItem.SoLuong))
+      this.newTableItem.SoLuong = 0;
+    if(!validVariable(this.newTableItem.SoKien))
+      this.newTableItem.SoKien = 0;
     this.item.listInvoice.push(this.newTableItem);
     this.tinhTongContainer_SoKien();
     this.newTableItem = {
       "id": "",
-      "idKeHoachNhapBong": this.item.id,
+      "idKeHoachNhapBong": this.item.Id,
     }
   }
   edit(item, index) {
@@ -325,7 +325,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.editTableItem = deepCopy(item);
   }
   delete(index) {
-    if (!validVariable(this.item.listInvoice[index].id)) {
+    if (!validVariable(this.item.listInvoice[index].Id)) {
       this.item.listInvoice.splice(index, 1)
     } else {
       this.item.listInvoice[index].isXoa = true;
@@ -354,7 +354,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     //   item.TongSoKien = 0;
     //   item.SoLuongNhap = 0;
     //   console.log(res)
-    //   item.listDot = res.data;
+    //   item.listDot = res.Data;
     //   item.listDot.forEach(element => {
     //     item.Container += element.Container;
     //     item.TongSoKien += element.TongSoKien;
@@ -365,12 +365,12 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   tinhTongContainer_SoKien() {
-    this.item.soContainer = 0;
-    this.item.soKien = 0;
+    this.item.SoContainer = 0;
+    this.item.SoKien = 0;
     this.item.listInvoice.forEach(obj => {
       if (this.item.isXoa == undefined || this.item.isXoa == false) {
-        this.item.soContainer += obj.soContainer;
-        this.item.soKien += obj.soKien;
+        this.item.SoContainer += obj.SoContainer;
+        this.item.SoKien += obj.SoKien;
       }
     });
   }

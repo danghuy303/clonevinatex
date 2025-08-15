@@ -63,7 +63,7 @@
                         <!-- <th>Nhà máy</th> -->
                         <th>Mặt hàng</th>
                         <th>Kế hoạch triển khai gốc</th>
-                        <th>Kế hoạch triển khai</th>
+                        <th>Kế hoạch triển khai: {{tenNhaMay}}</th>
                         <th>Số tấn tồn</th>
                         <th>Khối lượng cần SX</th>
                         <th>Số tấn đặt</th>
@@ -82,12 +82,12 @@
 
                         <td class="text-right"> {{item.KhoiLuongSanXuat | number:'0.2-2'}} </td>
                         <td>
-                            <p-inputNumber locale="en-EN" [(ngModel)]="item.SanLuongCanSX" [min]="0"
+                            <p-inputNumber locale="en-EN" [(ngModel)]="item.SanLuongCanSX" [min]="0" disabled
                                 [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
                         </td>
                         <td class="text-right"> {{item.SanLuongTon| number:0.0-0}}</td>
                         <!-- 13/82025 alap đổi ct -->
-                        <td class="text-right"> {{(item.SanLuongCanSX + item.SanLuongTon) | number:0.0-0}}</td> 
+                        <td class="text-right"> {{(item.SanLuongCanSX + item.SanLuongTon) | number:0.0-0}}</td>
                         <td>
                             <p-inputNumber locale="en-EN" [(ngModel)]="item.SanLuongDat" [minFractionDigits]="0"
                                 [max]="item.KhoiLuongSanXuat" (onBlur)="nhapSoTanDat(item)"></p-inputNumber>

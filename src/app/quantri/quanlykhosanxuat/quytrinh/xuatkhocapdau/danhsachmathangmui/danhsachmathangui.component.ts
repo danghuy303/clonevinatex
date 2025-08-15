@@ -23,7 +23,7 @@ export class DanhsachmathangmuiComponent implements OnInit {
   }
   getList() {
     this.listView.forEach((ele: any) => {
-      ele.checked = this.listDaChon.includes(ele.IdNhanVien);
+      ele.checked = this.listDaChon.includes(ele.IddmItem);
     })
     this.checked();
   }

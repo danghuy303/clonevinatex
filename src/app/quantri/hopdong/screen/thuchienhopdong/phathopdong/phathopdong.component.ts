@@ -129,8 +129,8 @@ export class PhathopdongComponent implements OnInit {
       .PhatHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        this.items = res.data.items;
-        this.paging.TotalItem = res.data.totalCount;
+        this.items = res.Data.Items;
+        this.paging.TotalItem = res.Data.TotalCount;
       });
   }
 

@@ -16,7 +16,7 @@ import { QuytrinhthanhtoanbongmodalComponent } from '../quytrinhthanhtoanbongmod
 export class QuytrinhthanhtoanbongComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
-  items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
+  items: any = [{ Id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
@@ -73,7 +73,6 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
 
     })
       .catch(er => {
-        console.log(er)
         this.GetListQuyTrinh();
         this.changeParam(0);
       })
@@ -131,15 +130,15 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
       Loai:2,
     }
     this._hopdong.QuyTrinhThanhToan().GetList(data).subscribe((res: any) => {
-      this.items = res.data.items;
+      this.items = res.Data.Items;
       if (this.items.length > 0) {
         this.items.forEach(element => {
           element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
         });
       }
-      this.paging.CurrentPage = res.data.page;
-      this.paging.TotalPage = res.data.totalPages;
-      this.paging.TotalItem = res.data.totalCount;
+      this.paging.CurrentPage = res.Data.Page;
+      this.paging.TotalPage = res.Data.TotalPages;
+      this.paging.TotalItem = res.Data.TotalCount;
     })
   }
   resetFilter() {

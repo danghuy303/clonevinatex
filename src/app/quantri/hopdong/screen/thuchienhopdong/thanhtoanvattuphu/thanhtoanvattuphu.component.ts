@@ -16,7 +16,7 @@ import { ThanhtoanvattuphumodalComponent } from './thanhtoanvattuphumodal/thanht
 export class ThanhtoanvattuphuComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
-  items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
+  items: any = [{ Id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
@@ -83,7 +83,7 @@ export class ThanhtoanvattuphuComponent implements OnInit {
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.item = res1.data;
+      modalRef.componentInstance.item = res1.Data;
       modalRef.componentInstance.type = this.type;
       modalRef.componentInstance.nametype = this.nametype;
       modalRef.componentInstance.IdDuAn = this.IdDuAn;
@@ -128,15 +128,15 @@ export class ThanhtoanvattuphuComponent implements OnInit {
       Loai:23,
     }
     this._hopdong.QuyTrinhThanhToan().GetList(data).subscribe((res: any) => {
-      this.items = res.data.items;
+      this.items = res.Data.Items;
       if (this.items.length > 0) {
         this.items.forEach(element => {
           element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
         });
       }
-      this.paging.CurrentPage = res.data.page;
-      this.paging.TotalPage = res.data.totalPages;
-      this.paging.TotalItem = res.data.totalCount;
+      this.paging.CurrentPage = res.Data.Page;
+      this.paging.TotalPage = res.Data.TotalPages;
+      this.paging.TotalItem = res.Data.TotalCount;
     })
   }
   resetFilter() {

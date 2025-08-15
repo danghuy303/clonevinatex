@@ -212,6 +212,8 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     this.inputChange()
   }
   chonMatHang(item, event) {
+    console.log('item', item);
+    console.log('event', event);
     if (event.value) {
       item.Ten = this.listHangHoa.find(mathang => mathang.value === event.value)?.label;
       // if(validVariable(item.SoCocDen)&& validVariable(item.SoCocTu)){

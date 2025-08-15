@@ -21,6 +21,7 @@ export class MathanglienketComponent implements OnInit {
   listPhieuLienKetAll: any = [];
   listDaChon: any = [];
   listPhanXuong: any = [];
+  tenNhaMay: String = '';
 
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService) { }
 
@@ -30,6 +31,7 @@ export class MathanglienketComponent implements OnInit {
   }
 
   getListPhanXuong() {
+    this.tenNhaMay = this.listPhanXuong.find(ele => ele.value === this.quyTrinh.IddmPhanXuong).label;
     this.listPhanXuong = this.listPhanXuong.filter(ele => ele.value !== this.quyTrinh.IddmPhanXuong);
   }
 

@@ -39,6 +39,11 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Số lượng',
+      field: 'SoKien',
+      width: 'unset'
+    },
+    {
       header: 'Số quả sợi',
       field: 'SoLuong',
       width: 'unset'
@@ -67,7 +72,6 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
-    console.log(this.listItem)
     // if (this.listItem != undefined && this.listItem != null && this.listItem.length > 0) {
     //   for (let i = 0; i < this.listItem.length; i++) {
     //     let itemFind = this.listMatHang.find(
@@ -90,7 +94,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
       })
     }
     let _listIdLoHang = [...new Set(this.listMatHang.map((x: any) => x.Ma))]
-    let results = [];
+    let results: any = [];
     _listIdLoHang.forEach((x: any) => {
       let _arr = this.listMatHang.filter((y: any) => y.Ma === x);
 
@@ -115,7 +119,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
 
   handleExpand(data: any) {
     data.expanded = true;
-    let newArr = []
+    let newArr: any = []
     this.listRoot.forEach((x: any) => {
       let _listChild = x.listChild.sort((a: any, b: any) => a.NgayNhapKho < b.NgayNhapKho ? -1 : 1);
       if (this.KeyWord) {
@@ -135,7 +139,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
   }
   handleCollapse(data: any) {
     data.expanded = false;
-    let newArr = []
+    let newArr:any = []
     this.listRoot.forEach((x: any) => {
       let _listChild = x.listChild.sort((a: any, b: any) => a.NgayNhapKho < b.NgayNhapKho ? -1 : 1);
       if (this.KeyWord) {
@@ -241,7 +245,6 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     }
   }
   changePage(event) {
-    console.log(event)
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
     var end = start + 15;

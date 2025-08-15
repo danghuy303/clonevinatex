@@ -59,14 +59,14 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
-                <td class="text-center">{{item.soQuyTrinh}}</td>
-                <td class="text-center">{{item.created | date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.soHopDong}} - {{item.tenHopDong}}</td>
-                <td class="text-center">{{item.noiDung}}</td>
-                <td class="text-center">{{item.ngayThanhToan | date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.giaTriThanhToan| number:'0.0-2'}}</td>
+                <td class="text-center">{{item.SoQuyTrinh}}</td>
+                <td class="text-center">{{item.Created | date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.SoHopDong}} - {{item.TenHopDong}}</td>
+                <td class="text-center">{{item.NoiDung}}</td>
+                <td class="text-center">{{item.NgayThanhToan | date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.GiaTriThanhToan| number:'0.0-2'}}</td>
                 <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>

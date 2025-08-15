@@ -21,14 +21,15 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <!-- 15/8/2025 a_dai de xuat ẩn -->
+        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca sản xuất:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmCaSanXuat" placeholder="Chọn ca sản xuất"
                     styleClass="p-inputtext-sm" [(ngModel)]="idCaSanXuat" (onChange)="changeTab()" [showClear]="true">
                 </p-dropdown>
             </div>
-        </div>
+        </div> -->
     </div>
     <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
         <p-tabPanel [header]="item.Ten" *ngFor="let item of item.lstMayBienAp">

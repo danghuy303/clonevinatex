@@ -2,10 +2,10 @@
     <h5 class="modal-title">Phiếu giao kế hoạch sản xuất</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
-            <span style="font-weight: bold;">Số quy trình:</span> {{item.soQuyTrinh}}
+            <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
         </div>
         <div class="ml-lg-3 mr-lg-3">
-            <span style="font-weight: bold;">TG Tạo:</span> {{item.created|date:"dd/MM/yyyy HH:mm"}}
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
         </div>
         <div>
             <span style="font-weight: bold;">TG Duyệt:</span> {{item.NgayDuyet|date:"dd/MM/yyyy HH:mm"}}
@@ -36,28 +36,28 @@
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Nội dung<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.noiDung" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhà máy<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listDonVi" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.idDuAn" (onChange)="getPhanXuong($event.value)"></p-dropdown>
+                    [(ngModel)]="item.IdDuAn" (onChange)="getPhanXuong($event.value)"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Phân xưởng<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.iddmPhanXuong"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Từ ngày<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                    [yearNavigator]="true" [yearRange]="yearRange" (onBlur)="TinhSoCa()" [(ngModel)]="item.ngayBatDau"
+                    [yearNavigator]="true" [yearRange]="yearRange" (onBlur)="TinhSoCa()" [(ngModel)]="item.NgayBatDau"
                     placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
@@ -67,7 +67,7 @@
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
                     [yearNavigator]="true" [yearRange]="yearRange" (onSelect)="validDenNgay(item,$event)"
-                    [(ngModel)]="item.ngayKetThuc" placeholder="dd/mm/yyyy">
+                    [(ngModel)]="item.NgayKetThuc" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tổng số ca<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.tongSoCa">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TongSoCa">
                 </p-inputNumber>
             </div>
         </div>
@@ -90,20 +90,20 @@
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ne bình quân 30(Tấn/ca):</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.ne30" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.Ne30" disabled>
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tổng khối lượng:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.tongKhoiLuong" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TongKhoiLuong" disabled>
                 </p-inputNumber>
             </div>
         </div>
@@ -159,13 +159,13 @@
                         <td>
                             <div style="display: flex;">
                                 <div style="flex:1">
-                                    <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.khoiLuong"
+                                    <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.KhoiLuong"
                                         (ngModelChange)="changeKeHoachSanXuat(item)">
                                     </p-inputNumber>
                                 </div>
                                 <button pButton pRipple icon="pi pi-ellipsis-v"
                                     class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'khoiLuong')" pTooltip="Tính toán" showDelay="1000"
+                                    (click)="tinhToan(item,'KhoiLuong')" pTooltip="Tính toán" showDelay="1000"
                                     tooltipPosition="bottom"></button>
                             </div>
                         </td>
@@ -178,7 +178,7 @@
                                 <div>
                                     <div *ngFor="let items of item.listQuyCachDongGoi">
                                         <span *ngIf="!items.isXoa">
-                                            {{items.objQuyCachDongGoi.label}} - {{items.khoiLuong}}
+                                            {{items.objQuyCachDongGoi.label}} - {{items.KhoiLuong}}
                                         </span>
                                     </div>
                                 </div>
