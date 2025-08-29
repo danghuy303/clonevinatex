@@ -22,23 +22,23 @@ export class ModaldanhmuctrangthaibaolanhComponent implements OnInit {
 
   SetData() {
     let data: any = {
-      "id": this.item.id,
-      "ma": this.item.ma,
-      "ten": this.item.ten,
-      "ghiChu": this.item.ghiChu,
-      "created": this.type == "trangthaibaolanh" ? new Date() : this.item.created,
-      "modified":new Date() ,
-      "isDelete":this.type == "trangthaibaolanh" ? false : this.item.isDelete,
+      "Id": this.item.Id,
+      "Ma": this.item.Ma,
+      "Ten": this.item.Ten,
+      "GhiChu": this.item.GhiChu,
+      "Created": this.type == "trangthaibaolanh" ? new Date() : this.item.Created,
+      "Modified": new Date(),
+      "isDelete": this.type == "trangthaibaolanh" ? false : this.item.isDelete,
     };
     return data;
   }
 
   ValidateData() {
-    if (!validVariable(this.item.ma)) {
+    if (!validVariable(this.item.Ma)) {
       this.toastr.error("Yêu cầu nhập đầy đủ mã tình trạng bảo lãnh!");
       return false;
     }
-    if (!validVariable(this.item.ten)) {
+    if (!validVariable(this.item.Ten)) {
       this.toastr.error("Yêu cầu nhập đầy đủ tên tình trạng bảo lãnh!");
       return false;
     }
@@ -48,13 +48,12 @@ export class ModaldanhmuctrangthaibaolanhComponent implements OnInit {
   GhiLai() {
     if (this.ValidateData()) {
       this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Set(this.SetData()).subscribe((res: any) => {
-        if (res.statusCode !== 200) {
-          this.toastr.error(res.message);
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
         } else {
-          this.toastr.success(res.message);
+          this.toastr.success(res.Message);
           this.activeModal.close();
-        } 
-      
+        }
       })
 
     }

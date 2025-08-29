@@ -15,7 +15,7 @@ import { BaoHanhPopupComponent } from './bao-hanh-popup/bao-hanh-popup.component
 })
 export class BaoHanhComponent implements OnInit {
 
-  @Input('listBaoHanh') listBaoHanh: any=[];
+  @Input('listBaoHanh') listBaoHanh: any = [];
   listKiemDinh: any = [];
   constructor(
     private _modal: NgbModal,
@@ -28,10 +28,10 @@ export class BaoHanhComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.GetListdm();
-   this.listBaoHanh?.forEach(element => {
-    element.TenDonViBaoHanh = element.IdDonViBaoHanh ? this.listKiemDinh.filter(ele => ele.value === element.IdDonViBaoHanh)[0].label : '';
-   });
+    this.GetListdm();
+    this.listBaoHanh?.forEach(element => {
+      element.TenDonViBaoHanh = element.IdDonViBaoHanh ? this.listKiemDinh.filter(ele => ele.value === element.IdDonViBaoHanh)[0].label : '';
+    });
   }
 
   GetListdm() {
@@ -53,12 +53,13 @@ export class BaoHanhComponent implements OnInit {
     modalRef.componentInstance.title = "Thêm mới bảo hành";
     modalRef.componentInstance.listKiemDinh = this.listKiemDinh;
     modalRef.result.then((res: any) => {
+      this.listBaoHanh = this.listBaoHanh?.length ? this.listBaoHanh : [];
       res.TenDonViBaoHanh = res.IdDonViBaoHanh ? this.listKiemDinh.filter(ele => ele.value === res.IdDonViBaoHanh)[0].label : '';
-      this.listBaoHanh?.push(res);
+      this.listBaoHanh.push(res);
     })
   }
 
-  edit(item:any,index:any) {
+  edit(item: any, index: any) {
     let modalRef = this._modal.open(BaoHanhPopupComponent, {
       backdrop: 'static',
       size: 'lg'
@@ -68,7 +69,7 @@ export class BaoHanhComponent implements OnInit {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
       res.TenDonViBaoHanh = res.IdDonViBaoHanh ? this.listKiemDinh.filter(ele => ele.value === res.IdDonViBaoHanh)[0].label : '';
-      this.listBaoHanh[index]=res;
+      this.listBaoHanh[index] = res;
     })
   }
 

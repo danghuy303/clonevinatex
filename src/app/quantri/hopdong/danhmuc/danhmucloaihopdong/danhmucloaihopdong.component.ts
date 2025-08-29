@@ -19,19 +19,19 @@ export class DanhmucloaihopdongComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã loại hợp đồng',
-      field: 'ma',
+      field: 'Ma',
       width: '350px',
       align:'center'
     },
     {
       header: 'Tên loại hợp đồng',
-      field: 'ten',
+      field: 'Ten',
       width: '300px',
       align:'center'
     },
     {
       header: 'Ghi chú',
-      field: 'ghiChu',
+      field: 'GhiChu',
       width: '200px',
       align:'center'
     }
@@ -54,13 +54,11 @@ export class DanhmucloaihopdongComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
-      sFilter:this.keyWord,  
-      ma:"", 
-      ten:""    
+      sFilter:this.keyWord,   
     };
     this. _danhMucHopDong.DanhMucLoaiHopDong().GetList(data).subscribe((res:any)=>{
-      this.items = res.data.items;
-      this.paging.TotalItem = res.data.totalCount;
+      this.items = res.Data.Items;
+      this.paging.TotalItem = res.Data.TotalCount;
     })
   }
   add(){
@@ -94,12 +92,12 @@ export class DanhmucloaihopdongComponent implements OnInit {
     modalRef.result.then(res=>{  
       this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList([item.id]).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
             this.GetListdmLoaiHopDong();
             this.selectedItems = [];
           } else {
-           this._toastr.error(res.message);
+           this._toastr.error(res.Message);
           }
         }
       })
@@ -114,11 +112,11 @@ export class DanhmucloaihopdongComponent implements OnInit {
       const item=this.selectedItems[0];    
       this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item.id]).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
             this.GetListdmLoaiHopDong();
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       })
@@ -133,12 +131,12 @@ export class DanhmucloaihopdongComponent implements OnInit {
   //   modalRef.result.then(res=>{  
   //     this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList(listId).subscribe((res: any) => {
   //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
+  //         if (res.StatusCode === 200) {
+  //           this._toastr.success(res.Message);
   //           this.GetListdmLoaiHopDong();
   //           this.selectedItems = [];
   //         } else {
-  //          this._toastr.error(res.message);
+  //          this._toastr.error(res.Message);
   //         }
   //       }
   //     })

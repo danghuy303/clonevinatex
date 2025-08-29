@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
-import { StoreService } from 'src/app/services/store.service';
+import { ModalthongbaoComponent } from '../../../../../../quantri/modal/modalthongbao/modalthongbao.component';
+import { SanXuatService } from '../../../../../../services/callApiSanXuat';
+import { vn } from '../../../../../../services/const';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate,validVariable } from '../../../../../../services/globalfunction';
+import { StoreService } from '../../../../../../services/store.service';
 
 @Component({
   selector: 'app-nhapkhomuimodal',
@@ -15,7 +15,7 @@ import { StoreService } from 'src/app/services/store.service';
 export class NhapkhomuimodalComponent implements OnInit {
 
   opt: any = ''
-  item: any = {};
+  item: any = { listItem: [] };
   link: any = {};
   checkbutton: any = {
     Ghi: true,
@@ -33,6 +33,8 @@ export class NhapkhomuimodalComponent implements OnInit {
   listPhanXuong: any = []
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   @ViewChildren('input', { read: ElementRef }) inputs!: QueryList<ElementRef>;
+  listdmQuyCachDongGoi: any = [];
+  listdmQuyCachDongGoiAll: any = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -55,8 +57,18 @@ export class NhapkhomuimodalComponent implements OnInit {
     this.data.CurrentPage = 0;
     this.getListMatHang();
     this.getListKho();
-    this.getListHopDong();
+    // this.getListHopDong();
+
+    this.QuyCachDongGoi();
   }
+
+  QuyCachDongGoi() {
+    this._services.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
+      this.listdmQuyCachDongGoiAll = res;
+      this.listdmQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
@@ -115,21 +127,33 @@ export class NhapkhomuimodalComponent implements OnInit {
     })
   }
 
-  GhiLai() {
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày");
+  setData() {
+    let data = {
+      ...this.item,
+      NgayUnix: DateToUnix(this.item.Ngay)
     }
-    else {
-      if (this.newTableItem.SoKien != undefined)
-        this.add();
-      this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this.link.api().Set(this.item).subscribe((res: any) => {
+    return data
+  }
+
+  valiDate() {
+    if (!validVariable(this.item.Ngay)) {
+      this.toastr.error("Yêu cầu nhập ngày chứng từ!");
+      return false;
+    }
+    return true;
+  }
+
+  GhiLai() {
+    if (this.valiDate()) {
+      this.link.api().Set(this.setData()).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.GetQuyTrinh(res.objectReturn.Id);
+            this.item = {
+              ...res.objectReturn,
+              Ngay: UnixToDate(res.objectReturn.NgayUnix)
+            }
             this.KiemTraButtonModal();
+            this.toastr.success(res.message);
           } else {
             this.toastr.error(res.message);
           }
@@ -161,8 +185,11 @@ export class NhapkhomuimodalComponent implements OnInit {
     }).catch(er => console.log(er))
   }
   getListKho() {
-    this.data.Loai = 23;
-    this._services.GetListdmKho(this.data).subscribe((res: any) => {
+    // this.data.Loai = 23;
+    let data = {
+      Loai: this.link.Loai,
+    };
+    this._services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
       if (this.link.eAction === 'PHIEUNHAPCUONCUI') {
         this.item.IddmKho = res?.find(ele => ele.Ma === 'CUONCUI').Id
@@ -184,10 +211,10 @@ export class NhapkhomuimodalComponent implements OnInit {
   }
 
   add() {
-    if (this.item.listItem == undefined || this.item.listItem == null)
-      this.item.listItem = [];
-    this.item.listItem.push(deepCopy(this.newTableItem));
-    this.newTableItem = {}
+    this.item.listItem = this.item?.listItem?.length > 0 ? this.item.listItem : []
+    this.item.listItem.push({
+      Id: ''
+    })
   }
 
   delete(index) {
@@ -206,7 +233,7 @@ export class NhapkhomuimodalComponent implements OnInit {
   navigateTable(event: KeyboardEvent, rowIndex: number, colIndex: number) {
     const key = event.key;
     const inputElements: any = this.inputs.toArray();
-    const colsPerRow = 3; // Số cột chứa ô nhập liệu
+    const colsPerRow = 1; // Số cột chứa ô nhập liệu
 
     let nextIndex = rowIndex * colsPerRow + colIndex;
     if (key === 'ArrowRight') nextIndex += 1;
@@ -268,8 +295,8 @@ export class NhapkhomuimodalComponent implements OnInit {
               const indexInList = this.inputs.toArray().findIndex(
                 (inp) => inp.nativeElement.querySelector('input') === realInput
               );
-              const rowIndex = Math.floor(indexInList / 3);
-              const colIndex = indexInList % 3;
+              const rowIndex = Math.floor(indexInList / 1);
+              const colIndex = indexInList % 1;
               this.navigateTable(event, rowIndex, colIndex);
             }
           },
@@ -277,6 +304,14 @@ export class NhapkhomuimodalComponent implements OnInit {
         );
       }
     });
+  }
+
+  // new
+  chonQuyCach(data) {
+    let _objQuyCach = this.listdmQuyCachDongGoiAll.find(ele => ele.Id === data.IddmQuyCachDongGoi);
+    let _trongLuongQuyCach = _objQuyCach.TrongLuong || 0;
+    data.SoCan = (data.SoKien) * (_trongLuongQuyCach || 0);
+    this.item.listItem = [...this.item.listItem];
   }
 
 }

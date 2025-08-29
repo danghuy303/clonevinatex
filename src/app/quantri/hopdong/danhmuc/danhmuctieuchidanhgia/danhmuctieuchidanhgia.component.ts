@@ -19,30 +19,30 @@ export class DanhmuctieuchidanhgiaComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã tiêu chí đánh giá',
-      field: 'ma',
+      field: 'Ma',
       width: '200px',
       align: 'center'
     },
     {
       header: 'Tên tiêu chí đánh giá',
-      field: 'ten',
+      field: 'Ten',
       width: '300px',
       align: 'center'
     },
     {
       header: 'Tên tiêu chí đánh giá cha',
-      field: 'tendmTieuChiCha',
+      field: 'TendmTieuChiCha',
       width: '300px',
       align: 'center'
     },
     {
       header: 'Điểm',
-      field: 'diemToiDa',
+      field: 'DiemToiDa',
       align: 'center'
     },
     {
       header: 'Ghi chú',
-      field: 'ghiChu',
+      field: 'GhiChu',
       align: 'center'
     }
   ];
@@ -70,10 +70,10 @@ export class DanhmuctieuchidanhgiaComponent implements OnInit {
     };
     this._danhMucHopDong.dmTieuChiDanhGia().GetList(data).subscribe((res: any) => {
       this.items = [];
-      this.listTieuChiCha = res.data.filter(e => e.iddmTieuChiCha === null || e.iddmTieuChiCha === '')
+      this.listTieuChiCha = res.Data.filter(e => e.IddmTieuChiCha === null || e.IddmTieuChiCha === '')
       this.listTieuChiCha.forEach(element => {
         let data: any = { "data": element, "children": [], "expanded": true };
-        let children = res.data.filter(e => e.iddmTieuChiCha === element.id);
+        let children = res.Data.filter(e => e.IddmTieuChiCha === element.Id);
         element.isCon = false;
         children.forEach(elChi => {
           elChi.isCon = true;
@@ -96,14 +96,14 @@ export class DanhmuctieuchidanhgiaComponent implements OnInit {
     }).catch(er => console.log(er))
   }
   edit(item) {
-    this._danhMucHopDong.dmTieuChiDanhGia().Get(item.id).subscribe((res: any) => {
+    this._danhMucHopDong.dmTieuChiDanhGia().Get(item.Id).subscribe((res: any) => {
 
       let modalRef = this._modal.open(DanhmuctieuchidanhgiamodalComponent, {
         backdrop: 'static', size: 'lg'
       });
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.title = 'Cập nhật danh mục tiêu chí đánh giá';
-      modalRef.componentInstance.item = res.data;
+      modalRef.componentInstance.item = res.Data;
       modalRef.result.then(res => {
         this.GetListdm()
       }).catch(er => console.log(er))
@@ -119,13 +119,13 @@ export class DanhmuctieuchidanhgiaComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._danhMucHopDong.dmTieuChiDanhGia().Delete(item.id).subscribe((res: any) => {
+      this._danhMucHopDong.dmTieuChiDanhGia().Delete(item.Id).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
             this.GetListdm();
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       })

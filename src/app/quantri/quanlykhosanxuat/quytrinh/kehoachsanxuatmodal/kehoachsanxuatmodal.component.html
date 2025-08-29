@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Phiếu giao kế hoạch sản xuất jj</h5>
+    <h5 class="modal-title">Phiếu giao kế hoạch sản xuất</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
             <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
@@ -224,7 +224,7 @@
                                 <div>
                                     <div *ngFor="let items of item.listItem">
                                         <span *ngIf="!items.isXoa">
-                                            {{items.objQuyCachDongGoi.label}} - {{items.KhoiLuong}}
+                                            {{items.objQuyCachDongGoi?.label}} - {{items.KhoiLuong}}
                                         </span>
                                     </div>
                                 </div>

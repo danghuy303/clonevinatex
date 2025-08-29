@@ -85,7 +85,7 @@ export class XuatkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/hopdongsanxuat/${this.link}/nhapkho/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/hopdongsanxuat/${this.link.value}/xuatkho/${id}`], { replaceUrl: true })
   }
   add() {
     this.changeParam(0);
@@ -120,7 +120,6 @@ export class XuatkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
       this.changeParam(0);
     })
       .catch(er => {
-        console.log(er)
         this.GetListQuyTrinh();
         this.changeParam(0);
       })
@@ -136,7 +135,7 @@ export class XuatkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
+      // this.paginator.changePage(0);
     }
     let data = {
       PageSize: 20,

@@ -16,7 +16,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   filter: any = {
     IdDuAn: 0,
     IddmPhanXuong: "1cf3f340-0f55-4f34-938p-e329318e25et",
-    IddmCaSanXuatThucTe: "",
+    IddmCaSanXuat: "",
     nNam: 0,
     nThang: 0,
     nNgay: 0,
@@ -368,7 +368,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
         { Ten: 'SL quy Ne 30(kg):', GiaTri: res.SanLuongQuyNe30 },
         { Ten: 'SL quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_TrenCa, DinhMuc: res.SanLuongQuyNe30_TrenCa_TieuChuan, isRed: (res.SanLuongQuyNe30_TrenCa < res.SanLuongQuyNe30_TrenCa_TieuChuan) },
-        (this.filter.IddmCaSanXuatThucTe !== '') && { Ten: 'Sản lượng quy Ne 30 theo ca:', GiaTri: res.SanLuongQuyNe30_TheoKip },
+        (this.filter.IddmCaSanXuat !== '') && { Ten: 'Sản lượng quy Ne 30 theo ca:', GiaTri: res.SanLuongQuyNe30_TheoKip },
         {
           Ten: 'Lũy kế quy Ne 30(kg):', GiaTri: res.LuyKeQuyNe30
 

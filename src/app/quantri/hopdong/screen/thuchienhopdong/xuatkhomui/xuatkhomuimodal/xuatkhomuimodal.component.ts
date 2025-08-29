@@ -2,11 +2,11 @@ import { DecimalPipe } from '@angular/common';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { BongphemathangmodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/bongphemathangmodal/bongphemathangmodal.component';
-import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { ModalthongbaoComponent } from '../../../../../../quantri/modal/modalthongbao/modalthongbao.component';
+import { BongphemathangmodalComponent } from '../../../../../../quantri/quanlykhosanxuat/quytrinh/bongphemathangmodal/bongphemathangmodal.component';
+import { SanXuatService } from '../../../../../../services/callApiSanXuat';
+import { vn } from '../../../../../../services/const';
+import { DateToUnix, mapArrayForDropDown, UnixToDate } from '../../../../../../services/globalfunction';
 
 @Component({
   selector: 'app-xuatkhomuimodal',
@@ -189,7 +189,6 @@ export class XuatkhomuimodalComponent implements OnInit {
   }
 
   GetLuuKho(sFilter) {
-    console.log(this.item)
     this.services.GetLuuKhoBongPhe(this.item.IddmKho, '', 0, sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(BongphemathangmodalComponent, {
         size: 'lg',
@@ -347,6 +346,14 @@ export class XuatkhomuimodalComponent implements OnInit {
         );
       }
     });
+  }
+
+
+  tinhTongKhoiLuongXuat(data) {
+    if (data.TonTrongLuong) {
+      data.TrongLuong = (data.TonTrongLuong / data.TonSoLuong) * (data.SoLuong);
+      this.item.listItem = [...this.item.listItem]
+    }
   }
 
 }

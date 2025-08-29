@@ -29,12 +29,12 @@ export class ModaldanhmucloaihopdongComponent implements OnInit {
   SetData() {
     let data: any = {
       // "id":  this.item.Id  == null ? "": this.item.id,
-      "id": this.item.id,
-      "ma": this.item.ma,
-      "ten": this.item.ten,
-      "ghiChu":this.item.ghiChu,
-      "created": this.type == "themmoi" ? new Date() : this.item.created,
-      "modified": new Date(),
+      "Id": this.item.Id,
+      "Ma": this.item.Ma,
+      "Ten": this.item.Ten,
+      "GhiChu":this.item.GhiChu,
+      "Created": this.type == "themmoi" ? new Date() : this.item.Created,
+      "Modified": new Date(),
       // "isGiaTriHopDong": this.type == "themmoi" ? true : this.item.isGiaTriHopDong,
       "isDelete": this.type == "themmoi" ? false : this.item.isDelete,
     };
@@ -58,11 +58,11 @@ export class ModaldanhmucloaihopdongComponent implements OnInit {
     if (this.ValidateData ()) {
       console.log(this.SetData());
       this._danhMucHopDong.DanhMucLoaiHopDong().Set(this.SetData()).subscribe((res: any) => {
-        if (res.statusCode !== 200) {
-          this.toastr.error(res.message);
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
         }
         else {
-          this.toastr.success(res.message);
+          this.toastr.success(res.Message);
           this.activeModal.close();
         }
         // this.activeModal.close();

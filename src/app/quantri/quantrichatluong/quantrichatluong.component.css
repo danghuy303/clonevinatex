@@ -8,11 +8,6 @@
     min-width: 100px !important;
 }
 
-.tc-w-120 {
-    max-width: 120px !important;
-    min-width: 120px !important;
-}
-
 .tc-w-50 {
     max-width: 50px !important;
     min-width: 50px !important;
@@ -26,4 +21,21 @@
 .tc-w-200 {
     max-width: 200px !important;
     min-width: 200px !important;
+}
+
+.color-success {
+    color: #28a745;
+    cursor: pointer;
+}
+
+.color-danger {
+    color: #dc3545;
+    cursor: pointer;
+}
+.color-orange {
+    color: #6c757d;
+}
+
+.bg-white {
+    background-color: #fff
 }

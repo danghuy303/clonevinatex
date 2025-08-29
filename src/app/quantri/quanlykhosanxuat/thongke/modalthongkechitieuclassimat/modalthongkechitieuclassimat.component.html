@@ -102,12 +102,13 @@
             </div>
 
             <div class="p-col-12 p-p-0 pintable-container"
-                style="height: calc(80vh - 191px) !important; background-color: #fff;" voiPintable [pinnedCols]="3">
+                style="height: calc(80vh - 191px) !important; background-color: #fff;" voiPintable [pinnedCols]="4">
                 <table>
                     <thead>
                         <tr>
                             <th style="display: none;"></th>
                             <th class="text-center tc-w-200" colspan="2">STT</th>
+                            <th class="text-center tc-w-50" colspan="2">Đạt</th>
                             <th class="text-center tc-w-250">Loại sợi</th>
                             <th *ngFor="let ban of item.lstDanhMuc" class="tc-w-100">
                                 {{ban.Ten}}
@@ -120,6 +121,9 @@
                             <tr>
                                 <td rowspan="4" class="text-center tc-w-50 bg-white">{{i+1}}</td>
                                 <td class="tc-w-150 bg-white">SL Lỗi Chỉ Tiêu</td>
+                                <td rowspan="4" class="text-center tc-w-50 bg-white">
+                                    <p-checkbox [(ngModel)]="loaisoi.isDat" binary="true" inputId="isDat"></p-checkbox>
+                                </td>
                                 <td rowspan="4" class="tc-w-250 bg-white">{{loaisoi.TenMatHang}}</td>
                                 <td class="text-right tc-w-100" *ngFor="let lythuyet of loaisoi.lstChatLuongSanPham">
                                     {{lythuyet.ChiTieuLyThuyet | number:'0.2-2'}}
@@ -128,12 +132,14 @@
                             <tr>
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
+                                <td style="display: none;"></td>
                                 <td class="tc-w-150 bg-white">Hôm Trước</td>
                                 <td class="text-right tc-w-100" *ngFor="let homtruoc of loaisoi.lstChatLuongSanPham">
                                     {{homtruoc.ChiTieuThucTe_HomTruoc | number:'0.2-2'}}
                                 </td>
                             </tr>
                             <tr>
+                                <td style="display: none;"></td>
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
                                 <td class="tc-w-150 bg-white">Hôm Nay</td>
@@ -148,6 +154,7 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td style="display: none;"></td>
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
                                 <td class="tc-w-150 bg-white">So Sánh</td>

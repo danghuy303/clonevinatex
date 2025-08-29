@@ -57,18 +57,18 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
             element.listTen += `${e.fileName}` + ', ';
         });
       });
-      this.item.ngayLapBienBanQT = UnixToDate(this.item.ngayLapBienBanQTUnix)
-      this.item.ngayQuyetToan = UnixToDate(this.item.ngayQuyetToanUnix)
+      this.item.NgayLapBienBanQT = UnixToDate(this.item.NgayLapBienBanQTUnix)
+      this.item.NgayQuyetToan = UnixToDate(this.item.NgayQuyetToanUnix)
       this.KiemTraButtonModal();
       // this.getListThanhToan();
-      this._service.QuyTrinhThanhToan().GetListThanhToanHopDong(this.item.idHopDong).subscribe((res1: any) => {
-        this.listDotQuyetToan = res1.data;
+      this._service.QuyTrinhThanhToan().GetListThanhToanHopDong(this.item.IdHopDong).subscribe((res1: any) => {
+        this.listDotQuyetToan = res1.Data;
       })
     }
   }
 
   KiemTraButtonModal() {
-    this._servicesSanXuat.KiemTraButton(this.item.id || "", this.item.idTrangThai || "").subscribe((res: any) => {
+    this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
         this.checkbutton = res;
       });
   }
@@ -81,15 +81,15 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
   }
   GetNextSoQuyTrinh() {
     this._service.QuyetToanHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
-        this.item.soQuyTrinh = res.data;
+        this.item.soQuyTrinh = res.Data;
       });
   }
   ValidData() {
-    if (!validVariable(this.item.noiDung)) {
+    if (!validVariable(this.item.NoiDung)) {
       this._toastr.error("Vui lòng chọn nội dung");
       return false;
     }
-    if (!validVariable(this.item.idHopDong)) {
+    if (!validVariable(this.item.IdHopDong)) {
       this._toastr.error('Vui lòng chọn hợp đồng')
       return false
     }
@@ -97,17 +97,17 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    this.item.ngayQuyetToanUnix = DateToUnix(this.item.ngayQuyetToan);
-    this.item.ngayLapBienBanQTUnix = DateToUnix( this.item.ngayLapBienBanQT );
+    this.item.NgayQuyetToanUnix = DateToUnix(this.item.NgayQuyetToan);
+    this.item.NgayLapBienBanQTUnix = DateToUnix( this.item.NgayLapBienBanQT );
     if(this.ValidData()){
     this._service.QuyetToanHopDong().Set(this.item).subscribe((res: any) => {
         if (res) {
-          if (res?.statusCode === 200) {
-            this.item.id = res.data.id;
+          if (res?.StatusCode === 200) {
+            this.item.Id = res.Data.Id;
             this.getQuyTrinh();
-            this._toastr.success(res.message);
+            this._toastr.success(res.Message);
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       });
@@ -123,11 +123,11 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
     modalRef.result
       .then((res) => {
         this._service.QuyetToanHopDong().Delete(this.item).subscribe((res: any) => {
-            if (res?.statusCode === 200) {
+            if (res?.StatusCode === 200) {
               this.activeModal.close();
-              this._toastr.success(res.message);
+              this._toastr.success(res.Message);
             } else {
-              this._toastr.error(res.message);
+              this._toastr.error(res.Message);
             }
           });
       })
@@ -151,11 +151,11 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
       modalRef.result.then(res => {
         this._service.QuyetToanHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
           if (res) {
-            if (res?.statusCode === 200) {
-              this._toastr.success(res.message)
+            if (res?.StatusCode === 200) {
+              this._toastr.success(res.Message)
               this.activeModal.close();
             } else {
-              this._toastr.error(res.message);
+              this._toastr.error(res.Message);
             }
           }
         })
@@ -165,11 +165,11 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
   KhongDuyet() {
     this._service.QuyetToanHopDong().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
-        if (res?.statusCode === 200) {
-          this._toastr.success(res.message)
+        if (res?.StatusCode === 200) {
+          this._toastr.success(res.Message)
           this.activeModal.close();
         } else {
-          this._toastr.error(res.message);
+          this._toastr.error(res.Message);
         }
       }
     })
@@ -184,7 +184,7 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listThanhToanThuTuc = res1;
       modalRef.componentInstance.listHangHoa = this.item.listHoSoDinhKem;
-      modalRef.componentInstance.IdQuyTrinh = this.item.id;
+      modalRef.componentInstance.IdQuyTrinh = this.item.Id;
       modalRef.result.then(res => {
         this.item.listHoSoDinhKem= res;  
       }).catch(er => { console.log(er) });
@@ -196,7 +196,7 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
       if(!validVariable( itemTable.listFileDinhKem))
         itemTable.listFileDinhKem = [];
       let item: any = {}
-      item.id = '';
+      item.Id = '';
       item.fileNameGui = data[data.length - 1].Name;
       item.fileName = data[data.length - 1].NameLocal;
       item.Link = data[data.length - 1].Url;
@@ -210,10 +210,10 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
     });
   }
   getQuyTrinh() {
-    this._service.QuyetToanHopDong().Get(this.item.id).subscribe((res1: any) => {
+    this._service.QuyetToanHopDong().Get(this.item.Id).subscribe((res1: any) => {
         this.item = res1;
-        this.item.ngayLapBienBanQT = UnixToDate(this.item.ngayLapBienBanQTUnix)
-        this.item.ngayQuyetToan = UnixToDate(this.item.ngayQuyetToanUnix);
+        this.item.NgayLapBienBanQT = UnixToDate(this.item.NgayLapBienBanQTUnix)
+        this.item.NgayQuyetToan = UnixToDate(this.item.NgayQuyetToanUnix);
         this.item.listTen = "";
         this.item.listHoSoDinhKem.forEach(element => {
           element.listFileDinhKem.forEach(e => {
@@ -224,24 +224,24 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
     })
   }
   getListThanhToan(){
-    let itemFind = this.listHopDongFull.filter(e => e.id === this.item.idHopDong);
+    let itemFind = this.listHopDongFull.filter(e => e.Id === this.item.IdHopDong);
     if(itemFind !== undefined)
       // this.item.giaTriHoanThanh = itemFind[0].giaTriHoanThanh;
       // this.item.khoiLuongHopDong = itemFind[0].khoiLuongHopDong;
       // this.item.giaTriHopDong = itemFind[0].giaTri;
 
       this.item.loai = itemFind[0].loai
-      this._service.QuyTrinhThanhToan().GetListThanhToanHopDong(this.item.idHopDong).subscribe((res1: any) => {
-        this.listDotQuyetToan = res1.data;
+      this._service.QuyTrinhThanhToan().GetListThanhToanHopDong(this.item.IdHopDong).subscribe((res1: any) => {
+        this.listDotQuyetToan = res1.Data;
       })
-      this._service.QuyetToanHopDong().GetThongTinQuyetToanByHopDong(this.item.idHopDong).subscribe((res1: any) => {
-        this.item.tongGiaTriPhat = res1.data.tongGiaTriPhat;
-        this.item.tongGiaTriThanhToan = res1.data.tongGiaTriThanhToan;
-        this.item.giaTriHopDong = res1.data.giaTriHopDong;
-        this.item.khoiLuongHopDong = res1.data.khoiLuongHopDong;
-        this.item.khoiLuongDaNhan = res1.data.khoiLuongDaNhan;
-        // this.item.conPhaiThanhToan = res1.data.conPhaiThanhToan;
-        this.item.giaTriQuyetToan = res1.data.giaTriQuyetToan;
+      this._service.QuyetToanHopDong().GetThongTinQuyetToanByHopDong(this.item.IdHopDong).subscribe((res1: any) => {
+        this.item.tongGiaTriPhat = res1.Data.tongGiaTriPhat;
+        this.item.tongGiaTriThanhToan = res1.Data.tongGiaTriThanhToan;
+        this.item.giaTriHopDong = res1.Data.giaTriHopDong;
+        this.item.khoiLuongHopDong = res1.Data.khoiLuongHopDong;
+        this.item.khoiLuongDaNhan = res1.Data.khoiLuongDaNhan;
+        // this.item.conPhaiThanhToan = res1.Data.conPhaiThanhToan;
+        this.item.giaTriQuyetToan = res1.Data.giaTriQuyetToan;
         this.item.conPhaiThanhToan =  this.item.giaTriQuyetToan - this.item.tongGiaTriThanhToan;
       })
   }

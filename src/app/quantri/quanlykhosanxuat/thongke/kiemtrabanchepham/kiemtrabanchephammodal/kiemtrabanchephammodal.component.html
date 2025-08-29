@@ -68,14 +68,15 @@
                 <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
                     (click)="GetMatHang()"></button>
             </div>
-            <div class="p-col-12 p-p-0 pintable-container" style="height: 90vh;" voiPintable [pinnedCols]="5">
+            <div class="p-col-12 p-p-0 pintable-container" style="height: 90vh;" voiPintable [pinnedCols]="6">
                 <table>
                     <thead>
                         <tr>
                             <th class="bcp-w-50" rowspan="2">#</th>
-                            <th class="bcp-w-200" rowspan="2">Số máy</th>
-                            <th class="bcp-w-80" rowspan="2">Ne</th>
-                            <th class="bcp-w-80" rowspan="2">Nm</th>
+                            <th class="bcp-w-170" rowspan="2">Số máy</th>
+                            <th class="bcp-w-70" rowspan="2">Ne</th>
+                            <th class="bcp-w-70" rowspan="2">Nm</th>
+                            <th class="bcp-w-50" rowspan="2">Đạt</th>
                             <th class="bcp-w-200" rowspan="2">Mặt hàng</th>
                             <!-- <ng-container *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">
                                 <th *ngFor="let col of listdmTieuChiBanChePham" colspan="1" class="bcp-w-100">
@@ -106,10 +107,11 @@
                             <th style="display: none"></th>
                             <th style="display: none"></th>
                             <th style="display: none"></th>
+                            <th style="display: none"></th>
                             <ng-container *ngFor="let col of listdmTieuChiBanChePham" colspan="3">
-                                <th class="bcp-w-100">Tiêu chuẩn</th>
-                                <th class="bcp-w-100">Thực tế</th>
-                                <th class="bcp-w-100">Đánh giá</th>
+                                <th class="bcp-w-70">Tiêu chuẩn</th>
+                                <th class="bcp-w-70">Thực tế</th>
+                                <th class="bcp-w-80">Đánh giá</th>
                             </ng-container>
                         </tr>
                     </thead>
@@ -117,18 +119,18 @@
                         <ng-container *ngFor="let itemtbl of item.listItem;let i =index">
                             <tr>
                                 <td class="bcp-w-50 bg-white text-center">{{i+1}}</td>
-                                <td class="bcp-w-200 bg-white text-left">{{itemtbl.TendmMay}}</td>
-                                <td class="bcp-w-80 bg-white text-left">{{itemtbl.Ne}}</td>
-                                <td class="bcp-w-80 bg-white text-left">{{itemtbl.Nm | number:'1.2-3'}}</td>
+                                <td class="bcp-w-170 bg-white">{{itemtbl.TendmMay}}</td>
+                                <td class="bcp-w-70 bg-white text-right">{{itemtbl.Ne}}</td>
+                                <td class="bcp-w-70 bg-white text-right">{{itemtbl.Nm | number:'1.2-3'}}</td>
+                                <td class="bcp-w-50 bg-white text-center">
+                                     <p-checkbox [(ngModel)]="itemtbl.isDat" binary="true" inputId="isDat"></p-checkbox>
+                                </td>
                                 <td class="bcp-w-200 bg-white text-left">{{itemtbl.Ten}}</td>
                                 <ng-container *ngFor="let col of itemtbl.listdmTieuChiBanChePham;let indexcon=index">
-                                    <td class="text-center bcp-w-100">
-                                        {{
-                                        col.LyThuyet?col.LyThuyet: null
-                                        }}
-
+                                    <td class="text-center bcp-w-70">
+                                        {{ col.LyThuyet?col.LyThuyet: null }}
                                     </td>
-                                    <td class="bcp-w-100 "
+                                    <td class="bcp-w-70 "
                                         [ngStyle]="{'background-color': col.GiaTri > col.LyThuyet?'#B63232':'#99c199'}">
                                         <!-- {{i * itemtbl.listdmTieuChiBanChePham.length + indexcon+1}} -->
                                         <p-inputNumber #inputNumber [disabled]="col.Disabled"
@@ -144,7 +146,7 @@
                                             (keyup.enter)="xuongDong(i, itemtbl.listdmTieuChiBanChePham.length,indexcon)"
                                             pInputText /> -->
                                     </td>
-                                    <td class="bcp-w-100">
+                                    <td class="bcp-w-80">
                                         <div *ngIf="col.isDat" (click)="handleDanhGia(col)" class="text-center"
                                             style="cursor: pointer; color: rgb(31, 119, 201);">Đạt
                                         </div>

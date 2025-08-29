@@ -5,17 +5,19 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterbykeyCongDoanPipe implements PipeTransform {
 
-        transform(value: any, Key: string, keyWord: string): Array<any> {   
+        transform(value: any, keyWord: string): Array<any> {   
+                console.log('value',value);
+                  console.log('keyWord',keyWord);
                 if (!!value) {
                         if (keyWord !== null && keyWord !== undefined && keyWord.trim() !== '') {
-                                return value.filter(ele => ele.MaCongDoan === keyWord       
+                                return value.filter(ele =>( ele.MaCongDoan || ele.CongDoan) === keyWord       
                                 );
                         }
                         else {
                                 return value;
                         }
                 } else {
-                        return null;
+                        return [];
                 }
         }
 

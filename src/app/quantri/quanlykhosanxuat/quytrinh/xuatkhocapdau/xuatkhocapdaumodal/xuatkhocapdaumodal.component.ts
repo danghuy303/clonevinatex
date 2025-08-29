@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SanXuatService } from '../../../../../services/callApiSanXuat';
 import { ToastrService } from 'ngx-toastr';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from '../../../../../services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from '../../../../../services/globalfunction';
 import { vn } from '../../../../../services/const';
 import { ModalthongbaoComponent } from '../../../../modal/modalthongbao/modalthongbao.component';
 import { DanhsachmathangmuiComponent } from '../danhsachmathangmui/danhsachmathangui.component';
@@ -78,12 +78,12 @@ export class XuatkhocapdaumodalComponent implements OnInit {
       let modalRef = this._modal.open(DanhsachmathangmuiComponent, {
         backdrop: 'static', size: 'lg'
       });
-      modalRef.componentInstance.listDaChon = this.item.listItem?.length ? this.item.listItem?.map(ele => ele.IddmItem) : [];
+      modalRef.componentInstance.listDaChon = this.item.listItem?.length ? this.item.listItem : [];
       modalRef.componentInstance.title = 'Danh sách mặt hàng',
         modalRef.componentInstance.listView = res || []
       modalRef.result.then(res => {
         this.item.listItem = res?.map(ele => {
-          let itemDaChon = this.item.listItem?.find(obj => obj.IddmItem === ele.IddmItem);
+          let itemDaChon = this.item.listItem?.find(obj => (obj.IddmItem === ele.IddmItem) && (obj.IdLoHang === ele.IdLoHang));
           let _newObj = itemDaChon ? itemDaChon : {
             ...ele,
             TonSoLuong: ele.SoLuong,
@@ -123,16 +123,31 @@ export class XuatkhocapdaumodalComponent implements OnInit {
     return data;
   }
 
+  valiDate() {
+    if (!validVariable(this.item.Ngay)) {
+      this.toastr.error("Bạn chưa chọn chọn ngày chứng từ!");
+      return false;
+    }
+    else if (!validVariable(this.item.IddmKhoHoiAm)) {
+      this.toastr.error("Bạn chưa chọn chọn kho!");
+      return false;
+    }
+    return true;
+  }
+
   GhiLai() {
-    this._services.PhieuXuatHoiAmCapDau().Set(this.setData()).subscribe((res: any) => {
-      if (res.StatusCode === 200) {
-        this.item = res.Data;
-        this.tinhTongKhoiLuong();
-        this.toastr.success(res.message);
-      } else {
-        this.toastr.error(res.message);
-      }
-    })
+    if (this.valiDate()) {
+      this._services.PhieuXuatHoiAmCapDau().Set(this.setData()).subscribe((res: any) => {
+        if (res.StatusCode === 0) {
+          this.item = res.objectReturn;
+          this.tinhTongKhoiLuong();
+          this.KiemTraButton();
+          this.toastr.success(res.message);
+        } else {
+          this.toastr.error(res.message);
+        }
+      })
+    }
   }
 
   XoaQuyTrinh() {
@@ -143,6 +158,7 @@ export class XuatkhocapdaumodalComponent implements OnInit {
     modalRef.result.then(res => {
       this._services.PhieuXuatHoiAmCapDau().Delete(this.setData()).subscribe((res: any) => {
         if (res?.State === 1) {
+          this.toastr.success(res.message);
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);
@@ -150,7 +166,7 @@ export class XuatkhocapdaumodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  ChuyenDuyet() {
+  ChuyenTiep() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
@@ -158,6 +174,7 @@ export class XuatkhocapdaumodalComponent implements OnInit {
     modalRef.result.then(res => {
       this._services.PhieuXuatHoiAmCapDau().ChuyenTiep(this.setData()).subscribe((res: any) => {
         if (res?.State === 1) {
+          this.toastr.success(res.message);
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);
@@ -174,6 +191,7 @@ export class XuatkhocapdaumodalComponent implements OnInit {
       this._services.PhieuXuatHoiAmCapDau().KhongDuyet(this.setData()).subscribe((res: any) => {
         if (res?.State === 1) {
           this.activeModal.close();
+            this.toastr.success(res.message);
         } else {
           this.toastr.error(res.message);
         }

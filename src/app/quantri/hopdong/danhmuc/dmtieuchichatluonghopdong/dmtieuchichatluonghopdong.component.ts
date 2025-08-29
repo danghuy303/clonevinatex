@@ -20,31 +20,31 @@ export class DmtieuchichatluonghopdongComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã',
-      field: 'ma',
+      field: 'Ma',
       width: '200px',
       align:'center'
     },
     {
       header: 'Đặc tính',
-      field: 'dacTinh',
+      field: 'DacTinh',
       width: '300px',
       center:'left'
     },
     {
       header: 'Đơn vị',
-      field: 'donVi',
+      field: 'DonVi',
       width: '300px',
       center:'left'
     },
     {
       header: 'Tiêu chuẩn',
-      field: 'tieuChuan',
+      field: 'TieuChuan',
       width: '300px',
       center:'left'
     },
     {
       header: 'Ghi chú',
-      field: 'ghiChu',
+      field: 'GhiChu',
       width: 'unset',
       center:'center'
     }
@@ -73,10 +73,10 @@ export class DmtieuchichatluonghopdongComponent implements OnInit {
       Ten:""
     };
     this._services.DanhMucTieuChuanChatLuong().GetList(this.dataSearch).subscribe((res:any)=>{
-      this.items = res.data.items;
-      this.paging.TotalPage = res.data.totalPages;
-      this.paging.TotalItem = res.data.totalCount;
-      this.paging.CurrentPage = res.data.page;
+      this.items = res.Data.Items;
+      this.paging.TotalPage = res.Data.TotalPages;
+      this.paging.TotalItem = res.Data.TotalCount;
+      this.paging.CurrentPage = res.Data.Page;
     })
   }
   add(){
@@ -108,12 +108,12 @@ export class DmtieuchichatluonghopdongComponent implements OnInit {
     modalRef.result.then(res=>{
       this._services.DanhMucTieuChuanChatLuong().Delete(item).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
             this.GetListdm(true);
             this.selectedItems = [];
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       })

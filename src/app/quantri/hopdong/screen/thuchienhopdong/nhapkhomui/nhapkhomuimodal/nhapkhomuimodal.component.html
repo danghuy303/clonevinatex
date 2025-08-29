@@ -20,18 +20,19 @@
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="Onclose()"></button>
-            <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm " (click)="GhiLai()"
+            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()"
                 *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
                 (click)="XoaQuyTrinh()"></button>
+            <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm" (click)="ChuyenTiep()"
+                *ngIf="checkbutton.ChuyenTiep"></button>
             <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
                 *ngIf="checkbutton.KhongDuyet"></button>
-            <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenTiep()"
-                *ngIf="checkbutton.ChuyenTiep"></button>
+
         </div>
 
     </div>
-    <div class="p-grid">
+    <!-- <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Kho:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
@@ -156,7 +157,93 @@
                 </ng-template>
             </p-table>
         </div>
+    </div> -->
+
+
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Kho:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="item.IddmKho"
+                    styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ngày chứng từ <span class="text-danger">*</span>:</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
+                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
+                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+            </div>
+        </div>
     </div>
-</div>
-<div class="modal-footer">
+    <div class="">
+        <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col style="width:50px">
+                    <col>
+                    <col>
+                    <col style="width:120px">
+                    <col style="width:150px">
+                    <col>
+                    <col style="width:80px">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>#</th>
+                    <th>Tên</th>
+                    <th>Quy cách</th>
+                    <th>Số lượng</th>
+                    <th>Khối lượng(kg)</th>
+                    <th>Ghi chú</th>
+                    <th>
+                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
+                            (click)="add()"></button>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr>
+                    <td class="text-center">{{i+1}}</td>
+                    <td class="text-center">
+                        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn loại"
+                            styleClass="p-inputtext-sm" [(ngModel)]="item.IddmItem"></p-dropdown>
+                    </td>
+                    <td>
+                        <p-dropdown [filter]="true" [options]="listdmQuyCachDongGoi" placeholder="Chọn quy cách"
+                            styleClass="p-inputtext-sm" [(ngModel)]="item.IddmQuyCachDongGoi" [showClear]="true"
+                            (onChange)="chonQuyCach(item)" tooltipPosition="top"></p-dropdown>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien" #input (onBlur)="chonQuyCach(item)"
+                            (keydown)="navigateTable($event, i, 0)">
+                        </p-inputNumber>
+                    </td>
+                    <td class="text-right">
+                        {{item.SoCan | number:'0.2-2'}}
+                    </td>
+                    <td class="text-center">
+                        <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                    </td>
+                    <td class="text-center">
+                        <button pButton pRipple icon="pi pi-trash"
+                            class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                            (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+
 </div>

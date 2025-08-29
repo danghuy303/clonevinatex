@@ -21,8 +21,8 @@
                 class="p-mr-2 p-button-sm" (click)="endDieuChinh()"></button>
             <button *ngIf="dangDieuChinh" pButton pRipple type="button" label="Hủy điều chỉnh"
                 class="p-mr-2 p-button-danger p-button-sm" (click)="HuyDieuChinh()"></button>
-            <button *ngIf="this.filter.CongDoan !== 'CON'" pButton pRipple type="button" label="Cấp nhà máy khác" class="p-mr-2 p-button-sm"
-                (click)="capNhaMayKhac()"></button>
+            <button *ngIf="this.filter.CongDoan !== 'CON'" pButton pRipple type="button" label="Cấp nhà máy khác"
+                class="p-mr-2 p-button-sm" (click)="capNhaMayKhac()"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
         </div>
 
@@ -41,9 +41,10 @@
     <div class="p-grid">
         <div class="p-col-12 p-p-0 d-flex flex-column flex-lg-row">
             <div class="p-col-12 p-lg-7 p-mb-3 p-p-3 d-flex flex-column flex-lg-row" id="aloalo">
-                <p-table [value]="item.listDaBoTri.concat([{},{},{},{},{},{},{},{},{},{},{}])|isDieuChinh"
-                    styleClass="p-datatable-sm wrap-text  p-datatable-gridlines" [scrollable]="true"
-                    scrollHeight="60vh">
+                <!-- <p-table [value]="item.listDaBoTri.concat([{},{},{},{},{},{},{},{},{},{},{}])|isDieuChinh" -->
+                <p-table [value]="item.listDaBoTri|isDieuChinh"
+                    styleClass="p-datatable-sm wrap-text  p-datatable-gridlines my-table-classes" [scrollable]="true"
+                    scrollHeight="60vh"><!--  -->
                     <ng-template pTemplate="colgroup">
                         <colgroup>
                             <col style="width: 100px;">
@@ -78,7 +79,7 @@
                                         placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
                                         [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="chonMatHang(item,$event)"
                                         [tooltip]="getTooltip(item.IdCanDoiChuyen_CanBoTri, listHangHoa)"
-                                        tooltipPosition="top">
+                                        tooltipPosition="top" >
                                     </p-dropdown>
                                 </td>
                                 <td [ngStyle]="{'background-color': item.isDieuChinh?'red':''}">
@@ -185,8 +186,8 @@
 
 <p-dialog header="Cấp cho nhà máy khác" [(visible)]="isShowCapNhaMay" [modal]="true"
     [style]="{ width: '50vw', height: 'auto' }" [baseZIndex]="100" [draggable]="false" [resizable]="false">
-    <p-table [value]="item.listDaBoTri.concat([{},{},{},{},{},{},{},{},{},{},{}])|isDieuChinh"
-        styleClass="p-datatable-sm wrap-text  p-datatable-gridlines" [scrollable]="true" scrollHeight="60vh">
+    <p-table [value]="item.listDaBoTri|isDieuChinh" styleClass="p-datatable-sm wrap-text  p-datatable-gridlines"
+        [scrollable]="true" scrollHeight="60vh">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width: 50px;">

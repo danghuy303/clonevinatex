@@ -1,0 +1,13 @@
+::ng-deep .my-table-classes .p-datatable-scrollable-wrapper .p-datatable-scrollable-view .p-datatable-scrollable-body {
+    overflow: unset !important;
+    overflow-y: unset !important;
+}
+
+::ng-deep .my-table-classes .p-datatable-scrollable-wrapper .p-datatable-scrollable-view .p-datatable-scrollable-header {
+    overflow: unset !important;
+    overflow-y: unset !important;
+}
+
+::ng-deep .my-table-classes .p-datatable-scrollable-wrapper .p-datatable-scrollable-view .p-datatable-scrollable-header-box {
+    padding-right: 0 !important;
+}

@@ -534,7 +534,7 @@ export class XuatkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
     let _soQuaQuyCach = _objQuyCach.SoQua || 0;
     let _trongLuongQuyCach = _objQuyCach.TrongLuong || 0;
     data.SoLuong = (data.SoKien || 0) * (_soQuaQuyCach || 0);
-    data.TongKhoiLuong = (data.SoQuaSoiThanhPham) * (_trongLuongQuyCach || 0);
+    data.TongKhoiLuong = (data.SoKien) * (_trongLuongQuyCach || 0);
     this.item.listItem = [...this.item.listItem];
   }
 

@@ -2,11 +2,9 @@ import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { map } from 'rxjs/operators';
-import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { congDoan } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { ModalthongbaoComponent } from '../../../../quantri/modal/modalthongbao/modalthongbao.component';
+import { SanXuatService } from '../../../../services/callApiSanXuat';
+import { mapArrayForDropDown } from '../../../../services/globalfunction';
 import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
 import { MathangmodelComponent } from '../modals/mathangmodel/mathangmodel.component';
 
@@ -91,6 +89,9 @@ export class MathangComponent implements OnInit {
   listCongDoan: any = [];
   selectedItems: any = [];
   ItemsAll: any = [];
+  isLienKet: boolean = false;
+  listMatHangIOT: any = [];
+  listCongDoanIOT: any = [];
 
   constructor(private _modal: NgbModal,
     private _services: SanXuatService,
@@ -256,4 +257,29 @@ export class MathangComponent implements OnInit {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
     })
   }
+
+  GetlistMatHangMapppingIOT() {
+    this._services.GetlistMatHangMapppingIOT().subscribe((res: any) => {
+      this.listMatHangIOT = res;
+    })
+  }
+  GetlistCongDoanMapping() {
+    this._services.GetlistCongDoanMapping().subscribe((res: any) => {
+      this.listCongDoanIOT = mapArrayForDropDown(res, 'Ten', 'Ma');
+      this.filter.CongDoan = this.listCongDoanIOT[0].value;
+    })
+  }
+
+  lienKet() {
+    this.isLienKet = !this.isLienKet;
+    this.GetlistCongDoanMapping();
+    this.GetlistMatHangMapppingIOT();
+  }
+
+  handleChapNhan() {
+    this._services.SetMatHangMappingIOT(this.listMatHangIOT).subscribe((res: any) => {
+
+    })
+  }
+
 }

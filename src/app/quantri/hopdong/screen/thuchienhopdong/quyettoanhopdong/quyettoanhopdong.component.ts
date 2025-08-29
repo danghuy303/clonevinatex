@@ -138,19 +138,19 @@ export class QuyettoanhopdongComponent implements OnInit {
       .QuyetToanHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        this.items = res.data.items;
-        this.paging.TotalItem = res.data.totalCount;
+        this.items = res.Data.Items;
+        this.paging.TotalItem = res.Data.TotalCount;
       });
   }
-  GetNextSoQuyTrinh() {
-    this._service
-      .QuyetToanHopDong()
-      .GetNextSoQuyTrinh()
-      .subscribe((res: any) => {
-        console.log('GetNextSoQuyTrinh',res);
-        this.items = res.data;
-      });
-  }
+  // GetNextSoQuyTrinh() {
+  //   this._service
+  //     .QuyetToanHopDong()
+  //     .GetNextSoQuyTrinh()
+  //     .subscribe((res: any) => {
+  //       console.log('GetNextSoQuyTrinh',res);
+  //       this.items = res.data;
+  //     });
+  // }
   resetFilter() {
     this.filter = {};
     this.GetListQuyTrinh(true);

@@ -38,11 +38,11 @@
         <tr [ngStyle]="{'font-weight': rowData.isCon === false?'bold':'normal'}">
             <td class="text-left">
                 <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                {{rowData.ma}}</td>
-            <td class="text-left">{{rowData.ten}}</td>
-            <td class="text-right">{{rowData.diemToiDa}}</td>
-            <td class="text-right">{{rowData.thuTu}}</td>
-            <td class="text-left">{{rowData.ghiChu}}</td>
+                {{rowData.Ma}}</td>
+            <td class="text-left">{{rowData.Ten}}</td>
+            <td class="text-right">{{rowData.DiemToiDa}}</td>
+            <td class="text-right">{{rowData.ThuTu}}</td>
+            <td class="text-left">{{rowData.GhiChu}}</td>
             <td class="text-center date">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(rowData)" pTooltip="Sửa" showDelay="1000" tooltipPosition="bottom"></button>

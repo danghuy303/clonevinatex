@@ -19,19 +19,19 @@ export class DanhmucloaitienteComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã tiền tệ',
-      field: 'ma',
+      field: 'Ma',
       width: '350px',
       align:'center'
     },
     {
       header: 'Tên tên tiền tệ',
-      field: 'ten',
+      field: 'Ten',
       width: '300px',
       align:'center'
     },
     {
       header: 'Ghi chú',
-      field: 'ghiChu',
+      field: 'GhiChu',
       width: '200px',
       align:'center'
     }
@@ -59,8 +59,8 @@ export class DanhmucloaitienteComponent implements OnInit {
       ten:""
     };
     this._danhMucHopDong.DanhMucLoaiTienTe().GetList(data).subscribe((res:any)=>{
-      this.items = res.data.items;
-      this.paging.TotalItem = res.data.totalCount;
+      this.items = res.Data.Items;
+      this.paging.TotalItem = res.Data.TotalCount;
     })
   }
   add(){
@@ -94,11 +94,11 @@ export class DanhmucloaitienteComponent implements OnInit {
     modalRef.result.then(res=>{
       this._danhMucHopDong.DanhMucLoaiTienTe().Delete(item.id).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
             this.GetListdmLoaiTienTe();
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       })
@@ -113,11 +113,11 @@ export class DanhmucloaitienteComponent implements OnInit {
       const item=this.selectedItems[0];
       this._danhMucHopDong.DanhMucLoaiTienTe().Delete([item.id]).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
             this.GetListdmLoaiTienTe();
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       })
@@ -132,12 +132,12 @@ export class DanhmucloaitienteComponent implements OnInit {
   //   modalRef.result.then(res=>{
   //     this._danhMucHopDong.DanhMucLoaiTienTe().DeleteList(listId).subscribe((res: any) => {
   //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
+  //         if (res.StatusCode === 200) {
+  //           this._toastr.success(res.Message);
   //           this.GetListdmLoaiTienTe();
   //           this.selectedItems = [];
   //         } else {
-  //           this._toastr.error(res.message);
+  //           this._toastr.error(res.Message);
   //         }
   //       }
   //     })

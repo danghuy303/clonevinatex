@@ -136,6 +136,7 @@ import { XuatbongtheohopdongComponent } from "./quanlykhosanxuat/xuatbongtheohop
 import { AnhmauchatluongbanchphamComponent } from "./danhmuc/anhmauchatluongbanchpham/anhmauchatluongbanchpham.component";
 import { AnhmaukiemtrabanchephamComponent } from "./anhmaukiemtrabanchepham/anhmaukiemtrabanchepham.component";
 import { XuatkhocapdauComponent } from "./quanlykhosanxuat/quytrinh/xuatkhocapdau/xuatkhocapdau.component";
+import { QuantrichatluongComponent } from "./quantrichatluong/quantrichatluong.component";
 
 const routes: Routes = [
   {
@@ -667,7 +668,10 @@ const routes: Routes = [
         path: "lap-ke-hoach/ComparisonChart",
         component: TheodoikehoachComponent,
       },
-      { path: "danhmucsanxuat/anhmauchatluongbcp", component: AnhmauchatluongbanchphamComponent }
+      { path: "danhmucsanxuat/anhmauchatluongbcp", component: AnhmauchatluongbanchphamComponent },
+      {
+        path: "quantrichatluong",component: QuantrichatluongComponent,
+      },
     ],
   },
 

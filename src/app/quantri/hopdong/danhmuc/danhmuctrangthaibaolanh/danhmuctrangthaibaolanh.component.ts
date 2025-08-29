@@ -18,19 +18,19 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã tình trạng bảo lãnh',
-      field: 'ma',
+      field: 'Ma',
       width: '350px',
       align:'center'
     },
     {
       header: 'Tên tình trạng bảo lãnh',
-      field: 'ten',
+      field: 'Ten',
       width: '300px',
       align:'center'
     },
     {
       header: 'Ghi chú',
-      field: 'ghiChu',
+      field: 'GhiChu',
       width: '200px',
       align:'center'
     }
@@ -58,8 +58,8 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
       ten:""
     };
     this._danhMucHopDong.DanhMucTrangThaiBaoLanh().GetList(data).subscribe((res:any)=>{
-      this.items = res.data.items;
-      this.paging.TotalItem = res.data.totalCount;
+      this.items = res.Data.Items;
+      this.paging.TotalItem = res.Data.TotalCount;
     })
   }
   add(){
@@ -93,11 +93,11 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
     modalRef.result.then(res=>{
       this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Delete([item.id]).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
             this.GetListdmTrangThaiBaoLanh();
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       })
@@ -112,11 +112,11 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
       const item=this.selectedItems[0];
       this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Delete([item.id]).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
             this.GetListdmTrangThaiBaoLanh();
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       })
@@ -131,12 +131,12 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
   //   modalRef.result.then(res=>{
   //     this._danhMucHopDong.DanhMucTrangThaiBaoLanh().DeleteList(listId).subscribe((res: any) => {
   //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
+  //         if (res.StatusCode === 200) {
+  //           this._toastr.success(res.Message);
   //           this.GetListdmTrangThaiBaoLanh();
   //           this.selectedItems = [];
   //         } else {
-  //           this._toastr.error(res.message);
+  //           this._toastr.error(res.Message);
   //         }
   //       }
   //     })

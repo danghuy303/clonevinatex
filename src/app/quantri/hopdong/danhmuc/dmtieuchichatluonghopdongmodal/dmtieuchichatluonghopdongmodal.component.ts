@@ -22,17 +22,17 @@ export class DmtieuchichatluonghopdongmodalComponent implements OnInit {
   }
   SetData() {
     let data: any = {
-      "id":this.item.id,
-      "ma": this.item.ma,
-      "dacTinh": this.item.dacTinh,
-      "donVi": this.item.donVi,
-      "tieuChuan": this.item.tieuChuan,
-      "ghiChu": this.item.ghiChu,
+      "Id":this.item.Id,
+      "Ma": this.item.Ma,
+      "DacTinh": this.item.DacTinh,
+      "DonVi": this.item.DonVi,
+      "TieuChuan": this.item.TieuChuan,
+      "GhiChu": this.item.GhiChu,
     };
     return data;
   }
   ValidateData() {
-    if (!validVariable(this.item.ma)) {
+    if (!validVariable(this.item.Ma)) {
       this.toastr.error("Yêu cầu nhập đầy đủ mã!");
       return false;
     }
@@ -41,13 +41,12 @@ export class DmtieuchichatluonghopdongmodalComponent implements OnInit {
 
   GhiLai() {
     if (this.ValidateData()) {
-      console.log(this.SetData());
       this._danhMucHopDong.DanhMucTieuChuanChatLuong().Set(this.SetData()).subscribe((res: any) => {
-        if (res.statusCode === 200) {
-          this.toastr.success(res.message);
+        if (res.StatusCode === 200) {
+          this.toastr.success(res.Message);
           this.activeModal.close();
         } else {
-          this.toastr.error(res.message);
+          this.toastr.error(res.Message);
         } 
       })
 

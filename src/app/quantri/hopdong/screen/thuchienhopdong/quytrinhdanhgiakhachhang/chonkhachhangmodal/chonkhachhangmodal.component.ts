@@ -59,7 +59,7 @@ export class ChonkhachhangmodalComponent implements OnInit {
       for(let i = 0; i < this.selectedItems.length; i++){
         console.log(this.selectedItems[i])
         let itemFind = this.items.find(
-          ele => (ele.Id === this.selectedItems[i].idKhachHang )
+          ele => (ele.Id === this.selectedItems[i].IdKhachHang )
          )
         if(validVariable(itemFind)){
           itemFind.checked = true;
@@ -117,29 +117,29 @@ export class ChonkhachhangmodalComponent implements OnInit {
 checkItem(item){
 if(item.checked == true)
 {
-  let itemFind: any = this.selectedItems.filter((e: any) =>e.idKhachHang === item.Id)[0]
+  let itemFind: any = this.selectedItems.filter((e: any) =>e.IdKhachHang === item.Id)[0]
   if(itemFind === undefined){
     let itemFinds = this.items.find(e => e.Id === item.Id);
       let data: any = {
-        idKhachHang: itemFinds.Id,
+        IdKhachHang: itemFinds.Id,
         khachHang: {
-          diaChi: itemFinds.DiaChi,
+          DiaChi: itemFinds.DiaChi,
           isXoa: false,
-          id: '',
-          soDienThoai: itemFinds.SoDienThoai,
-          soFax: itemFinds.SoFax,
-          ghiChu: itemFinds.GhiChu,
-          maSoThue: itemFinds.MaSoThue,
-          nguoiDaiDien: itemFinds.NguoiDaiDien,
-          chucVu: itemFinds.ChucVu,
-          taiKhoanNganHang: itemFinds.TaiKhoanNganHang,
-          ten: itemFinds.Ten,
-          ma: itemFinds.Ma,
+          Id: '',
+          SoDienThoai: itemFinds.SoDienThoai,
+          SoFax: itemFinds.SoFax,
+          GhiChu: itemFinds.GhiChu,
+          MaSoThue: itemFinds.MaSoThue,
+          NguoiDaiDien: itemFinds.NguoiDaiDien,
+          ChucVu: itemFinds.ChucVu,
+          TaiKhoanNganHang: itemFinds.TaiKhoanNganHang,
+          Ten: itemFinds.Ten,
+          Ma: itemFinds.Ma,
         },
-        tenKhachHang: itemFinds.Ten,
-        maKhachHang: itemFinds.Ma,
+        TenKhachHang: itemFinds.Ten,
+        MaKhachHang: itemFinds.Ma,
         listTieuChiDanhGia: this.listTieuChiDanhGia,
-        ketQuaDanhGia: 0,
+        KetQuaDanhGia: 0,
       }
       this.selectedItems.push(data)
   }
@@ -147,7 +147,7 @@ if(item.checked == true)
     itemFind.isXoa = false;
 }
   else{
-    let itemFind = this.selectedItems.filter((e: any) =>e.idKhachHang === item.Id)[0];
+    let itemFind = this.selectedItems.filter((e: any) =>e.IdKhachHang === item.Id)[0];
     if(itemFind !== undefined){
       itemFind.isXoa = true;
     }

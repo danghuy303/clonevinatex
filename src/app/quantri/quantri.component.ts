@@ -334,6 +334,15 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
+          {
+            label: "Quản trị chất lượng",
+            routerLink: "/quantri/quantrichatluong",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
           // {
           //   label: "Quyết toán nguyên liệu",
           //   routerLink: "/quantri/quantrisanxuat/quyettoannguyenlieu",
@@ -353,6 +362,16 @@ export class QuantriComponent implements OnInit, OnDestroy {
             },
           }
         ],
+      },
+      {
+        label: "Tủ hồ sơ",
+        // routerLink: "/quantri/quantrisanxuat/quantrichatluong",
+        icon: "fas fa-warehouse",
+        // visible: !this.checkmenu("P_QUANTRISANXUAT"),
+        command: () => {
+          const host = `${window.location.origin.includes("localhost") ? "http://103.130.212.35:2370" : window.location.origin}`
+          window.open(`${host}/smarteosv2/#/`)
+        },
       },
       {
         label: "Quản trị tài sản",

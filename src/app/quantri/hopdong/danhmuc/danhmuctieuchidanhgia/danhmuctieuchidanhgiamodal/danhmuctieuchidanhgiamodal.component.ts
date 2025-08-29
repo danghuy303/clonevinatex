@@ -22,27 +22,27 @@ export class DanhmuctieuchidanhgiamodalComponent implements OnInit {
   }
   SetData() {
     let data: any = {
-      "id":this.item.id || '',
-      "ma": this.item.ma,
-      "ten": this.item.ten,
-      "tieuChuan": this.item.tieuChuan,
-      "ghiChu": this.item.ghiChu,
-      "hoatDong": this.item.hoatDong,
-      "noiDung": this.item.noiDung,
-      "thuTu": this.item.thuTu  || 0,
-      "diemToiDa": this.item.diemToiDa || 0,
-      "iddmTieuChiCha": this.item.iddmTieuChiCha,
-      "loai": this.item.loai  || 0,
+      "Id":this.item.Id || '',
+      "Ma": this.item.Ma,
+      "Ten": this.item.Ten,
+      "TieuChuan": this.item.TieuChuan,
+      "GhiChu": this.item.GhiChu,
+      "HoatDong": this.item.HoatDong,
+      "NoiDung": this.item.NoiDung,
+      "ThuTu": this.item.ThuTu  || 0,
+      "DiemToiDa": this.item.DiemToiDa || 0,
+      "IddmTieuChiCha": this.item.IddmTieuChiCha,
+      "Loai": this.item.Loai  || 0,
     };
     return data;
   }
   GhiLai() {
       this._danhMucHopDong.dmTieuChiDanhGia().Set(this.SetData()).subscribe((res: any) => {
-        if (res.statusCode === 200) {
-          this.toastr.success(res.message);
+        if (res.StatusCode === 200) {
+          this.toastr.success(res.Message);
           this.activeModal.close();
         } else {
-          this.toastr.error(res.message);
+          this.toastr.error(res.Message);
         } 
       })
   }
@@ -51,8 +51,8 @@ export class DanhmuctieuchidanhgiamodalComponent implements OnInit {
       PageSize: 20,
     };
     this._danhMucHopDong.dmTieuChiDanhGia().GetList(data).subscribe((res: any) => {
-      let listTieuChiCha = res.data.filter(e => e.iddmTieuChiCha === null || e.iddmTieuChiCha === '');
-      this.listTieuChiCha = mapArrayForDropDown(listTieuChiCha, 'ten', 'id');
+      let listTieuChiCha = res.Data.filter(e => e.IddmTieuChiCha === null || e.IddmTieuChiCha === '');
+      this.listTieuChiCha = mapArrayForDropDown(listTieuChiCha, 'Ten', 'Id');
     })
   }
   

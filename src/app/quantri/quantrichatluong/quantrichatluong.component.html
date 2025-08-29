@@ -1,0 +1,271 @@
+<div class="">
+    <!-- input options -->
+    <div class="p-mb-3 p-mt-3">
+        <h4 style="color:#1f2779">Quản trị chất lượng</h4>
+    </div>
+    <div class="p-d-flex p-ai-center">
+        <div class="p-mr-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                (onSelect)="getListData()" [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày">
+            </p-calendar>
+        </div>
+        <div class="p-mr-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="getListData()">
+            </p-calendar>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+                (onChange)="getListData()" [options]="listPhanXuong" [(ngModel)]="filter.IddmPhanXuong">
+            </p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm" [options]="listMatHang"
+                [(ngModel)]="filter.IddmMatHang" [showClear]="true" (onChange)="handleMatHang()">
+            </p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <button pButton type="button" icon="pi pi-refresh" 
+                class="p-button-outlined p-button-sm" 
+                (click)="resetScroll()" 
+                pTooltip="Scroll về đầu bảng">
+            </button>
+        </div>
+    </div>
+    <div class="p-pt-2">
+        <!-- <p-table #dt [value]="listView" dataKey="IddmItem" [(expandedRows)]="expandedRows"
+            styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col class="text-center" style="width: 50px">
+                    <col class="text-center" style="width: 250px">
+                    <col class="text-center" style="width: 100px">
+                    <ng-container *ngFor="let congDoan of listView[0]?.listHeader">
+                        <col class="text-center" style="width: 100px">
+                    </ng-container>
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Tên mặt hàng</th>
+                    <th class="text-center">Ngày kiểm tra</th>
+                    <ng-container *ngFor="let congDoan of listView[0]?.listHeader">
+                        <th class="text-center"> {{congDoan}}</th>
+                    </ng-container>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr>
+                    <td class="text-center">{{ i+1 }}</td>
+                    <td>
+                        <div class="d-flex">
+                            <button pButton type="button"
+                                [icon]="item?.expand ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"
+                                class="p-button-text p-button-sm" (click)="handleTree(item)">
+                            </button>
+                            {{ item.TenMatHang }}
+                        </div>
+                    </td>
+                    <td></td>
+                    <ng-container *ngFor="let congDoan of listView[0]?.listHeader">
+                        <td></td>
+                    </ng-container>
+                </tr>
+
+                <ng-container *ngIf="item?.expand">
+                    <tr *ngFor="let itChild of item?.listNgay, let j=index" style="font-style: italic;">
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">{{itChild.Ngay | date:'dd/MM/yyyy'}}</td>
+
+                        <ng-container *ngFor="let chiTiet of itChild?.listChiTiet">
+                            <td class="text-center">
+                                <span [ngClass]="chiTiet.isDat ? 'badge-success' : 'badge-danger'">
+                                    {{ chiTiet.isDat ? 'Đạt' : 'Không đạt' }}
+                                </span>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr>
+                    <td class="text-center">{{ i+1 }}</td>
+                    <td>
+                        <div class="d-flex">
+                            <Span (click)="handleTree(item)"><i [style]="{'margin-right':'8px'}"
+                                    [ngClass]="item?.expand?'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                            </Span>
+                            {{ item.TenMatHang }}
+                        </div>
+                    </td>
+                    <td></td>
+                    <ng-container *ngFor="let congDoan of listView[0]?.listHeader">
+                        <td></td>
+                    </ng-container>
+                </tr>
+
+                <ng-container *ngIf="item?.expand">
+                    <tr *ngFor="let itChild of item?.listNgay" style="font-style: italic;">
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">{{itChild.Ngay | date:'dd/MM/yyyy'}}</td>
+                        <ng-container *ngFor="let chiTiet of itChild?.listChiTiet">
+                            <td class="text-center">
+                                <ng-container *ngIf="chiTiet?.listQuanTriLoBong?.length; else singleStatus">
+                                    <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                        <small *ngFor="let loBong of chiTiet.listQuanTriLoBong"
+                                            [ngClass]="loBong.isDat ? 'color-success' :  'color-danger'">
+                                            - {{loBong.TenLoBong}}( {{loBong.isDat ? 'Đạt' : 'Chưa đạt'}})
+                                        </small>
+                                    </div>
+                                </ng-container>
+                                <ng-template #singleStatus>
+                                    <span [ngClass]="chiTiet.isDat ? 'color-success' :'color-danger'">
+                                        {{ chiTiet.isDat ? 'Đạt' :'Chưa đạt' }}
+                                    </span>
+                                </ng-template>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </ng-template>
+        </p-table> -->
+
+        <!-- <p-table #dt [value]="listView" dataKey="IddmItem" [(expandedRows)]="expandedRows"
+            styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col class="text-center" style="width: 50px">
+                    <col class="text-center" style="width: 250px">
+                    <col class="text-center" style="width: 100px">
+                    <ng-container *ngFor="let congDoan of listView[0]?.listHeader">
+                        <col class="text-center" style="width: 100px">
+                    </ng-container>
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Tên mặt hàng</th>
+                    <th class="text-center">Ngày kiểm tra</th>
+                    <ng-container *ngFor="let congDoan of listView[0]?.listHeader">
+                        <th class="text-center"> {{congDoan}}</th>
+                    </ng-container>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr>
+                    <td class="text-center">{{ i+1 }}</td>
+                    <td>
+                        <div class="d-flex">
+                            <Span (click)="handleTree(item)"><i [style]="{'margin-right':'8px'}"
+                                    [ngClass]="item?.expand?'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                            </Span>
+                            {{ item.TenMatHang }}
+                        </div>
+                    </td>
+                    <td></td>
+                    <ng-container *ngFor="let congDoan of listView[0]?.listHeader">
+                        <td></td>
+                    </ng-container>
+                </tr>
+
+                <ng-container *ngIf="item?.expand">
+                    <tr *ngFor="let itChild of item?.listNgay" style="font-style: italic;">
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">{{itChild.Ngay | date:'dd/MM/yyyy'}}</td>
+                        <ng-container *ngFor="let chiTiet of itChild?.listChiTiet">
+                            <td class="text-center">
+                                <ng-container *ngIf="chiTiet?.listQuanTriLoBong?.length; else singleStatus">
+                                    <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                        <span *ngFor="let loBong of chiTiet.listQuanTriLoBong"
+                                            (click)="handleLink(loBong)"
+                                            [ngClass]="loBong.isDat ? 'color-success' :  'color-danger'">
+                                            - {{loBong.TenLoBong}}( {{loBong.isDat ? 'Đạt' : 'Chưa đạt'}})
+                                        </span>
+                                    </div>
+                                </ng-container>
+                                <ng-template #singleStatus>
+                                    <span [ngClass]="chiTiet.isDat ? 'color-success' :'color-danger'"
+                                        (click)="handleLink(chiTiet)">
+                                        {{ chiTiet.isDat ? 'Đạt' :'Chưa đạt' }}
+                                    </span>
+                                </ng-template>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </ng-template>
+        </p-table> -->
+
+        <div class="pintable-container" style="height: 77vh;" voiPintable [pinnedCols]="3" #scrollContainer>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center tc-w-50">STT</th>
+                        <th class="text-center tc-w-250">Tên mặt hàng</th>
+                        <th class="text-center tc-w-100">Ngày kiểm tra</th>
+                        <ng-container *ngFor="let congDoan of listView[0]?.listHeader">
+                            <th class="text-center tc-w-100"> {{congDoan}}</th>
+                        </ng-container>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let item of listView; let i = index">
+                        <tr *ngIf="item?.isShow">
+                            <td class="text-center tc-w-50 bg-white">{{ i+1 }}</td>
+                            <td class="tc-w-250 bg-white">
+                                <div class="d-flex">
+                                    <Span (click)="handleTree(item)"><i [style]="{'margin-right':'8px'}"
+                                            [ngClass]="item?.expand?'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                                    </Span>
+                                    {{ item.TenMatHang }}
+                                </div>
+                            </td>
+                            <td class="tc-w-100 bg-white"></td>
+                            <ng-container *ngFor="let congDoan of listView[0]?.listHeader">
+                                <td class="tc-w-100"></td>
+                            </ng-container>
+                        </tr>
+
+                        <ng-container *ngIf="item?.expand && item?.isShow">
+                            <tr *ngFor="let itChild of item?.listNgay" style="font-style: italic;">
+                                <td class="tc-w-50 bg-white"></td>
+                                <td class="tc-w-250 bg-white"></td>
+                                <td class="text-center tc-w-100 bg-white">{{itChild.Ngay | date:'dd/MM/yyyy'}}</td>
+                                <ng-container *ngFor="let chiTiet of itChild?.listChiTiet">
+                                    <td class="text-center">
+                                        <ng-container *ngIf="chiTiet?.listQuanTriLoBong?.length; else singleStatus">
+                                            <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                                <span *ngFor="let loBong of chiTiet.listQuanTriLoBong"
+                                                    (click)="handleLink(loBong)"
+                                                    [ngClass]="loBong.isDat ? 'color-success' : loBong.IdPhieu ?'color-danger':'color-orange'">
+                                                    - {{loBong.TenLoBong}}( {{loBong.isDat ? 'Đạt' : loBong.IdPhieu ?
+                                                    'Chưa đạt' : 'Chưa ĐG'}})
+                                                </span>
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #singleStatus>
+                                            <span
+                                                [ngClass]="chiTiet.isDat ? 'color-success' : chiTiet.IdPhieu ?'color-danger':'color-orange'"
+                                                (click)="handleLink(chiTiet)">
+                                                {{ chiTiet.isDat ? 'Đạt' : chiTiet.IdPhieu ? 'Chưa đạt' : 'Chưa ĐG'}}
+                                            </span>
+                                        </ng-template>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -56,17 +56,17 @@ export class
     let text = `${this.item.ThoiGianBaoDuong}`;
     switch (this.item.MaLoaiThoiGian) {
       case `NGAY`:
-        text += " ngày"
+        text += " lần ngày"
         break;
 
       case `TUAN`:
-        text += " tTuần"
+        text += " lần Tuần"
         break;
       case `THANG`:
-        text += " tháng"
+        text += " lần tháng"
         break;
       case `NAM`:
-        text += " năm"
+        text += " lần năm"
         break;
       default:
         break;

@@ -11,7 +11,7 @@
         </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listdmLoaiBong" placeholder="Chọn loại bông" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.IddmLoaiBong" [showClear]="true" (onChange)="GetListQuyTrinh(true)" [filter]="true"></p-dropdown>
+                [(ngModel)]="filter.IddmLoaiBong" (onChange)="GetListQuyTrinh(true)" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listisDaDuyet" styleClass="p-inputtext-sm"

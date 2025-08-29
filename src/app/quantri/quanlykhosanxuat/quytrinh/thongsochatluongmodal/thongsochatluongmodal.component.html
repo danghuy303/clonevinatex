@@ -100,14 +100,20 @@
                     disabled="true" pInputText />
             </div>
         </div>
-        <div class="p-col-12  p-p-3 d-flex flex-column flex-lg-row">
-            <div class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-lg-row">
-                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nhận xét:</label>
-                <div class="p-col-12 p-lg-10 p-p-0">
-                    <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
-                </div>
+        <div class="p-col-8 p-lg-8 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto" style="width: 16.25%">Nhận xét:</label>
+            <div class="p-col-12 p-lg-10 p-p-0" style="width: 83.75%">
+                <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
+        <div class="p-col-4 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đánh giá:</label>
+            <div class="field-radiobutton p-col-12 p-lg-8 p-p-0 d-flex align-items-center">
+                <p-checkbox [(ngModel)]="item.isDat" binary="true" inputId="binary"></p-checkbox>
+                <label class="ml-2 mb-0">Đạt</label>
+            </div>
+        </div>
+
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="d-flex flex-row p-jc-between p-mb-4">
                 <div>
@@ -233,8 +239,8 @@
                             <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isKienDai" />
                         </td>
                         <td class="text-center">
-                            <qrcode [qrdata]="item.QRType" *ngIf="item.MaQR"
-                                [width]="50" [errorCorrectionLevel]="'M'" [elementType]="'svg'">
+                            <qrcode [qrdata]="item.QRType" *ngIf="item.MaQR" [width]="50" [errorCorrectionLevel]="'M'"
+                                [elementType]="'svg'">
                             </qrcode>
                         </td>
                         <td class="text-center">

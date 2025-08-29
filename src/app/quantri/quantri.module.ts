@@ -357,6 +357,8 @@ import { AnhmaukiemtrabanchephamComponent } from './anhmaukiemtrabanchepham/anhm
 import { XuatkhocapdauComponent } from './quanlykhosanxuat/quytrinh/xuatkhocapdau/xuatkhocapdau.component';
 import { XuatkhocapdaumodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhocapdau/xuatkhocapdaumodal/xuatkhocapdaumodal.component';
 import { DanhsachmathangmuiComponent } from './quanlykhosanxuat/quytrinh/xuatkhocapdau/danhsachmathangmui/danhsachmathangui.component';
+import { GetItemByCongDoanPipe } from '../services/getItemByCongDoan.pipe';
+import { QuantrichatluongComponent } from './quantrichatluong/quantrichatluong.component';
 
 @NgModule({
   declarations: [
@@ -659,6 +661,7 @@ import { DanhsachmathangmuiComponent } from './quanlykhosanxuat/quytrinh/xuatkho
     XuatkhocapdauComponent,
     XuatkhocapdaumodalComponent,
     DanhsachmathangmuiComponent,
+    QuantrichatluongComponent,
   ],
   imports: [
     CommonModule,

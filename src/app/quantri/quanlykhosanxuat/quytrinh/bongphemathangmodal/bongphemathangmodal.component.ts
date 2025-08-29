@@ -19,12 +19,17 @@ export class BongphemathangmodalComponent implements OnInit {
     {
       header: 'Số kiện',
       field: 'SoLuong',
-      width: 'unset'
+      width: '100px'
     },
     {
       header: 'Tổng khối lượng (kg)',
       field: 'TongTrongLuong',
-      width: 'unset'
+      width: '150px'
+    },
+     {
+      header: 'Đợt nhập kho',
+      field: '',
+      width: '120px'
     },
   ];
   loai='';

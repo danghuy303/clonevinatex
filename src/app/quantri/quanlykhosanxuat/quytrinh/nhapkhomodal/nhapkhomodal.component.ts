@@ -306,7 +306,6 @@ export class NhapkhomodalComponent implements OnInit, AfterViewInit, AfterViewCh
     let dataFilter: any = this.listKeHoachFull.filter(obj => {
       return obj.Id === item.value
     });
-    console.log(dataFilter)
     this.item.IddmLoaiBong = dataFilter[0].IddmLoaiBong;
     this.item.MaInvoice = dataFilter[0].MaInvoice;
     this.item.NoiDung = dataFilter[0].NoiDung;

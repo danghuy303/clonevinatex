@@ -37,7 +37,7 @@
     </div>
 </div>
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-        <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
+    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
     </p-tabPanel>
@@ -91,7 +91,7 @@
             <td class="text-center">{{rowData.TenTrangThai}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil" title="Chỉnh sửa"
-                    class="p-button-text p-button-sm p-button-secondary p-mr-2" 
+                    class="p-button-text p-button-sm p-button-secondary p-mr-2"
                     (click)="changeParam(rowData.Id)"></button>
             </td>
         </tr>
@@ -104,11 +104,19 @@
     </ng-template>
 </p-treeTable>
 
-<p-dialog [(visible)]="display" header="Danh sách máy" [style]="{ width: '80vw', height: '70vh' }" [baseZIndex]="1000">
-    <button pButton label="Chấp nhận" class="p-button-sm p-mb-2"
-            (click)="ChapNhan()"></button>
-    <p-table [value]="listDanhSachMay" styleClass="p-datatable-sm wrap-text p-datatable-striped" [paginator]="true"
-        [rows]="15" [scrollable]="true">
+<p-dialog [(visible)]="display" header="Danh sách máy" [style]="{ width: '80vw', height: '70vh' }" [baseZIndex]="1000"
+    [modal]="true">
+    <div class="p-d-flex p-jc-between">
+        <button pButton label="Chấp nhận" class="p-button-sm p-mb-2" (click)="ChapNhan()"></button>
+        <div class="p-inputgroup" [style]="{ width: '20vw', height: '36px' }">
+            <input #inputtt1 type="text" pInputText class="p-inputtext-sm"
+                (input)="tb.filterGlobal($event.target.value, 'contains')" placeholder="Tìm kiếm" />
+            <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn p-inputtext-sm"
+                (click)="tb.filterGlobal($event.target.value, '')" (click)="inputtt1.value = ''"></button>
+        </div>
+    </div>
+    <p-table #tb [value]="listDanhSachMay" styleClass="p-datatable-sm wrap-text p-datatable-striped" [paginator]="true"
+        [rows]="15" [scrollable]="true" [globalFilterFields]="['Ma','Ten']">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">

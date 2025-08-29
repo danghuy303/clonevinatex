@@ -7,6 +7,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from '../../../../services/Taisan/danhmuctaisan.service';
 import { API } from '../../../../services/host';
+import { mapQuyTrinhRoute } from '../../../../services/mapquytrinhroute';
 import * as printJS from 'print-js';
 
 @Component({
@@ -33,6 +34,8 @@ export class LohangmodalComponent implements OnInit {
     { value: 400, label: '400' },
   ];
   isQRZoomed: boolean = false;
+  filter: any = {};
+  QuyTrinhRoute: any = mapQuyTrinhRoute;
 
   constructor(public activeModal: NgbActiveModal,
     private services: SanXuatService,
@@ -65,13 +68,16 @@ export class LohangmodalComponent implements OnInit {
       this.services.PhuongAnPhaBong().GetHoanThanh(),
       this.services.dmQuyCachDongGoi().GetList(),
       this.services.GetListKgCone(),
+      this.services.LoHang().GetList({ CurrentPage: 0 }),
     ]).subscribe(
-      ([loBong, matHang, hoanThanh, quyCach, kgCone]) => {
+      ([loBong, matHang, hoanThanh, quyCach, kgCone, lohang]) => {
         this.options.listLoBong = mapArrayForDropDown(loBong as any[], 'Ten', 'Id');
         this.options.listMatHang = mapArrayForDropDown(matHang as any[], 'Ten', 'Id');
         this.options.listPhaBong = mapArrayForDropDown(hoanThanh as any[], 'SoQuyTrinh', 'Id');
         this.options.listQuyCach = mapArrayForDropDown(quyCach as any[], 'Ten', 'Id');
+        this.options.listQuyCachAll = quyCach;
         this.options.listKgCone = mapArrayForDropDown(kgCone as any[], 'GiaTri', 'Id');
+        this.options.listLoHang = lohang;
       },
       (error) => {
         console.error('Lỗi khi lấy dữ liệu:', error);
@@ -153,10 +159,31 @@ export class LohangmodalComponent implements OnInit {
 
 
   handleQR() {
-    this.isQR = !this.isQR
+    this.isQR = !this.isQR;
+    this.item.KhoGiay = 8;
   }
   toggleZoomQR() {
     this.isQRZoomed = !this.isQRZoomed;
+  }
+
+  handleLoHang() {
+    let objLoHang = this.options.listLoHang?.find(ele => ele.Id === this.filter.LoHang.Id);
+    this.item.Ten = objLoHang.Ten;
+    this.item.Ma = objLoHang.Ma;
+  }
+
+  xemChiTiet(IdQuyTrinh, Ma) {
+    let routerURL = '';
+    routerURL = this.QuyTrinhRoute[Ma];
+    if (routerURL) {
+      window.open(`${API.imgURL}/vinatex/#${routerURL}/${IdQuyTrinh || 0}`);
+    } else {
+      this.toastr.warning("Không tìm thấy điều hướng của quy trình!");
+    }
+  }
+
+  handleQuyCach() {
+    this.item.TrongLuongKg_Cone = this.options.listQuyCachAll?.find(ele => ele.Id === this.item.QuyCachDongGoi)?.TrongLuong || 0;
   }
 
 }

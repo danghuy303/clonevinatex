@@ -83,7 +83,7 @@ export class QuytrinhdanhgiakhachhangComponent implements OnInit {
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.item = res1.data;
+      modalRef.componentInstance.item = res1.Data;
       modalRef.componentInstance.type = this.type;
       modalRef.componentInstance.nametype = this.nametype;
       modalRef.componentInstance.IdDuAn = this.IdDuAn;
@@ -127,15 +127,15 @@ export class QuytrinhdanhgiakhachhangComponent implements OnInit {
       IdHopDong: this.filter.IdHopDong,
     }
     this._hopdong.QuyTrinhDanhGia().GetList(data).subscribe((res: any) => {
-      this.items = res.data.items;
+      this.items = res.Data.Items;
       if (this.items.length > 0) {
         this.items.forEach(element => {
           element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
         });
       }
-      this.paging.CurrentPage = res.data.page;
-      this.paging.TotalPage = res.data.totalPages;
-      this.paging.TotalItem = res.data.totalCount;
+      this.paging.CurrentPage = res.Data.Page;
+      this.paging.TotalPage = res.Data.TotalPages;
+      this.paging.TotalItem = res.Data.TotalCount;
     })
   }
   resetFilter() {

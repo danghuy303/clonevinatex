@@ -33,6 +33,7 @@ export class KiemkekhomodalComponent implements OnInit, AfterViewInit {
     listLoBong: any = [];
     listLoHang: any = [];
     listQuyCachDongGoi: any = [];
+    listdmQuyCachDongGoiAll: any = [];
     listNewMatHang: any = [];
     listNewMatHang_ref: any = [];
     isKhoThanhPham: any = false;
@@ -83,7 +84,7 @@ export class KiemkekhomodalComponent implements OnInit, AfterViewInit {
             this.listItem = this.item.listItem;
 
         } else {
-            this.GetQuyTrinh();
+            // this.GetQuyTrinh();
         }
         // this.item_new = this.item;
 
@@ -112,7 +113,11 @@ export class KiemkekhomodalComponent implements OnInit, AfterViewInit {
             .dmQuyCachDongGoi()
             .GetList()
             .subscribe((res: any) => {
+                this.listdmQuyCachDongGoiAll = res;
                 this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
+                if (this.opt === "edit") {
+                    this.GetQuyTrinh();
+                }
             });
         this.services
             .PhieuKiemKeKho()
@@ -145,8 +150,18 @@ export class KiemkekhomodalComponent implements OnInit, AfterViewInit {
                 this.item = res1;
                 this.paging.CurrentPage = 1;
                 this.paging.TotalPage = 5;
-                this.paging.TotalItem = res1.listItem.length;
-                this.item.listItem = res1.listItem;
+                this.paging.TotalItem = res1.listItem.length; 
+                this.item.listItem = res1.listItem?.map(ele => {
+                    return {
+                        ...ele,
+                        listQuyCach: this.listdmQuyCachDongGoiAll
+                            ?.filter(obj => obj.Kg_Cone === ele.TonTrongLuong)
+                            .map(obj => ({
+                                value: obj.Id,
+                                label: obj.Ten
+                            }))
+                    }
+                });
                 this.listItem = this.item.listItem.slice(0, 10);
                 this.KiemTraButtonModal();
                 this.getListLoHangTheodmkho();
@@ -245,6 +260,7 @@ export class KiemkekhomodalComponent implements OnInit, AfterViewInit {
                             this.opt = "edit";
                             this.Id = res.objectReturn.Id;
                             this.GetQuyTrinh()
+
                             // this.item = res.objectReturn;
                             // this.listItem = res.objectReturn.listItem;
                             // this.paging.CurrentPage = 1;
@@ -315,6 +331,12 @@ export class KiemkekhomodalComponent implements OnInit, AfterViewInit {
                     mathang.SoQuaSoi = mathang.TonSoLuong;
                     mathang.TongTrongLuong = mathang.TonTongTrongLuong;
                     mathang.TrongLuongQuaSoi = mathang.TonTrongLuong;
+                    mathang.listQuyCach = this.listdmQuyCachDongGoiAll
+                        ?.filter(obj => obj.Kg_Cone === mathang.TonTrongLuong)
+                        .map(obj => ({
+                            value: obj.Id,
+                            label: obj.Ten
+                        }));
                 });
                 this.item.listItem = res1;
                 this.listItem = this.item.listItem.slice(0, 10);
@@ -475,6 +497,19 @@ export class KiemkekhomodalComponent implements OnInit, AfterViewInit {
                 }
             });
         }, 0)
+    }
+
+    chonQuyCach(data) {
+        let _objQuyCach = this.listdmQuyCachDongGoiAll.find(ele => ele.Id === data.IddmQuyCachDongGoi);
+        let _soQuaQuyCach = _objQuyCach.SoQua || 0;
+        let _trongLuongQuyCach = _objQuyCach.TrongLuong || 0;
+        data.SoQuaSoi = (data.SoLuong || 0) * (_soQuaQuyCach || 0);
+        data.TongTrongLuong = (data.SoLuong) * (_trongLuongQuyCach || 0);
+        this.item.listItem = [...this.item.listItem];
+    }
+
+    nhapSoKien(data) {
+        this.chonQuyCach(data)
     }
 
 }

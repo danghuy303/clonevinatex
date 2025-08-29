@@ -59,7 +59,7 @@ export class NhapkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/hopdongsanxuat/${this.link}/nhapkho/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/hopdongsanxuat/${this.link.value}/nhapkho/${id}`], { replaceUrl: true })
   }
 
   getListKho() {
@@ -117,7 +117,7 @@ export class NhapkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
+      // this.paginator.changePage(0);
     }
     let data: any = {
       PageSize: 20,

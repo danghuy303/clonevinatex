@@ -44,14 +44,14 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
   ngOnInit(): void {
     if (this.opt !== 'edit') {
       this.item = {
-        id: '',
+        Id: '',
         listPhieuDanhGia  : [],
-        idDuAn: this.IdDuAn,
+        IdDuAn: this.IdDuAn,
       }
       this.GetNextSoQuyTrinh();
     }
     else{
-      this.getQuyTrinh(this.item.id);
+      this.getQuyTrinh(this.item.Id);
     }
     this.getListKhachHang();
     this.getListdmTieuChiDanhGia();
@@ -62,7 +62,7 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     })
   }
   KiemTraButtonModal() {
-    this._services.KiemTraButton(this.item.id || '', this.item.idTrangThai || '').subscribe(res => {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
@@ -71,14 +71,14 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
       delete element.khachHang;
       delete element.listHopDong;
     });
-      this.item.ngayUnix = DateToUnix(this.item.ngay);
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._hopdong.QuyTrinhDanhGia().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
+          if (res.StatusCode === 200) {
             this.activeModal.close();
-            this.toastr.success(res.message)
+            this.toastr.success(res.Message)
           } else {
-            this.toastr.error(res.message);
+            this.toastr.error(res.Message);
           }
         }
       })
@@ -88,21 +88,21 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
       delete element.khachHang;
       delete element.listHopDong;
     });
-      this.item.ngayUnix = DateToUnix(this.item.ngay);
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._hopdong.QuyTrinhDanhGia().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
+          if (res.StatusCode === 200) {
             this.activeModal.close();
-            this.toastr.success(res.message)
+            this.toastr.success(res.Message)
           } else {
-            this.toastr.error(res.message);
+            this.toastr.error(res.Message);
           }
         }
       })
   }
   GetNextSoQuyTrinh() {
     this._hopdong.QuyTrinhDanhGia().GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.soQuyTrinh = res.data;
+      this.item.soQuyTrinh = res.Data;
     })
   }
 
@@ -113,12 +113,12 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     });
       this._hopdong.QuyTrinhDanhGia().Set(this.item).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this.toastr.success(res.message)
+          if (res.StatusCode === 200) {
+            this.toastr.success(res.Message)
             this.opt = 'edit';
-            this.getQuyTrinh(res.data.id)
+            this.getQuyTrinh(res.Data.Id)
           } else {
-            this.toastr.error(res.message);
+            this.toastr.error(res.Message);
           }
         }
       })
@@ -130,13 +130,13 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._hopdong.QuyTrinhDanhGia().Delete(this.item.id).subscribe((res: any) => {
+      this._hopdong.QuyTrinhDanhGia().Delete(this.item.Id).subscribe((res: any) => {
         console.log(res);
-        if (res?.statusCode === 200) {
+        if (res?.StatusCode === 200) {
           this.activeModal.close();
-          this.toastr.success(res.message);
+          this.toastr.success(res.Message);
         } else {
-          this.toastr.error(res.message);
+          this.toastr.error(res.Message);
         }
       })
     }).catch(er => console.log(er))
@@ -144,13 +144,13 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
 
   getQuyTrinh(Id) {
     this._hopdong.QuyTrinhDanhGia().Get(Id).subscribe((res1: any) => {
-      this.item=res1.data;
+      this.item=res1.Data;
       this.KiemTraButtonModal();
     })
   }
   delete(index) {
     let item = this.item.listPhieuDanhGia.splice(index, 1)[0];
-    if (item.id === '' || item.id === null || item.id === undefined) {
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
     } else {
       item.isXoa = true;
       this.item.listPhieuDanhGia.push(JSON.parse(JSON.stringify(item)));
@@ -166,7 +166,7 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     })
     modalRef.componentInstance.items = this.listKhachHang;
     modalRef.componentInstance.selectedItems = deepCopy(this.item.listPhieuDanhGia || []);
-    modalRef.componentInstance.IdQuyTrinh = this.item.id;
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.componentInstance.listTieuChiDanhGia = deepCopy(this.listTieuChiDanhGia);
     modalRef.componentInstance.opt = "";    
     modalRef.result.then(res => {
@@ -180,7 +180,7 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
       size: 'xl', backdrop: 'static'
     })
     modalRef.componentInstance.item = item;
-    modalRef.componentInstance.IdQuyTrinh = this.item.id;
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.componentInstance.opt = "";    
     modalRef.result.then(res => {
       item = deepCopy(res);
@@ -192,14 +192,14 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     let data: any = {currentPage: 0}
     this._hopdong.dmTieuChiDanhGia().GetList(data).subscribe((res1: any) => {
       this.listTieuChiDanhGia = [] ;
-      res1.data.forEach(element => {
+      res1.Data.forEach(element => {
         let data: any = {
-          id: '',
-          iddmTieuChiDanhGia: element.id,
-          diemToiDa: element.diemToiDa,
-          ten: element.ten,
-          diem: 0,
-          iddmTieuChiCha: element.iddmTieuChiCha,
+          Id: '',
+          IddmTieuChiDanhGia: element.Id,
+          DiemToiDa: element.DiemToiDa,
+          Ten: element.Ten,
+          Diem: 0,
+          IddmTieuChiCha: element.IddmTieuChiCha,
         }
         this.listTieuChiDanhGia.push(data);
       });

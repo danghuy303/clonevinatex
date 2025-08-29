@@ -20,19 +20,19 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã hình thức thanh toán',
-      field: 'ma',
+      field: 'Ma',
       width: '200px',
       align:'center'
     },
     {
       header: 'Tên hình thức thanh toán',
-      field: 'ten',
+      field: 'Ten',
       width: '300px',
       align:'center'
     },
     {
       header: 'Ghi chú',
-      field: 'ghiChu',
+      field: 'GhiChu',
       width: '200px',
       align:'center'
     }
@@ -55,13 +55,11 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
-      sFilter:this.keyWord,  
-      ma:"", 
-      ten:""
+      sFilter:this.keyWord,
     };
     this._danhMucHopDong.DanhMucHinhThucThanhToan().GetList(data).subscribe((res:any)=>{
-      this.items = res.data.items;
-      this.paging.TotalItem = res.data.totalCount;
+      this.items = res.Data.Items;
+      this.paging.TotalItem = res.Data.TotalCount;
     })
   }
   add(){
@@ -95,12 +93,12 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
     modalRef.result.then(res=>{
       this._danhMucHopDong.DanhMucHinhThucThanhToan().Delete(item.id).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
             this.GetListdmHinhThucThanhToan();
             this.selectedItems = [];
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       })
@@ -115,11 +113,11 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
       const item= this.selectedItems[0];
       this._danhMucHopDong.DanhMucHinhThucThanhToan().Delete([item.id]).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
             this.GetListdmHinhThucThanhToan();
           } else {
-            this._toastr.error(res.message);
+            this._toastr.error(res.Message);
           }
         }
       })
@@ -134,12 +132,12 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
   //   modalRef.result.then(res=>{
   //     this._danhMucHopDong.DanhMucHinhThucThanhToan().DeleteList(listId).subscribe((res: any) => {
   //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
+  //         if (res.StatusCode === 200) {
+  //           this._toastr.success(res.Message);
   //           this.GetListdmHinhThucThanhToan();
   //           this.selectedItems = [];
   //         } else {
-  //           this._toastr.error(res.message);
+  //           this._toastr.error(res.Message);
   //         }
   //       }
   //     })

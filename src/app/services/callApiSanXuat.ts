@@ -3564,4 +3564,23 @@ export class SanXuatService {
     GetListFileFolder(data) {
         return this.http.post(`${API.auth}TuHoSoNew/GetListFileFolder`, data, httpOptions)
     }
+
+    GetlistMatHangMapppingIOT() {
+        let IdDuAn = this.store.getCurrent();
+        return this.http.get(`${API.SCMDanhMuc}GetlistMatHangMapppingIOT?IdDuAn=${IdDuAn}`, httpOptions)
+    }
+    GetlistCongDoanMapping() {
+        return this.http.get(`${API.SCMDanhMuc}GetlistCongDoanMapping`, httpOptions)
+    }
+    SetMatHangMappingIOT(data) {
+        return this.http.post(`${API.SCMDanhMuc}SetMatHangMappingIOT`, data, httpOptions)
+    }
+
+    // quản trị chất lượng
+    GetListQuanTriChatLuong(data) {
+        return this.http.post(`${API.SCM}KiemTraChatLuong/GetListQuanTriChatLuong`, data, httpOptions)
+    }
+    GetListQuanTriChatLuongChiTiet(data) {
+        return this.http.post(`${API.SCM}KiemTraChatLuong/GetListQuanTriChatLuongChiTiet`, data, httpOptions)
+    }
 }

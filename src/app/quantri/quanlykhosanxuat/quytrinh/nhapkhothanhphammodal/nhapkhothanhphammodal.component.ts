@@ -154,7 +154,7 @@ export class NhapkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
-             this.getListQuyCachTheoMatHang();
+            this.getListQuyCachTheoMatHang();
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -185,10 +185,12 @@ export class NhapkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
     this.data.Loai = 10;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKhoHoiAm = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.item.IddmKhoHoiAm = this.listKhoHoiAm[0]?.value;
     })
     this.data.Loai = 11;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKhoThanhPham = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.item.IddmKhoThanhPham = this.listKhoThanhPham[0]?.value;
     })
   }
   getListdmQuyCachDongGoi() {
@@ -483,7 +485,7 @@ export class NhapkhothanhphammodalComponent implements OnInit, AfterViewInit, Af
     console.log('_soQuaQuyCach', _soQuaQuyCach);
     console.log('_trongLuongQuyCach', _trongLuongQuyCach);
     data.SoQuaSoiThanhPham = (data.SoKien || 0) * (_soQuaQuyCach || 0);
-    data.TongKhoiLuong = (data.SoQuaSoiThanhPham) * (_trongLuongQuyCach || 0);
+    data.TongKhoiLuong = (data.SoKien) * (_trongLuongQuyCach || 0);
     this.item.listItem = [...this.item.listItem];
     console.log('listItem', this.item.listItem);
   }

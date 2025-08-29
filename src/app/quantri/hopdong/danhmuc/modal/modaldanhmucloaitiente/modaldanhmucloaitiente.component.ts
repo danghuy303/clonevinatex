@@ -23,22 +23,22 @@ export class ModaldanhmucloaitienteComponent implements OnInit {
   SetData() {
     let data: any = {
       // "id": this.type == "loaitiente" ? "" : this.item.Id,
-      "id":this.item.id,
-      "ma": this.item.ma,
-      "ten": this.item.ten,
-      "ghiChu": this.item.ghiChu,
-      "created": this.type == "loaitiente" ? new Date() : this.item.created,
-      "modified":new Date() ,
+      "Id":this.item.Id,
+      "Ma": this.item.Ma,
+      "Ten": this.item.Ten,
+      "GhiChu": this.item.GhiChu,
+      "Created": this.type == "loaitiente" ? new Date() : this.item.Vreated,
+      "Modified":new Date() ,
       "isDelete":this.type == "loaitiente" ? false : this.item.isDelete,
     };
     return data;
   }
   ValidateData() {
-    if (!validVariable(this.item.ma)) {
+    if (!validVariable(this.item.Ma)) {
       this.toastr.error("Yêu cầu nhập đầy đủ mã loại tiền tệ!");
       return false;
     }
-    if (!validVariable(this.item.ten)) {
+    if (!validVariable(this.item.Ten)) {
       this.toastr.error("Yêu cầu nhập đầy đủ tên loại tiền tệ!");
       return false;
     }
@@ -49,10 +49,10 @@ export class ModaldanhmucloaitienteComponent implements OnInit {
     if (this.ValidateData()) {
       console.log(this.SetData());
       this._danhMucHopDong.DanhMucLoaiTienTe().Set(this.SetData()).subscribe((res: any) => {
-        if (res.statusCode !== 200) {
-          this.toastr.error(res.message);
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
         } else {
-          this.toastr.success(res.message);
+          this.toastr.success(res.Message);
           this.activeModal.close();
         } 
         this.activeModal.close();

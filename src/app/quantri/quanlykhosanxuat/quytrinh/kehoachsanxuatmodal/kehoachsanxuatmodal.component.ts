@@ -65,7 +65,6 @@ export class KehoachsanxuatmodalComponent implements OnInit, AfterViewInit, Afte
     }
     else {
       console.log(this.item);
-
       this.item.listItem = this.item.listItem.sort((a, b) => a.Ne - b.Ne);
     }
   }

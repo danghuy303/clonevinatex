@@ -36,7 +36,7 @@ export class PhabongmodalComponent implements OnInit {
   itemTrongLuong1BanTruBongHoi: any = {};
   itemDeltaPlusB: any = {};
   itemSoKienTrenBanTruBongHoi = {};
-  SoBanCongThem:number=null;
+  SoBanCongThem: number = null;
   item: any = {
     Id: '',
     listItem: [],
@@ -131,20 +131,20 @@ export class PhabongmodalComponent implements OnInit {
       this.GetLoBongTrongKho();
     })
   }
-  ThemBanBong(){
-    if(this.SoBanCongThem&&this.SoBanCongThem>0){
-      for(let i = this.item.SoBanBong+1;i<=(this.item.SoBanBong + this.SoBanCongThem);i++){
+  ThemBanBong() {
+    if (this.SoBanCongThem && this.SoBanCongThem > 0) {
+      for (let i = this.item.SoBanBong + 1; i <= (this.item.SoBanBong + this.SoBanCongThem); i++) {
         this.listProps.push(`${i}`)
         this.item.listLoBong.forEach((lobong, index) => {
           let data = {
-            SoKien:null,
+            SoKien: null,
             tabIndex: index + 1 + (i * this.item.listLoBong.length)
           }
           lobong.tempBanBong[`${i}`] = data;
         })
       }
-      this.item.SoBanBong+=this.SoBanCongThem;
-      this.SoBanCongThem =null;
+      this.item.SoBanBong += this.SoBanCongThem;
+      this.SoBanCongThem = null;
     }
   }
   rebindDataToTable() {
@@ -376,8 +376,10 @@ export class PhabongmodalComponent implements OnInit {
         this.labelBong[lobong.IddmLoaiBong.split('-').join('_')] += lobong.TyLe;
       }
     });
-    
-    this.item.TyLePhaBong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.labelBong[ele.prop], 'en-EN', '0.0-2')}% ${ele.name}` }, '')
+
+    // this.item.TyLePhaBong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.labelBong[ele.prop], 'en-EN', '0.0-2')}% ${ele.name}` }, '')
+    // 29/8/2025 a_dung_dai : cố định label là bông hồi
+    this.item.TyLePhaBong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.labelBong[ele.prop], 'en-EN', '0.0-2')}% bông hồi` }, '')
   }
   TinhTongTrongLuong() {
     this.trongLuongLoBong = {};
@@ -389,7 +391,8 @@ export class PhabongmodalComponent implements OnInit {
         this.trongLuongLoBong[lobong.IddmLoaiBong.split('-').join('_')] += lobong.TongTrongLuong;
       }
     });
-    this.item.TyLeTrongLuong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.trongLuongLoBong[ele.prop], 'en-EN', '0.0-2')}kg ${ele.name}` }, '')
+    // this.item.TyLeTrongLuong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.trongLuongLoBong[ele.prop], 'en-EN', '0.0-2')}kg ${ele.name}` }, '')
+    this.item.TyLeTrongLuong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.trongLuongLoBong[ele.prop], 'en-EN', '0.0-2')}kg bông hồi` }, '')
   }
   TinhDeltaB() {
     for (let i = 1; i <= this.item.SoBanBong; i++) {

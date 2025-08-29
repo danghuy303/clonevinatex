@@ -519,7 +519,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.title = "Chọn phiếu";
     modalRef.componentInstance.quyTrinh = this.item;
     modalRef.componentInstance.listCongDoan = this.listCongDoan;
-    modalRef.componentInstance.listDaChon = this.item.listItemMay;
+    modalRef.componentInstance.listDaChon = this.item.listItemLienKet;
     modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
     modalRef.result.then(res => {
       let data = {
@@ -531,6 +531,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           return ('' + a.Ten).localeCompare(b.Ten);
         })
         this.item.listItemMay = res.listItemMay;
+         this.item.listItemLienKet = res.listItemLienKet;
       })
     }).catch(er => {
     })

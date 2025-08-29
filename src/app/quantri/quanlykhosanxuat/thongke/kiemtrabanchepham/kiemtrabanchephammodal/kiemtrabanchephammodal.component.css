@@ -27,14 +27,27 @@
   max-width: 50px !important;
   min-width: 50px !important;
 }
+
+.bcp-w-70 {
+  max-width: 70px !important;
+  min-width: 70px !important;
+}
+
 .bcp-w-80 {
   max-width: 80px !important;
   min-width: 80px !important;
 }
+
+.bcp-w-170 {
+  max-width: 170px !important;
+  min-width: 170px !important;
+}
+
 .bcp-w-200 {
   max-width: 200px !important;
   min-width: 200px !important;
 }
+
 .bcp-w-100 {
   max-width: 100px !important;
   min-width: 100px !important;
@@ -44,4 +57,12 @@
   cursor: not-allowed;
   background-color: #fff;
   opacity: 1;
+}
+
+.pintable-container tbody td {
+  padding: 0 5px;
+}
+
+::ng-deep .p-inputtext {
+  padding: 0.5rem 0.5rem;
 }
