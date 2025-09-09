@@ -320,10 +320,16 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     // this._services.GetListdmMay(data).subscribe((res: any) => {
     //   this.listMay = mapArrayForDropDown(res, "Ma", 'Id')
     // });
-    this._services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
+
+    // this._services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
+    //   res.unshift({ Id: '', Ten: 'Tổng ca sản xuất' });
+    //   this.listCa = mapArrayForDropDown(res, "Ten", 'Id')
+    // });
+    this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tổng ca sản xuất' });
       this.listCa = mapArrayForDropDown(res, "Ten", 'Id')
     });
+
     // this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
     //   res.unshift({ Id: '', Ten: 'Tổng hợp' });
     //   this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');

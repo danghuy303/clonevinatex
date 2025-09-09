@@ -3,7 +3,7 @@
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-py-3">
-        <div class="p-mr-3">
+        <div class="p-mr-2">
             <h5>Tạo mã QR:</h5>
             <div class="p-inputgroup" style="width: 160px;">
                 <p-inputNumber [(ngModel)]="filter.SoLuong" placeholder="Nhập số lượng"></p-inputNumber>
@@ -11,20 +11,29 @@
                     styleClass="p-button-warn "></button>
             </div>
         </div>
-        <div class="p-mr-3" style="width: 140px;">
+        <div class="p-mr-2" style="width: 140px;">
             <h5>Số QR cần dùng:</h5>
             <p-inputNumber [(ngModel)]="filter.SoLuongIn" placeholder="Số qr cần dùng"></p-inputNumber>
         </div>
-        <div class="p-mr-3" style="width: 80px;">
+        <div class="p-mr-2" style="width: 80px;">
             <h5>Số bản in:</h5>
             <p-inputNumber [(ngModel)]="filter.SoBanIn" placeholder="Số bản in"></p-inputNumber>
         </div>
-        <div class="p-d-flex p-flex-row">
-            <button pButton pRipple type="button" label="Xuất PDF" styleClass="p-button-warn" style="margin-top: 28px;"
+        <div class="p-mr-2">
+            <button pButton pRipple type="button" label="Xuất PDF" styleClass="p-button-warn p-mr-2" style="margin-top: 28px;"
                 (click)="InQrCode()"></button>
+        </div>
+         <div class="p-mr-2">
+            <button pButton pRipple type="button" label="Hủy QR" styleClass="p-button-warn" style="margin-top: 28px;"
+                (click)="HuyQR()"></button>
         </div>
     </div>
     <div class="d-flex p-py-3" style="margin-top: 28px">
+        <div class="p-mr-2">
+            <p-dropdown [options]="listTrangThai" placeholder="Chọn trạng thái" styleClass="p-inputtext-sm"
+                style="width: 37px" [(ngModel)]="filter.TrangThai" (onChange)="GetList()" [showClear]="true"
+                [filter]="true"></p-dropdown>
+        </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listLoai" placeholder="Chọn loại" styleClass="p-inputtext-sm" style="width: 37px"
                 [(ngModel)]="filter.Loai" (onChange)="GetList()" [showClear]="true" [filter]="true"></p-dropdown>

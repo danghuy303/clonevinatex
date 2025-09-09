@@ -7,9 +7,7 @@
 
 </div>
 <div class="modal-body">
-    <div class="p-d-flex p-flex-row p-jc-between">
-    </div>
-    <div class="p-grid">
+    <!-- <div class="p-grid">
         <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-5 p-lg-12 p-p-0 my-auto">Mã <span class="text-danger">(*)</span> :</label>
             <div class="p-col-12 p-xl-7 p-lg-12 p-p-0">
@@ -44,14 +42,12 @@
                     <p-inputNumber [minFractionDigits]="1" locale="en-EN" min="0" [(ngModel)]="item.NangSuat"
                         style="flex: 1">
                     </p-inputNumber>
-                    <!-- <p class="tan">(tấn)</p> -->
                 </div>
             </div>
 
             <div class="p-col-12  p-xl-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
                 <label class="p-col-12 p-xl-2 p-lg-12 p-p-0 my-auto d-flex">Bảo dưỡng theo thời gian <span
                         class="text-danger">(*)</span>
-                    <!-- ({{Time[item.MaLoaiThoiGian]}}) -->
                     :</label>
                 <div class="p-col-12 p-xl-10 p-lg-12 p-p-0 flex-column flex-xl-row">
                     <div class="p-col-12 p-xl-10 p-lg-12 p-p-0 d-flex flex-xl-row ">
@@ -87,7 +83,6 @@
                             <p-inputNumber [minFractionDigits]="0" min="0" locale="en-EN"
                                 placeholder="Nhập lịch bảo dưỡng( Số lần*)" [(ngModel)]="item.ThoiGianBaoDuong">
                             </p-inputNumber>
-                            <!-- <p class="tan">({{Time[item.MaLoaiThoiGian]}})</p> -->
                         </div>
                     </div>
                     <div *ngIf="item.MaLoaiThoiGian === 'NGAY'" class="p-col-12 p-lg-12 p-p-0 d-flex flex-xl-row">
@@ -189,18 +184,6 @@
                 <label for="binary">Hoạt động </label>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thời gian và số người thực hiện theo NCC:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <input locale="en-EN" [(ngModel)]="item.ThoiGianVaSoNguoiTheoNCC" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thời gian và số người thực hiện theo thực tế:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <input locale="en-EN" [(ngModel)]="item.ThoiGianVaSoNguoiThucTe" pInputText />
-            </div>
-        </div> -->
         <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column">
             <label class="p-p-0 my-auto">Nội dung:</label>
             <div class="">
@@ -213,7 +196,201 @@
                 <input locale="en-EN" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
+    </div> -->
+
+
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="">Mã <span class="text-danger">(*)</span> :</label>
+            <div class="">
+                <input locale="en-EN" [(ngModel)]="item.Ma" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-5 p-p-2">
+            <label class="">Tên <span class="text-danger">(*)</span>:</label>
+            <div class="">
+                <input locale="en-EN" [(ngModel)]="item.Ten" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-2">
+            <label class="">Loại tài sản <span class="text-danger">(*)</span>:</label>
+            <div class="">
+                <p-multiSelect [options]="listTaiSan" [(ngModel)]="item.listIddmLoaiTaiSan"
+                    (onChange)="ChonLoaiTaiSan()" selectedItemsLabel="{0} chọn loại tài sản"
+                    defaultLabel="Chọn"></p-multiSelect>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="">Ký hiệu <span class="text-danger">(*)</span> :</label>
+            <div class="">
+                <input locale="en-EN" [(ngModel)]="item.KyHieu" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-1 p-p-2 d-flex align-items-center">
+            <div class="p-field-checkbox p-col-12 p-lg-10 p-p-0 my-auto">
+                <p-checkbox [(ngModel)]="item.isHoatDong" binary="true" inputId="binary"></p-checkbox>
+                <label for="binary">Hoạt động </label>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-2">
+            <label class="">Bảo dưỡng theo sản lượng (tấn):</label>
+            <div class="">
+                <p-inputNumber [minFractionDigits]="1" locale="en-EN" min="0" [(ngModel)]="item.NangSuat">
+                </p-inputNumber>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-lg-12 p-grid" style="border: 1px solid #e8e8e8;">
+            <div class="p-col-12 p-lg-4 p-p-2">
+                <label class="">Bảo dưỡng theo thời gian <span class="text-danger">(*)</span>
+                    :</label>
+                <div class="p-grid">
+                    <div class="p-col-12 p-lg-3 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton value="NGAY" inputId="ngay"
+                                [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <label for="Ngay">Ngày</label>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-lg-3 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton value="TUAN" inputId="tuan"
+                                [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <label>Tuần</label>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-lg-3 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton value="THANG" inputId="thang"
+                                [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <label>Tháng</label>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-lg-3 p-p-0">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton value="NAM" inputId="nam" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <label>Năm</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-2 p-p-2">
+                <div class="">Tần suất thực hiện:</div>
+                <div class="">
+                    <p-inputNumber [minFractionDigits]="0" min="0" locale="en-EN"
+                        placeholder="Nhập lịch bảo dưỡng( Số lần*)" [(ngModel)]="item.ThoiGianBaoDuong">
+                    </p-inputNumber>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-6 p-p-2" *ngIf="item.MaLoaiThoiGian === 'NGAY'">
+                <div class="">Khoảng thời gian:</div>
+                <div class="d-flex">
+                    <div class="p-mr-2">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton [value]="1" [(ngModel)]="item.LoaiThoiGian"></p-radioButton>
+                            <label>Sáng</label>
+                        </div>
+                    </div>
+                    <div class="p-mr-2">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton [value]="2" [(ngModel)]="item.LoaiThoiGian"></p-radioButton>
+                            <label>Chiều</label>
+                        </div>
+                    </div>
+                    <div class="p-mr-2">
+                        <div class="field-radiobutton check-pt">
+                            <p-radioButton [value]="3" [(ngModel)]="item.LoaiThoiGian"></p-radioButton>
+                            <label>Tối</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-2 p-p-2" *ngIf="item.MaLoaiThoiGian === 'NGAY'">
+                <div class="">Từ thứ:</div>
+                <div>
+                    <p-dropdown [filter]="true" [options]="listTuan" placeholder="Chọn" [(ngModel)]="item.TuThu"
+                        styleClass="p-inputtext-sm" showClear="true">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-2 p-p-2" *ngIf="item.MaLoaiThoiGian === 'NGAY'">
+                <div class="">Đến thứ:</div>
+                <div>
+                    <p-dropdown [filter]="true" [options]="listTuan" placeholder="Chọn" [(ngModel)]="item.DenThu"
+                        styleClass="p-inputtext-sm" showClear="true">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-1 p-p-2" *ngIf="item.MaLoaiThoiGian === 'NGAY'">
+                <div class="">Từ giờ:</div>
+                <div class="">
+                    <p-calendar [timeOnly]="true" [(ngModel)]="item.TuGio" inputId="timeonly" styleClass="p-inputtext-sm"
+                        style="width: 100%"></p-calendar>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-1 p-p-2" *ngIf="item.MaLoaiThoiGian === 'NGAY'">
+                <div class="">Đến giờ:</div>
+                <div class="">
+                    <p-calendar [timeOnly]="true" [(ngModel)]="item.DenGio" inputId="timeonly" styleClass="p-inputtext-sm"></p-calendar>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-6"> </div>
+
+            <div class="p-col-12 p-lg-2 p-p-2">
+                <label class="">Số lượng:</label>
+                <div class="">
+                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoMay" styleClass="p-inputtext-sm">
+                    </p-inputNumber>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-2 p-p-2">
+                <label class="">Đơn vị tính:</label>
+                <div class="">
+                    <p-dropdown [filter]="true" [options]="listDonViTinh" placeholder="Chọn "
+                        [(ngModel)]="item.DonViTinh" styleClass="p-inputtext-sm" showClear="true">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-2 p-p-2">
+                <label class="">Thời gian định mức (phút):</label>
+                <div class="">
+                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.ThoiGianDinhMuc" styleClass="p-inputtext-sm">
+                    </p-inputNumber>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-2 p-p-2">
+                <label class="">Số người:</label>
+                <div class="">
+                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNguoi" styleClass="p-inputtext-sm">
+                    </p-inputNumber>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-2">
+                <label class="">Độ ưu tiên <span class="text-danger">(*)</span>
+                    :</label>
+                <div class="">
+                    <p-dropdown [filter]="true" [options]="listMucDoUuTien" placeholder="Chọn mức độ ưu tiên"
+                        [(ngModel)]="item.IddmMucDoUuTien" style="width: 100%" styleClass="p-inputtext-sm">
+                    </p-dropdown>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="p-col-12 p-lg-6  p-p-3">
+            <label class="">Nội dung:</label>
+            <div class="">
+                <textarea pInputTextarea [(ngModel)]="item.NoiDung" [rows]="1"></textarea>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3">
+            <label class="">Ghi chú:</label>
+            <div class="">
+                <textarea pInputTextarea [(ngModel)]="item.GhiChu" [rows]="1"></textarea>
+            </div>
+        </div>
     </div>
+
     <p-accordion>
         <p-accordionTab header="Hạng mục" [selected]="true">
             <p-table [value]="item.listCongViec" styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
@@ -272,7 +449,6 @@
             </p-table>
         </p-accordionTab>
     </p-accordion>
-
     <div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-end p-mb-3">
         <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2 p-button-secondary"
             (click)="activeModal.dismiss()"></button>

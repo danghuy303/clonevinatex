@@ -38,6 +38,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   };
   listPhanXuong = [];
   listTaiSan: any = [];
+
   constructor(
     public _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -48,6 +49,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.title = this.listLoaiTaiSan.find(ele => ele.value === this.item.IddmLoaiTaiSan)?.label;
     // this.item.value = this.item.IddmLoaiTaiSan;
     // this.LayMa(this.item);
     this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
@@ -127,6 +129,11 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
       }
     }
     return true;
+  }
+  handleBaoHanh(data) {
+    if (this.item.TaiSan === undefined) {
+      this.item.listBaoHanh = [...data];
+    } else this.item.TaiSan.listBaoHanh = [...data];
   }
 
   GhiLai() {

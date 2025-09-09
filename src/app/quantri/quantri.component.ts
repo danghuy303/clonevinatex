@@ -373,47 +373,48 @@ export class QuantriComponent implements OnInit, OnDestroy {
           window.open(`${host}/smarteosv2/#/`)
         },
       },
-      {
-        label: "Quản trị tài sản",
-        icon: "fas fa-circle",
-        routerLink: "/quantri/taisan1",
-        visible: this.showTaiSanModule,
-        items: [
+      // ngày 9/9/2025 đóng quản trị tài sản
+      // {
+      //   label: "Quản trị tài sản",
+      //   icon: "fas fa-circle",
+      //   routerLink: "/quantri/taisan1",
+      //   visible: this.showTaiSanModule,
+      //   items: [
 
-          {
-            label: "Lịch xích",
-            routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
-            separator: !this.showTaiSanModule,
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Danh sách vật tư cần thay thế",
-            routerLink: "/quantri/quantritaisan/danhsachvattucanthaythe",
-            // separator: this.showTaiSanModule,
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Số giờ dừng máy",
-            routerLink: "/quantri/quantritaisan/sogiodungmay",
-            separator: !this.showTaiSanModule,
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Quản lý ngân sách",
-            routerLink: "/quantri/quantritaisan/ngansachdukienvathucte",
-            separator: !this.showTaiSanModule,
-            command: () => {
-              this.close();
-            },
-          },
-        ],
-      },
+      //     {
+      //       label: "Lịch xích",
+      //       routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
+      //       separator: !this.showTaiSanModule,
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Danh sách vật tư cần thay thế",
+      //       routerLink: "/quantri/quantritaisan/danhsachvattucanthaythe",
+      //       // separator: this.showTaiSanModule,
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Số giờ dừng máy",
+      //       routerLink: "/quantri/quantritaisan/sogiodungmay",
+      //       separator: !this.showTaiSanModule,
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Quản lý ngân sách",
+      //       routerLink: "/quantri/quantritaisan/ngansachdukienvathucte",
+      //       separator: !this.showTaiSanModule,
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //   ],
+      // },
 
       /////////////      Quản lý tài sản
       // {

@@ -21,7 +21,7 @@
 
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Nhóm tài sản : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Nhóm tài sản/vật tư : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0 d-flex">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TendmTaiSan" pInputText disabled />
             <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="ChonTaiSan()"></button>
@@ -112,7 +112,7 @@
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Giá trị còn lại (VNĐ): </label>
-        <div class="p-col-12 p-xl-7 p-lg-12 p-p-0">
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [min]="0" [(ngModel)]="item.GiaTriConLai">
             </p-inputNumber>
         </div>
@@ -121,7 +121,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Bộ phận sử dụng: </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung"
+            <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung" 
                 (onChange)="chonBoPhan($event)" placeholder="Chọn bộ phận" [showClear]="true"></p-dropdown>
         </div>
     </div>

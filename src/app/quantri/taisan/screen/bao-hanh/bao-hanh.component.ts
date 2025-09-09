@@ -15,8 +15,9 @@ import { BaoHanhPopupComponent } from './bao-hanh-popup/bao-hanh-popup.component
 })
 export class BaoHanhComponent implements OnInit {
 
-  @Input('listBaoHanh') listBaoHanh: any = [];
-  listKiemDinh: any = [];
+  @Input() listBaoHanh: any = [];
+  @Output() itemChange: EventEmitter<any> = new EventEmitter<any>();
+  @Input() listKiemDinh: any = [];
   constructor(
     private _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -25,13 +26,13 @@ export class BaoHanhComponent implements OnInit {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-  }
-
-  ngOnInit(): void {
-    this.GetListdm();
     this.listBaoHanh?.forEach(element => {
       element.TenDonViBaoHanh = element.IdDonViBaoHanh ? this.listKiemDinh.filter(ele => ele.value === element.IdDonViBaoHanh)[0].label : '';
     });
+  }
+
+  ngOnInit(): void {
+    // this.GetListdm(); 8/9/2025 a_lap dv bảo hành lấy luôn theo nhà cung cấp
   }
 
   GetListdm() {
@@ -56,6 +57,7 @@ export class BaoHanhComponent implements OnInit {
       this.listBaoHanh = this.listBaoHanh?.length ? this.listBaoHanh : [];
       res.TenDonViBaoHanh = res.IdDonViBaoHanh ? this.listKiemDinh.filter(ele => ele.value === res.IdDonViBaoHanh)[0].label : '';
       this.listBaoHanh.push(res);
+      this.itemChange.emit(this.listBaoHanh);
     })
   }
 
@@ -70,6 +72,7 @@ export class BaoHanhComponent implements OnInit {
     modalRef.result.then((res: any) => {
       res.TenDonViBaoHanh = res.IdDonViBaoHanh ? this.listKiemDinh.filter(ele => ele.value === res.IdDonViBaoHanh)[0].label : '';
       this.listBaoHanh[index] = res;
+      this.itemChange.emit(this.listBaoHanh);
     })
   }
 

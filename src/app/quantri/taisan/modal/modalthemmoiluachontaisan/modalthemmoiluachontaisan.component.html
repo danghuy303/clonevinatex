@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title"> Nhập vật tư
+    <h5 class="modal-title"> Nhập vật tư: {{title}}
     </h5>
 </div>
 <div class="modal-body">
@@ -17,9 +17,9 @@
         <qrcode [qrdata]="item.Ma" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
     </div> -->
     <div class="modal-bt p-mb-4 text-center" style="position: absolute; right: 0;transform: translate(-180%,-25%);"
-    [style.visibility]="item.MaQR?'visible':'hidden'">
-    <qrcode [qrdata]="item.MaQR" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
-</div>
+        [style.visibility]="item.MaQR?'visible':'hidden'">
+        <qrcode [qrdata]="item.MaQR" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+    </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span> : </label>
@@ -177,9 +177,10 @@
                 </p-tabPanel>
                 <p-tabPanel header="Bảo hành">
                     <ng-template pTemplate="content">
-                        <app-bao-hanh *ngIf="item.TaiSan !== undefined"
-                            [listBaoHanh]="item.TaiSan.listBaoHanh"></app-bao-hanh>
-                        <app-bao-hanh *ngIf="item.TaiSan === undefined" [listBaoHanh]="item.listBaoHanh"></app-bao-hanh>
+                        <app-bao-hanh *ngIf="item.TaiSan !== undefined" [listBaoHanh]="item.TaiSan.listBaoHanh" [listKiemDinh]="listCungSanXuat"
+                            (itemChange)="handleBaoHanh($event)"></app-bao-hanh>
+                        <app-bao-hanh *ngIf="item.TaiSan === undefined" [listBaoHanh]="item.listBaoHanh" [listKiemDinh]="listCungSanXuat"
+                            (itemChange)="handleBaoHanh($event)"></app-bao-hanh>
                     </ng-template>
                 </p-tabPanel>
             </p-tabView>

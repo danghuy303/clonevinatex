@@ -51,7 +51,8 @@ export class LohangmodalComponent implements OnInit {
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
-    this.item.QRType = `{"MaQR":"${this.item.MaQR}","Type":"${this.item.Type}"}`
+    this.item.QRType = `{"MaQR":"${this.item.MaQR}","Type":"${this.item.Type}","Ten":"${this.item.Ten}","IddmItem":"${this.item._IddmItem}","IddmQuyCachDongGoi":"${this.item.QuyCachDongGoi}","kg_Cone":"${this.item.TrongLuongKg_Cone}"}`
+
   }
 
   getOptions() {
@@ -183,7 +184,7 @@ export class LohangmodalComponent implements OnInit {
   }
 
   handleQuyCach() {
-    this.item.TrongLuongKg_Cone = this.options.listQuyCachAll?.find(ele => ele.Id === this.item.QuyCachDongGoi)?.TrongLuong || 0;
+    this.item.TrongLuongKg_Cone = this.options.listQuyCachAll?.find(ele => ele.Id === this.item.QuyCachDongGoi)?.Kg_Cone || 0;
   }
 
 }

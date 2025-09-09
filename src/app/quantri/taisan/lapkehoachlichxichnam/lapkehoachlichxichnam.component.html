@@ -113,23 +113,23 @@
                         class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                 </div>
             </div>
-            <p-table [value]="item.listTaiSan | filter: keyword "
+            <p-table [value]="item.listTaiSan | filter: keyword"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="width:50px">
+                        <col style="">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
@@ -171,9 +171,9 @@
                             </div>
                         </td>
                         <td class="text-center">
-                            <button pButton pRipple type="button" icon="pi pi-trash"
+                            <button pButton pRipple type="button" icon="pi pi-trash" style="height: 40px"
                                 class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                                (click)=" delete(i)"></button>
+                                (click)="delete(i)"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -182,7 +182,8 @@
 
         <p-tabPanel header="Vật tư thay thế">
             <ng-template pTemplate="content">
-                <app-vattuthaythelichxichnam [listTaiSan]="item.listTaiSan" (HandListTaiSan)="HandListTaiSan($event)"></app-vattuthaythelichxichnam>
+                <app-vattuthaythelichxichnam [listTaiSan]="item.listTaiSan"
+                    (HandListTaiSan)="HandListTaiSan($event)"></app-vattuthaythelichxichnam>
             </ng-template>
         </p-tabPanel>
 

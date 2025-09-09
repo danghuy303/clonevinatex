@@ -3,10 +3,10 @@
         <colgroup>
             <col style="width: 50px;">
             <col>
-            <col>
-            <col>
-            <col>
             <col style="width: 150px;">
+            <col style="width: 150px;">
+            <col>
+            <col style="width: 100px;">
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
@@ -28,8 +28,9 @@
                 {{i + 1}}
             </td>
             <td>{{x.TendmLoaiBaoDuong}}</td>
-            <td>{{getTextTime(x.ThoiGianBaoDuong, x.MaLoaiThoiGian)}}</td>
-            <td>{{x.NangSuat}}</td>
+            <td class="text-right">{{getTextTime(x.ThoiGianBaoDuong, x.MaLoaiThoiGian)}}</td>
+            <!-- <td class="text-right">{{x.NangSuat}}</td> -->
+            <td class="text-right">{{x.SanLuong | number:'0.0-0'}}</td>
             <td>{{x.GhiChu}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"

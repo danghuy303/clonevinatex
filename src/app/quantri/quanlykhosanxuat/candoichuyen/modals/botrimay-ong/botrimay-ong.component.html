@@ -102,7 +102,7 @@
                                 </td>
                                 <td>
                                     <div class="p-inputgroup w-full">
-                                        <p-dropdown [options]="listKgcone" placeholder="Chọn"
+                                        <p-dropdown [options]="listKgcone" placeholder="Chọn" [disabled]="true"
                                             styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone" style="width: 80%;"
                                             (onChange)="changeKgCone(item, this.mapCa_Id[ca.prop])"></p-dropdown>
                                         <button pButton pRipple type="button" icon="pi pi-copy"
@@ -126,8 +126,8 @@
                                 <td class="" *ngIf="addonData.CongDoan === 'ONG'">
                                     <div class="p-inputgroup w-full">
                                         <p-dropdown [options]="listLoHang" placeholder="Chọn"
-                                            styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoHang"
-                                            style="width: 80%;"></p-dropdown>
+                                            (onChange)="layKg_Cone(item)" styleClass="p-inputtext-sm"
+                                            [(ngModel)]="item.IdLoHang" style="width: 80%;"></p-dropdown>
                                         <button pButton pRipple type="button" icon="pi pi-copy"
                                             class="p-button-rounded p-button-sm p-button-text"
                                             (click)="handleLoHangCopy(item, this.mapCa_Id[ca.prop])"

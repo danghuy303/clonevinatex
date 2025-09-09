@@ -38,6 +38,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   userInfo: any;
   TenCongDoan: any = '';
   listLoHang: any = [];
+  listLoHangAll: any = [];
 
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
     private _auth: AuthenticationService,
@@ -99,7 +100,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     }
     this.services.LoHang().GetList(data).subscribe((res: any) => {
       if (res) {
-        console.log(123);
+        this.listLoHangAll = res || [];
         this.listLoHang = mapArrayForDropDown(res, 'Ten', 'Id');
       }
     })
@@ -413,4 +414,11 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     })
     this.item.listDaBoTri = temp;
   }
+  layKg_Cone(data) {
+    let TrongLuongKg_Cone = this.listLoHangAll?.find(ele => ele.Id === data.IdLoHang)?.TrongLuongKg_Cone;
+    data.KgCone = TrongLuongKg_Cone;
+    this.item.listDaBoTri = [...this.item.listDaBoTri];
+  }
+
+
 }

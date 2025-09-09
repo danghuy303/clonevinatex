@@ -72,14 +72,14 @@
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
                         <ng-container *ngIf="item.TenMay!== undefined; then normal else empty"></ng-container>
                         <ng-template #normal>
-                            <tr>
+                            <tr [ngStyle]="{'color': item.IddmPhanXuongCap ? 'red' : ''}">
                                 <td [ngStyle]="{'background-color': item.MaMau}">{{item.TenMay}}</td>
                                 <td [ngStyle]="{'background-color': item.MaMau}">
                                     <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
                                         placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
                                         [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="chonMatHang(item,$event)"
                                         [tooltip]="getTooltip(item.IdCanDoiChuyen_CanBoTri, listHangHoa)"
-                                        tooltipPosition="top" >
+                                        tooltipPosition="top">
                                     </p-dropdown>
                                 </td>
                                 <td [ngStyle]="{'background-color': item.isDieuChinh?'red':''}">

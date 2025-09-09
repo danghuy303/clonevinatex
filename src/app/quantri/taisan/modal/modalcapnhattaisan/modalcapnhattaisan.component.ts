@@ -294,6 +294,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
       listLichBaoDuong: [],
       listThongSoKyThuat: [],
       listThongSoAnToan: [],
+      IddmLoaiTaiSan: this.item.TaiSan.IddmLoaiTaiSan ? this.item.TaiSan.IddmLoaiTaiSan : ''
     };
     // modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
@@ -472,7 +473,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   }
 
- printQRCode() {
+  printQRCode() {
     const printContents = this.qrCodeContainer.nativeElement.innerHTML;
     const popupWin = window.open('', '_blank', 'width=300,height=300');
     if (popupWin) {

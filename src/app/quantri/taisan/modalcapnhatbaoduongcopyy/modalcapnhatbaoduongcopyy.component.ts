@@ -47,7 +47,7 @@ export class
       this.item.NoiDung = filter?.NoiDung;
       this.item.MaLoaiThoiGian = filter?.MaLoaiThoiGian;
       this.item.ThoiGianBaoDuong = filter?.ThoiGianBaoDuong;
-      this.item.NangSuat = filter?.NangSuat;
+      this.item.SanLuong = filter?.SanLuong;
     }
 
   }
@@ -91,7 +91,9 @@ export class
     else {
       if (validVariable(this.item.IddmLoaiBaoDuong)) {
         this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
-        this.activeModal.close(this.item);
+        this.activeModal.close({
+          ...this.item
+        });
       } else {
         this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       }

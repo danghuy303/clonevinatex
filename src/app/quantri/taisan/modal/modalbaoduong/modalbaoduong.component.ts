@@ -74,11 +74,21 @@ export class ModalbaoduongComponent implements OnInit {
   }
 
   ChonLoaiTaiSan() {
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
-      backdrop: 'static'
-    });
-    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thay đổi loại tài sản';
-    modalRef.result.then(res => {
+    if (this.item.listCongViec?.length) {
+      let modalRef = this._modal.open(ModalthongbaoComponent, {
+        backdrop: 'static'
+      });
+      modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thay đổi loại tài sản';
+      modalRef.result.then(res => {
+        this.GetListVatTuTheoLoaiTaiSan();
+        this.item.listCongViec = this.item.listCongViec.map(ele => {
+          return {
+            ...ele,
+            IdVatTu: ''
+          }
+        })
+      })
+    } else {
       this.GetListVatTuTheoLoaiTaiSan();
       this.item.listCongViec = this.item.listCongViec.map(ele => {
         return {
@@ -86,13 +96,14 @@ export class ModalbaoduongComponent implements OnInit {
           IdVatTu: ''
         }
       })
-    })
+    }
+
   }
 
   GetListVatTuTheoLoaiTaiSan() {
-      this._service.GetListVatTuThuVienTaiSanTheoLoaiTaiSan(this.item.listIddmLoaiTaiSan).subscribe((res: any) => {
-        this.listVatTu = mapArrayForDropDown(res.Data, 'Ten', 'Id');
-      })
+    this._service.GetListVatTuThuVienTaiSanTheoLoaiTaiSan(this.item.listIddmLoaiTaiSan).subscribe((res: any) => {
+      this.listVatTu = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    })
   }
 
   delete(index: any) {
@@ -143,7 +154,7 @@ export class ModalbaoduongComponent implements OnInit {
       return false;
     }
     if (!validVariable(this.item.ThoiGianBaoDuong)) {
-      this.toastr.error("Yêu cầu nhập loại bảo dưỡng!");
+      this.toastr.error("Yêu cầu nhập số lần lịch bảo dưỡng!");
       return false;
     }
     if (!validVariable(this.item.MaLoaiThoiGian)) {

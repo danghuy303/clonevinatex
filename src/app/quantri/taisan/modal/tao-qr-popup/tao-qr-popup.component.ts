@@ -13,7 +13,7 @@ import { validVariable } from 'src/app/services/globalfunction';
 export class TaoQrPopupComponent implements OnInit {
   opt: any = "";
   items: any = [];
-  item:any;
+  item: any;
   listItemDaChon: any = '';
   checkedAll: boolean = false;
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
@@ -32,11 +32,11 @@ export class TaoQrPopupComponent implements OnInit {
   }
 
   TaoQR() {
-    let arr = [];
+    let arr: any = [];
     for (let i = 1; i <= this.filter.SoLuong; i++) {
       arr.push(i)
     }
-    this.items = arr.map((ele) => {
+    this.items = arr.map((ele: any) => {
       return {
         checked: false,
         MaQr: Math.random().toString(36).substring(2, 12),
@@ -57,10 +57,10 @@ export class TaoQrPopupComponent implements OnInit {
       PageSize: 20
     }
     this._danhMucTaiSan.GetListQRCODE(data).subscribe((res: any) => {
-      this.items = res.map(ele => {
+      this.items = res.filter(ele => ele.TrangThai === 'ChuaSuDung').map(ele => {
         return {
           ...ele,
-          checked:ele.MaQr === this.item ? true :false
+          checked: ele.MaQr === this.item ? true : false
         }
       });
     })

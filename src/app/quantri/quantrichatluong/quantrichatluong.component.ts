@@ -75,7 +75,7 @@ export class QuantrichatluongComponent implements OnInit {
       IddmItem: ''
     }
     this._services.GetListQuanTriChatLuong(data).subscribe((res: any) => {
-      if (res.Data.listMatHang?.length) {
+      if (res.Data.listMatHang) {
         this.listView = res.Data.listMatHang?.map(ele => {
           return {
             ...ele,

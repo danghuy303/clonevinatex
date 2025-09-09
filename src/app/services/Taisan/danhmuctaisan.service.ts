@@ -356,7 +356,9 @@ export class DanhmuctaisanService {
   InQrCodeLoBong(data) {
     return this.http.post(`${API.SCM}DanhMuc/InQrCodeLoBong`, data, httpOptions)
   }
-
+  SetHuyQrCode(data) {
+    return this.http.post(`${API.SCM}DanhMuc/SetHuyQrCode`, data, httpOptions)
+  }
   InQrCode(data) {
     return this.http.post(`${API.SCM}DanhMuc/InQrCode`, data, httpOptions)
   }
