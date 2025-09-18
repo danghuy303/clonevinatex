@@ -289,8 +289,9 @@
             <div class="p-col-12 flex-column flex-lg-row d-flex">
                 <label class="p-col-12 p-lg-2 p-p-0 my-auto">Quy cách đóng gói:</label>
                 <div class="p-col-12 p-lg-10 p-p-0">
-                    <p-dropdown [filter]="true" [options]="options.listQuyCach" placeholder="Chọn" (onChange)="handleQuyCach()"
-                        [(ngModel)]="item.QuyCachDongGoi" styleClass="p-inputtext-sm"></p-dropdown>
+                    <p-dropdown [filter]="true" [options]="options.listQuyCach" placeholder="Chọn"
+                        (onChange)="handleQuyCach()" [(ngModel)]="item.QuyCachDongGoi"
+                        styleClass="p-inputtext-sm"></p-dropdown>
                 </div>
             </div>
             <div class="p-col-12 flex-column flex-lg-row d-flex">
@@ -299,8 +300,8 @@
                     <!-- a_lap 29/8/2025 yc TrongLuongKg_Cone lấy theo trọng lượng qc.đóng gói -->
                     <!-- <p-dropdown [filter]="true" [options]="options.listKgCone" placeholder="Chọn"
                         [(ngModel)]="item.TrongLuongKg_Cone" styleClass="p-inputtext-sm"></p-dropdown> -->
-                    <p-inputNumber locale="en-EN" [(ngModel)]="item.TrongLuongKg_Cone" styleClass="p-inputtext-sm" [min]="0"
-                        disabled>
+                    <p-inputNumber locale="en-EN" [(ngModel)]="item.TrongLuongKg_Cone" styleClass="p-inputtext-sm"
+                        [min]="0" disabled>
                     </p-inputNumber>
                 </div>
             </div>
@@ -382,6 +383,15 @@
                     <p-inputNumber locale="en-EN" [(ngModel)]="item.KhoGiay" styleClass="p-inputtext-sm" [min]="0"
                         placeholder="inch">
                     </p-inputNumber>
+                </div>
+            </div>
+            <div class="p-col-6 p-p-2 d-flex flex-column">
+                <div class="p-mb-1">Ngày nhập kho<span class="text-danger">*</span>:</div>
+                <div>
+                    <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
+                        [monthNavigator]="true" [yearNavigator]="true" [showIcon]="true" [(ngModel)]="item.NgayNhapKho"
+                        inputId="icon" placeholder="dd/mm/yyyy">
+                    </p-calendar>
                 </div>
             </div>
         </div>

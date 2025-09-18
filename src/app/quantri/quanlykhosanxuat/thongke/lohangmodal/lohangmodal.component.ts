@@ -139,23 +139,27 @@ export class LohangmodalComponent implements OnInit {
   }
 
   InQrCode() {
-    let data = {
-      KichThuoc: this.item.IdKichThuoc || 100,
-      MaQR: this.item.MaQR,
-      SoBan: this.item.SoBan || 1,
-      KhoGiay: this.item.KhoGiay || 8
-    }
-    this._danhMucTaiSan.InQrCodeLoHang(data).subscribe((res: any) => {
-      if (res.State === 1) {
-        const url = API.imgURL + res.Data;
-        printJS({
-          printable: url,
-          type: 'pdf',
-          showModal: false
-        });
-        this.toastr.success(res.message)
-      } else this.toastr.error(res.message)
-    });
+    if (this.item.NgayNhapKho) {
+      let data = {
+        KichThuoc: this.item.IdKichThuoc || 100,
+        MaQR: this.item.MaQR,
+        SoBan: this.item.SoBan || 1,
+        KhoGiay: this.item.KhoGiay || 8,
+        NgayUnix: DateToUnix(this.item.NgayNhapKho)
+      }
+      this._danhMucTaiSan.InQrCodeLoHang(data).subscribe((res: any) => {
+        if (res.State === 1) {
+          const url = API.imgURL + res.Data;
+          printJS({
+            printable: url,
+            type: 'pdf',
+            showModal: false
+          });
+          this.toastr.success(res.message)
+        } else this.toastr.error(res.message)
+      });
+    } else this.toastr.error('VUi lòng chọn ngày nhập kho!!!')
+
   }
 
 
