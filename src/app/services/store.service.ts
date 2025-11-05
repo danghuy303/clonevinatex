@@ -48,8 +48,18 @@ export class MenuService {
   private isCheckMenuSubject = new BehaviorSubject<boolean>(false);
   isCheckMenu$ = this.isCheckMenuSubject.asObservable();
 
+  constructor() {
+    // Khôi phục trạng thái từ localStorage khi khởi tạo
+    const savedState = localStorage.getItem('isCheckMenu');
+    if (savedState !== null) {
+      this.isCheckMenuSubject.next(JSON.parse(savedState));
+    }
+  }
+
   setIsCheckMenu(value: boolean) {
     this.isCheckMenuSubject.next(value);
+    // Lưu trạng thái vào localStorage
+    localStorage.setItem('isCheckMenu', JSON.stringify(value));
   }
 
   get isCheckMenuValue(): boolean {

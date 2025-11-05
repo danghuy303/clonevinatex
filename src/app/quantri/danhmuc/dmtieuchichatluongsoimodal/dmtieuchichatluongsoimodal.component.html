@@ -43,6 +43,13 @@
                     styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
+          <div class="p-col-12 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cách đánh giá:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listCachDanhGia" placeholder="Chọn" [showClear]="true" [(ngModel)]="item.CachDanhGia"
+                    styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+        </div>
         <div class="p-col-12 p-d-flex p-flex-rowx" *ngIf="item.isBanChePham == true">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn</label>
             <div class="p-col-12 p-lg-8 p-p-0">

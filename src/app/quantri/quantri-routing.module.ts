@@ -137,13 +137,23 @@ import { AnhmauchatluongbanchphamComponent } from "./danhmuc/anhmauchatluongbanc
 import { AnhmaukiemtrabanchephamComponent } from "./anhmaukiemtrabanchepham/anhmaukiemtrabanchepham.component";
 import { XuatkhocapdauComponent } from "./quanlykhosanxuat/quytrinh/xuatkhocapdau/xuatkhocapdau.component";
 import { QuantrichatluongComponent } from "./quantrichatluong/quantrichatluong.component";
+import { DashboardtonghopComponent } from "./dashboardtonghop/dashboardtonghop.component";
+import { ThongkechitieuclasimattheomayComponent } from "./quanlykhosanxuat/thongke/thongkechitieuclasimattheomay/thongkechitieuclasimattheomay.component";
+import { ThongkechitieuloicattheomayComponent } from "./quanlykhosanxuat/thongke/thongkechitieuloicattheomay/thongkechitieuloicattheomay.component";
+import { QuantrichatluongtoantrinhComponent } from "./quantrichatluongtoantrinh/quantrichatluongtoantrinh.component";
+import { QuantrichatluongcongdoanComponent } from "./quantrichatluongcongdoan/quantrichatluongcongdoan.component";
 
 const routes: Routes = [
   {
     path: "",
     component: QuantriComponent,
     children: [
-      { path: "", redirectTo: "quantrisanxuat/tonghop", pathMatch: "full" },
+      // { path: "", redirectTo: "quantrisanxuat/tonghop", pathMatch: "full" },
+      { path: "", redirectTo: "quantrisanxuat/dashboardtonghop", pathMatch: "full" },
+      {
+        path: "quantrisanxuat/dashboardtonghop",
+        component: DashboardtonghopComponent,
+      },
       {
         path: "quantrisanxuat/baocaotonghoptaisan",
         component: BaocaotonghoptaisanComponent,
@@ -260,6 +270,14 @@ const routes: Routes = [
       {
         path: "theodoithongkebaocaosanxuat/thongkechitieuclassimat/:id",
         component: ThongkechitieuclassimatComponent,
+      },
+      {
+        path: "theodoithongkebaocaosanxuat/thongkechitieuclassimattheomay/:id",
+        component: ThongkechitieuclasimattheomayComponent,
+      },
+      {
+        path: "theodoithongkebaocaosanxuat/thongkechitieuloicattheomay/:id",
+        component: ThongkechitieuloicattheomayComponent,
       },
       {
         path: "theodoithongkebaocaosanxuat/baocaoca/:id",
@@ -670,7 +688,13 @@ const routes: Routes = [
       },
       { path: "danhmucsanxuat/anhmauchatluongbcp", component: AnhmauchatluongbanchphamComponent },
       {
-        path: "quantrichatluong",component: QuantrichatluongComponent,
+        path: "quantrichatluong", component: QuantrichatluongComponent,
+      },
+      {
+        path: "quantrichatluongtoantrinh", component: QuantrichatluongtoantrinhComponent,
+      },
+      {
+        path: "quantrichatluongcongdoan", component: QuantrichatluongcongdoanComponent,
       },
     ],
   },

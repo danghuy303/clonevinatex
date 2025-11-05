@@ -40,11 +40,20 @@
                     [(ngModel)]="item.IddmKho"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div *ngIf="!['khochaiky','khotho','khochaicotton'].includes(this.link.value)"
+            class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Phân xưởng :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+            </div>
+        </div>
+        <div *ngIf="['khochaiky','khotho','khochaicotton'].includes(this.link.value)"
+            class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Kho nhận :</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmKhoNhan"></p-dropdown>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -86,6 +95,7 @@
                     <colgroup>
                         <col style="width:50px">
                         <col>
+                        <col *ngIf="['khochaiky','khotho','khochaicotton'].includes(this.link.value)">
                         <col style="width:100px">
                         <col style="width:150px">
                         <col style="width:100px">
@@ -97,6 +107,7 @@
                     <tr>
                         <th rowspan="2">#</th>
                         <th rowspan="2">Tên loại {{link.lable}}</th>
+                        <th rowspan="2" *ngIf="['khochaiky','khotho','khochaicotton'].includes(this.link.value)">Quy cách</th>
                         <th colspan="2">Tồn</th>
                         <th colspan="2">Xuất</th>
                         <th rowspan="2"></th>
@@ -111,7 +122,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td style="text-align: center;">{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
-                        <td style="text-align: center;">{{item.Ten}}</td>
+                        <td>{{item.Ten}}</td>
+                        <td *ngIf="['khochaiky','khotho','khochaicotton'].includes(this.link.value)">{{item.QuyCach}}</td>
                         <td style="text-align: right;">
                             {{item.TonSoLuong|number:'0.0'}}
                         </td>
@@ -119,13 +131,13 @@
                             {{item.TonTrongLuong|number:'0.2'}}
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.SoLuong" (onBlur)="tinhTongKhoiLuongXuat(item)" #input
-                                (keydown)="navigateTable($event, i, 0)">
+                            <p-inputNumber [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.SoLuong"
+                                (onBlur)="tinhTongKhoiLuongXuat(item)" #input (keydown)="navigateTable($event, i, 0)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TrongLuong" disabled #input
-                                (keydown)="navigateTable($event, i, 1)">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TrongLuong" disabled
+                                #input (keydown)="navigateTable($event, i, 1)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">

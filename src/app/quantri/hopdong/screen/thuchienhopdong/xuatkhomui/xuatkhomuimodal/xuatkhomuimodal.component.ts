@@ -44,7 +44,8 @@ export class XuatkhomuimodalComponent implements OnInit {
     let data: any = {
       CurrentPage: 0
     }
-    data.Loai = 23;
+    // data.Loai = 23;
+    data.Loai = this.link.Loai;
     this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
       if (this.link.eAction === 'PHIEUXUATCUONCUI') {
@@ -197,6 +198,7 @@ export class XuatkhomuimodalComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.listItem;
+      modalRef.componentInstance.isThung = ['khochaiky', 'khotho', 'khochaicotton'].includes(this.link.value);
       modalRef.result.then((data) => {
         console.log(data.data)
         if (this.item.listItem !== undefined && this.item.listItem.length > 0) {

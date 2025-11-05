@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from '../../../../../../quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from '../../../../../../services/callApiSanXuat';
 import { vn } from '../../../../../../services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate,validVariable } from '../../../../../../services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from '../../../../../../services/globalfunction';
 import { StoreService } from '../../../../../../services/store.service';
 
 @Component({
@@ -196,9 +196,25 @@ export class NhapkhomuimodalComponent implements OnInit {
       }
     })
   }
+
+  getAPI(value: any) {
+    let _api: any;
+    switch (value) {
+      case 'khotho':
+        _api = this._services.GetOptions().GetListdmItemLoaiChaiPE(); break;
+      case 'khocui':
+        _api = this._services.GetOptions().GetListdmItemLoaiCuonCui(); break;
+      case 'khochaicotton':
+        _api = this._services.GetOptions().GetListdmItemLoaiChaiCotton(); break;
+      case 'khochaiky':
+        _api = this._services.GetOptions().GetListdmItemLoaiChaiKy(); break;
+    }
+    return _api;
+  }
   getListMatHang() {
     this.data.Loai = 23;
-    let _api = this.link.value === 'khotho' ? this._services.GetOptions().GetListdmItemLoaiSoiTho() : this._services.GetOptions().GetListdmItemLoaiCuonCui();
+    // let _api = this.link.value === 'khotho' ? this._services.GetOptions().GetListdmItemLoaiChaiPE() : this._services.GetOptions().GetListdmItemLoaiCuonCui();
+    let _api = this.getAPI(this.link.value);
     _api.subscribe((res: any) => {
       this.listMatHang = mapArrayForDropDown(res, 'Ten', 'IddmItem');
     })

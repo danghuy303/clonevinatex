@@ -10,68 +10,92 @@ import { validVariable } from 'src/app/services/globalfunction';
 export class ChatluongsoimathangmodalComponent implements OnInit {
   listMatHang: any = [];
   listItem: any = [];
-  cols = [{
-    header: 'Tên lô hàng',
-    field: 'TenLoHang',
-    width: 'unset'
-  },
-  {
-    header: 'Mã mặt hàng',
-    field: 'Ma',
-    width: 'unset'
-  },
-  {
-    header: 'Tên mặt hàng',
-    field: 'Ten',
-    width: 'unset'
-  },
+  cols = [
+    {
+      header: 'Tên lô hàng',
+      field: 'TenLoHang',
+      width: 'unset'
+    },
+    {
+      header: 'Mã mặt hàng',
+      field: 'Ma',
+      width: 'unset'
+    },
+    {
+      header: 'Tên mặt hàng',
+      field: 'Ten',
+      width: 'unset'
+    },
   ];
   loai = '';
   checkedAll: boolean = false;
   paging: any = {};
   item: any = {};
   KeyWord: any = '';
+  type: any = '';
   constructor(
     public activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit(): void {
-    if(this.loai === 'loicat' || this.loai === 'classimat'){
-      this.cols = [{
-        header: 'Tên lô hàng',
-        field: 'TenLoHang',
-        width: 'unset'
-      },
-      {
-        header: 'Tên mặt hàng',
-        field: 'TenMatHang',
-        width: 'unset'
-      },
-      ]
+    if (this.loai === 'loicat' || this.loai === 'classimat') {
+      this.cols = [
+        {
+          header: 'Tên lô hàng',
+          field: 'TenLoHang',
+          width: 'unset'
+        },
+        {
+          header: 'Tên mặt hàng',
+          field: 'TenMatHang',
+          width: 'unset'
+        },
+      ];
+      if (this.type === 'theomay') {
+        this.cols.unshift({
+          header: 'Tên máy',
+          field: 'TendmMay',
+          width: 'unset'
+        })
+      }
     }
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
     if (this.listItem != undefined && this.listItem != null) {
       for (let i = 0; i < this.listItem.length; i++) {
-        console.log(this.listItem[i])
-        let itemFind = this.listMatHang.find(
-          // ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang === this.listItem[i].IdLoHang)
-          ele => (ele.IddmItem === this.listItem[i].IddmItem )
-        );
-        if (validVariable(itemFind)) {
-          itemFind.checked = true;
+        if (this.type === 'theomay') {
+          let itemFind = this.listMatHang.find(
+            // ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang === this.listItem[i].IdLoHang)
+            (ele: any) => (ele.IddmItem === this.listItem[i].IddmItem && ele.IddmMay === this.listItem[i].IddmMay)
+          );
+          if (validVariable(itemFind)) {
+            itemFind.checked = true;
+          }
+        } else {
+          let itemFind = this.listMatHang.find(
+            // ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang === this.listItem[i].IdLoHang)
+            (ele: any) => (ele.IddmItem === this.listItem[i].IddmItem)
+          );
+          if (validVariable(itemFind)) {
+            itemFind.checked = true;
+          }
         }
       }
     }
     this.item.listItem = this.listMatHang.slice(0, 15);
+    this.checkedAll = this.item.listItem.every((ele: any) => ele.checked)
     this.item.listItem_copy = this.listMatHang;
   }
+
+  getCheck() {
+    this.checkedAll = this.item.listItem.every((ele: any) => ele.checked)
+  }
+
   accept() {
     let itemFind: any = this.listMatHang.filter(function (obj) {
       return obj.checked == true;
     });
-    console.log(itemFind);
     this.activeModal.close(
       {
         data: itemFind.map(ele => {

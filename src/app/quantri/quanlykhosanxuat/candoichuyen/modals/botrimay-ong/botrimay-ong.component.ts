@@ -70,7 +70,6 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     this.getListLoHang();
 
     this.sort();
-    this.initSpeedOption();
     this.mapCa_Id = {};
     this.listCanBoTri = {};
     this.item.listCaSanXuat.forEach(ca => {
@@ -102,6 +101,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       if (res) {
         this.listLoHangAll = res || [];
         this.listLoHang = mapArrayForDropDown(res, 'Ten', 'Id');
+        this.initSpeedOption();
       }
     })
   }
@@ -138,6 +138,17 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   }
   initSpeedOption() {
     this.item.listDaBoTri.forEach(may => {
+
+      // fix để mặt hàng - lô hàng logic với nhau
+      if (may?.IdCanDoiChuyen_CanBoTri) {
+        this.getLoHang(may, may?.IdCanDoiChuyen_CanBoTri);
+      } else {
+        may.listHangHoa = this.listHangHoa;
+        may.listLoHang = this.listLoHang;
+      }
+
+
+
       if (validVariable(may.IdCanDoiChuyen_CanBoTri)) {
         let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0]?.IddmItem;
         may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
@@ -212,20 +223,66 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     item.DinhMucNangSuat = (item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === event.value)?.[0]?.DinhMucNangSuat || 0);
     this.inputChange()
   }
-  chonMatHang(item, event) {
-    console.log('item', item);
-    console.log('event', event);
-    if (event.value) {
-      item.Ten = this.listHangHoa.find(mathang => mathang.value === event.value)?.label;
+
+  getLoHangByItem(data: any, IddmItem: string) {
+    // Gộp tất cả listItem lại thành 1 mảng
+    const allItems = data.flatMap((x: any) => x.listItem?.map((ele: any) => {
+      return {
+        ...ele,
+        TenLoHang: x.Ten
+      }
+    }));
+    // Lọc ra các item cùng IddmItem
+    const filtered = allItems.filter((i: any) => i.IddmItem === IddmItem);
+    // Lấy danh sách IdLoHang duy nhất
+    const listLoHang = [...new Set(filtered)];
+    console.log('listLoHang', listLoHang);
+
+    return listLoHang;
+  }
+
+  getLoHang(item: any, value: any) {
+    const IddmItem_VuaChon = this.item.listCanBoTri?.find((hangHoa: any) => hangHoa.Id === value)?.IddmItem;
+    item.listLoHang = mapArrayForDropDown(this.getLoHangByItem(this.listLoHangAll, IddmItem_VuaChon), 'TenLoHang', 'IdLoHang');
+    if (item.IdLoHang) {
+      this.layKg_Cone(item, item.IdLoHang);
+    }
+  }
+
+  chonMatHang(item: any, value: any) {
+    if (value) {
+      // START Duyệt sửa 11:20 25/09/2025
+      // const _mathang = this.item.listCanBoTri.find(z => z.Id === event.value);
+      // item.IddmItem = _mathang?.IddmItem;
+      // if (item.IdLoHang) {
+      //   const _lohang = this.listLoHangAll.find(x => x.Id === item.IdLoHang);
+      //   if (_lohang && _lohang.listItem.length) {
+      //     item.KgCone = _lohang.listItem.find(y => y.IddmItem === _mathang?.IddmItem)?.TrongLuongKg_Cone;
+      //   }
+      // }
+      // END Duyệt sửa 11:20 25/09/2025
+
+
+      // 30/10/2025 huy custom mặt hàng - lô hàng (2 chiều)
+      // const IddmItem_VuaChon = this.item.listCanBoTri?.find((hangHoa: any) => hangHoa.Id === value)?.IddmItem;
+      // item.listLoHang = mapArrayForDropDown(this.getLoHangByItem(this.listLoHangAll, IddmItem_VuaChon), 'TenLoHang', 'IdLoHang');
+      // if (item.IdLoHang) {
+      //   this.layKg_Cone(item, item.IdLoHang);
+      // }
+      this.getLoHang(item, value);
+      // .end
+
+
+      item.Ten = this.listHangHoa.find((mathang: any) => mathang.value === value)?.label;
       // if(validVariable(item.SoCocDen)&& validVariable(item.SoCocTu)){
       // }
       // else{
       //   item.SoCocDen = item.SoCocTu;
       // }
-      let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === item.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
-      item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
+      let IddmItem = this.item.listCanBoTri.filter((mathang: any) => mathang.Id === item.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
+      item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter((dinhmuc: any) => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
       item.IdPhanNhomMay_Item = item.listTocDo?.[0]?.value || null;
-      item.DinhMucNangSuat = (item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === item.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat || 0);
+      item.DinhMucNangSuat = (item.listDinhMucMay.filter((dinhmuc: any) => dinhmuc.Id === item.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat || 0);
       if (!validVariable(item.SoCocDen)) {
         item.SoCocDen = item.SoCoc;
       }
@@ -240,7 +297,11 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       item.SoCocTu = null;
       item.SoCocDen = null;
       item.KgCone = null;
+
+      item.listHangHoa = this.listHangHoa;
+      item.listLoHang = this.listLoHang;
     }
+
     this.inputChange();
   }
 
@@ -414,10 +475,46 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     })
     this.item.listDaBoTri = temp;
   }
-  layKg_Cone(data) {
-    let TrongLuongKg_Cone = this.listLoHangAll?.find(ele => ele.Id === data.IdLoHang)?.TrongLuongKg_Cone;
-    data.KgCone = TrongLuongKg_Cone;
+  layKg_Cone(data: any, value: string) {
+    // let TrongLuongKg_Cone = this.listLoHangAll?.find(ele => ele.Id === data.IdLoHang)?.TrongLuongKg_Cone;
+    // data.KgCone = TrongLuongKg_Cone;
+    // this.item.listDaBoTri = [...this.item.listDaBoTri];
+
+    // START Duyệt sửa 11:31 25/09/2025
+    // console.log("data 1", data);
+
+    // const _lohang = this.listLoHangAll?.find(ele => ele.Id === data.IdLoHang);
+    // console.log("_lohang", _lohang);
+    // const _mathang = _lohang?.listItem?.find(x => x.IddmItem === data.IddmItem);
+    // console.log("_mathang", _mathang);
+
+    // data.KgCone = _mathang?.TrongLuongKg_Cone;
+    // console.log("data 2", data);
+
+    // this.item.listDaBoTri = [...this.item.listDaBoTri];
+
+    // END Duyệt sửa 11:31 25/09/2025
+
+
+    // 21/10/2025 huy update
+
+    if (value) {
+      const allItems = this.listLoHangAll.flatMap((x: any) => x.listItem);
+
+      const IddmItem_LoHang = allItems?.find((ele: any) => ele.IdLoHang === value)?.IddmItem;
+      const _listHangHoa = this.item.listCanBoTri?.filter((ele: any) => ele.IddmItem === IddmItem_LoHang);
+      data.listHangHoa = mapArrayForDropDown(_listHangHoa, 'Ten', 'Id');
+
+      const _lohang = this.listLoHangAll?.find((ele: any) => ele.Id === value);
+      const _IddmItem = _listHangHoa?.find((ele: any) => ele.Id === data.IdCanDoiChuyen_CanBoTri)?.IddmItem;
+      const _mathang = _lohang?.listItem?.find((x: any) => x.IddmItem === _IddmItem);
+      data.KgCone = _mathang?.TrongLuongKg_Cone;
+    } else {
+      data.listLoHang = this.listLoHang;
+      data.listHangHoa = this.listHangHoa;
+    }
     this.item.listDaBoTri = [...this.item.listDaBoTri];
+
   }
 
 

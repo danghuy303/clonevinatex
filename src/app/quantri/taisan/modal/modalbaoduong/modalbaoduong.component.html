@@ -232,15 +232,18 @@
                 <label for="binary">Hoạt động </label>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-2">
-            <label class="">Bảo dưỡng theo sản lượng (tấn):</label>
-            <div class="">
-                <p-inputNumber [minFractionDigits]="1" locale="en-EN" min="0" [(ngModel)]="item.NangSuat">
-                </p-inputNumber>
+
+        <div class="p-col-12 p-lg-12 p-grid p-mb-3" style="border: 1px solid #e8e8e8; background: #f1f1f1;">
+            <div class="p-col-12 p-lg-3 p-p-2 d-flex align-items-center">
+                <label class="p-col-7">Bảo dưỡng theo sản lượng (tấn):</label>
+                <div class="p-col-5">
+                    <p-inputNumber [minFractionDigits]="1" locale="en-EN" min="0" [(ngModel)]="item.NangSuat">
+                    </p-inputNumber>
+                </div>
             </div>
         </div>
 
-        <div class="p-col-12 p-lg-12 p-grid" style="border: 1px solid #e8e8e8;">
+        <div class="p-col-12 p-lg-12 p-grid" style="border: 1px solid #e8e8e8; background: #f1f1f1;">
             <div class="p-col-12 p-lg-4 p-p-2">
                 <label class="">Bảo dưỡng theo thời gian <span class="text-danger">(*)</span>
                     :</label>
@@ -324,14 +327,15 @@
             <div class="p-col-12 p-lg-1 p-p-2" *ngIf="item.MaLoaiThoiGian === 'NGAY'">
                 <div class="">Từ giờ:</div>
                 <div class="">
-                    <p-calendar [timeOnly]="true" [(ngModel)]="item.TuGio" inputId="timeonly" styleClass="p-inputtext-sm"
-                        style="width: 100%"></p-calendar>
+                    <p-calendar [timeOnly]="true" [(ngModel)]="item.TuGio" inputId="timeonly"
+                        styleClass="p-inputtext-sm" style="width: 100%"></p-calendar>
                 </div>
             </div>
             <div class="p-col-12 p-lg-1 p-p-2" *ngIf="item.MaLoaiThoiGian === 'NGAY'">
                 <div class="">Đến giờ:</div>
                 <div class="">
-                    <p-calendar [timeOnly]="true" [(ngModel)]="item.DenGio" inputId="timeonly" styleClass="p-inputtext-sm"></p-calendar>
+                    <p-calendar [timeOnly]="true" [(ngModel)]="item.DenGio" inputId="timeonly"
+                        styleClass="p-inputtext-sm"></p-calendar>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6"> </div>
@@ -339,7 +343,8 @@
             <div class="p-col-12 p-lg-2 p-p-2">
                 <label class="">Số lượng:</label>
                 <div class="">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoMay" styleClass="p-inputtext-sm">
+                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoMay"
+                        styleClass="p-inputtext-sm">
                     </p-inputNumber>
                 </div>
             </div>
@@ -354,14 +359,16 @@
             <div class="p-col-12 p-lg-2 p-p-2">
                 <label class="">Thời gian định mức (phút):</label>
                 <div class="">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.ThoiGianDinhMuc" styleClass="p-inputtext-sm">
+                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.ThoiGianDinhMuc"
+                        styleClass="p-inputtext-sm">
                     </p-inputNumber>
                 </div>
             </div>
             <div class="p-col-12 p-lg-2 p-p-2">
                 <label class="">Số người:</label>
                 <div class="">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNguoi" styleClass="p-inputtext-sm">
+                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNguoi"
+                        styleClass="p-inputtext-sm">
                     </p-inputNumber>
                 </div>
             </div>

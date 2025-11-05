@@ -26,8 +26,10 @@ export class NhapkhomuiComponent extends StoreBase implements OnInit, OnDestroy 
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   link: any = {};
   listRouter: any = [
-    { value: 'khotho', lable: 'thô', Loai: 204, eAction: 'PHIEUNHAPSOITHO', api: () => this._service.PhieuNhapSoiTho() },
+    { value: 'khotho', lable: 'chải PE', Loai: 204, eAction: 'PHIEUNHAPCHAIPE', api: () => this._service.PhieuNhapChaiPE() },
     { value: 'khocui', lable: 'cuộn cúi', Loai: 205, eAction: 'PHIEUNHAPCUONCUI', api: () => this._service.PhieuNhapSoiCui() },
+    { value: 'khochaicotton', lable: 'chải cotton', Loai: 206, eAction: 'PHIEUNHAPCHAICOTTON', api: () => this._service.PhieuNhapChaiCotton() },
+    { value: 'khochaiky', lable: 'chải kỹ', Loai: 207, eAction: 'PHIEUNHAPCHAIKY', api: () => this._service.PhieuNhapChaiKy() },
   ]
 
   constructor(

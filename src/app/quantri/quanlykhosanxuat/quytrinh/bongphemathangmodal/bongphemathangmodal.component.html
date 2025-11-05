@@ -50,6 +50,9 @@
                         <td class="text-left">
                             {{item.Ten}}
                         </td>
+                        <td *ngIf="isThung" class="">
+                            {{item.TendmQuyCachDongGoi}}
+                        </td>
                         <td class="text-right">
                             {{item.SoLuong|number:'0.0' }}
                         </td>

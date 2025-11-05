@@ -1,0 +1,110 @@
+<div class="">
+    <div class="p-mb-3 p-mt-3">
+        <h4 style="color:#1f2779">Bảng Toàn Trình Theo Dõi Chất Lượng Dây Chuyền</h4>
+        <div class="d-flex p-ai-center">
+            <div class="p-mr-2">
+                <p-dropdown [filter]="true" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+                    (onChange)="getData()" [options]="listPhanXuong" [(ngModel)]="filter.IddmPhanXuong">
+                </p-dropdown>
+            </div>
+            <div class="p-mr-2">
+                <p-dropdown [filter]="true" placeholder="Chọn thời gian" styleClass="p-inputtext-sm"
+                    [options]="listThoiGian" [(ngModel)]="filter.ThoiGian" (onChange)="getData()">
+                </p-dropdown>
+            </div>
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filter.Ngay" inputId="icon" placeholder="Ngày" (onSelect)="getData()">
+                </p-calendar>
+            </div>
+            <div class="p-mr-2">
+                <button pButton pRipple label="Xuất excel" class="p-button-sm p-button-outlined"
+                    (click)="exportExcel()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="p-grid" style="align-self: stretch">
+    <ng-container *ngFor="let chatLuong of dataBang?.listCongDoan">
+        <div class="p-col-12 p-xl-6 p-lg-6 p-p-3">
+            <div class="item-chatluong p-p-3">
+                <!-- <p-table [value]="chatLuong?.listMay_MatHang"
+                    styleClass="p-datatable-sm p-datatable-gridlines wrap-text custom-scroll-hidden" [scrollable]="true"
+                    scrollHeight="500px" scrollDirection="both">
+                    <ng-template pTemplate="colgroup">
+                        <col style="width:200px" />
+                        <ng-container *ngFor="let chiTieu of chatLuong?.listChiTieuHeader">
+                            <col style="width:80px" />
+                            <col style="width:80px" />
+                        </ng-container>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th [attr.colspan]="1+(chatLuong?.listChiTieuHeader?.length *2)" class="chitieu">Máy
+                                {{chatLuong?.TenCongDoan}}</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">Máy</th>
+                            <ng-container *ngFor="let chiTieu of chatLuong?.listChiTieuHeader">
+                                <th colspan="2">
+                                    {{chiTieu.TenChiTieu}}</th>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <ng-container *ngFor="let chiTieu of chatLuong?.listChiTieuHeader">
+                                <th class="text-center"> TC</th>
+                                <th class="text-center"> TH</th>
+                            </ng-container>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr>
+                            <td>{{item.TenMay}}</td>
+                            <ng-container *ngFor="let it_chiTieu of item?.listChiTieu">
+                                <td class="text-right"> {{it_chiTieu.ChiTieuLyThuyet}}</td>
+                                <td class="text-right"> {{it_chiTieu.ChiTieuThucTe}}</td>
+                            </ng-container>
+                        </tr>
+                    </ng-template>
+                </p-table> -->
+
+                <div class="sticky-table">
+                    <table style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th [attr.colspan]="1+(chatLuong?.listChiTieuHeader?.length *2)" class="chitieu">Máy
+                                    {{chatLuong?.TenCongDoan}}</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2" class="tw-250 child_1">Máy</th>
+                                <ng-container *ngFor="let chiTieu of chatLuong?.listChiTieuHeader">
+                                    <th colspan="2">
+                                        {{chiTieu.TenChiTieu}}</th>
+                                </ng-container>
+                            </tr>
+                            <tr>
+                                <ng-container *ngFor="let chiTieu of chatLuong?.listChiTieuHeader">
+                                    <th class="text-center tw-80">TC</th>
+                                    <th class="text-center tw-80">TH</th>
+                                </ng-container>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let item of chatLuong?.listMay_MatHang; let i = index">
+                                <tr>
+                                    <td class="tw-250 child_1">{{item.TenMay}}</td>
+                                    <ng-container *ngFor="let it_chiTieu of item?.listChiTieu">
+                                        <td class="text-right tw-80">{{it_chiTieu.ChiTieuLyThuyet}}</td>
+                                        <td class="text-right tw-80">{{it_chiTieu.ChiTieuThucTe}}</td>
+                                    </ng-container>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </ng-container>
+</div>

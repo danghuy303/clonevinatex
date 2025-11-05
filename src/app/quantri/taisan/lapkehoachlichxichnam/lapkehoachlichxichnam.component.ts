@@ -2,7 +2,7 @@ import { Component, DoCheck, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, O
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
@@ -12,6 +12,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { ModalluachonloaibaoduongComponent } from '../modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
 import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
+import { exhaustMap } from 'rxjs/operators';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   differ: any;
   opp: boolean = false;
   private customerDiffer: KeyValueDiffer<string, any>;
+  private ghiLai$ = new Subject<void>();
 
   constructor(
     private _modal: NgbModal,
@@ -54,6 +56,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.nextGhiLai();
     this.currentYear = new Date().getFullYear();
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20,
@@ -161,14 +164,28 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     return true;
   }
 
-  GhiLai() {
-    if (this.ValidateData()) {
-      this._serviceTaiSan.GetDanhSachVatTuThayTheForLichXichNam(this.item.listTaiSan).subscribe((taisan: any) => {
-        this.item = {
-          ...this.item,
-          listTaiSan: taisan.Data
-        }
-        this._serviceTaiSan.LichXich().Set(this.setData()).subscribe((res: any) => {
+  nextGhiLai() {
+    this.ghiLai$
+      .pipe(
+        exhaustMap(() => {
+          if (!this.ValidateData()) return []; // nếu validate fail thì không gọi
+
+          return this._serviceTaiSan
+            .GetDanhSachVatTuThayTheForLichXichNam(this.item.listTaiSan)
+            .pipe(
+              exhaustMap((taisan: any) => {
+                this.item = {
+                  ...this.item,
+                  listTaiSan: taisan.Data
+                };
+
+                return this._serviceTaiSan.LichXich().Set(this.setData());
+              })
+            );
+        })
+      )
+      .subscribe({
+        next: (res: any) => {
           if (res.StatusCode !== 200 || !res.StatusCode) {
             this.toastr.error("Có lỗi trong quá trình xử lý!!!");
           } else {
@@ -176,11 +193,35 @@ export class LapkehoachlichxichnamComponent implements OnInit {
             this.toastr.success(res.Message);
             this.GetQuyTrinhById(this.item.Id);
           }
-        }, (er) => {
+        },
+        error: () => {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-        })
-      })
-    }
+        }
+      });
+  }
+
+  GhiLai() {
+    // if (this.ValidateData()) {
+    //   this._serviceTaiSan.GetDanhSachVatTuThayTheForLichXichNam(this.item.listTaiSan).subscribe((taisan: any) => {
+    //     this.item = {
+    //       ...this.item,
+    //       listTaiSan: taisan.Data
+    //     }
+    //     this._serviceTaiSan.LichXich().Set(this.setData()).subscribe((res: any) => {
+    //       if (res.StatusCode !== 200 || !res.StatusCode) {
+    //         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+    //       } else {
+    //         this.item = res.Data;
+    //         this.toastr.success(res.Message);
+    //         this.GetQuyTrinhById(this.item.Id);
+    //       }
+    //     }, (er) => {
+    //       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+    //     })
+    //   })
+    // }
+
+    this.ghiLai$.next();
   }
 
   KiemTraButtonModal() {
@@ -410,15 +451,15 @@ export class LapkehoachlichxichnamComponent implements OnInit {
 
   ChonCongDoan(event: any) {
     // this.ThemMoiDanhSachTaiSan()
-   
-    
+
+
     setTimeout(() => {
       // Tìm phần tử dropdown
       const dropdownElement = document.querySelector('p-dropdown');
 
       if (dropdownElement) {
         // Tìm phần tử input của filter trong dropdown
-        const inputElement:any = dropdownElement.querySelector('.ui-dropdown-filter');
+        const inputElement: any = dropdownElement.querySelector('.ui-dropdown-filter');
         if (inputElement) {
           inputElement.value = '';
           // Kích hoạt sự kiện input để cập nhật giá trị trong dropdown

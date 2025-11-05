@@ -577,6 +577,4 @@ export class KiemkekhohoiluongdomodalComponent implements OnInit, AfterViewInit,
       }
     });
   }
-
-
 }

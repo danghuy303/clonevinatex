@@ -1,0 +1,112 @@
+<div class="">
+    <div class="p-mb-3 p-mt-3">
+        <h4 style="color:#1f2779">Dashboard Theo Dõi Chất Lượng Dây Chuyền</h4>
+    </div>
+</div>
+
+<div class="p-grid" style="align-self: stretch">
+    <div class="p-col-12 p-xl-8 p-lg-8 p-p-3">
+        <div class="item-chatluong p-p-3">
+            <div class="d-flex p-ai-center justify-content-between">
+                <h5>Dữ Liệu Chi Tiết</h5>
+                <div class="d-flex p-ai-center">
+                    <!-- <div class="p-mr-2">
+                        <p-dropdown [filter]="true" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+                            (onChange)="getData()" [options]="listPhanXuong" [(ngModel)]="filter.IddmPhanXuong">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" placeholder="Chọn thời gian" styleClass="p-inputtext-sm"
+                            [options]="listThoiGian" [(ngModel)]="filter.ThoiGian" (onChange)="getData()">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-mr-2">
+                        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                            [(ngModel)]="filter.Ngay" inputId="icon" placeholder="Ngày" (onSelect)="getData()">
+                        </p-calendar>
+                    </div>
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
+                            (onChange)="getData()" [options]="listCongDoan" [(ngModel)]="filter.CongDoan">
+                        </p-dropdown>
+                    </div> -->
+                </div>
+            </div>
+            <div class="d-flex p-ai-center justify-content-end">
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+                        (onChange)="getData()" [options]="listPhanXuong" [(ngModel)]="filter.IddmPhanXuong">
+                    </p-dropdown>
+                </div>
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" placeholder="Chọn thời gian" styleClass="p-inputtext-sm"
+                        [options]="listThoiGian" [(ngModel)]="filter.ThoiGian" (onChange)="getData()">
+                    </p-dropdown>
+                </div>
+                <div class="p-mr-2">
+                    <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                        [(ngModel)]="filter.Ngay" inputId="icon" placeholder="Ngày" (onSelect)="getData()">
+                    </p-calendar>
+                </div>
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
+                        (onChange)="getData()" [options]="listCongDoan" [(ngModel)]="filter.CongDoan">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-mt-3">
+                <div class="sticky-table">
+                    <table style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th class="text-center tw-200 child_1" rowspan="2">Máy</th>
+                                <ng-container *ngFor="let tieuChi of dataBang?.listTieuChi">
+                                    <th class="text-center" colspan="2"> {{tieuChi.TendmTieuChiChatLuong}}</th>
+                                </ng-container>
+                            </tr>
+                            <tr>
+                                <ng-container *ngFor="let tieuChi of dataBang?.listTieuChi">
+                                    <th class="text-center tw-80"> TC</th>
+                                    <th class="text-center tw-80"> TH</th>
+                                </ng-container>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let item of dataBang?.listMay; let i = index">
+                                <tr>
+                                    <td class="tw-200 child_1"> {{ item.TendmMay }} </td>
+                                    <ng-container *ngFor="let tieuChi of item?.listChiTieu">
+                                        <td class="tw-80 text-right">{{ tieuChi.ChiTieuLyThuyet }} </td>
+                                        <td class="tw-80 text-right">{{ tieuChi.ChiTieuThucTe }} </td>
+                                    </ng-container>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
+        <div class="item-chatluong  p-p-3">
+            <h5>Biểu Đồ Phân Tích Chi Tiêu</h5>
+            <div class="d-flex p-ai-center justify-content-end">
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" placeholder="Chọn chi tiêu" styleClass="p-inputtext-sm p-mr-2"
+                        [showClear]="true" [options]="listTieuChi" [(ngModel)]="filter.IddmTieuChi"
+                        (onChange)="getDataBieuDo()">
+                    </p-dropdown>
+                </div>
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" placeholder="Chọn máy" styleClass="p-inputtext-sm p-mr-2"
+                        [showClear]="true" [options]="listMay" [(ngModel)]="filter.IddmMay"
+                        (onChange)="getDataBieuDo()">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-mt-3">
+                <p-chart type="line" [data]="dataBieuDo" [options]="optionBieuDo"></p-chart>
+            </div>
+        </div>
+    </div>
+</div>

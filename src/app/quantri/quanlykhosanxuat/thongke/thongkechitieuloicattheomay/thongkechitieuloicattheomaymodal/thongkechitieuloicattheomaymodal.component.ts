@@ -232,12 +232,17 @@ export class ThongkechitieuloicattheomaymodalComponent implements OnInit, AfterV
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.lstSanPham;
-      modalRef.componentInstance.loai = 'loicat';
+      modalRef.componentInstance.loai = 'loicat';/*  */
       modalRef.componentInstance.type = 'theomay';
       modalRef.result.then((data) => {
-        // this.item.lstSanPham = data.data;
-        this.item.lstSanPham = MergeArr(data.data, this.item.lstSanPham || [], "IddmItem");
-        // huy nhỏ sửa, khi thêm mặt hàng giữ số liệu đã chọn
+        // this.item.lstSanPham = MergeArr(data.data, this.item.lstSanPham || [], "IddmItem");
+        this.item.lstSanPham = data.data?.map((ele: any) => {
+          let _newObj = this.item.lstSanPham?.find((obj: any) => obj.IddmMay === ele.IddmMay && obj.IddmItem === ele.IddmItem);
+          let _newData = _newObj ? _newObj : ele;
+          return {
+            ..._newData
+          }
+        })
       }, (reason) => {
         // không
       });

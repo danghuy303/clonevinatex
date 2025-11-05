@@ -36,6 +36,11 @@ export class DmtieuchichatluongsoimodalComponent implements OnInit {
   listdungsai: any = [];
   khongclicknhieu: any = false;
   listCongDoan: any = [];
+  listCachDanhGia: any = [
+    { value: 'CaoHonLaTot', label: 'Cao hơn là tốt' },
+    { value: 'ThapHonLaTot', label: 'Thấp hơn là tốt' },
+  ];
+
   constructor(public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -77,7 +82,7 @@ export class DmtieuchichatluongsoimodalComponent implements OnInit {
     else
       this.item.isLoaiChiTieuIPI = !e.checked;
   }
-  getListCongDoan(){
+  getListCongDoan() {
     this.sanXuatService.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
     })

@@ -137,15 +137,10 @@
                         let iC = index
                      ">
                      <td class="text-right">
-                        {{
-                        itemindex.Ma !== 'DAT'
-                        ? itemsanpham.ChiTieuLyThuyet === 0
-                        ? ''
-                        : itemsanpham.ChiTieuLyThuyet
-                        : ''
-                        }}
+                        {{itemindex.Ma !== 'DAT'? (itemsanpham.ChiTieuLyThuyet === 0? '' : itemsanpham.ChiTieuLyThuyet |
+                        number:'0.3-3') :''}}
                      </td>
-                     <td class="text-center" [ngStyle]="{
+                     <!-- <td class="text-center" [ngStyle]="{
                            'background-color':
                               itemindex.Ma === 'DAT'
                                  ? ''
@@ -153,6 +148,14 @@
                                    itemsanpham.ChiTieuLyThuyet
                                  ? '#ef8888'
                                  : '#99c199'
+                        }"> -->
+                     <!-- 28/10/2025 yc thay đổi điều kiện check của chị Quỳnh -->
+                     <td class="text-center" [ngStyle]="{
+                           'background-color':
+                              itemindex.Ma === 'DAT'
+                                 ? ''
+                                 : (itemindex.CachDanhGia === 'CaoHonLaTot' ? (itemsanpham.ChiTieuThucTe > itemsanpham.ChiTieuLyThuyet ? '#99c199': '#ef8888') 
+                                 : (itemsanpham.ChiTieuThucTe > itemsanpham.ChiTieuLyThuyet ? '#ef8888': '#99c199'))
                         }">
                         <input *ngIf="itemindex.Ma === 'DAT'" type="checkbox" [(ngModel)]="itemsanpham.isDat" />
                         <!-- <input *ngIf="itemindex.Ma!=='DAT'" class="text-right dat09focus"

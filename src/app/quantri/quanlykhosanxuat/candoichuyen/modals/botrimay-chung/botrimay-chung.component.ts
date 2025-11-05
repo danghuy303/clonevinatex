@@ -34,6 +34,8 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   listKgcone: any = [];
   isShowCapNhaMay: boolean = false;
   listPhanXuong: any = [];
+  isShowGanPAB: boolean = false;
+  listPhaBong: any = [];
 
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
     private _auth: AuthenticationService,) {
@@ -74,7 +76,6 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     } else {
       this.optionMatHang = 'IddmItem';
     }
-    console.log(this.optionMatHang)
   }
 
   getKgcone() {
@@ -254,6 +255,9 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
 
   capNhaMayKhac() {
     this.isShowCapNhaMay = !this.isShowCapNhaMay
+  }
+  ganPAB() {
+    this.isShowGanPAB = !this.isShowGanPAB
   }
 
 }

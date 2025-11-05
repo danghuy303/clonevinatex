@@ -33,7 +33,7 @@ export class ThongkechitieuloicattheomayComponent extends StoreBase implements O
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
-      width: '100px'
+      width: '200px'
     }
   ];
   isCheckModal: any = false;

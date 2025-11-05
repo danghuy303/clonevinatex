@@ -33,7 +33,7 @@ export class ThongkechitieuclasimattheomayComponent extends StoreBase implements
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
-      width: '100px'
+      width: '200px'
     }
   ];
   listPhanXuong:any=[];

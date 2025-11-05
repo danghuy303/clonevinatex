@@ -81,7 +81,8 @@ export class TonkhoComponent extends StoreBase implements OnInit, OnDestroy {
       switch (this.loai) {
         case 10: this.tenkho = "kho hồi ẩm";
           break;
-        case 204: this.tenkho = "kho thô";
+        // case 204: this.tenkho = "kho thô";
+        case 204: this.tenkho = "kho chải PE";
           break;
         case 205: this.tenkho = "kho cuộn cúi";
           break;

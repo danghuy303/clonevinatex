@@ -125,7 +125,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
                     [defaultDate]="minDateChonMay" [yearNavigator]="false" [minDate]="minDateChonMay"
-                    [maxDate]="maxDateChonMay" [(ngModel)]="item.TuNgay" (onBlur)="TinhNangSuat()"
+                    [maxDate]="maxDateChonMay" [(ngModel)]="item.TuNgay" (onSelect)="TinhNangSuat()"
                     placeholder="dd/mm/yyyy">
                 </p-calendar>
                 <!-- [disabled]="validChonLai(item)" -->
@@ -139,7 +139,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
                     [defaultDate]="maxDateChonMay" [yearNavigator]="false" [minDate]="minDateChonMay"
-                    (onSelect)="validDenNgay(item,$event)" [maxDate]="maxDateChonMay" (onBlur)="TinhNangSuat()"
+                    (onSelect)="validDenNgay(item,$event)" [maxDate]="maxDateChonMay"
                     [(ngModel)]="item.DenNgay" placeholder="dd/mm/yyyy">
                 </p-calendar>
                 <!-- [disabled]="validChonLai(item)" -->
@@ -273,7 +273,7 @@
                             {{mathang.SoMayTinhToan|number:'0.0-2'}}
                         </td>
                         <td>
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="mathang.GhiChu" pInputText />
                         </td>
                         <!-- <td class="text-center">
                             {{mathang.SoMay|number:'0.0-1'}}

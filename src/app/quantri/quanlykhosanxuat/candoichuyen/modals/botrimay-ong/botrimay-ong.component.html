@@ -56,9 +56,9 @@
                                 <col *ngIf="this.addonData.CongDoan !== 'DAUXE'" style="width:120px">
                                 <col>
                                 <col style="width:100px">
-                                <col style="width:150px">
                                 <col *ngIf="addonData.CongDoan === 'DAUXE'" style="width:200px">
                                 <col *ngIf="addonData.CongDoan === 'ONG'">
+                                <col style="width:150px">
                                 <col style="width:50px">
                             </colgroup>
                         </ng-template>
@@ -68,9 +68,9 @@
                                 <th *ngIf="this.addonData.CongDoan !== 'DAUXE'">Số cọc/máy</th>
                                 <th>Mặt hàng</th>
                                 <th>Tốc độ</th>
-                                <th>Kg/cone</th>
                                 <th *ngIf="addonData.CongDoan === 'DAUXE'">Màu</th>
                                 <th *ngIf="addonData.CongDoan === 'ONG'">Lô hàng</th>
+                                <th>Kg/cone</th>
                                 <th></th>
                             </tr>
                         </ng-template>
@@ -87,9 +87,14 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
+                                    <!-- <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
                                         placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
                                         [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="chonMatHang(item,$event)"
+                                        [tooltip]="getTooltip(item.IdCanDoiChuyen_CanBoTri, listHangHoa)"
+                                        tooltipPosition="top"></p-dropdown> -->
+                                    <p-dropdown [filter]="true" showClear="true" [options]="item.listHangHoa"
+                                        placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
+                                        [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="chonMatHang(item,$event.value)"
                                         [tooltip]="getTooltip(item.IdCanDoiChuyen_CanBoTri, listHangHoa)"
                                         tooltipPosition="top"></p-dropdown>
                                 </td>
@@ -99,17 +104,6 @@
                                         (onChange)="chonTocDo(item,$event)"
                                         [tooltip]="getTooltip(item.IdPhanNhomMay_Item, item.listTocDo)"
                                         tooltipPosition="top"></p-dropdown>
-                                </td>
-                                <td>
-                                    <div class="p-inputgroup w-full">
-                                        <p-dropdown [options]="listKgcone" placeholder="Chọn" [disabled]="true"
-                                            styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone" style="width: 80%;"
-                                            (onChange)="changeKgCone(item, this.mapCa_Id[ca.prop])"></p-dropdown>
-                                        <button pButton pRipple type="button" icon="pi pi-copy"
-                                            class="p-button-rounded p-button-sm p-button-text"
-                                            (click)="handleCopy(item, this.mapCa_Id[ca.prop])" style="width: 20%;"
-                                            [disabled]="!item.KgCone"></button>
-                                    </div>
                                 </td>
                                 <td *ngIf="addonData.CongDoan === 'DAUXE'">
                                     <div style="display: flex; flex-direction: row;"
@@ -124,7 +118,7 @@
                                     </div>
                                 </td>
                                 <td class="" *ngIf="addonData.CongDoan === 'ONG'">
-                                    <div class="p-inputgroup w-full">
+                                    <!-- <div class="p-inputgroup w-full">
                                         <p-dropdown [options]="listLoHang" placeholder="Chọn"
                                             (onChange)="layKg_Cone(item)" styleClass="p-inputtext-sm"
                                             [(ngModel)]="item.IdLoHang" style="width: 80%;"></p-dropdown>
@@ -132,6 +126,26 @@
                                             class="p-button-rounded p-button-sm p-button-text"
                                             (click)="handleLoHangCopy(item, this.mapCa_Id[ca.prop])"
                                             style="width: 20%;"></button>
+                                    </div> -->
+                                    <div class="p-inputgroup w-full">
+                                        <p-dropdown [options]="item.listLoHang" placeholder="Chọn" showClear="true"
+                                            (onChange)="layKg_Cone(item,$event?.value)" styleClass="p-inputtext-sm"
+                                            [(ngModel)]="item.IdLoHang" style="width: 80%;"></p-dropdown>
+                                        <button pButton pRipple type="button" icon="pi pi-copy"
+                                            class="p-button-rounded p-button-sm p-button-text"
+                                            (click)="handleLoHangCopy(item, this.mapCa_Id[ca.prop])"
+                                            style="width: 20%;"></button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="p-inputgroup w-full">
+                                        <p-dropdown [options]="listKgcone" placeholder="Chọn" [disabled]="true"
+                                            styleClass="p-inputtext-sm" [(ngModel)]="item.KgCone" style="width: 80%;"
+                                            (onChange)="changeKgCone(item, this.mapCa_Id[ca.prop])"></p-dropdown>
+                                        <button pButton pRipple type="button" icon="pi pi-copy"
+                                            class="p-button-rounded p-button-sm p-button-text"
+                                            (click)="handleCopy(item, this.mapCa_Id[ca.prop])" style="width: 20%;"
+                                            [disabled]="!item.KgCone"></button>
                                     </div>
                                 </td>
                                 <td class="text-center">

@@ -31,6 +31,7 @@ export class CandoichuyenComponent extends StoreBase implements OnInit, OnDestro
     listPhanXuong: any = [];
     mapMa_TenCongDoan: any = {};
     today: any;
+    listPhaBong: any = [];
 
     constructor(
         private _store: StoreService,
@@ -70,6 +71,11 @@ export class CandoichuyenComponent extends StoreBase implements OnInit, OnDestro
             });
             // this.listCongDoan.unshift({ label: 'Tất cả', value: '' })
             // this.filter.CongDoan = this.listCongDoan[0].value;
+        });
+        this._services.PhuongAnPhaBong().GetHoanThanh().subscribe((res: any) => {
+            this.listPhaBong = mapArrayForDropDown(res, "SoQuyTrinh", "Id");
+            console.log('this.listPhaBong',this.listPhaBong);
+            
         });
     }
     getDates(startDate, endDate) {
@@ -186,6 +192,7 @@ export class CandoichuyenComponent extends StoreBase implements OnInit, OnDestro
                     modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan];
                     modalRef.componentInstance.checkbutton = this.checkNavigationButton(index);
                     modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
+                    modalRef.componentInstance.listPhaBong = this.listPhaBong;
                     modalRef.componentInstance.filter = this.filter;
                     modalRef.componentInstance.item = deepCopy(res);
                     // modalRef.componentInstance.canDieuChinh = (date.labelHienThi === this.today);

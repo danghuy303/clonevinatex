@@ -362,7 +362,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this._services.BaoCao().TongHop(this.filter).subscribe((res: any) => {
       this.thongKes = res;
       this.thongKes = [
-        { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: this._formatN(res.SanLuongOng_ManHinh), button: 'chitietsanluongong' },
+        { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, SanLuongOng_ThucTe: res.SanLuongOng_ThucTe, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: this._formatN(res.SanLuongOng_ManHinh), button: 'chitietsanluongong' },
         { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: this._formatN(res.LuyKe_ManHinh), button: 'chitietluyke' },
         // Điện k có màn hình
         { Ten: 'Điện AC | khí nén', TieuHao: "KwH", DonVi: 'KW', ManHinh: `${this._formatN(res.DienAC_KW)} | ${this._formatN(res.DienKhiNen_KW)}` },

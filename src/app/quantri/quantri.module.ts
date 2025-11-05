@@ -359,6 +359,13 @@ import { XuatkhocapdaumodalComponent } from './quanlykhosanxuat/quytrinh/xuatkho
 import { DanhsachmathangmuiComponent } from './quanlykhosanxuat/quytrinh/xuatkhocapdau/danhsachmathangmui/danhsachmathangui.component';
 import { GetItemByCongDoanPipe } from '../services/getItemByCongDoan.pipe';
 import { QuantrichatluongComponent } from './quantrichatluong/quantrichatluong.component';
+import { DashboardtonghopComponent } from './dashboardtonghop/dashboardtonghop.component';
+import { ThongkechitieuloicattheomayComponent } from './quanlykhosanxuat/thongke/thongkechitieuloicattheomay/thongkechitieuloicattheomay.component';
+import { ThongkechitieuclasimattheomayComponent } from './quanlykhosanxuat/thongke/thongkechitieuclasimattheomay/thongkechitieuclasimattheomay.component';
+import { ThongkechitieuloicattheomaymodalComponent } from './quanlykhosanxuat/thongke/thongkechitieuloicattheomay/thongkechitieuloicattheomaymodal/thongkechitieuloicattheomaymodal.component';
+import { ThongkechitieuclasimattheomaymodalComponent } from './quanlykhosanxuat/thongke/thongkechitieuclasimattheomay/thongkechitieuclasimattheomaymodal/thongkechitieuclasimattheomaymodal.component';
+import { QuantrichatluongtoantrinhComponent } from './quantrichatluongtoantrinh/quantrichatluongtoantrinh.component';
+import { QuantrichatluongcongdoanComponent } from './quantrichatluongcongdoan/quantrichatluongcongdoan.component';
 
 @NgModule({
   declarations: [
@@ -662,6 +669,13 @@ import { QuantrichatluongComponent } from './quantrichatluong/quantrichatluong.c
     XuatkhocapdaumodalComponent,
     DanhsachmathangmuiComponent,
     QuantrichatluongComponent,
+    DashboardtonghopComponent,
+    ThongkechitieuloicattheomayComponent,
+    ThongkechitieuclasimattheomayComponent,
+    ThongkechitieuloicattheomaymodalComponent,
+    ThongkechitieuclasimattheomaymodalComponent,
+    QuantrichatluongtoantrinhComponent,
+    QuantrichatluongcongdoanComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,95 @@
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+  padding: 0.5rem 0.5rem;
+  border: 1px solid #e9ecef;
+  height: 12px;
+}
+
+th,
+td {
+  box-sizing: border-box;
+  /* đảm bảo width bao gồm luôn padding + border */
+}
+
+thead,
+th {
+  background: #828282;
+  color: white;
+  font-weight: 500;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+table th {
+  background-color: #828282;
+}
+
+table td {
+  background-color: white;
+}
+
+.tw-50 {
+  min-width: 50px;
+  max-width: 50px;
+}
+
+.tw-80 {
+  min-width: 80px;
+  max-width: 80px;
+}
+
+.tw-200 {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.tw-100 {
+  min-width: 100px;
+  max-width: 100px;
+}
+
+.tw-250 {
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.tw-150 {
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.sticky-table table {
+  border-collapse: separate;
+  border-spacing: unset;
+}
+
+.sticky-table {
+  overflow: auto;
+  height: 49vh;
+}
+
+
+.child_1 {
+  position: sticky;
+  left: 0;
+}
+
+.item-chatluong {
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.chitieu {
+  background-color: #c1a541 !important;
+  color: black !important;
+  font-weight: bold;
+}

@@ -144,7 +144,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
           this.listItem = res.objectReturn.listItem?.map(ele => {
         return {
           ...ele,
-          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}}`
+          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
         }
       });
           this.paging.CurrentPage = 1;
@@ -154,7 +154,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
           this.item.listItem = res.objectReturn.listItem.slice(0, 15)?.map(ele => {
         return {
           ...ele,
-          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}}`
+          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
         }
       });
           this.KiemTraButtonModal();

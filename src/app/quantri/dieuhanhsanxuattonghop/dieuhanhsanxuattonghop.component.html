@@ -100,7 +100,12 @@
                                        thongke.TieuHao != '%';
                                     else elseTieuHao
                                  ">
-                                 {{ thongke.TieuHao | number: '0.0-3' }}
+                                 <!-- {{ thongke.TieuHao | number: '0.0-3' }} -->
+                                 <div *ngIf="!thongke.SanLuongOng_ThucTe"> {{ thongke.TieuHao | number: '0.0-3'
+                                    }}</div>
+                                 <div *ngIf="thongke.SanLuongOng_ThucTe"> {{ thongke.TieuHao | number: '0.0-3'
+                                    }} / {{ thongke.SanLuongOng_ThucTe | number: '0.0-2' }}</div>
+
                               </div>
                               <ng-template #elseTieuHao>
                                  {{ thongke.DonVi }}

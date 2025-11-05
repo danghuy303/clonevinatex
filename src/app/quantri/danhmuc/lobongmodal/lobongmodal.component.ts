@@ -158,7 +158,7 @@ export class LobongmodalComponent implements OnInit {
     this.inQrCode$.pipe(
       exhaustMap(() =>
         this._danhMucTaiSan.InQrCodeLoBong({
-          KichThuoc: this.item.IdKichThuoc || 100,
+          // KichThuoc: this.item.IdKichThuoc || 100,
           IdLoBong: this.item.Id,
           SoBan: this.item.SoBan || 1,
           Tu: this.item.Tu || 1,

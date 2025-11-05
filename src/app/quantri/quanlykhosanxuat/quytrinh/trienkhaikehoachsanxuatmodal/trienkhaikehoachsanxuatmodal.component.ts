@@ -420,6 +420,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       }, 500)
       this.toastr.warning('Vui lòng chọn Từ ngày trước!')
     }
+    this.TinhNangSuat();
   }
   ThayDoiSoCa() {
     this.item.listItemMay = [];
@@ -514,7 +515,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
 
   chonNhieuMatHang() {
     let modalRef = this._modal.open(MathanglienketComponent, {
-      size: 'fullscreen',
+      size: 'fullscreen', backdrop: 'static',
     })
     modalRef.componentInstance.title = "Chọn phiếu";
     modalRef.componentInstance.quyTrinh = this.item;
@@ -531,7 +532,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           return ('' + a.Ten).localeCompare(b.Ten);
         })
         this.item.listItemMay = res.listItemMay;
-         this.item.listItemLienKet = res.listItemLienKet;
+        this.item.listItemLienKet = res.listItemLienKet;
       })
     }).catch(er => {
     })

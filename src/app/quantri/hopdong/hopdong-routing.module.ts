@@ -127,6 +127,14 @@ const routes: Routes = [
   { path: "khocui/xuatkho/:id", component: XuatkhomuiComponent },
   { path: "khocui/kiemkekho/:id", component: KiemkekhomuiComponent },
 
+  { path: "khochaicotton/nhapkho/:id", component: NhapkhomuiComponent },
+  { path: "khochaicotton/xuatkho/:id", component: XuatkhomuiComponent },
+  { path: "khochaicotton/kiemkekho/:id", component: KiemkekhomuiComponent },
+
+  { path: "khochaiky/nhapkho/:id", component: NhapkhomuiComponent },
+  { path: "khochaiky/xuatkho/:id", component: XuatkhomuiComponent },
+  { path: "khochaiky/kiemkekho/:id", component: KiemkekhomuiComponent },
+
 ];
 
 @NgModule({

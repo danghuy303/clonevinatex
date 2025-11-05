@@ -21,7 +21,7 @@ export class LohangmodalComponent implements OnInit {
   listGiaoKeHoachFull: any = [];
   listGiaoKeHoach: any = [];
   listTrienKhaiKeHoach: any = [];
-  item: any = {};
+  item: any = { listItem: [] };
   khongclicknhieu: any = false;
   lang: any = vn;
   listGiaoKeHoach_TrienKhaiFull: any = [];
@@ -36,6 +36,8 @@ export class LohangmodalComponent implements OnInit {
   isQRZoomed: boolean = false;
   filter: any = {};
   QuyTrinhRoute: any = mapQuyTrinhRoute;
+  item_MaQR: any = '';
+  QRType: any = '';
 
   constructor(public activeModal: NgbActiveModal,
     private services: SanXuatService,
@@ -52,7 +54,12 @@ export class LohangmodalComponent implements OnInit {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.item.QRType = `{"MaQR":"${this.item.MaQR}","Type":"${this.item.Type}","Ten":"${this.item.Ten}","IddmItem":"${this.item._IddmItem}","IddmQuyCachDongGoi":"${this.item.QuyCachDongGoi}","kg_Cone":"${this.item.TrongLuongKg_Cone}"}`
-
+    this.item.listItem = this.item.listItem?.map((ele: any) => {
+      return {
+        ...ele,
+        QRType: `{"MaQR":"${ele.MaQr}","Type":"${ele.Type}","Ten":"${ele.Ten}","IddmItem":"${ele.IddmItem}","IddmQuyCachDongGoi":"${ele.QuyCachDongGoi}","kg_Cone":"${ele.TrongLuongKg_Cone}"}`
+      }
+    })
   }
 
   getOptions() {
@@ -141,8 +148,8 @@ export class LohangmodalComponent implements OnInit {
   InQrCode() {
     if (this.item.NgayNhapKho) {
       let data = {
-        KichThuoc: this.item.IdKichThuoc || 100,
-        MaQR: this.item.MaQR,
+        // KichThuoc: this.item.IdKichThuoc || 100,
+        MaQR: this.item_MaQR || this.item.MaQR,
         SoBan: this.item.SoBan || 1,
         KhoGiay: this.item.KhoGiay || 8,
         NgayUnix: DateToUnix(this.item.NgayNhapKho)
@@ -164,11 +171,13 @@ export class LohangmodalComponent implements OnInit {
 
 
   handleQR() {
+    this.item_MaQR = '';
     this.isQR = !this.isQR;
     this.item.KhoGiay = 8;
   }
-  toggleZoomQR() {
+  toggleZoomQR(_MaQR:any) {
     this.isQRZoomed = !this.isQRZoomed;
+    this.QRType = _MaQR;
   }
 
   handleLoHang() {
@@ -189,6 +198,26 @@ export class LohangmodalComponent implements OnInit {
 
   handleQuyCach() {
     this.item.TrongLuongKg_Cone = this.options.listQuyCachAll?.find(ele => ele.Id === this.item.QuyCachDongGoi)?.Kg_Cone || 0;
+  }
+  // 18/9/2025 a_cong thay đổi
+  handleQuyCach_Item(data: any) {
+    data.TrongLuongKg_Cone = this.options.listQuyCachAll?.find(ele => ele.Id === data.QuyCachDongGoi)?.Kg_Cone || 0;
+    this.item.listItem = [...this.item.listItem];
+  }
+  handleDel(idx: number) {
+    this.item.listItem.splice(idx, 1);
+    this.item.listItem = [...this.item.listItem];
+  }
+
+  handleAdd() {
+    this.item.listItem = this.item.listItem?.length ? this.item.listItem : [];
+    this.item.listItem.push({});
+  }
+
+  handlePrint(data: any) {
+    this.isQR = !this.isQR;
+    this.item.KhoGiay = 8;
+    this.item_MaQR = data.MaQr;
   }
 
 }

@@ -20,7 +20,8 @@ export class DanhsachmayComponent implements OnInit {
   ];
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 0 };
   keyWord: any = '';
-  listdmPhanXuong: any = []
+  listdmPhanXuong: any = [];
+  listMay: any = []
   filter: any = {
   };
   cols: any = [
@@ -83,6 +84,8 @@ export class DanhsachmayComponent implements OnInit {
   listPhanNhomMaySX: any = [];
   selectedItems: any = [];
   listphannhommay: any = [];
+  isShow: boolean = false;
+
   constructor(private _modal: NgbModal, private _services: SanXuatService, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -206,6 +209,9 @@ export class DanhsachmayComponent implements OnInit {
   getListCongDoan() {
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+      if (!this.filter.CongDoan) {
+        this.filter.CongDoan = 'ONG';
+      }
     })
   }
 
@@ -241,4 +247,21 @@ export class DanhsachmayComponent implements OnInit {
       this._services.download(res.TenFile);
     })
   }
+
+  handleIOT() {
+    this.isShow = !this.isShow;
+    this._services.GetListdmMayIOT().subscribe((res: any) => {
+      this.listMay = res.Data;
+    })
+  }
+
+  chaNhan() {
+    this._services.SetdmMayIOT(this.listMay).subscribe((res: any) => {
+      if (res.Data) {
+        this.listMay = res.Data;
+        this._toastr.success('Cập nhật thành công');
+      } else this._toastr.error('Cập nhật chưa thành công!!!');
+    })
+  }
+
 }

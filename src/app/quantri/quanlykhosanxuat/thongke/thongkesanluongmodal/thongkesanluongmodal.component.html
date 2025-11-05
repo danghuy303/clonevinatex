@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Thống kê sản lượng</h5>
+    <h5 class="modal-title">Thống kê sản lượng </h5>
     <!-- <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
@@ -627,7 +627,7 @@
 
             <p-table [lazy]="true"
                 [value]="listItem.concat(['clone','clone','clone','clone','clone','clone','clone']) |isXoa"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped">
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <!-- <colgroup>
                         <col [ngStyle]="{width:'50px'}">
@@ -693,6 +693,7 @@
 
                         <col [ngStyle]="{width:'100px'}" *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">
                         <col [ngStyle]="{width:'110px'}" *ngIf="item.CongDoan==='CON'">
+
                         <col [ngStyle]="{width:'90px'}">
                     </colgroup>
                 </ng-template>
@@ -729,6 +730,7 @@
                         </th>
                         <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">Cọc chết (cọc)</th>
                         <th *ngIf="item.CongDoan==='CON'">Hút mối (kg)</th>
+
                         <th>Ghi chú</th>
                     </tr>
                 </ng-template>
@@ -795,10 +797,9 @@
                                 <div style="display: flex;">
                                     <div style="flex:1">
                                         <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
-                                            *ngIf="item.CongDoan ==='XE' " [min]="0"
-                                            [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
-                                            #inputNumber (keyup.enter)="enterCon(i*5+2)"
-                                            (ngModelChange)="TinhGiaTriXE(itemtbl)">
+                                            *ngIf="item.CongDoan ==='XE' " [min]="0" [minFractionDigits]="3"
+                                            locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                            (keyup.enter)="enterCon(i*5+2)" (ngModelChange)="TinhGiaTriXE(itemtbl)">
                                         </p-inputNumber>
 
                                         <p-inputNumber [disabled]="itemtbl.ChieuDai_Cuoi > 0"
@@ -907,7 +908,7 @@
 
                         <td></td>
                         <td *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'"></td>
-                        <td *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'" class="text-right">  </td>
+                        <td *ngIf="item.CongDoan==='ONG' || item.CongDoan ==='XE'" class="text-right"> </td>
 
 
                         <td class="text-right">
@@ -934,6 +935,7 @@
                         <td *ngIf="item.CongDoan==='CON'" class="text-right">
                             {{listItem|isXoa|SumByKey:'HutMoi'|number:'0.3-3'}}
                         </td>
+
                         <td></td>
                     </tr>
                 </ng-template>

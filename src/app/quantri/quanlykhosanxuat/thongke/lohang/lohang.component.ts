@@ -73,7 +73,7 @@ export class LohangComponent extends StoreBase implements OnInit, OnDestroy {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {}
+    modalRef.componentInstance.item = {listItem:[]}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
