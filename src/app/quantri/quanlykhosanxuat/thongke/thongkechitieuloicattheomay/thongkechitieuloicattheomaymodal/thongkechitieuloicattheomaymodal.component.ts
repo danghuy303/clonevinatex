@@ -310,7 +310,7 @@ export class ThongkechitieuloicattheomaymodalComponent implements OnInit, AfterV
     if (!_bool) {
       return;
     }
-    this.services.QuyTrinhLoiCatTheoMay().ImportPhieuNhapChiTieuLoiCat(this.TepImport.TenGui, obj.IddmPhanXuong, obj.NgayKiemTraUnix).subscribe((imp: any) => {
+    this.services.QuyTrinhLoiCatTheoMay().ImportPhieuNhapChiTieuLoiCatTheoMay(this.TepImport.TenGui, obj.IddmPhanXuong, obj.NgayKiemTraUnix,this.item.IddmCaSanXuat).subscribe((imp: any) => {
       this.item.lstSanPham = imp
     })
   }
@@ -319,7 +319,7 @@ export class ThongkechitieuloicattheomaymodalComponent implements OnInit, AfterV
     if (!_bool) {
       return;
     }
-    this.services.QuyTrinhLoiCatTheoMay().ExportPhieuNhapChiTieuLoiCat(obj.IddmPhanXuong, obj.NgayKiemTraUnix).subscribe((res: any) => {
+    this.services.QuyTrinhLoiCatTheoMay().ExportPhieuNhapChiTieuLoiCatTheoMay(obj.IddmPhanXuong, obj.NgayKiemTraUnix,this.item.IddmCaSanXuat).subscribe((res: any) => {
       const _url = host1 + res.TenFile
       window.open(_url);
       this.toastr.success(`Xuất file thành công`);

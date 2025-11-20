@@ -79,7 +79,7 @@ export class BongphemathangmodalComponent implements OnInit {
     if (this.listItem != undefined && this.listItem != null && this.listItem.length > 0) {
       for (let i = 0; i < this.listItem.length; i++) {
         var itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang)
+          ele => (ele.IddmItem === this.listItem[i].IddmItem && (ele.IdLoHang|| ele.IdLoHang) == (this.listItem[i].IddmQuyCachDongGoi || this.listItem[i].IddmQuyCachDongGoi))
         );
         if (itemFind !== undefined)
           itemFind.checked = true;

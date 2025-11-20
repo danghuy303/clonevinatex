@@ -190,7 +190,9 @@ export class XuatkhomuimodalComponent implements OnInit {
   }
 
   GetLuuKho(sFilter) {
-    this.services.GetLuuKhoBongPhe(this.item.IddmKho, '', 0, sFilter).subscribe((res1: any) => {
+    let _api$ = ['khochaiky', 'khotho', 'khochaicotton'].includes(this.link.value) ? this.services.GetLuuKhoChai(this.item.IddmKho, '', 0, sFilter)
+      : this.services.GetLuuKhoBongPhe(this.item.IddmKho, '', 0, sFilter);
+    _api$.subscribe((res1: any) => {
       let modalRef = this._modal.open(BongphemathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -208,9 +210,9 @@ export class XuatkhomuimodalComponent implements OnInit {
         }
 
         data.data.forEach(element => {
-          console.log(element)
           element.TonSoLuong = element.SoLuong
           element.TonTrongLuong = element.TrongLuong
+          element.SoLuong = element.SoLuong
 
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
             var data = this.item.listItem.filter(

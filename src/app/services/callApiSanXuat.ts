@@ -2605,6 +2605,11 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + `GetLuuKhoBongPhe?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
         return this.http.get(url, httpOptions);
     }
+    GetLuuKhoChai(IddmKho, IddmViTri, CurrentPage, sFilter) {
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `GetLuuKhoChai?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
+        return this.http.get(url, httpOptions);
+    }
     ExportGetTheKho(data) {
         data.IdDuAn = this.store.getCurrent();
         let url = API.SCMQuanLyKho + 'ExportGetTheKho';
@@ -3093,6 +3098,19 @@ export class SanXuatService {
             ExportPhieuNhapChiTieuClasimat: (IddmPhanXuong, NgayKiemTraUnix) => {
                 return this.http.get(url + `ExportPhieuNhapChiTieuClasimat?IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}`, httpOptions);
             },
+
+            ImportPhieuNhapChiTieuLoiCatTheoMay: (FileName, IddmPhanXuong, NgayKiemTraUnix, IddmCaSanXuat) => {
+                return this.http.get(url + `ImportPhieuNhapChiTieuLoiCatTheoMay?FileName=${FileName}&IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}&IddmCaSanXuat=${IddmCaSanXuat}`, httpOptions);
+            },
+            ExportPhieuNhapChiTieuLoiCatTheoMay: (IddmPhanXuong, NgayKiemTraUnix, IddmCaSanXuat) => {
+                return this.http.get(url + `ExportPhieuNhapChiTieuLoiCatTheoMay?IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}&IddmCaSanXuat=${IddmCaSanXuat}`, httpOptions);
+            },
+            ImportPhieuNhapChiTieuClasimatTheoMay: (FileName, IddmPhanXuong, NgayKiemTraUnix, IddmCaSanXuat) => {
+                return this.http.get(url + `ImportPhieuNhapChiTieuClasimatTheoMay?FileName=${FileName}&IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}&IddmCaSanXuat=${IddmCaSanXuat}`, httpOptions);
+            },
+            ExportPhieuNhapChiTieuClasimatTheoMay: (IddmPhanXuong, NgayKiemTraUnix, IddmCaSanXuat) => {
+                return this.http.get(url + `ExportPhieuNhapChiTieuClasimatTheoMay?IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}&IddmCaSanXuat=${IddmCaSanXuat}`, httpOptions);
+            },
         }
     }
 
@@ -3157,6 +3175,19 @@ export class SanXuatService {
             },
             ExportPhieuNhapChiTieuClasimat: (IddmPhanXuong, NgayKiemTraUnix) => {
                 return this.http.get(url + `ExportPhieuNhapChiTieuClasimatTheoMay?IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}`, httpOptions);
+            },
+
+            ImportPhieuNhapChiTieuLoiCatTheoMay: (FileName, IddmPhanXuong, NgayKiemTraUnix, IddmCaSanXuat) => {
+                return this.http.get(url + `ImportPhieuNhapChiTieuLoiCatTheoMay?FileName=${FileName}&IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}&IddmCaSanXuat=${IddmCaSanXuat}`, httpOptions);
+            },
+            ExportPhieuNhapChiTieuLoiCatTheoMay: (IddmPhanXuong, NgayKiemTraUnix, IddmCaSanXuat) => {
+                return this.http.get(url + `ExportPhieuNhapChiTieuLoiCatTheoMay?IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}&IddmCaSanXuat=${IddmCaSanXuat}`, httpOptions);
+            },
+            ImportPhieuNhapChiTieuClasimatTheoMay: (FileName, IddmPhanXuong, NgayKiemTraUnix, IddmCaSanXuat) => {
+                return this.http.get(url + `ImportPhieuNhapChiTieuClasimatTheoMay?FileName=${FileName}&IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}&IddmCaSanXuat=${IddmCaSanXuat}`, httpOptions);
+            },
+            ExportPhieuNhapChiTieuClasimatTheoMay: (IddmPhanXuong, NgayKiemTraUnix, IddmCaSanXuat) => {
+                return this.http.get(url + `ExportPhieuNhapChiTieuClasimatTheoMay?IddmPhanXuong=${IddmPhanXuong}&NgayKiemTraUnix=${NgayKiemTraUnix}&IddmCaSanXuat=${IddmCaSanXuat}`, httpOptions);
             },
         }
     }

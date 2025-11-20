@@ -123,7 +123,7 @@
                     <tr>
                         <td style="text-align: center;">{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td>{{item.Ten}}</td>
-                        <td *ngIf="['khochaiky','khotho','khochaicotton'].includes(this.link.value)">{{item.QuyCach}}</td>
+                        <td *ngIf="['khochaiky','khotho','khochaicotton'].includes(this.link.value)">{{item.TendmQuyCachDongGoi}}</td>
                         <td style="text-align: right;">
                             {{item.TonSoLuong|number:'0.0'}}
                         </td>
