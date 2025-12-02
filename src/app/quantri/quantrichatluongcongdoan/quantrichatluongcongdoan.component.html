@@ -77,7 +77,7 @@
                                     <td class="tw-200 child_1"> {{ item.TendmMay }} </td>
                                     <ng-container *ngFor="let tieuChi of item?.listChiTieu">
                                         <td class="tw-80 text-right">{{ tieuChi.ChiTieuLyThuyet }} </td>
-                                        <td class="tw-80 text-right">{{ tieuChi.ChiTieuThucTe }} </td>
+                                        <td class="tw-80 text-right">{{ tieuChi.ChiTieuThucTe | number:'0.2-2' }} </td>
                                     </ng-container>
                                 </tr>
                             </ng-container>
@@ -98,7 +98,7 @@
                     </p-dropdown>
                 </div>
                 <div class="p-mr-2">
-                    <p-dropdown [filter]="true" placeholder="Chọn máy" styleClass="p-inputtext-sm p-mr-2"
+                    <p-dropdown [filter]="true" placeholder="Tất cả" styleClass="p-inputtext-sm p-mr-2"
                         [showClear]="true" [options]="listMay" [(ngModel)]="filter.IddmMay"
                         (onChange)="getDataBieuDo()">
                     </p-dropdown>

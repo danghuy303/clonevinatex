@@ -66,11 +66,11 @@ export class BongphemathangmodalComponent implements OnInit {
           field: 'TongTrongLuong',
           width: '150px'
         },
-        {
-          header: 'Đợt nhập kho',
-          field: '',
-          width: '120px'
-        },
+        // {
+        //   header: 'Đợt nhập kho',
+        //   field: '',
+        //   width: '120px'
+        // },
       ];
     }
     this.paging.CurrentPage = 1;

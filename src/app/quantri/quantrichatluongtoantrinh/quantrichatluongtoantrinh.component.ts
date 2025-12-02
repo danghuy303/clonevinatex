@@ -53,7 +53,7 @@ export class QuantrichatluongtoantrinhComponent implements OnInit {
   exportExcel() {
     this._services.ExportChatLuongToanChuyen(this.filter.ThoiGian, DateToUnix(this.filter.Ngay), this.filter.IddmPhanXuong).subscribe((res: any) => {
       if (res.Data) {
-        this._services.download(res.Data);
+        this._services.download(res.Data.TenFile);
       }
     })
   }

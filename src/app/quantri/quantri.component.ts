@@ -354,24 +354,24 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
-          // {
-          //   label: "Quản trị chất lượng theo công đoạn",
-          //   routerLink: "/quantri/quantrichatluongcongdoan",
-          //   separator: this.checkmenu("DASHBOARD_TONGHOP"),
-          //   icon: "fas fa-circle",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
-          // {
-          //   label: "Quản trị chất lượng toàn trình",
-          //   routerLink: "/quantri/quantrichatluongtoantrinh",
-          //   separator: this.checkmenu("DASHBOARD_TONGHOP"),
-          //   icon: "fas fa-circle",
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
+          {
+            label: "Quản trị chất lượng theo công đoạn",
+            routerLink: "/quantri/quantrichatluongcongdoan",
+            separator: this.checkmenu("DASHBOARD_CHATLUONG"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Quản trị chất lượng toàn trình",
+            routerLink: "/quantri/quantrichatluongtoantrinh",
+            separator: this.checkmenu("DASHBOARD_CHATLUONG"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
           // {
           //   label: "Quyết toán nguyên liệu",
           //   routerLink: "/quantri/quantrisanxuat/quyettoannguyenlieu",

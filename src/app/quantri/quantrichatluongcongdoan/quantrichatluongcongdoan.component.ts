@@ -97,7 +97,7 @@ export class QuantrichatluongcongdoanComponent implements OnInit {
   }
 
   getDataBieuDo() {
-    this._services.GetQuanTriChatLuongSoi_BieuDo(this.filter.IddmTieuChi, this.filter.IddmMay, this.filter.ThoiGian, DateToUnix(this.filter.Ngay), this.filter.CongDoan, this.filter.IddmPhanXuong).subscribe((res: any) => {
+    this._services.GetQuanTriChatLuongSoi_BieuDo(this.filter.IddmTieuChi ? this.filter.IddmTieuChi : '', this.filter.IddmMay ? this.filter.IddmMay : '', this.filter.ThoiGian, DateToUnix(this.filter.Ngay), this.filter.CongDoan, this.filter.IddmPhanXuong).subscribe((res: any) => {
       this.dataBieuDo = {
         labels: res.lstLabel.map((ele: any) => ele),
         datasets: [
@@ -106,14 +106,14 @@ export class QuantrichatluongcongdoanComponent implements OnInit {
             label: 'Tiêu chuẩn',
             borderColor: '#FF0000',
             fill: false,
-            data: res.listThucTe,
+            data: res.listLyThyet,
           },
           {
             type: 'line',
             label: 'Thực tế',
             borderColor: '#49b4f1ff',
             fill: false,
-            data: res.listLyThyet,
+            data: res.listThucTe,
           },
         ]
       }
