@@ -4,6 +4,7 @@ import { SanXuatService } from '../../services/callApiSanXuat';
 import { mapArrayForDropDown, DateToUnix } from '../../services/globalfunction';
 import { API } from '../../services/host';
 import { ToastrService } from 'ngx-toastr';
+import { formatNumber } from '@angular/common';
 
 @Component({
   selector: 'app-quantrichatluongcongdoan',
@@ -113,7 +114,8 @@ export class QuantrichatluongcongdoanComponent implements OnInit {
             label: 'Thực tế',
             borderColor: '#49b4f1ff',
             fill: false,
-            data: res.listThucTe,
+            // data: res.listThucTe
+            data: res.listThucTe.map((thucTe: any) => formatNumber(thucTe, 'en-EN', '0.2-2'))
           },
         ]
       }
