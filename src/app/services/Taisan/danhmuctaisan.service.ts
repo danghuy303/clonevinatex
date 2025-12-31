@@ -397,4 +397,71 @@ export class DanhmuctaisanService {
     }
   }
 
+  LoaiDinhMucNhienLieu() {
+    let url = API.TaiSan
+    return {
+      GetList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/GetListdmLoaiDinhMucNhienLieu`, data, httpOptions)
+      },
+      Set: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/SetdmLoaiDinhMucNhienLieu`, data, httpOptions)
+      },
+      Get: (Id: any) => {
+        return this.http.post(`${url}DanhMuc/GetdmLoaiDinhMucNhienLieuById?Id=${Id}`, httpOptions)
+      },
+      Delete: (id: any) => {
+        return this.http.get(`${url}DanhMuc/DeletedmLoaiDinhMucNhienLieu?id=${id}`, httpOptions)
+      },
+      DeleteList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/DeleteListdmLoaiDinhMucNhienLieu`, data, httpOptions)
+      },
+      Importdm: (FileName: any) => {
+
+        return this.http.get(`${url}DanhMuc/ImportdmLoaiDinhMucNhienLieu?FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmLoaiDinhMucNhienLieu`, data, httpOptions)
+      },
+      download: (url: any) => {
+        window.open(API.imgURL + url);
+      },
+    }
+  }
+
+  LoaiNhienLieu() {
+    let url = API.TaiSan
+    return {
+      GetList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/GetListdmLoaiNhienLieu`, data, httpOptions)
+      },
+      Set: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/SetdmLoaiNhienLieu`, data, httpOptions)
+      },
+      Get: (Id: any) => {
+        return this.http.post(`${url}DanhMuc/GetdmLoaiNhienLieuById?Id=${Id}`, httpOptions)
+      },
+      Delete: (id: any) => {
+        return this.http.get(`${url}DanhMuc/DeletedmLoaiNhienLieu?id=${id}`, httpOptions)
+      },
+      DeleteList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/DeleteListdmLoaiNhienLieu`, data, httpOptions)
+      },
+      Importdm: (FileName: any) => {
+
+        return this.http.get(`${url}DanhMuc/ImportdmLoaiNhienLieu?FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmLoaiNhienLieu`, data, httpOptions)
+      },
+      download: (url: any) => {
+        window.open(API.imgURL + url);
+      },
+    }
+  }
+
+
 }

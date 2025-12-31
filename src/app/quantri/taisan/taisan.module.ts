@@ -229,6 +229,10 @@ import { DanhmuckhocungungmodalComponent } from './danhmuc/danhmuckhocungung/dan
 import { DanhsachduanComponent } from './nha-cung-ung-danh-muc/danhsachduan/danhsachduan.component';
 import { DanhmuctaisanComponent } from './danhmuc/danhmuctaisan/danhmuctaisan.component';
 import { DanhmuctaisanmodalComponent } from './danhmuc/danhmuctaisan/danhmuctaisanmodal/danhmuctaisanmodal.component';
+import { LoaidinhmucComponent } from './danhmuc/loaidinhmuc/loaidinhmuc.component';
+import { NhienlieuComponent } from './danhmuc/nhienlieu/nhienlieu.component';
+import { LoaidinhmucmodalComponent } from './danhmuc/loaidinhmuc/loaidinhmucmodal/loaidinhmucmodal.component';
+import { NhienlieumodalComponent } from './danhmuc/nhienlieu/nhienlieumodal/nhienlieumodal.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -406,6 +410,10 @@ import { DanhmuctaisanmodalComponent } from './danhmuc/danhmuctaisan/danhmuctais
     DanhsachduanComponent,
     DanhmuctaisanComponent,
     DanhmuctaisanmodalComponent,
+    LoaidinhmucComponent,
+    NhienlieuComponent,
+    LoaidinhmucmodalComponent,
+    NhienlieumodalComponent,
     // DanhSachVatTuCanThayTheComponent,
   ],
   imports: [

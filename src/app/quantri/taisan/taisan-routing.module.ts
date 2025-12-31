@@ -63,6 +63,8 @@ import { BaocaonhapxuattonComponent } from './baocaothumua/baocaonhapxuatton/bao
 import { BaocaotonghopgiamuahangComponent } from './baocaothumua/baocaotonghopgiamuahang/baocaotonghopgiamuahang.component';
 import { DanhmuckhocungungComponent } from './danhmuc/danhmuckhocungung/danhmuckhocungung.component';
 import { DanhmuctaisanComponent } from './danhmuc/danhmuctaisan/danhmuctaisan.component';
+import { LoaidinhmucComponent } from './danhmuc/loaidinhmuc/loaidinhmuc.component';
+import { NhienlieuComponent } from './danhmuc/nhienlieu/nhienlieu.component';
 
 const routes: Routes = [
   { path: '', component: TaisanComponent },
@@ -76,7 +78,7 @@ const routes: Routes = [
   { path: 'danhmuc/danhmucloaicongviecbaoduong', component: LoaiCongViecBaoDuongComponent },
   { path: 'danhmuc/danhmucdonvitinh', component: DanhmucdonvitinhComponent },
   { path: 'danhmuc/danhmucloaitaisan', component: DanhmucloaitaisanComponent },
-   { path: 'danhmuc/danhmuctaisan', component: DanhmuctaisanComponent },
+  { path: 'danhmuc/danhmuctaisan', component: DanhmuctaisanComponent },
   { path: 'danhmuc/donvinangsuat', component: DonvinangsuatComponent },
   { path: 'danhmuc/hangsannxuat', component: HangsanxuatComponent },
   { path: 'danhmuc/tinhtrangtaisan', component: TinhtrangtaisanComponent },
@@ -126,6 +128,8 @@ const routes: Routes = [
   { path: 'baocaotonghopgiamuahang', component: BaocaotonghopgiamuahangComponent },
   { path: 'tonghopdondathangncc', component: TonghopdondathangnccComponent },
   { path: 'danhmuc/khocungung', component: DanhmuckhocungungComponent },
+  { path: 'danhmuc/loaidinhmuc', component: LoaidinhmucComponent },
+  { path: 'danhmuc/nhienlieu', component: NhienlieuComponent },
 ];
 
 @NgModule({

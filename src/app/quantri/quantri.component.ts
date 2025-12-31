@@ -3545,6 +3545,20 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
+          {
+            label: "Loại định mức",
+            routerLink: "/quantri/taisan/danhmuc/loaidinhmuc",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Nhiên liệu",
+            routerLink: "/quantri/taisan/danhmuc/nhienlieu",
+            command: () => {
+              this.close();
+            },
+          },
         ],
       },
       //   ],
