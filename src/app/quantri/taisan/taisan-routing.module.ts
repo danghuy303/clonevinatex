@@ -44,7 +44,7 @@ import { DieuChuyenTaiSanComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai
 import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungcapvattu.component';
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
 import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
-import { KiemDinhTaiSanComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san.component';
+// import { KiemDinhTaiSanComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san.component';
 import { LoaiCongViecBaoDuongComponent } from './danhmuc/loai-cong-viec-bao-duong/loai-cong-viec-bao-duong.component';
 import { XuatKhoVatTuDanhSachComponent } from './xuat-kho-vat-tu-danh-sach/xuat-kho-vat-tu-danh-sach.component';
 import { DanhMucQrComponent } from './danhmuc/danh-muc-qr/danh-muc-qr.component';
@@ -65,6 +65,13 @@ import { DanhmuckhocungungComponent } from './danhmuc/danhmuckhocungung/danhmuck
 import { DanhmuctaisanComponent } from './danhmuc/danhmuctaisan/danhmuctaisan.component';
 import { LoaidinhmucComponent } from './danhmuc/loaidinhmuc/loaidinhmuc.component';
 import { NhienlieuComponent } from './danhmuc/nhienlieu/nhienlieu.component';
+import { KiemDinhTaiSanComponent } from './kiemdinhtaisan/kiemdinhtaisan.component';
+import { NoidangkiemComponent } from './danhmuc/noidangkiem/noidangkiem.component';
+import { BaohiemtaisanComponent } from './baohiemtaisan/baohiemtaisan.component';
+import { TheodoihoatdongComponent } from './theodoihoatdong/theodoihoatdong.component';
+import { TieuhaonhienlieuComponent } from './tieuhaonhienlieu/tieuhaonhienlieu.component';
+import { DonvibaohiemComponent } from './danhmuc/donvibaohiem/donvibaohiem.component';
+import { LoaihinhbaohiemComponent } from './danhmuc/loaihinhbaohiem/loaihinhbaohiem.component';
 
 const routes: Routes = [
   { path: '', component: TaisanComponent },
@@ -130,6 +137,14 @@ const routes: Routes = [
   { path: 'danhmuc/khocungung', component: DanhmuckhocungungComponent },
   { path: 'danhmuc/loaidinhmuc', component: LoaidinhmucComponent },
   { path: 'danhmuc/nhienlieu', component: NhienlieuComponent },
+  { path: 'danhmuc/noidangkiem', component: NoidangkiemComponent },
+  { path: 'danhmuc/donvibaohiem', component: DonvibaohiemComponent },
+  { path: 'danhmuc/loaihinhbaohiem', component: LoaihinhbaohiemComponent },
+
+  { path: 'kiemdinhtaisan/:id', component: KiemDinhTaiSanComponent },
+  { path: 'baohiemtaisan/:id', component: BaohiemtaisanComponent },
+  { path: 'theodoihoatdong/:id', component: TheodoihoatdongComponent },
+  { path: 'tieuhaonhienlieu/:id', component: TieuhaonhienlieuComponent },
 ];
 
 @NgModule({

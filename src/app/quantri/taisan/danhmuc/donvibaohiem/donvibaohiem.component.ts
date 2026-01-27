@@ -3,16 +3,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from '../../../../../app/quantri/modal/modalthongbao/modalthongbao.component';
 import { DanhmuctaisanService } from '../../../../services/Taisan/danhmuctaisan.service';
-import { LoaidinhmucmodalComponent } from './loaidinhmucmodal/loaidinhmucmodal.component';
 import { UploadmodalComponent } from '../../../../../app/quantri/modal/uploadmodal/uploadmodal.component';
+import { DonvibaohiemodalComponent } from './donvibaohiemodal/donvibaohiemodal.component';
 
 @Component({
-  selector: 'app-loaidinhmuc',
-  templateUrl: './loaidinhmuc.component.html',
-  styleUrls: ['./loaidinhmuc.component.css']
+  selector: 'app-donvibaohiem',
+  templateUrl: './donvibaohiem.component.html',
+  styleUrls: ['./donvibaohiem.component.css']
 })
-export class LoaidinhmucComponent implements OnInit {
-
+export class DonvibaohiemComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -22,25 +21,19 @@ export class LoaidinhmucComponent implements OnInit {
     {
       header: 'Mã',
       field: 'Ma',
-      width: '350px',
+      width: '150px',
       align: ''
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '300px',
+      width: '200px',
       align: ''
-    },
-    {
-      header: 'Hệ số',
-      field: 'HeSo',
-      width: '100px',
-      align: 'center'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
-      width: '200px',
+      width: '',
       align: ''
     }
   ];
@@ -68,29 +61,29 @@ export class LoaidinhmucComponent implements OnInit {
       Ma: "",
       Ten: ""
     };
-    this._danhMucTaiSan.LoaiDinhMucNhienLieu().GetList(data).subscribe((res: any) => {
+    this._danhMucTaiSan.DonViBaoHiem().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
   add() {
-    let modalRef = this._modal.open(LoaidinhmucmodalComponent, {
+    let modalRef = this._modal.open(DonvibaohiemodalComponent, {
       backdrop: 'static', size: 'lg',
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới loại định mức';
+    modalRef.componentInstance.title = 'Thêm mới đơn vị bảo hiểm';
     modalRef.result.then(res => {
       this.GetList()
     }).catch(er => console.log(er))
   }
   edit(item: any) {
-    let modalRef = this._modal.open(LoaidinhmucmodalComponent, {
+    let modalRef = this._modal.open(DonvibaohiemodalComponent, {
       backdrop: 'static', size: 'lg',
     });
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật loại định mức';
+    modalRef.componentInstance.title = 'Cập nhật đơn vị bảo hiểm';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then(res => {
       this.GetList()
@@ -102,7 +95,7 @@ export class LoaidinhmucComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this._danhMucTaiSan.LoaiDinhMucNhienLieu().Delete([item.Id]).subscribe((res: any) => {
+      this._danhMucTaiSan.DonViBaoHiem().Delete([item.Id]).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
@@ -151,7 +144,7 @@ export class LoaidinhmucComponent implements OnInit {
       .then((res: any) => {
         console.log(res);
         this.fileUpload = res;
-        this._danhMucTaiSan.LoaiDinhMucNhienLieu().Importdm(this.fileUpload[0].Name).subscribe((res: any) => {
+        this._danhMucTaiSan.DonViBaoHiem().Importdm(this.fileUpload[0].Name).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
             this.resetFilter();
@@ -171,8 +164,8 @@ export class LoaidinhmucComponent implements OnInit {
       Keyword: this.Keyword,
 
     };
-    this._danhMucTaiSan.LoaiDinhMucNhienLieu().Exportdm(data).subscribe((res: any) => {
-      this._danhMucTaiSan.LoaiDinhMucNhienLieu().download(res.Data);
+    this._danhMucTaiSan.DonViBaoHiem().Exportdm(data).subscribe((res: any) => {
+      this._danhMucTaiSan.DonViBaoHiem().download(res.Data);
     })
   }
 

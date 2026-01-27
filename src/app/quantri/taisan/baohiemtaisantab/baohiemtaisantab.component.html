@@ -1,0 +1,59 @@
+<div>
+    <div class="d-flex p-jc-between p-mb-2">
+        <div></div>
+        <div class="d-flex p-ai-center">
+            <span class="p-mr-2">Tổng chi phí: </span>
+            <p-inputNumber locale="en-EN" [(ngModel)]="tongChiPhi" disabled></p-inputNumber>
+        </div>
+    </div>
+    <p-table [value]="listBaoHiem" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width: 50px;">
+                <col style="width: 250px;">
+                <col style="width: 250px;">
+                <col style="width: 150px;">
+                <col style="width: 150px;">
+                <col style="width: 90px;">
+                <col>
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center"> STT </th>
+                <th class="text-center"> Tên Đơn vị bảo hiểm </th>
+                <th class="text-center"> Tên loại hình bảo hiểm </th>
+                <th class="text-center">Giá trị</th>
+                <th class="text-center">Chi phí</th>
+                <th class="text-center">Tỉ lệ (%)</th>
+                <th class="text-center">Ghi chú</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center"> {{i + 1}}</td>
+                <td class=""> {{item.TenDonViBaoHiem}}</td>
+                <td class=""> {{item.TenLoaiHinhBaoHiem}}</td>
+                <td class="">
+                    <p-inputNumber locale="en-EN" [(ngModel)]="item.GiaTri" placeholder="" disabled>
+                    </p-inputNumber>
+                </td>
+                <td>
+                    <p-inputNumber locale="en-EN" [(ngModel)]="item.ChiPhi" placeholder="" disabled
+                        (onBlur)="handleChiPhiTaiSan()">
+                    </p-inputNumber>
+                </td>
+                <td class="text-center">
+                    {{
+                    item.GiaTri > 0
+                    ? ((item.ChiPhi / item.GiaTri) * 100 | number:'1.0-2')
+                    : ''
+                    }}
+                </td>
+                <td>
+                    <input type="text" [(ngModel)]="item.GhiChu" pInputText disabled />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

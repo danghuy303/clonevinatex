@@ -6,15 +6,15 @@ import { vn } from '../../../../services/const';
 import { DateToUnix, deepCopy, getSTT, mapArrayForDropDown, merge, UnixToDate, validVariable } from '../../../../services/globalfunction';
 import { StoreService } from '../../../../services/store.service';
 import { TaisanService } from '../../../../services/Taisan/taisan.service';
-import { DanhsachtaisanpopupComponent } from '../danhsachtaisanpopup/danhsachtaisanpopup.component';
+import { DanhsachtaisanpopupComponent } from '../../kiemdinhtaisan/danhsachtaisanpopup/danhsachtaisanpopup.component';
 import { ConfirmationService } from '../../../../services/confirmation.service';
 
 @Component({
-  selector: 'app-kiemdiemtaisanmodal',
-  templateUrl: './kiemdiemtaisanmodal.component.html',
-  styleUrls: ['./kiemdiemtaisanmodal.component.css']
+  selector: 'app-baohiemtaisanmodal',
+  templateUrl: './baohiemtaisanmodal.component.html',
+  styleUrls: ['./baohiemtaisanmodal.component.css']
 })
-export class KiemdiemtaisanmodalComponent implements OnInit {
+export class BaohiemtaisanmodalComponent implements OnInit {
 
   quyTrinh: any = { listTaiSan: [] };
   type = '';
@@ -23,8 +23,9 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   listTaiSan: any = [];
   title: any = '';
-  listKiemDinh: any = [];
   eAction: string = '';
+  listDonViBaoHiem: any = [];
+  listLoaiHinhBaoHiem: any = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -36,21 +37,19 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
     } else {
-      this.quyTrinh.listTaiSan.forEach((ele: any) => {
-        ele.Ngay = UnixToDate(ele.NgayUnix);
-        ele.NgayKiemDinhTiepTheo = UnixToDate(ele.NgayKiemDinhTiepTheoUnix)
-      })
+      this.quyTrinh.NgayBatDau = UnixToDate(this.quyTrinh.NgayBatDauUnix);
+      this.quyTrinh.NgayHetHan = UnixToDate(this.quyTrinh.NgayHetHanUnix);
+      this.handleChiPhiTaiSan();
     }
     this.KiemTraButtonModal();
     this.getListTaiSanDangSuDung();
   }
 
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.KiemDinh().GetNextSo().subscribe((res: any) => {
+    this._serviceTaiSan.BaoHiemTaiSan().GetNextSo().subscribe((res: any) => {
       this.quyTrinh.SoQuyTrinh = res.Data;
     })
   }
@@ -70,31 +69,22 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
       ...this.quyTrinh,
       eAction: this.eAction,
       IdDuAn: this.store.getCurrent(),
-      listTaiSan: this.quyTrinh.listTaiSan.map((ele: any) => {
-        return {
-          ...ele,
-          NgayUnix: DateToUnix(ele.Ngay),
-          NgayKiemDinhTiepTheoUnix: DateToUnix(ele.NgayKiemDinhTiepTheo),
-        }
-      })
+      NgayBatDauUnix: DateToUnix(this.quyTrinh.NgayBatDau),
+      NgayHetHanUnix: DateToUnix(this.quyTrinh.NgayHetHan),
     }
     return data;
   }
 
   GhiLai() {
     if (this.ValidateData()) {
-      this._serviceTaiSan.KiemDinh().SetQuyTrinh(this.setData()).subscribe((res: any) => {
+      this._serviceTaiSan.BaoHiemTaiSan().SetQuyTrinh(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.quyTrinh = {
             ...res.Data,
-            listTaiSan: res.Data.listTaiSan?.map((ele: any) => {
-              return {
-                ...ele,
-                Ngay: UnixToDate(ele.NgayUnix),
-                NgayKiemDinhTiepTheo: UnixToDate(ele.NgayKiemDinhTiepTheoUnix)
-              }
-            })
+            NgayBatDau: UnixToDate(res.Data.NgayBatDauUnix),
+            NgayHetHan: UnixToDate(res.Data.NgayHetHanUnix)
           }
+          this.handleChiPhiTaiSan();
           this.KiemTraButtonModal();
           this.toastr.success(res.Message);
         }
@@ -104,7 +94,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   }
 
   ChuyenDuyet() {
-    this._serviceTaiSan.KiemDinh().ChuyenTiep(this.setData()).subscribe((res: any) => {
+    this._serviceTaiSan.BaoHiemTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -115,7 +105,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   }
 
   KhongDuyet() {
-    this._serviceTaiSan.KiemDinh().ChuyenTiep(this.setData()).subscribe((res: any) => {
+    this._serviceTaiSan.BaoHiemTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -132,7 +122,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._serviceTaiSan.KiemDinh().Delete(this.quyTrinh.Id).subscribe((res: any) => {
+        this._serviceTaiSan.BaoHiemTaiSan().Delete(this.quyTrinh.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.toastr.success(res.Message);
             this.activeModal.close();
@@ -179,6 +169,67 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
     })
       .catch((er) => {
       });
+  }
+
+  getTongChiPhiTaiSan() {
+    this.quyTrinh.TongChiPhi = this.quyTrinh.listTaiSan?.reduce((a: any, b: any) => a + (b.ChiPhi || 0), 0)
+  }
+
+  // getGiaTriGiam() {
+  // let tongChiPhi = this.quyTrinh.TongChiPhi || 0;
+  // if (this.quyTrinh.PhanTramGiam && this.quyTrinh.PhanTramGiam > 0) {
+  //   this.quyTrinh.TongGiaTriGiam =
+  //     tongChiPhi - (tongChiPhi * this.quyTrinh.PhanTramGiam) / 100;
+  // }
+  // else if (this.quyTrinh.GiaTriGiam && this.quyTrinh.GiaTriGiam > 0) {
+  //   this.quyTrinh.TongGiaTriGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
+  // }
+  // }
+
+  onGiaTriGiamChange() {
+    let tongChiPhi = this.quyTrinh.TongChiPhi || 0;
+    if (this.quyTrinh.GiaTriGiam && this.quyTrinh.GiaTriGiam > 0) {
+      this.quyTrinh.PhanTramGiam = (this.quyTrinh.GiaTriGiam / tongChiPhi) * 100;
+      this.quyTrinh.TongGiaTriGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
+    } else {
+      this.quyTrinh.PhanTramGiam = 0;
+      this.quyTrinh.TongGiaTriGiam = tongChiPhi;
+    }
+  }
+
+  onPhanTramGiamChange() {
+    let tongChiPhi = this.quyTrinh.TongChiPhi || 0;
+    if (this.quyTrinh.PhanTramGiam && this.quyTrinh.PhanTramGiam > 0) {
+      this.quyTrinh.GiaTriGiam = (tongChiPhi * this.quyTrinh.PhanTramGiam) / 100;
+      this.quyTrinh.TongGiaTriGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
+    } else {
+      this.quyTrinh.GiaTriGiam = 0;
+      this.quyTrinh.TongGiaTriGiam = tongChiPhi;
+    }
+  }
+
+  getGiaTriGiam() {
+    let tongChiPhi = this.quyTrinh.TongChiPhi || 0;
+
+    // Ưu tiên tính lại theo phần trăm nếu có
+    if (this.quyTrinh.PhanTramGiam && this.quyTrinh.PhanTramGiam > 0) {
+      this.quyTrinh.GiaTriGiam = (tongChiPhi * this.quyTrinh.PhanTramGiam) / 100;
+      this.quyTrinh.TongGiaTriGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
+    }
+    // Nếu chỉ có giá trị giảm, tính lại phần trăm
+    else if (this.quyTrinh.GiaTriGiam && this.quyTrinh.GiaTriGiam > 0) {
+      this.quyTrinh.PhanTramGiam = (this.quyTrinh.GiaTriGiam / tongChiPhi) * 100;
+      this.quyTrinh.TongGiaTriGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
+    }
+    // Không có giảm giá
+    else {
+      this.quyTrinh.TongGiaTriGiam = tongChiPhi;
+    }
+  }
+
+  handleChiPhiTaiSan() {
+    this.getTongChiPhiTaiSan();
+    this.getGiaTriGiam();
   }
 
 }

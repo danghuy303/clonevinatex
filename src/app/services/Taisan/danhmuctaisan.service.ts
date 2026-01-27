@@ -463,5 +463,103 @@ export class DanhmuctaisanService {
     }
   }
 
+  NoiDangKiem() {
+    let url = API.TaiSan
+    return {
+      GetList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/GetListdmNoiDangKiem`, data, httpOptions)
+      },
+      Set: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/SetdmNoiDangKiem`, data, httpOptions)
+      },
+      Get: (Id: any) => {
+        return this.http.post(`${url}DanhMuc/GetdmNoiDangKiemById?Id=${Id}`, httpOptions)
+      },
+      Delete: (id: any) => {
+        return this.http.get(`${url}DanhMuc/DeletedmNoiDangKiem?id=${id}`, httpOptions)
+      },
+      DeleteList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/DeleteListdmNoiDangKiem`, data, httpOptions)
+      },
+      Importdm: (FileName: any) => {
+
+        return this.http.get(`${url}DanhMuc/ImportdmNoiDangKiem?FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmNoiDangKiem`, data, httpOptions)
+      },
+      download: (url: any) => {
+        window.open(API.imgURL + url);
+      },
+    }
+  }
+  DonViBaoHiem() {
+    let url = API.TaiSan
+    return {
+      GetList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/GetListdmDonViBaoHiem`, data, httpOptions)
+      },
+      Set: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/SetdmDonViBaoHiem`, data, httpOptions)
+      },
+      Get: (Id: any) => {
+        return this.http.post(`${url}DanhMuc/GetdmDonViBaoHiemById?Id=${Id}`, httpOptions)
+      },
+      Delete: (id: any) => {
+        return this.http.get(`${url}DanhMuc/DeletedmDonViBaoHiem?id=${id}`, httpOptions)
+      },
+      DeleteList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/DeleteListdmDonViBaoHiem`, data, httpOptions)
+      },
+      Importdm: (FileName: any) => {
+
+        return this.http.get(`${url}DanhMuc/ImportdmDonViBaoHiem?FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmDonViBaoHiem`, data, httpOptions)
+      },
+      download: (url: any) => {
+        window.open(API.imgURL + url);
+      },
+    }
+  }
+
+  LoaiHinhBaoHiem() {
+    let url = API.TaiSan
+    return {
+      GetList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/GetListdmLoaiHinhBaoHiem`, data, httpOptions)
+      },
+      Set: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/SetdmLoaiHinhBaoHiem`, data, httpOptions)
+      },
+      Get: (Id: any) => {
+        return this.http.post(`${url}DanhMuc/GetdmLoaiHinhBaoHiemById?Id=${Id}`, httpOptions)
+      },
+      Delete: (id: any) => {
+        return this.http.get(`${url}DanhMuc/DeletedmLoaiHinhBaoHiem?id=${id}`, httpOptions)
+      },
+      DeleteList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/DeleteListdmLoaiHinhBaoHiem`, data, httpOptions)
+      },
+      Importdm: (FileName: any) => {
+
+        return this.http.get(`${url}DanhMuc/ImportdmLoaiHinhBaoHiem?FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmLoaiHinhBaoHiem`, data, httpOptions)
+      },
+      download: (url: any) => {
+        window.open(API.imgURL + url);
+      },
+    }
+  }
+
 
 }

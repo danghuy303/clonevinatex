@@ -247,8 +247,7 @@
                                     <td class="text-center">
                                         <button pButton pRipple type="button" icon="pi pi-eye"
                                             class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                                            pTooltip="Xem Thông tin tài sản"
-                                            (click)="ChiTietThongTin(item)"></button>
+                                            pTooltip="Xem Thông tin tài sản" (click)="ChiTietThongTin(item)"></button>
                                     </td>
                                 </tr>
                             </ng-template>
@@ -278,6 +277,24 @@
                 <p-tabPanel header="Biến động">
                     <ng-template pTemplate="content">
                         <app-biendong [item]="item" [isVatTu]="isVatTu"></app-biendong>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Kiểm định tài sản">
+                    <ng-template pTemplate="content">
+                        <app-kiemdinhtaisantab [listKiemDinh]="item.listKiemDinh"
+                            [listNoiDangKiem]="listNoiDangKiem"></app-kiemdinhtaisantab>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Bảo hiểm tài sản">
+                    <ng-template pTemplate="content">
+                        <app-baohiemtaisantab [listBaoHiem]="item.listBaoHiem"></app-baohiemtaisantab>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Tiêu hao nhiên liệu">
+                    <ng-template pTemplate="content">
+                        <app-tieuhaonhienlieutab [listTieuHao]="item.listTieuHao"
+                            [listLoaiNhienLieu]="listLoaiNhienLieu"
+                            [listLoaiDinhMucNhienLieu]="listLoaiDinhMucNhienLieu"></app-tieuhaonhienlieutab>
                     </ng-template>
                 </p-tabPanel>
             </p-tabView>

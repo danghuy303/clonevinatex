@@ -63,6 +63,9 @@ import { UploadFileComponent } from './upload-file/upload-file.component';
 import { ChuyenbuocComponent } from './chuyenbuoc/chuyenbuoc.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { MarginleftDirective } from './marginleft.directive';
+import { TieuhaonhienlieutabComponent } from '../quantri/taisan/tieuhaonhienlieutab/tieuhaonhienlieutab.component';
+import { KiemdinhtaisantabComponent } from '../quantri/taisan/kiemdinhtaisantab/kiemdinhtaisantab.component';
+import { BaohiemtaisantabComponent } from '../quantri/taisan/baohiemtaisantab/baohiemtaisantab.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +107,10 @@ import { MarginleftDirective } from './marginleft.directive';
     StickycolumnDirective,
     UploadFileComponent,
     ChuyenbuocComponent,
-    MarginleftDirective
+    MarginleftDirective,
+    TieuhaonhienlieutabComponent,
+    KiemdinhtaisantabComponent,
+    BaohiemtaisantabComponent,
   ],
   imports: [
     AccordionModule,
@@ -171,7 +177,10 @@ import { MarginleftDirective } from './marginleft.directive';
     StickycolumnDirective,
     UploadFileComponent,
     ChuyenbuocComponent,
-    MarginleftDirective
+    MarginleftDirective,
+    TieuhaonhienlieutabComponent,
+    KiemdinhtaisantabComponent,
+    BaohiemtaisantabComponent,
   ]
 })
 export class SharedModule { }

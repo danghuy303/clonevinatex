@@ -3214,7 +3214,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       },
       {
         label: "Quản trị tài sản",
-        icon: "fas fa-circle",
+        // icon: "fas fa-circle",
         routerLink: "/quantri/taisan1",
         // visible: this.showTaiSanModule,
         items: [
@@ -3289,6 +3289,34 @@ export class QuantriComponent implements OnInit, OnDestroy {
         label: "Biến động tài sản",
         items: [
           {
+            label: "Kiểm định tài sản",
+            routerLink: "/quantri/taisan/kiemdinhtaisan/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Bảo hiểm tài sản",
+            routerLink: "/quantri/taisan/baohiemtaisan/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Tiêu hao nhiên liệu",
+            routerLink: "/quantri/taisan/tieuhaonhienlieu/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Theo dõi hoạt động",
+            routerLink: "/quantri/taisan/theodoihoatdong/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
             label: "Bàn giao tài sản",
             routerLink: "/quantri/taisan/bangiaotaisan/0",
             command: () => {
@@ -3310,7 +3338,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             },
           },
           {
-            label: "Tính Khấu hao tài sản",
+            label: "Tính khấu hao tài sản",
             routerLink: "/quantri/taisan/khauhaotaisan/0",
             command: () => {
               this.close();
@@ -3555,6 +3583,27 @@ export class QuantriComponent implements OnInit, OnDestroy {
           {
             label: "Nhiên liệu",
             routerLink: "/quantri/taisan/danhmuc/nhienlieu",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Nơi đăng kiểm",
+            routerLink: "/quantri/taisan/danhmuc/noidangkiem",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Đơn vị bảo hiểm",
+            routerLink: "/quantri/taisan/danhmuc/donvibaohiem",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Loại hình bảo hiểm",
+            routerLink: "/quantri/taisan/danhmuc/loaihinhbaohiem",
             command: () => {
               this.close();
             },

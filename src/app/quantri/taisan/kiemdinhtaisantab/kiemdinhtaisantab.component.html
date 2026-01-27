@@ -1,0 +1,58 @@
+<div>
+    <div class="d-flex p-jc-between p-mb-2">
+        <div></div>
+        <div class="d-flex p-ai-center">
+            <span class="p-mr-2">Tổng chi phí: </span>
+            <p-inputNumber locale="en-EN" [(ngModel)]="tongChiPhi" disabled></p-inputNumber>
+        </div>
+    </div>
+    <p-table [value]="listKiemDinh" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width: 50px;">
+                <col style="width: 130px;">
+                <col style="width: 150px;">
+                <col style="width: 120px;">
+                <col style="width: 150px;">
+                <col style="width: 200px;">
+                <col>
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center"> STT </th>
+                <th class="text-center">Số phiếu</th>
+                <th class="text-center">Ngày kiểm định</th>
+                <th class="text-center">Chi phí</th>
+                <th class="text-center">Nơi đăng kiểm</th>
+                <th class="text-center">Kết quả</th>
+                <th class="text-center">Ghi chú</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center"> {{i + 1}}</td>
+                <td class="text-center">
+                    <input locale="en-EN" [(ngModel)]="item.SoPhieu" pInputText [disabled]="true" />
+                </td>
+                <td class="text-center">
+                    {{item.Ngay | date:'dd/MM/yyyy'}}
+                </td>
+                <td>
+                    <p-inputNumber locale="en-EN" [(ngModel)]="item.ChiPhi" placeholder="" [disabled]="true">
+                    </p-inputNumber>
+                </td>
+                <td class="">
+                    <p-dropdown [filter]="true" [options]="listNoiDangKiem" placeholder="Chọn" [showClear]="true"
+                        [disabled]="true" styleClass="p-inputtext-sm" [(ngModel)]="item.IddmNoiDangKiem"></p-dropdown>
+                </td>
+                <td>
+                    <input type="text" [(ngModel)]="item.KetQua" pInputText [disabled]="true" />
+                </td>
+                <td>
+                    <input type="text" [(ngModel)]="item.GhiChu" pInputText [disabled]="true" />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

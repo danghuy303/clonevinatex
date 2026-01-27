@@ -1,0 +1,61 @@
+<div>
+    <div class="d-flex p-jc-between p-mb-2">
+        <div></div>
+        <div class="d-flex p-ai-center">
+            <span class="p-mr-2">Tổng chi phí: </span>
+            <p-inputNumber locale="en-EN" [(ngModel)]="tongChiPhi" disabled></p-inputNumber>
+        </div>
+    </div>
+    <p-table [value]="listTieuHao" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width: 50px;">
+                <col style="width: 180px;">
+                <col style="width: 120px;">
+                <col style="width: 90px;">
+                <col style="width: 120px;">
+                <col style="width: 120px;">
+                <col>
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center"> STT </th>
+                <th class="text-center">Loại nhiên liệu</th>
+                <th class="text-center">Hệ số</th>
+                <th class="text-center">Tiêu thụ</th>
+                <th class="text-center">Đơn giá</th>
+                <th class="text-center">Thành tiền</th>
+                <th class="text-center">Ghi chú</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center"> {{i + 1}}</td>
+                <td class="text-center">
+                    <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn" [showClear]="true"
+                        [disabled]="true" styleClass="p-inputtext-sm" [(ngModel)]="item.IddmLoaiNhienLieu"></p-dropdown>
+                </td>
+                <td class="text-center">
+                    <p-dropdown [filter]="true" [options]="listLoaiDinhMucNhienLieu" placeholder="Chọn"
+                        [disabled]="true" [showClear]="true" styleClass="p-inputtext-sm"
+                        [(ngModel)]="item.IddmHeSo"></p-dropdown>
+                </td>
+                <td class="text-center">
+                    <p-inputNumber locale="en-EN" [(ngModel)]="item.TieuThu" disabled placeholder="">
+                    </p-inputNumber>
+                </td>
+                <td>
+                    <p-inputNumber locale="en-EN" [(ngModel)]="item.DonGia" placeholder="" disabled>
+                    </p-inputNumber>
+                </td>
+                <td class="text-right">
+                    {{item.ThanhTien | number:'0.0-0' }}
+                </td>
+                <td>
+                    <input type="text" [(ngModel)]="item.GhiChu" disabled pInputText />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

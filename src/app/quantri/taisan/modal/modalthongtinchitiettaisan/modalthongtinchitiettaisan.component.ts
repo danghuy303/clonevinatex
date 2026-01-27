@@ -37,6 +37,10 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   isXemChiTiet: boolean = false;
   isVatTu: boolean = true;
 
+  listLoaiNhienLieu: any = [];
+  listLoaiDinhMucNhienLieu: any = [];
+  listNoiDangKiem: any = [];
+
   constructor(
     private _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -55,19 +59,33 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
       this.item.NgayNhap = new Date(this.item.NgayNhap)
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
     }
-    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
-    let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
-    let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
 
-    Promise.all([ls1, ls2]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
-
-    });
-
+    this.getOptionsAll();
     this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+  }
+
+  getOptionsAll() {
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
+    console.log('data', data);
+
+    let ls0 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
+    let ls1 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
+
+    let ls2 = this._danhMucTaiSan.LoaiNhienLieu().GetList({ CurrentPage: 0 }).toPromise();
+    let ls3 = this._danhMucTaiSan.LoaiDinhMucNhienLieu().GetList({ CurrentPage: 0 }).toPromise();
+    let ls4 = this._danhMucTaiSan.NoiDangKiem().GetList({ CurrentPage: 0 }).toPromise();
+
+    Promise.all([ls0, ls1, ls2, ls3, ls4]).then((values: any) => {
+      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
+
+      this.listLoaiNhienLieu = mapArrayForDropDown(values[2].Data, 'Ten', 'Id');
+      this.listLoaiDinhMucNhienLieu = mapArrayForDropDown(values[3].Data, 'HeSo', 'Id');
+      this.listNoiDangKiem = mapArrayForDropDown(values[4].Data, "Ten", "Id");
+
+    });
   }
 
   togglePanel() {

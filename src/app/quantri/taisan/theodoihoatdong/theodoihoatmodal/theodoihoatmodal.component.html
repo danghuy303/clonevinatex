@@ -32,16 +32,23 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 d-flex flex-column">
-            <label class="">Nội dung:</label>
+        <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column">
+            <label class="">Bộ phận:</label>
             <div class="">
-                <input locale="en-EN" [(ngModel)]="quyTrinh.NoiDung" pInputText />
+                <p-dropdown [filter]="true" [options]="listBoPhan" placeholder="Chọn" [showClear]="true"
+                    styleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.IddmPhanXuong"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 d-flex flex-column">
+        <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column">
+            <label class="">Nội dung:</label>
+            <div class="">
+                <input locale="en-EN" [(ngModel)]="quyTrinh.NoiDung" style="height: '32.6px !important'" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-5 p-p-2 d-flex flex-column">
             <label class="">Ghi chú:</label>
             <div class="">
-                <input locale="en-EN" [(ngModel)]="quyTrinh.GhiChu" pInputText />
+                <input locale="en-EN" [(ngModel)]="quyTrinh.GhiChu" style="height: '32.6px !important'" pInputText />
             </div>
         </div>
 
@@ -51,10 +58,6 @@
             <div class="d-flex p-jc-between p-mb-2">
                 <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "
                     (click)="handleThemTaiSan()"></button>
-                <div class="d-flex p-ai-center">
-                    <span class="p-mr-2">Tổng chi phí: </span>
-                    <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.TongChiPhi"></p-inputNumber>
-                </div>
             </div>
             <p-table [value]="quyTrinh.listTaiSan"
                 styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
@@ -65,12 +68,11 @@
                         <col>
                         <col style="width: 130px;">
                         <col style="width: 130px;">
-                        <col style="width: 120px;">
-                        <col style="width: 280px;">
-                        <col style="width: 150px;">
-                        <col style="width: 130px;">
+                        <col style="width: 90px;">
+                        <col style="width: 200px;">
                         <col style="width: 100px;">
-                        <col style="width: 50px;">
+                        <col style="width: 180px;">
+                        <col style="width: 100px;">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -78,57 +80,73 @@
                         <th class="text-center"> STT </th>
                         <th class="text-center">Mã</th>
                         <th class="text-center">Tên</th>
-                        <th class="text-center">Số phiếu</th>
-                        <th class="text-center">Ngày kiểm định</th>
-                        <th class="text-center">Chi phí</th>
-                        <th class="text-center">Nơi đăng kiểm</th>
+                        <th class="text-center">TG bắt đầu</th>
+                        <th class="text-center">TG kết thúc</th>
                         <th class="text-center">Kết quả</th>
-                        <th class="text-center">Ngày kiểm định tiếp theo</th>
+                        <th class="text-center">Người vận hành</th>
+                        <th class="text-center">Số công</th>
                         <th class="text-center">Ghi chú</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <!-- Dòng cha (Tài sản) -->
                     <tr>
-                        <td class="text-center"> {{i + 1}}</td>
+                        <td class="text-center">{{i + 1}}</td>
                         <td>{{item.MaTaiSan}}</td>
                         <td>{{item.TenTaiSan}}</td>
-                        <td class="text-center">
-                            <input locale="en-EN" [(ngModel)]="item.SoPhieu" pInputText />
-                        </td>
-                        <td class="text-center">
-                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="item.Ngay"
-                                [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"
-                                [showIcon]="true" inputId="icon" placeholder="">
-                            </p-calendar>
-                        </td>
                         <td>
-                            <p-inputNumber locale="en-EN" [(ngModel)]="item.ChiPhi" placeholder="">
-                            </p-inputNumber>
-                        </td>
-                        <td class="">
-                            <p-dropdown [filter]="true" [options]="listKiemDinh" placeholder="Chọn" [showClear]="true"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmNoiDangKiem"></p-dropdown>
-                        </td>
-                        <td>
-                            <input type="text" [(ngModel)]="item.KetQua" pInputText />
-                        </td>
-                        <td class="text-center">
                             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"
-                                [(ngModel)]="item.NgayKiemDinhTiepTheo" [locale]="lang" [monthNavigator]="true"
-                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon"
-                                placeholder="">
+                                [(ngModel)]="item.NgayBatDau" [locale]="lang" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon">
                             </p-calendar>
                         </td>
                         <td>
-                            <input type="text" [(ngModel)]="item.GhiChu" pInputText />
+                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"
+                                [(ngModel)]="item.NgayKetThuc" [locale]="lang" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon">
+                            </p-calendar>
                         </td>
                         <td class="text-center">
+                            <p-inputNumber locale="en-EN" [(ngModel)]="item.KetQua"></p-inputNumber>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">
+                            <button pButton pRipple type="button" icon="pi pi-plus"
+                                class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="handleAddChild(item)"></button>
                             <button pButton pRipple type="button" icon="pi pi-trash"
                                 class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
                                 (click)="delete(item)"></button>
                         </td>
                     </tr>
+
+                    <!-- Dòng con (Người vận hành) -->
+                    <ng-container *ngIf="item.listNguoiVanHanh && item.listNguoiVanHanh.length > 0">
+                        <tr *ngFor="let child of item.listNguoiVanHanh; let j = index" class="child-row">
+                            <td class="text-center"></td>
+                            <td colspan="5" class="pl-5">
+                                <i class="pi pi-arrow-right text-sm mr-2"></i>
+                                <span class="font-semibold">Người vận hành {{j + 1}}</span>
+                            </td>
+                            <td>
+                                <input type="text" [(ngModel)]="child.NguoiVanHanh" pInputText placeholder="Nhập tên" />
+                            </td>
+                            <td class="text-center">
+                                <p-inputNumber locale="en-EN" [(ngModel)]="child.SoCong"
+                                    placeholder="0"></p-inputNumber>
+                            </td>
+                            <td>
+                                <input type="text" [(ngModel)]="child.GhiChu" pInputText placeholder="Ghi chú" />
+                            </td>
+                            <td class="text-center">
+                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                    class="p-button-text p-button-sm p-button-danger"
+                                    (click)="deleteChild(item, j)"></button>
+                            </td>
+                        </tr>
+                    </ng-container>
                 </ng-template>
             </p-table>
         </div>

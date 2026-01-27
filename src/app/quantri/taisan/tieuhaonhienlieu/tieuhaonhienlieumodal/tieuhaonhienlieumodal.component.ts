@@ -6,15 +6,15 @@ import { vn } from '../../../../services/const';
 import { DateToUnix, deepCopy, getSTT, mapArrayForDropDown, merge, UnixToDate, validVariable } from '../../../../services/globalfunction';
 import { StoreService } from '../../../../services/store.service';
 import { TaisanService } from '../../../../services/Taisan/taisan.service';
-import { DanhsachtaisanpopupComponent } from '../danhsachtaisanpopup/danhsachtaisanpopup.component';
+import { DanhsachtaisanpopupComponent } from '../../kiemdinhtaisan/danhsachtaisanpopup/danhsachtaisanpopup.component';
 import { ConfirmationService } from '../../../../services/confirmation.service';
 
 @Component({
-  selector: 'app-kiemdiemtaisanmodal',
-  templateUrl: './kiemdiemtaisanmodal.component.html',
-  styleUrls: ['./kiemdiemtaisanmodal.component.css']
+  selector: 'app-tieuhaonhienlieumodal',
+  templateUrl: './tieuhaonhienlieumodal.component.html',
+  styleUrls: ['./tieuhaonhienlieumodal.component.css']
 })
-export class KiemdiemtaisanmodalComponent implements OnInit {
+export class TieuhaonhienlieumodalComponent implements OnInit {
 
   quyTrinh: any = { listTaiSan: [] };
   type = '';
@@ -23,8 +23,10 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   listTaiSan: any = [];
   title: any = '';
-  listKiemDinh: any = [];
   eAction: string = '';
+  listLoaiNhienLieu: any = [];
+  listLoaiDinhMucNhienLieu: any = [];
+  listBoPhan: any = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -36,21 +38,19 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
     } else {
-      this.quyTrinh.listTaiSan.forEach((ele: any) => {
-        ele.Ngay = UnixToDate(ele.NgayUnix);
-        ele.NgayKiemDinhTiepTheo = UnixToDate(ele.NgayKiemDinhTiepTheoUnix)
-      })
+      this.quyTrinh.NgayBatDau = UnixToDate(this.quyTrinh.NgayBatDauUnix);
+      this.quyTrinh.NgayKetThuc = UnixToDate(this.quyTrinh.NgayKetThucUnix);
+      this.getTongChiPhiTaiSan();
     }
     this.KiemTraButtonModal();
     this.getListTaiSanDangSuDung();
   }
 
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.KiemDinh().GetNextSo().subscribe((res: any) => {
+    this._serviceTaiSan.TieuHaoNhienLieu().GetNextSo().subscribe((res: any) => {
       this.quyTrinh.SoQuyTrinh = res.Data;
     })
   }
@@ -70,31 +70,22 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
       ...this.quyTrinh,
       eAction: this.eAction,
       IdDuAn: this.store.getCurrent(),
-      listTaiSan: this.quyTrinh.listTaiSan.map((ele: any) => {
-        return {
-          ...ele,
-          NgayUnix: DateToUnix(ele.Ngay),
-          NgayKiemDinhTiepTheoUnix: DateToUnix(ele.NgayKiemDinhTiepTheo),
-        }
-      })
+      NgayBatDauUnix: DateToUnix(this.quyTrinh.NgayBatDau),
+      NgayKetThucUnix: DateToUnix(this.quyTrinh.NgayKetThuc),
     }
     return data;
   }
 
   GhiLai() {
     if (this.ValidateData()) {
-      this._serviceTaiSan.KiemDinh().SetQuyTrinh(this.setData()).subscribe((res: any) => {
+      this._serviceTaiSan.TieuHaoNhienLieu().SetQuyTrinh(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.quyTrinh = {
             ...res.Data,
-            listTaiSan: res.Data.listTaiSan?.map((ele: any) => {
-              return {
-                ...ele,
-                Ngay: UnixToDate(ele.NgayUnix),
-                NgayKiemDinhTiepTheo: UnixToDate(ele.NgayKiemDinhTiepTheoUnix)
-              }
-            })
+            NgayBatDau: UnixToDate(res.Data.NgayBatDauUnix),
+            NgayKetThuc: UnixToDate(res.Data.NgayKetThucUnix)
           }
+          this.getTongChiPhiTaiSan();
           this.KiemTraButtonModal();
           this.toastr.success(res.Message);
         }
@@ -104,7 +95,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   }
 
   ChuyenDuyet() {
-    this._serviceTaiSan.KiemDinh().ChuyenTiep(this.setData()).subscribe((res: any) => {
+    this._serviceTaiSan.TieuHaoNhienLieu().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -115,7 +106,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   }
 
   KhongDuyet() {
-    this._serviceTaiSan.KiemDinh().ChuyenTiep(this.setData()).subscribe((res: any) => {
+    this._serviceTaiSan.TieuHaoNhienLieu().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -132,7 +123,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._serviceTaiSan.KiemDinh().Delete(this.quyTrinh.Id).subscribe((res: any) => {
+        this._serviceTaiSan.TieuHaoNhienLieu().Delete(this.quyTrinh.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.toastr.success(res.Message);
             this.activeModal.close();
@@ -181,4 +172,17 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
       });
   }
 
+  getTongChiPhiTaiSan() {
+    this.quyTrinh.TongChiPhi = this.quyTrinh.listTaiSan?.reduce((a: any, b: any) => a + (b.ThanhTien || 0), 0)
+  }
+
+  handleChiPhiTaiSan(item: any) {
+    if (item.DonGia && item.TieuThu) {
+      item.ThanhTien = item.DonGia * item.TieuThu;
+      this.quyTrinh.listTaiSan = [...this.quyTrinh.listTaiSan];
+      this.getTongChiPhiTaiSan();
+    }
+  }
+
 }
+

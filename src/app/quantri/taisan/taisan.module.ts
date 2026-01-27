@@ -179,7 +179,7 @@ import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchit
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TestQuyTrinhComponent } from './bangiaotaisan/test-quy-trinh/test-quy-trinh.component';
 import { NhapvattumodalthemvattuComponent } from './nhapvattu/nhapvattumodalthemvattu/nhapvattumodalthemvattu.component';
-import { KiemDinhTaiSanComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san.component';
+// import { KiemDinhTaiSanComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san.component';
 import { KiemDinhTaiSanModalComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san-modal/kiem-dinh-tai-san-modal.component';
 import { KiemDinhTaiSanPopupThemMoiComponent } from './kiem-dinh-tai-san/kiem-dinh-tai-san-popup-them-moi/kiem-dinh-tai-san-popup-them-moi.component';
 import { BaoHanhComponent } from './screen/bao-hanh/bao-hanh.component';
@@ -233,6 +233,24 @@ import { LoaidinhmucComponent } from './danhmuc/loaidinhmuc/loaidinhmuc.componen
 import { NhienlieuComponent } from './danhmuc/nhienlieu/nhienlieu.component';
 import { LoaidinhmucmodalComponent } from './danhmuc/loaidinhmuc/loaidinhmucmodal/loaidinhmucmodal.component';
 import { NhienlieumodalComponent } from './danhmuc/nhienlieu/nhienlieumodal/nhienlieumodal.component';
+import { KiemdiemtaisanmodalComponent } from './kiemdinhtaisan/kiemdiemtaisanmodal/kiemdiemtaisanmodal.component';
+import { KiemDinhTaiSanComponent } from './kiemdinhtaisan/kiemdinhtaisan.component';
+import { DanhsachtaisanpopupComponent } from './kiemdinhtaisan/danhsachtaisanpopup/danhsachtaisanpopup.component';
+import { NoidangkiemComponent } from './danhmuc/noidangkiem/noidangkiem.component';
+import { NoidangkiemmodalComponent } from './danhmuc/noidangkiem/noidangkiemmodal/noidangkiemmodal.component';
+import { TheodoihoatdongComponent } from './theodoihoatdong/theodoihoatdong.component';
+import { BaohiemtaisanComponent } from './baohiemtaisan/baohiemtaisan.component';
+import { TieuhaonhienlieuComponent } from './tieuhaonhienlieu/tieuhaonhienlieu.component';
+import { BaohiemtaisanmodalComponent } from './baohiemtaisan/baohiemtaisanmodal/baohiemtaisanmodal.component';
+import { TheodoihoatmodalComponent } from './theodoihoatdong/theodoihoatmodal/theodoihoatmodal.component';
+import { TieuhaonhienlieumodalComponent } from './tieuhaonhienlieu/tieuhaonhienlieumodal/tieuhaonhienlieumodal.component';
+import { DonvibaohiemComponent } from './danhmuc/donvibaohiem/donvibaohiem.component';
+import { LoaihinhbaohiemComponent } from './danhmuc/loaihinhbaohiem/loaihinhbaohiem.component';
+import { DonvibaohiemodalComponent } from './danhmuc/donvibaohiem/donvibaohiemodal/donvibaohiemodal.component';
+import { LoaihinhbaohiemmodalComponent } from './danhmuc/loaihinhbaohiem/loaihinhbaohiemmodal/loaihinhbaohiemmodal.component';
+import { TieuhaonhienlieutabComponent } from './tieuhaonhienlieutab/tieuhaonhienlieutab.component';
+import { KiemdinhtaisantabComponent } from './kiemdinhtaisantab/kiemdinhtaisantab.component';
+import { BaohiemtaisantabComponent } from './baohiemtaisantab/baohiemtaisantab.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -362,7 +380,7 @@ import { NhienlieumodalComponent } from './danhmuc/nhienlieu/nhienlieumodal/nhie
     ThemMoiVatTuModalComponent,
     TestQuyTrinhComponent,
     NhapvattumodalthemvattuComponent,
-    KiemDinhTaiSanComponent,
+    // KiemDinhTaiSanComponent,
     KiemDinhTaiSanModalComponent,
     KiemDinhTaiSanPopupThemMoiComponent,
     BaoHanhComponent,
@@ -414,6 +432,24 @@ import { NhienlieumodalComponent } from './danhmuc/nhienlieu/nhienlieumodal/nhie
     NhienlieuComponent,
     LoaidinhmucmodalComponent,
     NhienlieumodalComponent,
+    KiemDinhTaiSanComponent,
+    KiemdiemtaisanmodalComponent,
+    DanhsachtaisanpopupComponent,
+    NoidangkiemComponent,
+    NoidangkiemmodalComponent,
+    TheodoihoatdongComponent,
+    BaohiemtaisanComponent,
+    TieuhaonhienlieuComponent,
+    BaohiemtaisanmodalComponent,
+    TheodoihoatmodalComponent,
+    TieuhaonhienlieumodalComponent,
+    DonvibaohiemComponent,
+    LoaihinhbaohiemComponent,
+    DonvibaohiemodalComponent,
+    LoaihinhbaohiemmodalComponent,
+    // TieuhaonhienlieutabComponent,
+    // KiemdinhtaisantabComponent,
+    // BaohiemtaisantabComponent,
     // DanhSachVatTuCanThayTheComponent,
   ],
   imports: [

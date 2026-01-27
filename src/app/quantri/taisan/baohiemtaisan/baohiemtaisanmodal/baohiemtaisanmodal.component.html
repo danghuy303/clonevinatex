@@ -32,13 +32,66 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 d-flex flex-column">
-            <label class="">Nội dung:</label>
+        <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
+            <label class="">Số hợp đồng:</label>
             <div class="">
                 <input locale="en-EN" [(ngModel)]="quyTrinh.NoiDung" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 d-flex flex-column">
+        <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
+            <label class="">Loại hình bảo hiểm:</label>
+            <div class="">
+                <p-dropdown [filter]="true" [options]="listLoaiHinhBaoHiem" placeholder="Chọn" [showClear]="true"
+                    styleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.IddmLoaiHinhBaoHiem"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
+            <label class="">Đơn vị bảo hiểm:</label>
+            <div class="">
+                <p-dropdown [filter]="true" [options]="listDonViBaoHiem" placeholder="Chọn" [showClear]="true"
+                    styleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.IddmDonViBaoHiem"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
+            <label class="">Ngày bắt đầu:</label>
+            <div class="">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.NgayBatDau"
+                    [maxDate]="quyTrinh.NgayHetHan" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
+                    [yearRange]="yearRange" [showIcon]="true" inputId="icon" placeholder="">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
+            <label class="">Ngày hết hạn:</label>
+            <div class="">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.NgayHetHan"
+                    [minDate]="quyTrinh.NgayBatDau" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
+                    [yearRange]="yearRange" [showIcon]="true" inputId="icon" placeholder="">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
+            <label class="">Giảm giá:</label>
+            <div class="d-flex">
+                <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.GiaTriGiam" (onBlur)="onGiaTriGiamChange()" [inputStyle]="{'height':'32.67px'}"
+                    placeholder="">
+                </p-inputNumber>
+                <div class="p-inputgroup p-ml-2" style="max-width: '120px'; height: '32.67px'">
+                    <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.PhanTramGiam" placeholder=""
+                        [inputStyle]="{'height':'32.67px'}" (onBlur)="onPhanTramGiamChange()" class="w-1rem">
+                    </p-inputNumber>
+                    <span class="p-inputgroup-addon">%</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
+            <label class="">Tổng chi phí sau giảm giá:</label>
+            <div class="">
+                <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.TongGiaTriGiam" disabled placeholder="">
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-10 p-p-1  d-flex flex-column">
             <label class="">Ghi chú:</label>
             <div class="">
                 <input locale="en-EN" [(ngModel)]="quyTrinh.GhiChu" pInputText />
@@ -53,7 +106,7 @@
                     (click)="handleThemTaiSan()"></button>
                 <div class="d-flex p-ai-center">
                     <span class="p-mr-2">Tổng chi phí: </span>
-                    <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.TongChiPhi"></p-inputNumber>
+                    <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.TongChiPhi" disabled></p-inputNumber>
                 </div>
             </div>
             <p-table [value]="quyTrinh.listTaiSan"
@@ -63,13 +116,10 @@
                         <col style="width: 50px;">
                         <col style="width: 130px;">
                         <col>
-                        <col style="width: 130px;">
-                        <col style="width: 130px;">
-                        <col style="width: 120px;">
-                        <col style="width: 280px;">
                         <col style="width: 150px;">
-                        <col style="width: 130px;">
+                        <col style="width: 150px;">
                         <col style="width: 100px;">
+                        <col>
                         <col style="width: 50px;">
                     </colgroup>
                 </ng-template>
@@ -78,12 +128,9 @@
                         <th class="text-center"> STT </th>
                         <th class="text-center">Mã</th>
                         <th class="text-center">Tên</th>
-                        <th class="text-center">Số phiếu</th>
-                        <th class="text-center">Ngày kiểm định</th>
+                        <th class="text-center">Giá trị</th>
                         <th class="text-center">Chi phí</th>
-                        <th class="text-center">Nơi đăng kiểm</th>
-                        <th class="text-center">Kết quả</th>
-                        <th class="text-center">Ngày kiểm định tiếp theo</th>
+                        <th class="text-center">Tỉ lệ (%)</th>
                         <th class="text-center">Ghi chú</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
@@ -94,31 +141,20 @@
                         <td>{{item.MaTaiSan}}</td>
                         <td>{{item.TenTaiSan}}</td>
                         <td class="text-center">
-                            <input locale="en-EN" [(ngModel)]="item.SoPhieu" pInputText />
-                        </td>
-                        <td class="text-center">
-                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="item.Ngay"
-                                [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"
-                                [showIcon]="true" inputId="icon" placeholder="">
-                            </p-calendar>
-                        </td>
-                        <td>
-                            <p-inputNumber locale="en-EN" [(ngModel)]="item.ChiPhi" placeholder="">
+                            <p-inputNumber locale="en-EN" [(ngModel)]="item.GiaTri" placeholder="">
                             </p-inputNumber>
                         </td>
-                        <td class="">
-                            <p-dropdown [filter]="true" [options]="listKiemDinh" placeholder="Chọn" [showClear]="true"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmNoiDangKiem"></p-dropdown>
-                        </td>
                         <td>
-                            <input type="text" [(ngModel)]="item.KetQua" pInputText />
+                            <p-inputNumber locale="en-EN" [(ngModel)]="item.ChiPhi" placeholder=""
+                                (onBlur)="handleChiPhiTaiSan()">
+                            </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"
-                                [(ngModel)]="item.NgayKiemDinhTiepTheo" [locale]="lang" [monthNavigator]="true"
-                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon"
-                                placeholder="">
-                            </p-calendar>
+                            {{
+                            item.GiaTri > 0
+                            ? ((item.ChiPhi / item.GiaTri) * 100 | number:'1.0-2')
+                            : ''
+                            }}
                         </td>
                         <td>
                             <input type="text" [(ngModel)]="item.GhiChu" pInputText />
