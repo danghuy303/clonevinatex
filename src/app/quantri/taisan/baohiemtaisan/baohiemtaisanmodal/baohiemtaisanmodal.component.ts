@@ -3,11 +3,12 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from '../../../../quantri/modal/modalthongbao/modalthongbao.component';
 import { vn } from '../../../../services/const';
-import { DateToUnix, deepCopy, getSTT, mapArrayForDropDown, merge, UnixToDate, validVariable } from '../../../../services/globalfunction';
+import { DateToUnix, deepCopy, getSTT, handleHTTPResponse, mapArrayForDropDown, merge, UnixToDate, validVariable } from '../../../../services/globalfunction';
 import { StoreService } from '../../../../services/store.service';
 import { TaisanService } from '../../../../services/Taisan/taisan.service';
 import { DanhsachtaisanpopupComponent } from '../../kiemdinhtaisan/danhsachtaisanpopup/danhsachtaisanpopup.component';
 import { ConfirmationService } from '../../../../services/confirmation.service';
+import { API } from '../../../../services/host';
 
 @Component({
   selector: 'app-baohiemtaisanmodal',
@@ -148,6 +149,7 @@ export class BaohiemtaisanmodalComponent implements OnInit {
       message: 'Bạn chắc chắn muốn xóa tài sản này?'
     }, () => {
       this.quyTrinh.listTaiSan = this.quyTrinh.listTaiSan?.filter((ele: any) => ele.IdTaiSan !== item.IdTaiSan);
+      this.getTongChiPhiTaiSan();
     })
   }
 
@@ -230,6 +232,32 @@ export class BaohiemtaisanmodalComponent implements OnInit {
   handleChiPhiTaiSan() {
     this.getTongChiPhiTaiSan();
     this.getGiaTriGiam();
+  }
+
+  handleUpload(e: any) {
+    this._serviceTaiSan.ImportBaoHiemTaiSan(e.Name).subscribe((res: any) => {
+      handleHTTPResponse(res, this.toastr, () => {
+        if (res.StatusCode === 200) {
+          this.quyTrinh.listTaiSan = res.Data;
+          this.handleChiPhiTaiSan();
+          this.toastr.success(res.Message);
+        } else {
+          this.toastr.error(res.Message);
+        }
+      })
+    })
+  }
+
+  exportExcel() {
+    this._serviceTaiSan.ExportBaoHiemTaiSan(this.quyTrinh.listTaiSan).subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        this.toastr.success(res.Message);
+        let url = `${API.imgURL}${res.Data}`
+        window.open(url)
+      } else {
+        this.toastr.error(res.Message);
+      }
+    })
   }
 
 }

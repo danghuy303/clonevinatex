@@ -3,11 +3,12 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from '../../../../quantri/modal/modalthongbao/modalthongbao.component';
 import { vn } from '../../../../services/const';
-import { DateToUnix, deepCopy, getSTT, mapArrayForDropDown, merge, UnixToDate, validVariable } from '../../../../services/globalfunction';
+import { DateToUnix, deepCopy, getSTT, handleHTTPResponse, mapArrayForDropDown, merge, UnixToDate, validVariable } from '../../../../services/globalfunction';
 import { StoreService } from '../../../../services/store.service';
 import { TaisanService } from '../../../../services/Taisan/taisan.service';
 import { DanhsachtaisanpopupComponent } from '../danhsachtaisanpopup/danhsachtaisanpopup.component';
 import { ConfirmationService } from '../../../../services/confirmation.service';
+import { API } from '../../../../services/host';
 
 @Component({
   selector: 'app-kiemdiemtaisanmodal',
@@ -43,7 +44,8 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
       this.quyTrinh.listTaiSan.forEach((ele: any) => {
         ele.Ngay = UnixToDate(ele.NgayUnix);
         ele.NgayKiemDinhTiepTheo = UnixToDate(ele.NgayKiemDinhTiepTheoUnix)
-      })
+      });
+      this.getTongChiPhiTaiSan();
     }
     this.KiemTraButtonModal();
     this.getListTaiSanDangSuDung();
@@ -158,6 +160,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
       message: 'Bạn chắc chắn muốn xóa tài sản này?'
     }, () => {
       this.quyTrinh.listTaiSan = this.quyTrinh.listTaiSan?.filter((ele: any) => ele.IdTaiSan !== item.IdTaiSan);
+      this.getTongChiPhiTaiSan();
     })
   }
 
@@ -179,6 +182,46 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
     })
       .catch((er) => {
       });
+  }
+
+  handleUpload(e: any) {
+    this._serviceTaiSan.ImportKiemDinhTaiSan(e.Name).subscribe((res: any) => {
+      handleHTTPResponse(res, this.toastr, () => {
+        if (res.StatusCode === 200) {
+          this.quyTrinh.listTaiSan = res.Data?.map((ele: any) => {
+            return {
+              ...ele,
+              Ngay: UnixToDate(ele.NgayUnix),
+              NgayKiemDinhTiepTheo: UnixToDate(ele.NgayKiemDinhTiepTheoUnix)
+            }
+          })
+          this.getTongChiPhiTaiSan();
+          this.toastr.success(res.Message);
+        } else {
+          this.toastr.error(res.Message);
+        }
+      })
+    })
+  }
+
+  exportExcel() {
+    this._serviceTaiSan.ExportKiemDinhTaiSan(this.quyTrinh.listTaiSan).subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        this.toastr.success(res.Message);
+        let url = `${API.imgURL}${res.Data}`
+        window.open(url)
+      } else {
+        this.toastr.error(res.Message);
+      }
+    })
+  }
+
+  getTongChiPhiTaiSan() {
+    this.quyTrinh.TongChiPhi = this.quyTrinh.listTaiSan?.reduce((a: any, b: any) => a + (b.ChiPhi || 0), 0)
+  }
+
+  handleChiPhiTaiSan() {
+    this.getTongChiPhiTaiSan();
   }
 
 }

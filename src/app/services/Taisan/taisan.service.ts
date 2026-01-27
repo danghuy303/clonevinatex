@@ -1449,4 +1449,19 @@ export class TaisanService {
     return this.QuyTrinhBaseAll("QuyTrinhTheoDoiHoatDong", "NhatKySuDung");
   }
 
+
+  ImportBaoHiemTaiSan(FileName: string) {
+    return this.http.get(`${API.TaiSan}NhatKySuDung/ImportBaoHiemTaiSan?FileName=${FileName}`, httpOptions);
+  }
+  ExportBaoHiemTaiSan(data: any) {
+    return this.http.post(`${API.TaiSan}NhatKySuDung/ExportBaoHiemTaiSan`, data, httpOptions);
+  }
+
+  ImportKiemDinhTaiSan(FileName: string) {
+    return this.http.get(`${API.TaiSan}NhatKySuDung/ImportKiemDinhTaiSan?FileName=${FileName}`, httpOptions);
+  }
+  ExportKiemDinhTaiSan(data: any) {
+    return this.http.post(`${API.TaiSan}NhatKySuDung/ExportKiemDinhTaiSan`, data, httpOptions);
+  }
+
 }
