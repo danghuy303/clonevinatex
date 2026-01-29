@@ -97,6 +97,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
               }
             })
           }
+          this.getTongChiPhiTaiSan();
           this.KiemTraButtonModal();
           this.toastr.success(res.Message);
         }

@@ -123,12 +123,11 @@
                         </td>
                         <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listLoaiDinhMucNhienLieu" placeholder="Chọn"
-                                [showClear]="true" styleClass="p-inputtext-sm"
-                                [(ngModel)]="item.IddmHeSo"></p-dropdown>
+                                [showClear]="true" styleClass="p-inputtext-sm" [(ngModel)]="item.IddmHeSo"></p-dropdown>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber locale="en-EN" [(ngModel)]="item.TieuThu" (onBlur)="handleChiPhiTaiSan(item)"
-                                placeholder="">
+                            <p-inputNumber locale="en-EN" [(ngModel)]="item.TieuThu" [minFractionDigits]="2"
+                                [maxFractionDigits]="2" (onBlur)="handleChiPhiTaiSan(item)" placeholder="">
                             </p-inputNumber>
                         </td>
                         <td>
