@@ -690,6 +690,14 @@ export class TaisanService {
     return this.http.post(`${API.TaiSan}BaoDuongTaiSan/GetListTaiSanDangSuDung`, data, httpOptions);
   }
 
+  GetListTaiSanForBaoHiem() {
+    return this.http.get(`${API.TaiSan}NhatKySuDung/GetListTaiSanForBaoHiem`, httpOptions);
+  }
+
+   GetTieuHaoTaiSanForTheoDoiHoatDong(data: any) {
+    return this.http.post(`${API.TaiSan}NhatKySuDung/GetTieuHaoTaiSanForTheoDoiHoatDong`, data, httpOptions);
+  }
+
   SetYeuCauXuatKhoXulySuCo(data: any) {
     return this.http.post(`${API.TaiSan}BaoDuongTaiSan/SetYeuCauXuatKhoXulySuCo`, data, httpOptions);
   }

@@ -48,10 +48,11 @@ export class DanhsachtaisanpopupComponent implements OnInit {
   handleChapNhan() {
     let data = this.listView.filter((ele: any) => ele.checked).map((ele: any, index: number) => {
       return {
-        MaTaiSan: ele.Ma,
-        TenTaiSan: ele.Ten,
-        IdTaiSan: ele.Id,
-        Id: ''
+        ...ele,
+        // MaTaiSan: ele.Ma,
+        // TenTaiSan: ele.Ten,
+        // IdTaiSan: ele.Id,
+        // Id: ''
       }
     });
     this.activeModal.close(data);

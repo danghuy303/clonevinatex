@@ -198,5 +198,25 @@ export class TheodoihoatmodalComponent implements OnInit {
     }
   }
 
+  getTieuHaoTaiSan(_item: any, index: number) {
+    let _payLoad = {
+      ..._item,
+      NgayBatDauUnix: DateToUnix(_item.NgayBatDau),
+      NgayKetThucUnix: DateToUnix(_item.NgayKetThuc),
+      IddmPhanXuong: this.quyTrinh.IddmPhanXuong
+    }
+    this._serviceTaiSan.GetTieuHaoTaiSanForTheoDoiHoatDong(_payLoad).subscribe((res: any) => {
+      if (res?.Data) {
+        this.quyTrinh.listTaiSan = this.quyTrinh.listTaiSan?.map((ele: any, idx: number) => {
+          return idx === index ? {
+            ...res?.Data,
+            NgayBatDau: UnixToDate(res?.Data?.NgayBatDauUnix),
+            NgayKetThuc: UnixToDate(res?.Data?.NgayKetThucUnix)
+          } : ele;
+        })
+      }
+    })
+  }
+
 
 }

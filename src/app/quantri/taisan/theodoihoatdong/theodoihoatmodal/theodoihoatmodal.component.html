@@ -68,7 +68,8 @@
                         <col>
                         <col style="width: 130px;">
                         <col style="width: 130px;">
-                        <col style="width: 90px;">
+                        <col style="width: 110px;">
+                        <col style="width: 110px;">
                         <col style="width: 200px;">
                         <col style="width: 100px;">
                         <col style="width: 180px;">
@@ -77,16 +78,20 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="text-center"> STT </th>
-                        <th class="text-center">Mã</th>
-                        <th class="text-center">Tên</th>
-                        <th class="text-center">TG bắt đầu</th>
-                        <th class="text-center">TG kết thúc</th>
-                        <th class="text-center">Kết quả</th>
-                        <th class="text-center">Người vận hành</th>
-                        <th class="text-center">Số công</th>
-                        <th class="text-center">Ghi chú</th>
-                        <th class="text-center">Thao tác</th>
+                        <th class="text-center" rowspan="2"> STT </th>
+                        <th class="text-center" rowspan="2">Mã</th>
+                        <th class="text-center" rowspan="2">Tên</th>
+                        <th class="text-center" rowspan="2">TG bắt đầu</th>
+                        <th class="text-center" rowspan="2">TG kết thúc</th>
+                        <th class="text-center" colspan="2">Tiêu hao</th>
+                        <th class="text-center" rowspan="2">Người vận hành</th>
+                        <th class="text-center" rowspan="2">Số công</th>
+                        <th class="text-center" rowspan="2">Ghi chú</th>
+                        <th class="text-center" rowspan="2">Thao tác</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Định mức</th>
+                        <th class="text-center">Thực tế</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -96,26 +101,32 @@
                         <td>{{item.MaTaiSan}}</td>
                         <td>{{item.TenTaiSan}}</td>
                         <td>
-                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"
+                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" (onSelect)="getTieuHaoTaiSan(item, i)"
                                 [(ngModel)]="item.NgayBatDau" [locale]="lang" [monthNavigator]="true"
-                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon">
+                                [maxDate]="item.NgayKetThuc" [yearNavigator]="true" [yearRange]="yearRange"
+                                [showIcon]="true" inputId="icon">
                             </p-calendar>
                         </td>
                         <td>
-                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"
+                            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" (onSelect)="getTieuHaoTaiSan(item,i)"
                                 [(ngModel)]="item.NgayKetThuc" [locale]="lang" [monthNavigator]="true"
-                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon">
+                                [minDate]="item.NgayBatDau" [yearNavigator]="true" [yearRange]="yearRange"
+                                [showIcon]="true" inputId="icon">
                             </p-calendar>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber locale="en-EN" [(ngModel)]="item.KetQua"></p-inputNumber>
+                            <p-inputNumber locale="en-EN" [(ngModel)]="item.TieuHaoDinhMuc" [disabled]="true"></p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber locale="en-EN" [(ngModel)]="item.TieuHaoThucTe" [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
                         </td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-plus"
-                                class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="handleAddChild(item)"></button>
+                                class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                                (click)="handleAddChild(item)"></button>
                             <button pButton pRipple type="button" icon="pi pi-trash"
                                 class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
                                 (click)="delete(item)"></button>
@@ -126,7 +137,7 @@
                     <ng-container *ngIf="item.listNguoiVanHanh && item.listNguoiVanHanh.length > 0">
                         <tr *ngFor="let child of item.listNguoiVanHanh; let j = index" class="child-row">
                             <td class="text-center"></td>
-                            <td colspan="5" class="pl-5">
+                            <td colspan="6" class="pl-5">
                                 <i class="pi pi-arrow-right text-sm mr-2"></i>
                                 <span class="font-semibold">Người vận hành {{j + 1}}</span>
                             </td>

@@ -138,7 +138,7 @@ export class BaohiemtaisanmodalComponent implements OnInit {
   // handle xử lý riêng
 
   getListTaiSanDangSuDung() {
-    this._serviceTaiSan.GetListTaiSanDangSuDung({ CurrentPage: 0 }).subscribe((res: any) => {
+    this._serviceTaiSan.GetListTaiSanForBaoHiem().subscribe((res: any) => {
       if (res.Data?.length) {
       } this.listTaiSan = res.Data;
     })
