@@ -89,11 +89,12 @@
                         <col style="width: 130px;">
                         <col>
                         <col style="width: 180px;">
+                        <col style="width: 110px;">
+                        <col style="width: 80px;">
+                        <col style="width: 110px;">
                         <col style="width: 120px;">
-                        <col style="width: 90px;">
-                        <col style="width: 120px;">
-                        <col style="width: 120px;">
-                        <col style="width: 220px;">
+                        <col style="width: 200px;">
+                        <col style="width: 150px;">
                         <col style="width: 50px;">
                     </colgroup>
                 </ng-template>
@@ -107,6 +108,7 @@
                         <th class="text-center">Tiêu thụ</th>
                         <th class="text-center">Đơn giá</th>
                         <th class="text-center">Thành tiền</th>
+                        <th class="text-center">File đính kèm</th>
                         <th class="text-center">Ghi chú</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
@@ -137,6 +139,28 @@
                         </td>
                         <td class="text-right">
                             {{item.ThanhTien | number:'0.0-0' }}
+                        </td>
+                        <td>
+
+                            <div class="d-flex p-jc-between">
+                                <div style="">
+                                    <div *ngFor="let file of item.listFileDinhKem;let ri = index"
+                                        style="display: flex;align-items: center;">
+                                        <span style="width: 70%;cursor: pointer;" (click)="download(file.Link)">
+                                            {{file.FileName | truncate:11}}
+                                        </span>
+                                        <span style="color:rgb(13, 185, 232);cursor: pointer;"
+                                            (click)="handlePreView(file.LinkDocView)" class="p-mx-2"> <i
+                                                class="pi pi-eye" title="Xem trước tài liệu"></i></span>
+                                        <span style="color:red ;cursor: pointer;" (click)="cancelItem(i,ri)">x</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex p-jc-end">
+                                    <app-upload-file [multiple]="true" [label]="''" [showIcon]="true"
+                                        (itemChange)="handleChangeItem($event,i)"></app-upload-file>
+                                </div>
+                            </div>
+
                         </td>
                         <td>
                             <input type="text" [(ngModel)]="item.GhiChu" pInputText />

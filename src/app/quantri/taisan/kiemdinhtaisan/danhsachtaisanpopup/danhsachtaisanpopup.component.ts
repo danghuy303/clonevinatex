@@ -27,7 +27,7 @@ export class DanhsachtaisanpopupComponent implements OnInit {
 
   getList() {
     this.listView.forEach((ele: any) => {
-      ele.checked = this.listDaChon.includes(ele.Id);
+      ele.checked = this.listDaChon.includes(ele.IdTaiSan || ele.Id);
     });
     this.checkAll = this.listView.every((ele: any) => ele.checked);
   }
@@ -49,10 +49,10 @@ export class DanhsachtaisanpopupComponent implements OnInit {
     let data = this.listView.filter((ele: any) => ele.checked).map((ele: any, index: number) => {
       return {
         ...ele,
-        // MaTaiSan: ele.Ma,
-        // TenTaiSan: ele.Ten,
-        // IdTaiSan: ele.Id,
-        // Id: ''
+        MaTaiSan: ele.MaTaiSan ? ele.MaTaiSan : ele.Ma,
+        TenTaiSan: ele.TenTaiSan ? ele.TenTaiSan : ele.Ten,
+        IdTaiSan: ele.IdTaiSan ? ele.IdTaiSan : ele.Id,
+        Id: ele.IdTaiSan ? ele.Id : ''
       }
     });
     this.activeModal.close(data);

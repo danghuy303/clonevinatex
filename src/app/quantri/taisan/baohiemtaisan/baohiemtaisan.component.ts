@@ -23,7 +23,7 @@ export class BaohiemtaisanComponent implements OnInit {
   keyWord: any = '';
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   selectedItems: any = [];
-  filter: any = {};
+  filter: any = {IdDonViBaoHiem:''};
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
@@ -81,6 +81,7 @@ export class BaohiemtaisanComponent implements OnInit {
       Keyword: this.filter.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
+      IdDonViBaoHiem: this.filter.IdDonViBaoHiem ? this.filter.IdDonViBaoHiem : '',
     };
     this._serviceTaiSan.BaoHiemTaiSan().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;

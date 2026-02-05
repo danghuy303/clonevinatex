@@ -7,18 +7,22 @@
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+           <p-dropdown [filter]="true" [options]="listDonViBaoHiem" placeholder="Chọn" [showClear]="true" (onChange)="GetList()"
+                    styleClass="" [(ngModel)]="filter.IdDonViBaoHiem"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="" [showIcon]="true"
                 [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" [minDate]="filter.TuNgay"
                 (onSelect)="GetList()">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
+            <input type="text" placeholder="Tìm kiếm" class="" [(ngModel)]="filter.Keyword" pInputText
                 (keyup.enter)="GetList()" />
             <button type="button" pButton pRipple icon="pi pi-search"
                 class="p-button-secondary p-button-sm p-button-text" (click)="GetList()"></button>
@@ -46,19 +50,21 @@
                 <col style="width: 120px;">
                 <col style="width: 120px;">
                 <col>
+                <col style="width: 120px;">
                 <col>
-                <col style="width: 150px;">
+                <col style="width: 120px;">
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
-                <th class="text-center">Số quy trình</th>
+                <th class="text-center">Số hợp đồng</th>
                 <th class="text-center">Ngày tạo</th>
                 <th class="text-center">Ngày bắt đầu</th>
                 <th class="text-center">Ngày hết hạn</th>
                 <th class="text-center">Đơn vị bảo hiểm</th>
+                <th class="text-center">Tổng chi phí</th>
                 <th class="text-center">Ghi chú</th>
                 <th class="text-center">Trạng thái</th>
                 <th class="text-center">Thao tác</th>
@@ -69,13 +75,14 @@
                 <td class="text-center">
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center">
-                    {{item.SoQuyTrinh}}
+                <td class="">
+                    {{item.SoHopDong}}
                 </td>
                 <td class="text-center">{{item.Created | date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.NgayBatDau | date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.NgayHetHan | date:'dd/MM/yyyy'}}</td>
                 <td>{{item.TenDonViBaoHiem}}</td>
+                <td class="text-right">{{item.TongChiPhiSauGiam | number:'0.0-0'}}</td>
                 <td>{{item.GhiChu}}</td>
                 <td class="text-center">
                     {{item.TenTrangThai}}

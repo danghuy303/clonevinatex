@@ -35,7 +35,7 @@
         <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
             <label class="">Số hợp đồng:</label>
             <div class="">
-                <input locale="en-EN" [(ngModel)]="quyTrinh.NoiDung" pInputText />
+                <input locale="en-EN" [(ngModel)]="quyTrinh.SoHopDong" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
@@ -87,7 +87,7 @@
         <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
             <label class="">Tổng chi phí sau giảm giá:</label>
             <div class="">
-                <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.TongGiaTriGiam" disabled placeholder="">
+                <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.TongChiPhiSauGiam" disabled placeholder="">
                 </p-inputNumber>
             </div>
         </div>
@@ -126,18 +126,20 @@
                         <col style="width: 150px;">
                         <col style="width: 150px;">
                         <col style="width: 100px;">
+                        <col style="width: 200px;">
                         <col>
                         <col style="width: 50px;">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="text-center"> STT </th>
+                        <th class="text-center">STT</th>
                         <th class="text-center">Mã</th>
                         <th class="text-center">Tên</th>
                         <th class="text-center">Giá trị</th>
                         <th class="text-center">Chi phí</th>
                         <th class="text-center">Tỉ lệ (%)</th>
+                        <th class="text-center">File đính kèm</th>
                         <th class="text-center">Ghi chú</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
@@ -162,6 +164,28 @@
                             ? ((item.ChiPhi / item.GiaTri) * 100 | number:'1.0-2')
                             : ''
                             }}
+                        </td>
+                        <td>
+
+                            <div class="d-flex p-jc-between">
+                                <div>
+                                    <div *ngFor="let file of item.listFileDinhKem;let ri = index"
+                                        style="display: flex;align-items: center;">
+                                        <span style="width: 70%;cursor: pointer;" (click)="download(file.Link)">
+                                            {{file.FileName |truncate:11}}
+                                        </span>
+                                        <span style="color:rgb(13, 185, 232);cursor: pointer;"
+                                            (click)="handlePreView(file.LinkDocView)" class="p-mx-2"> <i
+                                                class="pi pi-eye" title="Xem trước tài liệu"></i></span>
+                                        <span style="color:red ;cursor: pointer;" (click)="cancelItem(i,ri)">x</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex p-jc-end">
+                                    <app-upload-file [multiple]="true" [label]="''" [showIcon]="true"
+                                        (itemChange)="handleChangeItem($event,i)"></app-upload-file>
+                                </div>
+                            </div>
+
                         </td>
                         <td>
                             <input type="text" [(ngModel)]="item.GhiChu" pInputText />

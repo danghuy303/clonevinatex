@@ -13,6 +13,7 @@ export class UploadFileComponent implements OnInit {
   @ViewChild('fileInput', { static: false }) fileInput!: { nativeElement: any };
   @Input() label: string = "";
   @Input() multiple: boolean = false;
+  @Input() showIcon: boolean = true;
   @Output() itemChange: EventEmitter<any> = new EventEmitter<any>();
   uploadResponse: any = [];
   data: any = {};
@@ -24,7 +25,7 @@ export class UploadFileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  upLoad(files) {
+  upLoad(files: any) {
     if (files && files.length > 0) {
       this.uploadLocal(files);
       this.uploader.postFile(files).subscribe((event: any) => {

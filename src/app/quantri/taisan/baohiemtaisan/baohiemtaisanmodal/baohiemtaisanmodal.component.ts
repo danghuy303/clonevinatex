@@ -180,11 +180,11 @@ export class BaohiemtaisanmodalComponent implements OnInit {
   // getGiaTriGiam() {
   // let tongChiPhi = this.quyTrinh.TongChiPhi || 0;
   // if (this.quyTrinh.PhanTramGiam && this.quyTrinh.PhanTramGiam > 0) {
-  //   this.quyTrinh.TongGiaTriGiam =
+  //   this.quyTrinh.TongChiPhiSauGiam =
   //     tongChiPhi - (tongChiPhi * this.quyTrinh.PhanTramGiam) / 100;
   // }
   // else if (this.quyTrinh.GiaTriGiam && this.quyTrinh.GiaTriGiam > 0) {
-  //   this.quyTrinh.TongGiaTriGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
+  //   this.quyTrinh.TongChiPhiSauGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
   // }
   // }
 
@@ -192,10 +192,10 @@ export class BaohiemtaisanmodalComponent implements OnInit {
     let tongChiPhi = this.quyTrinh.TongChiPhi || 0;
     if (this.quyTrinh.GiaTriGiam && this.quyTrinh.GiaTriGiam > 0) {
       this.quyTrinh.PhanTramGiam = (this.quyTrinh.GiaTriGiam / tongChiPhi) * 100;
-      this.quyTrinh.TongGiaTriGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
+      this.quyTrinh.TongChiPhiSauGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
     } else {
       this.quyTrinh.PhanTramGiam = 0;
-      this.quyTrinh.TongGiaTriGiam = tongChiPhi;
+      this.quyTrinh.TongChiPhiSauGiam = tongChiPhi;
     }
   }
 
@@ -203,10 +203,10 @@ export class BaohiemtaisanmodalComponent implements OnInit {
     let tongChiPhi = this.quyTrinh.TongChiPhi || 0;
     if (this.quyTrinh.PhanTramGiam && this.quyTrinh.PhanTramGiam > 0) {
       this.quyTrinh.GiaTriGiam = (tongChiPhi * this.quyTrinh.PhanTramGiam) / 100;
-      this.quyTrinh.TongGiaTriGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
+      this.quyTrinh.TongChiPhiSauGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
     } else {
       this.quyTrinh.GiaTriGiam = 0;
-      this.quyTrinh.TongGiaTriGiam = tongChiPhi;
+      this.quyTrinh.TongChiPhiSauGiam = tongChiPhi;
     }
   }
 
@@ -216,16 +216,16 @@ export class BaohiemtaisanmodalComponent implements OnInit {
     // Ưu tiên tính lại theo phần trăm nếu có
     if (this.quyTrinh.PhanTramGiam && this.quyTrinh.PhanTramGiam > 0) {
       this.quyTrinh.GiaTriGiam = (tongChiPhi * this.quyTrinh.PhanTramGiam) / 100;
-      this.quyTrinh.TongGiaTriGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
+      this.quyTrinh.TongChiPhiSauGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
     }
     // Nếu chỉ có giá trị giảm, tính lại phần trăm
     else if (this.quyTrinh.GiaTriGiam && this.quyTrinh.GiaTriGiam > 0) {
       this.quyTrinh.PhanTramGiam = (this.quyTrinh.GiaTriGiam / tongChiPhi) * 100;
-      this.quyTrinh.TongGiaTriGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
+      this.quyTrinh.TongChiPhiSauGiam = tongChiPhi - this.quyTrinh.GiaTriGiam;
     }
     // Không có giảm giá
     else {
-      this.quyTrinh.TongGiaTriGiam = tongChiPhi;
+      this.quyTrinh.TongChiPhiSauGiam = tongChiPhi;
     }
   }
 
@@ -258,6 +258,25 @@ export class BaohiemtaisanmodalComponent implements OnInit {
         this.toastr.error(res.Message);
       }
     })
+  }
+
+  handleChangeItem(data: any, index: any) {
+     this.quyTrinh.listTaiSan[index].listFileDinhKem.push({
+      FileName: data.NameLocal,
+      FileNameGUI: data.Name
+    })
+  }
+  cancelItem(i: any, index: any) {
+    this.quyTrinh.listTaiSan[i].listFileDinhKem.splice(index, 1)
+  }
+
+  download(Link: any) {
+    window.open(API.imgURL + Link);
+  }
+
+  handlePreView(link: string) {
+    let url = `/${link}`
+    window.open(API.imgURL + url);
   }
 
 }

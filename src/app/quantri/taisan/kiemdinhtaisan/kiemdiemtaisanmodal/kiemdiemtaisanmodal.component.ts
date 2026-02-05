@@ -225,4 +225,23 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
     this.getTongChiPhiTaiSan();
   }
 
+  handleChangeItem(data: any, index: any) {
+    this.quyTrinh.listTaiSan[index].listFileDinhKem.push({
+      FileName: data.NameLocal,
+      FileNameGUI: data.Name
+    })
+  }
+  cancelItem(i: any, index: any) {
+    this.quyTrinh.listTaiSan[i].listFileDinhKem.splice(index, 1)
+  }
+
+  download(Link: any) {
+    window.open(API.imgURL + Link);
+  }
+
+  handlePreView(link: string) {
+    let url = `/${link}`
+    window.open(API.imgURL + url);
+  }
+
 }

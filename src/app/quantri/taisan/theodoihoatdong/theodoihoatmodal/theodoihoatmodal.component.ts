@@ -187,7 +187,7 @@ export class TheodoihoatmodalComponent implements OnInit {
 
     item.listNguoiVanHanh.push({
       NguoiVanHanh: '',
-      SoCong: null,
+      SoCong: 0,
       GhiChu: ''
     });
   }
