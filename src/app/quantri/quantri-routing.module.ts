@@ -142,6 +142,7 @@ import { ThongkechitieuclasimattheomayComponent } from "./quanlykhosanxuat/thong
 import { ThongkechitieuloicattheomayComponent } from "./quanlykhosanxuat/thongke/thongkechitieuloicattheomay/thongkechitieuloicattheomay.component";
 import { QuantrichatluongtoantrinhComponent } from "./quantrichatluongtoantrinh/quantrichatluongtoantrinh.component";
 import { QuantrichatluongcongdoanComponent } from "./quantrichatluongcongdoan/quantrichatluongcongdoan.component";
+import { DieuchuyenkhobongComponent } from "./quanlykhosanxuat/quytrinh/dieuchuyenkhobong/dieuchuyenkhobong.component";
 
 const routes: Routes = [
   {
@@ -696,6 +697,13 @@ const routes: Routes = [
       {
         path: "quantrichatluongcongdoan", component: QuantrichatluongcongdoanComponent,
       },
+
+
+      {
+        path: "quanlykhosanxuat/khobong/dieuchuyenkhobong/:id",
+        component: DieuchuyenkhobongComponent,
+      },
+
     ],
   },
 

@@ -449,3 +449,19 @@ span.required {
 iframe {
   overflow: hidden;
 }
+
+.p-dropdown-panel {
+  z-index: 999988 !important;
+}
+.p-treeselect-panel {
+  z-index: 999999 !important;
+}
+.p-multiselect-panel {
+  z-index: 999999 !important;
+}
+.p-datepicker {
+  z-index: 999999 !important;
+}
+.p-tooltip {
+  z-index: 999999 !important;
+}

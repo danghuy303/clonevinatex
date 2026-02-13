@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <p-treeTable [value]="items" [paginator]="true" [rows]="10" styleClass="p-treetable p-treetable-caption"
+    <p-treeTable [value]="items" [paginator]="true" [rows]="10" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
         selectionMode="multiple" [(selection)]="selectedNodes">
         <ng-template pTemplate="colgroup">
             <colgroup>
@@ -60,7 +60,7 @@
                     </p-checkbox>
                     <!-- <p-treeTableCheckbox *ngIf="!rowData.IdTaiSan" [value]="rowNode"></p-treeTableCheckbox> -->
                 </td>
-                <td class="text-center">
+                <td class="">
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                     {{rowData.Ma}}
                 </td>

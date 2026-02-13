@@ -3770,4 +3770,18 @@ export class SanXuatService {
         return this.http.post(`${API.SCM}DanhMuc/SetdmMayIOT`, data, httpOptions)
     }
 
+    GetListdmKhoNhap(data) {
+        return this.http.post(`${API.SCMDanhMuc}GetListdmKhoNhap`, data, httpOptions);
+    }
+    GetListdmKhoXuat(data) {
+        return this.http.post(`${API.SCMDanhMuc}GetListdmKho`, data, httpOptions);
+    }
+    getLuuKhoKiemKeKhoBong(IdDuAn,IddmKho) {
+        return this.http.get(`${API.SCMQuanLyKho}getLuuKhoKiemKeKhoBong?IdDuAn=${IdDuAn}&IddmKho=${IddmKho}`, httpOptions);
+    }
+
+     PhieuDieuChuyenBongXo() {
+        return this.BasicApi('PhieuDieuChuyenBongXo')
+    }
+
 }

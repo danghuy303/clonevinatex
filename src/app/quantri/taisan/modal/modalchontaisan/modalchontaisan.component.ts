@@ -68,6 +68,8 @@ export class ModalchontaisanComponent implements OnInit {
           }
         })
         this.items = this.TreeItem(this.items);
+        console.log('items',this.items);
+        
         this.CheckExistedTaiSan(this.items)
       })
   }
@@ -76,7 +78,7 @@ export class ModalchontaisanComponent implements OnInit {
     list.forEach(ele => {
       ele.children = list.filter(obj => obj.data.IdCha === ele.data.IdTaiSan);
     })
-    return list.filter(ele => ele.data.IdCha === null);
+    return list.filter(ele => ele.data.IdCha === null || ele.data.IdCha === '');
   }
 
   CheckExistedTaiSan(list) {

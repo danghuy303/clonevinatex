@@ -177,7 +177,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
       const _list = this.quyTrinh.listTaiSan;
       this.quyTrinh.listTaiSan = res.map((ele: any) => {
         let _newObj = _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan) ?
-          _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan) : ele;
+          _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan) : { ...ele, listFileDinhKem: [] };
         return _newObj;
       })
     })

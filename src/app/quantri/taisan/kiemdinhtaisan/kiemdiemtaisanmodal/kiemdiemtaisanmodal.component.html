@@ -107,7 +107,7 @@
                                 <input locale="en-EN" [(ngModel)]="item.SoPhieu" pInputText />
                             </td>
                             <td class="text-center">
-                                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"
+                                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" appendTo="body"
                                     [(ngModel)]="item.Ngay" [locale]="lang" [monthNavigator]="true"
                                     [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon"
                                     placeholder="">
@@ -120,7 +120,7 @@
                             </td>
                             <td class="">
 
-                                <p-dropdown [filter]="true" [options]="listKiemDinh" placeholder="Chọn"
+                                <p-dropdown [filter]="true" [options]="listKiemDinh" placeholder="Chọn" appendTo="body"
                                     [showClear]="true" styleClass="p-inputtext-sm" [(ngModel)]="item.IddmNoiDangKiem">
                                     <ng-template let-item pTemplate="selectedItem">
                                         <span style="vertical-align:middle" [pTooltip]="item.label"
@@ -132,7 +132,7 @@
                                 <input type="text" [(ngModel)]="item.KetQua" pInputText />
                             </td>
                             <td class="text-center">
-                                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"
+                                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" appendTo="body"
                                     [(ngModel)]="item.NgayKiemDinhTiepTheo" [locale]="lang" [monthNavigator]="true"
                                     [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon"
                                     placeholder="">
