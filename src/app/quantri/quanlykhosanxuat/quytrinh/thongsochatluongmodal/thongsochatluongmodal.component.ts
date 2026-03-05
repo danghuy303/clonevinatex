@@ -7,6 +7,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from '../../../../services/store.service';
 
 @Component({
   selector: 'app-thongsochatluongmodal',
@@ -36,11 +37,15 @@ export class ThongsochatluongmodalComponent implements OnInit {
   paging: any = {};
   Id = "";
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal,
+  isCheckPort: boolean = true;
+
+
+  constructor(public activeModal: NgbActiveModal, private store: StoreService,
     public toastr: ToastrService, public _modal: NgbModal, private services: SanXuatService) {
   }
 
   ngOnInit(): void {
+    this.isCheckPort = this.store.getIsCheckPort();
     if (this.opt !== 'edit') {
       this.item = {
         listItem: [],
@@ -64,7 +69,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.listItem = res1.listItem?.map(ele => {
         return {
           ...ele,
-          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
+          QRType: `{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
         }
       });
       this.paging.CurrentPage = 1;
@@ -73,7 +78,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.item.listItem = res1.listItem.slice(0, 15)?.map(ele => {
         return {
           ...ele,
-          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
+          QRType: `{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
         }
       });
       this.item_new = this.item;
@@ -142,21 +147,21 @@ export class ThongsochatluongmodalComponent implements OnInit {
           this.item = res.objectReturn;
           this.item.Ngay = UnixToDate(this.item.NgayUnix)
           this.listItem = res.objectReturn.listItem?.map(ele => {
-        return {
-          ...ele,
-          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
-        }
-      });
+            return {
+              ...ele,
+              QRType: `{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
+            }
+          });
           this.paging.CurrentPage = 1;
           this.paging.TotalPage = 5;
           if (res.objectReturn.listItem != undefined && res.objectReturn.listItem != null)
             this.paging.TotalItem = res.objectReturn.listItem.length;
           this.item.listItem = res.objectReturn.listItem.slice(0, 15)?.map(ele => {
-        return {
-          ...ele,
-          QRType:`{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
-        }
-      });
+            return {
+              ...ele,
+              QRType: `{"MaQR":"${ele.MaQR}","Type":"${ele.Type}"}`
+            }
+          });
           this.KiemTraButtonModal();
         } else {
           this.toastr.error(res.message);

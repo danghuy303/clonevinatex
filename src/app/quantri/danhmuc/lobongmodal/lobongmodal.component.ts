@@ -11,6 +11,7 @@ import { API } from '../../../services/host';
 import { exhaustMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import * as printJS from 'print-js';
+import { StoreService } from '../../../services/store.service';
 
 @Component({
   selector: 'app-lobongmodal',
@@ -34,13 +35,15 @@ export class LobongmodalComponent implements OnInit {
   inQrCode$ = new Subject<void>();
   listFromTo: any = [];
   isChon: any = null;
+  isCheckPort: boolean = true;
 
-  constructor(public activeModal: NgbActiveModal,
+  constructor(public activeModal: NgbActiveModal, private store: StoreService,
     private services: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
+    this.isCheckPort = this.store.getIsCheckPort();
     this.InQrCodeLoBong();
     this.getListdmCapBong();
     this.GetListdmLoaiBong();

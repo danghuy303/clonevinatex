@@ -494,7 +494,7 @@
                             <th class="text-center" style="width: 120px">Màu lõi</th>
                             <th class="text-center" style="width: 150px">Quy cách đóng gói</th>
                             <th class="text-center" style="width: 100px">Trọng lượng (Kg/cone)</th>
-                            <th class="text-center" style="width: 70px">Mã QR</th>
+                            <th class="text-center" style="width: 70px" *ngIf="isCheckPort">Mã QR</th>
                             <th class="text-center" style="width: 100px">
                                 <button pButton pRipple icon="pi pi-plus" title="Thêm" class="p-button-sm p-button-text"
                                     style="color: white;" (click)="handleAdd()"></button>
@@ -522,7 +522,7 @@
                                     styleClass="p-inputtext-sm" [min]="0" disabled>
                                 </p-inputNumber>
                             </td>
-                            <td>
+                            <td *ngIf="isCheckPort">
                                 <div *ngIf="it.MaQr" (click)="toggleZoomQR(it.QRType)">
                                     <qrcode [qrdata]="it.QRType" [width]="50" [errorCorrectionLevel]="'M'"
                                         [elementType]="'svg'">

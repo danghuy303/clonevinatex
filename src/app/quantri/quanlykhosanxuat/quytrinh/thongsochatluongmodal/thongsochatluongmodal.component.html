@@ -155,7 +155,7 @@
                         <col style="text-align: center;">
                         <col style="text-align: center;">
                         <col style="width:100px">
-                        <col style="width:80px">
+                        <col *ngIf="isCheckPort" style="width:80px">
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
@@ -166,7 +166,7 @@
                         <th rowspan="2">Tên</th>
                         <th colspan="11">Chất lượng bông</th>
                         <th rowspan="2">Kiện dài</th>
-                        <th rowspan="2">Mã QR</th>
+                        <th *ngIf="isCheckPort" rowspan="2">Mã QR</th>
                         <th rowspan="2"></th>
                     </tr>
                     <tr>
@@ -238,7 +238,7 @@
                         <td class="text-center">
                             <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isKienDai" />
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" *ngIf="isCheckPort">
                             <qrcode [qrdata]="item.QRType" *ngIf="item.MaQR" [width]="50" [errorCorrectionLevel]="'M'"
                                 [elementType]="'svg'">
                             </qrcode>

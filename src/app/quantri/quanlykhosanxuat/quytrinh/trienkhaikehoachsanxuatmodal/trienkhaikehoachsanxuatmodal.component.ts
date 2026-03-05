@@ -10,6 +10,7 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, merge, UnixToDate, validVari
 import { BotrimaymodalComponent } from '../../modals/botrimaymodal/botrimaymodal.component';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { MathanglienketComponent } from '../../modals/mathanglienket/mathanglienket.component';
+import { StoreService } from '../../../../services/store.service';
 
 @Component({
   selector: 'app-trienkhaikehoachsanxuatmodal',
@@ -39,10 +40,13 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   PoolMaySanXuat: any = {};
   mapCongDoan_TinhTrangMay: any = {};
   listCaSanXuat: any[] = [];
-  constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private datepipe: DatePipe) {
+  isCheckPort: boolean = true;
+
+  constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private store: StoreService, private datepipe: DatePipe) {
   }
 
   ngOnInit(): void {
+    this.isCheckPort = this.store.getIsCheckPort();
     this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();

@@ -1472,7 +1472,8 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Kho vật tư phụ",
             routerLink: "/quantri/quanlykhosanxuatbongkhac/khovattuphu",
             expanded: false,
-            visible: this.showHopDongModule,
+            // visible: this.showHopDongModule,
+            visible: this.permissions?.includes('P_VATTUPHU'),
             items: [
               {
                 label: "Nhập kho",
@@ -1568,27 +1569,27 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Kho chải cotton",
             routerLink: "/quantri/hopdongsanxuat",
             expanded: false,
-            // visible: this.permissions?.includes('P_CHAICOTTON'),
+            visible: this.permissions?.includes('P_CHAICOTTON'),
             items: [
               {
                 label: "Nhập kho",
                 routerLink:
                   "/quantri/hopdongsanxuat/khochaicotton/nhapkho/0",
-                // visible: this.permissions?.includes('PHIEUNHAPCHAICOTTON'),
+                visible: this.permissions?.includes('PHIEUNHAPCHAICOTTON'),
                 command: () => this.close(),
               },
               {
                 label: "Xuất kho",
                 routerLink:
                   "/quantri/hopdongsanxuat/khochaicotton/xuatkho/0",
-                // visible: this.permissions?.includes('PHIEUXUATCHAICOTTON'),
+                visible: this.permissions?.includes('PHIEUXUATCHAICOTTON'),
                 command: () => this.close(),
               },
               {
                 label: "Kiểm kê kho",
                 routerLink:
                   "/quantri/hopdongsanxuat/khochaicotton/kiemkekho/0",
-                // visible: this.permissions?.includes('PHIEUKIEMKECHAICOTTON'),
+                visible: this.permissions?.includes('PHIEUKIEMKECHAICOTTON'),
                 command: () => this.close(),
               }
             ],
@@ -1597,7 +1598,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Kho chải kỹ",
             routerLink: "/quantri/hopdongsanxuat",
             expanded: false,
-            // visible: this.permissions?.includes('P_CHAIKY'),
+            visible: this.permissions?.includes('P_CHAIKY'),
             items: [
               {
                 label: "Nhập kho",

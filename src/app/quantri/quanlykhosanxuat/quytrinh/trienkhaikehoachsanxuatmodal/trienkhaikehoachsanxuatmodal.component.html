@@ -181,7 +181,7 @@
                 <div class="p-d-flex p-flex-row">
                     <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
                         (click)="chonHangHoa()"></button>
-                    <button pButton pRipple type="button" label="Bổ sung cúi" class="p-mr-2 p-button-sm"
+                    <button *ngIf="isCheckPort" pButton pRipple type="button" label="Bổ sung cúi" class="p-mr-2 p-button-sm"
                         (click)="chonNhieuMatHang()"></button>
                     <p-dropdown [filter]="true" [options]="listCongDoan" styleClass="p-inputtext-sm pl-2"
                         [(ngModel)]="filter.CongDoan" (onChange)="chonCongDoan($event.value)"></p-dropdown>
@@ -222,7 +222,7 @@
                         <col>
                         <col *ngIf="filter.CongDoan ==='THO'">
                         <col style="width:120px">
-                        <col style="width:120px">
+                        <col *ngIf="isCheckPort" style="width:120px">
                         <col style="width:120px">
                         <col style="width:120px">
                         <col style="width:120px">
@@ -237,7 +237,7 @@
                         <th>Mặt hàng</th>
                         <th *ngIf="filter.CongDoan ==='THO'">Nm</th>
                         <th>Kế hoạch triển khai(Tấn)</th>
-                        <th>Số tấn đặt</th>
+                        <th *ngIf="isCheckPort">Số tấn đặt</th>
                         <th>Sản lượng ca (kg)</th>
                         <th>Năng suất định mức (kg/ca/máy)</th>
                         <th>Số máy cần</th>
@@ -260,7 +260,7 @@
                                 [(ngModel)]="mathang.KhoiLuongSanXuat">
                             </p-inputNumber> -->
                         </td>
-                        <td class="text-right">
+                        <td *ngIf="isCheckPort" class="text-right">
                             {{mathang.SanLuongDat|number:'0.0-2'}}
                         </td>
                         <td class="text-right">

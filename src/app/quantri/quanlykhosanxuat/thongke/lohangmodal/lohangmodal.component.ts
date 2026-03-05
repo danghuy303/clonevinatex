@@ -9,6 +9,7 @@ import { DanhmuctaisanService } from '../../../../services/Taisan/danhmuctaisan.
 import { API } from '../../../../services/host';
 import { mapQuyTrinhRoute } from '../../../../services/mapquytrinhroute';
 import * as printJS from 'print-js';
+import { StoreService } from '../../../../services/store.service';
 
 @Component({
   selector: 'app-lohangmodal',
@@ -38,13 +39,15 @@ export class LohangmodalComponent implements OnInit {
   QuyTrinhRoute: any = mapQuyTrinhRoute;
   item_MaQR: any = '';
   QRType: any = '';
+  isCheckPort: boolean = true;
 
-  constructor(public activeModal: NgbActiveModal,
+  constructor(public activeModal: NgbActiveModal, private store: StoreService,
     private services: SanXuatService,
     public toastr: ToastrService, private _modal: NgbModal,
     private _danhMucTaiSan: DanhmuctaisanService) { }
 
   ngOnInit(): void {
+    this.isCheckPort = this.store.getIsCheckPort();
     if (this.opt !== 'edit')
       this.item.HoatDong = true
     this.getListGiaoKeHoach();
@@ -175,7 +178,7 @@ export class LohangmodalComponent implements OnInit {
     this.isQR = !this.isQR;
     this.item.KhoGiay = 8;
   }
-  toggleZoomQR(_MaQR:any) {
+  toggleZoomQR(_MaQR: any) {
     this.isQRZoomed = !this.isQRZoomed;
     this.QRType = _MaQR;
   }

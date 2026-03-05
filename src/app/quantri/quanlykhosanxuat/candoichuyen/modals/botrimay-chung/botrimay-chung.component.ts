@@ -36,13 +36,15 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   listPhanXuong: any = [];
   isShowGanPAB: boolean = false;
   listPhaBong: any = [];
+  isCheckPort: boolean = true;
 
-  constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
+  constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private store: StoreService,
     private _auth: AuthenticationService,) {
     super(activeModal)
   }
 
   ngOnInit(): void {
+    this.isCheckPort = this.store.getIsCheckPort();
     if (this.item.listCanBoTri.length > 0) {
       this.userInfo = this._auth.currentUserValue;
       if (this.item.listCanBoTri[0].CreatedBy !== this.userInfo.Id)

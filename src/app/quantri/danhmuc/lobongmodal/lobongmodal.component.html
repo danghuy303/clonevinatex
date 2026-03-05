@@ -58,7 +58,7 @@
                     <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuongKien" [min]="0"
                         disabled>
                     </p-inputNumber>
-                    <button type="button" (click)="handleQR()" pButton pRipple [label]="item.MaQR ? 'In QR':'Tạo QR'"
+                    <button *ngIf="isCheckPort" type="button" (click)="handleQR()" pButton pRipple [label]="item.MaQR ? 'In QR':'Tạo QR'"
                         styleClass="p-button-warn "></button>
                 </div>
             </div>

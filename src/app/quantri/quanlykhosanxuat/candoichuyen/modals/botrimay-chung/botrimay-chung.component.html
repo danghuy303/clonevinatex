@@ -21,7 +21,7 @@
                 class="p-mr-2 p-button-sm" (click)="endDieuChinh()"></button>
             <button *ngIf="dangDieuChinh" pButton pRipple type="button" label="Hủy điều chỉnh"
                 class="p-mr-2 p-button-danger p-button-sm" (click)="HuyDieuChinh()"></button>
-            <button *ngIf="this.filter.CongDoan !== 'CON'" pButton pRipple type="button" label="Cấp nhà máy khác"
+            <button *ngIf="this.filter.CongDoan !== 'CON' && isCheckPort" pButton pRipple type="button" label="Cấp nhà máy khác"
                 class="p-mr-2 p-button-sm" (click)="capNhaMayKhac()"></button>
             <button *ngIf="this.filter.CongDoan === 'CHAICOTTON'" pButton pRipple type="button" label="Gán PAB"
                 class="p-mr-2 p-button-sm" (click)="ganPAB()"></button>
