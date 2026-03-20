@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
-import { DateToUnix, UnixToDate } from "src/app/services/globalfunction"; 
+import { DateToUnix, UnixToDate } from "src/app/services/globalfunction";
 import { DanhGiaNhaCungUngModalComponent } from './danh-gia-nha-cung-ung-modal/danh-gia-nha-cung-ung-modal.component';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,9 +14,9 @@ import { StoreService } from 'src/app/services/store.service';
   templateUrl: './danh-gia-nha-cung-ung.component.html',
   styleUrls: ['./danh-gia-nha-cung-ung.component.css']
 })
-export class DanhGiaNhaCungUngComponent implements OnInit {
+export class DanhGiaNhaCungUngComponent implements OnInit, OnDestroy {
   $sub!: Subscription;
-  @ViewChild('paginator') paginator:any;
+  @ViewChild('paginator') paginator: any;
   filter: any = {};
   eAction: any = "QUYTRINHDANHGIANHACUNGUNG";
   trangThai: any = 1;
@@ -24,6 +24,7 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   paging: any = {};
   items: any = {};
+  $subRoute!: Subscription;
 
   constructor(
     public modal: NgbModal,
@@ -33,29 +34,40 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private store: StoreService
-  ) { 
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-          this.ngOnInit()
-      }
-  })
-  }
+  ) { }
 
   ngOnInit(): void {
-
-    this.ResetFilter();
-    this.KiemTraTabTrangThai();
-    this.activatedRoute.params.subscribe((res: any) => {
-
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this.taiSanService
-        .DanhGiaNhaCungUng()
-        .Get(res.id)
-        .subscribe((res: any) => {
+          .DanhGiaNhaCungUng()
+          .Get(res.id)
+          .subscribe((res: any) => {
             this.Update(res);
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
+    this.ResetFilter();
+    this.KiemTraTabTrangThai();
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
   }
 
   changeParam(id) {
@@ -86,7 +98,7 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
     if (reset) {
       this.paging.currentPage = 1;
     }
-    let data  = {
+    let data = {
       CurrentPage: this.paging.currentPage,
       PageSize: 20,
       Keyword: this.filter.keyword,
@@ -96,11 +108,11 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0,
     }
-    this.taiSanService.DanhGiaNhaCungUng().GetList(data).subscribe((res: any) =>{
+    this.taiSanService.DanhGiaNhaCungUng().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
       this.paging.totalCount = res.Data.TotalCount;
     })
-  } 
+  }
 
   Add() {
     let modalRef = this.modal.open(DanhGiaNhaCungUngModalComponent, {
@@ -109,10 +121,10 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.result
-      .then((res: any) =>{
+      .then((res: any) => {
       })
-      .catch((err) =>{})
-      .finally(()=>{
+      .catch((err) => { })
+      .finally(() => {
         this.LoadData(true);
         this.changeParam(0);
       })
@@ -127,11 +139,11 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
     // modalRef.componentInstance.quyTrinh.Id = id;
     modalRef.componentInstance.quyTrinh = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
-      .then((res: any) =>{
-  
+      .then((res: any) => {
+
       })
-      .catch(er=>{})
-      .finally(()=>{
+      .catch(er => { })
+      .finally(() => {
         this.LoadData(true);
         this.changeParam(0);
       })

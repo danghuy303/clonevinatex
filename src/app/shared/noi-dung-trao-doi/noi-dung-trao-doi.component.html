@@ -1,0 +1,30 @@
+<div class="p-p-2 p-mb-3" style="border:1px solid #dee2e6; border-radius:6px; width:100%" (click)="textarea.focus()">
+    <div *ngIf="traoDoi.listFileDinhKem.length" class="files p-grid p-p-3">
+
+        <div *ngFor="let file of traoDoi.listFileDinhKem; let i = index"
+            class="file p-col-fixed p-p-2 p-mr-3 p-mb-3 p-grid"
+            style="width:10rem; border-radius:6px; background:#f8f9fa;">
+
+            <div class="p-col-12" style="text-align:right">
+                <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-outlined"
+                    (click)="DeleteFileTraoDoi(i)">
+                </button>
+            </div>
+            <div class="p-col-12" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
+                <b>{{file.FileName}}</b>
+                <p>{{file.Size/1000}} KB</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="w-full">
+        <textarea #textarea pInputTextarea class="no-border" [rows]="1" [(ngModel)]="traoDoi.NoiDungTraoDoi"
+            placeholder="Nhập nội dung" [autoResize]="true"></textarea>
+    </div>
+    <div class="col-12 d-flex p-jc-end">
+        <app-upload-file [multiple]="false" label="" [textIcon]="true"
+            (itemChange)="handleChangeItem($event)"></app-upload-file>
+        <button pButton pRipple type="button" class="p-button-rounded" icon="pi pi-envelope"
+            (click)="SetTraoDoi()"></button>
+    </div>
+</div>

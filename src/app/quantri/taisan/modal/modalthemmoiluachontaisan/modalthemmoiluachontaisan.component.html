@@ -22,9 +22,9 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span> : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại vật tư <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="LayMa($event)"
+                <p-dropdown [filter]="true" [options]="listLoaiVatTu" (onChange)="LayMa($event)"
                     placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"></p-dropdown>
             </div>
         </div>
@@ -38,9 +38,9 @@
 
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhóm tài sản <span class="text-danger">(*)</span>: </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhóm vật tư <span class="text-danger">(*)</span>: </label>
             <div class="p-col-12 p-xl-8 p-p-0 d-flex">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TendmTaiSan " pInputText disabled />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TendmTaiSan" pInputText disabled />
                 <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="ChonTaiSan()"></button>
             </div>
         </div>

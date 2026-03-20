@@ -26,26 +26,26 @@ export class DanhmucloaitaisanComponent implements OnInit {
     {
       header: 'Mã',
       field: 'Ma',
-      width: '100px',
-      align: 'center'
+      width: '150px',
+      align: ''
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '150px',
-      align: 'center'
+      width: '250px',
+      align: ''
     },
-    {
-      header: 'Công đoạn',
-      field: 'TenCongDoan',
-      width: '150px',
-      align: 'center'
-    },
+    // {
+    //   header: 'Công đoạn',
+    //   field: 'TenCongDoan',
+    //   width: '150px',
+    //   align: 'center'
+    // },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
-      width: '150px',
-      align: 'center'
+      width: '',
+      align: ''
     },
   ];
   selectedItems: any = [];
@@ -54,7 +54,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetList();
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
   getListCongDoan() {
     this._danhMucTaiSan.GetlistCongDoan().GetList().subscribe((res: any) => {

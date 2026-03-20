@@ -80,7 +80,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
   }
 
   GetListdmPhanXuong() {
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

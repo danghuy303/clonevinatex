@@ -63,7 +63,7 @@ export class LichxichnamComponent implements OnInit {
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
     })
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.filter.isChon = 'theoBaoDuong'

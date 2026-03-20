@@ -40,14 +40,18 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/quill/dist/quill.snow.css"
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.js",
               "node_modules/chartjs-plugin-labels/src/chartjs-plugin-labels.js",
               "node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js",
               "node_modules/@fortawesome/fontawesome-free/js/all.js",
-              "node_modules/chartjs-plugin-zoom/chartjs-plugin-zoom.min.js"
+              "node_modules/chartjs-plugin-zoom/chartjs-plugin-zoom.min.js",
+              "node_modules/quill/dist/quill.js"
             ]
           },
           "configurations": {
@@ -120,13 +124,17 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/quill/dist/quill.snow.css"
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.js",
               "node_modules/chartjs-plugin-labels/src/chartjs-plugin-labels.js",
               "node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js",
-              "node_modules/@fortawesome/fontawesome-free/js/all.js"
+              "node_modules/@fortawesome/fontawesome-free/js/all.js",
+              "node_modules/quill/dist/quill.js"
             ]
           }
         },

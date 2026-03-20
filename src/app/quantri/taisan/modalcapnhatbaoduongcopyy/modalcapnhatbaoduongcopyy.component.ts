@@ -32,17 +32,20 @@ export class
   ) { }
 
   ngOnInit(): void {
-
     let data = { Keyword: "", CurrentPage: 0, PageSize: 2, IddmLoaiTaiSan: this.LayId.IddmLoaiTaiSan };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetList(data).subscribe((res: any) => {
       this.items = res.Data;
       this.listLoaiBaoDuong = mapArrayForDropDown(res.Data, "Ten", "Id");
+      if (this.item.IddmLoaiBaoDuong) {
+        this.chonLoaiBaoDuong(this.item.IddmLoaiBaoDuong);
+      }
     })
+
   }
-  chonLoaiBaoDuong(e) {
+  chonLoaiBaoDuong(e: any) {
     let filter;
-    if (e.value !== '') {
-      filter = this.items.find(ele => ele.Id === e.value);
+    if (e !== '') {
+      filter = this.items.find((ele: any) => ele.Id === e);
       this.item.ThoiGianNangSuat = filter?.ThoiGianNangSuat;
       this.item.NoiDung = filter?.NoiDung;
       this.item.MaLoaiThoiGian = filter?.MaLoaiThoiGian;
@@ -56,17 +59,17 @@ export class
     let text = `${this.item.ThoiGianBaoDuong}`;
     switch (this.item.MaLoaiThoiGian) {
       case `NGAY`:
-        text += " lần ngày"
+        text += " ngày/lần"
         break;
 
       case `TUAN`:
-        text += " lần Tuần"
+        text += " tuần/lần"
         break;
       case `THANG`:
-        text += " lần tháng"
+        text += " tháng/lần"
         break;
       case `NAM`:
-        text += " lần năm"
+        text += " năm/lần"
         break;
       default:
         break;

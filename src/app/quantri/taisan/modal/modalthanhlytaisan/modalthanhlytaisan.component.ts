@@ -7,7 +7,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, getSTT, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
-import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { TaisanService } from '../../../../services/Taisan/taisan.service';
 import { ModalchontaisanCopyComponent } from '../modalchontaisan-copy/modalchontaisan-copy.component';
 import { ModalchontaisanThanhlyCopyComponent } from '../modalchontaisan-thanhly-copy/modalchontaisan-thanhly-copy.component';
 import { ModalchontaisanComponent } from '../modalchontaisan/modalchontaisan.component';

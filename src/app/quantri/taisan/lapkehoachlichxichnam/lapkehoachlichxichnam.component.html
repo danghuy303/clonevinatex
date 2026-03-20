@@ -37,39 +37,40 @@
                 <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bộ phận sử dụng: <span class="required">(*)</span></label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+        <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Bộ phận sử dụng: <span class="required">(*)</span></label>
+            <div class="p-col-12 p-lg-9 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" [showClear]="true"
                     [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ThemMoiDanhSachTaiSan()"
                     placeholder="Chọn bộ phận"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
+        <!-- <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chọn công đoạn: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown #congdoan [filter]="true" [showClear]="true" [options]="listCongDoan"
                     [(ngModel)]="item.MaCongDoan" (onChange)="ThemMoiDanhSachTaiSan()" [resetFilterOnHide]="true"
                     placeholder="Chọn công đoạn"></p-dropdown>
             </div>
-        </div>
-        <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn năm: <span class="required">(*)</span></label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="item.Nam" placeholder="Chọn năm"
-                    (onChange)="ThemMoiDanhSachTaiSan()" styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
+        </div> -->
+         <div class="p-col-12 p-lg-7 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu"></textarea>
+                <textarea pInputTextarea class="p-inputtext-sm" [rows]="1" [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
-            <div class="p-field-checkbox p-col-12 p-p-0 my-auto">
-                <p-checkbox [(ngModel)]="item.isThayThe" binary="true" inputId="binary"></p-checkbox>
-                <label for="binary">Thay thế </label>
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Chọn năm: <span class="required">(*)</span></label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="item.Nam" placeholder="Chọn năm"
+                    (onChange)="ThemMoiDanhSachTaiSan()" styleClass="p-inputtext-sm p-ml-1"></p-dropdown>
+            </div>
+        </div>
+       
+        <div class="p-col-12 p-lg-2 p-pt-0 d-flex flex-column flex-xl-row">
+            <div class="">
+                <p-checkbox [(ngModel)]="item.isThayThe" binary="true" inputId="binary" class="p-mb-2"></p-checkbox>
+                <label for="binary" class="p-mt-2 p-ml-2">Thay thế </label>
             </div>
         </div>
     </div>

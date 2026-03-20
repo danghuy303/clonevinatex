@@ -200,16 +200,22 @@
 
 
     <div class="p-grid">
-        <div class="p-col-12 p-lg-3 p-p-2">
+        <div class="p-col-12 p-lg-2 p-p-2">
             <label class="">Mã <span class="text-danger">(*)</span> :</label>
             <div class="">
                 <input locale="en-EN" [(ngModel)]="item.Ma" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-5 p-p-2">
+        <div class="p-col-12 p-lg-4 p-p-2">
             <label class="">Tên <span class="text-danger">(*)</span>:</label>
             <div class="">
                 <input locale="en-EN" [(ngModel)]="item.Ten" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-1 p-p-2">
+            <label class="">Ký hiệu <span class="text-danger">(*)</span> :</label>
+            <div class="">
+                <input locale="en-EN" [(ngModel)]="item.KyHieu" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-2">
@@ -220,14 +226,9 @@
                     defaultLabel="Chọn"></p-multiSelect>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-2">
-            <label class="">Ký hiệu <span class="text-danger">(*)</span> :</label>
-            <div class="">
-                <input locale="en-EN" [(ngModel)]="item.KyHieu" pInputText />
-            </div>
-        </div>
         <div class="p-col-12 p-lg-1 p-p-2 d-flex align-items-center">
-            <div class="p-field-checkbox p-col-12 p-lg-10 p-p-0 my-auto">
+             <label class="">&nbsp;</label>
+            <div class="p-field-checkbox p-p-0 p-mt-1 my-auto">
                 <p-checkbox [(ngModel)]="item.isHoatDong" binary="true" inputId="binary"></p-checkbox>
                 <label for="binary">Hoạt động </label>
             </div>

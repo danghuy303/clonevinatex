@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './quytrinhbaoduong.component.html',
   styleUrls: ['./quytrinhbaoduong.component.css']
 })
-export class QuytrinhbaoduongComponent implements OnInit {
+export class QuytrinhbaoduongComponent implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
@@ -29,23 +29,18 @@ export class QuytrinhbaoduongComponent implements OnInit {
   listPhanXuong: any = [];
   listNam: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
+
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) {  this.$sub = this.store.getNhaMay().subscribe(res => {
-    if (res) {
-        this.ngOnInit()
-    }
-})}
+  ) { }
 
   ngOnInit(): void {
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
-      this.listNam.push({ value: i, label: i });
-    }
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .QuyTrinhBaoDuong()
@@ -55,9 +50,32 @@ export class QuytrinhbaoduongComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
+    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+      this.listNam.push({ value: i, label: i });
+    }
+
     this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
   }
 
   resetFilter() {
@@ -77,7 +95,7 @@ export class QuytrinhbaoduongComponent implements OnInit {
       Keyword: this.filter.Keyword,
       IdDuAn: 0,
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-      TabTrangThai:this.trangThai,
+      TabTrangThai: this.trangThai,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       IdUser: "",
@@ -89,7 +107,7 @@ export class QuytrinhbaoduongComponent implements OnInit {
     })
   }
   GetListdmPhanXuong() {
-    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.GetList();
     })
@@ -108,6 +126,7 @@ export class QuytrinhbaoduongComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = '';
+    modalRef.componentInstance.listPhanXuong = this.listPhanXuong || [];
     modalRef.componentInstance.item = {
       Id: '', IdTrangThai: '', TenTrangThai: "", SoQuyTrinh: '',
       isKetThuc: false, listTaiSan: [], IdDuAn: 0,
@@ -130,7 +149,8 @@ export class QuytrinhbaoduongComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật thu hồi tài sản'
+    modalRef.componentInstance.title = 'Cập nhật thu hồi tài sản';
+    modalRef.componentInstance.listPhanXuong = this.listPhanXuong || [];
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

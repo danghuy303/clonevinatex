@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './thoihancungcapvattu.component.html',
   styleUrls: ['./thoihancungcapvattu.component.css']
 })
-export class ThoihancungcapvattuComponent implements OnInit {
+export class ThoihancungcapvattuComponent implements OnInit, OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -30,24 +30,16 @@ export class ThoihancungcapvattuComponent implements OnInit {
   listPhanXuong: any = [];
   listNam: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { 
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-          this.ngOnInit()
-      }
-  })
-  }
+  ) { }
   ngOnInit(): void {
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
-      this.listNam.push({ value: i, label: i });
-    }
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .ThoiHanCungCap()
@@ -57,9 +49,31 @@ export class ThoihancungcapvattuComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
+    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+      this.listNam.push({ value: i, label: i });
+    }
     this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
   }
 
   resetFilter() {

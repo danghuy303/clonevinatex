@@ -1,47 +1,88 @@
-<div class="comment">
+<div>
+    <app-noi-dung-trao-doi [IdTable]="IdTable" [eAction]="eAction" (traoDoiChange)="HandleTraoDoi($event)">
+    </app-noi-dung-trao-doi>
 
-    <!-- title -->
-    <h3 class="title">Trao đổi</h3>
-
-    <p-scrollPanel [style]="{width: '100%', height: '400px', marginBottom: '16px'}" class="p-scrollpanel-bar-y" styleClass="custom" #panel>
-        <!-- content -->
-        <div class="comment-container" [class.right]="comment.userId===currentUserId?true:false" *ngFor="let comment of listComment">
-            <div class="comment-content">
-                <div class="user-img">
-                    <img class="" [src]="comment.userImg" [alt]="comment.userName">
+    <div *ngIf="listTraoDoi.length" class="comments p-my-2">
+        <div *ngFor="let traodoi of listTraoDoi" class="comment">
+            <div class="d-flex">
+                <div>
+                    <img src="/assets/img/anonymous-user.png" style="width:3rem;border-radius:50%;margin-right:1rem">
                 </div>
-                <div class="comment-detail">
-                    <div class="time">
-                        <span>{{comment.userName}}, </span>
-                        <span>{{comment.time | date:'MMM d, y, h:mm:ss a'}}</span>
+                <div>
+                    <div class="p-d-flex p-mb-1">
+                        <h5 style="margin-right:1rem">{{ traodoi.TenNguoiTao }}</h5>
+                        <p style="color:#6c757d">
+                            {{ traodoi.Created | date:"dd/MM/yyyy hh:mm a" }}
+                        </p>
                     </div>
-                    <div class="comment-text">
-                        <p style="white-space: pre-line">{{comment.message}}</p>
-                        <a *ngFor="let file of comment.uploadFiles" style="color: #fff; text-decoration: underline" href="http://localhost:4200/#/quantri/taisan/bangiaotaisan">
-                            {{file.name}}
-                        </a>
+                    <div style="white-space:pre-wrap;margin-bottom:.5rem">
+                        {{ traodoi.NoiDungTraoDoi }}
+                    </div>
+                    <div *ngIf="traodoi.listFileDinhKem.length">
+                        <div *ngFor="let file of traodoi.listFileDinhKem">
+                            <a [href]="host + file.Link" target="_blank">
+                                <i class="pi pi-download"></i>
+                                {{ file.FileName }}
+                            </a>
+                            <button pButton type="button" icon="pi pi-eye"
+                                class="p-button-rounded p-button-text p-button-secondary" pTooltip="Xem trước tài liệu"
+                                (click)="showViewTraoDoi(file.Id,file.Module)">
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </p-scrollPanel>
 
-    <div class="comment-input">
-        <div class="comment-input-file" #commentInput>
-            <ul class="upload-file-list" [class.display]="uploadedFiles">
-                <li class="upload-file-item" *ngFor="let file of uploadedFiles">
-                    <i (click)="deleteUploadedFile(file.name)" class="delete-file-btn pi pi-times"></i>
-                    <i class="pi pi-file-o" style="margin-bottom: 6px; margin-top: 6px"></i>
-                    <span style="margin-bottom: 6px">{{file.name}}</span>
-                    <span>{{(file.size / 1000)}} KB</span>
-                </li>
-            </ul>
+            <div class="p-col-12 p-d-flex p-jc-end">
+                <button pButton label="Trả lời" class="p-button-link" (click)="DisplayEvent(traodoi,'reply')">
+                </button>
+                <button *ngIf="traodoi.listChild.length && traodoi.expanded" pButton label="Thu gọn"
+                    class="p-button-link" (click)="DisplayEvent(traodoi,'expanded')">
+                </button>
+                <button *ngIf="traodoi.listChild.length && !traodoi.expanded" pButton label="Hiện thêm"
+                    class="p-button-link" (click)="DisplayEvent(traodoi,'expanded')">
+                </button>
+                <button pButton [label]="'Tổng số trả lời: ' + (traodoi.listChild?.length || 0)" class="p-button-link">
+                </button>
+
+            </div>
+            <app-noi-dung-trao-doi *ngIf="traodoi.reply" [IdTable]="IdTable" [eAction]="eAction"
+                [IdParent]="traodoi.Id" (traoDoiChange)="HandleTraoDoi($event)">
+            </app-noi-dung-trao-doi>
+
+            <ng-container *ngIf="traodoi.listChild.length && traodoi.expanded">
+                <div *ngFor="let child of traodoi.listChild"
+                    style="background:#f5f5f5;padding:.5rem .5rem .5rem 1.2rem; width: 100%;">
+                    <div class="d-flex">
+                        <div>
+                            <img src="/assets/img/anonymous-user.png"
+                                style="width:3rem;border-radius:50%;margin-right:1rem">
+                        </div>
+                        <div>
+                            <div class="p-d-flex">
+                                <h5 style="margin-right:1rem">{{ child.TenNguoiTao }}</h5>
+
+                                <p style="color:#6c757d">
+                                    {{ child.Created | date:"dd/MM/yyyy hh:mm a" }}
+                                </p>
+                            </div>
+                            <div style="margin-bottom:.5rem">
+                                {{ child.NoiDungTraoDoi }}
+                            </div>
+                            <div *ngIf="child.listFileDinhKem.length">
+                                <div *ngFor="let fileChild of child.listFileDinhKem">
+                                    <a [href]="host + fileChild.Link" target="_blank">
+                                        <i class="pi pi-download"></i>
+                                        {{ fileChild.FileName }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div style="border-bottom:1px solid #dee2e6;width:100%"></div>
         </div>
-        <div class="comment-input-type">
-            <textarea [rows]="1" class="message" pInputTextarea autoResize="autoResize" [(ngModel)]="message" [class.message-fixed-radius]="uploadedFiles" ></textarea>
-            <button pButton pRipple [style]="{marginRight: '8px'}" type="button" icon="pi pi-check" class="p-button-rounded" (click)="addNewMessage()"></button>
-            <p-fileUpload mode="basic" name="demo[]" maxFileSize="10000000000" chooseLabel="Tải file lên" [style]="{borderRadius: '20px'}" [customUpload]="true" (uploadHandler)="myuploader($event)" [multiple]="'multiple'" [auto]="true" #fileUpload></p-fileUpload>
-        </div>
+
     </div>
-
 </div>

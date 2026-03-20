@@ -9,7 +9,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
-import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { TaisanService } from '../../services/Taisan/taisan.service';
 import { PintableDirective } from 'voi-lib';
 import { ModalbaoduongComponent } from '../taisan/modal/modalbaoduong/modalbaoduong.component';
 import { ModalthongtinchitiettaisanComponent } from '../taisan/modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
@@ -93,7 +93,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
     })
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
       if (this.filter.IddmPhanXuong) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -17,7 +17,7 @@ import { ModalthongtinchitiettaisanComponent } from '../modal/modalthongtinchiti
   templateUrl: './capnhatthuvien.component.html',
   styleUrls: ['./capnhatthuvien.component.css']
 })
-export class CapnhatthuvienComponent implements OnInit {
+export class CapnhatthuvienComponent implements OnInit, OnDestroy {
   $sub!: Subscription;
   filter: any = {};
   Keyword: any = '';
@@ -28,6 +28,7 @@ export class CapnhatthuvienComponent implements OnInit {
   items: TreeNode[];
   listLoaiTaiSan: any = [];
   listPhanXuong: any = [];
+  $subRoute!: Subscription;
 
   constructor(
     public _modal: NgbModal,
@@ -37,16 +38,10 @@ export class CapnhatthuvienComponent implements OnInit {
     private _danhMucTaiSan: DanhmuctaisanService,
     private activatedRoute: ActivatedRoute, private router: Router,
     private store: StoreService
-  ) {
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-        this.ngOnInit()
-      }
-    })
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan.ThuVienTaiSan().Get(res.id)
           .subscribe((res1: any) => {
@@ -54,19 +49,36 @@ export class CapnhatthuvienComponent implements OnInit {
           });
       }
     });
-    // this.getList();
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       res.push({ Ten: "Chưa có bộ phận sử dụng", Id: "Chưa có bộ phận sử dụng" })
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
-      if(this.filter.IddmPhanXuong) {
+      if (this.filter.IddmPhanXuong) {
         this.getList();
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
   }
 
   resetFilter() {
@@ -88,7 +100,7 @@ export class CapnhatthuvienComponent implements OnInit {
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       Keyword: this.filter.Keyword,
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-      isList:true
+      isList: true
     };
     this._serviceTaiSan.ThuVienTaiSan().GetList(data).subscribe((res: any) => {
       this.paging.CurrentPage = res.Data.Page;

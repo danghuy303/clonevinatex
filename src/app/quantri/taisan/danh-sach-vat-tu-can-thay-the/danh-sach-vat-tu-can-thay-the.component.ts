@@ -59,7 +59,7 @@ export class DanhSachVatTuCanThayTheComponent implements OnInit {
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listBoPhanSuDung = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.labelThang = [

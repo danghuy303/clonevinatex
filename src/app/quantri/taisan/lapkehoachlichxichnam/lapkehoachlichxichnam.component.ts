@@ -91,9 +91,9 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listCongDoan = mapArrayForDropDown(values[1], "Ten", "Ma");
     });
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
+    // this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
+    //   this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    // })
     this.KiemTraButtonModal();
     // this.customerDiffer = this.differs.find(this.item).create();
   }
@@ -148,7 +148,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   setData() {
     this.item.ThoiGian = new Date(this.item.Nam, 0, 2);
     this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian);
-    this.item.listTaiSan = this.item.listTaiSan.filter(ele => !ele.isXoa);
+    this.item.listTaiSan = this.item.listTaiSan?.filter((ele:any) => !ele.isXoa);
     return this.item;
   }
 

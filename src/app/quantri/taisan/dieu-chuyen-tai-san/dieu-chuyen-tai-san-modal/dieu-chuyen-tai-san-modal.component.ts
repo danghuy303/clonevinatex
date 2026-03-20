@@ -52,7 +52,7 @@ export class DieuChuyenTaiSanModalComponent implements OnInit {
       this.listTaiSan_copy = listTaiSan;
     }
     if (validVariable(this.item.IdDuAn)) {
-      this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+      this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
         this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
       });
     }

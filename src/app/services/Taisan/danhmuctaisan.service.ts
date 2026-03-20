@@ -336,7 +336,7 @@ export class DanhmuctaisanService {
   }
 
   SetQRCODE(data) {
-    return this.http.post(`${API.SCM}DanhMuc/SetQRCODE`, data, httpOptions)
+    return this.http.post(`${API.TaiSan}DanhMuc/SetQRCODE`, data, httpOptions)
   }
   SetQRCODELoBong(data) {
     return this.http.post(`${API.SCM}DanhMuc/SetQRCODELoBong`, data, httpOptions)
@@ -348,7 +348,7 @@ export class DanhmuctaisanService {
     return this.http.post(`${API.SCM}DanhMuc/InQrCodeLoHang`, data, httpOptions)
   }
   GetListQRCODE(data) {
-    return this.http.post(`${API.SCM}DanhMuc/GetListQRCODE`, data, httpOptions)
+    return this.http.post(`${API.TaiSan}DanhMuc/GetListQRCODE`, data, httpOptions)
   }
   // InQrCodeLoBong(IdLoBong, KichThuoc) {
   //   return this.http.get(`${API.SCM}DanhMuc/InQrCodeLoBong?IdLoBong=${IdLoBong}&KichThuoc=${KichThuoc}`, httpOptions)
@@ -360,11 +360,11 @@ export class DanhmuctaisanService {
     return this.http.post(`${API.SCM}DanhMuc/SetHuyQrCode`, data, httpOptions)
   }
   InQrCode(data) {
-    return this.http.post(`${API.SCM}DanhMuc/InQrCode`, data, httpOptions)
+    return this.http.post(`${API.TaiSan}DanhMuc/InQrCode`, data, httpOptions)
   }
 
   GetlistLoaiQR() {
-    return this.http.get(`${API.SCM}DanhMuc/GetlistLoaiQR`, httpOptions)
+    return this.http.get(`${API.TaiSan}DanhMuc/GetlistLoaiQR`, httpOptions)
   }
 
 

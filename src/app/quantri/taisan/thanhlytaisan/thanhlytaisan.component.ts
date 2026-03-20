@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -13,35 +13,31 @@ import { Subscription } from 'rxjs';
   templateUrl: './thanhlytaisan.component.html',
   styleUrls: ['./thanhlytaisan.component.css']
 })
-export class ThanhlytaisanComponent implements OnInit {
+export class ThanhlytaisanComponent implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
   keyWord: any = '';
-  paging: any = {  CurrentPage: 1, TotalPages: 1, TotalCount: 1};
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   selectedItems: any = [];
   filter: any = {};
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "THANHLYTAISAN";
-  listPhanXuong:any=[];
+  listPhanXuong: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) {
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-          this.ngOnInit()
-      }
-  })
-   }
+  ) { }
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res: any) => {
+
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .ThanhLyTaiSan()
@@ -51,10 +47,30 @@ export class ThanhlytaisanComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
     this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
+  }
+
   resetFilter() {
     this.filter = {};
     this.GetList(true);
@@ -75,7 +91,7 @@ export class ThanhlytaisanComponent implements OnInit {
       // res.Data.Items.forEach(obj=>{  
       //   obj.TenPhanXuong = this.listPhanXuong.find(ele=>ele.value===obj.IddmPhanXuong)?.label||null;          
       // });
-      this.items = res.Data.Items;  
+      this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
@@ -93,14 +109,14 @@ export class ThanhlytaisanComponent implements OnInit {
     let modalRef = this._modal.open(ModalthanhlytaisanComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
-      keyboard:false
+      keyboard: false
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = ' Thanh lý tài sản';
     modalRef.componentInstance.item = {
-      Id: '',IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",TendmPhanXuong:"",
-      isKetThuc: false,listFileDinhKem:[],listTaiSan:[],
+      Id: '', IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "", TendmPhanXuong: "",
+      isKetThuc: false, listFileDinhKem: [], listTaiSan: [],
     };
     modalRef.result.then(res => {
     }).catch(er => console.log(er))

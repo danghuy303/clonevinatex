@@ -21,7 +21,8 @@ export class
     private currentAccess_Token: BehaviorSubject<any>;
 
     constructor(private http: HttpClient, private router: Router) {
-        this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
+        const currentUserData = localStorage.getItem('currentUser');
+        this.currentUserSubject = new BehaviorSubject<any>(currentUserData ? JSON.parse(currentUserData) : null);
         this.currentAccess_Token = new BehaviorSubject<any>(localStorage.getItem('access_token'));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -31,6 +32,19 @@ export class
     }
     public get currentTokenValue(): any {
         return this.currentAccess_Token.value;
+    }
+    public isTokenValid(): boolean {
+        const token = localStorage.getItem('access_token');
+        if (!token) return false;
+        
+        try {
+            // Giải mã JWT token để kiểm tra thời hạn (nếu cần)
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const currentTime = Math.floor(Date.now() / 1000);
+            return payload.exp > currentTime;
+        } catch (error) {
+            return false;
+        }
     }
     public GetCurrentUser() {
         const url = API.auth + 'QuanTri/GetCurrentUser';

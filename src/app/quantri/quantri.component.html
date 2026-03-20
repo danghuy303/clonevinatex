@@ -1,6 +1,6 @@
 <div class="navbar">
     <div class="menu">
-        <div style="padding-right: 15px; margin:auto 0px">
+        <div style="padding-right: 10px; margin:auto 0px">
             <p-button type="text" (click)="Dislay()" icon="pi pi-bars" styleClass="p-button-text p-button-lg">
             </p-button>
             <p-overlayPanel #listNoti [style]="{width: '400px',left:'0px',padding:'0px'}" styleClass="zero-padding">
@@ -85,30 +85,31 @@
                 </ng-template>
             </p-overlayPanel>
         </div>
-        <div style="padding-right: 15px; margin:auto 0px; position: relative;">
+        <div style="padding-right: 10px; margin:auto 0px; position: relative;">
+            <p-button type="text" icon="pi pi-home" styleClass="p-button-text p-button-lg"
+                [ngbPopover]="popContentHome">
+            </p-button>
+        </div>
+        <div style="padding-right: 10px; margin:auto 0px; position: relative;">
             <p-button type="text" icon="pi pi-bell" styleClass="p-button-text p-button-lg" (click)="open($event)">
             </p-button>
             <div class="badge" (click)="open($event)" *ngIf="newNoti>0">{{newNoti}}</div>
         </div>
-        <div style="padding-right: 15px; margin:auto 0px; position: relative;">
+        <div style="padding-right: 10px; margin:auto 0px; position: relative;">
             <p-button type="text" icon="pi pi-exclamation-triangle" styleClass="p-button-text p-button-lg"
                 (click)="openCanhBao($event)">
             </p-button>
             <div class="badge" (click)="openCanhBao($event)" *ngIf="newCanhBao>0">{{newCanhBao}}</div>
         </div>
-        <div style="padding-right: 15px; margin:auto 0px; position: relative;">
+        <div style="padding-right: 10px; margin:auto 0px; position: relative;">
             <p-button type="text" icon="fas fa-tasks" styleClass="p-button-text p-button-lg"
                 pTooltip="Quy trình cần xử lý" (click)="openQuyTrinhCanXuLy()">
             </p-button>
             <div class="badge" *ngIf="SluongListQuyTrinhCanXuLy>0">{{SluongListQuyTrinhCanXuLy}}</div>
         </div>
-        <div style="padding-right: 15px; margin:auto 0px; position: relative;">
-            <p-button type="text" icon="pi pi-home" styleClass="p-button-text p-button-lg"
-                [ngbPopover]="popContentHome">
-            </p-button>
-        </div>
+
         <ng-template #popContentHome>
-            <ul class="list-group">
+            <!-- <ul class="list-group">
                 <li class="list-group-item-smarteos" style="border: none; list-style: none"
                     (click)="NavigateToQuanTriSoi()">
                     <a class="link-smarteos">Quản trị sợi</a>
@@ -117,7 +118,15 @@
                     (click)="NavigateToQuanLyTaiSan()">
                     <a class="link-smarteos">Quản lý tài sản</a>
                 </li>
+            </ul> -->
+
+            <ul class="list-group">
+                <li class="list-group-item-smarteos" style="border: none; list-style: none;font-size: 14px;"
+                    *ngFor="let link of listHome">
+                    <a *ngIf="link.isHoatDong" class="link-smarteos" [href]="link.Path ? link.Path : 'javascript:void(0)'">{{link.Ten}}</a>
+                </li>
             </ul>
+
         </ng-template>
         <!-- <div>
             <img id='logo' src="https://vinatex.com.vn/wp-content/uploads/2017/09/logo.png" style="height: 50px;">

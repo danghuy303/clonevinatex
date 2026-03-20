@@ -1,6 +1,6 @@
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
@@ -26,7 +26,7 @@ import { Subscription } from "rxjs";
   templateUrl: './bangiaotaisan.component.html',
   styleUrls: ['./bangiaotaisan.component.css']
 })
-export class BangiaotaisanComponent implements OnInit {
+export class BangiaotaisanComponent implements OnInit, OnDestroy {
   $sub!: Subscription;
   filter: any = {};
   eAction: any = "QUYTRINHBANGIAOTAISAN";
@@ -37,6 +37,7 @@ export class BangiaotaisanComponent implements OnInit {
   trangThai: any = 1;
   idUser: string = '';
   listdmPhanXuong: any = [];
+  $subRoute!: Subscription;
 
   constructor(
     public _modal: NgbModal,
@@ -45,25 +46,15 @@ export class BangiaotaisanComponent implements OnInit {
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private activatedRoute: ActivatedRoute, 
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private _serviceAuth: AuthenticationService,
     private store: StoreService,
-    
-  ) { 
-    this.idUser = this._serviceAuth.currentUserValue.Id;
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-          this.ngOnInit()
-      }
-  })
-  }
+
+  ) { }
 
   ngOnInit(): void {
-    // this.resetFilter();
-    this.KiemTraTabTrangThai();
-    this.getListdmPhanXuong();
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .BanGiaoTaiSan()
@@ -73,6 +64,28 @@ export class BangiaotaisanComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+
+  }
+
+  initData() {
+    this.KiemTraTabTrangThai();
+    this.getListdmPhanXuong();
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
   }
 
   changeParam(id) {
@@ -96,7 +109,7 @@ export class BangiaotaisanComponent implements OnInit {
     this._serviceDungChung.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filter.IddmPhanXuong = this.listdmPhanXuong[0].value;
-      if(this.filter.IddmPhanXuong) {
+      if (this.filter.IddmPhanXuong) {
         this.Loaddata();
       }
     })
@@ -135,8 +148,8 @@ export class BangiaotaisanComponent implements OnInit {
       backdrop: "static"
     });
     modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.tabTrangThai = 0; 
-    modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;   
+    modalRef.componentInstance.tabTrangThai = 0;
+    modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;
     modalRef.componentInstance.item = {
       Id: "",
       IdTrangThai: "",
@@ -149,8 +162,8 @@ export class BangiaotaisanComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
       })
-      .catch((er) => {})
-      .finally(()=>{
+      .catch((er) => { })
+      .finally(() => {
         this.Loaddata(true);
         this.changeParam(0);
       });
@@ -162,7 +175,7 @@ export class BangiaotaisanComponent implements OnInit {
       backdrop: "static"
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.tabTrangThai = 0;  
+    modalRef.componentInstance.tabTrangThai = 0;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.componentInstance.item.NgayBanGiao = UnixToDate(item.Data.NgayBanGiaoUnix);
     modalRef.result
@@ -170,11 +183,11 @@ export class BangiaotaisanComponent implements OnInit {
       })
       .catch((er) => {
       })
-      .finally(()=>{
+      .finally(() => {
         this.Loaddata(true);
         this.changeParam(0);
       });
-  }  
+  }
 
   changePage(event) {
     this.paging.currentPage = event.page + 1;

@@ -28,10 +28,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
   opt: any = "";
   title: any = "";
   lang: any = vn;
-  NameFile: string;
+  NameFile: string = '';
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   itemDonVi: any = {};
-  uploader: FileUploader;
+  uploader: any = FileUploader;
   // newTableItem: any = {};
   listDonVi: any = [];
   listLoaiTaiSan: any = [];
@@ -43,7 +43,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     size: 250
   };
   listPhanXuong = [];
-  filter: { MaCongDoan, };
+  filter: any = { MaCongDoan: '' };
   dataQR: string = '';
   elementType: any = 'canvas'
 
@@ -136,7 +136,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
 
   GetListdmPhanXuong() {
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -494,5 +494,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
       popupWin.document.close();
     }
   }
+
+  handleQuayLai() {
+    this.activeModal.dismiss();
+  }
+
 
 }

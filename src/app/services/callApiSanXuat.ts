@@ -11,6 +11,12 @@ export class SanXuatService {
     constructor(private http: HttpClient, private store: StoreService, private auth: AuthenticationService) {
 
     }
+
+ GetlistNgoiNha(Loai) {
+    let url = API.auth;
+        return this.http.get(`${url}DanhMuc/GetlistNgoiNha?Loai=${Loai}`, httpOptions)
+    }
+
     //Cấp bông
     //this.store.getCurrent();
     //data.IdNhaMay =this.store.getCurrent().toString();

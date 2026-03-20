@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DondathangmodalComponent } from './dondathangmodal/dondathangmodal.component';
 import { DateToUnix } from 'src/app/services/globalfunction';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './dondathang.component.html',
   styleUrls: ['./dondathang.component.css']
 })
-export class DondathangComponent implements OnInit {
+export class DondathangComponent implements OnInit, OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -29,6 +29,8 @@ export class DondathangComponent implements OnInit {
   eAction = "DONDATHANG";
   listPhanXuong: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
+
 
   constructor(private _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
@@ -36,17 +38,10 @@ export class DondathangComponent implements OnInit {
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,) {
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-        this.ngOnInit()
-      }
-    })
-  }
+    private router: Router,) { }
 
   ngOnInit(): void {
-    this.GetList();
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .DonDatHang()
@@ -56,8 +51,30 @@ export class DondathangComponent implements OnInit {
           });
       }
     });
-    this.KiemTraTabTrangThai()
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
   }
+
+  initData() {
+    this.GetList();
+    this.KiemTraTabTrangThai();
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
+  }
+
+
   changeParam(id) {
     this.router.navigate([`quantri/taisan/dondathang/${id}`], {
       replaceUrl: true,

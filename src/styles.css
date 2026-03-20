@@ -465,3 +465,17 @@ iframe {
 .p-tooltip {
   z-index: 999999 !important;
 }
+
+.no-border{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.files .file{
+  border:1px solid #dee2e6;
+  transition:0.2s;
+}
+
+.files .file:hover{
+  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}

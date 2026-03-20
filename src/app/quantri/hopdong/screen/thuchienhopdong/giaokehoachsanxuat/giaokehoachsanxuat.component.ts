@@ -26,7 +26,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Tổng sản lượng(Tấn)',
+      header: 'Tổng sản lượng (Tấn)',
       field: 'TongKhoiLuong',
       width: '80px'
     },

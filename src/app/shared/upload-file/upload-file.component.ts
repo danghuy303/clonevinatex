@@ -14,6 +14,7 @@ export class UploadFileComponent implements OnInit {
   @Input() label: string = "";
   @Input() multiple: boolean = false;
   @Input() showIcon: boolean = true;
+  @Input() textIcon: boolean = false;
   @Output() itemChange: EventEmitter<any> = new EventEmitter<any>();
   uploadResponse: any = [];
   data: any = {};

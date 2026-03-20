@@ -27,6 +27,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   uploader: FileUploader;
   listDonVi: any = [];
   listLoaiTaiSan: any = [];
+  listLoaiVatTu: any = [];
   listTinhTrangTaiSan: any = [];
   listCungSanXuat: any = [];
   listTinhTrangTaiSan_copy: any = [];
@@ -57,13 +58,15 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
     // }
     this.GetListdmPhanXuong();
-    let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
-    let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
+    let data = { Keyword: "", CurrentPage: 0 };
+    // let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
+    let ls3 = this._serviceTaiSan.GetlistdmLoaiVatTu(data).toPromise();
 
-    Promise.all([ls1, ls2]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
+    Promise.all([ls2, ls3]).then((values: any) => {
+      // this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listCungSanXuat = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listLoaiVatTu = mapArrayForDropDown(values[1].Data, "Ten", "Id");
     });
   }
   edit(item) {
@@ -74,7 +77,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     this.item.isCanDuTru = false;
   }
   GetListdmPhanXuong() {
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -110,10 +113,10 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     //     return false;
     //   }
     // }
-    if (!validVariable(this.item?.MaQR)) {
-      this.toastr.error("Yêu cầu chọn mã QR tài sản");
-      return false;
-    }
+    // if (!validVariable(this.item?.MaQR)) {
+    //   this.toastr.error("Yêu cầu chọn mã QR tài sản");
+    //   return false;
+    // }
     // if (!validVariable(this.item?.TendmTaiSan)) {
     //   this.toastr.error("Yêu cầu chọn nhóm tài sản");
     //   return false;
@@ -177,6 +180,9 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     modalRef.result.then((res: any) => {
       this.item.IddmTaiSan = res[0]?.Id;
       this.item.TendmTaiSan = res[0]?.Ten;
+      this.item.Ten = res[0]?.Ten;
+      this.item.Ma = res[0]?.Ma;
+      this.item.DonViNangSuat = res[0]?.DonViTinh;
     })
       .catch((er) => {
       });

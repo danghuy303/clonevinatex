@@ -12,6 +12,7 @@ import { SignalRService } from "../services/signalR.service";
 import { mapQuyTrinhRoute } from "../services/mapquytrinhroute";
 import { ToastrService } from "ngx-toastr";
 import { ModalQuyTrinhCanXuLyComponent } from "./modal/modal-quy-trinh-can-xu-ly/modal-quy-trinh-can-xu-ly.component";
+import { API } from "../services/host";
 @Component({
   selector: "app-quantri",
   templateUrl: "./quantri.component.html",
@@ -50,6 +51,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   @ViewChild("listCanhBaoComponent") listCanhBaoComponent;
   listCanhBao: any;
   permissions: any = [];
+  listHome: any = [];
 
   constructor(
     private _auth: AuthenticationService,
@@ -66,6 +68,87 @@ export class QuantriComponent implements OnInit, OnDestroy {
     this.subscribeToEvents();
     this.canSendMessage = _signalRService.connectionExists;
   }
+
+  ngOnInit(): void {
+    this.getlistNgoiNha();
+    // this.showHopDongModule =
+    //   window.location.origin.includes("4200") ||
+    //   window.location.origin.includes("2269") ||
+    //   window.location.origin.includes("2369") ||
+    //   window.location.origin.includes("2371") ||
+    //   window.location.origin.includes("2370");
+    // this.showTaiSanModule =
+    //   window.location.origin.includes("4200") ||
+    //   window.location.origin.includes("2269") ||
+    //   window.location.origin.includes("2369") ||
+    //   window.location.origin.includes("2371") ||
+    //   window.location.origin.includes("2370") ||
+    //   window.location.origin.includes("soisnd.vinatex.com.vn");
+    // this.showTaiSanModule = true;
+    this.refreshNotis();
+    const rt = this._router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe((res: any) => {
+        this.getOSName(res.url);
+      });
+    this.US.push(rt);
+    this._services.GetAllQuyen().subscribe((res: any) => {
+      this.dataphanquyen = res;
+      for (let key in res) {
+        if (res[key]?.length !== 0) {
+          this.permissions.push(key)
+        }
+      }
+
+      // Khôi phục trạng thái menu sau khi đã tạo menu
+      this.restoreMenuState();
+
+      if (window.location.hash.includes("quantri/taisan/danhsachtaisan")) {
+        this.menuService.setIsCheckMenu(true);
+        this.display = false; // Đóng menu sản xuất
+        this.displayAsset = true; // Mở menu tài sản
+        this.CaiMeNuQLTS();
+      } else this.CaiMeNu();
+
+    });
+    this.userBtn = [
+      // {
+      //     label: 'Thông tin tài khoản', command: () => {
+      //     }
+      // },
+      {
+        label: "Đổi mật khẩu",
+        command: () => {
+          let modalRef = this._modal.open(ModaldoimatkhauComponent, {
+            backdrop: "static",
+          });
+        },
+      },
+
+      { separator: true },
+      {
+        label: "Đăng xuất",
+        routerLink: ["/login"],
+        command: () => {
+          this.store.setNhaMay("");
+          this._auth.logout();
+        },
+      },
+    ];
+  }
+
+  getlistNgoiNha() {
+    this._services.GetlistNgoiNha('QuanLyThietBi').subscribe((res: any) => {
+      this.listHome = res?.map((item: any) => {
+        return {
+          ...item,
+          Path: `${API.imgURL}/${item.Path}`
+        };
+      })
+    });
+  }
+
+
   close() {
     this.display = false;
   }
@@ -98,21 +181,23 @@ export class QuantriComponent implements OnInit, OnDestroy {
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
         this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-        if (!validVariable(this.store.getCurrent())) {
-          this.IdNhaMay = res[0].Id;
-        } else {
-          this.IdNhaMay = this.store.getCurrent();
-        }
+        // if (!validVariable(this.store.getCurrent())) {
+        //   this.IdNhaMay = res[0].Id;
+        // } else {
+        //   this.IdNhaMay = this.store.getCurrent();
+        // }
+        this.IdNhaMay = res[0].Id;
+        this.store.setNhaMay(this.IdNhaMay);
         let TenDuAn = this.listNhaMay.find((ele) => ele.value == this.IdNhaMay)?.label;
         this.store.setTenNhaMay(TenDuAn);
       });
     this.US.push(nm);
   }
-  setGlobalNhaMay(event) {
+  setGlobalNhaMay(event: any) {
     this.store.setNhaMay(event.value);
     this.GetListQuyTrinhCanXuLy();
-    let TenDuAn = this.listNhaMay.find((ele) => ele.Id == event.value).TenDuAn;
-    this.store.setNhaMay(TenDuAn);
+    let IdDuAn = this.listNhaMay.find((ele) => ele.value == event.value).value;
+    this.store.setNhaMay(IdDuAn);
   }
   open(event) {
     this.listNoti.toggle(event);
@@ -213,65 +298,6 @@ export class QuantriComponent implements OnInit, OnDestroy {
         this.GetListQuyTrinhCanXuLy()
       }
     })
-  }
-
-  ngOnInit(): void {
-    this.showHopDongModule =
-      window.location.origin.includes("4200") ||
-      window.location.origin.includes("2269") ||
-      window.location.origin.includes("2369") ||
-      window.location.origin.includes("2371") ||
-      window.location.origin.includes("2370");
-    this.showTaiSanModule =
-      window.location.origin.includes("4200") ||
-      window.location.origin.includes("2269") ||
-      window.location.origin.includes("2369") ||
-      window.location.origin.includes("2371") ||
-      window.location.origin.includes("2370") ||
-      window.location.origin.includes("soisnd.vinatex.com.vn");
-    // this.showTaiSanModule = true;
-    this.refreshNotis();
-    const rt = this._router.events
-      .pipe(filter((e) => e instanceof NavigationEnd))
-      .subscribe((res: any) => {
-        this.getOSName(res.url);
-      });
-    this.US.push(rt);
-    this._services.GetAllQuyen().subscribe((res: any) => {
-      this.dataphanquyen = res;
-      for (let key in res) {
-        if (res[key]?.length !== 0) {
-          this.permissions.push(key)
-        }
-      }
-      this.CaiMeNu();
-      // Khôi phục trạng thái menu sau khi đã tạo menu
-      this.restoreMenuState();
-    });
-    this.userBtn = [
-      // {
-      //     label: 'Thông tin tài khoản', command: () => {
-      //     }
-      // },
-      {
-        label: "Đổi mật khẩu",
-        command: () => {
-          let modalRef = this._modal.open(ModaldoimatkhauComponent, {
-            backdrop: "static",
-          });
-        },
-      },
-
-      { separator: true },
-      {
-        label: "Đăng xuất",
-        routerLink: ["/login"],
-        command: () => {
-          this.store.setNhaMay("");
-          this._auth.logout();
-        },
-      },
-    ];
   }
 
   CaiMeNu() {
@@ -3159,7 +3185,6 @@ export class QuantriComponent implements OnInit, OnDestroy {
     this.display = true; // Mở menu sản xuất
     this.CaiMeNu();
     this._router.navigate(['quantri/quantrisanxuat/tonghop']);
-    // this._router.navigate(['quantri/quantrisanxuat/dashboardtonghop']);
   }
 
   NavigateToQuanLyTaiSan() {
@@ -3615,6 +3640,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       // },
     ];
   }
+
   ngOnDestroy(): void {
     this._signalRService.disconnect()
     this.US.forEach(us => {

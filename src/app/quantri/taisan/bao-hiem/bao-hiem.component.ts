@@ -5,7 +5,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BaoHiemModalComponent } from './bao-hiem-modal/bao-hiem-modal.component';
 import { Subscription } from 'rxjs';
 
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './bao-hiem.component.html',
   styleUrls: ['./bao-hiem.component.css']
 })
-export class BaoHiemComponent implements OnInit {
+export class BaoHiemComponent implements OnInit, OnDestroy {
   $sub!: Subscription;
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -28,19 +28,23 @@ export class BaoHiemComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "QUYTRINHBAOHIEM";
   listKiemDinh: any = [];
+  $subRoute!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { this.$sub = this.store.getNhaMay().subscribe(res => {
-    if (res) {
+  ) {
+    this.$sub = this.store.getNhaMay().subscribe(res => {
+      if (res) {
         this.ngOnInit()
-    }
-}) }
+      }
+    })
+  }
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res: any) => {
+
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .QuyTrinhBaoHiem()
@@ -50,10 +54,30 @@ export class BaoHiemComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
     this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdm();
   }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
+  }
+
   resetFilter() {
     this.filter = {};
     this.GetList(true);

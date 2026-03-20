@@ -1,0 +1,56 @@
+<div class="mb-3">
+    <div class="mb-2">
+        <p-editor [(ngModel)]="quyTrinh.DanhGiaQuyTrinh" [style]="{'height':'220px'}">
+            <ng-template pTemplate="header">
+                <span class="ql-formats">
+                    <button type="button" class="ql-bold" aria-label="Bold"></button>
+                    <button type="button" class="ql-italic" aria-label="Italic"></button>
+                    <button type="button" class="ql-underline" aria-label="Underline"></button>
+                </span>
+            </ng-template>
+        </p-editor>
+    </div>
+    <p-table [value]="quyTrinh.listDanhGiaQuyTrinh" styleClass="p-datatable-sm p-datatable-gridlines">
+        <ng-template pTemplate="colgroup">
+            <col class="" style="width: 50px">
+            <col class="" style="width: 120px">
+            <col class="" style="width: 200px">
+            <col class="" style="width: 200px">
+            <col class="" style="">
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>STT</th>
+                <th>Ngày đánh giá</th>
+                <th>Người đánh giá</th>
+                <th>Bước</th>
+                <th>Nội dung đánh giá</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-danhgia let-i="rowIndex">
+            <tr>
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">{{danhgia.NgayUp | date:'dd/MM/yyyy'}}</td>
+                <td>{{danhgia.NguoiUp}}</td>
+                <td>{{danhgia.TenTrangThai}}</td>
+                <td class="tooltip w-full" style="opacity:1;z-index: 0">
+                    <div class="flex justify-content-between" (click)="show(danhgia)" style="cursor: pointer;">
+                        {{danhgia.DanhGiaTooltip | truncate:45 }}
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Nội dung đánh giá" [(visible)]="display">
+    <p-editor [(ngModel)]="DanhGia" [style]="{'height':'320px','width': '50vw'}">
+        <ng-template pTemplate="header">
+            <span class="ql-formats">
+                <button type="button" class="ql-bold" aria-label="Bold"></button>
+                <button type="button" class="ql-italic" aria-label="Italic"></button>
+                <button type="button" class="ql-underline" aria-label="Underline"></button>
+            </span>
+        </ng-template>
+    </p-editor>
+</p-dialog>

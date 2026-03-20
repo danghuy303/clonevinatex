@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ import { DenghicungungvattumodalComponent } from './denghicungungvattumodal/deng
   templateUrl: './denghicungungvattu.component.html',
   styleUrls: ['./denghicungungvattu.component.css']
 })
-export class DenghicungungvattuComponent implements OnInit {
+export class DenghicungungvattuComponent implements OnInit, OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -29,22 +29,18 @@ export class DenghicungungvattuComponent implements OnInit {
   eAction = "PHIEUDNCU";
   listPhanXuong: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
+
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
-    private activatedRoute: ActivatedRoute, private router: Router,) {
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-        this.ngOnInit()
-      }
-    })
-  }
+    private activatedRoute: ActivatedRoute, private router: Router,) { }
 
   ngOnInit(): void {
-    this.GetList();
-    this.activatedRoute.params.subscribe((res: any) => {
+
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .PhieuDNCU()
@@ -54,8 +50,28 @@ export class DenghicungungvattuComponent implements OnInit {
           });
       }
     });
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
+    this.GetList();
     this.KiemTraTabTrangThai()
   }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
+  }
+
   changeParam(id) {
     this.router.navigate([`quantri/taisan/denghicungungvattu/${id}`], {
       replaceUrl: true,

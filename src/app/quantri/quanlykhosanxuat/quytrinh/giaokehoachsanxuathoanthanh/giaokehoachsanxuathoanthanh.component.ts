@@ -26,7 +26,7 @@ export class GiaokehoachsanxuathoanthanhComponent implements OnInit {
     //   width: 'unset'
     // },
     {
-      header: 'Tổng sản lượng(tấn)',
+      header: 'Tổng sản lượng (tấn)',
       field: 'TongSanLuong',
       width: 'unset'
     },

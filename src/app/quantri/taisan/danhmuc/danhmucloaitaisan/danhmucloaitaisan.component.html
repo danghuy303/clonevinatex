@@ -12,14 +12,14 @@
 
     </div>
     <div class="p-d-flex p-flex-row">
-        <div style="width:200px; margin-right:10px ;">
+        <!-- <div style="width:200px; margin-right:10px ;">
             <div class="p-col-12 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn "
                     [(ngModel)]="filter.MaCongDoan" styleClass="p-inputtext-sm" [showClear]="true" [filter]="true"
                     (onChange)="GetList(true)">
                 </p-dropdown>
             </div>
-        </div>
+        </div> -->
         <div class="p-inputgroup p-inputgroup-sm" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.Keyword" (keyup.enter)="GetList(true)"
                 class="p-inputtext-sm" pInputText />
@@ -37,8 +37,8 @@
             <col style="width:50px">
             <col style="width:50px">
             <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
-            <col style="width:50px">
-            <col style="width:50px">
+            <col style="width:150px">
+            <col style="width:100px">
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header">

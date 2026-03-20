@@ -30,7 +30,7 @@ export class KehoachsanxuatComponent extends StoreBase implements OnInit, OnDest
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Tổng sản lượng(tấn)',
+      header: 'Tổng sản lượng (tấn)',
       field: 'TongSanLuong',
       width: '80px'
     },

@@ -17,7 +17,7 @@ import { API } from '../../../../services/host';
 })
 export class KiemdiemtaisanmodalComponent implements OnInit {
 
-  quyTrinh: any = { listTaiSan: [] };
+  quyTrinh: any = {SoQuyTrinh:'', listTaiSan: [] };
   type = '';
   checkbutton: any = {};
   lang: any = vn;
@@ -243,5 +243,8 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
     let url = `/${link}`
     window.open(API.imgURL + url);
   }
+
+  // footer
+
 
 }

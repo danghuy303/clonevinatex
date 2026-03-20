@@ -66,6 +66,16 @@ import { MarginleftDirective } from './marginleft.directive';
 import { TieuhaonhienlieutabComponent } from '../quantri/taisan/tieuhaonhienlieutab/tieuhaonhienlieutab.component';
 import { KiemdinhtaisantabComponent } from '../quantri/taisan/kiemdinhtaisantab/kiemdinhtaisantab.component';
 import { BaohiemtaisantabComponent } from '../quantri/taisan/baohiemtaisantab/baohiemtaisantab.component';
+import { NoiDungTraoDoiComponent } from './noi-dung-trao-doi/noi-dung-trao-doi.component';
+import { DanhSachTaiLieuComponent } from './danh-sach-tai-lieu/danh-sach-tai-lieu.component';
+import { DanhGiaComponent } from './danh-gia/danh-gia.component';
+import { VuongMacComponent } from './vuong-mac/vuong-mac.component';
+import { PhanCongCongViecComponent } from './phan-cong-cong-viec/phan-cong-cong-viec.component';
+import { DialogModule } from 'primeng/dialog';
+import { TooltipModule } from 'primeng/tooltip';
+import { EditorModule } from 'primeng/editor';
+import { TaiLieuPhanCongCongViecComponent } from './tai-lieu-phan-cong-cong-viec/tai-lieu-phan-cong-cong-viec.component';
+import { DinhMucNguyenLieuComponent } from './dinh-muc-nguyen-lieu/dinh-muc-nguyen-lieu.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +121,13 @@ import { BaohiemtaisantabComponent } from '../quantri/taisan/baohiemtaisantab/ba
     TieuhaonhienlieutabComponent,
     KiemdinhtaisantabComponent,
     BaohiemtaisantabComponent,
+    NoiDungTraoDoiComponent,
+    DanhSachTaiLieuComponent,
+    DanhGiaComponent,
+    VuongMacComponent,
+    PhanCongCongViecComponent,
+    TaiLieuPhanCongCongViecComponent,
+    DinhMucNguyenLieuComponent,
   ],
   imports: [
     AccordionModule,
@@ -137,7 +154,10 @@ import { BaohiemtaisantabComponent } from '../quantri/taisan/baohiemtaisantab/ba
     PaginatorModule,
     SelectButtonModule,
     TreeTableModule,
-    MultiSelectModule
+    MultiSelectModule,
+    DialogModule,
+    EditorModule,
+    TooltipModule
   ],
   exports: [
     isXoaPipe,
@@ -181,6 +201,12 @@ import { BaohiemtaisantabComponent } from '../quantri/taisan/baohiemtaisantab/ba
     TieuhaonhienlieutabComponent,
     KiemdinhtaisantabComponent,
     BaohiemtaisantabComponent,
+    NoiDungTraoDoiComponent,
+    DanhSachTaiLieuComponent,
+    DanhGiaComponent,
+    VuongMacComponent,
+    PhanCongCongViecComponent,
+    DinhMucNguyenLieuComponent
   ]
 })
 export class SharedModule { }

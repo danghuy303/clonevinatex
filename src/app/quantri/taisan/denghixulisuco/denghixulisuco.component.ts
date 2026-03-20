@@ -86,7 +86,7 @@ export class DenghixulisucoComponent implements OnInit {
     })
   }
   GetListdmPhanXuong() {
-    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

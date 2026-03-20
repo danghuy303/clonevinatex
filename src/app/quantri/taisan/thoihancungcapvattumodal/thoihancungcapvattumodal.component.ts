@@ -73,7 +73,7 @@ export class
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
     });
 
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       if (!this.item.IddmPhanXuong) {
         this.item.IddmPhanXuong = this.listPhanXuong[0].value;

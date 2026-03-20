@@ -38,7 +38,7 @@ export class BaoDuongPopupComponent implements OnInit {
 
   ngOnInit(): void {
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this._danhMucTaiSan.LoaiThucHienBaoDuong().GetList(data).subscribe((res: any) => {

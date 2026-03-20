@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './quytrinhlapkehoachlichxichthang.component.html',
   styleUrls: ['./quytrinhlapkehoachlichxichthang.component.css']
 })
-export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
+export class QuytrinhlapkehoachlichxichthangComponent implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
@@ -26,29 +26,21 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "LAPKEHOACHLICHXICHNAM";
-  listPhanXuong:any=[];
+  listPhanXuong: any = [];
   listNam: any = [];
   minDate: Date;
   $sub!: Subscription;
+  $subRoute!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { 
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-          this.ngOnInit()
-      }
-  })
-  }
+  ) {}
 
   ngOnInit(): void {
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
-      this.listNam.push({ value: i, label: i });
-    }
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .LichXich()
@@ -58,9 +50,32 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
+    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+      this.listNam.push({ value: i, label: i });
+    }
+
     this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
   }
 
   resetFilter() {
@@ -68,7 +83,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
     this.filter = {};
     this.GetList(true);
   }
-  
+
   GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
@@ -78,25 +93,25 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       Keyword: this.Keyword,
-      TuThang  : DateToUnix(this.filter.TuThang),
-      DenThang : DateToUnix(this.filter.DenThang),
+      TuThang: DateToUnix(this.filter.TuThang),
+      DenThang: DateToUnix(this.filter.DenThang),
       TabTrangThai: this.trangThai,
-      Loai:0,
-      IdBoPhanSuDung:this.filter.IdBoPhanSuDung
+      Loai: 0,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung
     };
     this._serviceTaiSan.LichXichThang().GetList(data).subscribe((res: any) => {
-      this.items = res.Data.Items;  
+      this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
 
   GetListdmPhanXuong() {
-    this._services.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.GetList();
     })
   }
-  
+
   changeParam(id) {
     this.router.navigate([`quantri/taisan/quytrinhlapkehoachthang/${id}`], {
       replaceUrl: true,
@@ -107,21 +122,22 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
     let modalRef = this._modal.open(LapkehoachthangComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
-      keyboard:false
+      keyboard: false
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = '';
+    modalRef.componentInstance.listPhanXuong = this.listPhanXuong || [];
     modalRef.componentInstance.item = {
       Id: '',
-      IdTrangThai: '', 
+      IdTrangThai: '',
       TenTrangThai: "",
-      SoQuyTrinh:'',
+      SoQuyTrinh: '',
       isKetThuc: false,
-      listTaiSan:[],
-      LoaiKeHoach:"", 
-      IdDuAn:0, 
-      Ngay:0,
+      listTaiSan: [],
+      LoaiKeHoach: "",
+      IdDuAn: 0,
+      Ngay: 0,
       IdBoPhanSuDung: '',
       MaCongDoan: null
     };
@@ -133,7 +149,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
         this.changeParam(0);
       })
   }
-  
+
   update(item) {
     let modalRef = this._modal.open(LapkehoachthangComponent, {
       size: "fullscreen-100",
@@ -143,6 +159,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật ';
+    modalRef.componentInstance.listPhanXuong = this.listPhanXuong || [];
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

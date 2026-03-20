@@ -1,4 +1,11 @@
-<div class="relative">
+<div *ngIf="!textIcon" class="relative">
     <p-button [label]="label" [icon]="showIcon? 'pi pi-upload' : ''"></p-button>
-    <input class="absolute" #fileInput type="file" (change)="upLoad($event.target.files)" [multiple]="multiple" [accept]="" />
+    <input class="absolute" #fileInput type="file" (change)="upLoad($event.target.files)" [multiple]="multiple"
+        [accept]="" />
+</div>
+
+<div *ngIf="textIcon" class="relative">
+    <button pButton pRipple type="button" icon="pi pi-upload" class="p-button-rounded p-button-text text-xl"></button>
+    <input class="absolute" #fileInput type="file" (change)="upLoad($event.target.files)" [multiple]="multiple"
+        [accept]="" />
 </div>

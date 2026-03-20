@@ -10,22 +10,17 @@ export class LoaderInterceptor implements HttpInterceptor {
         constructor(public loaderService: LoaderService, private authServices: AuthenticationService) { }
         intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
                 // console.log(req)
-                req = req.clone({
-                        setHeaders: {
-                                Authorization: `Bearer ${this.authServices.currentTokenValue}`
-                        }
-                });
+                const token = this.authServices.currentTokenValue;
+                if (token) {
+                        req = req.clone({
+                                setHeaders: {
+                                        Authorization: `Bearer ${token}`
+                                }
+                        });
+                }
                 this.loaderService.show();
                 return next.handle(req).pipe(
                         finalize(() => setTimeout(() => this.loaderService.hide(), 100)),
                 );
-                // return next.handle(req).pipe(
-                //         finalize(() => {
-                //           this.totalRequests--;
-                //           if (this.totalRequests === 0) {
-                //             this.loaderService.hide();
-                //           }
-                //         })
-                //       );
         }
 }

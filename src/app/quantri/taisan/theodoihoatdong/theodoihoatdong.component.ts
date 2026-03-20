@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from '../../../services/callApiSanXuat';
@@ -15,7 +15,7 @@ import { TheodoihoatmodalComponent } from './theodoihoatmodal/theodoihoatmodal.c
   templateUrl: './theodoihoatdong.component.html',
   styleUrls: ['./theodoihoatdong.component.css']
 })
-export class TheodoihoatdongComponent implements OnInit {
+export class TheodoihoatdongComponent implements OnInit, OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -30,6 +30,7 @@ export class TheodoihoatdongComponent implements OnInit {
   eAction = "THEODOIHOATDONG";
   listBoPhan: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
 
   constructor(
     private _modal: NgbModal,
@@ -40,16 +41,10 @@ export class TheodoihoatdongComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private _danhMucTaiSan: DanhmuctaisanService
-  ) {
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-        this.ngOnInit()
-      }
-    })
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .TheoDoiHoatDong()
@@ -59,10 +54,31 @@ export class TheodoihoatdongComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+
+  }
+
+  initData() {
     this.GetList();
     this.getListPhanXuong();
     this.KiemTraTabTrangThai();
   }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
+  }
+
   resetFilter() {
     this.filter = {};
     this.GetList(true);

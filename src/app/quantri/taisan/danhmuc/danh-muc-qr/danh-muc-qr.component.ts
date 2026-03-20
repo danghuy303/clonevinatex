@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { DanhmuctaisanService } from '../../../../services/Taisan/danhmuctaisan.service';
 import { API } from 'src/app/services/host';
 import { mapArrayForDropDown } from '../../../../services/globalfunction'
 
@@ -58,7 +58,7 @@ export class DanhMucQrComponent implements OnInit {
       Keyword: this.Keyword
     }
     this._danhMucTaiSan.GetListQRCODE(data).subscribe((res: any) => {
-      this.listHienThi = res.items;
+      this.listHienThi = res.Data.Items;
       this.paging.TotalCount = res.paging.TotalItem;
     })
   }
@@ -77,16 +77,16 @@ export class DanhMucQrComponent implements OnInit {
     if (this.listHienThi.filter(obj => obj.checked).length || this.filter.SoLuongIn) {
       let data = {
         listMaQr: this.listHienThi ? this.listHienThi.filter(obj => obj.checked).map(ele => ele.MaQr) : [],
-        SoLuong: this.filter.SoLuong,
+        SoLuong: this.filter.SoLuong || 1,
         SoBanIn: this.filter.SoBanIn,
         SoLuongIn: this.filter.SoLuongIn,
       }
       this._danhMucTaiSan.InQrCode(data).subscribe((res: any) => {
-        if (res.State === 1) {
+        if (res.StatusCode === 200) {
           let url = res.Data
           window.open(API.imgURL + url);
-          this._toastr.success(res.message)
-        } else this._toastr.error(res.message)
+          this._toastr.success(res.Message)
+        } else this._toastr.error(res.Message)
       })
     }
   }

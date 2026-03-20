@@ -531,7 +531,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="text-center">
-                                    <button pButton pRipple icon="pi pi-print" title="Xóa"
+                                    <button *ngIf="isCheckPort" pButton pRipple icon="pi pi-print" title="Xóa"
                                         class="p-button-sm p-button-text p-button-Warn p-mr-2"
                                         (click)="handlePrint(it)"></button>
                                     <button pButton pRipple icon="pi pi-trash" title="Xóa"

@@ -1,7 +1,7 @@
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap"; 
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { DateToUnix, mapArrayForDropDown, UnixToDate, } from "src/app/services/globalfunction";
@@ -13,13 +13,15 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { StoreService } from "src/app/services/store.service";
 
+
 @Component({
   selector: 'app-nhaptaisan',
   templateUrl: './nhaptaisan.component.html',
   styleUrls: ['./nhaptaisan.component.css']
 })
-export class NhaptaisanComponent implements OnInit {
+export class NhaptaisanComponent implements OnInit, OnDestroy {
   $sub!: Subscription;
+  $subRoute!: Subscription;
   @ViewChild("paginator") paginator: any;
   eAction: any = "QUYTRINHNHAPTAISAN";
   loaiTab: any = 0;
@@ -47,15 +49,10 @@ export class NhaptaisanComponent implements OnInit {
     private activatedRoute: ActivatedRoute, private router: Router,
     private store: StoreService
   ) {
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-        this.ngOnInit()
-      }
-    })
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .NhapTaiSan()
@@ -65,17 +62,35 @@ export class NhaptaisanComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.resetFilter();
+        this.KiemTraTabTrangThai();
+        this.GetListdmPhanXuong();
+      }
+    });
+
     this.resetFilter();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
-  changeParam(id) {
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
+  }
+  changeParam(id: any) {
     this.router.navigate([`/quantri/taisan/nhaptaisan/${id}`], {
       replaceUrl: true,
     });
   }
   GetListdmPhanXuong() {
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       let nhaMay = [
         {
           Id: 'Chưa có bộ phận sử dụng',
@@ -136,7 +151,6 @@ export class NhaptaisanComponent implements OnInit {
     })
   }
   add() {
-    this.changeParam(0);
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -169,7 +183,7 @@ export class NhaptaisanComponent implements OnInit {
         this.changeParam(0)
       })
   }
-  update(item) {
+  update(item: any) {
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -179,7 +193,6 @@ export class NhaptaisanComponent implements OnInit {
     modalRef.componentInstance.title = "Cập nhật tài sản";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result.then(res => {
-      
     }).catch(er => console.log(er))
       .finally(() => {
         this.Loaddata()
@@ -217,12 +230,13 @@ export class NhaptaisanComponent implements OnInit {
   ChapNhan() {
     let listId = this.listDanhSachMay.filter(ele => ele.checked).map(obj => obj.Id);
     this._serviceTaiSan.DongBoTaiSanBylistIdFromSCM(listId).subscribe((res: any) => {
-      if(res.StatusCode === 200) {
+      if (res.StatusCode === 200) {
         this.toastr.success(res.Message);
         this.display = !this.display;
         this.Loaddata();
       } else this.toastr.error(res.Message);
-     
+
     })
   }
+
 }

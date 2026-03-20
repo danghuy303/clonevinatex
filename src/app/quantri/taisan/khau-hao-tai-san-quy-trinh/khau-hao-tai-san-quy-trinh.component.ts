@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-modal/khau-hao-t
   templateUrl: './khau-hao-tai-san-quy-trinh.component.html',
   styleUrls: ['./khau-hao-tai-san-quy-trinh.component.css']
 })
-export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
+export class KhauHaoTaiSanQuyTrinhComponent implements OnInit, OnDestroy {
 
   filter: any = {};
   eAction: any = "QUYTRINHKHAUHAOTAISAN";
@@ -27,6 +27,8 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
   listdmPhanXuong: any = [];
   checkKhauHaoAll: boolean;
   $sub!: Subscription;
+  $subRoute!: Subscription;
+
 
   constructor(
     public _modal: NgbModal,
@@ -36,20 +38,10 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
     private activatedRoute: ActivatedRoute, private router: Router,
     private _serviceAuth: AuthenticationService,
     private store: StoreService,
-  ) {
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-          this.ngOnInit()
-      }
-  })
-   }
+  ) { }
 
   ngOnInit(): void {
-    this.idUser = this._serviceAuth.currentUserValue.Id;
-    this.KiemTraTabTrangThai();
-    this.resetFilter();
-    this.getListdmPhanXuong();
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .KhauHaoTaiSan()
@@ -59,6 +51,29 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
+    this.idUser = this._serviceAuth.currentUserValue.Id;
+    this.KiemTraTabTrangThai();
+    this.resetFilter();
+    this.getListdmPhanXuong();
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
   }
 
   changeParam(id) {
@@ -117,7 +132,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
       backdrop: "static"
     });
     modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.tabTrangThai = 0; 
+    modalRef.componentInstance.tabTrangThai = 0;
     modalRef.componentInstance.item = {
       Id: "",
       IdTrangThai: "",
@@ -131,8 +146,8 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
       })
-      .catch((er) => {})
-      .finally(()=>{
+      .catch((er) => { })
+      .finally(() => {
         this.Loaddata(true);
         this.changeParam(0);
       });
@@ -152,11 +167,11 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
       })
       .catch((er) => {
       })
-      .finally(()=>{
+      .finally(() => {
         this.Loaddata(true);
         this.changeParam(0);
       });
-  }  
+  }
 
   changePage(event) {
     this.paging.currentPage = event.page + 1;

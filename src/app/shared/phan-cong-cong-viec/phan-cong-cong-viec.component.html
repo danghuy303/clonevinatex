@@ -1,0 +1,130 @@
+<div class="d-flex justify-content-end">
+    <div class="d-flex p-ai-center">
+        <div class="p-field-checkbox p-ai-center p-mt-3">
+            <p-checkbox [binary]="true" inputId="binary" (onChange)="checkAll($event)"></p-checkbox>
+            <label for="binary">Hiện thị công việc bước trước</label>
+        </div>
+        <div>
+            <p-dropdown [options]="listTrangThai" [(ngModel)]="IdTrangThai" [filter]="true" placeholder="Chọn"
+                [showClear]="isClear" class="mx-2 w-300" (onChange)="ChonTrangThai($event)"
+                emptyMessage="Chưa có dữ liệu">
+                <ng-template let-item pTemplate="selectedItem">
+                    <div class="" [pTooltip]="item.label" tooltipPosition="top">
+                        <span style="vertical-align:middle">{{item.label}}</span>
+                    </div>
+                </ng-template>
+                <ng-template let-target pTemplate="item">
+                    <div class="" [pTooltip]="target.label" tooltipPosition="top">
+                        <span>{{target.label }}</span>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div>
+            <p-multiSelect *ngIf="checkQuyen.listPhanCong?.length" inputId="multiselect" [filter]="true"
+                [options]="checkQuyen.listPhanCong" placeholder="Chọn người ủy quyền"
+                [(ngModel)]="quyTrinh.listUyQuyenPhanCong" optionLabel="TenUser" optionValue="IdUser"
+                (onChange)="getIdUser($event)">
+            </p-multiSelect>
+        </div>
+        <button *ngIf="checkQuyen.btPhanCong" class="p-mx-2" pButton type="button" label="Phân công"
+            (click)="SetPhanCongCongViec()"></button>
+    </div>
+</div>
+
+<div>
+
+    <p-table *ngIf="isCongViecAll" [value]="quyTrinh.listPhanCongCongViecAll" styleClass="p-datatable-sm p-datatable-gridlines">
+        <ng-template pTemplate="colgroup">
+            <col class="" style="width: 50px">
+            <col class="">
+            <col class="">
+            <col class="" style="width: 150px">
+            <col class="" style="width: 150px">
+            <col class="" style="width: 150px">
+            <col class="">
+            <col class="">
+            <col class="" style="width: 80px">
+            <col class="" style="width: 90px">
+            <col class="" style="width: 120px">
+            <col class="" style="width: 80px">
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>STT</th>
+                <th>Nội dung</th>
+                <th>Nhân sự</th>
+                <th>Từ ngày</th>
+                <th>Đến ngày</th>
+                <th>Ngày hoàn thành</th>
+                <th>Ghi chú</th>
+                <th>Đánh giá</th>
+                <th>Tổng số tài liệu</th>
+                <th>Trạng thái</th>
+                <th>Người giao</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-task let-i="rowIndex">
+            <tr [style.background-color]="task.Mau">
+                <td class="text-center">{{i + 1}}</td>
+                <td [pTooltip]="task.NoiDung">
+                    <input class="w-full" [disabled]="isCongViecAll" type="text" pInputText [(ngModel)]="task.NoiDung"
+                        placeholder="Nội dung" />
+                </td>
+                <td [pTooltip]="task.TenNhanSu">
+                    <p-dropdown *ngIf="task.isShowCombobox" styleClass="w-full" [options]="users"
+                        [(ngModel)]="task.IdUser" [filter]="true" optionLabel="name" optionValue="code"
+                        [disabled]="isCongViecAll" placeholder="Chọn nhân sự"></p-dropdown>
+
+                    <div *ngIf="!task.isShowCombobox" [pTooltip]="task.TenUser">
+                        <input class="w-full" type="text" [disabled]="isCongViecAll" pInputText
+                            [(ngModel)]="task.TenUser" />
+                    </div>
+                </td>
+                <td >
+                    <p-calendar [disabled]="isCongViecAll" [showTime]="true" [hourFormat]="'24'" styleClass="w-full"
+                        [(ngModel)]="task.TuNgay" dateFormat="dd/mm/yy">
+                    </p-calendar>
+                </td>
+                <td>
+                    <p-calendar [disabled]="isCongViecAll" [showTime]="true" [hourFormat]="'24'" [minDate]="task.TuNgay"
+                        styleClass="w-full" [(ngModel)]="task.DenNgay" dateFormat="dd/mm/yy">
+                    </p-calendar>
+                </td>
+                <td [pTooltip]="task.NgayHoanThanhTooltip">
+                    <p-calendar [showTime]="true" [hourFormat]="'24'" styleClass="w-full" [disabled]="isCongViecAll">
+                    </p-calendar>
+                </td>
+                <td [pTooltip]="task.GhiChu">
+                    <input class="w-full" type="text" pInputText [(ngModel)]="task.GhiChu" [disabled]="isCongViecAll"
+                        placeholder="" />
+                </td>
+                <td class="">
+                    <input class="w-full" type="text" pInputText [(ngModel)]="task.DanhGia" [disabled]="isCongViecAll"
+                        [pTooltip]="task.DanhGia" />
+                </td>
+                <td class="text-center">
+                    {{task.TongSoTaiLieu}}
+                </td>
+                <td class="text-center">
+                    <p-checkbox [(ngModel)]="task.isTrangThai" [binary]="true" [disabled]="isCongViecAll"></p-checkbox>
+                </td>
+                <td class="text-center">
+                    {{task.NguoiGiao}}
+                </td>
+                <td class="text-center">
+                    <div class="d-flex">
+                        <button class="p-button-rounded p-button-text" pButton pRipple type="button" icon="pi pi-file"
+                            (click)="handleMoTaiLieu(i, task)" pTooltip="Tài liệu" [showDelay]="500"></button>
+                        <button class="p-button-rounded p-button-danger p-button-text" pButton pRipple type="button"
+                            icon="pi pi-trash" (click)="deleteTask(i)" pTooltip="Xóa" [showDelay]="500"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+
+</div>

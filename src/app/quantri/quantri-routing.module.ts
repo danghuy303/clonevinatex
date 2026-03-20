@@ -150,7 +150,8 @@ const routes: Routes = [
     component: QuantriComponent,
     children: [
       // { path: "", redirectTo: "quantrisanxuat/tonghop", pathMatch: "full" },
-      { path: "", redirectTo: "quantrisanxuat/dashboardtonghop", pathMatch: "full" },
+      // { path: "", redirectTo: "quantrisanxuat/dashboardtonghop", pathMatch: "full" },
+      { path: "", redirectTo: "quantri/taisan/danhsachtaisan", pathMatch: "full" },
       {
         path: "quantrisanxuat/dashboardtonghop",
         component: DashboardtonghopComponent,

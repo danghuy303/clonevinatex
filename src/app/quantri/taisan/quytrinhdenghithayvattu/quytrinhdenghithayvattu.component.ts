@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './quytrinhdenghithayvattu.component.html',
   styleUrls: ['./quytrinhdenghithayvattu.component.css']
 })
-export class QuytrinhdenghithayvattuComponent implements OnInit {
+export class QuytrinhdenghithayvattuComponent implements OnInit, OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -30,23 +30,18 @@ export class QuytrinhdenghithayvattuComponent implements OnInit {
   eAction = "DENGHITHAYDOIVATTU";
   listPhanXuong: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
+
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { 
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-          this.ngOnInit()
-      }
-  })
-  }
-  
+  ) { }
+
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res: any) => {
-      console.log(res);
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .QuyTrinhDeNghiThayVatTu()
@@ -56,10 +51,30 @@ export class QuytrinhdenghithayvattuComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
     this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
+  }
+
   resetFilter() {
     this.keyWord = '';
     this.filter = {};

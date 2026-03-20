@@ -73,7 +73,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     // Promise.all([ls1]).then((values: any) => {
     //   this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
     // });
-    // this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    // this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
     //   this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     // })
     // this.KiemTraButtonModal();
@@ -252,7 +252,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     this.item.NgayBatDau = UnixToDate(this.item.NgayBatDauUnix);
     this.item.NgayKetThuc = UnixToDate(this.item.NgayKetThucUnix);
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
-    this._servicesSanXuat.GetListdmPhanXuongForIdDuAn().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this._danhMucTaiSan.LoaiThucHienBaoDuong().GetList(data).subscribe((res: any) => {

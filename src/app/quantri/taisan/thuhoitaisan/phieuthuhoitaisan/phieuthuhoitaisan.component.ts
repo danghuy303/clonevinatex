@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './phieuthuhoitaisan.component.html',
   styleUrls: ['./phieuthuhoitaisan.component.css']
 })
-export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit, OnDestroy {
+export class PhieuthuhoitaisanComponent implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
@@ -28,23 +28,16 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit, OnD
   eAction = "QUYTRINHTHUHOITAISAN";
   listPhanXuong: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
-    store: StoreService,
+    private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) {
-    super(store);
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-        this.ngOnInit();
-      }
-    })
-  }
+  ) {}
   ngOnInit(): void {
-
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .PhieuThuHoiTaiSan()
@@ -54,9 +47,28 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit, OnD
           });
       }
     });
-    // this.GetList();
+
+    this.$sub = this.store.getNhaMay().subscribe((res:any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+  }
+
+  initData() {
+   // this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
   }
 
   resetFilter() {

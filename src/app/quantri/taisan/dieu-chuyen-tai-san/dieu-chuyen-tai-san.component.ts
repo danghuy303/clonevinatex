@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +15,7 @@ import { DieuChuyenTaiSanModalComponent } from './dieu-chuyen-tai-san-modal/dieu
   templateUrl: './dieu-chuyen-tai-san.component.html',
   styleUrls: ['./dieu-chuyen-tai-san.component.css']
 })
-export class DieuChuyenTaiSanComponent implements OnInit {
+export class DieuChuyenTaiSanComponent implements OnInit, OnDestroy {
 
   filter: any = {};
   eAction: any = "QUYTRINHDIEUCHUYENTAISAN";
@@ -28,6 +28,8 @@ export class DieuChuyenTaiSanComponent implements OnInit {
   listdmPhanXuong: any = [];
   IdDuAn: any;
   $sub!: Subscription;
+  $subRoute!: Subscription;
+
 
   constructor(
     public _modal: NgbModal,
@@ -38,19 +40,13 @@ export class DieuChuyenTaiSanComponent implements OnInit {
     private _serviceAuth: AuthenticationService,
     private store: StoreService,
   ) {
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-          this.ngOnInit()
-      }
-  })
     this.idUser = this._serviceAuth.currentUserValue.Id;
     this.IdDuAn = this.store.getCurrent();
   }
 
   ngOnInit(): void {
-    this.resetFilter();
-    this.getListdmPhanXuong();
-    this.activatedRoute.params.subscribe((res: any) => {
+
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .DieuChuyenTaiSan()
@@ -60,6 +56,28 @@ export class DieuChuyenTaiSanComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+
+  }
+
+  initData() {
+    this.resetFilter();
+    this.getListdmPhanXuong();
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
   }
 
   changeParam(id) {
@@ -152,18 +170,18 @@ export class DieuChuyenTaiSanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.tabTrangThai = this.trangThai;
-    modalRef.componentInstance.item.idDuAn = 
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
+    modalRef.componentInstance.item.idDuAn =
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then((res: any) => {
       })
       .catch((er) => {
       })
-      .finally(()=>{
+      .finally(() => {
         this.Loaddata(true);
         this.changeParam(0);
       });
-  }  
+  }
 
   changePage(event) {
     this.paging.currentPage = event.page + 1;

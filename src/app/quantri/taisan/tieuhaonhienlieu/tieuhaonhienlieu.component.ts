@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from '../../../services/callApiSanXuat';
@@ -16,7 +16,7 @@ import { TieuhaonhienlieumodalComponent } from './tieuhaonhienlieumodal/tieuhaon
   templateUrl: './tieuhaonhienlieu.component.html',
   styleUrls: ['./tieuhaonhienlieu.component.css']
 })
-export class TieuhaonhienlieuComponent implements OnInit {
+export class TieuhaonhienlieuComponent implements OnInit, OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -33,6 +33,7 @@ export class TieuhaonhienlieuComponent implements OnInit {
   listLoaiDinhMucNhienLieu: any = [];
   listBoPhan: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
 
   constructor(
     private _modal: NgbModal,
@@ -43,16 +44,10 @@ export class TieuhaonhienlieuComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private _danhMucTaiSan: DanhmuctaisanService
-  ) {
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-        this.ngOnInit()
-      }
-    })
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .TieuHaoNhienLieu()
@@ -62,12 +57,33 @@ export class TieuhaonhienlieuComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+
+  }
+
+  initData() {
     this.GetList();
     this.getListLoaiNhienLieu();
     this.getListLoaiDinhMucNhienLieu();
     this.getListPhanXuong();
     this.KiemTraTabTrangThai();
   }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
+  }
+
   resetFilter() {
     this.filter = {};
     this.GetList(true);

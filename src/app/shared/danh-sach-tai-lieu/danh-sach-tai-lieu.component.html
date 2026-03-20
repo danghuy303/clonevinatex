@@ -1,0 +1,107 @@
+<div class="sticky-table" appStickycolumn [fixedIndex]="4" #scrollContainer>
+    <table style="width: 100%">
+        <thead>
+            <tr>
+                <th class="tc-w-50">STT</th>
+                <th class="tc-w-200">Nhóm tài liệu</th>
+                <th class="tc-w-200">Tên tài liệu</th>
+                <th class="tc-w-150">Người up</th>
+                <th class="tc-w-100">Thời gian up</th>
+                <th class="tc-w-150">Mẫu</th>
+                <th class="tc-w-250">Tệp</th>
+                <th class="tc-w-250">Link</th>
+                <th class="tc-w-150">Phê duyệt</th>
+                <th *ngIf="isThuyetMinh" class="tc-w-50">Thuyết minh</th>
+                <th class="tc-w-200">Lý do không duyệt</th>
+                <th class="tc-w-200">Ghi chú</th>
+                <th class="tc-w-100">
+                    <p-button icon="pi pi-plus" styleClass="p-button-sm" pTooltip="Thêm mới tài liệu"
+                        tooltipPosition="top" (click)="HandleAddFile()"></p-button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let file of quyTrinh.listFileDinhKem;let i = index">
+                <tr>
+                    <td class="text-center" style="z-index: 9999;">{{i+1}}</td>
+                    <td class="" [pTooltip]="file.Ten" tooltipPosition="top">
+                        <p-dropdown appendTo="body" [filter]="true" [options]="listFile"
+                            [(ngModel)]="file.IddmNhomTaiLieu" placeholder="Chọn nhóm tài liệu" styleClass="w-full"
+                            [disabled]="file.isDisable || file.Loai === 'add'">
+                            <ng-template let-target pTemplate="selectedItem">
+                                <span style="vertical-align:middle">{{target.label | truncate:15}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </td>
+                    <td class="" [pTooltip]="file.TenTaiLieu" tooltipPosition="top">
+                        <input type="text" [disabled]="file.isDisable || file.Loai === 'add'" class="w-full" pInputText
+                            [(ngModel)]="file.TenTaiLieu" placeholder="Tên tài liệu" />
+                    </td>
+                    <td class="" [pTooltip]="file.NguoiUp" tooltipPosition="top"> {{file.NguoiUp}} </td>
+                    <td class=""> {{ file.NgayUp | date: "dd/MM/yyyy" }} </td>
+                    <td>
+                        <div *ngIf="file.LinkMau" class="d-flex align-items-center justify-content-between">
+                            <button pButton pRipple type="button" icon="pi pi-download"
+                                *ngIf="file.LinkMau!=='' && file.LinkMau!== null"
+                                class="p-button-rounded p-button-text p-button-secondary" ngbTooltip="Tải tệp mẫu"
+                                (click)="DownloadByURL(file.LinkMau)"></button>
+                        </div>
+                    </td>
+                    <td class="">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span style="cursor: pointer;" class="mr-2" [pTooltip]="file.FileName" tooltipPosition="top"
+                                (click)="downloadFile(file.Link, file.Id,false,file.Module)">
+                                {{file.FileName}}
+                            </span>
+                            <app-upload-file [multiple]="false" label="" [textIcon]="true"
+                                (itemChange)="handleUpLoadItem($event,i)"></app-upload-file>
+                        </div>
+                    </td>
+                    <td class="">
+                        <form action="" autocomplete="off">
+                            <div class="p-inputgroup">
+                                <input type="password" class="w-10 pw" autocomplete="off" pInputText
+                                    [(ngModel)]="file.LinkName" placeholder="Nhập link" (copy)="test($event)"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [disabled]="file.isDisable || file.Loai === 'add'" />
+                                <button pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-secondary"
+                                    (click)="DownloadFile(file.LinkName, file.Id, true,file.Module)"></button>
+                            </div>
+                        </form>
+                    </td>
+                    <td class="" [pTooltip]="file.NguoiPheDuyet" tooltipPosition="top">
+                        <p-dropdown appendTo="body" [options]="optionPheDuyet" styleClass="w-full"
+                            [(ngModel)]="file.isPheDuyet" [disabled]="file.isDisablePheDuyet || file.Loai === 'add'">
+                        </p-dropdown>
+                    </td>
+                    <td *ngIf="isThuyetMinh" class="text-center">
+                        <p-checkbox [(ngModel)]="file.isThuyetMinh" binary="true" inputId="binary">
+                        </p-checkbox>
+                    </td>
+                    <td class="" [pTooltip]="file.LyDoKhongDuyet" tooltipPosition="top">
+                        <input type="text" [disabled]="file.disabled || file.Loai === 'add'" class="w-full" pInputText
+                            [(ngModel)]="file.LyDoKhongDuyet" />
+                    </td>
+                    <td class="" [pTooltip]="file.GhiChu" tooltipPosition="top">
+                        <input type="text" class="w-full" pInputText [(ngModel)]="file.GhiChu"
+                            [disabled]="file.isDisable || file.Loai === 'add'" placeholder="Ghi chú" />
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <button
+                                *ngIf="(file.CreatedBy?file.CreatedBy === this.authService.currentUserValue.Id && file.isPhaiNop === 0 : file.isPhaiNop === 0) && !file.IdFileGoc"
+                                pButton pRipple type="button" icon="pi pi-trash"
+                                class="p-button-rounded p-button-text p-button-danger" (click)="DeleteFile(i)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-eye" pTooltip="Xem trước tài liệu"
+                                [showDelay]="500" class="p-button-rounded p-button-text p-button-secondary"
+                                (click)="showView(file.Id,file.Module)"></button>
+                            <button pButton pRipple type="button" icon="fa fa-history" pTooltip="Lịch sử tải tài liệu"
+                                [showDelay]="500" class="p-button-rounded p-button-text p-button-secondary"
+                                (click)="OpenHistory(file.Id,file.Module )"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

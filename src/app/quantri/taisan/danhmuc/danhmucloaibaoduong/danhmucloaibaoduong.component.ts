@@ -24,37 +24,37 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       header: 'Loại tài sản',
       field: 'TendmLoaiTaiSan',
       width: '100px',
-      align: 'center'
+      align: ''
     },
     {
       header: 'Mã',
       field: 'Ma',
       width: '100px',
-      align: 'center'
+      align: ''
     },
     {
       header: 'Tên',
       field: 'Ten',
       width: '150px',
-      align: 'center'
+      align: ''
     },
     {
       header: 'Nội dung',
       field: 'NoiDung',
       width: '150px',
-      align: 'center'
+      align: ''
     },
     {
       header: 'Thời gian và số người thực hiện',
       field: 'ThoiGianVaSoNguoiThucTe',
       width: '100px',
-      align: 'center'
+      align: ''
     },
     {
       header: 'Lịch bảo dưỡng/Sản lượng',
       field: 'ThoiGianNangSuat',
       width: '150px',
-      align: 'center'
+      align: ''
     },
   ];
   selectedItems: any = [];
