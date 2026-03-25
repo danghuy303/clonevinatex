@@ -30,14 +30,21 @@
     <app-chuyenbuoc [(quyTrinh)]="quyTrinh"></app-chuyenbuoc>
 
 
-    <div class="p-grid">
-        <div class="p-col-12 p-lg-6 d-flex flex-column">
+    <div class="p-grid p-pb-2">
+        <div class="p-col-12 p-lg-3 p-py-0 d-flex flex-column">
+            <label class="">Bộ phận sử dụng:<span class="required">(*)</span></label>
+            <div class="">
+                <p-dropdown [filter]="true" [options]="listBoPhan" [showClear]="true" [(ngModel)]="quyTrinh.IdBoPhanSuDung"
+                    placeholder="Chọn bộ phận"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-py-0 d-flex flex-column">
             <label class="">Nội dung:</label>
             <div class="">
                 <input locale="en-EN" [(ngModel)]="quyTrinh.NoiDung" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 d-flex flex-column">
+        <div class="p-col-12 p-lg-3 p-py-0 d-flex flex-column">
             <label class="">Ghi chú:</label>
             <div class="">
                 <input locale="en-EN" [(ngModel)]="quyTrinh.GhiChu" pInputText />
@@ -183,7 +190,7 @@
         <p-accordion styleClass="p-accordion-sm">
             <p-accordionTab>
                 <ng-template pTemplate="header">
-                    <h5 class="">Đánh giá</h5>
+                    <h6 class="">Đánh giá</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
                     <app-danh-gia [quyTrinh]="quyTrinh"></app-danh-gia>
@@ -195,7 +202,7 @@
         <p-accordion styleClass="p-accordion-sm">
             <p-accordionTab>
                 <ng-template pTemplate="header">
-                    <h5 class="">Vướng mắc</h5>
+                    <h6 class="">Vướng mắc</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
                     <app-vuong-mac [quyTrinh]="quyTrinh"></app-vuong-mac>
@@ -207,7 +214,7 @@
         <p-accordion styleClass="p-accordion-sm">
             <p-accordionTab>
                 <ng-template pTemplate="header">
-                    <h5 class="">Phân công công việc</h5>
+                    <h6 class="">Phân công công việc</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
                     <app-phan-cong-cong-viec [quyTrinh]="quyTrinh"></app-phan-cong-cong-viec>
@@ -219,7 +226,7 @@
         <p-accordion styleClass="p-accordion-sm">
             <p-accordionTab>
                 <ng-template pTemplate="header">
-                    <h5 class="">Danh sách tài liệu</h5>
+                    <h6 class="">Danh sách tài liệu</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
                     <app-danh-sach-tai-lieu></app-danh-sach-tai-lieu>
@@ -231,7 +238,7 @@
         <p-accordion styleClass="p-accordion-sm">
             <p-accordionTab>
                 <ng-template pTemplate="header">
-                    <h5 class="">Trao đổi / Vướng mắc</h5>
+                    <h6 class="">Trao đổi / Vướng mắc</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
                     <app-trao-doi [IdTable]="quyTrinh.Id" [eAction]="eAction"></app-trao-doi>

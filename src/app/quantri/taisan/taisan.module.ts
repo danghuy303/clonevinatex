@@ -251,6 +251,7 @@ import { LoaihinhbaohiemmodalComponent } from './danhmuc/loaihinhbaohiem/loaihin
 import { TieuhaonhienlieutabComponent } from './tieuhaonhienlieutab/tieuhaonhienlieutab.component';
 import { KiemdinhtaisantabComponent } from './kiemdinhtaisantab/kiemdinhtaisantab.component';
 import { BaohiemtaisantabComponent } from './baohiemtaisantab/baohiemtaisantab.component';
+import { DanhSachTheoNhomMayComponent } from './screenLichXich/danh-sach-theo-nhom-may/danh-sach-theo-nhom-may.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -447,6 +448,7 @@ import { BaohiemtaisantabComponent } from './baohiemtaisantab/baohiemtaisantab.c
     LoaihinhbaohiemComponent,
     DonvibaohiemodalComponent,
     LoaihinhbaohiemmodalComponent,
+    DanhSachTheoNhomMayComponent,
     // TieuhaonhienlieutabComponent,
     // KiemdinhtaisantabComponent,
     // BaohiemtaisantabComponent,

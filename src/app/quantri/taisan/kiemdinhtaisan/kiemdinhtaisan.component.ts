@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from '../../../services/callApiSanXuat';
@@ -15,7 +15,7 @@ import { DanhmuctaisanService } from '../../../services/Taisan/danhmuctaisan.ser
   templateUrl: './KiemDinhTaiSan.component.html',
   styleUrls: ['./KiemDinhTaiSan.component.css']
 })
-export class KiemDinhTaiSanComponent implements OnInit {
+export class KiemDinhTaiSanComponent implements OnInit, OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -30,6 +30,8 @@ export class KiemDinhTaiSanComponent implements OnInit {
   eAction = "KIEMDINHTAISAN";
   listKiemDinh: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
+  listBoPhan: any = [];
 
   constructor(
     private _modal: NgbModal,
@@ -40,16 +42,10 @@ export class KiemDinhTaiSanComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private _danhMucTaiSan: DanhmuctaisanService
-  ) {
-    this.$sub = this.store.getNhaMay().subscribe(res => {
-      if (res) {
-        this.ngOnInit()
-      }
-    })
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
           .KiemDinh()
@@ -59,9 +55,36 @@ export class KiemDinhTaiSanComponent implements OnInit {
           });
       }
     });
+
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
+      if (res) {
+        this.initData();
+      }
+    })
+    this.initData();
+
+  }
+
+  initData() {
     this.GetList();
     this.getListNoiDangKiem();
     this.KiemTraTabTrangThai();
+    this.getListPhanXuong();
+  }
+
+  getListPhanXuong() {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
+      this.listBoPhan = mapArrayForDropDown(res, "Ten", "Id");
+    })
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
+    if (this.$subRoute) {
+      this.$subRoute.unsubscribe();
+    }
   }
   resetFilter() {
     this.filter = {};
@@ -100,6 +123,7 @@ export class KiemDinhTaiSanComponent implements OnInit {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới kiểm định tài sản';
     modalRef.componentInstance.listKiemDinh = this.listKiemDinh;
+    modalRef.componentInstance.listBoPhan = this.listBoPhan;
     modalRef.componentInstance.eAction = this.eAction;
     modalRef.result.then((res: any) => {
     }).catch((er: any) => console.log(er))
@@ -118,6 +142,7 @@ export class KiemDinhTaiSanComponent implements OnInit {
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật kiểm định tài sản';
     modalRef.componentInstance.listKiemDinh = this.listKiemDinh;
+    modalRef.componentInstance.listBoPhan = this.listBoPhan;
     modalRef.componentInstance.quyTrinh = JSON.parse(JSON.stringify(item));
     modalRef.result
       .then((data: any) => {

@@ -2,6 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DateToUnix, mapArrayForDropDown, UnixToDate } from '../../services/globalfunction';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaiLieuPhanCongCongViecComponent } from '../tai-lieu-phan-cong-cong-viec/tai-lieu-phan-cong-cong-viec.component';
+import { formatDate } from '@angular/common';
+import { ConfirmationService } from '../../services/confirmation.service';
+import { TaisanService } from '../../services/Taisan/taisan.service';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-phan-cong-cong-viec',
@@ -94,16 +98,30 @@ export class PhanCongCongViecComponent implements OnInit {
       }
     ]
   };
-  @Input() checkQuyen: any = { listPhanCong: [] };
+  @Input() checkQuyenBtn: any = { listPhanCong: [], PhanCongDenNgay: '' };
   IdTrangThai: string = '';
   isCongViecAll: boolean = false;
 
   constructor(
     private modal: NgbModal,
+    private _confirmService: ConfirmationService,
+    private _serviceTaiSan: TaisanService,
+    private store: StoreService
   ) { }
 
   ngOnInit(): void {
     this.initDataAll();
+    this.getListdmNhomTaiLieu();
+  }
+
+  getListdmNhomTaiLieu() {
+    let payLoad = {
+      CurrentPage: 0,
+      IdDuAn: this.store.getCurrent() || 0
+    }
+    this._serviceTaiSan.GetListdmNhomTaiLieu(payLoad).subscribe((res: any) => {
+
+    })
   }
 
   checkAll(e: any) {
@@ -113,8 +131,6 @@ export class PhanCongCongViecComponent implements OnInit {
   initDataAll() {
     this.quyTrinh.listPhanCongCongViecAll = this.getMapUnix(this.quyTrinh.listPhanCongCongViecAll);
     this.quyTrinh.listPhanCongCongViec = this.getMapUnix(this.quyTrinh.listPhanCongCongViec);
-    console.log('this.quyTrinh.listPhanCongCongViecAll', this.quyTrinh.listPhanCongCongViecAll);
-
   }
 
   getMapUnix(list: any) {
@@ -125,6 +141,41 @@ export class PhanCongCongViecComponent implements OnInit {
         DenNgay: UnixToDate(ele.DenNgayUnix),
         NgayHoanThanh: UnixToDate(ele.NgayHoanThanhUnix),
       }
+    })
+  }
+
+  addTask() {
+    let newTask = {
+      Id: "",
+      NoiDung: "",
+      IdUser: "",
+      TuNgay: new Date(),
+      DenNgay: UnixToDate(this.checkQuyenBtn.PhanCongDenNgay),
+      NgayHoanThanh: null,
+      GhiChu: "",
+      isTrangThai: false,
+      isDisableTrangThai: true,
+      isShowCombobox: true,
+      DenNgayTooltip: this.checkQuyenBtn?.PhanCongDenNgay
+        ? formatDate(
+          UnixToDate(this.checkQuyenBtn.PhanCongDenNgay)!,
+          'dd/MM/yyyy HH:mm',
+          'en-US'
+        )
+        : '',
+      TuNgayTooltip: formatDate(new Date(), 'dd/MM/yyyy HH:mm', 'en-US')
+    }
+    this.quyTrinh.listPhanCongCongViec.push(newTask);
+  }
+
+  deleteTask(index: number) {
+    this._confirmService.show({
+      message: "Thông báo xóa', 'Bạn chắc chắn muốn xóa dòng này?"
+    }, () => {
+      if (this.isCongViecAll) {
+        this.quyTrinh.listPhanCongCongViecAll.splice(index, 1);
+      }
+      else this.quyTrinh.listPhanCongCongViec.splice(index, 1);
     })
   }
 

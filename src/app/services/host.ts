@@ -73,4 +73,6 @@ export class API {
   public static downloadURL = host1 + "/uploader/api/hdfiles";
   public static imgURL = host1;
   public static SCMKiemKeBanChePham = host1 + "/SCM/KiemKeBanChePham/";
+
+  public static dmPSM = host1 + "/DanhMuc/";
 }

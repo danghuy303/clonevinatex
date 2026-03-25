@@ -17,7 +17,7 @@ import { API } from '../../../../services/host';
 })
 export class KiemdiemtaisanmodalComponent implements OnInit {
 
-  quyTrinh: any = {SoQuyTrinh:'', listTaiSan: [] };
+  quyTrinh: any = { SoQuyTrinh: '', listTaiSan: [] };
   type = '';
   checkbutton: any = {};
   lang: any = vn;
@@ -26,6 +26,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   title: any = '';
   listKiemDinh: any = [];
   eAction: string = '';
+  listBoPhan: any = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -64,6 +65,10 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   }
 
   ValidateData() {
+    if (!validVariable(this.quyTrinh.IdBoPhanSuDung) ) {
+      this.toastr.error("Yêu cầu chọn bộ phận sử dụng!");
+      return false;
+    }
     return true;
   }
 

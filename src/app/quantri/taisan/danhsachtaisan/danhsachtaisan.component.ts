@@ -13,6 +13,8 @@ import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.s
 import { ModalthongtinchitiettaisanComponent } from "../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component";
 import { Subscription } from "rxjs";
 import { StoreService } from "src/app/services/store.service";
+import { API } from "../../../services/host";
+import { handleHTTPResponse } from "../../../services/globalfunction";
 // import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
 
 @Component({
@@ -45,10 +47,10 @@ export class DanhsachtaisanComponent implements OnInit {
   ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
-   }
+    })
+  }
 
   ngOnInit(): void {
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
@@ -113,7 +115,7 @@ export class DanhsachtaisanComponent implements OnInit {
         }
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children });
-        
+
       });
     })
   }
@@ -154,4 +156,27 @@ export class DanhsachtaisanComponent implements OnInit {
     this.paging.CurrentPage = event.page + 1;
     this.Loaddata();
   }
+
+  handlExcel() {
+    this._serviceTaiSan.ExportFileMauNhapVatTu().subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        window.open(`${API.imgURL}${res.Data}`)
+        this._toastr.success(res.Message);
+      } else this._toastr.error(res.Message);
+    })
+  }
+
+  handleUpload(e: any) {
+    this._serviceTaiSan.ImportdsTaiSan(e.Name, this.store.getCurrent()).subscribe((res: any) => {
+      handleHTTPResponse(res, this._toastr, () => {
+        if (res.StatusCode === 200) {
+          this.Loaddata();
+          this._toastr.success(res.Message);
+        } else {
+          this._toastr.error(res.Message);
+        }
+      })
+    })
+  }
+
 }

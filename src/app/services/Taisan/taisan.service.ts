@@ -1480,4 +1480,23 @@ export class TaisanService {
     return this.http.post(`${API.CungUng}DanhMuc/GetlistdmLoaiVatTu`, data, httpOptions);
   }
 
+  ImportdsTaiSan(FileName: any,IdDuAn:any) {
+    return this.http.get(`${API.TaiSan}QuanLyTaiSan/ImportdsTaiSan?FileName=${FileName}&IdDuAn=${IdDuAn}`, httpOptions);
+  }
+  ImportQuyTrinhNhapTaiSan(FileName: any,IdDuAn:any) {
+    return this.http.get(`${API.TaiSan}QuanLyTaiSan/ImportQuyTrinhNhapTaiSan?FileName=${FileName}&IdDuAn=${IdDuAn}`, httpOptions);
+  }
+
+  GetGiaVatTuThayTheForLichXichNam(data: any) {
+    return this.http.post(`${API.TaiSan}BaoDuongTaiSan/GetGiaVatTuThayTheForLichXichNam`, data, httpOptions);
+  }
+
+  GetGiaVatTuThayThe(data: any) {
+    return this.http.post(`${API.TaiSan}BaoDuongTaiSan/GetGiaVatTuThayThe`, data, httpOptions);
+  }
+
+  GetListdmNhomTaiLieu(data: any) {
+    return this.http.post(`${API.dmPSM}GetListdmNhomTaiLieu`, data, httpOptions);
+  }
+
 }

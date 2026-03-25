@@ -32,6 +32,7 @@ export class BaohiemtaisanComponent implements OnInit, OnDestroy {
   listDonViBaoHiem: any = [];
   $sub!: Subscription;
   $subRoute!: Subscription;
+  listBoPhan: any = [];
 
   constructor(
     private _modal: NgbModal,
@@ -69,6 +70,7 @@ export class BaohiemtaisanComponent implements OnInit, OnDestroy {
     this.getListDonViBaoHiem();
     this.getListLoaiHinhBaoHiem();
     this.KiemTraTabTrangThai();
+    this.getListPhanXuong();
   }
 
   ngOnDestroy(): void {
@@ -78,6 +80,12 @@ export class BaohiemtaisanComponent implements OnInit, OnDestroy {
     if (this.$subRoute) {
       this.$subRoute.unsubscribe();
     }
+  }
+
+  getListPhanXuong() {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
+      this.listBoPhan = mapArrayForDropDown(res, "Ten", "Id");
+    })
   }
 
   resetFilter() {
@@ -120,6 +128,7 @@ export class BaohiemtaisanComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.listDonViBaoHiem = this.listDonViBaoHiem;
     modalRef.componentInstance.listLoaiHinhBaoHiem = this.listLoaiHinhBaoHiem;
     modalRef.componentInstance.eAction = this.eAction;
+    modalRef.componentInstance.listBoPhan = this.listBoPhan;
     modalRef.result.then((res: any) => {
     }).catch((er: any) => console.log(er))
       .finally(() => {
@@ -138,6 +147,7 @@ export class BaohiemtaisanComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.title = 'Cập nhật bảo hiểm tài sản';
     modalRef.componentInstance.listDonViBaoHiem = this.listDonViBaoHiem;
     modalRef.componentInstance.listLoaiHinhBaoHiem = this.listLoaiHinhBaoHiem;
+    modalRef.componentInstance.listBoPhan = this.listBoPhan;
     modalRef.componentInstance.quyTrinh = JSON.parse(JSON.stringify(item));
     modalRef.result
       .then((data: any) => {

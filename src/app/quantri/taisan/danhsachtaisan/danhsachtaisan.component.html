@@ -6,7 +6,10 @@
         *ngIf="checkQuyen.ThemMoi"></button> -->
         
         
-    <div></div>
+    <div class="d-flex">
+         <button pButton label="Xuất excel" class="p-button-sm p-mr-2" (click)="handlExcel()"></button>
+          <app-upload-file [multiple]="false" label="Nhập excel" (itemChange)="handleUpload($event)"></app-upload-file>
+    </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <div class="p-field-checkbox">

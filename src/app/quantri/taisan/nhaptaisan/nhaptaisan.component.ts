@@ -1,7 +1,7 @@
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap"; 
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { DateToUnix, mapArrayForDropDown, UnixToDate, } from "src/app/services/globalfunction";
@@ -12,6 +12,8 @@ import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalca
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { StoreService } from "src/app/services/store.service";
+import { API } from "../../../services/host";
+import { handleHTTPResponse } from "../../../services/globalfunction";
 
 
 @Component({
@@ -236,6 +238,28 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
         this.Loaddata();
       } else this.toastr.error(res.Message);
 
+    })
+  }
+
+  handlExcel() {
+    this._serviceTaiSan.ExportFileMauNhapVatTu().subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        window.open(`${API.imgURL}${res.Data}`)
+        this.toastr.success(res.Message);
+      } else this.toastr.error(res.Message);
+    })
+  }
+
+  handleUpload(e: any) {
+    this._serviceTaiSan.ImportQuyTrinhNhapTaiSan(e.Name, this.store.getCurrent()).subscribe((res: any) => {
+      handleHTTPResponse(res, this.toastr, () => {
+        if (res.StatusCode === 200) {
+          this.Loaddata()
+          this.toastr.success(res.Message);
+        } else {
+          this.toastr.error(res.Message);
+        }
+      })
     })
   }
 

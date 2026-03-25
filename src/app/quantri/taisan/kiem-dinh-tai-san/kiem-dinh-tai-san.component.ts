@@ -30,6 +30,7 @@ export class KiemDinhTaiSanComponent implements OnInit, OnDestroy {
   listKiemDinh: any = [];
   $sub!: Subscription;
   $subRoute!: Subscription;
+  listBoPhan: any = [];
 
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
@@ -64,6 +65,13 @@ export class KiemDinhTaiSanComponent implements OnInit, OnDestroy {
     this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdm();
+    this.getListPhanXuong();
+  }
+
+  getListPhanXuong() {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
+      this.listBoPhan = mapArrayForDropDown(res, "Ten", "Id");
+    })
   }
 
   ngOnDestroy(): void {
@@ -123,6 +131,7 @@ export class KiemDinhTaiSanComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = ' Kiểm định tài sản';
     modalRef.componentInstance.listKiemDinh = this.listKiemDinh;
+    modalRef.componentInstance.listBoPhan = this.listBoPhan;
     modalRef.componentInstance.item = {
       Id: '', IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "", TendmPhanXuong: "",
       isKetThuc: false, listFileDinhKem: [], listTaiSan: [],
@@ -144,6 +153,7 @@ export class KiemDinhTaiSanComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật kiểm định tài sản';
     modalRef.componentInstance.listKiemDinh = this.listKiemDinh;
+    modalRef.componentInstance.listBoPhan = this.listBoPhan;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

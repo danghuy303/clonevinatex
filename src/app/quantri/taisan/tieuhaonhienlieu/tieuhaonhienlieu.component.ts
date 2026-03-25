@@ -183,7 +183,7 @@ export class TieuhaonhienlieuComponent implements OnInit, OnDestroy {
   }
 
   getListPhanXuong() {
-    this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listBoPhan = mapArrayForDropDown(res, "Ten", "Id");
     })
   }

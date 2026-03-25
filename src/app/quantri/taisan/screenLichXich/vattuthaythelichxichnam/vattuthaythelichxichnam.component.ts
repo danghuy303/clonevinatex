@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { deepCopy, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
+import { DanhSachTheoNhomMayComponent } from '../danh-sach-theo-nhom-may/danh-sach-theo-nhom-may.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-vattuthaythelichxichnam',
@@ -22,6 +25,8 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
 
   constructor(
     private _serviceTaiSan: TaisanService,
+    public _modal: NgbModal,
+    private toastr: ToastrService,
   ) { }
 
   ngOnChanges(): void {
@@ -102,6 +107,35 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
   LayVatTu() {
     this._serviceTaiSan.GetDanhSachVatTuThayTheForLichXichNam(this.listTaiSan).subscribe((res: any) => {
       this.HandListTaiSan.emit(res.Data);
+    })
+  }
+
+  handleNhapGia() {
+    this._serviceTaiSan.GetGiaVatTuThayTheForLichXichNam(this.listTaiSan).subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        let modalRef = this._modal.open(DanhSachTheoNhomMayComponent, {
+          backdrop: "static", size: 'lg'
+        });
+        modalRef.componentInstance.title = "Nhóm tài sản";
+        modalRef.componentInstance.listTaiSan = res.Data;
+        modalRef.result.then((res: any) => {
+          this.getGiaVatTuThayThe(res);
+        })
+          .catch((er: any) => { })
+      } else res.Message;
+    })
+  }
+
+  getGiaVatTuThayThe(list: any) {
+    let data = {
+      listTaiSan: this.listTaiSan,
+      listDonGia: list
+    }
+    this._serviceTaiSan.GetGiaVatTuThayThe(data).subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        this.listTaiSan = res.Data;
+        this.toastr.success(res.Message);
+      } else this.toastr.error(res.Message);
     })
   }
 

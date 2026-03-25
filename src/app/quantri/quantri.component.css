@@ -86,7 +86,7 @@
 }
 
 :host ::ng-deep .popover-body {
-    width: 110px;
+    width: 200px;
     padding: 1rem;
 }
 

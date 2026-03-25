@@ -27,6 +27,7 @@ export class BaohiemtaisanmodalComponent implements OnInit {
   eAction: string = '';
   listDonViBaoHiem: any = [];
   listLoaiHinhBaoHiem: any = [];
+  listBoPhan: any = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -261,7 +262,7 @@ export class BaohiemtaisanmodalComponent implements OnInit {
   }
 
   handleChangeItem(data: any, index: any) {
-     this.quyTrinh.listTaiSan[index].listFileDinhKem.push({
+    this.quyTrinh.listTaiSan[index].listFileDinhKem.push({
       FileName: data.NameLocal,
       FileNameGUI: data.Name
     })

@@ -33,15 +33,22 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
+            <label class="">Bộ phận sử dụng:</label>
+            <div class="">
+                <p-dropdown [filter]="true" [options]="listBoPhan" [showClear]="true" styleClass="p-inputtext-sm"
+                    [(ngModel)]="quyTrinh.IdBoPhanSuDung" placeholder="Chọn bộ phận"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
             <label class="">Số hợp đồng:</label>
             <div class="">
-                <input locale="en-EN" [(ngModel)]="quyTrinh.SoHopDong" pInputText />
+                <input locale="en-EN" [(ngModel)]="quyTrinh.SoHopDong" styleClass="p-inputtext-sm" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
             <label class="">Loại hình bảo hiểm:</label>
             <div class="">
-                <p-dropdown [filter]="true" [options]="listLoaiHinhBaoHiem" placeholder="Chọn" [showClear]="true"
+                <p-dropdown [filter]="true" [options]="listLoaiHinhBaoHiem" placeholder="Chọn" [showClear]="true" 
                     styleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.IddmLoaiHinhBaoHiem"></p-dropdown>
             </div>
         </div>
@@ -91,7 +98,7 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-10 p-p-1  d-flex flex-column">
+        <div class="p-col-12 p-lg-8 p-p-1  d-flex flex-column">
             <label class="">Ghi chú:</label>
             <div class="">
                 <input locale="en-EN" [(ngModel)]="quyTrinh.GhiChu" pInputText />
