@@ -24,12 +24,10 @@ export class QuantriComponent implements OnInit, OnDestroy {
   userSub: any;
   newNoti: any = 0;
   listNotis: any = [];
-  // userName: any = 'Vinatex';
   display: boolean = false;
   displayAsset: boolean = false;
   isCheckMenu: boolean = false;
   newCanhBao: any = 0;
-  // userName: any = 'Vinatex';
   displayCanhBao: boolean = false;
   OSName: string = "HỆ THỐNG QUẢN TRỊ VÀ ĐIỀU HÀNH SỐ";
   menu: MenuItem[];
@@ -70,6 +68,8 @@ export class QuantriComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log('userInfo',this.userInfo);
+    
     this.getlistNgoiNha();
     // this.showHopDongModule =
     //   window.location.origin.includes("4200") ||

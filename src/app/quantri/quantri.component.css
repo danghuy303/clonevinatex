@@ -1,5 +1,5 @@
 .navbar {
-    padding: 0.5rem 1rem;
+    padding: 0rem 1rem;
     /* background: rgba(0, 0, 0, 0.05); */
     background: white;
     color: rgba(0, 0, 0, 0.9);
@@ -7,6 +7,7 @@
     border-radius: 4px;
     display: flex;
     justify-content: space-between;
+    min-height: 56px !important;
 }
 
 .menu {
@@ -179,4 +180,17 @@ a {
     font-family: "Public Sans", sans-serif;
     color: rgb(0, 150, 136);
     display: inline-block;
+}
+
+.sidebar-logo {
+    min-height: 60px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    padding-left: 24px;
+    /* border-bottom: 1px solid #f1f0f0; */
 }
