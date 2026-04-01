@@ -90,23 +90,23 @@
                 [ngbPopover]="popContentHome">
             </p-button>
         </div>
-        <div style="padding-right: 10px; margin:auto 0px; position: relative;">
+        <!-- <div style="padding-right: 10px; margin:auto 0px; position: relative;">
             <p-button type="text" icon="pi pi-bell" styleClass="p-button-text p-button-lg" (click)="open($event)">
             </p-button>
             <div class="badge" (click)="open($event)" *ngIf="newNoti>0">{{newNoti}}</div>
-        </div>
+        </div> -->
         <div style="padding-right: 10px; margin:auto 0px; position: relative;">
             <p-button type="text" icon="pi pi-exclamation-triangle" styleClass="p-button-text p-button-lg"
                 (click)="openCanhBao($event)">
             </p-button>
             <div class="badge" (click)="openCanhBao($event)" *ngIf="newCanhBao>0">{{newCanhBao}}</div>
         </div>
-        <div style="padding-right: 10px; margin:auto 0px; position: relative;">
+        <!-- <div style="padding-right: 10px; margin:auto 0px; position: relative;">
             <p-button type="text" icon="fas fa-tasks" styleClass="p-button-text p-button-lg"
                 pTooltip="Quy trình cần xử lý" (click)="openQuyTrinhCanXuLy()">
             </p-button>
             <div class="badge" *ngIf="SluongListQuyTrinhCanXuLy>0">{{SluongListQuyTrinhCanXuLy}}</div>
-        </div>
+        </div> -->
 
         <ng-template #popContentHome>
             <!-- <ul class="list-group">
@@ -121,9 +121,10 @@
             </ul> -->
 
             <ul class="list-group">
-                <li class="list-group-item-smarteos" style="border: none; list-style: none;font-size: 17px;"
+                <li class="list-group-item-smarteos" style="border: none; list-style: none;font-size: 15px;"
                     *ngFor="let link of listHome">
-                    <a *ngIf="link.isHoatDong" class="link-smarteos" [href]="link.Path ? link.Path : 'javascript:void(0)'">{{link.Ten}}</a>
+                    <a *ngIf="link.isHoatDong" class="link-smarteos"
+                        [href]="link.Path ? link.Path : 'javascript:void(0)'">{{link.Ten}}</a>
                 </li>
             </ul>
 
@@ -133,29 +134,40 @@
         </div> -->
     </div>
     <div>
-        <h2 style="font-weight: 500; text-transform: uppercase;" id="Name">{{OSName}}</h2>
+        <div class="title-navbar">{{OSName}}</div>
     </div>
-    <div style="margin: auto 0px;" class="d-flex flex-column flex-md-row">
+    <div class="d-flex p-ai-center">
         <div style="width:200px;" *ngIf="showDropDown">
             <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
                 [(ngModel)]="IdNhaMay" (onChange)="setGlobalNhaMay($event)"></p-dropdown>
         </div>
-        <p-splitButton [label]="userInfo.UserName | uppercaseFirstletter:'first'" [model]="userBtn"
-            styleClass="p-button-text ml-3"></p-splitButton>
+        <div style="padding-right: 10px;padding-left: 10px; margin:auto 0px; position: relative;">
+            <p-button type="text" icon="pi pi-bell" styleClass="p-button-text p-button-lg" (click)="open($event)">
+            </p-button>
+            <div class="badge" (click)="open($event)" *ngIf="newNoti>0">{{newNoti}}</div>
+        </div>
+        <!-- <p-splitButton [label]="userInfo.UserName | uppercaseFirstletter:'first'" [model]="userBtn"
+            styleClass="p-button-text ml-3"></p-splitButton> -->
+        <p-menu #userMenu [popup]="true" [model]="userBtn"></p-menu>
+        <div class="taikhoan" (click)="userMenu.toggle($event)" style="cursor: pointer;">
+            <img id='logo' src="http://103.130.212.35:2501/quanlykho/quanlykho/avatar-1-B0hIH1z9.png" style="height: 32px; width: 32px;border-radius: 50%;background: rgb(230, 244, 255);">
+            <h6 class="p-ml-2 mb-0">{{userInfo.UserName | uppercaseFirstletter:'first'}}</h6>
+        </div>
     </div>
 </div>
 <p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">
-    <div style="width: 100%; padding:20px; display: flex; justify-content: center; align-items: center;"
-        *ngIf="display">
+    <div class="sidebar-logo"
+        style="width: 100%; padding:20px; display: flex; justify-content: center; align-items: center;" *ngIf="display">
         <img src="assets/logo/LogoWhite.png" width="100px">
     </div>
     <p-panelMenu [model]="menu"></p-panelMenu>
 </p-sidebar>
 
 <p-sidebar [(visible)]="displayAsset" [showCloseIcon]="false" [blockScroll]="true">
-    <div style="width: 100%; padding:20px; display: flex; justify-content: center; align-items: center;"
+    <div class="sidebar-logo"
+        style="width: 100%; padding:20px; display: flex; align-items: center;  border-bottom: 1px solid #f1f0f0;"
         *ngIf="displayAsset">
-        <img src="assets/logo/LogoWhite.png" width="100px">
+        <img src="http://103.130.212.35:2501/quanlykho/quanlykho/logo-app-new-D_RjoT3O.png" width="100px" height="50px">
     </div>
     <p-panelMenu [model]="menuQLTS"></p-panelMenu>
 </p-sidebar>

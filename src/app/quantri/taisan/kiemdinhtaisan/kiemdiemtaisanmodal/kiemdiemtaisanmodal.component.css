@@ -1,0 +1,17 @@
+::ng-deep .p-accordion-sm .p-accordion-header .p-accordion-header-link {
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+}
+
+::ng-deep .p-accordion-sm .p-accordion-header .p-accordion-header-link .p-accordion-toggle-icon,
+::ng-deep .p-accordion-sm .p-accordion-header .p-accordion-header-link > .pi {
+    order: -1 !important;
+    margin-right: 0.5rem !important;
+    margin-left: 0 !important;
+}
+
+::ng-deep .p-accordion-sm .p-accordion-header .p-accordion-header-link h6 {
+    margin-bottom: 0px !important;
+}

@@ -74,16 +74,48 @@ p-table .p-datatable-gridlines th {
 }
 
 p-sidebar .p-sidebar {
-  background-color: #243a92 !important;
+  background-color: #ffffff !important;
   padding: 0px !important;
 }
 
+/* Sidebar + PanelMenu: white background (match other modules) */
 p-panelmenu .p-panelmenu-content {
-  background-color: #243a92 !important;
+  background-color: #ffffff !important;
 }
 
-p-panelmenu * {
-  color: white !important;
+.p-panelmenu .p-panelmenu-panel .p-panelmenu-header > a {
+  background-color: #ffffff !important;
+  border-color: #e5e7eb !important;
+}
+
+.p-panelmenu,
+.p-panelmenu * {
+  color: #111827 !important;
+}
+
+/* Hover/active states */
+p-panel
+  .p-panelmenu
+  .p-panelmenu-content
+  .p-menuitem
+  .p-menuitem-link:not(.p-disabled):hover {
+  background-color: #f3f4f6 !important;
+}
+
+a.p-panelmenu-header-link:hover,
+a.p-menuitem-link:hover {
+  background-color: #f3f4f6 !important;
+}
+
+.p-panelmenu .p-menuitem-link.p-menuitem-link-active,
+.p-panelmenu .p-panelmenu-header > a.p-highlight {
+  background-color: #eef2ff !important;
+}
+
+/* Keep logo visible on white sidebar */
+.sidebar-logo {
+  /* background-color: #243a92; */
+    background-color: #fff;
 }
 
 .p-panelmenu .p-panelmenu-panel .p-panelmenu-header > a {
@@ -102,18 +134,7 @@ span.pi-chevron-right {
   flex: 1;
 }
 
-p-panel
-  .p-panelmenu
-  .p-panelmenu-content
-  .p-menuitem
-  .p-menuitem-link:not(.p-disabled):hover {
-  background-color: #2a53a5 !important;
-}
-
-a.p-panelmenu-header-link:hover,
-a.p-menuitem-link:hover {
-  background-color: #2a53a5 !important;
-}
+/* (override old blue hover colors above) */
 
 p-dropdown .p-dropdown {
   width: 100% !important;

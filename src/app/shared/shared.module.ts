@@ -76,6 +76,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { EditorModule } from 'primeng/editor';
 import { TaiLieuPhanCongCongViecComponent } from './tai-lieu-phan-cong-cong-viec/tai-lieu-phan-cong-cong-viec.component';
 import { DinhMucNguyenLieuComponent } from './dinh-muc-nguyen-lieu/dinh-muc-nguyen-lieu.component';
+import { DanhSachTaiLieuCongViecPopupComponent } from './danh-sach-tai-lieu-cong-viec-popup/danh-sach-tai-lieu-cong-viec-popup.component';
 
 @NgModule({
   declarations: [
@@ -128,6 +129,7 @@ import { DinhMucNguyenLieuComponent } from './dinh-muc-nguyen-lieu/dinh-muc-nguy
     PhanCongCongViecComponent,
     TaiLieuPhanCongCongViecComponent,
     DinhMucNguyenLieuComponent,
+    DanhSachTaiLieuCongViecPopupComponent,
   ],
   imports: [
     AccordionModule,

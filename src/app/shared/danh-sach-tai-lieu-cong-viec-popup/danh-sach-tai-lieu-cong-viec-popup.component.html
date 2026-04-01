@@ -6,13 +6,15 @@
         <button pButton pRipple type="button" label="Quay lại" class="p-button-sm mr-2"
             (click)="activeModal.close()"></button>
         <button pButton pRipple type="button" label="Chấp nhận" class="p-button-sm mr-2" (click)="GhiLai()"></button>
-        <button pButton pRipple type="button" label="Chọn" class="p-button-sm mr-2"
-            (click)="handleDanhSachTaiLieu()"></button>
     </div>
     <div class="sticky-table" appStickycolumn [fixedIndex]="4" #scrollContainer>
         <table style="width: 100%">
             <thead>
                 <tr>
+                    <th class="tc-w-50">
+                        <p-checkbox [(ngModel)]="checkedAll" binary="true" inputId="binaryall"
+                            (onChange)="checkAll($event)"></p-checkbox>
+                    </th>
                     <th class="tc-w-50">STT</th>
                     <th class="tc-w-200">Nhóm tài liệu</th>
                     <th class="tc-w-200">Tên tài liệu</th>
@@ -22,15 +24,16 @@
                     <th class="tc-w-150">Phê duyệt</th>
                     <th class="tc-w-200">Lý do không duyệt</th>
                     <th class="tc-w-100">Ghi chú</th>
-                    <th class="tc-w-100">
-                        <p-button icon="pi pi-plus" styleClass="p-button-sm" pTooltip="Thêm mới tài liệu"
-                            tooltipPosition="top" (click)="HandleAddFile()"></p-button>
-                    </th>
                 </tr>
             </thead>
             <tbody>
                 <ng-container *ngFor="let file of listFileDinhKem;let i = index">
                     <tr>
+                        <td class="text-center" style="z-index: 9999;">
+                            <p-checkbox binary="true" [disabled]="file.disables" inputId="binary" (onChange)="checked()"
+                                [(ngModel)]="file.checked">
+                            </p-checkbox>
+                        </td>
                         <td class="text-center" style="z-index: 9999;">{{i+1}}</td>
                         <td class="" [pTooltip]="file.Ten" tooltipPosition="top">
                             <p-dropdown appendTo="body" [filter]="true" [options]="listFile"
@@ -40,10 +43,7 @@
                                 </ng-template>
                             </p-dropdown>
                         </td>
-                        <td class="" [pTooltip]="file.TenTaiLieu" tooltipPosition="top">
-                            <input type="text" class="w-full" pInputText [(ngModel)]="file.TenTaiLieu"
-                                placeholder="Tên tài liệu" />
-                        </td>
+                        <td class="" [pTooltip]="file.TenTaiLieu" tooltipPosition="top">{{file.TenTaiLieu}} </td>
                         <td>
                             <div *ngIf="file.LinkMau" class="d-flex align-items-center justify-content-between">
                                 <button pButton pRipple type="button" icon="pi pi-download"
@@ -70,37 +70,18 @@
                                         [ngModelOptions]="{ standalone: true }"
                                         [disabled]="file.isDisable || file.Loai === 'add'" />
                                     <button pButton pRipple type="button" icon="pi pi-ellipsis-v"
-                                        class="p-button-secondary"
+                                        class="p-button-secondary" [disabled]="true"
                                         (click)="DownloadFile(file.LinkName, file.Id, true,file.Module)"></button>
                                 </div>
                             </form>
                         </td>
                         <td class="" [pTooltip]="file.NguoiPheDuyet" tooltipPosition="top">
-                            <p-dropdown appendTo="body" [options]="optionPheDuyet" styleClass="w-full"
+                            <p-dropdown appendTo="body" [options]="optionPheDuyet" styleClass="w-full" [disabled]="true"
                                 [(ngModel)]="file.isPheDuyet">
                             </p-dropdown>
                         </td>
-                        <td class="" [pTooltip]="file.LyDoKhongDuyet" tooltipPosition="top">
-                            <input type="text" class="w-full" pInputText [(ngModel)]="file.LyDoKhongDuyet" />
-                        </td>
-                        <td class="" [pTooltip]="file.GhiChu" tooltipPosition="top">
-                            <input type="text" class="w-full" pInputText [(ngModel)]="file.GhiChu"
-                                placeholder="Ghi chú" />
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <button pButton pRipple type="button" icon="pi pi-trash"
-                                    class="p-button-rounded p-button-text p-button-danger"
-                                    (click)="DeleteFile(i)"></button>
-                                <button pButton pRipple type="button" icon="pi pi-eye" pTooltip="Xem trước tài liệu"
-                                    [showDelay]="500" class="p-button-rounded p-button-text p-button-secondary"
-                                    (click)="showView(file.Id,file.Module)"></button>
-                                <button pButton pRipple type="button" icon="fa fa-history"
-                                    pTooltip="Lịch sử tải tài liệu" [showDelay]="500"
-                                    class="p-button-rounded p-button-text p-button-secondary"
-                                    (click)="OpenHistory(file.Id,file.Module )"></button>
-                            </div>
-                        </td>
+                        <td class="" [pTooltip]="file.LyDoKhongDuyet" tooltipPosition="top">{{file.LyDoKhongDuyet}} </td>
+                        <td class="" [pTooltip]="file.GhiChu" tooltipPosition="top">{{file.GhiChu}}</td>
                     </tr>
                 </ng-container>
             </tbody>

@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DanhSachTaiLieuCongViecPopupComponent } from '../danh-sach-tai-lieu-cong-viec-popup/danh-sach-tai-lieu-cong-viec-popup.component';
 
 @Component({
   selector: 'app-tai-lieu-phan-cong-cong-viec',
@@ -9,7 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class TaiLieuPhanCongCongViecComponent implements OnInit {
 
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
-  @Input() quyTrinh: any = {};
+  listFileDinhKem: any = [];
   optionPheDuyet: any = [
     { label: 'Chờ duyệt', value: 2 },
     { label: 'Không duyệt', value: 0 },
@@ -20,6 +21,7 @@ export class TaiLieuPhanCongCongViecComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
+     private modal: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -45,8 +47,8 @@ export class TaiLieuPhanCongCongViecComponent implements OnInit {
       disabled: true,
       isLoai: true,
     }
-    this.quyTrinh.listFileDinhKem = this.quyTrinh.listFileDinhKem || [];
-    this.quyTrinh.listFileDinhKem.push(data);
+    this.listFileDinhKem = this.listFileDinhKem || [];
+    this.listFileDinhKem.push(data);
     this.scrollToLeft();
   }
 
@@ -55,7 +57,23 @@ export class TaiLieuPhanCongCongViecComponent implements OnInit {
   }
 
   handleDanhSachTaiLieu() {
+    let modalRef = this.modal.open(DanhSachTaiLieuCongViecPopupComponent, {
+      size: 'fullscreen-100',
+      backdrop: 'static'
+    });
+    // modalRef.componentInstance.listDS = this.quyTrinh.listFileDinhKem ? this.quyTrinh.listFileDinhKem.filter((ele: any) => ele.isPhanCongCongViec !== true) : [];
+    modalRef.result.then((res: any) => {
+  
+    })
+  }
 
+  handleUpLoadItem(data: any, index: number) {
+    this.listFileDinhKem[index] = {
+      ...this.listFileDinhKem[index],
+      FileName: data.NameLocal,
+      FileNameGUI: data.Name,
+      Size: data.Size
+    };
   }
 
 }

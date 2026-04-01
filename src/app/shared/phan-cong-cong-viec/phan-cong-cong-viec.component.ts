@@ -6,6 +6,7 @@ import { formatDate } from '@angular/common';
 import { ConfirmationService } from '../../services/confirmation.service';
 import { TaisanService } from '../../services/Taisan/taisan.service';
 import { StoreService } from '../../services/store.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-phan-cong-cong-viec',
@@ -106,7 +107,8 @@ export class PhanCongCongViecComponent implements OnInit {
     private modal: NgbModal,
     private _confirmService: ConfirmationService,
     private _serviceTaiSan: TaisanService,
-    private store: StoreService
+    private store: StoreService,
+    private toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -198,6 +200,19 @@ export class PhanCongCongViecComponent implements OnInit {
       // list[index].pheduyet = list[index].listFileDinhKem?.filter((ele: any) => ele.isPheDuyet == 1).length;
       // list[index].tongPheDuyet = list[index].listFileDinhKem.length;
     })
+  }
+
+  CheckDate(data: any) {
+    if (data.TuNgay > data.DenNgay) {
+      data.TuNgay = data.DenNgay;
+      data.TuNgayTooltip = formatDate(data.TuNgay, 'dd/MM/yyyy HH:mm', 'en-US');
+      this.toast.error('Từ ngày không thể lớn hơn đến ngày');
+    }
+    else if (!data.TuNgay) {
+      data.TuNgay = data.DenNgay;
+      data.TuNgayTooltip = formatDate(data.TuNgay, 'dd/MM/yyyy HH:mm', 'en-US');
+      this.toast.error('Từ ngày không thể lớn hơn đến ngày');
+    }
   }
 
 

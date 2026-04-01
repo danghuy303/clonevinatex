@@ -33,7 +33,7 @@
     /* background-color: royalblue; */
     border-radius: 50%;
     top: 5px;
-    left: 17px;
+    left: 27px;
     cursor: pointer;
 }
 
@@ -87,7 +87,8 @@
 
 :host ::ng-deep .popover-body {
     width: 200px;
-    padding: 1rem;
+    /* padding: 1rem; */
+    padding: .5rem 0;
 }
 
 .title-home {
@@ -115,10 +116,21 @@
 
 .link-smarteos {
     text-decoration: none;
+    color: #212529;
+    /* padding: 1rem 1rem; */
 
     &:hover {
         cursor: pointer;
+        /* background-color: rgba(0, 0, 0, 0.04); */
     }
+}
+
+.list-group-item-smarteos {
+    padding: .5rem 1rem;
+}
+
+.list-group-item-smarteos:hover {
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 :host ::ng-deep .popover {
@@ -141,8 +153,30 @@
     background-color: #109cf1 !important;
     color: white;
 }
+
 a {
     color: #0d6efd;
     text-decoration: underline;
     font-family: Arial, sans-serif;
+}
+
+.taikhoan {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.taikhoan:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.title-navbar {
+    margin: 0px;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.33;
+    font-family: "Public Sans", sans-serif;
+    color: rgb(0, 150, 136);
+    display: inline-block;
 }

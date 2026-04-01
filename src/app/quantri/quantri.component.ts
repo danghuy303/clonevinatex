@@ -31,7 +31,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   newCanhBao: any = 0;
   // userName: any = 'Vinatex';
   displayCanhBao: boolean = false;
-  OSName: string = "Hệ thống quản trị ngành sợi";
+  OSName: string = "HỆ THỐNG QUẢN TRỊ VÀ ĐIỀU HÀNH SỐ";
   menu: MenuItem[];
   menuQLTS: MenuItem[];
   menuQLNS: MenuItem[];
@@ -3197,16 +3197,10 @@ export class QuantriComponent implements OnInit, OnDestroy {
 
   CaiMeNuQLTS() {
     this.menuQLTS = [
-      // {
-      //   label: "Quản lý tài sản",
-      //   icon: "fas fa-circle",
-      //   routerLink: "/quantri/taisan",
-      //   visible: this.showTaiSanModule,
-      //   expanded: true,
-      //   items: [
       {
         label: "Quản lý thông tin tài sản",
         expanded: true,
+        icon: "fas fa-layer-group",
         items: [
           {
             label: "Danh sách tài sản",
@@ -3240,7 +3234,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       },
       {
         label: "Quản trị tài sản",
-        // icon: "fas fa-circle",
+        icon: "fas fa-credit-card",
         routerLink: "/quantri/taisan1",
         // visible: this.showTaiSanModule,
         items: [
@@ -3280,6 +3274,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       },
       {
         label: "Quản lý bảo trì, bảo dưỡng",
+        icon: "fas fa-suitcase",
         items: [
           {
             label: "Lập kế hoạch lịch xích năm",
@@ -3313,6 +3308,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       },
       {
         label: "Biến động tài sản",
+        icon: "fas fa-bell",
         items: [
           {
             label: "Kiểm định tài sản",
@@ -3388,160 +3384,167 @@ export class QuantriComponent implements OnInit, OnDestroy {
       },
       {
         label: "Kế hoạch mua vật tư",
+        icon: "fas fa-calendar",
         routerLink: "/quantri/taisan/thoihancungcapvattu/0",
         command: () => {
           this.close();
         }
       },
-      {
-        label: "Quản lý kho vật tư",
-        items: [
-          {
-            label: "Danh sách nhập vật tư ",
-            routerLink: "/quantri/taisan/danhsachvattu",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Nhập kho vật tư",
-            routerLink: "/quantri/taisan/quytrinhnhapvattu/0",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Xuất kho vật tư",
-            routerLink: "/quantri/taisan/xuat-kho/0",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Kiểm kê vật tư",
-            routerLink: "/quantri/taisan/kiem-ke-kho-vat-tu/0",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Thẻ kho vật tư",
-            routerLink: "/quantri/taisan/the-kho-vat-tu",
-            command: () => {
-              this.close();
-            },
-          },
-        ],
-      },
-      {
-        label: "Quản lý nhà cung ứng",
-        items: [
-          {
-            label: "Nhóm nhà cung ứng",
-            routerLink: "/quantri/taisan/nhomnhacungung",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Danh mục nhà cung ứng",
-            routerLink: "/quantri/taisan/danhmucnhacungung",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Đánh giá nhà cung ứng",
-            routerLink: "/quantri/taisan/danhgianhacungung/0",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Tiêu chí đánh giá",
-            routerLink: "/quantri/taisan/tieuchidanhgia/0",
-            command: () => {
-              this.close();
-            },
-          },
-        ],
-      },
-      {
-        label: "Quản lý cung ứng",
-        items: [
-          {
-            label: "Phê duyệt giá hàng hóa",
-            routerLink: "/quantri/taisan/pheduyetgiahanghoa/0",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Phiếu ĐNCC vật tư",
-            routerLink: "/quantri/taisan/denghicungungvattu/0",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Danh sách hàng phải mua",
-            routerLink: "/quantri/taisan/danhsachvattuphaimua",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Đơn đặt hàng",
-            routerLink: "/quantri/taisan/dondathang/0",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Phiếu kiểm hàng",
-            routerLink: "/quantri/taisan/phieukiemhang/0",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Báo cáo",
-            routerLink: "",
-            items: [
-              {
-                label: "Nhập hàng",
-                routerLink: "/quantri/taisan/baocaonhaphang",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Nhập xuất tồn",
-                routerLink: "/quantri/taisan/baocaonhapxuatton",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Tổng hợp giá mua hàng",
-                routerLink: "/quantri/taisan/baocaotonghopgiamuahang",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Tổng hợp ĐĐH NCC",
-                routerLink: "/quantri/taisan/tonghopdondathangncc",
-                command: () => {
-                  this.close();
-                },
-              },
-            ]
-          }
-        ],
-      },
+
+      // {
+      //   label: "Quản lý kho vật tư",
+      //   separator: this.checkmenu("KHOVATTU"),
+      //   items: [
+      //     {
+      //       label: "Danh sách nhập vật tư ",
+      //       routerLink: "/quantri/taisan/danhsachvattu",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Nhập kho vật tư",
+      //       routerLink: "/quantri/taisan/quytrinhnhapvattu/0",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Xuất kho vật tư",
+      //       routerLink: "/quantri/taisan/xuat-kho/0",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Kiểm kê vật tư",
+      //       routerLink: "/quantri/taisan/kiem-ke-kho-vat-tu/0",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Thẻ kho vật tư",
+      //       routerLink: "/quantri/taisan/the-kho-vat-tu",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "Quản lý nhà cung ứng",
+      //   separator: this.checkmenu("KHOVATTU"),
+      //   items: [
+      //     {
+      //       label: "Nhóm nhà cung ứng",
+      //       routerLink: "/quantri/taisan/nhomnhacungung",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Danh mục nhà cung ứng",
+      //       routerLink: "/quantri/taisan/danhmucnhacungung",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Đánh giá nhà cung ứng",
+      //       routerLink: "/quantri/taisan/danhgianhacungung/0",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Tiêu chí đánh giá",
+      //       routerLink: "/quantri/taisan/tieuchidanhgia/0",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "Quản lý cung ứng",
+      //   separator: this.checkmenu("KHOVATTU"),
+      //   items: [
+      //     {
+      //       label: "Phê duyệt giá hàng hóa",
+      //       routerLink: "/quantri/taisan/pheduyetgiahanghoa/0",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Phiếu ĐNCC vật tư",
+      //       routerLink: "/quantri/taisan/denghicungungvattu/0",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Danh sách hàng phải mua",
+      //       routerLink: "/quantri/taisan/danhsachvattuphaimua",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Đơn đặt hàng",
+      //       routerLink: "/quantri/taisan/dondathang/0",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Phiếu kiểm hàng",
+      //       routerLink: "/quantri/taisan/phieukiemhang/0",
+      //       command: () => {
+      //         this.close();
+      //       },
+      //     },
+      //     {
+      //       label: "Báo cáo",
+      //       routerLink: "",
+      //       items: [
+      //         {
+      //           label: "Nhập hàng",
+      //           routerLink: "/quantri/taisan/baocaonhaphang",
+      //           command: () => {
+      //             this.close();
+      //           },
+      //         },
+      //         {
+      //           label: "Nhập xuất tồn",
+      //           routerLink: "/quantri/taisan/baocaonhapxuatton",
+      //           command: () => {
+      //             this.close();
+      //           },
+      //         },
+      //         {
+      //           label: "Tổng hợp giá mua hàng",
+      //           routerLink: "/quantri/taisan/baocaotonghopgiamuahang",
+      //           command: () => {
+      //             this.close();
+      //           },
+      //         },
+      //         {
+      //           label: "Tổng hợp ĐĐH NCC",
+      //           routerLink: "/quantri/taisan/tonghopdondathangncc",
+      //           command: () => {
+      //             this.close();
+      //           },
+      //         },
+      //       ]
+      //     }
+      //   ],
+      // },
+
       {
         label: "Danh mục ",
+        icon: "fas fa-warehouse",
         items: [
           {
             label: "Loại tài sản",
@@ -3636,8 +3639,6 @@ export class QuantriComponent implements OnInit, OnDestroy {
           },
         ],
       },
-      //   ],
-      // },
     ];
   }
 

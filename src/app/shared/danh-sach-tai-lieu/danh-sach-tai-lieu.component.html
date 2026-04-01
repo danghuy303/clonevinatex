@@ -9,11 +9,11 @@
                 <th class="tc-w-100">Thời gian up</th>
                 <th class="tc-w-150">Mẫu</th>
                 <th class="tc-w-250">Tệp</th>
-                <th class="tc-w-250">Link</th>
+                <th class="tc-w-100">Link</th>
                 <th class="tc-w-150">Phê duyệt</th>
                 <th *ngIf="isThuyetMinh" class="tc-w-50">Thuyết minh</th>
                 <th class="tc-w-200">Lý do không duyệt</th>
-                <th class="tc-w-200">Ghi chú</th>
+                <th class="tc-w-150">Ghi chú</th>
                 <th class="tc-w-100">
                     <p-button icon="pi pi-plus" styleClass="p-button-sm" pTooltip="Thêm mới tài liệu"
                         tooltipPosition="top" (click)="HandleAddFile()"></p-button>
@@ -60,7 +60,7 @@
                     <td class="">
                         <form action="" autocomplete="off">
                             <div class="p-inputgroup">
-                                <input type="password" class="w-10 pw" autocomplete="off" pInputText
+                                <input type="password" class="pw" autocomplete="off" pInputText
                                     [(ngModel)]="file.LinkName" placeholder="Nhập link" (copy)="test($event)"
                                     [ngModelOptions]="{ standalone: true }"
                                     [disabled]="file.isDisable || file.Loai === 'add'" />
