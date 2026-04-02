@@ -9,7 +9,7 @@ import { TaisanService } from '../../services/Taisan/taisan.service';
 })
 export class ChuyenbuocComponent implements OnInit {
 
-  @Input() quyTrinh: any = {};
+  @Input() quyTrinh: any = {Id:''};
   listUserTiepTheoCopy: any = [];
   listTrangThaiTiepTheoCopy: any = [];
   IdTrangThaiTiepTheo: string = '';

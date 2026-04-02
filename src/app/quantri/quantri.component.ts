@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild, HostListener } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MenuItem } from "primeng/api";
@@ -105,11 +105,11 @@ export class QuantriComponent implements OnInit, OnDestroy {
 
       if (window.location.hash.includes("quantri/taisan/danhsachtaisan")) {
         this.menuService.setIsCheckMenu(true);
-        this.display = false; // Đóng menu sản xuất
-        this.displayAsset = true; // Mở menu tài sản
         this.CaiMeNuQLTS();
-      } else this.CaiMeNu();
-
+      } else {
+        this.CaiMeNu();
+      }
+      this.restoreMenuState();
     });
     this.userBtn = [
       // {
@@ -151,6 +151,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
 
   close() {
     this.display = false;
+    this.displayAsset = false;
   }
   getOSName(url) {
     // if (url.includes("sanxuat")) {
@@ -3156,27 +3157,35 @@ export class QuantriComponent implements OnInit, OnDestroy {
       });
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.restoreMenuState();
+  }
+
   Dislay() {
-    // let isCheckMenu = JSON.parse(localStorage.getItem('isCheckMenu'));
     let isCheckMenu = this.menuService.isCheckMenuValue;
     if (isCheckMenu) {
       this.CaiMeNuQLTS();
-      this.displayAsset = true;
+      this.displayAsset = !this.displayAsset;
+      this.display = false;
     } else {
-      this.display = true;
+      this.display = !this.display;
+      this.displayAsset = false;
     }
   }
 
   restoreMenuState() {
     // Khôi phục trạng thái menu từ MenuService
     const isCheckMenu = this.menuService.isCheckMenuValue;
+    const isLargeScreen = window.innerWidth >= 1400;
+
     if (isCheckMenu) {
       this.CaiMeNuQLTS();
-      this.display = false; // Đóng menu sản xuất
-      this.displayAsset = true; // Mở menu tài sản
+      this.display = false; 
+      this.displayAsset = isLargeScreen; 
     } else {
-      this.displayAsset = false; // Đóng menu tài sản
-      this.display = true; // Mở menu sản xuất
+      this.displayAsset = false; 
+      this.display = isLargeScreen; 
     }
   }
   NavigateToQuanTriSoi() {

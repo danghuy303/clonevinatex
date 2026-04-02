@@ -1,3 +1,20 @@
+<!-- Sidebar components defined outside the main wrapper so they don't shift with it -->
+<p-sidebar [(visible)]="display" [showCloseIcon]="false" [modal]="false" [blockScroll]="false" [style]="{width: '259px'}">
+    <div class="sidebar-logo" *ngIf="display">
+        <img src="assets/logo/LogoWhite.png" width="100px">
+    </div>
+    <p-panelMenu [model]="menu" [multiple]="false"></p-panelMenu>
+</p-sidebar>
+
+<p-sidebar [(visible)]="displayAsset" [showCloseIcon]="false" [modal]="false" [blockScroll]="false" [style]="{width: '259px'}">
+    <div class="sidebar-logo"
+        *ngIf="displayAsset">
+        <img src="http://103.130.212.35:2501/quanlykho/quanlykho/logo-app-new-D_RjoT3O.png" width="100px" height="50px">
+    </div>
+    <p-panelMenu [model]="menuQLTS" [multiple]="false"></p-panelMenu>
+</p-sidebar>
+
+<div class="main-wrapper" [class.sidebar-active]="display || displayAsset">
 <div class="navbar">
     <div class="menu">
         <div style="padding-right: 10px; margin:auto 0px">
@@ -129,23 +146,10 @@
         </div>
     </div>
 </div>
-<p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">
-    <div class="sidebar-logo"
-        style="width: 100%; padding:20px; display: flex; justify-content: center; align-items: center;" *ngIf="display">
-        <img src="assets/logo/LogoWhite.png" width="100px">
-    </div>
-    <p-panelMenu [model]="menu"></p-panelMenu>
-</p-sidebar>
 
-<p-sidebar [(visible)]="displayAsset" [showCloseIcon]="false" [blockScroll]="true">
-    <div class="sidebar-logo"
-        *ngIf="displayAsset">
-        <img src="http://103.130.212.35:2501/quanlykho/quanlykho/logo-app-new-D_RjoT3O.png" width="100px" height="50px">
-    </div>
-    <p-panelMenu [model]="menuQLTS"></p-panelMenu>
-</p-sidebar>
 
 <div class="content">
     <router-outlet></router-outlet>
+</div>
 </div>
 <app-loader></app-loader>
