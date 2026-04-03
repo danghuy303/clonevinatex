@@ -212,6 +212,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
   setData() {
     this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.TaiSan.NgayNhap);
     this.item.TaiSan.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.TaiSan.ThoiGianDuaVaoSuDung);
+    this.item.TaiSan.listSanLuong = this.item.TaiSan.listSanLuong?.map((ele: any) => {
+      return {
+        ...ele,
+        NgayApDungUnix: DateToUnix(ele.NgayApDung)
+      }
+    })
     return this.item;
   }
   GhiLai() {
@@ -227,6 +233,13 @@ export class ModalcapnhattaisanComponent implements OnInit {
                 ...data.Data.TaiSan,
                 ThoiGianDuaVaoSuDung: UnixToDate(data.Data.TaiSan.ThoiGianDuaVaoSuDungUnix),
                 NgayNhap: UnixToDate(data.Data.TaiSan.NgayNhapUnix),
+                listSanLuong: data.Data.TaiSan.listSanLuong?.map((ele: any) => {
+                  return {
+                    ...ele,
+                    IdGuid: ele.Id,
+                    NgayApDung: UnixToDate(ele.NgayApDungUnix)
+                  }
+                })
               }
             }
           })
@@ -236,6 +249,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
           this.toastr.error(res.Message);
         }
       })
+      // }
     }
   }
 

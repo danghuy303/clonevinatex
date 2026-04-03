@@ -77,6 +77,7 @@ import { EditorModule } from 'primeng/editor';
 import { TaiLieuPhanCongCongViecComponent } from './tai-lieu-phan-cong-cong-viec/tai-lieu-phan-cong-cong-viec.component';
 import { DinhMucNguyenLieuComponent } from './dinh-muc-nguyen-lieu/dinh-muc-nguyen-lieu.component';
 import { DanhSachTaiLieuCongViecPopupComponent } from './danh-sach-tai-lieu-cong-viec-popup/danh-sach-tai-lieu-cong-viec-popup.component';
+import { SanluongComponent } from './sanluong/sanluong.component';
 
 @NgModule({
   declarations: [
@@ -130,6 +131,7 @@ import { DanhSachTaiLieuCongViecPopupComponent } from './danh-sach-tai-lieu-cong
     TaiLieuPhanCongCongViecComponent,
     DinhMucNguyenLieuComponent,
     DanhSachTaiLieuCongViecPopupComponent,
+    SanluongComponent,
   ],
   imports: [
     AccordionModule,
@@ -208,7 +210,8 @@ import { DanhSachTaiLieuCongViecPopupComponent } from './danh-sach-tai-lieu-cong
     DanhGiaComponent,
     VuongMacComponent,
     PhanCongCongViecComponent,
-    DinhMucNguyenLieuComponent
+    DinhMucNguyenLieuComponent,
+    SanluongComponent
   ]
 })
 export class SharedModule { }

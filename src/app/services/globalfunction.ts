@@ -259,12 +259,20 @@ export function getSTT(list) {
 }
 
 export function base64ToBlob(base64: string, contentType: string): Blob {
-  const data = base64.includes(',') ? base64.split(',')[1] : base64;
-  const bytes = atob(data);
-  const array = new Uint8Array(bytes.length);
-  for (let i = 0; i < bytes.length; i++) {
-    array[i] = bytes.charCodeAt(i);
-  }
-  return new Blob([array], { type: contentType });
+    const data = base64.includes(',') ? base64.split(',')[1] : base64;
+    const bytes = atob(data);
+    const array = new Uint8Array(bytes.length);
+    for (let i = 0; i < bytes.length; i++) {
+        array[i] = bytes.charCodeAt(i);
+    }
+    return new Blob([array], { type: contentType });
 }
 
+
+export function generateGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
