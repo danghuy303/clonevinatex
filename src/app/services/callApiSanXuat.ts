@@ -12,8 +12,8 @@ export class SanXuatService {
 
     }
 
- GetlistNgoiNha(Loai) {
-    let url = API.auth;
+    GetlistNgoiNha(Loai) {
+        let url = API.auth;
         return this.http.get(`${url}DanhMuc/GetlistNgoiNha?Loai=${Loai}`, httpOptions)
     }
 
@@ -3782,12 +3782,16 @@ export class SanXuatService {
     GetListdmKhoXuat(data) {
         return this.http.post(`${API.SCMDanhMuc}GetListdmKho`, data, httpOptions);
     }
-    getLuuKhoKiemKeKhoBong(IdDuAn,IddmKho) {
+    getLuuKhoKiemKeKhoBong(IdDuAn, IddmKho) {
         return this.http.get(`${API.SCMQuanLyKho}getLuuKhoKiemKeKhoBong?IdDuAn=${IdDuAn}&IddmKho=${IddmKho}`, httpOptions);
     }
 
-     PhieuDieuChuyenBongXo() {
+    PhieuDieuChuyenBongXo() {
         return this.BasicApi('PhieuDieuChuyenBongXo')
+    }
+
+    Login_Winform(data) {
+        return this.http.post(`${API.auth}QuanTri/Login_Winform`, data, httpOptions);
     }
 
 }

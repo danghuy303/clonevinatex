@@ -271,7 +271,18 @@
                 </p-tabPanel>
                 <p-tabPanel header="Định mức nhiên liệu">
                     <ng-template pTemplate="content">
-                        <app-dinh-muc-nguyen-lieu [Items]="item.listDinhMucNhienLieu" [isXoa]="false"></app-dinh-muc-nguyen-lieu>
+                        <app-dinh-muc-nguyen-lieu [Items]="item.listDinhMucNhienLieu"
+                            [isXoa]="false"></app-dinh-muc-nguyen-lieu>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Định mức điện">
+                    <ng-template pTemplate="content">
+                        <app-dinhmucdien [Items]="item.listDinhMucDien"></app-dinhmucdien>
+                    </ng-template>
+                </p-tabPanel>
+                  <p-tabPanel header="Sản lượng">
+                    <ng-template pTemplate="content">
+                        <app-sanluong [(Items)]="item.listSanLuong"></app-sanluong>
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel *ngIf="item.IdRoot === item.Id" header="Thông tin khấu hao">

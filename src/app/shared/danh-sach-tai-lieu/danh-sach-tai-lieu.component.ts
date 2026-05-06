@@ -4,6 +4,8 @@ import { StoreService } from '../../services/store.service';
 import { API } from '../../services/host';
 import { ConfirmationService } from '../../services/confirmation.service';
 import { ToastrService } from 'ngx-toastr';
+import { LichsudownloadComponent } from '../lichsudownload/lichsudownload.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-danh-sach-tai-lieu',
@@ -28,6 +30,7 @@ export class DanhSachTaiLieuComponent implements OnInit {
     private store: StoreService,
     public confirmService: ConfirmationService,
     public toast: ToastrService,
+    public modal: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -124,13 +127,13 @@ export class DanhSachTaiLieuComponent implements OnInit {
   }
 
   OpenHistory(id: string, Module: string) {
-    // this.quyTrinhService.GetFileDinhKem(id, Module).subscribe((res: any) => {
-    //   let modalRef = this.modal.open(LichSuDownloadComponent, {
-    //     size: 'md',
-    //     backdrop: 'static',
-    //   })
-    //   modalRef.componentInstance.listLichSu = res.Data;
-    // });
+    this.quyTrinhService.GetFileDinhKem(id, Module).subscribe((res: any) => {
+      let modalRef = this.modal.open(LichsudownloadComponent, {
+        size: 'md',
+        backdrop: 'static',
+      })
+      modalRef.componentInstance.listLichSu = res.Data;
+    });
   }
 
   showView(id: string, Module: string) {
@@ -138,6 +141,28 @@ export class DanhSachTaiLieuComponent implements OnInit {
       let link = API.imgURL + res.Data;
       window.open(link);
     });
+  }
+
+  handleChangeItem(data: any) {
+    this.quyTrinh.listFileDinhKem = this.quyTrinh.listFileDinhKem || [];
+    this.quyTrinh.listFileDinhKem.push({
+      FileName: data.NameLocal,
+      FileNameGUI: data.Name,
+      Id: "",
+      Created: new Date(),
+      TenTaiLieu: "",
+      IddmNhomTaiLieu: "",
+      NguoiUp: "",
+      isPheDuyet: this.quyTrinh.isPheDuyet,
+      GhiChu: "",
+      Link: "",
+      isQuyTrinh: 0,
+      isPhaiNop: 0,
+      isXoa: false,
+      disabled: true,
+      isLoai: true,
+    })
+    this.scrollToLeft();
   }
 
 }

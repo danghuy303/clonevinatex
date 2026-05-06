@@ -32,10 +32,10 @@ export class LichSuSuDungComponent implements OnInit {
   ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
-   }
+    })
+  }
 
   ngOnInit(): void {
     this.ResetData();
@@ -89,6 +89,7 @@ export class LichSuSuDungComponent implements OnInit {
     let itemQuyTrinh = this.quyTrinh[item.MadmLoaiBienDong]
     let loaiModal = itemQuyTrinh.ModalType;
     let component = itemQuyTrinh.Component;
+    console.log('item',item);
     if (loaiModal === 'CallOut') {
       this._serviceTaiSan
       [`${itemQuyTrinh.ServiceProp}`]()
@@ -99,6 +100,7 @@ export class LichSuSuDungComponent implements OnInit {
             backdrop: 'static'
           })
           modalRef.componentInstance.opt = 'edit';
+          modalRef.componentInstance.title = item?.NoiDungBienDong;
           modalRef.componentInstance.item = res.Data;
         })
     } else {
@@ -107,6 +109,7 @@ export class LichSuSuDungComponent implements OnInit {
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
+        modalRef.componentInstance.title = item?.NoiDungBienDong;
       modalRef.componentInstance.item = { Id: item.IdQuyTrinh };
     }
   }

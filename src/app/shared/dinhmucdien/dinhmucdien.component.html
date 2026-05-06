@@ -1,0 +1,75 @@
+<p-table [value]="Items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+    <ng-template pTemplate="colgroup">
+        <colgroup>
+            <col style="width:50px">
+            <col style="">
+            <col style="width:100px">
+            <col style="width:120px">
+            <col style="width:100px">
+            <col style="width:100px">
+            <col style="width:100px">
+            <col style="">
+            <col style="width:70px">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th rowspan="2">STT</th>
+            <th rowspan="2">Nội dung</th>
+            <th colspan="2">Năng suất</th>
+            <th rowspan="2">Công suất điện (KW)</th>
+            <th rowspan="2">Giờ dùng điện/ca</th>
+            <th rowspan="2">Hệ số tiêu hao</th>
+            <th rowspan="2">Ghi chú</th>
+            <th rowspan="2" style="width: 70px;"><button pButton pRipple type="button" icon="pi pi-plus"
+                    class="p-button-rounded p-button-sm " (click)="add()">
+                </button></th>
+        </tr>
+        <tr>
+            <th>ĐVT</th>
+            <th>Mức</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr>
+            <td class="text-center">{{i+1}}</td>
+            <td>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" (ngModelChange)="changeData()"
+                    pInputText />
+            </td>
+            <td>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViTinh" (ngModelChange)="changeData()"
+                    pInputText />
+            </td>
+            <td>
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.DinhMuc" (ngModelChange)="changeData()"
+                    [minFractionDigits]="2" [maxFractionDigits]="2" placeholder="">
+                </p-inputNumber>
+            </td>
+            <td>
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.CongSuat" (ngModelChange)="changeData()"
+                    [minFractionDigits]="2" [maxFractionDigits]="2" placeholder="">
+                </p-inputNumber>
+            </td>
+            <td>
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.GioDung_Ca" (ngModelChange)="changeData()"
+                    [minFractionDigits]="2" [maxFractionDigits]="2" placeholder="">
+                </p-inputNumber>
+            </td>
+            <td>
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.HeSoTieuHao" (ngModelChange)="changeData()"
+                    [minFractionDigits]="2" [maxFractionDigits]="2" placeholder="">
+                </p-inputNumber>
+            </td>
+            <td>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" (ngModelChange)="changeData()"
+                    pInputText />
+            </td>
+            <td class="text-center">
+                <button pButton pRipple icon="pi pi-trash"
+                    class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2" (click)="delete(i)"
+                    pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

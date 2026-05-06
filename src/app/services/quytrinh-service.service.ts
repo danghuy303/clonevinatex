@@ -35,5 +35,15 @@ export class QuytrinhServiceService {
     return this.http.get(url);
   }
 
+  GetFileDinhKem(IdFileDinhKem: any, Module: string) {
+    let url = `${API.imgURL}/${Module ? Module : 'BM'}/DanhMuc/GetListFileDinhKemDownload?IdFileDinhKem=${IdFileDinhKem}`;
+    return this.http.get(url);
+  }
+
+  GetListThuVienAnh() {
+    let url = `${API.auth}/DanhMuc/GetListThuVienAnh`;
+    return this.http.get(url);
+  }
+
 
 }

@@ -1480,10 +1480,10 @@ export class TaisanService {
     return this.http.post(`${API.CungUng}DanhMuc/GetlistdmLoaiVatTu`, data, httpOptions);
   }
 
-  ImportdsTaiSan(FileName: any,IdDuAn:any) {
+  ImportdsTaiSan(FileName: any, IdDuAn: any) {
     return this.http.get(`${API.TaiSan}QuanLyTaiSan/ImportdsTaiSan?FileName=${FileName}&IdDuAn=${IdDuAn}`, httpOptions);
   }
-  ImportQuyTrinhNhapTaiSan(FileName: any,IdDuAn:any) {
+  ImportQuyTrinhNhapTaiSan(FileName: any, IdDuAn: any) {
     return this.http.get(`${API.TaiSan}QuanLyTaiSan/ImportQuyTrinhNhapTaiSan?FileName=${FileName}&IdDuAn=${IdDuAn}`, httpOptions);
   }
 
@@ -1497,6 +1497,14 @@ export class TaisanService {
 
   GetListdmNhomTaiLieu(data: any) {
     return this.http.post(`${API.dmPSM}GetListdmNhomTaiLieu`, data, httpOptions);
+  }
+
+  ExportLichXichLoaiTaiSan(data: any) {
+    return this.http.post(`${API.TaiSan}BaoDuongTaiSan/ExportLichXichLoaiTaiSan`, data, httpOptions);
+  }
+
+  GetlistFileDinhKemForPhanCongCongViec(Id: any, eAction: any) {
+    return this.http.get(`${API.auth}QuyTrinh/GetlistFileDinhKemForPhanCongCongViec?Id=${Id}&eAction=${eAction}`, httpOptions);
   }
 
 }

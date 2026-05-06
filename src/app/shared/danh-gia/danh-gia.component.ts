@@ -5,10 +5,10 @@ import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '
   templateUrl: './danh-gia.component.html',
   styleUrls: ['./danh-gia.component.css']
 })
-export class DanhGiaComponent implements OnInit , OnChanges {
+export class DanhGiaComponent implements OnInit, OnChanges {
 
-  @Input() quyTrinh: any = {};
-  display: boolean =false;
+  @Input() quyTrinh: any = { DanhGiaQuyTrinh: '', listDanhGiaQuyTrinh: [] };
+  display: boolean = false;
   DanhGia: string = '';
 
   constructor() { }
@@ -22,8 +22,8 @@ export class DanhGiaComponent implements OnInit , OnChanges {
   }
 
   GetList() {
-    this.quyTrinh.listDanhGiaQuyTrinh.forEach((ele: any) => {
-      ele.DanhGiaTooltip =  this.setPageContent(ele.DanhGia);
+    this.quyTrinh.listDanhGiaQuyTrinh?.forEach((ele: any) => {
+      ele.DanhGiaTooltip = this.setPageContent(ele.DanhGia);
     })
   }
 
@@ -33,7 +33,7 @@ export class DanhGiaComponent implements OnInit , OnChanges {
     return temp.textContent || temp.innerText || '';
   }
 
-  show(e:any) {
+  show(e: any) {
     this.display = !this.display;
     this.DanhGia = e.DanhGia;
   }

@@ -24,6 +24,10 @@
             </div>
         </div>
         <div class="p-d-flex p-flex-row p-jc-end">
+            <div class="p-mr-2" *ngIf="filter.LoaiKeHoach === 'NAM'">
+                <button pButton pRipple label="Xuất excel" class="p-button-sm p-button-outlined"
+                    (click)="exportExcel()"></button>
+            </div>
             <div class="p-mr-2">
                 <p-dropdown [filter]="true" [options]="listThoiGian" [(ngModel)]="filter.LoaiKeHoach"
                     placeholder="Chọn tháng năm" (onChange)="loadData()" styleClass="p-inputtext-sm"></p-dropdown>
@@ -49,12 +53,12 @@
                     (onChange)="loadData(true)">
                 </p-dropdown>
             </div> -->
-            <div class="p-mr-2">
+            <!-- <div class="p-mr-2">
                 <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
                     styleClass="p-inputtext-sm" [(ngModel)]="filter.Ma" [showClear]="true" [filter]="true"
                     (onChange)="loadData()">
                 </p-dropdown>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- lich xich nam -->
@@ -341,8 +345,8 @@
             [ngStyle]="{'background-color': newItem.ColorLabel}">
 
             <div *ngFor="let taisan of newItem.listChiTiet" class="p-d-flex">
-                <a href="javascript:void(0)" 
-                    [ngStyle]="{'color': taisan.Mau}" (click)="ChiTietBaoDuongLichXIchThang(taisan)">
+                <a href="javascript:void(0)" [ngStyle]="{'color': taisan.Mau}"
+                    (click)="ChiTietBaoDuongLichXIchThang(taisan)">
                     {{taisan.KyHieu}}<br>
                 </a> <span *ngIf="taisan.isQuaHan" style="color: '#ffa700'">(!)</span>
             </div>

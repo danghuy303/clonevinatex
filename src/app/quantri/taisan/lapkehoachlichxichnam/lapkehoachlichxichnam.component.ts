@@ -230,7 +230,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.checkbutton = res;
     });
   }
-  ChapNhan() {
+  ChuyenDuyet() {
     this._serviceTaiSan.GetDanhSachVatTuThayTheForLichXichNam(this.item.listTaiSan).subscribe((taisan: any) => {
       this.item = {
         ...this.item,

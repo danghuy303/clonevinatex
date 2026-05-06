@@ -27,10 +27,10 @@ export class ModalloaitaisanComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item.MaCongDoan)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ công đoạn!");
-      return false;
-    }
+    // if (!validVariable(this.item.MaCongDoan)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ công đoạn!");
+    //   return false;
+    // }
     if (!validVariable(this.item.Ma)) {
       this.toastr.error("Yêu cầu nhập đầy đủ mã !");
       return false;

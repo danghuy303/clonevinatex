@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PhanCongCongViecComponent implements OnInit {
 
-  quyTrinh: any = {
+  @Input() quyTrinh: any = {
     listPhanCongCongViecAll: [
       {
         "NameTable": "PSM_LapTienDoBaseLine",
@@ -187,6 +187,7 @@ export class PhanCongCongViecComponent implements OnInit {
       size: 'fullscreen-100',
       backdrop: 'static'
     });
+    modalRef.componentInstance.quyTrinh = this.quyTrinh;
     // modalRef.componentInstance.listDS = this.quyTrinh.listFileDinhKem ? this.quyTrinh.listFileDinhKem.filter((ele: any) => ele.isPhanCongCongViec !== true) : [];
     // modalRef.componentInstance.listFileDinhKem = list[index].listFileDinhKem ? list[index].listFileDinhKem : [];
     // modalRef.componentInstance.listCheck = this.listIdDaChon ? this.listIdDaChon.map((ele: any) => ele.IdFileDinhKem) : [];

@@ -125,7 +125,8 @@
     position: absolute;
     font-size: 10px;
     color: white;
-    background-color: red;
+    background-color: rgb(22, 119, 255);
+;
     /* background-color: royalblue; */
     border-radius: 50%;
     top: 5px;
@@ -270,11 +271,12 @@ a {
 .title-navbar {
     margin: 0px;
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: 24px;
     line-height: 1.33;
     font-family: "Public Sans", sans-serif;
     color: rgb(0, 150, 136);
     display: inline-block;
+    text-transform: uppercase;
 }
 
 .sidebar-logo {
@@ -285,9 +287,10 @@ a {
     -webkit-box-align: center;
     align-items: center;
     -webkit-box-pack: start;
-    justify-content: flex-start;
-    padding-left: 24px;
+    /* justify-content: flex-start; */
+    /* padding-left: 24px; */
     /* border-bottom: 1px solid #f1f0f0; */
+    justify-content: center;
 }
 
 /* Sidebar Push Layout Animation */

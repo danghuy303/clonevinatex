@@ -88,7 +88,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       IdUser: '',
       Ngay: 0,
-      IdDuAn: 0,
+      IdDuAn: this.store.getCurrent() || 0,
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
@@ -101,7 +101,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       }
     })
     this.loadData();
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
 
   getListCongDoan() {
@@ -141,7 +141,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       IdUser: '',
       Ngay: this.filter.Ngay,
       LoaiKeHoach: this.filter.LoaiKeHoach,
-      IdDuAn: 0,
+      IdDuAn: this.store.getCurrent() || 0,
     };
 
     if (this.filter.LoaiKeHoach === 'NAM') {
@@ -307,4 +307,24 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       });
     // })
   }
+
+
+exportExcel() {
+   let data = {
+      Keyword: "",
+      CurrentPage: this.paging.CurrentPage,
+      PageSize: 20,
+      MaCongDoan: this.filter.Ma,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+      IdUser: '',
+      Ngay: this.filter.Ngay,
+      LoaiKeHoach: this.filter.LoaiKeHoach,
+      IdDuAn: this.store.getCurrent() || 0
+    };
+   this._serviceTaiSan.ExportLichXichLoaiTaiSan(data).subscribe((res: any) => {
+      this._servicesSanXuat.download(res.Data);
+    })
+}
+
 }

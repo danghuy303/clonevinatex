@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Dat09Service } from '../services/callApi';
 import { SanXuatService } from '../services/callApiSanXuat';
 import { StoreService } from '../services/store.service';
+import { QuytrinhServiceService } from '../services/quytrinh-service.service';
+import { API } from '../services/host';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +16,8 @@ import { StoreService } from '../services/store.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   images: any[] = [];
+  productName: string = 'VINATEX';
+  productNameFull: string = 'Hệ thống quản trị';
   account: any = {
     UserName: '',
     Password: '',
@@ -41,14 +45,31 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   ];
 
-  constructor(private _auth: AuthenticationService, private toastr: ToastrService, private _router: Router, private _services: Dat09Service, private _SXservices: SanXuatService, private store: StoreService) { }
+
+  constructor(private _auth: AuthenticationService, private toastr: ToastrService, private _router: Router, private _services: QuytrinhServiceService, private _SXservices: SanXuatService, private store: StoreService, private _dat09Service: Dat09Service) { }
 
   ngOnInit() {
     for (let i = 1; i <= 3; i++) {
       this.images.push(`assets/logo/${i}.png`)
     }
+    this.GetListThuVienAnh();
     this.autoLogin();
   }
+
+  GetListThuVienAnh() {
+    this._services.GetListThuVienAnh().subscribe((res: any) => {
+      let prodNameObj = res.find((ele: any) => ele.Ten === 'ProductName');
+      if (prodNameObj) {
+        this.productName = prodNameObj.TenHam;
+      }
+      let prodNameFullObj = res.find((ele: any) => ele.Ten === 'ProductNameFull');
+      if (prodNameFullObj) {
+        this.productNameFull = prodNameFullObj.TenHam;
+      }
+    })
+  }
+
+
   timMK() {
     this.timMKdialog = true;
     if (this.account.UserName !== undefined && this.account.UserName.trim() !== '') {
@@ -58,7 +79,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
   ForgotPass() {
-    this._services.ForgotPass({ UserName: this.UserNameFG }).subscribe((res: any) => {
+    this._dat09Service.ForgotPass({ UserName: this.UserNameFG }).subscribe((res: any) => {
       if (res) {
         if (res?.Error === 4) {
           this.toastr.success(res.Detail);
@@ -110,12 +131,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                 .GetOptions()
                 .GetDanhSachDuAnByIdUser(res.Id)
                 .subscribe((res: any) => {
-                  this.store.setNhaMay(res[0].Id)
-                  if ((window as any).routeSnapShot !== undefined) {
-                    this._router.navigate([(window as any).routeSnapShot])
-                  } else {
-                    this._router.navigate(['/quantri'])
-                  }
+                  this.store.setNhaMay(res[0].Id);
+                  this.loginWinForm();
                 });
               this.usA.push(us2);
               this.toastr.success('Đăng nhập thành công!');
@@ -166,6 +183,25 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.toastr.error(this.emes);
     }
   }
+
+  loginWinForm() {
+    let payLoad = {
+      ...this.account,
+      TokenFirebase: null
+    }
+    this._SXservices.Login_Winform(payLoad).subscribe((res: any) => {
+      // if (res.Value.LinkRouter) {
+      //   window.location.href = `${API.imgURL}${res.Value.LinkRouter}`;
+      // } else {
+        if ((window as any).routeSnapShot !== undefined) {
+          this._router.navigate([(window as any).routeSnapShot])
+        } else {
+          this._router.navigate(['/quantri'])
+        }
+      // }
+    })
+  }
+
   ngOnDestroy(): void {
     this.usA.forEach(us => {
       us.unsubscribe();

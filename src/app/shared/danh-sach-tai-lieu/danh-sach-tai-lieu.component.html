@@ -15,8 +15,13 @@
                 <th class="tc-w-200">Lý do không duyệt</th>
                 <th class="tc-w-150">Ghi chú</th>
                 <th class="tc-w-100">
-                    <p-button icon="pi pi-plus" styleClass="p-button-sm" pTooltip="Thêm mới tài liệu"
-                        tooltipPosition="top" (click)="HandleAddFile()"></p-button>
+                    <div class="d-flex">
+                        <p-button icon="pi pi-plus" styleClass="p-button-sm p-mr-2" pTooltip="Thêm mới tài liệu"
+                            tooltipPosition="top" (click)="HandleAddFile()"></p-button>
+                        <app-upload-file [multiple]="false" [label]="''" [showIcon]="true"
+                            (itemChange)="handleChangeItem($event)"></app-upload-file>
+                    </div>
+
                 </th>
             </tr>
         </thead>

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild, HostListener } from "@angular/
 import { NavigationEnd, Router } from "@angular/router";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MenuItem } from "primeng/api";
+import { Title } from "@angular/platform-browser";
 import { AuthenticationService } from "../services/auth.service";
 import { ModaldoimatkhauComponent } from "./modal/modaldoimatkhau/modaldoimatkhau.component";
 import { filter } from "rxjs/operators";
@@ -13,6 +14,8 @@ import { mapQuyTrinhRoute } from "../services/mapquytrinhroute";
 import { ToastrService } from "ngx-toastr";
 import { ModalQuyTrinhCanXuLyComponent } from "./modal/modal-quy-trinh-can-xu-ly/modal-quy-trinh-can-xu-ly.component";
 import { API } from "../services/host";
+import { QuytrinhServiceService } from "../services/quytrinh-service.service";
+
 @Component({
   selector: "app-quantri",
   templateUrl: "./quantri.component.html",
@@ -30,6 +33,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   newCanhBao: any = 0;
   displayCanhBao: boolean = false;
   OSName: string = "HỆ THỐNG QUẢN TRỊ VÀ ĐIỀU HÀNH SỐ";
+  logoApp: string = "http://103.130.212.35:2501/quanlykho/quanlykho/logo-app-new-D_RjoT3O.png";
   menu: MenuItem[];
   menuQLTS: MenuItem[];
   menuQLNS: MenuItem[];
@@ -50,6 +54,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   listCanhBao: any;
   permissions: any = [];
   listHome: any = [];
+  avt: string = '';
 
   constructor(
     private _auth: AuthenticationService,
@@ -59,7 +64,9 @@ export class QuantriComponent implements OnInit, OnDestroy {
     private store: StoreService,
     private _signalRService: SignalRService,
     private _toastr: ToastrService,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private titleService: Title,
+    private _qtServices: QuytrinhServiceService
   ) {
     this.userInfo = this._auth.currentUserValue;
     this.getOSName(this._router.url);
@@ -68,8 +75,11 @@ export class QuantriComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('userInfo',this.userInfo);
-    
+    console.log('userInfo', this.userInfo);
+    this.avt = this.userInfo?.LinkAnhDaiDien ? API.imgURL + this.userInfo.LinkAnhDaiDien : "http://103.130.212.35:2501/quanlykho/quanlykho/avatar-1-B0hIH1z9.png"
+    console.log('avt', this.avt);
+
+    this.GetListThuVienAnh();
     this.getlistNgoiNha();
     // this.showHopDongModule =
     //   window.location.origin.includes("4200") ||
@@ -101,7 +111,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       }
 
       // Khôi phục trạng thái menu sau khi đã tạo menu
-      this.restoreMenuState();
+      // this.restoreMenuState();
 
       if (window.location.hash.includes("quantri/taisan/danhsachtaisan")) {
         this.menuService.setIsCheckMenu(true);
@@ -110,6 +120,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
         this.CaiMeNu();
       }
       this.restoreMenuState();
+
     });
     this.userBtn = [
       // {
@@ -135,6 +146,36 @@ export class QuantriComponent implements OnInit, OnDestroy {
         },
       },
     ];
+  }
+
+  GetListThuVienAnh() {
+    this._qtServices.GetListThuVienAnh().subscribe((res: any) => {
+      let logoObj = res.find((ele: any) => ele.Ten === 'Logo');
+      if (logoObj && logoObj.Link) {
+        this.logoApp = API.imgURL + logoObj.Link;
+      }
+
+      let productNameFullObj = res.find((ele: any) => ele.Ten === 'ProductNameFull');
+      if (productNameFullObj && productNameFullObj.TenHam) {
+        this.OSName = productNameFullObj.TenHam;
+      }
+
+      let faviconObj = res.find((ele: any) => ele.Ten === 'Favicon');
+      if (faviconObj && faviconObj.Link) {
+        let favicon: any = document.querySelector('link[rel="icon"]');
+        if (!favicon) {
+          favicon = document.createElement('link');
+          favicon.rel = 'icon';
+          document.head.appendChild(favicon);
+        }
+        favicon.href = API.imgURL + faviconObj.Link;
+      }
+
+      let titleObj = res.find((ele: any) => ele.Ten === 'Title');
+      if (titleObj && titleObj.TenHam) {
+        this.titleService.setTitle(titleObj.TenHam);
+      }
+    });
   }
 
   getlistNgoiNha() {
@@ -187,10 +228,12 @@ export class QuantriComponent implements OnInit, OnDestroy {
         // } else {
         //   this.IdNhaMay = this.store.getCurrent();
         // }
-        this.IdNhaMay = res[0].Id;
-        this.store.setNhaMay(this.IdNhaMay);
-        let TenDuAn = this.listNhaMay.find((ele) => ele.value == this.IdNhaMay)?.label;
-        this.store.setTenNhaMay(TenDuAn);
+        if (!this.IdNhaMay) {
+          this.IdNhaMay = res[0].Id;
+          this.store.setNhaMay(this.IdNhaMay);
+          let TenDuAn = this.listNhaMay.find((ele) => ele.value == this.IdNhaMay)?.label;
+          this.store.setTenNhaMay(TenDuAn);
+        }
       });
     this.US.push(nm);
   }
@@ -3181,11 +3224,11 @@ export class QuantriComponent implements OnInit, OnDestroy {
 
     if (isCheckMenu) {
       this.CaiMeNuQLTS();
-      this.display = false; 
-      this.displayAsset = isLargeScreen; 
+      this.display = false;
+      this.displayAsset = isLargeScreen;
     } else {
-      this.displayAsset = false; 
-      this.display = isLargeScreen; 
+      this.displayAsset = false;
+      this.display = isLargeScreen;
     }
   }
   NavigateToQuanTriSoi() {

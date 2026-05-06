@@ -278,25 +278,25 @@ export class SogiodungmayComponent implements OnInit {
     }
   };
 
-  constructor(private _servicesSanXuat: SanXuatService, private _servicesTaiSan: TaisanService, private taisanService: TaisanService) { };
+  constructor(private _servicesSanXuat: SanXuatService,  private taisanService: TaisanService) { };
 
   ngOnInit(): void {
 
-    let getListCongDoan = this._servicesSanXuat.GetListCongDoan().toPromise()
+    // let getListCongDoan = this._servicesSanXuat.GetListCongDoan().toPromise()
 
-    let getListDmPhanXuong = this._servicesSanXuat.GetListdmPhanXuongOpt().toPromise()
+    let getListDmPhanXuong = this.taisanService.GetListdmPhanXuongForIdDuAn_QLTS().toPromise()
 
     let date = new Date();
     this.filter.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-    Promise.all([getListCongDoan, getListDmPhanXuong]).then(([res1, res2]: any) => {
+    Promise.all([getListDmPhanXuong]).then(([ res2]: any) => {
 
-      this.CongDoan = mapArrayForDropDown(res1, 'Ten', 'Ma');
+      // this.CongDoan = mapArrayForDropDown(res1, 'Ten', 'Ma');
       // this.filter.MaCongDoan = this.CongDoan[0].value;
 
       this.PhanXuong = mapArrayForDropDown(res2, 'Ten', 'Id');
-      // this.filter.IdBoPhanSuDung = this.PhanXuong[0].value;
+      this.filter.IdBoPhanSuDung = this.PhanXuong[0].value;
 
       this.getDataBaoCao();
 

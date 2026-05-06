@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h5>Lịch sử tải tài liệu</h5>
+</div>
+<div class="modal-body">
+    <button pButton pRipple class="p-mb-3" type="button" label="Quay lại" (click)="activeModal.dismiss()"></button>
+    <p-table [value]="listLichSu" styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Ngày</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center">{{i + 1}}</td>
+                <td>{{item.CreatedByName}}</td>
+                <td class="text-center">{{item.Created | date: 'dd/MM/yyyy hh:mm a'}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
