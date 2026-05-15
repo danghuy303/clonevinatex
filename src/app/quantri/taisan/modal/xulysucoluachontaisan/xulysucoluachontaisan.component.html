@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Lựa chọn tài sản</h5>
+    <h5 class="modal-title">Lựa chọn máy/thiết bị</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -15,7 +15,8 @@
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2">
                 <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [showClear]="true" (onChange)="GetList()"
-                [(ngModel)]="filter.IddmLoaiTaiSan" placeholder="Chọn loại tài sản" [showClear]="true"></p-dropdown>
+                    [(ngModel)]="filter.IddmLoaiTaiSan" placeholder="Chọn loại máy/thiết bị"
+                    [showClear]="true"></p-dropdown>
             </div>
             <!-- <div class="p-mr-2">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
@@ -28,10 +29,12 @@
                 </p-calendar>
             </div> -->
             <div class="p-mr-2 p-inputgroup ">
-                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)] ="filter.Keyword" pInputText (keyup.enter)="GetList()" />
+                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
+                    (keyup.enter)="GetList()" />
                 <button type="button" pButton pRipple icon="pi pi-search"
-                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
-                <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+                    class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
+                <button type="button" pButton pRipple icon="pi pi-refresh"
+                    class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
         </div>
     </div>
@@ -46,7 +49,7 @@
                 <th class="text-center">Tên</th>
                 <!-- <th class="text-center">Loại bảo dưỡng</th>
                 <th class="text-center">Ghi chú</th> -->
-                <th>Loại tài sản</th>
+                <th>Loại máy/thiết bị</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
@@ -56,7 +59,7 @@
                     </p-checkbox>
                 </td>
                 <td style="width: 150px;">
-                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler> {{rowData.Ma}} 
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler> {{rowData.Ma}}
                 </td>
                 <td class="text-center">{{rowData.Ten}}</td>
                 <!-- <td class="text-center"> {{rowData.TendmLoaiBaoDuong}}</td>

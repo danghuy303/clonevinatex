@@ -80,7 +80,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
     });
-    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa tài sản này chứ?";
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa máy/thiết bị này chứ?";
     modalRef.result
       .then((res) => {
         this.item.listTaiSan.splice(item.STT - 1, 1);
@@ -135,7 +135,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
       return false;
     } else if (!validVariable(this.item.listTaiSan)) {
-      this.toastr.error("Yêu cầu nhập tài sản!");
+      this.toastr.error("Yêu cầu nhập máy/thiết bị!");
       return false;
     }
     return true;

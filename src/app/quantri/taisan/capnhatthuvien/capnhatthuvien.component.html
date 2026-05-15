@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Thư viện tài sản</h4>
+    <h4 style="color:#1f2779">Thư viện máy/thiết bị</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
@@ -11,7 +11,7 @@
                 [showClear]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản "
+            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại máy/thiết bị "
                 [(ngModel)]="filter.IddmLoaiTaiSan" styleClass="p-inputtext-sm" (onChange)="getList()"
                 [showClear]="true"></p-dropdown>
         </div>
@@ -46,7 +46,7 @@
         <tr>
             <th class="text-center" rowspan="2">Mã</th>
             <th class="text-center" rowspan="2">Tên</th>
-            <th class="text-center" rowspan="2">Loại tài sản</th>
+            <th class="text-center" rowspan="2">Loại máy/thiết bị</th>
             <th class="text-center" rowspan="2">Nước sản xuất</th>
             <th class="text-center" rowspan="2">Hãng sản xuất</th>
             <th class="text-center" rowspan="2">Nguyên giá</th>

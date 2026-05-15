@@ -78,7 +78,7 @@ export class ModalbaoduongComponent implements OnInit {
       let modalRef = this._modal.open(ModalthongbaoComponent, {
         backdrop: 'static'
       });
-      modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thay đổi loại tài sản';
+      modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thay đổi loại máy/thiết bị';
       modalRef.result.then(res => {
         this.GetListVatTuTheoLoaiTaiSan();
         this.item.listCongViec = this.item.listCongViec.map(ele => {

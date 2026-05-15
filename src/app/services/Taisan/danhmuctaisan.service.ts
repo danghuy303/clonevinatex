@@ -430,6 +430,38 @@ export class DanhmuctaisanService {
     }
   }
 
+  NhanCong() {
+    let url = API.CungUng;
+    return {
+      GetList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/GetListdmNhanCong`, data, httpOptions)
+      },
+      Set: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/SetdmNhanCong`, data, httpOptions)
+      },
+      Get: (Id: any) => {
+        return this.http.post(`${url}DanhMuc/GetdmNhanCongById?Id=${Id}`, httpOptions)
+      },
+      Delete: (id: any) => {
+        return this.http.get(`${url}DanhMuc/DeletedmNhanCong?id=${id}`, httpOptions)
+      },
+      DeleteList: (data: any) => {
+        return this.http.post(`${url}DanhMuc/DeleteListdmNhanCong`, data, httpOptions)
+      },
+      Importdm: (FileName: any) => {
+
+        return this.http.get(`${url}DanhMuc/ImportdmNhanCong?FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data: any) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmNhanCong`, data, httpOptions)
+      },
+      download: (url: any) => {
+        window.open(API.imgURL + url);
+      },
+    }
+  }
   LoaiNhienLieu() {
     let url = API.TaiSan
     return {

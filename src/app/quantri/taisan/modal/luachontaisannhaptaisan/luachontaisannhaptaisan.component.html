@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Danh sách tài sản</h5>
+    <h5 class="modal-title">Danh sách máy/thiết bị</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -16,8 +16,8 @@
             <div class="p-mr-2 p-inputgroup">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
                     (keyup.enter)="GetList()" />
-                    <button type="button" pButton pRipple icon="pi pi-search"
-                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
+                <button type="button" pButton pRipple icon="pi pi-search"
+                    class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh"
                     class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
@@ -51,7 +51,8 @@
             <tr>
                 <td class="text-center">
                     <div *ngIf="!rowData.IdTaiSan">
-                        <p-checkbox [(ngModel)]="rowData.checked" [disabled]="rowData.disabled" binary="true" inputId="binary" (onChange)="checked(rowData)">
+                        <p-checkbox [(ngModel)]="rowData.checked" [disabled]="rowData.disabled" binary="true"
+                            inputId="binary" (onChange)="checked(rowData)">
                         </p-checkbox>
                     </div>
                 </td>

@@ -114,11 +114,11 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     //   }
     // }
     // if (!validVariable(this.item?.MaQR)) {
-    //   this.toastr.error("Yêu cầu chọn mã QR tài sản");
+    //   this.toastr.error("Yêu cầu chọn mã QR máy/thiết bị");
     //   return false;
     // }
     // if (!validVariable(this.item?.TendmTaiSan)) {
-    //   this.toastr.error("Yêu cầu chọn nhóm tài sản");
+    //   this.toastr.error("Yêu cầu chọn nhóm máy/thiết bị");
     //   return false;
     // }
     if (!validVariable(this.item.DonViNangSuat)) {

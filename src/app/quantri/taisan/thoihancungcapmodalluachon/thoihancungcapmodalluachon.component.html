@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Lựa chọn tài sản</h5>
+    <h5 class="modal-title">Lựa chọn máy/thiết bị</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -48,7 +48,7 @@
                     </p-checkbox>
                 </td>
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode" ></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                     {{rowData.MaTaiSan}}
                 </td>
                 <td>{{rowData.TenTaiSan}}</td>

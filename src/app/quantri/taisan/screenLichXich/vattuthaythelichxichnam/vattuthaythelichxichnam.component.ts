@@ -116,7 +116,7 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
         let modalRef = this._modal.open(DanhSachTheoNhomMayComponent, {
           backdrop: "static", size: 'lg'
         });
-        modalRef.componentInstance.title = "Nhóm tài sản";
+        modalRef.componentInstance.title = "Nhóm máy/thiết bị";
         modalRef.componentInstance.listTaiSan = res.Data;
         modalRef.result.then((res: any) => {
           this.getGiaVatTuThayThe(res);
@@ -134,6 +134,7 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
     this._serviceTaiSan.GetGiaVatTuThayThe(data).subscribe((res: any) => {
       if (res.StatusCode === 200) {
         this.listTaiSan = res.Data;
+        this.HandListTaiSan.emit(this.listTaiSan);
         this.toastr.success(res.Message);
       } else this.toastr.error(res.Message);
     })

@@ -1,13 +1,16 @@
 <h4 class="title" style="color:#1f2779">
-    Quy trình thu hồi tài sản
+    Quy trình thu hồi máy/thiết bị
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
+        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
+            *ngIf="checkQuyen.ThemMoi"></button>
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Bộ phận sử dụng" [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Bộ phận sử dụng"
+                [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" [showClear]="true"
+                styleClass="p-inputtext-sm"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
@@ -16,7 +19,8 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" [minDate]="filter.TuNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetList(true)">
+                [(ngModel)]="filter.DenNgay" [minDate]="filter.TuNgay" inputId="icon" placeholder="Đến ngày"
+                (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width:200px">
@@ -35,7 +39,7 @@
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
     </p-tabPanel>
-    <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop" >
+    <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
     </p-tabPanel>
 </p-tabView>
 <div class="p-mt-3">
@@ -73,8 +77,8 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center">{{item.NgayThuHoi|date:'dd/MM/yyyy'}}</td>
-                <td >{{item.TenBoPhanSuDung}}</td>
-                <td >
+                <td>{{item.TenBoPhanSuDung}}</td>
+                <td>
                     {{item.NoiDung}}
                 </td>
                 <td class="text-center">
@@ -82,7 +86,8 @@
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                        (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>

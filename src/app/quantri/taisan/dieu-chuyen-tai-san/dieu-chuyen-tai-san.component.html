@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Quy trình điều chuyển tài sản</h4>
+    <h4 style="color:#1f2779">Quy trình điều chuyển máy/thiết bị</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
@@ -31,7 +31,7 @@
     </div>
 </div>
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-        <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
+    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
     </p-tabPanel>

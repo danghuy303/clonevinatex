@@ -61,7 +61,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
       this.item.listTaiSan = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele, index);
       });
-      this.CheckParent( this.item.listTaiSan);
+      this.CheckParent(this.item.listTaiSan);
     }
     this.KiemTraButtonModal();
     this.GetListdmPhanXuong();
@@ -88,7 +88,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
     });
-    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa tài sản này chứ?";
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa máy/thiết bị này chứ?";
     modalRef.result
       .then((res) => {
         this.item.listTaiSan.splice(item.STT - 1, 1);
@@ -103,7 +103,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
   save(item) {
     item.edit = false;
   }
- 
+
   setData() {
     this.item.NgayThanhLyUnix = DateToUnix(this.item.NgayThanhLy);
     this.item.IdDuAn = this.store.getCurrent();
@@ -121,8 +121,8 @@ export class ModalthanhlytaisanComponent implements OnInit {
       GhiChu: item.data?.GhiChu || "",
       MaTaiSan: item.data?.MaTaiSan,
       TenTaiSan: item.data?.TenTaiSan,
-      GiaTriConLai:item.data?.GiaTriConLai,
-      GiaTriThanhLy:item.data?.GiaTriThanhLy,
+      GiaTriConLai: item.data?.GiaTriConLai,
+      GiaTriThanhLy: item.data?.GiaTriThanhLy,
       listTaiSan: this.isEmpty(item.children) ? item.children.map(ele => this.mapDataViewToModel(ele)) : null
     }
   }
@@ -130,14 +130,14 @@ export class ModalthanhlytaisanComponent implements OnInit {
   isEmpty(arr) {
     return Array.isArray(arr) && arr.length > 0
   }
-  
+
   ValidateData() {
     if (!validVariable(this.item.NgayThanhLy)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
       return false;
     }
     if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
-      this.toastr.error("Yêu cầu nhập thêm tài sản!");
+      this.toastr.error("Yêu cầu nhập thêm máy/thiết bị!");
       return false;
     }
     return true;
@@ -162,7 +162,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
   }
 
   GetQuyTrinh(id) {
-    this._serviceTaiSan.ThanhLyTaiSan().Get(id).subscribe((res:any) => {
+    this._serviceTaiSan.ThanhLyTaiSan().Get(id).subscribe((res: any) => {
       this.item = res.Data;
       this.item.NgayThanhLyUnix = UnixToDate(this.item.NgayThanhLyUnix);
       this.item.listTaiSan = this.item.listTaiSan?.map((ele, index) => {

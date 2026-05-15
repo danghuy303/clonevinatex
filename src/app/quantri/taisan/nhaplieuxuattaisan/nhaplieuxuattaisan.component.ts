@@ -25,7 +25,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
   listTaiSan: any = [];
   IddmPhanXuong: string;
   IdDuAn: number;
-  paging: any = {CurrentPage: 1, TotalPages: 1, TotalCount: 1};
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   themmoi: boolean;
   bien_Luu_ThongTin_Tai_San: any = {};
   SoSeri: any = '';
@@ -36,12 +36,12 @@ export class NhaplieuxuattaisanComponent implements OnInit {
     public _toastr: ToastrService,
     private _serviceTaiSan: TaisanService,
     private _service: SanXuatService, private activatedRoute: ActivatedRoute,
-  ) { 
+  ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-          this.ngOnInit()
+        this.ngOnInit()
       }
-  })
+    })
   }
 
   ngOnInit(): void {
@@ -49,7 +49,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
     this.getListPhanXuong();
     let date = new Date();
     this.filter.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.filter.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0); 
+    this.filter.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.GetList();
   }
 
@@ -108,7 +108,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = { IddmPhanXuong: this.filter.IddmPhanXuong, IdTaiSan: this.filter.IddmTaiSan, TenDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ten, MaDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ma, IddmDonViTinh: this.bien_Luu_ThongTin_Tai_San.TendmDonViTinh };
-    modalRef.componentInstance.title = 'Thêm mới hiệu suất tài sản';
+    modalRef.componentInstance.title = 'Thêm mới hiệu suất máy/thiết bị';
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
       this.GetList();
@@ -121,7 +121,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.title = 'Cập nhật hiệu suất tài sản';
+    modalRef.componentInstance.title = 'Cập nhật hiệu suất máy/thiết bị';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');

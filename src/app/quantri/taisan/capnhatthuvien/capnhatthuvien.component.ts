@@ -130,7 +130,7 @@ export class CapnhatthuvienComponent implements OnInit, OnDestroy {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.title = "Nhập tài sản";
+    modalRef.componentInstance.title = "Nhập máy/thiết bị";
     modalRef.componentInstance.item = {
       Id: "",
       IdTaiSan: "",

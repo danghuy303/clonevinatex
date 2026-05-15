@@ -58,7 +58,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       this.listTaiSan_copy = listTaiSan;
       this.Loaddata();
       console.log("item", this.item);
-      
+
     }
   }
 
@@ -228,7 +228,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       modalRef.componentInstance.item = {};
       modalRef.result
         .then((res: any) => {
-          res.forEach((element,index) => {
+          res.forEach((element, index) => {
             element.STT = index + 1;
           })
           this.listTaiSan_copy = this.MergeArr(res, this.listTaiSan_copy, "IdTaiSan");
@@ -239,7 +239,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
     }
   }
 
-  MergeArr(newArr: Array<any>, existingArr: Array<any>, diffProp: string): Array<any>{
+  MergeArr(newArr: Array<any>, existingArr: Array<any>, diffProp: string): Array<any> {
     let removeIndex = [];
     newArr.forEach((newEle) => {
       let index = existingArr.findIndex(
@@ -265,7 +265,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
 
   XoaTaiSan(index) {
     this.confirmationService.show({
-      message: 'Bạn chắc chắc muốn xóa tài sản này?'
+      message: 'Bạn chắc chắc muốn xóa máy/thiết bị này?'
     }, () => {
       this.item.listTaiSan.splice(index - 1, 1);
       this.Loaddata()

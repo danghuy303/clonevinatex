@@ -21,7 +21,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
-      header: 'Loại tài sản',
+      header: 'Loại máy/thiết bị',
       field: 'TendmLoaiTaiSan',
       width: '100px',
       align: ''

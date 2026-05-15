@@ -33,7 +33,7 @@
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Bộ phận sử dụng<span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-9 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng" [showClear]="true"
-                styleClass="p-inputtext-sm" [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
@@ -58,10 +58,10 @@
             </div>
         </div>
     </div>
-    <p-panel header="Danh sách tài sản" [toggleable]="true">
+    <p-panel header="Danh sách máy/thiết bị" [toggleable]="true">
         <div class="p-d-flex p-flex-row p-jc-between">
             <div class="modal-bt p-mt-2 p-mb-3">
-                <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "
+                <button pButton pRipple type="button" label="Thêm máy/thiết bị" class="p-mr-2 p-button-sm "
                     (click)="ThemMoiDanhSachTaiSan()"></button>
             </div>
         </div>
@@ -96,13 +96,15 @@
                     </td>
                     <td>{{rowData.TenTaiSan}}</td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="rowData.SoLuong" [disabled]="!rowData.isCha" placeholder="">
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="rowData.SoLuong"
+                            [disabled]="!rowData.isCha" placeholder="">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <input type="text" class="p-inputtext-sm" [(ngModel)]="rowData.GhiChu" pInputText [ngbTooltip]="rowData.GhiChu" *ngIf="rowData.isCha" placeholder="Ghi chú"/>
+                        <input type="text" class="p-inputtext-sm" [(ngModel)]="rowData.GhiChu" pInputText
+                            [ngbTooltip]="rowData.GhiChu" *ngIf="rowData.isCha" placeholder="Ghi chú" />
                     </td>
-                    <td class="text-center" >
+                    <td class="text-center">
                         <div *ngIf="rowData.isCha">
                             <button pButton pRipple type="button" icon="pi pi-trash"
                                 class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"

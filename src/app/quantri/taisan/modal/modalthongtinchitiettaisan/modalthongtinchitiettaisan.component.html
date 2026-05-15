@@ -18,16 +18,17 @@
         <p-panel header="Thông tin chi tiết" [toggleable]="true" [(collapsed)]="isCollapsed" (onToggle)="togglePanel()">
             <div class="p-grid">
                 <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-                    <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span> :
+                    <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại máy/thiết bị <span class="text-danger">(*)</span>
+                        :
                     </label>
                     <div class="p-col-12 p-xl-8 p-p-0">
                         <p-dropdown [filter]="true" (onChange)="LayMa($event)" [options]="listLoaiTaiSan"
-                            placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan"
+                            placeholder="Chọn loại máy/thiết bị" [(ngModel)]="item.IddmLoaiTaiSan"
                             [showClear]="true"></p-dropdown>
                     </div>
                 </div>
                 <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-                    <label *ngIf="item.IdRoot === item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto"> Mã tài sản <span
+                    <label *ngIf="item.IdRoot === item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto"> Mã máy/thiết bị <span
                             class="text-danger">(*)</span> : </label>
                     <label *ngIf="item.IdRoot !== item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto"> Mã vật tư <span
                             class="text-danger">(*)</span> : </label>
@@ -42,7 +43,7 @@
                     </div>
                 </div>
                 <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-                    <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhóm tài sản : </label>
+                    <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhóm máy/thiết bị : </label>
                     <div class="p-col-12 p-xl-8 p-p-0 d-flex">
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenNhomTaiSan" pInputText
                             disabled />
@@ -51,7 +52,7 @@
                     </div>
                 </div>
                 <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-                    <label *ngIf="item.IdRoot === item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto">Tên tài sản <span
+                    <label *ngIf="item.IdRoot === item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto">Tên máy/thiết bị <span
                             class="text-danger">(*)</span> : </label>
                     <label *ngIf="item.IdRoot !== item.Id" class="p-col-12 p-xl-4 p-p-0 my-auto">Tên vật tư <span
                             class="text-danger">(*)</span> : </label>
@@ -199,7 +200,7 @@
         </p-panel>
     </div>
     <!-- phần con -->
-    <p-panel header="Chi tiết tài sản" [toggleable]="true" style="padding-top: 10px">
+    <p-panel header="Chi tiết máy/thiết bị" [toggleable]="true" style="padding-top: 10px">
         <ng-template pTemplate="content">
             <p-tabView [(activeIndex)]="activeTabIndex">
                 <p-tabPanel *ngIf="item.IdRoot === item.Id" header="Danh sách vật tư">
@@ -247,7 +248,8 @@
                                     <td class="text-center">
                                         <button pButton pRipple type="button" icon="pi pi-eye"
                                             class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                                            pTooltip="Xem Thông tin tài sản" (click)="ChiTietThongTin(item)"></button>
+                                            pTooltip="Xem Thông tin máy/thiết bị"
+                                            (click)="ChiTietThongTin(item)"></button>
                                     </td>
                                 </tr>
                             </ng-template>
@@ -280,7 +282,7 @@
                         <app-dinhmucdien [Items]="item.listDinhMucDien"></app-dinhmucdien>
                     </ng-template>
                 </p-tabPanel>
-                  <p-tabPanel header="Sản lượng">
+                <p-tabPanel header="Sản lượng">
                     <ng-template pTemplate="content">
                         <app-sanluong [(Items)]="item.listSanLuong"></app-sanluong>
                     </ng-template>
@@ -295,13 +297,13 @@
                         <app-biendong [item]="item" [isVatTu]="isVatTu"></app-biendong>
                     </ng-template>
                 </p-tabPanel>
-                <p-tabPanel header="Kiểm định tài sản">
+                <p-tabPanel header="Kiểm định máy/thiết bị">
                     <ng-template pTemplate="content">
                         <app-kiemdinhtaisantab [listKiemDinh]="item.listKiemDinh"
                             [listNoiDangKiem]="listNoiDangKiem"></app-kiemdinhtaisantab>
                     </ng-template>
                 </p-tabPanel>
-                <p-tabPanel header="Bảo hiểm tài sản">
+                <p-tabPanel header="Bảo hiểm máy/thiết bị">
                     <ng-template pTemplate="content">
                         <app-baohiemtaisantab [listBaoHiem]="item.listBaoHiem"></app-baohiemtaisantab>
                     </ng-template>

@@ -42,14 +42,14 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     this.KiemTraButtonModal();
     this.getListdmPhanXuong();
     if (this.opt === 'add') {
-      this.title = "Bàn giao tài sản";
+      this.title = "Bàn giao máy/thiết bị";
       this.GetNextSoQuyTrinh();
     }
     else {
       if (validVariable(this.item.Id)) {
         this.GetQuyTrinh(this.item.Id);
       }
-      this.title = "Bàn giao tài sản";
+      this.title = "Bàn giao máy/thiết bị";
       this.listTaiSan_copy = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele, index);
       });
@@ -91,7 +91,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       this.item.SoQuyTrinh = res.Data;
     })
   }
-  
+
   mapDataModelToView(ele, index, indexCha?) {
     return {
       data: {
@@ -118,7 +118,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày");
       return false;
     } else if (!validVariable(this.listTaiSan_copy)) {
-      this.toastr.error("Yêu cầu nhập tài sản");
+      this.toastr.error("Yêu cầu nhập máy/thiết bị");
       return false;
     }
     return true;
@@ -168,7 +168,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   GetQuyTrinh(id) {
-    this._serviceTaiSan.BanGiaoTaiSan().Get(id).subscribe((res:any) => {
+    this._serviceTaiSan.BanGiaoTaiSan().Get(id).subscribe((res: any) => {
       this.item = res.Data;
       this.item.NgayBanGiao = UnixToDate(this.item.NgayBanGiaoUnix);
       this.listTaiSan_copy = this.item.listTaiSan?.map((ele, index) => {
@@ -242,14 +242,14 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
         this.listTaiSan_copy = this.MergeArr(res, this.listTaiSan_copy);
         this.listTaiSan_copy = [...this.listTaiSan_copy];
         console.log(this.listTaiSan_copy);
-        
+
         this.listTaiSan_copy.forEach((ele, index) => {
           ele.data.isCha = true;
           ele.data.STT = index + 1;
           ele.children?.forEach((child, index) => {
-            child.data.STT = `${ele.data.STT}.${index+1}`
+            child.data.STT = `${ele.data.STT}.${index + 1}`
           })
-        })  
+        })
       })
       .catch((er) => {
       });
@@ -294,14 +294,14 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
 
   XoaTaiSan(item) {
     let modalref = this._modal.open(ModalthongbaoComponent);
-    modalref.componentInstance.message = `Bạn có muốn xóa tài sản "${item.MaTaiSan} - ${item.TenTaiSan}" này?`
+    modalref.componentInstance.message = `Bạn có muốn xóa máy/thiết bị "${item.MaTaiSan} - ${item.TenTaiSan}" này?`
     modalref.result.then(() => {
       this.listTaiSan_copy.splice(item.STT - 1, 1);
       this.listTaiSan_copy = [...this.listTaiSan_copy];
       this.listTaiSan_copy.forEach((ele, index) => {
         ele.data.STT = index + 1;
         ele.children?.forEach((child, index) => {
-          child.data.STT = `${ele.data.STT}.${index+1}`
+          child.data.STT = `${ele.data.STT}.${index + 1}`
         })
       })
     })

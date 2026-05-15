@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Lựa chọn tài sản</h5>
+    <h5 class="modal-title">Lựa chọn máy/thiết bị</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -9,15 +9,15 @@
         <div>
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm " [style.display]="checkBtnChonTaiSan?'inline-flex' : 'none'"
-                (click)="GhiLai()"></button>
+            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm "
+                [style.display]="checkBtnChonTaiSan?'inline-flex' : 'none'" (click)="GhiLai()"></button>
         </div>
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2 p-inputgroup">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
                     (keyup.enter)="GetList()" />
-                    <button type="button" pButton pRipple icon="pi pi-search"
-                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
+                <button type="button" pButton pRipple icon="pi pi-search"
+                    class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh"
                     class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
@@ -46,11 +46,12 @@
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="checked(rowData)">
+                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary"
+                        (onChange)="checked(rowData)">
                     </p-checkbox>
                 </td>
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode" ></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                     {{rowData.MaTaiSan}}
                 </td>
                 <td>{{rowData.TenTaiSan}}</td>

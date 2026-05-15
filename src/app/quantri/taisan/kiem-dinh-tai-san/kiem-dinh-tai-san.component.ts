@@ -129,7 +129,7 @@ export class KiemDinhTaiSanComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = ' Kiểm định tài sản';
+    modalRef.componentInstance.title = ' Kiểm định máy/thiết bị';
     modalRef.componentInstance.listKiemDinh = this.listKiemDinh;
     modalRef.componentInstance.listBoPhan = this.listBoPhan;
     modalRef.componentInstance.item = {
@@ -151,7 +151,7 @@ export class KiemDinhTaiSanComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật kiểm định tài sản';
+    modalRef.componentInstance.title = 'Cập nhật kiểm định máy/thiết bị';
     modalRef.componentInstance.listKiemDinh = this.listKiemDinh;
     modalRef.componentInstance.listBoPhan = this.listBoPhan;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));

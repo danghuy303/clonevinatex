@@ -33,7 +33,8 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Bộ phận sử dụng <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ChonLoaiTaiSan()" [showClear]="true"> 
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ChonLoaiTaiSan()"
+                    [showClear]="true">
                 </p-dropdown>
             </div>
         </div>
@@ -61,7 +62,7 @@
     </div>
     <div class="p-d-flex p-flex-row p-jc-between p-grid">
         <div class="modal-bt p-col-12 p-my-3 p-p-0 d-flex flex-column flex-xl-row ">
-            <button pButton pRipple type="button" label="Thêm tài sản" class="p-button-sm "
+            <button pButton pRipple type="button" label="Thêm máy/thiết bị" class="p-button-sm "
                 (click)="ThemMoiDanhSachTaiSan()"></button>
         </div>
     </div>
@@ -71,12 +72,12 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
-                <col >
-                <col >
-                <col >
-                <col >
-                <col >
-                <col >
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
                 <col style="width:80px">
             </colgroup>
         </ng-template>
@@ -111,17 +112,18 @@
                     {{rowData.GiaTriConLai|number:'0.0-3'}}
                 </td>
                 <td style="text-align: right;">
-                    <p-inputNumber [disabled]="!rowData.isCha" [minFractionDigits]="0" [min]="0" locale="en-EN" Class="p-inputtext-sm"
-                        [(ngModel)]="rowData.SoLuong" >
+                    <p-inputNumber [disabled]="!rowData.isCha" [minFractionDigits]="0" [min]="0" locale="en-EN"
+                        Class="p-inputtext-sm" [(ngModel)]="rowData.SoLuong">
                     </p-inputNumber>
                 </td>
                 <td>
-                    <input type="text" class="p-inputtext-sm" [ngbTooltip]="rowData.GhiChu" [(ngModel)]="rowData.GhiChu" pInputText />
+                    <input type="text" class="p-inputtext-sm" [ngbTooltip]="rowData.GhiChu" [(ngModel)]="rowData.GhiChu"
+                        pInputText />
                 </td>
                 <td class="text-center">
                     <button *ngIf="rowData.isCha" pButton pRipple type="button" icon="pi pi-trash"
-                    class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                    (click)=" delete(rowData)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                        (click)=" delete(rowData)"></button>
                 </td>
             </tr>
         </ng-template>

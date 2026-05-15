@@ -1,11 +1,11 @@
 <div class="p-mb-3 p-mt-3">
-  <h4 style="color:#1f2779">Lịch sử sử dụng tài sản</h4>
+  <h4 style="color:#1f2779">Lịch sử sử dụng máy/thiết bị</h4>
 </div>
 
 <div class="p-d-flex p-ai-center p-jc-end p-mb-3">
   <div class="p-d-flex p-flex-row">
     <div class="p-mr-2">
-      <p-dropdown placeholder="Loại tài sản" [filter]="true" [showClear]="true" styleClass="p-inputtext-sm"
+      <p-dropdown placeholder="Loại máy/thiết bị" [filter]="true" [showClear]="true" styleClass="p-inputtext-sm"
         [options]="listdmLoaiTaiSan" [(ngModel)]="filter.IddmLoaiTaiSan" (onChange)="LoadData(true)">
       </p-dropdown>
     </div>
@@ -49,8 +49,8 @@
   <ng-template pTemplate="header">
     <tr>
       <th>STT</th>
-      <th>Mã tài sản</th>
-      <th>Tên tài sản</th>
+      <th>Mã máy/thiết bị</th>
+      <th>Tên máy/thiết bị</th>
       <th>Ngày</th>
       <th>Nội dung</th>
       <th></th>

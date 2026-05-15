@@ -177,11 +177,11 @@ export class ModalcapnhattaisanComponent implements OnInit {
       return false;
     }
     if (!validVariable(this.item?.TaiSan?.MaQR)) {
-      this.toastr.error("Yêu cầu chọn mã QR tài sản");
+      this.toastr.error("Yêu cầu chọn mã QR máy/thiết bị");
       return false;
     }
     // if (!validVariable(this.item?.TaiSan?.TendmTaiSan)) {
-    //   this.toastr.error("Yêu cầu chọn nhóm tài sản");
+    //   this.toastr.error("Yêu cầu chọn nhóm máy/thiết bị");
     //   return false;
     // }
     if (!validVariable(this.item?.TaiSan?.SoNamKhauHao) || !validVariable(this.item?.TaiSan?.IddmLoaiTaiSan) || !validVariable(this.item?.TaiSan?.TenVietTat)) {

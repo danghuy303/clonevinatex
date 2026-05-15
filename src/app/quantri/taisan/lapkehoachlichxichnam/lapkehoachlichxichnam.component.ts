@@ -148,7 +148,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   setData() {
     this.item.ThoiGian = new Date(this.item.Nam, 0, 2);
     this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian);
-    this.item.listTaiSan = this.item.listTaiSan?.filter((ele:any) => !ele.isXoa);
+    this.item.listTaiSan = this.item.listTaiSan?.filter((ele: any) => !ele.isXoa);
     return this.item;
   }
 
@@ -158,13 +158,15 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       return false;
     }
     if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
-      this.toastr.error("Yêu cầu nhập thêm tài sản!");
+      this.toastr.error("Yêu cầu nhập thêm máy/thiết bị!");
       return false;
     }
     return true;
   }
 
   nextGhiLai() {
+    console.log("this.item", this.item);
+
     this.ghiLai$
       .pipe(
         exhaustMap(() => {
@@ -220,6 +222,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     //     })
     //   })
     // }
+    console.log("this.item", this.item);
 
     this.ghiLai$.next();
   }

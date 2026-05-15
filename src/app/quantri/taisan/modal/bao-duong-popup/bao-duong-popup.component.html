@@ -14,13 +14,13 @@
             <p-tabPanel header="Thông tin chung">
                 <div class="p-grid">
                     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
-                        <label class="p-col-12 p-xl-2 p-p-0 my-auto">Mã tài sản : </label>
+                        <label class="p-col-12 p-xl-2 p-p-0 my-auto">Mã máy/thiết bị : </label>
                         <div class="p-col-12 p-xl-10 p-p-0">
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaTaiSan" pInputText />
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
-                        <label class="p-col-12 p-xl-2 p-p-0 my-auto">Tên tài sản : </label>
+                        <label class="p-col-12 p-xl-2 p-p-0 my-auto">Tên máy/thiết bị : </label>
                         <div class="p-col-12 p-xl-10 p-p-0">
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenTaiSan" pInputText />
                         </div>
@@ -34,11 +34,11 @@
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
-                        <label class="p-col-12 p-xl-2 p-p-0 my-auto">Loại tài sản<span
+                        <label class="p-col-12 p-xl-2 p-p-0 my-auto">Loại máy/thiết bị<span
                                 class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
                             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan"
-                                placeholder="Chọn loại tài sản" (onChange)="GetDaTa($event.value)"></p-dropdown>
+                                placeholder="Chọn loại máy/thiết bị" (onChange)="GetDaTa($event.value)"></p-dropdown>
                         </div>
                     </div>
                 </div>

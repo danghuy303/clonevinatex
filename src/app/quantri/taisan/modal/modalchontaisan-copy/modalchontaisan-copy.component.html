@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Danh sách tài sản</h5>
+    <h5 class="modal-title">Danh sách máy/thiết bị</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -52,8 +52,7 @@
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary"
-                  *ngIf="!rowData.IdTaiSan"
+                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" *ngIf="!rowData.IdTaiSan"
                         (onChange)="checked(rowData)">
                     </p-checkbox>
                 </td>

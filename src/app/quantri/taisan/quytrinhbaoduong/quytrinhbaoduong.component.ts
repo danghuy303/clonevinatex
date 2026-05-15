@@ -149,7 +149,7 @@ export class QuytrinhbaoduongComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật thu hồi tài sản';
+    modalRef.componentInstance.title = 'Cập nhật thu hồi máy/thiết bị';
     modalRef.componentInstance.listPhanXuong = this.listPhanXuong || [];
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result

@@ -2,7 +2,7 @@
     <table>
         <thead>
             <tr>
-                <th class="tc-w-200 p-py-2" style="z-index: 999;">Tài sản</th>
+                <th class="tc-w-200 p-py-2" style="z-index: 999;">Máy/Thiết bị</th>
                 <th *ngFor="let label of labelThang" class="tc-w-100"> {{label}}</th>
             </tr>
         </thead>
@@ -27,7 +27,8 @@
         <input type="text" [(ngModel)]="keyword"  pInputText placeholder="Tìm kiếm..." />
     </span> -->
     <div>
-        <button pButton pRipple label="Xóa bảo dưỡng" icon="pi pi-trash" class="p-button-sm p-mr-2" (click)="handlDel()"></button>
+        <button pButton pRipple label="Xóa bảo dưỡng" icon="pi pi-trash" class="p-button-sm p-mr-2"
+            (click)="handlDel()"></button>
     </div>
     <div class="p-inputgroup  mb-3" style="width: 200px;">
         <span class="p-input-icon-left" style="width: 300px">
@@ -44,7 +45,7 @@
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 50px"></th>
-                <th style="width: 100px">Tài sản</th>
+                <th style="width: 100px">Máy/Thiết bị</th>
                 <th style="width: 250px">Loại BD</th>
                 <th *ngFor="let label of labelThang" class=""> {{label}}</th>
             </tr>

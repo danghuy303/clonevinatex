@@ -158,7 +158,7 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.title = "Nhập tài sản";
+    modalRef.componentInstance.title = "Nhập máy/thiết bị";
     modalRef.componentInstance.item = {
       Id: "",
       IdTaiSan: "",
@@ -192,7 +192,7 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
       keyboard: false,
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.title = "Cập nhật tài sản";
+    modalRef.componentInstance.title = "Cập nhật máy/thiết bị";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result.then(res => {
     }).catch(er => console.log(er))

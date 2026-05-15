@@ -48,7 +48,7 @@
                     (onChange)="loadData()"></p-dropdown>
             </div>
             <!-- <div class="p-mr-2">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản "
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại máy/thiết bị "
                     styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiTaiSan" [showClear]="true" [filter]="true"
                     (onChange)="loadData(true)">
                 </p-dropdown>
@@ -149,7 +149,7 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="text-center">STT</th>
-                        <th class="text-center">Mã, tên tài sản</th>
+                        <th class="text-center">Mã, tên máy/thiết bị</th>
                         <th class="text-center">Tháng 1</th>
                         <th class="text-center">Tháng 2</th>
                         <th class="text-center">Tháng 3</th>
@@ -196,9 +196,9 @@
                     <tr>
                         <th style="min-width: 50px;max-width: 50px; padding: 0.5rem 0">STT</th>
                         <th style="min-width: 160px;max-width: 160px; padding: 0.5rem 0"><span>{{filter.isChon ===
-                                'theoMay' ? 'Mã, tên tài sản' : 'Loại bảo dưỡng'}}</span></th>
+                                'theoMay' ? 'Mã, tên máy/thiết bị' : 'Loại bảo dưỡng'}}</span></th>
                         <!-- <th style="min-width: 200px;max-width: 200px; padding: 0.5rem 0"
-                            *ngIf="filter.isChon === 'theoMay'">Mã, tên tài sản</th> -->
+                            *ngIf="filter.isChon === 'theoMay'">Mã, tên máy/thiết bị</th> -->
 
                         <th style="min-width: 90px;max-width: 90px;"
                             *ngFor="let label of itemsLichXichThang.listThoiGian">{{label}}</th>

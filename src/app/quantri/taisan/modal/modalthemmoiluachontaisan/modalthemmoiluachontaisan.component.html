@@ -25,7 +25,8 @@
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại vật tư <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiVatTu" (onChange)="LayMa($event)"
-                    placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"></p-dropdown>
+                    placeholder="Chọn loại máy/thiết bị" [(ngModel)]="item.IddmLoaiTaiSan"
+                    [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -177,10 +178,10 @@
                 </p-tabPanel>
                 <p-tabPanel header="Bảo hành">
                     <ng-template pTemplate="content">
-                        <app-bao-hanh *ngIf="item.TaiSan !== undefined" [listBaoHanh]="item.TaiSan.listBaoHanh" [listKiemDinh]="listCungSanXuat"
-                            (itemChange)="handleBaoHanh($event)"></app-bao-hanh>
-                        <app-bao-hanh *ngIf="item.TaiSan === undefined" [listBaoHanh]="item.listBaoHanh" [listKiemDinh]="listCungSanXuat"
-                            (itemChange)="handleBaoHanh($event)"></app-bao-hanh>
+                        <app-bao-hanh *ngIf="item.TaiSan !== undefined" [listBaoHanh]="item.TaiSan.listBaoHanh"
+                            [listKiemDinh]="listCungSanXuat" (itemChange)="handleBaoHanh($event)"></app-bao-hanh>
+                        <app-bao-hanh *ngIf="item.TaiSan === undefined" [listBaoHanh]="item.listBaoHanh"
+                            [listKiemDinh]="listCungSanXuat" (itemChange)="handleBaoHanh($event)"></app-bao-hanh>
                     </ng-template>
                 </p-tabPanel>
             </p-tabView>

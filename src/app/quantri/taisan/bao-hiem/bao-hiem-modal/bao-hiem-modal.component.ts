@@ -62,11 +62,11 @@ export class BaoHiemModalComponent implements OnInit {
       this.item.listTaiSan = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele, index);
       });
-      this.CheckParent( this.item.listTaiSan);
+      this.CheckParent(this.item.listTaiSan);
     }
     this.KiemTraButtonModal();
   }
- 
+
   add() {
     if (this.item.listTaiSan == undefined || this.item.listTaiSan == null)
       this.item.listTaiSan = [];
@@ -77,7 +77,7 @@ export class BaoHiemModalComponent implements OnInit {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
     });
-    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa tài sản này chứ?";
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa máy/thiết bị này chứ?";
     modalRef.result
       .then((res) => {
         this.item.listTaiSan.splice(item.STT - 1, 1);
@@ -86,7 +86,7 @@ export class BaoHiemModalComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
- 
+
   setData() {
     this.item.NgayBaoHiemUnix = DateToUnix(this.item.NgayBaoHiem);
     this.item.NgayHetHanUnix = DateToUnix(this.item.NgayHetHan);
@@ -106,8 +106,8 @@ export class BaoHiemModalComponent implements OnInit {
       GhiChu: item.data?.GhiChu || "",
       MaTaiSan: item.data?.MaTaiSan,
       TenTaiSan: item.data?.TenTaiSan,
-      GiaTriConLai:item.data?.GiaTriConLai,
-      GiaTriThanhLy:item.data?.GiaTriThanhLy,
+      GiaTriConLai: item.data?.GiaTriConLai,
+      GiaTriThanhLy: item.data?.GiaTriThanhLy,
       listTaiSan: this.isEmpty(item.children) ? item.children.map(ele => this.mapDataViewToModel(ele)) : null
     }
   }
@@ -115,14 +115,14 @@ export class BaoHiemModalComponent implements OnInit {
   isEmpty(arr) {
     return Array.isArray(arr) && arr.length > 0
   }
-  
+
   ValidateData() {
     // if (!validVariable(this.item.NgayThanhLy)) {
     //   this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
     //   return false;
     // }
     // if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
-    //   this.toastr.error("Yêu cầu nhập thêm tài sản!");
+    //   this.toastr.error("Yêu cầu nhập thêm máy/thiết bị!");
     //   return false;
     // }
     return true;
@@ -147,7 +147,7 @@ export class BaoHiemModalComponent implements OnInit {
   }
 
   GetQuyTrinh(id) {
-    this._serviceTaiSan.QuyTrinhBaoHiem().Get(id).subscribe((res:any) => {
+    this._serviceTaiSan.QuyTrinhBaoHiem().Get(id).subscribe((res: any) => {
       this.item = res.Data;
       this.item.NgayTUnix = UnixToDate(this.item.NgayUnix);
       this.item.listTaiSan = this.item.listTaiSan?.map((ele, index) => {
@@ -201,16 +201,16 @@ export class BaoHiemModalComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         console.log(res);
-        
+
         this.item.listTaiSan = this.MergeArr(res, this.item.listTaiSan);
         this.item.listTaiSan = [...this.item.listTaiSan];
         this.item.listTaiSan.forEach((ele, index) => {
           ele.data.isCha = true;
           ele.data.STT = index + 1;
           ele.children?.forEach((child, index) => {
-            child.data.STT = `${ele.data.STT}.${index+1}`
+            child.data.STT = `${ele.data.STT}.${index + 1}`
           })
-        })  
+        })
       })
       .catch((er) => {
       });

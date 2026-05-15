@@ -14,7 +14,7 @@
         <div class="p-d-flex p-flex-row" style="width:200px">
             <div style="width:200px; margin-right:10px ;">
                 <div class="p-col-12 p-p-0">
-                    <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn loại tài sản "
+                    <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn loại máy/thiết bị "
                         [(ngModel)]="filter.IddmLoaiTaisan" styleClass="p-inputtext-sm" [showClear]="true"
                         [filter]="true" (onChange)="GetList(true)">
                     </p-dropdown>
@@ -31,8 +31,8 @@
         </div>
     </div>
 </div>
-<p-table [value]="items" [(selection)]="selectedItems" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines"
-    [scrollable]="true">
+<p-table [value]="items" [(selection)]="selectedItems"
+    styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="true">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width:30px">
@@ -66,7 +66,7 @@
             <td *ngFor="let col of cols" [ngClass]="{'text-center': col.align==='center'}">
                 {{item[col.field]}}
             </td>
-           
+
             <td class="text-center">
                 <p-checkbox [(ngModel)]="item.isHoatDong" binary="true" inputId="binary" [disabled]="true"></p-checkbox>
             </td>

@@ -99,7 +99,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.toastr.error("Vui lòng nhập bộ phận sử dụng")
     }
     else if (!validVariable(this.item.IdDmLoaiTaiSan)) {
-      this.toastr.error("Yêu cầu nhập loại tài sản!");
+      this.toastr.error("Yêu cầu nhập loại máy/thiết bị!");
       return false;
     } else {
       let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
@@ -149,7 +149,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
       return false;
     } else if (!validVariable(this.item.IdTaiSan_BaoDuong)) {
-      this.toastr.error("Yêu cầu nhập loại tài sản!");
+      this.toastr.error("Yêu cầu nhập loại máy/thiết bị!");
       return false;
     }
     return true;
@@ -166,7 +166,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     })
     checkDateTimeAll = this.item.listTaiSan.every(taisan => taisan.checkDateTime);
     if (!checkDateTimeAll) {
-      this.toastr.error('Vui lòng nhập đầy đủ thời gian bảo dưỡng của tài sản nếu tài sản đã bảo dưỡng!');
+      this.toastr.error('Vui lòng nhập đầy đủ thời gian bảo dưỡng của máy/thiết bị nếu máy/thiết bị đã bảo dưỡng!');
       return false;
     } else {
       return true;

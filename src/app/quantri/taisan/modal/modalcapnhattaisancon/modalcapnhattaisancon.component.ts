@@ -41,7 +41,7 @@ export class ModalcapnhattaisanconComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.opt === 'add') {
-      this.title = "Thêm mới tài sản con";
+      this.title = "Thêm mới máy/thiết bị con";
       this.item = {
         Id: "",
         isXoa: false,
@@ -51,7 +51,7 @@ export class ModalcapnhattaisanconComponent implements OnInit {
       }
     }
     else {
-      this.title = "Cập nhật tài sản con";
+      this.title = "Cập nhật máy/thiết bị con";
     }
   }
 

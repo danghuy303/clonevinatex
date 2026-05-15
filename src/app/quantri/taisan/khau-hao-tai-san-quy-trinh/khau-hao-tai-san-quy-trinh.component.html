@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Quy trình tính khấu hao tài sản</h4>
+    <h4 style="color:#1f2779">Quy trình tính khấu hao máy/thiết bị</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
@@ -16,7 +16,8 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" [minDate]="filter.TuNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="Loaddata(true)">
+                [(ngModel)]="filter.DenNgay" [minDate]="filter.TuNgay" inputId="icon" placeholder="Đến ngày"
+                (onSelect)="Loaddata(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width: 200px;">
@@ -30,7 +31,7 @@
     </div>
 </div>
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content  p-datatable-striped">
-        <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
+    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
     </p-tabPanel>
@@ -48,7 +49,7 @@
             <col style="width: 100px;">
         </colgroup>
     </ng-template>
-    <ng-template pTemplate="header" >
+    <ng-template pTemplate="header">
         <tr>
             <th class="text-center">STT</th>
             <th class="text-center">Số quy trình</th>
@@ -72,7 +73,7 @@
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
-                    (click)="changeParam(item.Id)"></button>               
+                    (click)="changeParam(item.Id)"></button>
             </td>
         </tr>
     </ng-template>
@@ -83,4 +84,3 @@
         </div>
     </ng-template>
 </p-table>
-

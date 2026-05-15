@@ -41,9 +41,9 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Tài sản<span class="required">*</span>:</label>
+            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Máy/Thiết bị<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <p-dropdown [filter]="true" [options]="listTaiSanDaBanGiao" placeholder="Chọn tài sản"
+                <p-dropdown [filter]="true" [options]="listTaiSanDaBanGiao" placeholder="Chọn máy/thiết bị"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IdTaiSan" (onChange)="SelectTaiSan()"></p-dropdown>
             </div>
         </div>
@@ -82,13 +82,13 @@
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Ngày nhập:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                    [yearNavigator]="true"  [(ngModel)]="item.TaiSan.NgayNhap"
-                    placeholder="dd/mm/yyyy" [disabled]="true">
+                    [yearNavigator]="true" [(ngModel)]="item.TaiSan.NgayNhap" placeholder="dd/mm/yyyy"
+                    [disabled]="true">
                 </p-calendar>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Loại tài sản:</label>
+            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Loại máy/thiết bị:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TaiSan.TendmLoaiTaiSan" pInputText
                     [disabled]="true" />
@@ -108,7 +108,7 @@
             </div>
         </div>
     </div>
-    <p-panel header="Tài sản" [toggleable]="true">
+    <p-panel header="Máy/Thiết bị" [toggleable]="true">
         <p-treeTable [value]="listTaiSan_copy" styleClass="p-treetable p-treetable-caption">
             <ng-template pTemplate="colgroup">
                 <colgroup>

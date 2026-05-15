@@ -462,9 +462,9 @@ export class QuantriComponent implements OnInit, OnDestroy {
           }
         ],
       },
-      // ngày 9/9/2025 đóng quản trị tài sản
+      // ngày 9/9/2025 đóng quản trị máy/thiết bị
       // {
-      //   label: "Quản trị tài sản",
+      //   label: "Quản trị máy/thiết bị",
       //   icon: "fas fa-circle",
       //   routerLink: "/quantri/taisan1",
       //   visible: this.showTaiSanModule,
@@ -505,15 +505,15 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //   ],
       // },
 
-      /////////////      Quản lý tài sản
+      /////////////      Quản lý máy/thiết bị
       // {
-      //   label: "Quản lý tài sản",
+      //   label: "Quản lý máy/thiết bị",
       //   icon: "fas fa-circle",
       //   routerLink: "/quantri/taisan",
       //   visible: this.showTaiSanModule,
       //   items: [
       //     // {
-      //     //   label: "Quản trị tài sản",
+      //     //   label: "Quản trị máy/thiết bị",
       //     //   routerLink: "/quantri/quantritaisan",
       //     //   visible: this.showTaiSanModule,
       //     //   items: [
@@ -545,10 +545,10 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //     //   ]
       //     // },
       //     {
-      //       label: "Quản lý thông tin tài sản",
+      //       label: "Quản lý thông tin máy/thiết bị",
       //       items: [
       //         {
-      //           label: "Danh sách tài sản",
+      //           label: "Danh sách máy/thiết bị",
       //           routerLink: "/quantri/taisan/danhsachtaisan",
       //           command: () => {
       //             console.log("close");
@@ -557,21 +557,21 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //           },
       //         },
       //         {
-      //           label: "Quy trình nhập tài sản",
+      //           label: "Quy trình nhập máy/thiết bị",
       //           routerLink: "/quantri/taisan/nhaptaisan/0",
       //           command: () => {
       //             this.close();
       //           },
       //         },
       //         {
-      //           label: "Danh sách thư viện tài sản",
+      //           label: "Danh sách thư viện máy/thiết bị",
       //           routerLink: "/quantri/taisan/capnhatthuvien/0",
       //           command: () => {
       //             this.close();
       //           },
       //         },
       //         {
-      //           label: "Lịch sử sử dụng tài sản",
+      //           label: "Lịch sử sử dụng máy/thiết bị",
       //           routerLink: "/quantri/taisan/lichsusudungtaisan/0",
       //           command: () => {
       //             this.close();
@@ -627,38 +627,38 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //       ],
       //     },
       //     {
-      //       label: "Biến động tài sản",
+      //       label: "Biến động máy/thiết bị",
       //       items: [
       //         {
-      //           label: "Bàn giao tài sản",
+      //           label: "Bàn giao máy/thiết bị",
       //           routerLink: "/quantri/taisan/bangiaotaisan/0",
       //           command: () => {
       //             this.close();
       //           },
       //         },
       //         // {
-      //         //   label: "Điều chuyển tài sản",
+      //         //   label: "Điều chuyển máy/thiết bị",
       //         //   routerLink: "/quantri/taisan/dieuchuyentaisan/0",
       //         //   command: () => {
       //         //     this.close();
       //         //   },
       //         // },
       //         {
-      //           label: "Thu hồi tài sản",
+      //           label: "Thu hồi máy/thiết bị",
       //           routerLink: "/quantri/taisan/thuhoitaisan/0",
       //           command: () => {
       //             this.close();
       //           },
       //         },
       //         {
-      //           label: "Thanh lý tài sản",
+      //           label: "Thanh lý máy/thiết bị",
       //           routerLink: "/quantri/taisan/thanhlytaisan/0",
       //           command: () => {
       //             this.close();
       //           },
       //         },
       //         {
-      //           label: "Tính Khấu hao tài sản",
+      //           label: "Tính Khấu hao máy/thiết bị",
       //           routerLink: "/quantri/taisan/khauhaotaisan/0",
       //           command: () => {
       //             this.close();
@@ -779,7 +779,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //       label: "Danh mục ",
       //       items: [
       //         {
-      //           label: "Loại tài sản",
+      //           label: "Loại máy/thiết bị",
       //           routerLink: "/quantri/taisan/danhmuc/danhmucloaitaisan",
       //           command: () => {
       //             this.close();
@@ -837,14 +837,14 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //       ],
       //     },
       //     // {
-      //     //   label: "Nhập tài sản",
+      //     //   label: "Nhập máy/thiết bị",
       //     //   routerLink: "/quantri/taisan/nhaptaisan",
       //     //   command: () => {
       //     //     this.close();
       //     //   },
       //     // },
       //     // {
-      //     //   label: "Bàn giao tài sản",
+      //     //   label: "Bàn giao máy/thiết bị",
       //     //   routerLink: "/quantri/taisan/bangiaotaisan",
       //     //   command: () => {
       //     //     this.close();
@@ -858,7 +858,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //     //   },
       //     // },
       //     // // {
-      //     // //   label: "Danh sách tài sản",
+      //     // //   label: "Danh sách máy/thiết bị",
       //     // //   routerLink: "/quantri/taisan/danhsachtaisan",
       //     // //   command: () => {
       //     // //     this.close();
@@ -879,21 +879,21 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //     //   },
       //     // },
       //     // {
-      //     //   label: "Thu hồi tài sản",
+      //     //   label: "Thu hồi máy/thiết bị",
       //     //   routerLink: "/quantri/taisan/thuhoitaisan/0",
       //     //   command: () => {
       //     //     this.close();
       //     //   },
       //     // },
       //     // {
-      //     //   label: "Thanh lý tài sản",
+      //     //   label: "Thanh lý máy/thiết bị",
       //     //   routerLink: "/quantri/taisan/thanhlytaisan/0",
       //     //   command: () => {
       //     //     this.close();
       //     //   },
       //     // },
       //     // {
-      //     //   label: "Hiệu xuất tài sản",
+      //     //   label: "Hiệu xuất máy/thiết bị",
       //     //   routerLink: "/quantri/taisan/nhaplieuxuattaisan",
       //     //   command: () => {
       //     //     this.close();
@@ -990,13 +990,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ]
       },
       // {
-      //   label: "Quản trị tài sản",
+      //   label: "Quản trị máy/thiết bị",
       //   routerLink: "/quantri/quantritaisan",
       //   icon: "fas fa-circle",
       //   visible: this.showTaiSanModule,
       //   items: [
       //     {
-      //       label: "Tổng hợp tài sản",
+      //       label: "Tổng hợp máy/thiết bị",
       //       routerLink: "/quantri/quantritaisan/baocaotonghoptaisan",
       //       separator: !this.showTaiSanModule,
       //       icon: "fas fa-circle",
@@ -2400,9 +2400,9 @@ export class QuantriComponent implements OnInit, OnDestroy {
       // },
 
 
-      /////////////      Danh Mục quản lý tài sản
+      /////////////      Danh Mục quản lý máy/thiết bị
       // {
-      //   label: "Danh mục quản lý tài sản",
+      //   label: "Danh mục quản lý máy/thiết bị",
       //   icon: "fas fa-circle",
       //   routerLink: "/quantri/danhmuctaisan",
       //   visible: this.showTaiSanModule,
@@ -2415,7 +2415,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //       },
       //     },
       //     {
-      //       label: "Loại tài sản",
+      //       label: "Loại máy/thiết bị",
       //       routerLink: "/quantri/taisan/danhmuc/danhmucloaitaisan",
       //       command: () => {
       //         this.close();
@@ -2443,7 +2443,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //       },
       //     },
       //     // {
-      //     //   label: "Tình trạng tài sản",
+      //     //   label: "Tình trạng máy/thiết bị",
       //     //   routerLink: "/quantri/taisan/danhmuc/tinhtrangtaisan",
       //     //   command: () => {
       //     //     this.close();
@@ -2540,7 +2540,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //       command: () => this.close(),
       //     },
       //     {
-      //       label: "Tài sản",
+      //       label: "Máy/Thiết bị",
       //       routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuctaisan",
 
       //       command: () => this.close(),
@@ -2659,7 +2659,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
           //   command: () => this.close(),
           // },
           {
-            label: "Tài sản",
+            label: "Máy/Thiết bị",
             routerLink: "/quantri/mkehoachsanxuat/danhmuc/taisan/0",
             command: () => this.close(),
           },
@@ -3233,7 +3233,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   }
   NavigateToQuanTriSoi() {
     this.menuService.setIsCheckMenu(false);
-    this.displayAsset = false; // Đóng menu tài sản
+    this.displayAsset = false; // Đóng menu máy/thiết bị
     this.display = true; // Mở menu sản xuất
     this.CaiMeNu();
     this._router.navigate(['quantri/quantrisanxuat/tonghop']);
@@ -3242,7 +3242,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
   NavigateToQuanLyTaiSan() {
     this.menuService.setIsCheckMenu(true);
     this.display = false; // Đóng menu sản xuất
-    this.displayAsset = true; // Mở menu tài sản
+    this.displayAsset = true; // Mở menu máy/thiết bị
     this.CaiMeNuQLTS();
     this._router.navigate(['quantri/taisan/danhsachtaisan']);
   }
@@ -3250,33 +3250,33 @@ export class QuantriComponent implements OnInit, OnDestroy {
   CaiMeNuQLTS() {
     this.menuQLTS = [
       {
-        label: "Quản lý thông tin tài sản",
+        label: "Quản lý thông tin máy/thiết bị",
         expanded: true,
         icon: "fas fa-layer-group",
         items: [
           {
-            label: "Danh sách tài sản",
+            label: "Danh sách máy/thiết bị",
             routerLink: "/quantri/taisan/danhsachtaisan",
             command: () => {
               this.close();
             },
           },
           {
-            label: "Quy trình nhập tài sản",
+            label: "Quy trình nhập máy/thiết bị",
             routerLink: "/quantri/taisan/nhaptaisan/0",
             command: () => {
               this.close();
             },
           },
           {
-            label: "Danh sách thư viện tài sản",
+            label: "Danh sách thư viện máy/thiết bị",
             routerLink: "/quantri/taisan/capnhatthuvien/0",
             command: () => {
               this.close();
             },
           },
           {
-            label: "Lịch sử sử dụng tài sản",
+            label: "Lịch sử sử dụng máy/thiết bị",
             routerLink: "/quantri/taisan/lichsusudungtaisan/0",
             command: () => {
               this.close();
@@ -3285,7 +3285,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ],
       },
       {
-        label: "Quản trị tài sản",
+        label: "Quản trị máy/thiết bị",
         icon: "fas fa-credit-card",
         routerLink: "/quantri/taisan1",
         // visible: this.showTaiSanModule,
@@ -3359,18 +3359,18 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ],
       },
       {
-        label: "Biến động tài sản",
+        label: "Biến động máy/thiết bị",
         icon: "fas fa-bell",
         items: [
           {
-            label: "Kiểm định tài sản",
+            label: "Kiểm định máy/thiết bị",
             routerLink: "/quantri/taisan/kiemdinhtaisan/0",
             command: () => {
               this.close();
             },
           },
           {
-            label: "Bảo hiểm tài sản",
+            label: "Bảo hiểm máy/thiết bị",
             routerLink: "/quantri/taisan/baohiemtaisan/0",
             command: () => {
               this.close();
@@ -3391,28 +3391,28 @@ export class QuantriComponent implements OnInit, OnDestroy {
             },
           },
           {
-            label: "Bàn giao tài sản",
+            label: "Bàn giao máy/thiết bị",
             routerLink: "/quantri/taisan/bangiaotaisan/0",
             command: () => {
               this.close();
             },
           },
           {
-            label: "Thu hồi tài sản",
+            label: "Thu hồi máy/thiết bị",
             routerLink: "/quantri/taisan/thuhoitaisan/0",
             command: () => {
               this.close();
             },
           },
           {
-            label: "Thanh lý tài sản",
+            label: "Thanh lý máy/thiết bị",
             routerLink: "/quantri/taisan/thanhlytaisan/0",
             command: () => {
               this.close();
             },
           },
           {
-            label: "Tính khấu hao tài sản",
+            label: "Tính khấu hao máy/thiết bị",
             routerLink: "/quantri/taisan/khauhaotaisan/0",
             command: () => {
               this.close();
@@ -3599,14 +3599,14 @@ export class QuantriComponent implements OnInit, OnDestroy {
         icon: "fas fa-warehouse",
         items: [
           {
-            label: "Loại tài sản",
+            label: "Loại máy/thiết bị",
             routerLink: "/quantri/taisan/danhmuc/danhmucloaitaisan",
             command: () => {
               this.close();
             },
           },
           {
-            label: "Nhóm tài sản/vật tư",
+            label: "Nhóm máy/thiết bị/vật tư",
             routerLink: "/quantri/taisan/danhmuc/danhmuctaisan",
             command: () => {
               this.close();

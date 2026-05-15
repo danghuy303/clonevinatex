@@ -27,11 +27,11 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-7 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-lg-12 p-p-0 my-auto">Loại tài sản <span
+            <label class="p-col-12 p-xl-3 p-lg-12 p-p-0 my-auto">Loại máy/thiết bị <span
                     class="text-danger">(*)</span>:</label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
                 <p-multiSelect [options]="listTaiSan" [(ngModel)]="item.listIddmLoaiTaiSan"
-                    (onChange)="ChonLoaiTaiSan()" selectedItemsLabel="{0} chọn loại tài sản"
+                    (onChange)="ChonLoaiTaiSan()" selectedItemsLabel="{0} chọn loại máy/thiết bị"
                     defaultLabel="Chọn"></p-multiSelect>
             </div>
         </div>
@@ -219,15 +219,15 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-2">
-            <label class="">Loại tài sản <span class="text-danger">(*)</span>:</label>
+            <label class="">Loại máy/thiết bị <span class="text-danger">(*)</span>:</label>
             <div class="">
                 <p-multiSelect [options]="listTaiSan" [(ngModel)]="item.listIddmLoaiTaiSan"
-                    (onChange)="ChonLoaiTaiSan()" selectedItemsLabel="{0} chọn loại tài sản"
+                    (onChange)="ChonLoaiTaiSan()" selectedItemsLabel="{0} chọn loại máy/thiết bị"
                     defaultLabel="Chọn"></p-multiSelect>
             </div>
         </div>
         <div class="p-col-12 p-lg-1 p-p-2 d-flex align-items-center">
-             <label class="">&nbsp;</label>
+            <label class="">&nbsp;</label>
             <div class="p-field-checkbox p-p-0 p-mt-1 my-auto">
                 <p-checkbox [(ngModel)]="item.isHoatDong" binary="true" inputId="binary"></p-checkbox>
                 <label for="binary">Hoạt động </label>

@@ -131,25 +131,25 @@ export class DanhmuctaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới Nhóm tài sản/vật tư';
+    modalRef.componentInstance.title = 'Thêm mới Nhóm máy/thiết bị/vật tư';
     modalRef.result.then(res => {
       this.GetList()
     }).catch(er => console.log(er))
   }
   edit(item) {
     // this._danhMucTaiSan.DanhMucTaiSan().ById(item.Id).subscribe((res: any) => {
-      let modalRef = this._modal.open(DanhmuctaisanmodalComponent, {
-        backdrop: 'static',
-        size: 'xl',
+    let modalRef = this._modal.open(DanhmuctaisanmodalComponent, {
+      backdrop: 'static',
+      size: 'xl',
 
-      });
-      modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.type = 'capnhat';
-      modalRef.componentInstance.title = 'Cập nhật Nhóm tài sản/vật tư';
-      modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-      modalRef.result.then(res => {
-        this.GetList()
-      }).catch(er => console.log(er))
+    });
+    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.type = 'capnhat';
+    modalRef.componentInstance.title = 'Cập nhật Nhóm máy/thiết bị/vật tư';
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.result.then(res => {
+      this.GetList()
+    }).catch(er => console.log(er))
     // })
   }
   delete(item) {

@@ -36,7 +36,7 @@
     <ng-template pTemplate="header">
       <tr>
         <th class="text-center">STT</th>
-        <th class="text-center">Tài sản</th>
+        <th class="text-center">Máy/Thiết bị</th>
         <!-- <th class="text-center" *ngFor="let tendm of itemLichBaoDuong[0]?.listThoiGianNangSuat"> {{tendm.TGNS}}</th> -->
         <th *ngFor="let dmbd of listdmLoaiBaoDuong" class="text-center">{{dmbd.TendmLoaiBaoDuong}}</th>
       </tr>
@@ -61,10 +61,10 @@
     <ng-template pTemplate="header">
       <tr>
         <th class="text-center" style="width: 120px !important; max-width: 120px !important;">Loại bảo dưỡng</th>
-        <ng-container  *ngIf="!item.isChonNam">
+        <ng-container *ngIf="!item.isChonNam">
           <th class="text-center" *ngFor="let label of items.listThoiGian">Tháng {{label}}</th>
         </ng-container>
-        <ng-container  *ngIf="item.isChonNam">
+        <ng-container *ngIf="item.isChonNam">
           <th class="text-center" *ngFor="let label of items.listThoiGian"> {{label}}</th>
         </ng-container>
       </tr>

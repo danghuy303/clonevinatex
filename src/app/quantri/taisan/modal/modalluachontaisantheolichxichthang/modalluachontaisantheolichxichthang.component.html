@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Lựa chọn tài sản</h5>
+    <h5 class="modal-title">Lựa chọn máy/thiết bị</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -9,8 +9,8 @@
         <div>
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm " [style.display]="checkBtnChonTaiSan?'inline-flex' : 'none'"
-                (click)="GhiLai()"></button>
+            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm "
+                [style.display]="checkBtnChonTaiSan?'inline-flex' : 'none'" (click)="GhiLai()"></button>
         </div>
         <div class="p-d-flex p-flex-row">
             <!-- <div class="p-mr-2">
@@ -24,30 +24,31 @@
             <div class="p-mr-2 p-inputgroup" style="width:200px">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
                     (keyup.enter)="GetList(true)" />
-                    <button type="button" pButton pRipple icon="pi pi-search"
-                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
+                <button type="button" pButton pRipple icon="pi pi-search"
+                    class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh"
                     class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
         </div>
     </div>
-    <p-table [value]="items" [paginator]="true" [rows]="10" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+    <p-table [value]="items" [paginator]="true" [rows]="10"
+        styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
         <ng-template pTemplate="header">
             <tr>
-                    <th style="width:50px" class="text-center">
-                        <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall"
-                            (onChange)="checkAll($event)"></p-checkbox>
-                    </th>
+                <th style="width:50px" class="text-center">
+                    <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall"
+                        (onChange)="checkAll($event)"></p-checkbox>
+                </th>
                 <th>Mã</th>
                 <th>Tên</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr> 
-                    <td class="text-center">
-                        <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked(item)">
-                        </p-checkbox>
-                    </td>
+            <tr>
+                <td class="text-center">
+                    <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked(item)">
+                    </p-checkbox>
+                </td>
                 <td>{{item.MaTaiSan}}</td>
                 <td>{{item.TenTaiSan}}</td>
             </tr>
@@ -56,5 +57,5 @@
             <b>Tổng số bản ghi {{items.length}}</b>
         </ng-template>
     </p-table>
-    
+
 </div>

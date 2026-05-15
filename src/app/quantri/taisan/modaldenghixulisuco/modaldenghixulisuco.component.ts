@@ -47,6 +47,8 @@ export class ModaldenghixulisucoComponent implements OnInit {
   listMayDeep: any = [];
   listVatTu: any = [];
   listVatTuThayThe: any = [];
+  listNhienLieu: any = [];
+  listNhanCong: any = [];
   isDeXuat: boolean = false;
   constructor(
     public activeModal: NgbActiveModal,
@@ -60,6 +62,9 @@ export class ModaldenghixulisucoComponent implements OnInit {
 
   ngOnInit(): void {
     this.item.listTaiSan = this.item.listTaiSan ? this.item.listTaiSan : [];
+    this.item.listChiPhiKhac = this.item.listChiPhiKhac ? this.item.listChiPhiKhac : [];
+    this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
+    this.item.listNhanCong = this.item.listNhanCong ? this.item.listNhanCong : [];
     this.title = 'Đề nghị xử lý sự cố'
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
@@ -71,6 +76,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
         ele.TuGio = UnixToDate(ele.TuGioUnix);
       })
     }
+    this.getAllOptions();
     this.KiemTraButtonModal();
     this.LoaiThucHienBaoDuong();
     this.GetListTaiSanDangSuDung();
@@ -87,6 +93,52 @@ export class ModaldenghixulisucoComponent implements OnInit {
       this.listDoUuTien = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listLoaiSuCo = mapArrayForDropDown(values[1].Data, "Ten", "Id");
       this.listNguoiThucHien = mapArrayForDropDown(values[2].Data, "NoiDung", "Id");
+    })
+  }
+
+  getAllOptions() {
+    this._danhMucTaiSan.LoaiNhienLieu().GetList({ CurrentPage: 0 }).toPromise().then((res: any) => {
+      this.listNhienLieu = mapArrayForDropDown(res.Data, "Ten", "Id");
+    });
+    this._danhMucTaiSan.NhanCong().GetList({ CurrentPage: 0 }).toPromise().then((res: any) => {
+      this.listNhanCong = mapArrayForDropDown(res.Data, "Ten", "Id");
+    });
+  }
+
+  ThemVatTu(loai: string) {
+    switch (loai) {
+      case 'NHIENLIEU':
+        this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
+        this.item.listNhienLieu.push({
+          Id: "",
+          Ten: '',
+          SoLuong: 0,
+          GiaTri: 0,
+          GhiChu: '',
+        })
+        break;
+      case 'NHANCONG':
+        this.item.listNhanCong = this.item.listNhanCong ? this.item.listNhanCong : [];
+        this.item.listNhanCong.push({
+          Id: "",
+          Ten: '',
+          SoLuong: 0,
+          GiaTri: 0,
+          GhiChu: '',
+        })
+        break;
+      default:
+        break;
+    }
+  }
+
+  ThemChiPhiKhac() {
+    this.item.listChiPhiKhac = this.item.listChiPhiKhac ? this.item.listChiPhiKhac : [];
+    this.item.listChiPhiKhac.push({
+      Id: "",
+      Ten: '',
+      GiaTri: 0,
+      GhiChu: '',
     })
   }
 
@@ -110,7 +162,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
       return false;
     }
     // if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
-    //   this.toastr.error("Yêu cầu nhập thêm tài sản!");
+    //   this.toastr.error("Yêu cầu nhập thêm máy/thiết bị!");
     //   return false;
     // }
     return true;

@@ -1,5 +1,5 @@
 <h4 class="title" style="color:#1f2779">
-    Quy trình kiểm định tài sản
+    Quy trình kiểm định máy/thiết bị
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -7,7 +7,8 @@
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listKiemDinh" placeholder="Chọn" styleClass="p-inputtext-sm" [(ngModel)]="filter.IdDonViKiemDinh" (onChange)="GetList(true)">
+            <p-dropdown [filter]="true" [options]="listKiemDinh" placeholder="Chọn" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IdDonViKiemDinh" (onChange)="GetList(true)">
             </p-dropdown>
         </div>
         <div class="p-mr-2">
@@ -17,11 +18,13 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" [minDate]="filter.TuNgay" (onSelect)="GetList(true)">
+                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" [minDate]="filter.TuNgay"
+                (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText (keyup.enter)="GetList(true)" />
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
+                (keyup.enter)="GetList(true)" />
             <button type="button" pButton pRipple icon="pi pi-search"
                 class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh"
@@ -33,7 +36,7 @@
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
     <p-tabPanel header="Chưa xử lý">
     </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" >
+    <p-tabPanel header="Đã xử lý">
     </p-tabPanel>
     <p-tabPanel header="Tổng hợp">
     </p-tabPanel>

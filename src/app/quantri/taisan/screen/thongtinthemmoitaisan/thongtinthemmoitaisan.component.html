@@ -1,15 +1,16 @@
 <div class="p-grid">
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span> :
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Loại máy/thiết bị <span class="text-danger">(*)</span> :
         </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="LayMa($event)"
-                placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true">
+                placeholder="Chọn loại máy/thiết bị" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true">
             </p-dropdown>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Mã tài sản <span class="text-danger">(*)</span> : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Mã máy/thiết bị <span class="text-danger">(*)</span> :
+        </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
         </div>
@@ -21,14 +22,15 @@
 
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Nhóm tài sản/vật tư : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Nhóm máy/thiết bị/vật tư : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0 d-flex">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TendmTaiSan" pInputText disabled />
             <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="ChonTaiSan()"></button>
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Tên tài sản <span class="text-danger">(*)</span> : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Tên máy/thiết bị <span class="text-danger">(*)</span> :
+        </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
         </div>
@@ -121,7 +123,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Bộ phận sử dụng: </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung" 
+            <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung"
                 (onChange)="chonBoPhan($event)" placeholder="Chọn bộ phận" [showClear]="true"></p-dropdown>
         </div>
     </div>

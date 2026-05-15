@@ -35,7 +35,7 @@ export class PhieuthuhoitaisanComponent implements OnInit, OnDestroy {
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
@@ -48,7 +48,7 @@ export class PhieuthuhoitaisanComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.$sub = this.store.getNhaMay().subscribe((res:any) => {
+    this.$sub = this.store.getNhaMay().subscribe((res: any) => {
       if (res) {
         this.initData();
       }
@@ -57,7 +57,7 @@ export class PhieuthuhoitaisanComponent implements OnInit, OnDestroy {
   }
 
   initData() {
-   // this.GetList();
+    // this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
@@ -117,7 +117,7 @@ export class PhieuthuhoitaisanComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới thu hồi tài sản';
+    modalRef.componentInstance.title = 'Thêm mới thu hồi máy/thiết bị';
     modalRef.componentInstance.item = {
       Id: '', IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "", TendmPhanXuong: "",
       isKetThuc: false, listFileDinhKem: [], listTaiSan: [],
@@ -137,7 +137,7 @@ export class PhieuthuhoitaisanComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật thu hồi tài sản';
+    modalRef.componentInstance.title = 'Cập nhật thu hồi máy/thiết bị';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

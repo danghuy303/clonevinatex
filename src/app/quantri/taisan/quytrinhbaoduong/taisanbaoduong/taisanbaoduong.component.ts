@@ -26,9 +26,9 @@ export class TaisanbaoduongComponent implements OnInit, OnChanges {
       size: 'md',
       backdrop: 'static',
     })
-    modalRef.componentInstance.message = 'Bạn chắc chắn muốn xóa tài sản này?';
+    modalRef.componentInstance.message = 'Bạn chắc chắn muốn xóa máy/thiết bị này?';
     modalRef.result
-      .then(()=>{
+      .then(() => {
         this.items.splice(index, 1)
       })
   }

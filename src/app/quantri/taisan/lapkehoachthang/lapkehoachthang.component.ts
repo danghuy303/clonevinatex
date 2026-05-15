@@ -144,7 +144,7 @@ export class LapkehoachthangComponent implements OnInit {
 
     // if (isChuyenDuyet) {
     if (this.checkLoaiBaoDuong()) {
-      this.toastr.error("Yêu cầu chọn loại bảo dưỡng cho tài sản!");
+      this.toastr.error("Yêu cầu chọn loại bảo dưỡng cho máy/thiết bị!");
       return false;
     }
     // }
@@ -155,7 +155,7 @@ export class LapkehoachthangComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
       return false;
     } else if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
-      this.toastr.error("Yêu cầu nhập thêm tài sản!");
+      this.toastr.error("Yêu cầu nhập thêm máy/thiết bị!");
       return false;
     }
     return true;

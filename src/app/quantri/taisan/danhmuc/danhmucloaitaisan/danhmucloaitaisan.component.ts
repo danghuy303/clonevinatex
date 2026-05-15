@@ -91,7 +91,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới loại tài sản';
+    modalRef.componentInstance.title = 'Thêm mới loại máy/thiết bị';
     modalRef.result.then(res => {
       this.GetList()
     }).catch(er => console.log(er))
@@ -104,7 +104,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật loại tài sản';
+    modalRef.componentInstance.title = 'Cập nhật loại máy/thiết bị';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then(res => {
       this.GetList()

@@ -15,22 +15,22 @@ export class ModalimportexcelComponent implements OnInit {
     TenGoc: ''
   }
   importFunc: any = '';
-  mapTepMauURL:any={
-    TinhTrangTaiSan:'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
-    BienDong:'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
-    MucDichSuDung:'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
-    CapHangCongTrinh:'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
-    HienTrangSuDung:'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
-    NguonGocDat:'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
-    DonViSoHuuNhaDat:'upload/excel/Mẫu import excel danh mục đơn vị sở hữu nhà đất.xlsx',
-    DonVi:'upload/excel/Mẫu import excel danh mục đơn vị.xlsx',
-    HinhThucXuLy:'upload/excel/Mẫu import excel danh mục hình thức xử lý.xlsx',
-    TaiSan:'upload/excel/Mẫu import excel danh mục tài sản.xlsx',
-    Tinh:'upload/excel/Mẫu import excel danh mục tỉnh.xlsx',
-    Quan:'upload/excel/Mẫu import excel danh mục quận.xlsx',
-    Phuong:'upload/excel/Mẫu import excel danh mục phường.xlsx'
+  mapTepMauURL: any = {
+    TinhTrangTaiSan: 'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
+    BienDong: 'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
+    MucDichSuDung: 'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
+    CapHangCongTrinh: 'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
+    HienTrangSuDung: 'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
+    NguonGocDat: 'upload/excel/Mẫu import excel danh mục chỉ có mã,tên,ghi chú.xlsx',
+    DonViSoHuuNhaDat: 'upload/excel/Mẫu import excel danh mục đơn vị sở hữu nhà đất.xlsx',
+    DonVi: 'upload/excel/Mẫu import excel danh mục đơn vị.xlsx',
+    HinhThucXuLy: 'upload/excel/Mẫu import excel danh mục hình thức xử lý.xlsx',
+    TaiSan: 'upload/excel/Mẫu import excel danh mục máy/thiết bị.xlsx',
+    Tinh: 'upload/excel/Mẫu import excel danh mục tỉnh.xlsx',
+    Quan: 'upload/excel/Mẫu import excel danh mục quận.xlsx',
+    Phuong: 'upload/excel/Mẫu import excel danh mục phường.xlsx'
   };
-  constructor(public _modalActive: NgbActiveModal, private _modal: NgbModal, private _danhmuc: Dat09Service,private _toastr:ToastrService) { }
+  constructor(public _modalActive: NgbActiveModal, private _modal: NgbModal, private _danhmuc: Dat09Service, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -45,15 +45,15 @@ export class ModalimportexcelComponent implements OnInit {
     });
   }
   accept() {
-    this._danhmuc.Importdm(this.importFunc, this.TepImport.TenGui).subscribe((res:any) => {
-      if(res.State===1){
-        this._modalActive.close({mess:'Cập nhật thành công!'})
-      }else{
+    this._danhmuc.Importdm(this.importFunc, this.TepImport.TenGui).subscribe((res: any) => {
+      if (res.State === 1) {
+        this._modalActive.close({ mess: 'Cập nhật thành công!' })
+      } else {
         this._toastr.error(res.message);
       }
     })
   }
-  taiTepMau(){
-    window.open(API.baseUrl+this.mapTepMauURL[this.importFunc]);
+  taiTepMau() {
+    window.open(API.baseUrl + this.mapTepMauURL[this.importFunc]);
   }
 }

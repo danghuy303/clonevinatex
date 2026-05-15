@@ -78,7 +78,7 @@ export class KiemDinhTaiSanModalComponent implements OnInit {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
     });
-    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa tài sản này chứ?";
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa máy/thiết bị này chứ?";
     modalRef.result
       .then((res) => {
         this.item.listTaiSan.splice(item.STT - 1, 1);
@@ -123,7 +123,7 @@ export class KiemDinhTaiSanModalComponent implements OnInit {
     //   return false;
     // }
     // if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
-    //   this.toastr.error("Yêu cầu nhập thêm tài sản!");
+    //   this.toastr.error("Yêu cầu nhập thêm máy/thiết bị!");
     //   return false;
     // }
     return true;

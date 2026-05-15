@@ -33,7 +33,8 @@
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng <span class="text-danger">(*)</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
-                    styleClass="p-inputtext-sm" (onChange)="ChonLoaiVatTu()" [showClear]="true" [filter]="true" [(ngModel)]="item.IdBoPhanSuDung">
+                    styleClass="p-inputtext-sm" (onChange)="ChonLoaiVatTu()" [showClear]="true" [filter]="true"
+                    [(ngModel)]="item.IdBoPhanSuDung">
                 </p-dropdown>
             </div>
         </div>
@@ -80,7 +81,7 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th>STT</th>
-                    <th> Mã, tên tài sản </th>
+                    <th> Mã, tên máy/thiết bị </th>
                     <th>Mã, tên vật tư</th>
                     <th>Xuất xứ</th>
                     <th>Tuổi thọ</th>
@@ -93,15 +94,15 @@
             <ng-template pTemplate="body" let-item let-i="rowIndex">
                 <tr>
                     <td class="text-center"> {{ i + 1 }}</td>
-                    <td >
+                    <td>
                         {{item.MaTenTaiSan}}
                     </td>
-                    <td >
+                    <td>
                         {{item.MaTenVatTu}}
                         <!-- <p-dropdown [disabled]="!item.edit" [filter]="true" [options]="listdsTaiSan" placeholder="Chọn "
                             styleClass="p-inputtext-sm" [(ngModel)]="item.IdTaiSan"></p-dropdown> -->
                     </td>
-                    <td >
+                    <td>
                         {{item.NuocSanXuat}}
                     </td>
                     <td class="text-right">
@@ -111,11 +112,13 @@
                         {{item.Ton}}
                     </td>
                     <td class="text-right">
-                        <p-inputNumber [min]="0" mode="decimal" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+                        <p-inputNumber [min]="0" mode="decimal" [minFractionDigits]="0" locale="en-EN"
+                            [(ngModel)]="item.SoLuong">
                         </p-inputNumber>
                     </td>
-                    <td >
-                        <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu"  [ngbTooltip]="item.GhiChu" pInputText />
+                    <td>
+                        <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" [ngbTooltip]="item.GhiChu"
+                            pInputText />
                     </td>
                     <td class="text-center">
                         <button pButton pRipple icon="pi pi-trash"

@@ -1,6 +1,6 @@
 <div class="p-d-flex p-flex-row p-jc-between p-ai-center">
     <div class="modal-bt p-mb-4 ">
-        <!-- <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm"></button> -->
+        <!-- <button pButton pRipple type="button" label="Thêm máy/thiết bị" class="p-mr-2 p-button-sm"></button> -->
     </div>
     <div class="modal-bt p-mb-4 ">
         <span><b>Tổng tiền: </b></span>
@@ -47,7 +47,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
-        <tr >
+        <tr>
             <td class="text-center">
                 {{i + 1}}
             </td>
@@ -70,7 +70,8 @@
                 <!-- <input type="text" pInputText placeholder="Ghi chú" [ngbTooltip]="vattu.GhiChu"/> -->
             </td>
             <td class="text-center">
-                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="addVatTu(item)"></button>
+                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text"
+                    (click)="addVatTu(item)"></button>
             </td>
         </tr>
         <ng-container *ngFor="let vattu of item.listVatTu; let a = index">
@@ -84,12 +85,12 @@
                 <td class="text-right">{{vattu.DonGiaTheoKeHoach | number: '0.0'}}</td>
                 <td class="text-right">{{vattu.ThanhTienTheoKeHoach | number: '0.0'}}</td>
                 <td>
-                    <p-inputNumber inputId="integeronly" min="0" locale="en-US" [(ngModel)]="vattu.SoLuong" placeholder="Số lượng"
-                        (onBlur)="Count()"></p-inputNumber>
+                    <p-inputNumber inputId="integeronly" min="0" locale="en-US" [(ngModel)]="vattu.SoLuong"
+                        placeholder="Số lượng" (onBlur)="Count()"></p-inputNumber>
                 </td>
                 <td>
-                    <p-inputNumber inputId="integeronly" min="0" locale="en-US" [(ngModel)]="vattu.DonGia" placeholder="Đơn giá"
-                        (onBlur)="Count()">
+                    <p-inputNumber inputId="integeronly" min="0" locale="en-US" [(ngModel)]="vattu.DonGia"
+                        placeholder="Đơn giá" (onBlur)="Count()">
                     </p-inputNumber>
                 </td>
                 <td>
@@ -98,10 +99,12 @@
                     </p-inputNumber>
                 </td>
                 <td>
-                    <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="vattu.GhiChu" [ngbTooltip]="vattu.GhiChu"/>
+                    <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="vattu.GhiChu"
+                        [ngbTooltip]="vattu.GhiChu" />
                 </td>
                 <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="delete(a,item)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger p-button-text" (click)="delete(a,item)"></button>
                 </td>
             </tr>
         </ng-container>

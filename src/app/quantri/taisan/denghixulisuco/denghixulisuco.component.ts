@@ -28,6 +28,7 @@ export class DenghixulisucoComponent implements OnInit {
   eAction = "QUYTRINHXULYSUCO";
   listPhanXuong: any = [];
   $sub!: Subscription;
+  $subRoute!: Subscription;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
@@ -44,16 +45,18 @@ export class DenghixulisucoComponent implements OnInit {
   ngOnInit(): void {
     this.GetListdmPhanXuong();
     this.GetList();
-    this.activatedRoute.params.subscribe((res: any) => {
-      if (res.id !== "0") {
-        this._serviceTaiSan
-          .QuyTrinhXuLySuCo()
-          .Get(res.id)
-          .subscribe((res: any) => {
-            this.update(res);
-          });
-      }
-    });
+    if (!this.$subRoute) {
+      this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
+        if (res.id !== "0") {
+          this._serviceTaiSan
+            .QuyTrinhXuLySuCo()
+            .Get(res.id)
+            .subscribe((res: any) => {
+              this.update(res);
+            });
+        }
+      });
+    }
     this.KiemTraTabTrangThai()
   }
   changeParam(id) {

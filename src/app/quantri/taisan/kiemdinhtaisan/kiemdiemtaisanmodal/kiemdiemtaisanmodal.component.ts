@@ -65,7 +65,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.quyTrinh.IdBoPhanSuDung) ) {
+    if (!validVariable(this.quyTrinh.IdBoPhanSuDung)) {
       this.toastr.error("Yêu cầu chọn bộ phận sử dụng!");
       return false;
     }
@@ -163,7 +163,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
 
   delete(item: any) {
     this._confirmService.show({
-      message: 'Bạn chắc chắn muốn xóa tài sản này?'
+      message: 'Bạn chắc chắn muốn xóa máy/thiết bị này?'
     }, () => {
       this.quyTrinh.listTaiSan = this.quyTrinh.listTaiSan?.filter((ele: any) => ele.IdTaiSan !== item.IdTaiSan);
       this.getTongChiPhiTaiSan();
@@ -177,7 +177,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
     });
     modalRef.componentInstance.listDaChon = this.quyTrinh.listTaiSan ? this.quyTrinh.listTaiSan.map((ele: any) => ele.IdTaiSan) : [],
       modalRef.componentInstance.listView = this.listTaiSan;
-    modalRef.componentInstance.title = 'Danh sách tài sản';
+    modalRef.componentInstance.title = 'Danh sách máy/thiết bị';
     modalRef.result.then((res: any) => {
       const _list = this.quyTrinh.listTaiSan;
       this.quyTrinh.listTaiSan = res.map((ele: any) => {
