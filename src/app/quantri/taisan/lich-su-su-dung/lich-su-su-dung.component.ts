@@ -44,7 +44,7 @@ export class LichSuSuDungComponent implements OnInit {
   }
 
   GetListPhanXuong() {
-    this._serviceDungChung.GetListdmPhanXuongOpt().subscribe((res: any) => {
+    this._serviceDungChung.GetListdmPhanXuong({}, false).subscribe((res: any) => {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -89,7 +89,7 @@ export class LichSuSuDungComponent implements OnInit {
     let itemQuyTrinh = this.quyTrinh[item.MadmLoaiBienDong]
     let loaiModal = itemQuyTrinh.ModalType;
     let component = itemQuyTrinh.Component;
-    console.log('item',item);
+    console.log('item', item);
     if (loaiModal === 'CallOut') {
       this._serviceTaiSan
       [`${itemQuyTrinh.ServiceProp}`]()
@@ -109,7 +109,7 @@ export class LichSuSuDungComponent implements OnInit {
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
-        modalRef.componentInstance.title = item?.NoiDungBienDong;
+      modalRef.componentInstance.title = item?.NoiDungBienDong;
       modalRef.componentInstance.item = { Id: item.IdQuyTrinh };
     }
   }

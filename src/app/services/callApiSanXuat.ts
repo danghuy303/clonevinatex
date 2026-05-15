@@ -542,7 +542,7 @@ export class SanXuatService {
             return this.http.post(url, data, httpOptions);
         }
         else {
-            return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${this.store.getCurrent()}`, httpOptions)
+            return this.http.get(`${API.TaiSanDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${this.store.getCurrent()}`, httpOptions)
         }
     }
     SetdmPhanXuong(data) {
