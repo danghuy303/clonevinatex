@@ -143,6 +143,10 @@ import { ThongkechitieuloicattheomayComponent } from "./quanlykhosanxuat/thongke
 import { QuantrichatluongtoantrinhComponent } from "./quantrichatluongtoantrinh/quantrichatluongtoantrinh.component";
 import { QuantrichatluongcongdoanComponent } from "./quantrichatluongcongdoan/quantrichatluongcongdoan.component";
 import { DieuchuyenkhobongComponent } from "./quanlykhosanxuat/quytrinh/dieuchuyenkhobong/dieuchuyenkhobong.component";
+import { TonghopchiphisuaComponent } from "./tonghopchiphisua/tonghopchiphisua.component";
+import { HieuquaxemayComponent } from "./hieuquaxemay/hieuquaxemay.component";
+import { KetquadautuComponent } from "./ketquadautu/ketquadautu.component";
+import { KetquathanhlythietbixemayComponent } from "./ketquathanhlythietbixemay/ketquathanhlythietbixemay.component";
 
 const routes: Routes = [
   {
@@ -197,6 +201,10 @@ const routes: Routes = [
         component: NgansachdukienvathucteComponent,
       },
       { path: 'quantritaisan/danhsachvattucanthaythe', component: DanhSachVatTuCanThayTheComponent },
+      { path: "quantritaisan/tonghopchiphisua", component: TonghopchiphisuaComponent },
+      { path: "quantritaisan/hieuquaxemay", component: HieuquaxemayComponent },
+      { path: "quantritaisan/ketquadautu", component: KetquadautuComponent },
+      { path: "quantritaisan/ketquathanhlythietbixemay", component: KetquathanhlythietbixemayComponent },
       {
         path: "baocaosanxuat/sanluongtonghop",
         component: SanluongtonghopComponent,

@@ -1,0 +1,105 @@
+<div class="content bg-white p-p-3">
+  <!-- Header & Filters container -->
+  <div class="p-d-flex p-ai-center p-jc-between p-mb-3 flex-column flex-md-row">
+    <div>
+      <h4 style="color:#1f2779" class="m-0 font-weight-bold">Kết quả đầu tư</h4>
+    </div>
+
+    <div class="p-d-flex flex-column flex-lg-row p-pl-0 align-items-md-center">
+      <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+        <div class="p-mr-2">
+          <p-dropdown [filter]="true" placeholder="Chọn loại thời gian" [options]="LoaiThoiGian"
+            styleClass="p-inputtext-sm" [(ngModel)]="filter.LoaiThoiGian" (onChange)="getDataBaoCao()"></p-dropdown>
+        </div>
+
+        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 0">
+          <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.TuNgay" [locale]="lang"
+            (onSelect)="getDataBaoCao()" inputId="icon" placeholder="Từ ngày">
+          </p-calendar>
+        </div>
+
+        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 0">
+          <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.DenNgay"
+            [minDate]="filter.TuNgay" [locale]="lang" (onSelect)="getDataBaoCao()" inputId="icon"
+            placeholder="Đến ngày">
+          </p-calendar>
+        </div>
+
+        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 3">
+          <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="filter.nam" placeholder="Chọn năm"
+            styleClass="p-inputtext-sm" (onChange)="getDataBaoCao()"></p-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Container -->
+  <div class="p-mt-3">
+    <p-table [value]="filteredItems" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center" rowspan="2" style="width: 60px;">STT</th>
+          <th class="text-center" rowspan="2">Mô tả chi tiết hàng hoá</th>
+          <th class="text-center" rowspan="2" style="width: 80px;">ĐVT</th>
+          <th class="text-center" rowspan="2" style="width: 100px;">Số lượng mua</th>
+          <th class="text-center" rowspan="2" style="width: 100px;">Số lượng kế hoạch</th>
+          <th class="text-center" rowspan="2" style="width: 110px;">Đơn giá</th>
+          <th class="text-center" colspan="3">Thành tiền</th>
+          <th class="text-center" rowspan="2" style="width: 150px;">Ghi chú</th>
+        </tr>
+        <tr>
+          <th class="text-center" style="width: 110px;">USD</th>
+          <th class="text-center" style="width: 110px;">Kip</th>
+          <th class="text-center" style="width: 120px;">Quy ra Đồng</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr
+          [ngClass]="{'font-weight-bold': isGroup(item) || isTongCong(item), 'bg-light-blue': isGroup(item), 'bg-light-gray': isTongCong(item)}">
+          <td class="text-center">
+            {{ (20 * (paging.CurrentPage - 1) + i + 1) }}
+          </td>
+          <td [ngStyle]="{'padding-left': isGroup(item) ? '10px' : '25px'}">
+            {{ item.MoTaChiTiet }}
+          </td>
+          <td class="text-center">{{ item.DonViTinh }}</td>
+          <td class="text-right">
+            <span *ngIf="item.SoLuongMua !== null && item.SoLuongMua !== undefined">{{ item.SoLuongMua | number:"0.0-3"
+              }}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.SoLuongKeHoach !== null && item.SoLuongKeHoach !== undefined">{{ item.SoLuongKeHoach |
+              number:"0.0-3" }}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.DonGia !== null && item.DonGia !== undefined">{{ item.DonGia | number:"0.0-2" }}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.ThanhTienUSD !== null && item.ThanhTienUSD !== undefined">{{ item.ThanhTienUSD |
+              number:"0.0-2" }}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.ThanhTienKip !== null && item.ThanhTienKip !== undefined">{{ item.ThanhTienKip |
+              number:"0.0-2" }}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.ThanhTienVND !== null && item.ThanhTienVND !== undefined">{{ item.ThanhTienVND |
+              number:"0.0-0" }}</span>
+          </td>
+          <td>{{ item.GhiChu }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          Tổng số bản ghi {{paging.TotalCount}}.
+          <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
+            (onPageChange)="changePage($event)"></p-paginator>
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

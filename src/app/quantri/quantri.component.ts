@@ -3322,6 +3322,34 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
+          {
+            label: "Tổng hợp chi phí sửa chữa",
+            routerLink: "/quantri/quantritaisan/tonghopchiphisua",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Hiệu quả xe, máy",
+            routerLink: "/quantri/quantritaisan/hieuquaxemay",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Kết quả đầu tư",
+            routerLink: "/quantri/quantritaisan/ketquadautu",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Kết quả thanh lý thiết bị, xe - máy",
+            routerLink: "/quantri/quantritaisan/ketquathanhlythietbixemay",
+            command: () => {
+              this.close();
+            },
+          },
         ],
       },
       {

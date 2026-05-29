@@ -1,0 +1,172 @@
+<div class="content bg-white p-p-3">
+  <!-- Header & Filters container -->
+  <div class="p-d-flex p-ai-center p-jc-between p-mb-3 flex-column flex-md-row">
+    <div>
+      <h4 style="color:#1f2779" class="m-0 font-weight-bold">Tổng hợp chi phí sửa chữa</h4>
+    </div>
+
+    <div class="p-d-flex flex-column flex-lg-row p-pl-0 align-items-md-center">
+      <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+        <div class="p-mr-2">
+          <p-dropdown [filter]="true" placeholder="Chọn bộ phận sử dụng" [options]="PhanXuong"
+            styleClass="p-inputtext-sm" [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()"
+            [showClear]="true"></p-dropdown>
+        </div>
+
+        <div class="p-mr-2">
+          <p-dropdown [filter]="true" placeholder="Chọn loại thời gian" [options]="LoaiThoiGian"
+            styleClass="p-inputtext-sm" [(ngModel)]="filter.LoaiThoiGian" (onChange)="getDataBaoCao()"></p-dropdown>
+        </div>
+
+        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 0">
+          <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.TuNgay" [locale]="lang"
+            (onSelect)="getDataBaoCao()" inputId="icon" placeholder="Từ ngày">
+          </p-calendar>
+        </div>
+
+        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 0">
+          <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.DenNgay"
+            [minDate]="filter.TuNgay" [locale]="lang" (onSelect)="getDataBaoCao()" inputId="icon"
+            placeholder="Đến ngày">
+          </p-calendar>
+        </div>
+
+        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 3">
+          <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="filter.nam" placeholder="Chọn năm"
+            styleClass="p-inputtext-sm" (onChange)="getDataBaoCao()"></p-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Container -->
+  <div class="p-mt-3">
+    <p-table [value]="filteredItems" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center" rowspan="2" style="width: 60px;">TT</th>
+          <th class="text-center" rowspan="2">Tên phương tiện</th>
+          <th class="text-center" rowspan="2" style="width: 120px;">Biển số</th>
+          <th class="text-center" rowspan="2" style="width: 160px;">Kiểu chuyên dùng</th>
+          <th class="text-center" rowspan="2" style="width: 160px;">Người sử dụng</th>
+          <th class="text-center" colspan="5">Chi phí sửa chữa</th>
+          <th class="text-center" rowspan="2" style="width: 200px;">Ghi chú</th>
+        </tr>
+        <tr>
+          <th class="text-center" style="width: 110px;">Vật tư</th>
+          <th class="text-center" style="width: 110px;">Nhiên liệu</th>
+          <th class="text-center" style="width: 110px;">Nhân công</th>
+          <th class="text-center" style="width: 100px;">VAT</th>
+          <th class="text-center" style="width: 120px;">Cộng</th>
+        </tr>
+        <!-- Filtering Row -->
+        <!-- <tr>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.TT" (input)="filterData()" />
+            </span>
+          </th>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm kiếm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.TenPhuongTien" (input)="filterData()" />
+            </span>
+          </th>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm kiếm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.BienSo" (input)="filterData()" />
+            </span>
+          </th>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm kiếm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.KieuChuyenDung" (input)="filterData()" />
+            </span>
+          </th>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm kiếm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.NguoiSuDung" (input)="filterData()" />
+            </span>
+          </th>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm kiếm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.VatTu" (input)="filterData()" />
+            </span>
+          </th>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm kiếm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.NhienLieu" (input)="filterData()" />
+            </span>
+          </th>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm kiếm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.NhanCong" (input)="filterData()" />
+            </span>
+          </th>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm kiếm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.VAT" (input)="filterData()" />
+            </span>
+          </th>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm kiếm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.Cong" (input)="filterData()" />
+            </span>
+          </th>
+          <th>
+            <span class="p-input-icon-left w-100">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" placeholder="Tìm kiếm..." class="p-inputtext-sm w-100" [(ngModel)]="filterTable.GhiChu" (input)="filterData()" />
+            </span>
+          </th>
+        </tr> -->
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr
+          [ngClass]="{'font-weight-bold': isGroup(item) || isTongCong(item), 'bg-light-blue': isGroup(item), 'bg-light-gray': isTongCong(item)}">
+          <td class="text-center">{{(20 * (paging.CurrentPage -
+            1) + i + 1) }}</td>
+          <td [ngStyle]="{'padding-left': isGroup(item) ? '10px' : '25px'}">{{item.TenPhuongTien}}</td>
+          <td class="text-center">{{item.BienSo}}</td>
+          <td>{{item.KieuChuyenDung}}</td>
+          <td>{{item.NguoiSuDung}}</td>
+          <td class="text-right">
+            <span *ngIf="item.VatTu !== null && item.VatTu !== undefined">{{item.VatTu | number:"0.0-0"}}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.NhienLieu !== null && item.NhienLieu !== undefined">{{item.NhienLieu |
+              number:"0.0-0"}}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.NhanCong !== null && item.NhanCong !== undefined">{{item.NhanCong |
+              number:"0.0-0"}}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.VAT !== null && item.VAT !== undefined">{{item.VAT | number:"0.0-0"}}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.Cong !== null && item.Cong !== undefined">{{item.Cong | number:"0.0-0"}}</span>
+          </td>
+          <td>{{item.GhiChu}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          Tổng số bản ghi {{paging.TotalCount}}.
+          <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
+            (onPageChange)="changePage($event)"></p-paginator>
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

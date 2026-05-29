@@ -533,12 +533,12 @@ export class SanXuatService {
         return this.http.get(url, httpOptions);
     }
     GetListdmPhanXuongOpt() {
-        let url = API.SCMDanhMuc + 'GetListdmPhanXuong';
+        let url = API.TaiSanDanhMuc + 'GetListdmPhanXuong';
         return this.http.get(url, httpOptions);
     }
     GetListdmPhanXuong(data, isDanhMuc?) {
         if (isDanhMuc) {
-            let url = API.SCMDanhMuc + 'GetListdmPhanXuong';
+            let url = API.TaiSanDanhMuc + 'GetListdmPhanXuong';
             return this.http.post(url, data, httpOptions);
         }
         else {
@@ -680,7 +680,7 @@ export class SanXuatService {
                 return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`, {}, httpOptions)
             },
             GetPhanXuong: (IdDuAn?) => {
-                return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn ? IdDuAn : this.store.getCurrent()}`, httpOptions)
+                return this.http.get(`${API.TaiSanDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn ? IdDuAn : this.store.getCurrent()}`, httpOptions)
             },
             GetListGiaoKeHoachSanXuatChuaLapKeHoach: () => {
                 return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach`, httpOptions)
@@ -758,7 +758,7 @@ export class SanXuatService {
                 return this.http.get(`${API.KeHoach}DanhMuc/GetDanhMucNoiDiaXuatKhau`, httpOptions)
             },
             GetListdmPhanXuong: () => {
-                return this.http.get(`${API.SCM}DanhMuc/GetListdmPhanXuong`, httpOptions)
+                return this.http.get(`${API.TaiSanDanhMuc}GetListdmPhanXuong`, httpOptions)
             },
 
         }
@@ -3459,7 +3459,7 @@ export class SanXuatService {
     }
 
     GetListdmPhanXuongForIdDuAn(IdDuAn?) {
-        return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn ? IdDuAn : this.store.getCurrent()}`, httpOptions)
+        return this.http.get(`${API.TaiSanDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn ? IdDuAn : this.store.getCurrent()}`, httpOptions)
     }
 
     // Bán chế phẩm tô hiệu

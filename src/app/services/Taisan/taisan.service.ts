@@ -1308,6 +1308,21 @@ export class TaisanService {
     return this.http.post(`${API.CungUng}QuanLyThuMua/GetListdmNhaCungPhuHopTheoNgay`, data, httpOptions);
   }
 
+  // Công tác kỹ thuật
+  GetLisChiPhiSuaChuaPhuongTien(data) {
+    return this.http.post(`${API.TaiSanBaoCao}GetLisChiPhiSuaChuaPhuongTien`, data, httpOptions);
+  }
+  GetListBaoCaoThanhLy(data) {
+    return this.http.post(`${API.TaiSanBaoCao}GetListBaoCaoThanhLy`, data, httpOptions);
+  }
+  GetListBaoCaoKetQuaDauTu(data) {
+    return this.http.post(`${API.CungUng}BaoCao/GetListBaoCaoKetQuaDauTu`, data, httpOptions);
+  }
+  GetListHieuQuaXeMay(data) {
+    return this.http.post(`${API.TaiSanBaoCao}GetListHieuQuaXeMay`, data, httpOptions);
+  }
+
+
   //  báo cáo thu mua
   BaoCaoNhapHang(data) {
     return this.http.post(`${API.CungUng}BaoCao/BaoCaoNhapHang`, data, httpOptions);

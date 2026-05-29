@@ -1,0 +1,105 @@
+<div class="content bg-white p-p-3">
+  <!-- Header & Filters container -->
+  <div class="p-d-flex p-ai-center p-jc-between p-mb-3 flex-column flex-md-row">
+    <div>
+      <h4 style="color:#1f2779" class="m-0 font-weight-bold">Kết quả thanh lý thiết bị xe máy</h4>
+    </div>
+
+    <div class="p-d-flex flex-column flex-lg-row p-pl-0 align-items-md-center">
+      <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+        <div class="p-mr-2">
+          <p-dropdown [filter]="true" placeholder="Chọn bộ phận sử dụng" [options]="PhanXuong"
+            styleClass="p-inputtext-sm" [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()"
+            [showClear]="true"></p-dropdown>
+        </div>
+
+        <div class="p-mr-2">
+          <p-dropdown [filter]="true" placeholder="Chọn loại thời gian" [options]="LoaiThoiGian"
+            styleClass="p-inputtext-sm" [(ngModel)]="filter.LoaiThoiGian" (onChange)="getDataBaoCao()"></p-dropdown>
+        </div>
+
+        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 0">
+          <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.TuNgay" [locale]="lang"
+            (onSelect)="getDataBaoCao()" inputId="icon" placeholder="Từ ngày">
+          </p-calendar>
+        </div>
+
+        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 0">
+          <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.DenNgay"
+            [minDate]="filter.TuNgay" [locale]="lang" (onSelect)="getDataBaoCao()" inputId="icon"
+            placeholder="Đến ngày">
+          </p-calendar>
+        </div>
+
+        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 3">
+          <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="filter.nam" placeholder="Chọn năm"
+            styleClass="p-inputtext-sm" (onChange)="getDataBaoCao()"></p-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Container -->
+  <div class="p-mt-3">
+    <p-table [value]="filteredItems" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center" rowspan="2" style="width: 60px;">TT</th>
+          <th class="text-center" rowspan="2">Loại nhãn hiệu xe - máy</th>
+          <th class="text-center" rowspan="2" style="width: 140px;">Kiểu chuyên dụng</th>
+          <th class="text-center" rowspan="2" style="width: 100px;">Nước SX</th>
+          <th class="text-center" rowspan="2" style="width: 120px;">Biển số ĐK</th>
+          <th class="text-center" colspan="3">Giá trị</th>
+          <th class="text-center" rowspan="2" style="width: 90px;">Năm SX</th>
+          <th class="text-center" rowspan="2" style="width: 110px;">TG mua</th>
+          <th class="text-center" rowspan="2" style="width: 150px;">Địa điểm</th>
+        </tr>
+        <tr>
+          <th class="text-center" style="width: 120px;">B.Đầu</th>
+          <th class="text-center" style="width: 120px;">Còn lại</th>
+          <th class="text-center" style="width: 120px;">Đã bán thanh lý</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr
+          [ngClass]="{'font-weight-bold': isGroup(item) || isTongCong(item), 'bg-light-blue': isGroup(item), 'bg-light-gray': isTongCong(item)}">
+          <td class="text-center">
+            {{ (20 * (paging.CurrentPage - 1) + i + 1) }}
+          </td>
+          <td [ngStyle]="{'padding-left': isGroup(item) ? '10px' : '25px'}">
+            {{ item.LoaiNhanHieu }}
+          </td>
+          <td class="text-center">{{ item.KieuChuyenDung }}</td>
+          <td class="text-center">{{ item.NuocSanXuat }}</td>
+          <td class="text-center">{{ item.BienSoDangKy }}</td>
+          <td class="text-right">
+            <span *ngIf="item.GiaTriBanDau !== null && item.GiaTriBanDau !== undefined">{{ item.GiaTriBanDau |
+              number:"0.0-0" }}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.GiaTriConLai !== null && item.GiaTriConLai !== undefined">{{ item.GiaTriConLai |
+              number:"0.0-0" }}</span>
+          </td>
+          <td class="text-right">
+            <span *ngIf="item.GiaTriDaBanThanhLy !== null && item.GiaTriDaBanThanhLy !== undefined">{{
+              item.GiaTriDaBanThanhLy | number:"0.0-0" }}</span>
+          </td>
+          <td class="text-center">{{ item.NamSanXuat }}</td>
+          <td class="text-center">{{ item.ThoiGianMua }}</td>
+          <td>{{ item.DiaDiem }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          Tổng số bản ghi {{paging.TotalCount}}.
+          <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
+            (onPageChange)="changePage($event)"></p-paginator>
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
