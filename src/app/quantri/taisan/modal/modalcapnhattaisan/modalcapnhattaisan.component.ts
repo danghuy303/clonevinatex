@@ -15,6 +15,8 @@ import { ModalthemmoiluachontaisanComponent } from '../modalthemmoiluachontaisan
 import { QRCodeElementType } from 'angularx-qrcode';
 import { TaoQrPopupComponent } from '../tao-qr-popup/tao-qr-popup.component';
 import { API } from '../../../../services/host';
+import { HttpResponse } from '@angular/common/http';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
   selector: 'app-modalcapnhattaisan',
@@ -55,6 +57,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     private _servicesSanXuat: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
+    private _fileUploadService: FileUploadService,
   ) {
 
   }
@@ -513,5 +516,38 @@ export class ModalcapnhattaisanComponent implements OnInit {
     this.activeModal.dismiss();
   }
 
+  handleUpload(event: any) {
+    let fileName = event.Name;
+    if (fileName) {
+      this._serviceTaiSan.ImportMauVatTuQuyTrinh(fileName).subscribe((resImport: any) => {
+        if (resImport.StatusCode === 200) {
+          this.toastr.success(resImport.Message || 'Import thành công!');
+          if (resImport.Data) {
+            this.item.TaiSan.listTaiSan = resImport.Data.map(element => {
+              return {
+                ...element,
+                ThoiGianDuaVaoSuDung: UnixToDate(element.ThoiGianDuaVaoSuDungUnix),
+                NgayNhap: UnixToDate(element.NgayNhapUnix)
+              };
+            });
+          }
+        } else {
+          this.toastr.error(resImport.Message || 'Import thất bại!');
+        }
+      });
+    }
+  }
+
+  handleExport() {
+    this._serviceTaiSan.ExportFileMauVatTuQuyTrinh().subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        let url = `${API.imgURL}${res.Data}`;
+        window.open(url);
+        this.toastr.success(res.Message || 'Xuất file thành công!');
+      } else {
+        this.toastr.error(res.Message || 'Xuất file thất bại!');
+      }
+    });
+  }
 
 }

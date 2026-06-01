@@ -1227,8 +1227,17 @@ export class TaisanService {
     return this.http.post(`${API.TaiSan}QuanLyTaiSan/DongBoTaiSanBylistIdFromSCM`, data, httpOptions);
   }
 
+  ImportMauVatTuQuyTrinh(FileName) {
+    return this.http.get(`${API.TaiSan}QuanLyTaiSan/ImportMauVatTuQuyTrinh?FileName=${FileName}&IdDuAn=${this.store.getCurrent()}`, httpOptions);
+  }
+  ExportFileMauVatTuQuyTrinh() {
+    return this.http.get(`${API.TaiSan}QuanLyTaiSan/ExportFileMauVatTuQuyTrinh`, httpOptions);
+  }
   ImportDanhMucVatTu(FileName) {
     return this.http.get(`${API.TaiSan}QuanLyTaiSan/ImportDanhMucVatTu?FileName=${FileName}`, httpOptions);
+  }
+  ExportFileMauNhapTaiSan() {
+    return this.http.get(`${API.TaiSan}QuanLyTaiSan/ExportFileMauNhapTaiSan`, httpOptions);
   }
   ExportFileMauNhapVatTu() {
     return this.http.get(`${API.TaiSan}QuanLyTaiSan/ExportFileMauNhapVatTu`, httpOptions);

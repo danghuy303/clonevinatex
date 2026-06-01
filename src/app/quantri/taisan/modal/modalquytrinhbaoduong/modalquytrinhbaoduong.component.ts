@@ -40,6 +40,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   listMay: any = [];
   listMayDeep: any = [];
   isHoanThanhBaoDuong: boolean = false;
+  listNhienLieu: any = [];
+  listNhanCong: any = [];
 
   constructor(
     private _modal: NgbModal,
@@ -85,6 +87,9 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     if (this.opt === 'add') {
 
     } else { }
+    this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
+    this.item.listNhanCong = this.item.listNhanCong ? this.item.listNhanCong : [];
+    this.getAllOptions();
     this.GetNews();
   }
 
@@ -366,6 +371,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
         NgayKetThuc: UnixToDate(res.Data.NgayKetThucUnix ? res.Data.NgayKetThucUnix : 0),
         NgayKeHoach: UnixToDate(res.Data.NgayKeHoachUnix ? res.Data.NgayKeHoachUnix : 0)
       };
+      this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
+      this.item.listNhanCong = this.item.listNhanCong ? this.item.listNhanCong : [];
       this.KiemTraButtonModal();
       // this.checkbutton.XacNhan = this.item.Id;
       // this.checkbutton.ChuyenTiep = false;
@@ -519,6 +526,64 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     // }s
 
     this.isHoanThanhBaoDuong = this.item.listCongViec.every(ele => ele.isThucHien);
+  }
+
+  getAllOptions() {
+    this._danhMucTaiSan.LoaiNhienLieu().GetList({ CurrentPage: 0 }).toPromise().then((res: any) => {
+      this.listNhienLieu = mapArrayForDropDown(res.Data, "Ten", "Id");
+    });
+    this._danhMucTaiSan.NhanCong().GetList({ CurrentPage: 0 }).toPromise().then((res: any) => {
+      this.listNhanCong = mapArrayForDropDown(res.Data, "Ten", "Id");
+    });
+  }
+
+  ThemVatTu(loai: string) {
+    switch (loai) {
+      case 'NHIENLIEU':
+        this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
+        this.item.listNhienLieu.push({
+          Id: "",
+          Ten: '',
+          SoLuong: 0,
+          DonGia: 0,
+          VAT: 0,
+          GhiChu: '',
+        })
+        break;
+      case 'NHANCONG':
+        this.item.listNhanCong = this.item.listNhanCong ? this.item.listNhanCong : [];
+        this.item.listNhanCong.push({
+          Id: "",
+          Ten: '',
+          SoLuong: 0,
+          DonGia: 0,
+          VAT: 0,
+          GhiChu: '',
+        })
+        break;
+      default:
+        break;
+    }
+  }
+
+  deleteNhienLieu(index: any) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa?';
+    modalRef.result.then(res => {
+      this.item.listNhienLieu.splice(index, 1);
+    }).catch(er => console.log(er));
+  }
+
+  deleteNhanCong(index: any) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa?';
+    modalRef.result.then(res => {
+      this.item.listNhanCong.splice(index, 1);
+    }).catch(er => console.log(er));
   }
 
 }

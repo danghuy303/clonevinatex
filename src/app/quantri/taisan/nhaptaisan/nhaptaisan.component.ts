@@ -242,7 +242,7 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
   }
 
   handlExcel() {
-    this._serviceTaiSan.ExportFileMauNhapVatTu().subscribe((res: any) => {
+    this._serviceTaiSan.ExportFileMauNhapTaiSan().subscribe((res: any) => {
       if (res.StatusCode === 200) {
         window.open(`${API.imgURL}${res.Data}`)
         this.toastr.success(res.Message);
