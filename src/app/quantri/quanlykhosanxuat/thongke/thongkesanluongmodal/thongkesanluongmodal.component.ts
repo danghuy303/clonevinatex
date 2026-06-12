@@ -51,7 +51,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getListCongDoan();
+    // this.getListCongDoan();
     if (this.item.isTruVaoSanLuong === undefined)
       this.item.isTruVaoSanLuong = false;
     if (this.opt !== 'edit') {

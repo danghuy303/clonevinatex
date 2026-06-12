@@ -629,6 +629,8 @@ export class SanXuatService {
     GetListCongDoan() {
         let IdDuAn = this.store.getCurrent();
         let url = API.SCMDanhMuc + `GetListCongDoan?IdDuAn=${IdDuAn}`;
+
+        return null
         return this.http.get(url, httpOptions);
     }
     GetlistCongDoanBoDayBongDayPE() {

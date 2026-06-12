@@ -92,7 +92,7 @@ export class DanhsachmayComponent implements OnInit {
     this.GetListdmPhanNhomMaySanXuat();
     this.GetListdm();
     this.getlistphannhommay();
-    this.getListCongDoan();
+    // this.getListCongDoan();
     this.getListdmPhanXuong();
 
   }

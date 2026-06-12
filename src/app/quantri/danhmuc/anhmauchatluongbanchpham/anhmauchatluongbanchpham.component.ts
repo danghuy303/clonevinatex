@@ -37,7 +37,7 @@ export class AnhmauchatluongbanchphamComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetListFolderAll();
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
 
   mapTree(list: any) {

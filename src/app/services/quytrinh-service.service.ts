@@ -22,7 +22,7 @@ export class QuytrinhServiceService {
     return this.http.get(url, httpOptions);
   }
   GetListdmNhomTaiLieu(data: any) {
-    return this.http.post(`${API.auth}PSM/DanhMuc/GetListdmNhomTaiLieu`, data, httpOptions);
+    return this.http.post(`${API.auth}DanhMuc/GetListdmNhomTaiLieu`, data, httpOptions);
   }
 
   SetFileDinhKemDownload(IdFileDinhKem: any, Module?: string) {

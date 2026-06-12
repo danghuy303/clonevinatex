@@ -34,14 +34,14 @@ export class ModaldanhmucchungComponent implements OnInit {
     if (this.type === 'loaibong') {
       this.GetListLoaiBong();
       this.GetListLoaiBongPhe();
-      this.GetListCongDoan()
+      // this.GetListCongDoan()
     }
     if (this.type === 'dmnhomkho') {
       this.GetListLoaiNhomKho();
     }
     if (this.type === 'nhomcongto') {
       this.GetDanhSachLoaiCongTo();
-      this.GetListCongDoan()
+      // this.GetListCongDoan()
     }
     if (this.type === 'quycachdonggoi') {
       this.GetListKgCone();

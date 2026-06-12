@@ -101,7 +101,7 @@ export class MathangComponent implements OnInit {
     this.GetListdm();
     this.GetDataAll();
     this.GetListdmLoaiSoi();
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
   resetFilter() {
     this.filter = {

@@ -44,7 +44,7 @@ export class DmtieuchichatluongsoimodalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
 
   accept() {

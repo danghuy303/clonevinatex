@@ -80,6 +80,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.item.Nam = new Date().getFullYear() + 1;
     }
     else {
+      console.log("this.GetQuyTrinhById", this.item);
       this.GetQuyTrinhById(this.item.Id);
     }
     for (let i = new Date().getFullYear() - 10; i <= (new Date().getFullYear() + 20); i++) {

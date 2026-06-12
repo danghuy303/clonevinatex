@@ -35,7 +35,8 @@
             <label class="">Bộ phận sử dụng:<span class="required">(*)</span></label>
             <div class="">
                 <p-dropdown [filter]="true" [options]="listBoPhan" [showClear]="true"
-                    [(ngModel)]="quyTrinh.IdBoPhanSuDung" placeholder="Chọn bộ phận"></p-dropdown>
+                    [(ngModel)]="quyTrinh.IdBoPhanSuDung" placeholder="Chọn bộ phận"
+                    (onChange)="getListTaiSanDangSuDung()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-py-0 d-flex flex-column">
@@ -229,7 +230,7 @@
                     <h6 class="">Danh sách tài liệu</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <app-danh-sach-tai-lieu></app-danh-sach-tai-lieu>
+                    <app-danh-sach-tai-lieu [quyTrinh]="quyTrinh"></app-danh-sach-tai-lieu>
                 </ng-template>
             </p-accordionTab>
         </p-accordion>

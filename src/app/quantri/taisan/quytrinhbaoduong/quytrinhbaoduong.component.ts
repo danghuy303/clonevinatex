@@ -93,7 +93,7 @@ export class QuytrinhbaoduongComponent implements OnInit, OnDestroy {
       CurrentPage: this.paging.CurrentPage,
       PageSize: 20,
       Keyword: this.filter.Keyword,
-      IdDuAn: 0,
+      IdDuAn: this.store.getCurrent() || 0,
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       TabTrangThai: this.trangThai,
       TuNgay: DateToUnix(this.filter.TuNgay),

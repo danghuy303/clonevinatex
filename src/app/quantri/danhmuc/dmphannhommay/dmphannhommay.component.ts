@@ -75,7 +75,7 @@ export class DmphannhommayComponent implements OnInit {
     this.userInfo = this._auth.currentUserValue;
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-        this.GetListCongDoan();
+        // this.getListCongDoan();
       }
     })
   }
@@ -84,7 +84,7 @@ export class DmphannhommayComponent implements OnInit {
     this.GetDanhSachDuAnByIdUser();
     this.getDonViNangXuat();
     this.GetListPhanXuong();
-    this.GetListCongDoan();
+    // this.getListCongDoan();
     this.GetListdm();
   }
 
@@ -154,7 +154,7 @@ export class DmphannhommayComponent implements OnInit {
     modalRef.componentInstance.item = {
       Id: '',
       lstdmItem: [],
-      HeSoChung:1
+      HeSoChung: 1
     }
     modalRef.result.then(res => {
       // this._toastr.success(res);
@@ -258,17 +258,17 @@ export class DmphannhommayComponent implements OnInit {
     // })
   }
   editBanChePham(item) {
-      let modalRef = this._modal.open(DmphannhommaybanchephammodalComponent, {
-        size: "fullscreen-100",
-        backdrop: 'static'
-      });
-      modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.title = 'Cập nhật phân nhóm máy bán chế phẩm';
-      modalRef.componentInstance.listDonViNangSuat = this.listDonViNangSuat;
-      modalRef.componentInstance.item = item;
-      modalRef.result.then(res => {
-        this.GetListdm()
-      }).catch(er => console.log(er))
+    let modalRef = this._modal.open(DmphannhommaybanchephammodalComponent, {
+      size: "fullscreen-100",
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.title = 'Cập nhật phân nhóm máy bán chế phẩm';
+    modalRef.componentInstance.listDonViNangSuat = this.listDonViNangSuat;
+    modalRef.componentInstance.item = item;
+    modalRef.result.then(res => {
+      this.GetListdm()
+    }).catch(er => console.log(er))
   }
   addBanChePham() {
     let modalRef = this._modal.open(DmphannhommaybanchephammodalComponent, {
@@ -281,7 +281,7 @@ export class DmphannhommayComponent implements OnInit {
     modalRef.componentInstance.item = {
       Id: '',
       lstdmItem: [],
-      HeSoChung:1
+      HeSoChung: 1
     }
     modalRef.result.then(res => {
       this.GetListdm()

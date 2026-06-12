@@ -71,7 +71,7 @@ export class PhanxuongComponent implements OnInit {
     private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getListCongDoan();
+    // this.getListCongDoan();
     this.GetListdm();
     this.getListNhomKho();
     this.getListLoaiSoi();

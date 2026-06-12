@@ -67,6 +67,8 @@ export class BaohiemtaisanmodalComponent implements OnInit {
   }
 
   setData() {
+    console.log("ABC", this.quyTrinh);
+
     let data = {
       ...this.quyTrinh,
       eAction: this.eAction,
@@ -139,7 +141,7 @@ export class BaohiemtaisanmodalComponent implements OnInit {
   // handle xử lý riêng
 
   getListTaiSanDangSuDung() {
-    this._serviceTaiSan.GetListTaiSanForBaoHiem().subscribe((res: any) => {
+    this._serviceTaiSan.GetListTaiSanForBaoHiem(this.quyTrinh.IdBoPhanSuDung).subscribe((res: any) => {
       if (res.Data?.length) {
       } this.listTaiSan = res.Data;
     })
@@ -155,6 +157,10 @@ export class BaohiemtaisanmodalComponent implements OnInit {
   }
 
   handleThemTaiSan() {
+    if (!this.quyTrinh.IdBoPhanSuDung) {
+      this.toastr.error("Vui lòng chọn bộ phận sử dụng!")
+      return;
+    }
     let modalRef = this._modal.open(DanhsachtaisanpopupComponent, {
       size: "lg",
       backdrop: "static",

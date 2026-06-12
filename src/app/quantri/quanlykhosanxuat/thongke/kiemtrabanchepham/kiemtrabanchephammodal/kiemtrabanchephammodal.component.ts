@@ -50,7 +50,7 @@ export class KiemtrabanchephammodalComponent implements OnInit {
 
   ngOnInit(): void {
     this.skipLocationChange = Math.random() * 9;
-    this.getListCongDoan();
+    // this.getListCongDoan();
     if (this.item.isTruVaoSanLuong === undefined)
       this.item.isTruVaoSanLuong = false;
     if (this.opt !== 'edit') {

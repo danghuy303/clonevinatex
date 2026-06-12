@@ -44,7 +44,7 @@ export class DanhMucDoiBaoDuongComponent implements OnInit {
   ngOnInit() {
     this.GetList();
     let data = { PageSize: 20, CurrentPage: this.paging.CurrentPage, Keyword: this.Keyword, };
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
 
   getListCongDoan() {

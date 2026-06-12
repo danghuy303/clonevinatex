@@ -13,17 +13,17 @@ export class ModalloaitaisanComponent implements OnInit {
   public item: any = {};
   public title: any = '';
   public type = '';
-  listCongDoan:any =[];
+  listCongDoan: any = [];
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
-  Keyword="";
+  Keyword = "";
 
   constructor(public activeModal: NgbActiveModal,
-     private _danhMucTaiSan:DanhmuctaisanService,
-     private services: SanXuatService,
-      public toastr: ToastrService) { this.item.isHoatDong = true }
+    private _danhMucTaiSan: DanhmuctaisanService,
+    private services: SanXuatService,
+    public toastr: ToastrService) { this.item.isHoatDong = true }
 
   ngOnInit(): void {
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
 
   ValidateData() {
@@ -41,9 +41,9 @@ export class ModalloaitaisanComponent implements OnInit {
     }
     return true;
   }
-  
-  getListCongDoan(){
-    this._danhMucTaiSan.GetlistCongDoan().GetList().subscribe((res:any)=>{
+
+  getListCongDoan() {
+    this._danhMucTaiSan.GetlistCongDoan().GetList().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res.Data, "Ten", "Ma");
     })
   }
@@ -55,7 +55,7 @@ export class ModalloaitaisanComponent implements OnInit {
         } else {
           this.toastr.success(res.Message);
           this.activeModal.close();
-        } 
+        }
         // this.activeModal.close();
       })
     }

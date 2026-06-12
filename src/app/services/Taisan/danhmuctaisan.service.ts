@@ -318,6 +318,7 @@ export class DanhmuctaisanService {
     let url = API.TaiSan
     return {
       GetList: () => {
+        return null;
         return this.http.get(`${url}DanhMuc/GetListCongDoan`, httpOptions)
       },
     }

@@ -53,7 +53,7 @@ export class LichxichnamComponent implements OnInit {
     for (let i = new Date().getFullYear() - 10; i <= (new Date().getFullYear() + 5); i++) {
       arr.push({ value: i, label: i });
     }
-    this.listNam =arr.slice().reverse();
+    this.listNam = arr.slice().reverse();
     this.filter.Ngay = new Date().getFullYear();
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
@@ -68,7 +68,7 @@ export class LichxichnamComponent implements OnInit {
     })
     this.filter.isChon = 'theoBaoDuong'
     this.loadData();
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
 
   getListCongDoan() {

@@ -58,7 +58,7 @@ export class NhapkhobongphemodalComponent implements OnInit, AfterViewInit, Afte
     this.data.CurrentPage = 0;
     this.getListLoaiBong();
     this.getListKho();
-    this.getListCongDoan();
+    // this.getListCongDoan();
     this.getListCaSanXuat();
     this.getListCaThucTe();
     // this.getListCapBong();
@@ -321,11 +321,11 @@ export class NhapkhobongphemodalComponent implements OnInit, AfterViewInit, Afte
               event.stopImmediatePropagation();
               //  Gọi navigateTable() để xử lý di chuyển sau khi chặn sự kiện
               console.log(this.inputs.toArray());
-              
+
               const indexInList = this.inputs.toArray().findIndex(
                 (inp) => inp.nativeElement.querySelector('input') === realInput
               );
-                
+
               const rowIndex = Math.floor(indexInList / 4);
               const colIndex = indexInList % 4;
               this.navigateTable(event, rowIndex, colIndex);

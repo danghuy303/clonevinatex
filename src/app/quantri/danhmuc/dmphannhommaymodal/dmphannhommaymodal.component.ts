@@ -113,7 +113,7 @@ export class DmphannhommaymodalComponent implements OnInit {
     }
     console.table(this.item.lstdmItem)
     this.GetListPhanXuong();
-    this.GetListCongDoan();
+    // this.getListCongDoan();
     this.tinhNangSuatLyThuyet();
   }
   mapHienThi(array: Array<any>) {

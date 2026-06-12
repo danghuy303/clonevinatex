@@ -101,7 +101,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       }
     })
     this.loadData();
-    // this.getListCongDoan();
+    // // this.getListCongDoan();
   }
 
   getListCongDoan() {
@@ -309,8 +309,8 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   }
 
 
-exportExcel() {
-   let data = {
+  exportExcel() {
+    let data = {
       Keyword: "",
       CurrentPage: this.paging.CurrentPage,
       PageSize: 20,
@@ -322,9 +322,9 @@ exportExcel() {
       LoaiKeHoach: this.filter.LoaiKeHoach,
       IdDuAn: this.store.getCurrent() || 0
     };
-   this._serviceTaiSan.ExportLichXichLoaiTaiSan(data).subscribe((res: any) => {
+    this._serviceTaiSan.ExportLichXichLoaiTaiSan(data).subscribe((res: any) => {
       this._servicesSanXuat.download(res.Data);
     })
-}
+  }
 
 }

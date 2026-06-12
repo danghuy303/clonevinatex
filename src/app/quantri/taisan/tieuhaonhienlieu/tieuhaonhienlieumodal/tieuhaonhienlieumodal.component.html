@@ -147,7 +147,7 @@
                                             {{file.FileName | truncate:11}}
                                         </span>
                                         <span style="color:rgb(13, 185, 232);cursor: pointer;"
-                                            (click)="handlePreView(file.LinkDocView)" class="p-mx-2"> <i
+                                            (click)="handlePreView(file)" class="p-mx-2" *ngIf="file.LinkDocView"> <i
                                                 class="pi pi-eye" title="Xem trước tài liệu"></i></span>
                                         <span style="color:red ;cursor: pointer;" (click)="cancelItem(i,ri)">x</span>
                                     </div>
@@ -218,7 +218,7 @@
                     <h6 class="">Danh sách tài liệu</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <app-danh-sach-tai-lieu></app-danh-sach-tai-lieu>
+                    <app-danh-sach-tai-lieu [quyTrinh]="quyTrinh"></app-danh-sach-tai-lieu>
                 </ng-template>
             </p-accordionTab>
         </p-accordion>

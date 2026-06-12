@@ -47,10 +47,13 @@ export class
     if (e !== '') {
       filter = this.items.find((ele: any) => ele.Id === e);
       this.item.ThoiGianNangSuat = filter?.ThoiGianNangSuat;
-      this.item.NoiDung = filter?.NoiDung;
+      if (!this.item.NoiDung)
+        this.item.NoiDung = filter?.NoiDung;
       this.item.MaLoaiThoiGian = filter?.MaLoaiThoiGian;
-      this.item.ThoiGianBaoDuong = filter?.ThoiGianBaoDuong;
-      this.item.SanLuong = filter?.SanLuong;
+      if (!this.item.ThoiGianBaoDuong)
+        this.item.ThoiGianBaoDuong = filter?.ThoiGianBaoDuong;
+      if (!this.item.SanLuong)
+        this.item.SanLuong = filter?.SanLuong;
     }
 
   }

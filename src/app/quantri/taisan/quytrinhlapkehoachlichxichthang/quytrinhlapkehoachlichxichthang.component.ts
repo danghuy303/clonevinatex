@@ -37,7 +37,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit, OnDestr
     private _services: SanXuatService,
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
@@ -137,7 +137,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit, OnDestr
       listTaiSan: [],
       LoaiKeHoach: "",
       IdDuAn: 0,
-      Ngay: 0,
+      // Ngay: 0,
       IdBoPhanSuDung: '',
       MaCongDoan: null
     };

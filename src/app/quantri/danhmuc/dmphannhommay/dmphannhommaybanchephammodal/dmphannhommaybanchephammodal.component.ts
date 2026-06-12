@@ -51,9 +51,9 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
     CHAITHO: '',
     CHAIKY: ''
   }
-  listdmTieuChiBanChePham : any = [];
-  lita = ['hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj','hgghj',];
-  litb = [1,2,3,4,5,6,7,8,9,10,11,12]
+  listdmTieuChiBanChePham: any = [];
+  lita = ['hgghj', 'hgghj', 'hgghj', 'hgghj', 'hgghj', 'hgghj', 'hgghj', 'hgghj', 'hgghj', 'hgghj', 'hgghj', 'hgghj',];
+  litb = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) {
   }
@@ -67,21 +67,23 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       this.getBanChePham();
     }
     this.GetListPhanXuong();
-    this.GetListCongDoan();
+    // this.getListCongDoan();
   }
 
   ngAfterViewInit(): void {
     this.voiPintable.active()
   }
 
-  GetListdmTieuChiChatLuongBanChePham(CongDoan){
+  GetListdmTieuChiChatLuongBanChePham(CongDoan) {
     this.sanXuatService.dmTieuChiChatLuongsoi().GetListdmTieuChiBanChePham(CongDoan).subscribe((res: any) => {
       this.listCongThuc = res;
       this.listdmTieuChiBanChePham = mapArrayForDropDown(res, 'Ten', 'Id');
       this.listdmTieuChiBanChePham.forEach(dmTieuChi => {
-          let data: any = {Id: "",
-                          IddmTieuChiBanChePham: dmTieuChi.value }
-          this.newTableItem.listdmTieuChiBanChePham.push(data);
+        let data: any = {
+          Id: "",
+          IddmTieuChiBanChePham: dmTieuChi.value
+        }
+        this.newTableItem.listdmTieuChiBanChePham.push(data);
       });
       this.look(this.listCongThuc);
     })
@@ -158,8 +160,10 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
         }
         element.isXoa = false;
         this.listdmTieuChiBanChePham.forEach(dmTieuChi => {
-          let data: any = {Id: "",
-                          IddmTieuChiBanChePham: dmTieuChi.value }
+          let data: any = {
+            Id: "",
+            IddmTieuChiBanChePham: dmTieuChi.value
+          }
           element.listdmTieuChiBanChePham.push(data);
         });
         listdatapush.push(element);
@@ -236,7 +240,7 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       this.listLoaiSoiHoacMatHang = this.mapHienThi(res);
     })
   }
-  
+
   changeLoaiSoiHoacMatHang(e, item) {
     if (this.childModalOpt === 'MATHANG') {
       item.IddmItem = e.value;
@@ -258,10 +262,12 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
       listdmTieuChiBanChePham: [],
     }
     this.listdmTieuChiBanChePham.forEach(dmTieuChi => {
-      let data: any = {Id: "",
-                      IddmTieuChiBanChePham: dmTieuChi.value }
+      let data: any = {
+        Id: "",
+        IddmTieuChiBanChePham: dmTieuChi.value
+      }
       this.newTableItem.listdmTieuChiBanChePham.push(data);
-  });
+    });
   }
 
   delete(index) {
@@ -332,11 +338,11 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
 
   Search() {
     if (this.filter.Keyword !== null && this.filter.Keyword !== undefined && this.filter.Keyword.trim() !== '') {
-      this.item.lstdmItem = (this.lstdmItem_Copy.filter((ele: any) => ele.Ne !== null && 
-      (
-        ele.Ne.toString().toLowerCase().includes(this.filter.Keyword.toLowerCase()) |
-        ele.TendmLoaiSoi.toString().toLowerCase().includes(this.filter.Keyword.toLowerCase()) 
-      )
+      this.item.lstdmItem = (this.lstdmItem_Copy.filter((ele: any) => ele.Ne !== null &&
+        (
+          ele.Ne.toString().toLowerCase().includes(this.filter.Keyword.toLowerCase()) |
+          ele.TendmLoaiSoi.toString().toLowerCase().includes(this.filter.Keyword.toLowerCase())
+        )
       ));
     }
     else this.item.lstdmItem = this.lstdmItem_Copy;
@@ -369,10 +375,10 @@ export class DmphannhommaybanchephammodalComponent implements OnInit {
 
   look(list) {
     console.log(this.item);
-    
+
     list.forEach((ele) => {
       this.item.lstdmItem.forEach(item => {
-        let obj =item.listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === ele.Id);
+        let obj = item.listdmTieuChiBanChePham.find((thamso) => thamso.IddmTieuChiChatLuong === ele.Id);
         if (obj && ele.CongThuc) {
           obj.Disabled = true;
         }

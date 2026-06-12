@@ -25,14 +25,14 @@ export class BanchephammodalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListdmBanChePham();
-    this.getListCongDoan();
-    
+    // this.getListCongDoan();
+
   }
 
   getListdmBanChePham() {
     this.services.dmKiemKeBanChePham().GetListAll().subscribe((res: any) => {
       this.listdmBanChePhamFull = res;
-      if(this.item.CongDoan !== undefined){
+      if (this.item.CongDoan !== undefined) {
         this.getListdmBanChePhamTheoCongDoan();
       }
     })
@@ -43,13 +43,13 @@ export class BanchephammodalComponent implements OnInit {
     })
   }
   getListdmBanChePhamTheoCongDoan() {
-    let listdm : any = [];
-      this.listdmBanChePhamFull.forEach(element => {
-        if(element.CongDoan === this.item.CongDoan){
-          listdm.push(element);
-        }
-      });
-      this.listdmBanChePham = mapArrayForDropDown(listdm, 'Ten', 'Ma');
+    let listdm: any = [];
+    this.listdmBanChePhamFull.forEach(element => {
+      if (element.CongDoan === this.item.CongDoan) {
+        listdm.push(element);
+      }
+    });
+    this.listdmBanChePham = mapArrayForDropDown(listdm, 'Ten', 'Ma');
   }
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;

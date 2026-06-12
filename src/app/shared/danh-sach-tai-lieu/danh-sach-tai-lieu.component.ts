@@ -43,7 +43,7 @@ export class DanhSachTaiLieuComponent implements OnInit {
       IdDuAn: this.store.getCurrent() || 0,
     }
     this.quyTrinhService.GetListdmNhomTaiLieu(data).subscribe((res: any) => {
-      this.listFile = res.Data.filter((ele: any) => ele.isHoatDong).map((ele: any) => {
+      this.listFile = res.Data.filter((ele: any) => ele.HoatDong).map((ele: any) => {
         return {
           value: ele.Id,
           label: `${ele.Ma}-${ele.Ten}`
@@ -60,6 +60,8 @@ export class DanhSachTaiLieuComponent implements OnInit {
   }
 
   HandleAddFile() {
+    console.log("TÉT", this.quyTrinh);
+
     let data = {
       Id: "",
       Created: new Date(),

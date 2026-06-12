@@ -74,10 +74,10 @@ export class LapkehoachthangComponent implements OnInit {
       this.chonThang(this.item.ThoiGian);
     }
     let ls2 = this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().toPromise();
-    let ls3 = this._servicesSanXuat.GetListCongDoan().toPromise();
-    Promise.all([ls2, ls3]).then((values: any) => {
+    // let ls3 = this._servicesSanXuat.GetListCongDoan().toPromise();
+    Promise.all([ls2]).then((values: any) => {
       this.listPhanXuong = mapArrayForDropDown(values[0], "Ten", "Id");
-      this.listCongDoan = mapArrayForDropDown(values[1], "Ten", "Ma");
+      // this.listCongDoan = mapArrayForDropDown(values[1], "Ten", "Ma");
     });
   }
 

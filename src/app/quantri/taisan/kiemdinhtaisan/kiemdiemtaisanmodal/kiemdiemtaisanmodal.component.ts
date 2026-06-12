@@ -155,7 +155,7 @@ export class KiemdiemtaisanmodalComponent implements OnInit {
   // handle xử lý riêng
 
   getListTaiSanDangSuDung() {
-    this._serviceTaiSan.GetListTaiSanDangSuDung({ CurrentPage: 0 }).subscribe((res: any) => {
+    this._serviceTaiSan.GetListTaiSanDangSuDung({ CurrentPage: 0, IdBoPhanSuDung: this.quyTrinh.IdBoPhanSuDung }).subscribe((res: any) => {
       if (res.Data?.length) {
       } this.listTaiSan = res.Data;
     })

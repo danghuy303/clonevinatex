@@ -26,7 +26,7 @@ export class ThongKeThoiGianDungMayComponent extends StoreBase implements OnInit
     this.filter.TuNgayChon = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter.DenNgayChon = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     this.getListPhanXuong();
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
   ngAfterViewInit(): void {
     this.voiPintable.active()

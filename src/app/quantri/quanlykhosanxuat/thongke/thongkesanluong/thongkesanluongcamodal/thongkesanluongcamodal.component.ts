@@ -47,7 +47,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getListCongDoan();
+    // this.getListCongDoan();
     this.userInfo = this._auth.currentUserValue;
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();

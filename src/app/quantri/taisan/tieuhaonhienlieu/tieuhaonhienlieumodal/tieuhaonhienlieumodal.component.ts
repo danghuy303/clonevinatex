@@ -166,7 +166,10 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
       this.quyTrinh.listTaiSan = res.map((ele: any) => {
         let _newObj = _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan) ?
           _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan) : ele;
-        return _newObj;
+        return {
+          ..._newObj,
+          listFileDinhKem: _newObj.listFileDinhKem || []
+        };
       })
     })
       .catch((er) => {
@@ -186,10 +189,16 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
   }
 
   handleChangeItem(data: any, index: any) {
+    console.log("data", { data, index });
+    console.log(" this.quyTrinh.listTaiSan", this.quyTrinh.listTaiSan);
+
     this.quyTrinh.listTaiSan[index].listFileDinhKem.push({
       FileName: data.NameLocal,
       FileNameGUI: data.Name
     })
+
+    console.log(" this.quyTrinh.listTaiSan", this.quyTrinh.listTaiSan);
+
   }
   cancelItem(i: any, index: any) {
     this.quyTrinh.listTaiSan[i].listFileDinhKem.splice(index, 1)
@@ -199,8 +208,11 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
     window.open(API.imgURL + Link);
   }
 
-  handlePreView(link: string) {
-    let url = `/${link}`
+  handlePreView(file: any) {
+    if (!file.LinkDocView) {
+      return;
+    }
+    let url = `/${file.LinkDocView}`
     window.open(API.imgURL + url);
   }
 

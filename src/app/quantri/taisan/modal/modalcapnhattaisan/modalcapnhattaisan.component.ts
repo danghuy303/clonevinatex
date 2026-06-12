@@ -481,7 +481,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
       SoLuongIn: 1,
     }
     this._danhMucTaiSan.InQrCode(data).subscribe((res: any) => {
-      if (res.State === 1) {
+      if (res.StatusCode === 200) {
         let url = res.Data
         window.open(API.imgURL + url);
         this.toastr.success(res.message)
@@ -519,7 +519,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   handleUpload(event: any) {
     let fileName = event.Name;
     if (fileName) {
-      this._serviceTaiSan.ImportMauVatTuQuyTrinh(fileName).subscribe((resImport: any) => {
+      this._serviceTaiSan.ImportMauVatTuQuyTrinh(fileName, this.item.Id).subscribe((resImport: any) => {
         if (resImport.StatusCode === 200) {
           this.toastr.success(resImport.Message || 'Import thành công!');
           if (resImport.Data) {

@@ -54,7 +54,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetList();
-    // this.getListCongDoan();
+    // // this.getListCongDoan();
   }
   getListCongDoan() {
     this._danhMucTaiSan.GetlistCongDoan().GetList().subscribe((res: any) => {

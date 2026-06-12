@@ -20,7 +20,7 @@ export class LoaiBongPheDmModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.GetListCongDoan()
+    // this.GetListCongDoan()
   }
   GetListCongDoan() {
     this.sanXuatService.GetListCongDoan().subscribe((res: any[]) => {
