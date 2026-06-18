@@ -523,3 +523,8 @@ iframe {
 .p-accordion-sm .p-accordion-header .p-accordion-header-link h6 {
   margin-bottom: 0px !important;
 }
+
+#toast-container,
+.toast-container {
+  z-index: 99999999 !important;
+}

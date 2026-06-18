@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <app-stepper [title]="title" [quyTrinh]="quyTrinh" style="width: 100%"></app-stepper>
+    <app-stepper [title]="title" [quyTrinh]="item" style="width: 100%"></app-stepper>
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
@@ -17,17 +17,17 @@
         </div>
         <div class="d-flex flex-column flex-lg-row">
             <div>
-                <span style="font-weight: bold;">Số quy trình:</span> {{quyTrinh?.SoQuyTrinh}}
+                <span style="font-weight: bold;">Số quy trình:</span> {{item?.SoQuyTrinh}}
             </div>
             <div class="ml-lg-3 mr-lg-3">
-                <span style="font-weight: bold;">TG Tạo:</span> {{quyTrinh?.Created|date:"dd/MM/yyyy HH:mm"}}
+                <span style="font-weight: bold;">TG Tạo:</span> {{item?.Created|date:"dd/MM/yyyy HH:mm"}}
             </div>
             <div>
-                <span style="font-weight: bold;">TG Duyệt:</span> {{quyTrinh?.NgayDuyet|date:"dd/MM/yyyy HH:mm"}}
+                <span style="font-weight: bold;">TG Duyệt:</span> {{item?.NgayDuyet|date:"dd/MM/yyyy HH:mm"}}
             </div>
         </div>
     </div>
-    <app-chuyenbuoc [(quyTrinh)]="quyTrinh"></app-chuyenbuoc>
+    <app-chuyenbuoc [(quyTrinh)]="item"></app-chuyenbuoc>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Bộ phận sử dụng <span class="required">*</span>:</label>
@@ -186,7 +186,7 @@
                     <h6 class="">Đánh giá</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <app-danh-gia [quyTrinh]="quyTrinh"></app-danh-gia>
+                    <app-danh-gia [quyTrinh]="item"></app-danh-gia>
                 </ng-template>
             </p-accordionTab>
         </p-accordion>
@@ -198,7 +198,7 @@
                     <h6 class="">Vướng mắc</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <app-vuong-mac [quyTrinh]="quyTrinh"></app-vuong-mac>
+                    <app-vuong-mac [quyTrinh]="item"></app-vuong-mac>
                 </ng-template>
             </p-accordionTab>
         </p-accordion>
@@ -210,7 +210,7 @@
                     <h6 class="">Phân công công việc</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <app-phan-cong-cong-viec [quyTrinh]="quyTrinh"></app-phan-cong-cong-viec>
+                    <app-phan-cong-cong-viec [quyTrinh]="item"></app-phan-cong-cong-viec>
                 </ng-template>
             </p-accordionTab>
         </p-accordion>
@@ -222,7 +222,7 @@
                     <h6 class="">Danh sách tài liệu</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <app-danh-sach-tai-lieu [quyTrinh]="quyTrinh"></app-danh-sach-tai-lieu>
+                    <app-danh-sach-tai-lieu [quyTrinh]="item"></app-danh-sach-tai-lieu>
                 </ng-template>
             </p-accordionTab>
         </p-accordion>
@@ -234,7 +234,7 @@
                     <h6 class="">Trao đổi / Vướng mắc</h6>
                 </ng-template>
                 <ng-template pTemplate="content">
-                    <app-trao-doi [IdTable]="quyTrinh.Id" [eAction]="eAction"></app-trao-doi>
+                    <app-trao-doi [IdTable]="item.Id" [eAction]="eAction"></app-trao-doi>
                 </ng-template>
             </p-accordionTab>
         </p-accordion>

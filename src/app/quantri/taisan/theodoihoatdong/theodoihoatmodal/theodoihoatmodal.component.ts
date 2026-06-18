@@ -45,7 +45,6 @@ export class TheodoihoatmodalComponent implements OnInit {
       })
     }
     this.KiemTraButtonModal();
-    this.getListTaiSanDangSuDung();
   }
 
   GetNextSoQuyTrinh() {
@@ -146,7 +145,7 @@ export class TheodoihoatmodalComponent implements OnInit {
   // handle xử lý riêng
 
   getListTaiSanDangSuDung() {
-    this._serviceTaiSan.GetListTaiSanDangSuDung({ CurrentPage: 0 }).subscribe((res: any) => {
+    this._serviceTaiSan.GetListTaiSanDangSuDung({ CurrentPage: 0, IdBoPhanSuDung: this.quyTrinh.IddmPhanXuong }).subscribe((res: any) => {
       if (res.Data?.length) {
       } this.listTaiSan = res.Data;
     })
@@ -161,6 +160,11 @@ export class TheodoihoatmodalComponent implements OnInit {
   }
 
   handleThemTaiSan() {
+    if (!this.quyTrinh.IddmPhanXuong) {
+      this.toastr.error('Vui lòng chọn bộ phận');
+      return;
+    }
+    this.getListTaiSanDangSuDung();
     let modalRef = this._modal.open(DanhsachtaisanpopupComponent, {
       size: "lg",
       backdrop: "static",

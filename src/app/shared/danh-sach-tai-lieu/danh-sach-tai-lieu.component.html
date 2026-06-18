@@ -94,11 +94,11 @@
                     <td>
                         <div class="d-flex align-items-center justify-content-center">
                             <button
-                                *ngIf="(file.CreatedBy?file.CreatedBy === this.authService.currentUserValue.Id && file.isPhaiNop === 0 : file.isPhaiNop === 0) && !file.IdFileGoc"
+                                *ngIf="(file.CreatedBy?file.CreatedBy === authService.currentUserValue.Id && file.isPhaiNop === 0 : file.isPhaiNop === 0) && !file.IdFileGoc"
                                 pButton pRipple type="button" icon="pi pi-trash"
-                                class="p-button-rounded p-button-text p-button-danger" (click)="DeleteFile(i)"></button>
+                                class="p-button-rounded p-button-text p-button-danger p-mr-2" (click)="DeleteFile(i)"></button>
                             <button pButton pRipple type="button" icon="pi pi-eye" pTooltip="Xem trước tài liệu"
-                                [showDelay]="500" class="p-button-rounded p-button-text p-button-secondary"
+                                [showDelay]="500" class="p-button-rounded p-button-text p-button-secondary p-mr-2"
                                 (click)="showView(file.Id,file.Module)"></button>
                             <button pButton pRipple type="button" icon="fa fa-history" pTooltip="Lịch sử tải tài liệu"
                                 [showDelay]="500" class="p-button-rounded p-button-text p-button-secondary"

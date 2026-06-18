@@ -6,6 +6,7 @@ import { ConfirmationService } from '../../services/confirmation.service';
 import { ToastrService } from 'ngx-toastr';
 import { LichsudownloadComponent } from '../lichsudownload/lichsudownload.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthenticationService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-danh-sach-tai-lieu',
@@ -31,6 +32,7 @@ export class DanhSachTaiLieuComponent implements OnInit {
     public confirmService: ConfirmationService,
     public toast: ToastrService,
     public modal: NgbModal,
+    public authService: AuthenticationService,
   ) { }
 
   ngOnInit(): void {
@@ -56,7 +58,9 @@ export class DanhSachTaiLieuComponent implements OnInit {
   }
 
   scrollToLeft() {
-    this.scrollContainer.nativeElement.scrollLeft = 0;
+    if (this.scrollContainer && this.scrollContainer.nativeElement) {
+      this.scrollContainer.nativeElement.scrollLeft = 0;
+    }
   }
 
   HandleAddFile() {

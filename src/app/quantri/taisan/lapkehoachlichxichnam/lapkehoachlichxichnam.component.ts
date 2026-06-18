@@ -63,7 +63,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     };
     this._serviceTaiSan.LichXich().GetListTaiSanTheoNam(data).subscribe((res: any) => {
       let baoDuong = res.Data.listTaiSan;
-      this.item.listTaiSan.forEach(ele => {
+      this.item?.listTaiSan?.forEach(ele => {
         let taiSan = baoDuong.filter(obj => obj.IdTaiSan === ele.IdTaiSan);
         if (taiSan !== undefined) {
           ele.listLichBaoDuong = [];
@@ -87,10 +87,10 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.listNam.push({ value: i, label: i });
     }
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
-    let ls2 = this._servicesSanXuat.GetListCongDoan().toPromise();
-    Promise.all([ls1, ls2]).then((values: any) => {
+    // let ls2 = this._servicesSanXuat.GetListCongDoan().toPromise();
+    Promise.all([ls1]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-      this.listCongDoan = mapArrayForDropDown(values[1], "Ten", "Ma");
+      // this.listCongDoan = mapArrayForDropDown(values[1], "Ten", "Ma");
     });
     // this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
     //   this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');

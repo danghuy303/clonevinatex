@@ -179,10 +179,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập mã và tên");
       return false;
     }
-    if (!validVariable(this.item?.TaiSan?.MaQR)) {
-      this.toastr.error("Yêu cầu chọn mã QR máy/thiết bị");
-      return false;
-    }
+    // if (!validVariable(this.item?.TaiSan?.MaQR)) {
+    //   this.toastr.error("Yêu cầu chọn mã QR máy/thiết bị");
+    //   return false;
+    // }
     // if (!validVariable(this.item?.TaiSan?.TendmTaiSan)) {
     //   this.toastr.error("Yêu cầu chọn nhóm máy/thiết bị");
     //   return false;
