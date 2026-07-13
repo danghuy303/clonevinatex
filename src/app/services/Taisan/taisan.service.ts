@@ -698,6 +698,10 @@ export class TaisanService {
     return this.http.post(`${API.TaiSan}NhatKySuDung/GetTieuHaoTaiSanForTheoDoiHoatDong`, data, httpOptions);
   }
 
+  GetSanLuongMay(id: string) {
+    return this.http.get(`${API.TaiSan}QuanLyTaiSan/GetSanLuongMay?Id=${id}`, httpOptions);
+  }
+
   SetYeuCauXuatKhoXulySuCo(data: any) {
     return this.http.post(`${API.TaiSan}BaoDuongTaiSan/SetYeuCauXuatKhoXulySuCo`, data, httpOptions);
   }

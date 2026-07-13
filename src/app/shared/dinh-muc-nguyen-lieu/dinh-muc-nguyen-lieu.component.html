@@ -1,47 +1,170 @@
-<p-table [value]="Items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+<p-table [value]="flatRows" [rowTrackBy]="trackByRow"
+    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width:50px">
             <col style="width:200px">
+            <col style="width:100px">
             <col style="width:120px">
-            <col style="width:150px">
+            <col style="width:180px">
+            <col style="width:100px">
+            <col style="width:120px">
+            <col style="width:100px">
+            <col style="width:100px">
+            <col style="width:100px">
             <col style="">
-            <col *ngIf="isXoa" style="width:80px">
+            <col *ngIf="isXoa" style="width:100px">
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th>STT</th>
-            <th>Loại nhiên liệu</th>
-            <th>Đơn vị tính</th>
-            <th>Định mức</th>
-            <th>Ghi chú</th>
-            <th *ngIf="isXoa" style="width: 80px;"><button pButton pRipple type="button" icon="pi pi-plus"
-                    class="p-button-rounded p-button-sm " (click)="add()">
-                </button></th>
+            <th rowspan="2" style="width: 50px;">STT</th>
+            <th rowspan="2" style="width: 200px;">Tên</th>
+            <th colspan="2">Sản lượng</th>
+            <th colspan="3">Nhiên liệu</th>
+            <th colspan="3">Thời gian làm việc</th>
+            <th rowspan="2">Ghi chú</th>
+            <th rowspan="2" *ngIf="isXoa" style="width: 100px;">
+                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm"
+                    (click)="addParent()" pTooltip="Thêm sản lượng" tooltipPosition="bottom">
+                </button>
+            </th>
+        </tr>
+        <tr>
+            <th style="width: 100px;">ĐVT</th>
+            <th style="width: 120px;">Định mức</th>
+            <th style="width: 180px;">Loại nhiên liệu</th>
+            <th style="width: 100px;">ĐVT</th>
+            <th style="width: 120px;">Định mức</th>
+            <th style="width: 100px;">Số ca làm việc / ngày</th>
+            <th style="width: 100px;">Số ngày làm / tháng</th>
+            <th style="width: 100px;">Số tháng làm / năm</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-item let-i="rowIndex">
+    <ng-template pTemplate="body" let-row let-i="rowIndex">
         <tr>
-            <td class="text-center">{{i+1}}</td>
-            <td>
-                <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn" [showClear]="true"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoaiNhieuLieu"></p-dropdown>
+            <!-- STT -->
+            <td class="text-center">
+                <span *ngIf="row.isParent">{{row.parentIndex + 1}}</span>
             </td>
-            <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViTinh" pInputText /> </td>
+
+            <!-- Tên -->
             <td>
-                <p-inputNumber locale="en-EN" [(ngModel)]="item.DinhMuc" [minFractionDigits]="5"
-                    [maxFractionDigits]="10" placeholder="">
+                <div style="display: flex; align-items: center; gap: 4px;">
+                    <button *ngIf="row.isParent && row.parentItem.listItem && row.parentItem.listItem.length > 0"
+                        pButton pRipple type="button"
+                        [icon]="row.parentItem.isExpanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                        class="p-button-text p-button-sm p-p-0" style="width: 2rem; height: 2rem; padding: 0;"
+                        (click)="toggleExpand(row.parentItem)">
+                    </button>
+                    <input *ngIf="row.isParent" type="text" class="p-inputtext-sm" style="flex-grow: 1;" [(ngModel)]="row.parentItem.Ten"
+                        (ngModelChange)="changeData()" pInputText [disabled]="!isXoa" />
+                </div>
+            </td>
+
+            <!-- Sản lượng - ĐVT -->
+            <td>
+                <input *ngIf="row.isParent" type="text" class="p-inputtext-sm" [(ngModel)]="row.parentItem.DonViTinh_SanLuong"
+                    (ngModelChange)="changeData()" pInputText [disabled]="!isXoa" />
+            </td>
+
+            <!-- Sản lượng - Định mức -->
+            <td>
+                <p-inputNumber *ngIf="row.isParent" locale="en-EN" [(ngModel)]="row.parentItem.SanLuong"
+                    (ngModelChange)="changeData()" [minFractionDigits]="2" [maxFractionDigits]="2" [disabled]="!isXoa">
                 </p-inputNumber>
             </td>
+
+            <!-- Nhiên liệu - Loại nhiên liệu -->
             <td>
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" [ngbTooltip]="item.GhiChu"
-                    pInputText />
+                <ng-container *ngIf="row.isParent">
+                    <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn"
+                        [showClear]="true" styleClass="p-inputtext-sm" [(ngModel)]="row.parentItem.IddmLoaiNhienLieu"
+                        (ngModelChange)="changeData()" [disabled]="!isXoa"></p-dropdown>
+                </ng-container>
+                <ng-container *ngIf="!row.isParent && row.childItem">
+                    <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn"
+                        [showClear]="true" styleClass="p-inputtext-sm" [(ngModel)]="row.childItem.IddmLoaiNhienLieu"
+                        (ngModelChange)="changeData()" [disabled]="!isXoa"></p-dropdown>
+                </ng-container>
             </td>
+
+            <!-- Nhiên liệu - ĐVT -->
+            <td>
+                <ng-container *ngIf="row.isParent">
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="row.parentItem.DonViTinh_NhienLieu"
+                        (ngModelChange)="changeData()" pInputText [disabled]="!isXoa" />
+                </ng-container>
+                <ng-container *ngIf="!row.isParent && row.childItem">
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="row.childItem.DonViTinh_NhienLieu"
+                        (ngModelChange)="changeData()" pInputText [disabled]="!isXoa" />
+                </ng-container>
+            </td>
+
+            <!-- Nhiên liệu - Định mức -->
+            <td>
+                <ng-container *ngIf="row.isParent">
+                    <p-inputNumber locale="en-EN" [(ngModel)]="row.parentItem.NhienLieu"
+                        (ngModelChange)="changeData()" [minFractionDigits]="5" [maxFractionDigits]="10" [disabled]="!isXoa">
+                    </p-inputNumber>
+                </ng-container>
+                <ng-container *ngIf="!row.isParent && row.childItem">
+                    <p-inputNumber locale="en-EN" [(ngModel)]="row.childItem.NhienLieu"
+                        (ngModelChange)="changeData()" [minFractionDigits]="5" [maxFractionDigits]="10" [disabled]="!isXoa">
+                    </p-inputNumber>
+                </ng-container>
+            </td>
+
+            <!-- Thời gian làm việc - Số ca làm việc/ngày -->
+            <td [class.cell-disabled]="!row.isParent">
+                <p-inputNumber *ngIf="row.isParent" locale="en-EN" [(ngModel)]="row.parentItem.SoCa"
+                    (ngModelChange)="changeData()" [disabled]="!isXoa">
+                </p-inputNumber>
+            </td>
+
+            <!-- Thời gian làm việc - Số ngày làm/tháng -->
+            <td [class.cell-disabled]="!row.isParent">
+                <p-inputNumber *ngIf="row.isParent" locale="en-EN" [(ngModel)]="row.parentItem.SoNgay"
+                    (ngModelChange)="changeData()" [disabled]="!isXoa">
+                </p-inputNumber>
+            </td>
+
+            <!-- Thời gian làm việc - Số tháng làm/năm -->
+            <td [class.cell-disabled]="!row.isParent">
+                <p-inputNumber *ngIf="row.isParent" locale="en-EN" [(ngModel)]="row.parentItem.SoThang"
+                    (ngModelChange)="changeData()" [disabled]="!isXoa">
+                </p-inputNumber>
+            </td>
+
+            <!-- Ghi chú -->
+            <td [class.cell-disabled]="!row.isParent">
+                <input *ngIf="row.isParent" type="text" class="p-inputtext-sm" [(ngModel)]="row.parentItem.GhiChu"
+                    (ngModelChange)="changeData()" pInputText [disabled]="!isXoa" />
+            </td>
+
+            <!-- Actions -->
             <td *ngIf="isXoa" class="text-center">
-                <button pButton pRipple icon="pi pi-trash"
-                    class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2" (click)="delete(i)"
-                    pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+                <div class="p-d-flex p-jc-center p-ai-center" style="gap: 4px;">
+                    <!-- Actions for parent row -->
+                    <ng-container *ngIf="row.isParent">
+                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-sm p-button-rounded"
+                            (click)="addChild(row.parentItem)" pTooltip="Thêm nhiên liệu" showDelay="500"
+                            tooltipPosition="bottom">
+                        </button>
+                        <button pButton pRipple icon="pi pi-trash"
+                            class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                            (click)="deleteParent(row.parentIndex)" pTooltip="Xóa sản lượng" showDelay="500"
+                            tooltipPosition="bottom"></button>
+                    </ng-container>
+
+                    <!-- Actions for child row -->
+                    <ng-container *ngIf="!row.isParent">
+                        <button pButton pRipple icon="pi pi-trash"
+                            class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                            (click)="deleteChild(row.parentItem, row.childIndex)" pTooltip="Xóa nhiên liệu"
+                            showDelay="500" tooltipPosition="bottom"></button>
+                    </ng-container>
+                </div>
             </td>
         </tr>
     </ng-template>

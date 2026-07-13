@@ -90,6 +90,8 @@ import { KhauHaoTaiSanQuyTrinhComponent } from './khau-hao-tai-san-quy-trinh/kha
 import { DanhmucmucdouutienComponent } from './danhmuc/danhmucmucdouutien/danhmucmucdouutien.component';
 import { DanhmucnhacungcapComponent } from './danhmuc/danhmucnhacungcap/danhmucnhacungcap.component';
 import { ThongtinthemmoitaisanComponent } from './screen/thongtinthemmoitaisan/thongtinthemmoitaisan.component';
+import { DanhmuccasanxuatComponent } from './danhmuc/dmcasanxuat/dmcasanxuat.component';
+import { ModaldmcasanxuatComponent } from './modal/modaldmcasanxuat/modaldmcasanxuat.component';
 
 import { ModalloaisucoComponent } from './modal/modalloaisuco/modalloaisuco.component';
 import { ModalchontaisanThanhlyCopyComponent } from './modal/modalchontaisan-thanhly-copy/modalchontaisan-thanhly-copy.component';
@@ -319,6 +321,8 @@ import { DanhSachTheoNhomMayComponent } from './screenLichXich/danh-sach-theo-nh
     ModalmucdouutienComponent,
     DanhmucnhacungcapComponent,
     ModaldmnhacungcapComponent,
+    DanhmuccasanxuatComponent,
+    ModaldmcasanxuatComponent,
     ModalthemmoiluachontaisanComponent,
     ThongtinthemmoitaisanComponent,
     ModalluachontaisantheolichxichComponent,
@@ -535,6 +539,7 @@ import { DanhSachTheoNhomMayComponent } from './screenLichXich/danh-sach-theo-nh
     ModaldenghixulisucoComponent,
     ModalmucdouutienComponent,
     ModaldmnhacungcapComponent,
+    ModaldmcasanxuatComponent,
     ModalthemmoiluachontaisanComponent,
     ThongtinthemmoitaisanComponent,
     ModalluachontaisantheolichxichComponent,
@@ -574,6 +579,7 @@ import { DanhSachTheoNhomMayComponent } from './screenLichXich/danh-sach-theo-nh
     ModaldenghixulisucoComponent,
     ModalmucdouutienComponent,
     ModaldmnhacungcapComponent,
+    ModaldmcasanxuatComponent,
     ModalthemmoiluachontaisanComponent,
     ModalluachontaisantheolichxichComponent,
     KhauHaoTaiSanModalComponent,

@@ -45,6 +45,11 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
       this.quyTrinh.NgayBatDau = UnixToDate(this.quyTrinh.NgayBatDauUnix);
       this.quyTrinh.NgayKetThuc = UnixToDate(this.quyTrinh.NgayKetThucUnix);
       this.getTongChiPhiTaiSan();
+      if (this.quyTrinh.listTaiSan) {
+        this.quyTrinh.listTaiSan.forEach((ele: any) => {
+          this.getSanLuongDropdownForAsset(ele);
+        });
+      }
     }
     this.KiemTraButtonModal();
     this.getListTaiSanDangSuDung();
@@ -73,6 +78,14 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
       IdDuAn: this.store.getCurrent(),
       NgayBatDauUnix: DateToUnix(this.quyTrinh.NgayBatDau),
       NgayKetThucUnix: DateToUnix(this.quyTrinh.NgayKetThuc),
+      listTaiSan: this.quyTrinh.listTaiSan.map((ele: any) => {
+        return {
+          ...ele,
+          // Remove client-only dropdown lists to keep data save payload clean
+          listSanLuongDropdown: undefined,
+          rawSanLuongList: undefined,
+        }
+      })
     }
     return data;
   }
@@ -85,6 +98,11 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
             ...res.Data,
             NgayBatDau: UnixToDate(res.Data.NgayBatDauUnix),
             NgayKetThuc: UnixToDate(res.Data.NgayKetThucUnix)
+          }
+          if (this.quyTrinh.listTaiSan) {
+            this.quyTrinh.listTaiSan.forEach((ele: any) => {
+              this.getSanLuongDropdownForAsset(ele);
+            });
           }
           this.getTongChiPhiTaiSan();
           this.KiemTraButtonModal();
@@ -162,14 +180,17 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
       modalRef.componentInstance.listView = this.listTaiSan;
     modalRef.componentInstance.title = 'Danh sách máy/thiết bị';
     modalRef.result.then((res: any) => {
-      const _list = this.quyTrinh.listTaiSan;
+      const _list = this.quyTrinh.listTaiSan || [];
       this.quyTrinh.listTaiSan = res.map((ele: any) => {
-        let _newObj = _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan) ?
-          _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan) : ele;
-        return {
-          ..._newObj,
-          listFileDinhKem: _newObj.listFileDinhKem || []
-        };
+        let _newObj = _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan);
+        if (!_newObj) {
+          _newObj = {
+            ...ele,
+            listFileDinhKem: []
+          };
+          this.getSanLuongDropdownForAsset(_newObj);
+        }
+        return _newObj;
       })
     })
       .catch((er) => {
@@ -214,6 +235,47 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
     }
     let url = `/${file.LinkDocView}`
     window.open(API.imgURL + url);
+  }
+
+  getSanLuongDropdownForAsset(item: any) {
+    if (!item.IdTaiSan) return;
+    this._serviceTaiSan.GetSanLuongMay(item.IdTaiSan).subscribe((res: any) => {
+      const list = res.Data || res || [];
+      item.listSanLuongDropdown = list.map((x: any) => {
+        return {
+          label: (x.Ten || '') + (x.TendmLoaiNhienLieu ? ' ' + x.TendmLoaiNhienLieu : ''),
+          value: x.Id
+        };
+      });
+      item.rawSanLuongList = list;
+      
+      // Look up and restore SanLuong if IdSanLuong is already selected
+      if (item.IdSanLuong) {
+        const selected = list.find((x: any) => x.Id === item.IdSanLuong);
+        if (selected) {
+          item.DinhMuc = selected.SanLuong || 0;
+          item.TieuHaoDinhMuc = selected.SanLuong || 0;
+          item.DonViTinh_NhienLieu = selected.DonViTinh_NhienLieu;
+        }
+      }
+    });
+  }
+
+  onChangeSanLuong(item: any) {
+    if (item.rawSanLuongList && item.IdSanLuong) {
+      const selected = item.rawSanLuongList.find((x: any) => x.Id === item.IdSanLuong);
+      if (selected) {
+        item.DinhMuc = selected.SanLuong || 0;
+        item.TieuHaoDinhMuc = selected.SanLuong || 0;
+        item.DonViTinh_NhienLieu = selected.DonViTinh_NhienLieu;
+        item.TendmLoaiNhienLieu = selected.TendmLoaiNhienLieu;
+      }
+    } else {
+      item.DinhMuc = 0;
+      item.TieuHaoDinhMuc = 0;
+      item.DonViTinh_NhienLieu = '';
+      item.TendmLoaiNhienLieu = '';
+    }
   }
 
 }

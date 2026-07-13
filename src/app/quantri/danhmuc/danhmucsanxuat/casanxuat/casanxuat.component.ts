@@ -4,8 +4,9 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexcel/modalimportexcel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { ModaldanhmucchungComponent } from '../../modal/modaldanhmucchung/modaldanhmucchung.component';
+import { ModalcasanxuatComponent } from './modalcasanxuat/modalcasanxuat.component';
 import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
+import { QuantriComponent } from 'src/app/quantri/quantri.component';
 
 @Component({
   selector: 'app-casanxuat',
@@ -18,34 +19,69 @@ export class CasanxuatComponent implements OnInit {
   ];
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 0 };
   keyWord:any='';
+  get listCongTy(): any[] {
+    return this.quantri.listNhaMay || [];
+  }
+  IdCongTy: any = null;
   cols: any = [
     {
       header: 'Mã',
       field: 'Ma',
-      width: '200px',
-      align:'center'
+      width: '100px',
+      align: 'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '300px',
-      center:'left'
+      width: '150px',
+      align: 'left'
+    },
+    {
+      header: 'Tên công ty',
+      field: 'TenCongTy',
+      width: '150px',
+      align: 'left'
+    },
+    {
+      header: 'Tên nhà máy',
+      field: 'TendmPhanXuong',
+      width: '150px',
+      align: 'left'
+    },
+    {
+      header: 'Số giờ làm việc',
+      field: 'SoGioLamViec',
+      width: '120px',
+      align: 'center'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
-      width: 'unset',
-      center:'center'
+      width: '200px',
+      align: 'left'
+    },
+    {
+      header: 'Hoạt động',
+      field: 'isHoatDong',
+      width: '100px',
+      align: 'center'
     }
   ];
   selectedItems:any=[];
-  constructor(private _modal:NgbModal,private _services:SanXuatService,private _toastr:ToastrService) { }
+  constructor(
+    private _modal: NgbModal,
+    private _services: SanXuatService,
+    private _toastr: ToastrService,
+    public quantri: QuantriComponent
+  ) { }
 
   ngOnInit(): void {
     this.GetListdm();
   }
+
   resetFilter(){
     this.keyWord = '';
+    this.IdCongTy = null;
     this.GetListdm()
   }
   GetListdm(reset?){
@@ -58,7 +94,8 @@ export class CasanxuatComponent implements OnInit {
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.keyWord,  
       Ma:"", 
-      Ten:""
+      Ten:"",
+      IdCongTy: this.IdCongTy
     };
     this._services.GetListdmCaSanXuat(data).subscribe((res:any)=>{
       this.items = res.items;
@@ -66,25 +103,25 @@ export class CasanxuatComponent implements OnInit {
     })
   }
   add(){
-    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
+    let modalRef = this._modal.open(ModalcasanxuatComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
-    modalRef.componentInstance.type = 'casanxuat';
     modalRef.componentInstance.title = 'Thêm mới danh mục ca sản xuất';
+    modalRef.componentInstance.listCongTy = this.listCongTy;
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdm()
     }).catch(er=>console.log(er))
   }
   edit(item){
-    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
+    let modalRef = this._modal.open(ModalcasanxuatComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.title = 'Cập nhật danh mục ca sản xuất';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.type = 'casanxuat';
+    modalRef.componentInstance.listCongTy = this.listCongTy;
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdm()

@@ -1,0 +1,74 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+        {{title}}</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12 col-lg-12">
+        <div class="p-grid">
+
+
+            <!-- Row 1: Mã and Thứ tự -->
+            <div class="p-col-12 p-lg-8 p-p-2 p-d-flex p-flex-row p-ai-center">
+                <label class="p-col-4 p-p-0 my-auto">Mã <span class="text-danger">*</span>:</label>
+                <div class="p-col-8 p-p-0">
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText style="width: 100%" />
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-2 p-d-flex p-flex-row p-ai-center">
+                <label class="p-col-4 p-p-0 my-auto">Thứ tự:</label>
+                <div class="p-col-8 p-p-0">
+                    <input type="number" class="p-inputtext-sm" [(ngModel)]="item.ThuTu" pInputText style="width: 100%" />
+                </div>
+            </div>
+
+            <!-- Row 2: Tên -->
+            <div class="p-col-12 p-p-2 p-d-flex p-flex-row p-ai-center">
+                <label class="p-col-12 p-lg-2.5 p-p-0 my-auto" style="width: 22.2%;">Tên <span class="text-danger">*</span>:</label>
+                <div class="p-col-12 p-lg-9.5 p-p-0" style="width: 77.8%; flex-grow: 1;">
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText style="width: 100%" />
+                </div>
+            </div>
+
+            <!-- Row 3: Tên công ty and Hoạt động -->
+            <div class="p-col-12 p-lg-8 p-p-2 p-d-flex p-flex-row p-ai-center">
+                <label class="p-col-4 p-p-0 my-auto">Tên công ty:</label>
+                <div class="p-col-8 p-p-0">
+                    <p-dropdown [filter]="true" [options]="listCongTy" placeholder="Chọn công ty" [showClear]="true"
+                        styleClass="p-inputtext-sm" [(ngModel)]="item.IdCongTy" (onChange)="onChangeCongTy()" style="width: 100%"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-2 p-d-flex p-flex-row p-ai-center">
+                <p-checkbox [(ngModel)]="item.isHoatDong" binary="true" inputId="binary"></p-checkbox>
+                <label class="p-m-0 p-ml-2" for="binary">Hoạt động</label>
+            </div>
+
+            <!-- Row 4: Tên nhà máy and Số giờ làm việc -->
+            <div class="p-col-12 p-lg-8 p-p-2 p-d-flex p-flex-row p-ai-center">
+                <label class="p-col-4 p-p-0 my-auto">Tên nhà máy:</label>
+                <div class="p-col-8 p-p-0">
+                    <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" [showClear]="true"
+                        styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong" (onChange)="onChangePhanXuong()" style="width: 100%"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-2 p-d-flex p-flex-row p-ai-center">
+                <label class="p-col-6 p-p-0 my-auto">Số giờ làm việc:</label>
+                <div class="p-col-6 p-p-0">
+                    <input type="number" class="p-inputtext-sm" [(ngModel)]="item.SoGioLamViec" pInputText style="width: 100%" />
+                </div>
+            </div>
+
+            <!-- Row 5: Ghi chú -->
+            <div class="p-col-12 p-p-2 p-d-flex p-flex-row">
+                <label class="p-col-12 p-lg-2.5 p-p-0 my-auto" style="width: 22.2%;">Ghi chú:</label>
+                <div class="p-col-12 p-lg-9.5 p-p-0" style="width: 77.8%; flex-grow: 1;">
+                    <textarea class="p-inputtext-sm" pInputTextarea [(ngModel)]="item.GhiChu" rows="3" style="width: 100%"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-end p-mb-3">
+    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2 p-button-secondary"
+        (click)="activeModal.dismiss()"></button>
+    <button pButton pRipple label="Chấp nhận" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
+</div>

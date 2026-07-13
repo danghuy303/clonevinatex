@@ -83,31 +83,34 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width: 50px;">
-                        <col style="width: 130px;">
+                        <col style="width: 100px;">
                         <col>
-                        <col style="width: 180px;">
-                        <col style="width: 110px;">
-                        <col style="width: 80px;">
-                        <col style="width: 110px;">
-                        <col style="width: 120px;">
                         <col style="width: 200px;">
+                        <col style="width: 90px;">
+                        <col style="width: 100px;">
+                        <col style="width: 130px;">
+                        <col style="width: 120px;">
+                        <col style="width: 120px;">
                         <col style="width: 150px;">
                         <col style="width: 50px;">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="text-center"> STT </th>
-                        <th class="text-center">Mã</th>
-                        <th class="text-center">Tên</th>
+                        <th rowspan="2" class="text-center"> STT </th>
+                        <th rowspan="2" class="text-center">Mã</th>
+                        <th rowspan="2" class="text-center">Tên</th>
+                        <th colspan="3" class="text-center">Theo định mức</th>
+                        <th rowspan="2" class="text-center">Tiêu hao thực tế</th>
+                        <th rowspan="2" class="text-center">Đơn giá</th>
+                        <th rowspan="2" class="text-center">Thành tiền</th>
+                        <th rowspan="2" class="text-center">Ghi chú</th>
+                        <th rowspan="2" class="text-center">Thao tác</th>
+                    </tr>
+                    <tr>
                         <th class="text-center">Loại nhiên liệu</th>
-                        <th class="text-center">Hệ số</th>
-                        <th class="text-center">Tiêu thụ</th>
-                        <th class="text-center">Đơn giá</th>
-                        <th class="text-center">Thành tiền</th>
-                        <th class="text-center">File đính kèm</th>
-                        <th class="text-center">Ghi chú</th>
-                        <th class="text-center">Thao tác</th>
+                        <th class="text-center">Đơn vị tính</th>
+                        <th class="text-center">Định mức tiêu hao</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -115,56 +118,38 @@
                         <td class="text-center"> {{i + 1}}</td>
                         <td>{{item.MaTaiSan}}</td>
                         <td>{{item.TenTaiSan}}</td>
-                        <td class="text-center">
-                            <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn"
+                        <td>
+                            <p-dropdown [filter]="true" [options]="item.listSanLuongDropdown" placeholder="Chọn nhiên liệu"
                                 [showClear]="true" styleClass="p-inputtext-sm"
-                                [(ngModel)]="item.IddmLoaiNhienLieu"></p-dropdown>
+                                [(ngModel)]="item.IdSanLuong" (ngModelChange)="onChangeSanLuong(item)"
+                                style="width: 100%"></p-dropdown>
                         </td>
                         <td class="text-center">
-                            <p-dropdown [filter]="true" [options]="listLoaiDinhMucNhienLieu" placeholder="Chọn"
-                                [showClear]="true" styleClass="p-inputtext-sm" [(ngModel)]="item.IddmHeSo"></p-dropdown>
+                            {{item.DonViTinh_NhienLieu}}
+                        </td>
+                        <td class="text-right">
+                            {{item.DinhMuc || item.TieuHaoDinhMuc}}
                         </td>
                         <td class="text-center">
                             <p-inputNumber locale="en-EN" [(ngModel)]="item.TieuThu" [minFractionDigits]="2"
-                                [maxFractionDigits]="2" (onBlur)="handleChiPhiTaiSan(item)" placeholder="">
+                                [maxFractionDigits]="2" (onBlur)="handleChiPhiTaiSan(item)" placeholder=""
+                                styleClass="p-inputtext-sm" style="width: 100%">
                             </p-inputNumber>
                         </td>
                         <td>
                             <p-inputNumber locale="en-EN" [(ngModel)]="item.DonGia" placeholder=""
-                                (onBlur)="handleChiPhiTaiSan(item)">
+                                (onBlur)="handleChiPhiTaiSan(item)" styleClass="p-inputtext-sm" style="width: 100%">
                             </p-inputNumber>
                         </td>
                         <td class="text-right">
                             {{item.ThanhTien | number:'0.0-0' }}
                         </td>
                         <td>
-
-                            <div class="d-flex p-jc-between">
-                                <div style="">
-                                    <div *ngFor="let file of item.listFileDinhKem;let ri = index"
-                                        style="display: flex;align-items: center;">
-                                        <span style="width: 70%;cursor: pointer;" (click)="download(file.Link)">
-                                            {{file.FileName | truncate:11}}
-                                        </span>
-                                        <span style="color:rgb(13, 185, 232);cursor: pointer;"
-                                            (click)="handlePreView(file)" class="p-mx-2" *ngIf="file.LinkDocView"> <i
-                                                class="pi pi-eye" title="Xem trước tài liệu"></i></span>
-                                        <span style="color:red ;cursor: pointer;" (click)="cancelItem(i,ri)">x</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex p-jc-end">
-                                    <app-upload-file [multiple]="true" [label]="''" [showIcon]="true"
-                                        (itemChange)="handleChangeItem($event,i)"></app-upload-file>
-                                </div>
-                            </div>
-
-                        </td>
-                        <td>
-                            <input type="text" [(ngModel)]="item.GhiChu" pInputText />
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText style="width: 100%" />
                         </td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-trash"
-                                class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                                class="p-button-text p-button-sm p-button-secondary" pTooltip="Xóa"
                                 (click)="delete(item)"></button>
                         </td>
                     </tr>

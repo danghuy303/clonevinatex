@@ -8,6 +8,7 @@ import { StoreService } from '../../../../services/store.service';
 import { TaisanService } from '../../../../services/Taisan/taisan.service';
 import { DanhsachtaisanpopupComponent } from '../../kiemdinhtaisan/danhsachtaisanpopup/danhsachtaisanpopup.component';
 import { ConfirmationService } from '../../../../services/confirmation.service';
+import { DanhmuctaisanService } from '../../../../services/Taisan/danhmuctaisan.service';
 
 @Component({
   selector: 'app-theodoihoatmodal',
@@ -25,6 +26,7 @@ export class TheodoihoatmodalComponent implements OnInit {
   title: any = '';
   eAction: string = '';
   listBoPhan: any = [];
+  listCaSanXuat: any[] = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -33,16 +35,25 @@ export class TheodoihoatmodalComponent implements OnInit {
     public store: StoreService,
     public _modal: NgbModal,
     private _confirmService: ConfirmationService,
+    private _danhMucTaiSan: DanhmuctaisanService,
   ) { }
 
   ngOnInit(): void {
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
+      this.quyTrinh.Ngay = new Date();
     } else {
-      this.quyTrinh.listTaiSan.forEach((ele: any) => {
-        ele.NgayBatDau = UnixToDate(ele.NgayBatDauUnix);
-        ele.NgayKetThuc = UnixToDate(ele.NgayKetThucUnix)
-      })
+      if (this.quyTrinh.NgayUnix) {
+        this.quyTrinh.Ngay = UnixToDate(this.quyTrinh.NgayUnix);
+      } else if (this.quyTrinh.Ngay) {
+        this.quyTrinh.Ngay = UnixToDate(this.quyTrinh.Ngay) || new Date(this.quyTrinh.Ngay);
+      }
+      this.getListCaSanXuat();
+      if (this.quyTrinh.listTaiSan) {
+        this.quyTrinh.listTaiSan.forEach((ele: any) => {
+          this.getSanLuongDropdownForAsset(ele);
+        });
+      }
     }
     this.KiemTraButtonModal();
   }
@@ -68,11 +79,15 @@ export class TheodoihoatmodalComponent implements OnInit {
       ...this.quyTrinh,
       eAction: this.eAction,
       IdDuAn: this.store.getCurrent(),
+      NgayUnix: DateToUnix(this.quyTrinh.Ngay),
       listTaiSan: this.quyTrinh.listTaiSan.map((ele: any) => {
         return {
           ...ele,
-          NgayBatDauUnix: DateToUnix(ele.NgayBatDau),
-          NgayKetThucUnix: DateToUnix(ele.NgayKetThuc),
+          NgayBatDauUnix: DateToUnix(this.quyTrinh.Ngay),
+          NgayKetThucUnix: DateToUnix(this.quyTrinh.Ngay),
+          // Remove client-only dropdown lists to keep data save payload clean
+          listSanLuongDropdown: undefined,
+          rawSanLuongList: undefined,
         }
       })
     }
@@ -85,13 +100,13 @@ export class TheodoihoatmodalComponent implements OnInit {
         if (res.StatusCode === 200) {
           this.quyTrinh = {
             ...res.Data,
-            listTaiSan: res.Data.listTaiSan?.map((ele: any) => {
-              return {
-                ...ele,
-                NgayBatDau: UnixToDate(ele.NgayBatDauUnix),
-                NgayKetThuc: UnixToDate(ele.NgayKetThucUnix)
-              }
-            })
+            Ngay: UnixToDate(res.Data.NgayUnix || res.Data.Ngay),
+          }
+          this.getListCaSanXuat();
+          if (this.quyTrinh.listTaiSan) {
+            this.quyTrinh.listTaiSan.forEach((ele: any) => {
+              this.getSanLuongDropdownForAsset(ele);
+            });
           }
           this.KiemTraButtonModal();
           this.toastr.success(res.Message);
@@ -147,7 +162,8 @@ export class TheodoihoatmodalComponent implements OnInit {
   getListTaiSanDangSuDung() {
     this._serviceTaiSan.GetListTaiSanDangSuDung({ CurrentPage: 0, IdBoPhanSuDung: this.quyTrinh.IddmPhanXuong }).subscribe((res: any) => {
       if (res.Data?.length) {
-      } this.listTaiSan = res.Data;
+        this.listTaiSan = res.Data;
+      }
     })
   }
 
@@ -173,10 +189,13 @@ export class TheodoihoatmodalComponent implements OnInit {
       modalRef.componentInstance.listView = this.listTaiSan;
     modalRef.componentInstance.title = 'Danh sách máy/thiết bị';
     modalRef.result.then((res: any) => {
-      const _list = this.quyTrinh.listTaiSan;
+      const _list = this.quyTrinh.listTaiSan || [];
       this.quyTrinh.listTaiSan = res.map((ele: any) => {
-        let _newObj = _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan) ?
-          _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan) : ele;
+        let _newObj = _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan);
+        if (!_newObj) {
+          _newObj = { ...ele };
+          this.getSanLuongDropdownForAsset(_newObj);
+        }
         return _newObj;
       })
     })
@@ -184,43 +203,72 @@ export class TheodoihoatmodalComponent implements OnInit {
       });
   }
 
-  handleAddChild(item: any) {
-    if (!item.listNguoiVanHanh) {
-      item.listNguoiVanHanh = [];
-    }
+  onChangeBoPhan() {
+    this.getListCaSanXuat();
+    this.quyTrinh.IddmCaSanXuat = null;
+  }
 
-    item.listNguoiVanHanh.push({
-      NguoiVanHanh: '',
-      SoCong: 0,
-      GhiChu: ''
+  getListCaSanXuat() {
+    if (!this.quyTrinh.IddmPhanXuong) {
+      this.listCaSanXuat = [];
+      return;
+    }
+    let data = {
+      CurrentPage: 1,
+      PageSize: 1000,
+      IddmPhanXuong: this.quyTrinh.IddmPhanXuong
+    };
+    this._danhMucTaiSan.DanhMucCaSanXuat().GetList(data).subscribe((res: any) => {
+      const items = res.Data?.Items || res.Data || res.items || res || [];
+      this.listCaSanXuat = mapArrayForDropDown(items, 'Ten', 'Id');
     });
   }
 
-  deleteChild(parentItem: any, childIndex: number) {
-    if (parentItem.listNguoiVanHanh && parentItem.listNguoiVanHanh.length > childIndex) {
-      parentItem.listNguoiVanHanh.splice(childIndex, 1);
-    }
-  }
-
-  getTieuHaoTaiSan(_item: any, index: number) {
-    let _payLoad = {
-      ..._item,
-      NgayBatDauUnix: DateToUnix(_item.NgayBatDau),
-      NgayKetThucUnix: DateToUnix(_item.NgayKetThuc),
-      IddmPhanXuong: this.quyTrinh.IddmPhanXuong
-    }
-    this._serviceTaiSan.GetTieuHaoTaiSanForTheoDoiHoatDong(_payLoad).subscribe((res: any) => {
-      if (res?.Data) {
-        this.quyTrinh.listTaiSan = this.quyTrinh.listTaiSan?.map((ele: any, idx: number) => {
-          return idx === index ? {
-            ...res?.Data,
-            NgayBatDau: UnixToDate(res?.Data?.NgayBatDauUnix),
-            NgayKetThuc: UnixToDate(res?.Data?.NgayKetThucUnix)
-          } : ele;
-        })
+  onChangeCaSanXuat() {
+    if (this.listCaSanXuat && this.quyTrinh.IddmCaSanXuat) {
+      const selected = this.listCaSanXuat.find((x: any) => x.value === this.quyTrinh.IddmCaSanXuat);
+      if (selected) {
+        this.quyTrinh.TendmCaSanXuat = selected.label;
       }
-    })
+    } else {
+      this.quyTrinh.TendmCaSanXuat = '';
+    }
   }
 
+  getSanLuongDropdownForAsset(item: any) {
+    if (!item.IdTaiSan) return;
+    this._serviceTaiSan.GetSanLuongMay(item.IdTaiSan).subscribe((res: any) => {
+      const list = res.Data || res || [];
+      item.listSanLuongDropdown = mapArrayForDropDown(list, 'Ten', 'Id');
+      item.rawSanLuongList = list;
 
+      // Look up and restore SanLuong if IdSanLuong is already selected
+      if (item.IdSanLuong) {
+        const selected = list.find((x: any) => x.Id === item.IdSanLuong);
+        if (selected) {
+          item.SanLuong = selected.SanLuong || 0;
+          item.DinhMuc = selected.SanLuong || 0;
+          item.TieuHaoDinhMuc = selected.SanLuong || 0;
+        }
+      }
+    });
+  }
+
+  onChangeSanLuong(item: any) {
+    if (item.rawSanLuongList && item.IdSanLuong) {
+      const selected = item.rawSanLuongList.find((x: any) => x.Id === item.IdSanLuong);
+      if (selected) {
+        item.SanLuong = selected.SanLuong || 0;
+        item.DonViTinh_SanLuong = selected.DonViTinh_SanLuong;
+        item.DinhMuc = selected.SanLuong || 0;
+        item.TieuHaoDinhMuc = selected.SanLuong || 0;
+        item.DonViTinh_NhienLieu = selected.DonViTinh_NhienLieu;
+        item.TendmLoaiNhienLieu = selected.TendmLoaiNhienLieu;
+      }
+    } else {
+      item.SanLuong = 0;
+      item.DinhMuc = 0;
+      item.TieuHaoDinhMuc = 0;
+    }
+  }
 }

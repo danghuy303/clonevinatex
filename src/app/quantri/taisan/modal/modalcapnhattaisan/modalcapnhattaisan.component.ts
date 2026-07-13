@@ -213,14 +213,28 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
 
   setData() {
-    this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.TaiSan.NgayNhap);
+    this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
     this.item.TaiSan.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.TaiSan.ThoiGianDuaVaoSuDung);
-    this.item.TaiSan.listSanLuong = this.item.TaiSan.listSanLuong?.map((ele: any) => {
-      return {
-        ...ele,
-        NgayApDungUnix: DateToUnix(ele.NgayApDung)
-      }
-    })
+    
+    // Clean up listSanLuong and its nested listItem from empty placeholders
+    if (this.item.TaiSan.listSanLuong) {
+      this.item.TaiSan.listSanLuong = this.item.TaiSan.listSanLuong.map((ele: any) => {
+        const cleanedChildren = ele.listItem
+          ? ele.listItem.filter((dm: any) => dm.IddmLoaiNhienLieu)
+          : [];
+        return {
+          ...ele,
+          NgayApDungUnix: DateToUnix(ele.NgayApDung),
+          listItem: cleanedChildren
+        };
+      });
+    }
+
+    // Clean up flat listDinhMucNhienLieu list from empty placeholders
+    if (this.item.TaiSan.listDinhMucNhienLieu) {
+      this.item.TaiSan.listDinhMucNhienLieu = this.item.TaiSan.listDinhMucNhienLieu.filter((dm: any) => dm.IddmLoaiNhienLieu);
+    }
+
     return this.item;
   }
   GhiLai() {

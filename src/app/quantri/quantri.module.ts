@@ -69,6 +69,7 @@ import { SanluongchitietComponent } from './quanlykhosanxuat/baocao/sanluongchit
 import { LoaibongComponent } from './danhmuc/danhmucsanxuat/loaibong/loaibong.component';
 import { CapbongComponent } from './danhmuc/danhmucsanxuat/capbong/capbong.component';
 import { CasanxuatComponent } from './danhmuc/danhmucsanxuat/casanxuat/casanxuat.component';
+import { ModalcasanxuatComponent } from './danhmuc/danhmucsanxuat/casanxuat/modalcasanxuat/modalcasanxuat.component';
 import { DanhsachmayComponent } from './danhmuc/danhmucsanxuat/danhsachmay/danhsachmay.component';
 import { DanhsachmaymodalComponent } from './danhmuc/danhmucsanxuat/modals/danhsachmaymodal/danhsachmaymodal.component';
 import { PhabongmodalComponent } from './quanlykhosanxuat/phuongan/phabongmodal/phabongmodal.component';
@@ -399,6 +400,7 @@ import { DanhsachluachonkienComponent } from './quanlykhosanxuat/quytrinh/dieuch
     LoaibongComponent,
     CapbongComponent,
     CasanxuatComponent,
+    ModalcasanxuatComponent,
     DanhsachmayComponent,
     DanhsachmaymodalComponent,
     PhabongmodalComponent,

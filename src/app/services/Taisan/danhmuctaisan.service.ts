@@ -256,6 +256,40 @@ export class DanhmuctaisanService {
     }
   }
 
+  DanhMucCaSanXuat() {
+    let url = API.TaiSan
+    return {
+      GetList: (data) => {
+        return this.http.post(`${url}DanhMuc/GetListdmCaSanXuat`, data, httpOptions)
+      },
+      GetListdmCaSanXuatForDanhMuc: (data) => {
+        return this.http.post(`${url}DanhMuc/GetListdmCaSanXuatForDanhMuc`, data, httpOptions)
+      },
+      Set: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/SetdmCaSanXuat`, data, httpOptions)
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}DanhMuc/DeletedmCaSanXuat?Id=${Id}`, httpOptions)
+      },
+      DeleteList: (data) => {
+        return this.http.post(`${url}DanhMuc/DeleteListdmCaSanXuat`, data, httpOptions)
+      },
+      Importdm: (FileName) => {
+        return this.http.get(`${url}DanhMuc/ImportdmCaSanXuat?FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data) => {
+        return this.http.post(`${url}DanhMuc/ExportdmCaSanXuat`, data, httpOptions)
+      },
+      GetListdmPhanXuong: () => {
+        return this.http.get(`${url}DanhMuc/GetListdmPhanXuongForIdDuAn?IdDuAn=${this.store.getCurrent()}`, httpOptions)
+      },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
+    }
+  }
+
   DanhMucDonViNangSuat() {
     let url = API.TaiSan
     return {

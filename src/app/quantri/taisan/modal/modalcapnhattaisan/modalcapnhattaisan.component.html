@@ -141,17 +141,13 @@
                 </p-tabPanel>
                 <p-tabPanel header="Định mức nhiên liệu">
                     <ng-template pTemplate="content">
-                        <app-dinh-muc-nguyen-lieu [Items]="item.TaiSan.listDinhMucNhienLieu"></app-dinh-muc-nguyen-lieu>
+                        <app-dinh-muc-nguyen-lieu [Items]="item.TaiSan.listDinhMucNhienLieu"
+                            [listSanLuong]="item.TaiSan.listSanLuong" [isXoa]="checkbutton.Ghi"></app-dinh-muc-nguyen-lieu>
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel header="Định mức điện">
                     <ng-template pTemplate="content">
                         <app-dinhmucdien [Items]="item.TaiSan.listDinhMucDien"></app-dinhmucdien>
-                    </ng-template>
-                </p-tabPanel>
-                <p-tabPanel header="Sản lượng">
-                    <ng-template pTemplate="content">
-                        <app-sanluong [(Items)]="item.TaiSan.listSanLuong"></app-sanluong>
                     </ng-template>
                 </p-tabPanel>
                 <!-- <p-tabPanel header="Bảo hành">
