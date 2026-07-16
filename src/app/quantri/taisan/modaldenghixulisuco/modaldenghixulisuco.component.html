@@ -31,14 +31,6 @@
 
     <div class="p-grid">
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Chọn máy <span class="required">(*)</span>:</label>
-            <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listMay" placeholder="Chọn" (onChange)="ChonMay($event.value)"
-                    styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdTaiSan">
-                </p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"
@@ -47,6 +39,15 @@
                 </p-dropdown>
             </div>
         </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Chọn máy <span class="required">(*)</span>:</label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listMay" placeholder="Chọn" (onChange)="ChonMay($event.value)"
+                    styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdTaiSan">
+                </p-dropdown>
+            </div>
+        </div>
+
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mức độ ưu tiên <span class="required">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
@@ -258,7 +259,8 @@
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+                                (click)="delete(i,'listTaiSan')" pTooltip="Xóa" showDelay="1000"
+                                tooltipPosition="bottom"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -276,7 +278,7 @@
                         <colgroup>
                             <col style="width: 50px;">
                             <col>
-                            <col style="width: 100px;">
+                            <!-- <col style="width: 100px;"> -->
                             <col style="width: 100px;">
                             <col style="width: 100px;">
                             <col style="width: 150px;">
@@ -289,7 +291,7 @@
                                 STT
                             </th>
                             <th class="text-center">Nội dung</th>
-                            <th class="text-center">ĐVT</th>
+                            <!-- <th class="text-center">ĐVT</th> -->
                             <th class="text-center">Số lượng</th>
                             <th class="text-center">Đơn giá</th>
                             <th class="text-center">VAT</th>
@@ -306,7 +308,7 @@
                                 </p-dropdown> -->
                                 {{baoduong.TenTaiSan}}
                             </td>
-                            <td class="text-center">Cái</td>
+                            <!-- <td class="text-center">Cái</td> -->
                             <td>
                                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="baoduong.SoLuong">
                                 </p-inputNumber>
@@ -339,7 +341,7 @@
                         <colgroup>
                             <col style="width: 50px;">
                             <col>
-                            <col style="width: 100px;">
+                            <!-- <col style="width: 100px;"> -->
                             <col style="width: 100px;">
                             <col style="width: 100px;">
                             <col style="width: 150px;">
@@ -353,7 +355,7 @@
                                 STT
                             </th>
                             <th class="text-center">Loại nhiên liệu</th>
-                            <th class="text-center">ĐVT</th>
+                            <!-- <th class="text-center">ĐVT</th> -->
                             <th class="text-center">Số lượng</th>
                             <th class="text-center">Đơn giá</th>
                             <th class="text-center">VAT</th>
@@ -372,7 +374,7 @@
                                     [(ngModel)]="baoduong.IddmNhienLieu" styleClass="p-inputtext-sm" showClear="true">
                                 </p-dropdown>
                             </td>
-                            <td class="text-center">Cái</td>
+                            <!-- <td class="text-center">Cái</td> -->
                             <td>
                                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="baoduong.SoLuong">
                                 </p-inputNumber>
@@ -392,7 +394,7 @@
                             <td>
                                 <button pButton pRipple icon="pi pi-trash"
                                     class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                    (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
+                                    (click)="delete(i, 'listNhienLieu')" pTooltip="Xóa" showDelay="1000"
                                     tooltipPosition="bottom"></button>
                             </td>
                         </tr>
@@ -408,7 +410,7 @@
                         <colgroup>
                             <col style="width: 50px;">
                             <col>
-                            <col style="width: 100px;">
+                            <!-- <col style="width: 100px;"> -->
                             <col style="width: 100px;">
                             <col style="width: 100px;">
                             <col style="width: 150px;">
@@ -422,7 +424,7 @@
                                 STT
                             </th>
                             <th class="text-center">Nhân công</th>
-                            <th class="text-center">ĐVT</th>
+                            <!-- <th class="text-center">ĐVT</th> -->
                             <th class="text-center">Số lượng</th>
                             <th class="text-center">Đơn giá</th>
                             <th class="text-center">VAT</th>
@@ -441,7 +443,7 @@
                                     [(ngModel)]="baoduong.IddmNhanCong" styleClass="p-inputtext-sm" showClear="true">
                                 </p-dropdown>
                             </td>
-                            <td class="text-center">Cái</td>
+                            <!-- <td class="text-center">Cái</td> -->
                             <td>
                                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="baoduong.SoLuong">
                                 </p-inputNumber>
@@ -461,7 +463,7 @@
                             <td>
                                 <button pButton pRipple icon="pi pi-trash"
                                     class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                    (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
+                                    (click)="delete(i, 'listNhanCong')" pTooltip="Xóa" showDelay="1000"
                                     tooltipPosition="bottom"></button>
                             </td>
                         </tr>
@@ -511,7 +513,8 @@
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+                                (click)="delete(i, 'listChiPhiKhac')" pTooltip="Xóa" showDelay="1000"
+                                tooltipPosition="bottom"></button>
                         </td>
                     </tr>
                 </ng-template>

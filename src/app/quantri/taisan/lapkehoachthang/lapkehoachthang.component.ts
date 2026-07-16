@@ -162,14 +162,24 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   checkLoaiBaoDuong() {
-    let loaiBaoDuongisNull;
-    this.item.listTaiSan.forEach(taisan => {
-      taisan.listBaoDuongThang.forEach(baoduong => {
-        baoduong.hasNullLoaiBD = baoduong.listThoiGian.some(ele => ele.isChon);
-      })
-      taisan.hasNullLoaiBD = taisan.listBaoDuongThang.some(ele => !ele.hasNullLoaiBD);
-    })
-    loaiBaoDuongisNull = this.item.listTaiSan.some(taisan => taisan.hasNullLoaiBD);
+    console.log("this.item.listTaiSan", this.item.listTaiSan);
+
+    let loaiBaoDuongisNull = false;
+    if (this.item.listTaiSan && this.item.listTaiSan.length > 0) {
+      this.item.listTaiSan.forEach(taisan => {
+        if (taisan.listBaoDuongThang && taisan.listBaoDuongThang.length > 0) {
+          taisan.listBaoDuongThang.forEach(baoduong => {
+            baoduong.hasNullLoaiBD = baoduong.listThoiGian && baoduong.listThoiGian.some(ele => ele.isChon);
+          });
+          taisan.hasNullLoaiBD = taisan.listBaoDuongThang.some(ele => !ele.hasNullLoaiBD);
+        } else {
+          taisan.hasNullLoaiBD = false;
+        }
+      });
+      loaiBaoDuongisNull = this.item.listTaiSan.some(taisan => taisan.hasNullLoaiBD);
+    }
+    console.log("loaiBaoDuongisNull", loaiBaoDuongisNull);
+
     return loaiBaoDuongisNull;
   }
 

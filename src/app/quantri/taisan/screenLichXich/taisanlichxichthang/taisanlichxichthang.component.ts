@@ -45,10 +45,10 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
   }
 
   check(e, index, list) {
-    // list.forEach(ele => {
-    //   ele.isChon = false;
-    // })
-    // list[index].isChon = e.checked;
+    list.forEach(ele => {
+      ele.isChon = false;
+    })
+    list[index].isChon = e.checked;
   }
 
   resetFilter() {
@@ -56,11 +56,18 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
   }
 
   handlDel() {
-    this.listTaiSan = this.listTaiSan.map(ele => {
-      return {
-        ...ele,
-        listBaoDuongThang: ele.listBaoDuongThang.filter(obj => !obj.checked) 
-      };
+    this.listTaiSan.forEach(ele => {
+      if (ele.listBaoDuongThang) {
+        ele.listBaoDuongThang = ele.listBaoDuongThang.filter(obj => !obj.checked);
+      }
     });
+
+    let i = this.listTaiSan.length;
+    while (i--) {
+      if (!this.listTaiSan[i].listBaoDuongThang || this.listTaiSan[i].listBaoDuongThang.length === 0) {
+        this.listTaiSan.splice(i, 1);
+      }
+    }
+    console.log("this.listTaiSan", this.listTaiSan);
   }
 }

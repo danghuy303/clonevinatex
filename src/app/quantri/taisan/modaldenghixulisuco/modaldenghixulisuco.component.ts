@@ -61,6 +61,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.item.listTaiSan = this.item.listTaiSan ? this.item.listTaiSan : [];
     this.item.listChiPhiKhac = this.item.listChiPhiKhac ? this.item.listChiPhiKhac : [];
     this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
@@ -344,6 +345,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
 
   chonBoPhanSD(e) {
     this.item.listTaiSan = [];
+    this.listMay = mapArrayForDropDown(this.listMayDeep.filter(ele => ele.IdBoPhanSuDung === e.value), 'Ten', 'Id');
   }
 
   // new 
@@ -360,7 +362,8 @@ export class ModaldenghixulisucoComponent implements OnInit {
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, IdDuAn: 0 };
     this._serviceTaiSan.GetListTaiSanDangSuDung(data).subscribe((res: any) => {
       this.listMayDeep = res.Data;
-      this.listMay = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+      this.listMay = mapArrayForDropDown(res.Data.filter(ele => ele.IdBoPhanSuDung === this.item.IdBoPhanSuDung), 'Ten', 'Id');
+
     });
   }
 
@@ -375,13 +378,13 @@ export class ModaldenghixulisucoComponent implements OnInit {
     })
   }
 
-  delete(index: any) {
+  delete(index: any, prop: any) {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa?';
     modalRef.result.then(res => {
-      this.item.listTaiSan.splice(index, 1)
+      this.item[prop].splice(index, 1)
     })
   }
 

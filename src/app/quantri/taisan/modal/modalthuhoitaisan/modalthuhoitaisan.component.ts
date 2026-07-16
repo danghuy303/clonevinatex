@@ -146,6 +146,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
       this._serviceTaiSan.PhieuThuHoiTaiSan().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 500 || !res.StatusCode) {
           this.toastr.error(res.Message);
+          return;
         }
         else if (res.StatusCode === 201) {
           this.item = res.Data;
@@ -175,6 +176,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
               })
             })
             .catch((er) => console.log(er));
+          return;
         }
         else {
           this.item = res.Data;

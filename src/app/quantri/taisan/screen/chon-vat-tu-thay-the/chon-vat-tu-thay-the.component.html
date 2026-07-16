@@ -14,7 +14,7 @@
                 <colgroup>
                     <col style="width: 50px;">
                     <col>
-                    <col style="width: 100px;">
+                    <!-- <col style="width: 100px;"> -->
                     <col style="width: 150px;">
                     <col style="width: 50px;">
                 </colgroup>
@@ -25,7 +25,7 @@
                         STT
                     </th>
                     <th class="text-center">Nội dung</th>
-                    <th class="text-center">ĐVT</th>
+                    <!-- <th class="text-center">ĐVT</th> -->
                     <th class="text-center">Số lượng</th>
                     <th class="text-center">
                         <p-button icon="pi pi-plus" pTooltip="Thêm" tooltipPosition="top" (click)="add()"></p-button>
@@ -38,10 +38,10 @@
                     <td>
                         <p-dropdown [filter]="true" [options]="listNoiDungVatTu" placeholder="Chọn"
                             (onChange)="ChonVatTu($event.value,i)" [(ngModel)]="baoduong.IdVatTuCanThayThe"
-                            styleClass="p-inputtext-sm" >
+                            styleClass="p-inputtext-sm">
                         </p-dropdown>
                     </td>
-                    <td class="text-center">Cái</td>
+                    <!-- <td class="text-center">Cái</td> -->
                     <td>
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="baoduong.SoLuong">
                         </p-inputNumber>
