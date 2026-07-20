@@ -61,3 +61,34 @@
 .p-p-3 {
   padding: 1rem !important;
 }
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+:host ::ng-deep .p-datatable table {
+  width: 1540px !important;
+  min-width: 1540px !important;
+  table-layout: fixed !important;
+}
+
+:host ::ng-deep .p-datatable th {
+  vertical-align: middle !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  padding: 8px 4px !important;
+}
+
+:host ::ng-deep .p-datatable td {
+  vertical-align: middle !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  padding: 6px 4px !important;
+}

@@ -1,31 +1,31 @@
 <div class="content bg-white p-p-3">
   <!-- Header & Filters container -->
   <div class="p-d-flex p-ai-center p-jc-between p-mb-3 flex-column flex-md-row">
-    <div>
+    <div class="mb-2 mb-md-0">
       <h4 style="color:#1f2779" class="m-0 font-weight-bold">Hiệu quả xe máy</h4>
     </div>
 
     <div class="p-d-flex flex-column flex-lg-row p-pl-0 align-items-md-center">
       <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
-        <div class="p-mr-2">
+        <div class="p-mr-2 mb-2 mb-md-0">
           <p-dropdown [filter]="true" placeholder="Chọn bộ phận sử dụng" [options]="PhanXuong"
             styleClass="p-inputtext-sm" [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()"
             [showClear]="true"></p-dropdown>
         </div>
 
-        <div class="p-mr-2">
+        <div class="p-mr-2 mb-2 mb-md-0">
           <p-dropdown [filter]="true" placeholder="Chọn loại thời gian" [options]="LoaiThoiGian"
             styleClass="p-inputtext-sm" [(ngModel)]="filter.LoaiThoiGian" (onChange)="getDataBaoCao()"></p-dropdown>
         </div>
 
-        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 0">
+        <div class="p-mr-2 mb-2 mb-md-0" *ngIf="filter.LoaiThoiGian === 0">
           <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
             [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.TuNgay" [locale]="lang"
             (onSelect)="getDataBaoCao()" inputId="icon" placeholder="Từ ngày">
           </p-calendar>
         </div>
 
-        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 0">
+        <div class="p-mr-2 mb-2 mb-md-0" *ngIf="filter.LoaiThoiGian === 0">
           <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
             [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.DenNgay"
             [minDate]="filter.TuNgay" [locale]="lang" (onSelect)="getDataBaoCao()" inputId="icon"
@@ -33,7 +33,7 @@
           </p-calendar>
         </div>
 
-        <div class="p-mr-2" *ngIf="filter.LoaiThoiGian === 3">
+        <div class="p-mr-2 mb-2 mb-md-0" *ngIf="filter.LoaiThoiGian === 3">
           <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="filter.nam" placeholder="Chọn năm"
             styleClass="p-inputtext-sm" (onChange)="getDataBaoCao()"></p-dropdown>
         </div>
@@ -42,26 +42,44 @@
   </div>
 
   <!-- Table Container -->
-  <div class="p-mt-3">
-    <p-table [value]="filteredItems" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+  <div class="p-mt-3 table-responsive">
+    <p-table [value]="filteredItems" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+      <ng-template pTemplate="colgroup">
+        <colgroup>
+          <col style="width: 50px;">
+          <col style="width: 220px;">
+          <col style="width: 140px;">
+          <col style="width: 110px;">
+          <col style="width: 120px;">
+          <col style="width: 120px;">
+          <col style="width: 140px;">
+          <col style="width: 110px;">
+          <col style="width: 110px;">
+          <col style="width: 110px;">
+          <col style="width: 70px;">
+          <col style="width: 100px;">
+          <col style="width: 140px;">
+        </colgroup>
+      </ng-template>
+
       <ng-template pTemplate="header">
         <tr>
-          <th class="text-center" rowspan="2" style="width: 60px;">TT</th>
+          <th class="text-center" rowspan="2">TT</th>
           <th class="text-center" rowspan="2">Nhãn hiệu, biển số, đăng ký xe máy</th>
-          <th class="text-center" rowspan="2" style="width: 140px;">Người sử dụng</th>
-          <th class="text-center" rowspan="2" style="width: 110px;">Khấu hao cơ bản</th>
-          <th class="text-center" rowspan="2" style="width: 110px;">Tổng chi phí sửa chữa</th>
-          <th class="text-center" rowspan="2" style="width: 110px;">Chi phí nhiên liệu sản xuất</th>
-          <th class="text-center" rowspan="2" style="width: 120px;">Lương lái xe máy (chính + phụ)</th>
-          <th class="text-center" rowspan="2" style="width: 110px;">Cộng chi phí</th>
-          <th class="text-center" rowspan="2" style="width: 110px;">Doanh thu</th>
-          <th class="text-center" rowspan="2" style="width: 110px;">Hiệu quả</th>
+          <th class="text-center" rowspan="2">Người sử dụng</th>
+          <th class="text-center" rowspan="2">Khấu hao cơ bản</th>
+          <th class="text-center" rowspan="2">Tổng chi phí sửa chữa</th>
+          <th class="text-center" rowspan="2">Chi phí nhiên liệu sản xuất</th>
+          <th class="text-center" rowspan="2">Lương lái xe máy (chính + phụ)</th>
+          <th class="text-center" rowspan="2">Cộng chi phí</th>
+          <th class="text-center" rowspan="2">Doanh thu</th>
+          <th class="text-center" rowspan="2">Hiệu quả</th>
           <th class="text-center" colspan="2">Khối lượng hoạt động</th>
-          <th class="text-center" rowspan="2" style="width: 150px;">Ghi chú</th>
+          <th class="text-center" rowspan="2">Ghi chú</th>
         </tr>
         <tr>
-          <th class="text-center" style="width: 80px;">ĐVT</th>
-          <th class="text-center" style="width: 100px;">Khối lượng</th>
+          <th class="text-center">ĐVT</th>
+          <th class="text-center">Khối lượng</th>
         </tr>
       </ng-template>
 
@@ -110,14 +128,13 @@
           <td>{{ item.GhiChu }}</td>
         </tr>
       </ng-template>
-
-      <ng-template pTemplate="summary">
-        <div class="p-d-flex p-ai-center p-jc-between">
-          Tổng số bản ghi {{paging.TotalCount}}.
-          <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
-            (onPageChange)="changePage($event)"></p-paginator>
-        </div>
-      </ng-template>
     </p-table>
+  </div>
+
+  <!-- Table Footer / Summary & Pagination Bar (Stays fixed to visible viewport width) -->
+  <div class="p-d-flex p-ai-center p-jc-between p-mt-2 flex-column flex-sm-row border-top pt-2">
+    <span class="mb-2 mb-sm-0">Tổng số bản ghi {{paging.TotalCount}}.</span>
+    <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
+      (onPageChange)="changePage($event)"></p-paginator>
   </div>
 </div>
