@@ -44,42 +44,24 @@
   <!-- Table Container -->
   <div class="p-mt-3 table-responsive">
     <p-table [value]="filteredItems" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
-      <ng-template pTemplate="colgroup">
-        <colgroup>
-          <col style="width: 50px;">
-          <col style="width: 220px;">
-          <col style="width: 140px;">
-          <col style="width: 110px;">
-          <col style="width: 120px;">
-          <col style="width: 120px;">
-          <col style="width: 140px;">
-          <col style="width: 110px;">
-          <col style="width: 110px;">
-          <col style="width: 110px;">
-          <col style="width: 70px;">
-          <col style="width: 100px;">
-          <col style="width: 140px;">
-        </colgroup>
-      </ng-template>
-
       <ng-template pTemplate="header">
         <tr>
-          <th class="text-center" rowspan="2">TT</th>
-          <th class="text-center" rowspan="2">Nhãn hiệu, biển số, đăng ký xe máy</th>
-          <th class="text-center" rowspan="2">Người sử dụng</th>
-          <th class="text-center" rowspan="2">Khấu hao cơ bản</th>
-          <th class="text-center" rowspan="2">Tổng chi phí sửa chữa</th>
-          <th class="text-center" rowspan="2">Chi phí nhiên liệu sản xuất</th>
-          <th class="text-center" rowspan="2">Lương lái xe máy (chính + phụ)</th>
-          <th class="text-center" rowspan="2">Cộng chi phí</th>
-          <th class="text-center" rowspan="2">Doanh thu</th>
-          <th class="text-center" rowspan="2">Hiệu quả</th>
+          <th class="text-center" rowspan="2" style="width: 50px; min-width: 50px;">TT</th>
+          <th class="text-center" rowspan="2" style="min-width: 220px;">Nhãn hiệu, biển số, đăng ký xe máy</th>
+          <th class="text-center" rowspan="2" style="width: 140px; min-width: 120px;">Người sử dụng</th>
+          <th class="text-center" rowspan="2" style="width: 110px; min-width: 100px;">Khấu hao cơ bản</th>
+          <th class="text-center" rowspan="2" style="width: 120px; min-width: 100px;">Tổng chi phí sửa chữa</th>
+          <th class="text-center" rowspan="2" style="width: 120px; min-width: 100px;">Chi phí nhiên liệu sản xuất</th>
+          <th class="text-center" rowspan="2" style="width: 130px; min-width: 110px;">Lương lái xe máy (chính + phụ)</th>
+          <th class="text-center" rowspan="2" style="width: 110px; min-width: 100px;">Cộng chi phí</th>
+          <th class="text-center" rowspan="2" style="width: 110px; min-width: 100px;">Doanh thu</th>
+          <th class="text-center" rowspan="2" style="width: 110px; min-width: 100px;">Hiệu quả</th>
           <th class="text-center" colspan="2">Khối lượng hoạt động</th>
-          <th class="text-center" rowspan="2">Ghi chú</th>
+          <th class="text-center" rowspan="2" style="width: 140px; min-width: 100px;">Ghi chú</th>
         </tr>
         <tr>
-          <th class="text-center">ĐVT</th>
-          <th class="text-center">Khối lượng</th>
+          <th class="text-center" style="width: 70px; min-width: 60px;">ĐVT</th>
+          <th class="text-center" style="width: 100px; min-width: 90px;">Khối lượng</th>
         </tr>
       </ng-template>
 
@@ -131,7 +113,7 @@
     </p-table>
   </div>
 
-  <!-- Table Footer / Summary & Pagination Bar (Stays fixed to visible viewport width) -->
+  <!-- Table Footer / Summary & Pagination Bar -->
   <div class="p-d-flex p-ai-center p-jc-between p-mt-2 flex-column flex-sm-row border-top pt-2">
     <span class="mb-2 mb-sm-0">Tổng số bản ghi {{paging.TotalCount}}.</span>
     <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"

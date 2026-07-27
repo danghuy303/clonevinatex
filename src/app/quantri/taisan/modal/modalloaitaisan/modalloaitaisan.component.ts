@@ -23,7 +23,7 @@ export class ModalloaitaisanComponent implements OnInit {
     public toastr: ToastrService) { this.item.isHoatDong = true }
 
   ngOnInit(): void {
-    // this.getListCongDoan();
+    this.getListCongDoan();
   }
 
   ValidateData() {
@@ -43,8 +43,8 @@ export class ModalloaitaisanComponent implements OnInit {
   }
 
   getListCongDoan() {
-    this._danhMucTaiSan.GetlistCongDoan().GetList().subscribe((res: any) => {
-      this.listCongDoan = mapArrayForDropDown(res.Data, "Ten", "Ma");
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetListLoaiTaiSan({ CurrentPage: 0 }).subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res.Data?.Items || res.Data || [], "Ten", "Ma");
     })
   }
   GhiLai() {

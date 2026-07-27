@@ -54,11 +54,11 @@ export class DanhmucloaitaisanComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetList();
-    // // this.getListCongDoan();
+    this.getListCongDoan();
   }
   getListCongDoan() {
-    this._danhMucTaiSan.GetlistCongDoan().GetList().subscribe((res: any) => {
-      this.listCongDoan = mapArrayForDropDown(res.Data, "Ten", "Ma");
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetListLoaiTaiSan({ CurrentPage: 0 }).subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res.Data?.Items || res.Data || [], "Ten", "Ma");
     })
   }
   resetFilter() {
