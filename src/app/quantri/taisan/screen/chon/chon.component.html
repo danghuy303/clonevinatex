@@ -40,7 +40,7 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="item.checked" binary="true" [disabled]="item.disabled" inputId="binary"
+                    <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary"
                         (onChange)="checked(item)"></p-checkbox>
                 </td>
                 <td>{{item.Ma}} </td>

@@ -170,7 +170,7 @@ export class DanhmuctaisanService {
       GetList: (data) => {
         return this.http.post(`${url}DanhMuc/GetListdmLoaiTaiSan`, data, httpOptions)
       },
-      GetListLoaiTaiSan: () => {
+      GetListLoaiTaiSan: (data?: any) => {
         return this.http.get(`${url}DanhMuc/GetListLoaiTaiSan`, httpOptions)
       },
       Set: (data) => {

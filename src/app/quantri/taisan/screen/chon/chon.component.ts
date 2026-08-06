@@ -49,9 +49,6 @@ export class ChonComponent implements OnInit {
       this.items = res.Data.Items;
       this.items.forEach(ele => {
         ele.checked = this.ItemDaChon === ele.Id;
-        if (this.ItemDaChon) {
-          ele.disabled = this.ItemDaChon === ele.Id ? false : true;
-        }
       })
     })
   }
@@ -60,11 +57,18 @@ export class ChonComponent implements OnInit {
   }
 
   checked(e) {
-    this.items.forEach(ele => {
-      if (ele.Id !== e.Id) {
-        ele.disabled = e.checked;
+    if (e.checked) {
+      this.items.forEach(ele => {
+        if (ele.Id !== e.Id) {
+          ele.checked = false;
+        }
+      });
+      this.ItemDaChon = e.Id;
+    } else {
+      if (this.ItemDaChon === e.Id) {
+        this.ItemDaChon = '';
       }
-    })
+    }
   }
 
   timCheck() {

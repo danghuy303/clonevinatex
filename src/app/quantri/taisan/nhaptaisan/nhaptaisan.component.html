@@ -5,8 +5,8 @@
     <div class="p-d-flex">
         <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
             *ngIf="checkQuyen.ThemMoi"></button>
-        <button pButton label="Danh sách máy" icon="pi pi-plus" class="p-button-sm p-mr-2"
-            (click)="ChonDanhSachMay()"></button>
+        <!-- <button pButton label="Danh sách máy" icon="pi pi-plus" class="p-button-sm p-mr-2"
+            (click)="ChonDanhSachMay()"></button> -->
         <button pButton label="Xuất excel" class="p-button-sm p-mr-2" (click)="handlExcel()"></button>
         <app-upload-file [multiple]="false" label="Nhập excel" (itemChange)="handleUpload($event)"></app-upload-file>
     </div>
