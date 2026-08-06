@@ -44,7 +44,7 @@ export class BaoDuongPopupComponent implements OnInit {
     this._danhMucTaiSan.LoaiThucHienBaoDuong().GetList(data).subscribe((res: any) => {
       this.listCVBaoDuong = res.Data;
     });
-    this.GetDanhSachCongViecByIddmLoaiBaoDuong(this.item.IddmLoaiBaoDuong,this.item.IdTaiSan);
+    this.GetDanhSachCongViecByIddmLoaiBaoDuong(this.item.IddmLoaiBaoDuong, this.item.IdTaiSan);
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res1: any) => {
       this.listLoaiTaiSanDeep = res1.Data;
       this.listLoaiTaiSan = mapArrayForDropDown(res1.Data, "Ten", "Id");
@@ -56,8 +56,8 @@ export class BaoDuongPopupComponent implements OnInit {
     this.GetDoiThiCong(value);
   }
 
-  GetDanhSachCongViecByIddmLoaiBaoDuong(IddmLoaiBaoDuong,IdTaiSan) {
-    this._serviceTaiSan.GetDanhSachCongViecByIddmLoaiBaoDuong(IddmLoaiBaoDuong,IdTaiSan).subscribe((baoduong: any) => {
+  GetDanhSachCongViecByIddmLoaiBaoDuong(IddmLoaiBaoDuong, IdTaiSan) {
+    this._serviceTaiSan.GetDanhSachCongViecByIddmLoaiBaoDuong(IddmLoaiBaoDuong, IdTaiSan).subscribe((baoduong: any) => {
       this.item.listCongViec = baoduong.Data;
     })
   }
@@ -65,7 +65,7 @@ export class BaoDuongPopupComponent implements OnInit {
   GetDoiThiCong(value: any) {
     let data = {
       CurrentPage: 0,
-      MaCongDoan: this.listLoaiTaiSanDeep.find(obj => obj.Id === value)?.MaCongDoan
+      // MaCongDoan: this.listLoaiTaiSanDeep.find(obj => obj.Id === value)?.MaCongDoan
     }
     this._danhMucTaiSan.GetListdmCongDoan_DoiBaoDuong(data).subscribe((res: any) => {
       this.listDoiBaoDuong = mapArrayForDropDown(res.Data, "NoiDung", "Id");
