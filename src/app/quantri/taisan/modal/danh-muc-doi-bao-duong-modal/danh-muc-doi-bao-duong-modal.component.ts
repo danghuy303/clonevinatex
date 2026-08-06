@@ -33,10 +33,10 @@ export class DanhMucDoiBaoDuongModalComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item.IdCongDoan)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ công đoạn!");
-      return false;
-    }
+    // if (!validVariable(this.item.IdCongDoan)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ công đoạn!");
+    //   return false;
+    // }
     if (!validVariable(this.item.NoiDung)) {
       this.toastr.error("Yêu cầu nhập đầy đủ nội dung !");
       return false;

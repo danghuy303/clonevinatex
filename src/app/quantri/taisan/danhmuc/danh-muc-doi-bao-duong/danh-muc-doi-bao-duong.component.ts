@@ -25,15 +25,15 @@ export class DanhMucDoiBaoDuongComponent implements OnInit {
     {
       header: 'Nội dung',
       field: 'NoiDung',
-      width: '200px',
+      width: '',
       align: 'center'
     },
-    {
-      header: 'Công đoạn',
-      field: 'ThoiGianVaSoNguoiThucTe',
-      width: '200px',
-      align: 'center'
-    }
+    // {
+    //   header: 'Công đoạn',
+    //   field: 'ThoiGianVaSoNguoiThucTe',
+    //   width: '200px',
+    //   align: 'center'
+    // }
   ];
   selectedItems: any = [];
   listCongDoan: any = [];
