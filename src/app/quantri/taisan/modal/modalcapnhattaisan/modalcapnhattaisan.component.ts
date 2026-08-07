@@ -215,7 +215,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   setData() {
     this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
     this.item.TaiSan.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.TaiSan.ThoiGianDuaVaoSuDung);
-    
+
     // Clean up listSanLuong and its nested listItem from empty placeholders
     if (this.item.TaiSan.listSanLuong) {
       this.item.TaiSan.listSanLuong = this.item.TaiSan.listSanLuong.map((ele: any) => {

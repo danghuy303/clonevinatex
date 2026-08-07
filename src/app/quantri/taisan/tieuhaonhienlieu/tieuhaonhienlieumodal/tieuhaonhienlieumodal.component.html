@@ -83,7 +83,7 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width: 50px;">
-                        <col style="width: 100px;">
+                        <col style="width: 150px;">
                         <col>
                         <col style="width: 200px;">
                         <col style="width: 90px;">
@@ -119,8 +119,8 @@
                         <td>{{item.MaTaiSan}}</td>
                         <td>{{item.TenTaiSan}}</td>
                         <td>
-                            <p-dropdown [filter]="true" [options]="item.listSanLuongDropdown" placeholder="Chọn nhiên liệu"
-                                [showClear]="true" styleClass="p-inputtext-sm"
+                            <p-dropdown [filter]="true" [options]="item.listSanLuongDropdown"
+                                placeholder="Chọn nhiên liệu" [showClear]="true" styleClass="p-inputtext-sm"
                                 [(ngModel)]="item.IdSanLuong" (ngModelChange)="onChangeSanLuong(item)"
                                 style="width: 100%"></p-dropdown>
                         </td>
@@ -145,7 +145,8 @@
                             {{item.ThanhTien | number:'0.0-0' }}
                         </td>
                         <td>
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText style="width: 100%" />
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText
+                                style="width: 100%" />
                         </td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-trash"

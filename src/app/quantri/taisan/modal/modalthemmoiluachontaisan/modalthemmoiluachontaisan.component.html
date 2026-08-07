@@ -143,7 +143,43 @@
                 <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
-        <div class="p-mb-3">
+        <div class="p-col-12 p-p-3">
+            <label class="font-weight-bold">Định mức tiêu hao</label>
+            <p-table [value]="[item.DinhMucTieuHao]"
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="text-center">Đơn vị tính</th>
+                        <th class="text-center">Định mức</th>
+                        <th class="text-center">Khối lượng</th>
+                        <th class="text-center">Tỉ lệ</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-dinhMuc>
+                    <tr>
+                        <td>
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="dinhMuc.DonViTinh" pInputText />
+                        </td>
+                        <td>
+                            <input type="text" class="p-inputtext-sm text-right" pInputText
+                                [(ngModel)]="dinhMuc.DinhMuc"
+                                (blur)="onNumberBlur(dinhMuc, 'DinhMuc')" placeholder="" />
+                        </td>
+                        <td>
+                            <input type="text" class="p-inputtext-sm text-right" pInputText
+                                [(ngModel)]="dinhMuc.KhoiLuong"
+                                (blur)="onNumberBlur(dinhMuc, 'KhoiLuong')" placeholder="" />
+                        </td>
+                        <td>
+                            <input type="text" class="p-inputtext-sm text-right" pInputText
+                                [(ngModel)]="dinhMuc.TyLe"
+                                (blur)="onNumberBlur(dinhMuc, 'TyLe')" placeholder="" />
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="p-col-12 p-p-3">
             <app-tai-lieu-danh-sach [item]="item"></app-tai-lieu-danh-sach>
         </div>
     </div>

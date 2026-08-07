@@ -56,7 +56,26 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
     // if (this.item.ThoiGianDuaVaoSuDungUnix !== 0 || this.item.ThoiGianDuaVaoSuDungUnix === 0) {
     this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
-    // }
+    if (!validVariable(this.item.DinhMucTieuHao)) {
+      this.item.DinhMucTieuHao = {
+        Id: '',
+        Created: new Date().toISOString(),
+        CreatedBy: '',
+        CreatedByName: '',
+        Modified: new Date().toISOString(),
+        ModifiedBy: '',
+        ModifiedByName: '',
+        IdTaiSan: '',
+        DonViTinh: '',
+        DinhMuc: null,
+        KhoiLuong: null,
+        TyLe: null
+      };
+    } else {
+      this.item.DinhMucTieuHao.DinhMuc = this.formatNumberString(this.item.DinhMucTieuHao.DinhMuc);
+      this.item.DinhMucTieuHao.KhoiLuong = this.formatNumberString(this.item.DinhMucTieuHao.KhoiLuong);
+      this.item.DinhMucTieuHao.TyLe = this.formatNumberString(this.item.DinhMucTieuHao.TyLe);
+    }
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0 };
     // let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
@@ -145,6 +164,11 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     //   return
     // }
     if (this.ValidateData()) {
+      if (this.item.DinhMucTieuHao) {
+        this.item.DinhMucTieuHao.DinhMuc = this.parseNumber(this.item.DinhMucTieuHao.DinhMuc);
+        this.item.DinhMucTieuHao.KhoiLuong = this.parseNumber(this.item.DinhMucTieuHao.KhoiLuong);
+        this.item.DinhMucTieuHao.TyLe = this.parseNumber(this.item.DinhMucTieuHao.TyLe);
+      }
       this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
       this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
       this.activeModal.close(this.item);
@@ -200,6 +224,42 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
       })
       .catch((er) => {
       });
+  }
+
+  onNumberBlur(obj: any, field: string) {
+    if (!obj) return;
+    let val = obj[field];
+    if (val !== null && val !== undefined && val !== '') {
+      let strVal = val.toString().trim();
+      strVal = strVal.replace(/,/g, '.');
+      const parts = strVal.split('.');
+      if (parts.length > 2) {
+        strVal = parts.slice(0, -1).join('') + '.' + parts[parts.length - 1];
+      }
+      const num = parseFloat(strVal);
+      if (!isNaN(num)) {
+        obj[field] = this.formatNumberString(strVal);
+      } else {
+        obj[field] = null;
+      }
+    } else {
+      obj[field] = null;
+    }
+  }
+
+  parseNumber(val: any): number {
+    if (val === null || val === undefined || val === '') return null;
+    const strVal = val.toString().replace(/,/g, '');
+    const num = parseFloat(strVal);
+    return isNaN(num) ? null : num;
+  }
+
+  formatNumberString(val: any): string {
+    if (val === null || val === undefined || val === '') return '';
+    const str = val.toString().replace(/,/g, '');
+    const parts = str.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
   }
 
 }

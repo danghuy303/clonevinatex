@@ -29,15 +29,16 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyTaiSan/GetNextQuyTrinhNhapTaiSan`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyTaiSan/GetListQuyTrinhNhapTaiSan`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}QuanLyTaiSan/GetQuyTrinhNhapTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyTaiSan/SetQuyTrinhNhapTaiSan`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -78,15 +79,16 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyKho/GetNextSoQuyTrinhXuatKho`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyKho/GetListQuyTrinhXuatKho`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}QuanLyKho/GetQuyTrinhXuatKho?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyKho/SetQuyTrinhXuatKho`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -108,15 +110,16 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyKho/GetNextSoQuyTrinhPhieuXuatKho`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyKho/GetListPhieuXuatKho`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}QuanLyKho/GetPhieuXuatKho?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyKho/SetPhieuXuatKho`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -138,15 +141,16 @@ export class TaisanService {
         return this.http.get(`${url}BaoDuongTaiSan/GetNextLapKeHoachLichXichNam`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetListLapKeHoachLichXichNam`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}BaoDuongTaiSan/GetLapKeHoachLichXichById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/SetLapKeHoachLichXichNam`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -183,14 +187,16 @@ export class TaisanService {
         return this.http.get(`${url}BaoDuongTaiSan/GetNextLapKeHoachLichXichThang`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetListLapKeHoachLichXichThang`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}BaoDuongTaiSan/GetLapKeHoachLichXichById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/SetLapKeHoachLichXichThang`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -209,11 +215,13 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       GetListBaoDuong: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetLichXichNamLoaiBaoDuong`, data, httpOptions);
       },
       GetListMay: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetLichXichNamLoaiTaiSan`, data, httpOptions);
       },
       Get: (Id) => {
@@ -225,11 +233,13 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetLichXichThangLoaiBaoDuong`, data, httpOptions);
       },
       GetLichXichThangLoaiTaiSan: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetLichXichThangLoaiTaiSan`, data, httpOptions);
       },
     };
@@ -259,14 +269,16 @@ export class TaisanService {
         return this.http.get(`${url}BaoDuongTaiSan/GetNextQuyTrinhBaoDuong`, httpOptions);
       },
       GetList: (data) => {
-        // data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetListQuyTrinhBaoDuong`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}BaoDuongTaiSan/GetQuyTrinhBaoDuongById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/SetQuyTrinhBaoDuong`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -279,7 +291,8 @@ export class TaisanService {
         return this.http.get(`${url}BaoDuongTaiSan/DeleteQuyTrinhBaoDuongById?Id=${Id}`, httpOptions);
       },
       GetListTaiSanBaoDuong: (data) => {
-        // data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanBaoDuong`, data, httpOptions);
       },
       GetListVatTuByIdTaiSanForXuLySuCo: (data) => {
@@ -304,7 +317,8 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyVatTuDuTru/GetQuyTrinhThoiHanCungCapById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyVatTuDuTru/SetQuyTrinhThoiHanCungCap`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -339,14 +353,16 @@ export class TaisanService {
         return this.http.get(`${url}BaoDuongTaiSan/GetNextQuyTrinhXuLySuCo`, httpOptions);
       },
       GetList: (data) => {
-        // data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetListQuyTrinhXulySuCo`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}BaoDuongTaiSan/GetQuyTrinhXuLySuCoById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/SetQuyTrinhXuLySuCo`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -376,7 +392,8 @@ export class TaisanService {
         return this.http.get(`${url}NhatKySuDung/GetNextQuyTrinhBanGiaoTaiSan`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         // return this.http.post(`${url}BanGiaoTaiSan/GetAllBanGiaoTaiSan`, data, httpOptions);
         return this.http.post(`${url}NhatKySuDung/GetListQuyTrinhBanGiaoTaiSan`, data, httpOptions);
       },
@@ -385,7 +402,8 @@ export class TaisanService {
         return this.http.get(`${url}NhatKySuDung/GetQuyTrinhBanGiaoTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/SetQuyTrinhBanGiaoTaiSan`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -407,7 +425,8 @@ export class TaisanService {
         return this.http.get(`${url}NhatKySuDung/GetNextQuyTrinhKhauHaoTaiSan`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/GetListQuyTrinhKhauHaoTaiSan`, data, httpOptions);
       },
       Get: (Id) => {
@@ -417,7 +436,8 @@ export class TaisanService {
         return this.http.get(`${url}NhatKySuDung/GetListKhauHaoByIdTaiSan?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/SetQuyTrinhKhauHaoTaiSan`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -442,14 +462,16 @@ export class TaisanService {
         return this.http.get(`${url}NhatKySuDung/GetNextQuyTrinhDieuChuyenTaiSan`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/GetListQuyTrinhDieuChuyenTaiSan`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}NhatKySuDung/GetQuyTrinhDieuChuyenTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/SetQuyTrinhDieuChuyenTaiSan`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -474,14 +496,16 @@ export class TaisanService {
         return this.http.get(`${url}NhatKySuDung/GetNextQuyTrinhThuHoiTaiSan`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/GetListQuyTrinhThuHoiTaiSan`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}NhatKySuDung/GetQuyTrinhThuHoiTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/SetQuyTrinhThuHoiTaiSan`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -503,14 +527,16 @@ export class TaisanService {
         return this.http.get(`${url}NhatKySuDung/GetNextQuyTrinhThanhLyTaiSan`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/GetListQuyTrinhThanhLyTaiSan`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}NhatKySuDung/GetQuyTrinhThanhLyTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/SetQuyTrinhThanhLyTaiSan`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -532,14 +558,16 @@ export class TaisanService {
         return this.http.get(`${url}BaoDuongTaiSan/GetNextQuyTrinhKiemDinh`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetListQuyTrinhKiemDinh`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}BaoDuongTaiSan/GetQuyTrinhKiemDinhById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/SetQuyTrinhKiemDinh`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -552,7 +580,8 @@ export class TaisanService {
         return this.http.get(`${url}BaoDuongTaiSan/DeleteQuyTrinhKiemDinhById?Id=${Id}`, httpOptions);
       },
       GetListTaiSanQuyTrinhKiemDinh: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanQuyTrinhKiemDinh`, data, httpOptions);
       }
     };
@@ -565,14 +594,16 @@ export class TaisanService {
         return this.http.get(`${url}BaoDuongTaiSan/GetNextQuyTrinhBaoHiem`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetListQuyTrinhBaoHiem`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}BaoDuongTaiSan/GetQuyTrinhBaoHiemById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/SetQuyTrinhBaoHiem`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -585,7 +616,8 @@ export class TaisanService {
         return this.http.get(`${url}BaoDuongTaiSan/DeleteQuyTrinhBaoHiemById?Id=${Id}`, httpOptions);
       },
       GetListTaiSanQuyTrinhBaoHiem: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanQuyTrinhBaoHiem`, data, httpOptions);
       }
     };
@@ -595,11 +627,13 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       GetList: (data) => {
-        // data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/GetListBienDong`, data, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/SetBienDongTaiSan`, data, httpOptions);
       },
     };
@@ -618,7 +652,8 @@ export class TaisanService {
         return this.http.get(`${url}TaiSan/GetListHieuSuatTaiSanTheoThoiGianById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}TaiSan/SetHieuSuatTaiSan`, data, httpOptions);
       },
       Delete: (Id) => {
@@ -634,14 +669,16 @@ export class TaisanService {
         return this.http.get(`${url}GetNextQuyTrinhSuCoSuaChuaTaiSan`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}GetAllSuCoSuaChua`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}GetSuCoSuaChuaTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}SetQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -714,7 +751,8 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyTaiSan/GetListTaiSan`, data, httpOptions);
       },
 
@@ -734,15 +772,18 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyTaiSan/GetListThuVienTaiSan`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}QuanLyTaiSan/GetThuVienTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyTaiSan/UpdateThuVienTaiSan`, data, httpOptions);
       },
       Delete: (Id) => {
@@ -800,14 +841,16 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyKho/GetNextSoQuyTrinhPhieuNhapKho `, httpOptions);
       },
       GetList: (data) => {
-        // data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyKho/GetListPhieuNhapKho`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}QuanLyKho/GetPhieuNhapKho?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyKho/SetPhieuNhapKho `, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -828,14 +871,16 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyVatTuDuTru/GetNextNhapVatTuDuTru`, httpOptions);
       },
       GetList: (data) => {
-        // data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyVatTuDuTru/GetListNhapVatTuDuTru`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}QuanLyVatTuDuTru/GetNhapVatTuDuTruById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyVatTuDuTru/SetNhapVatTuDuTru`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -860,14 +905,16 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyVatTuDuTru/GetNextDeNghiThayDoiVatTu`, httpOptions);
       },
       GetList: (data) => {
-        // data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyVatTuDuTru/GetListDeNghiThayDoiVatTu`, data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(`${url}QuanLyVatTuDuTru/GetDeNghiThayDoiVatTuById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyVatTuDuTru/SetDeNghiThayDoiVatTu`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -888,7 +935,8 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanThanhLy`, data, httpOptions);
       },
     };
@@ -898,7 +946,8 @@ export class TaisanService {
     let url = API.CungUng;
     return {
       GetListdmNhomNhaCungung: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/GetlistdmNhomNhaCungung`, data, httpOptions);
       },
       SetdmNhomNhaCungUng: (data) => {
@@ -911,7 +960,8 @@ export class TaisanService {
         return this.http.post(`${url}DanhMuc/DeleteListdmNhomNhaCungUng`, data, httpOptions)
       },
       ExportNhomNhaCungUng: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/ExportdmNhomNhaCungUng`, data, httpOptions)
       },
       ImportFile: (data) => {
@@ -924,11 +974,13 @@ export class TaisanService {
     let url = API.CungUng;
     return {
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/GetlistdmNhaCungUng`, data, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmNhaCungUng`, data, httpOptions);
       },
       Get: (Id) => {
@@ -938,14 +990,16 @@ export class TaisanService {
         return this.http.post(`${url}DanhMuc/DeleteListdmNhaCungUng`, data, httpOptions)
       },
       Export: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/ExportdmNhaCungUng`, data, httpOptions)
       },
       Import: (data) => {
         return this.http.get(`${url}DanhMuc/ImportdmNhaCungUng?FileName=${data.Name}`, httpOptions)
       },
       GetListItem: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/GetlistdmItem`, data, httpOptions);
       },
       SetItem: (data) => {
@@ -958,7 +1012,8 @@ export class TaisanService {
         return this.http.post(`${url}DanhMuc/DeleteListdmItem`, data, httpOptions)
       },
       ExportItem: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.get(`${url}DanhMuc/ExportdmNhaCungUng_Item?Id=${data.IdNhaCungUng}`, httpOptions)
       },
       ImportItem: (data) => {
@@ -980,7 +1035,8 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyNhaCungUng/GetNextSoQuyTrinhDanhGia`, httpOptions);
       },
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyNhaCungUng/GetListQuyTrinhDanhGia`, data, httpOptions);
       },
       Get: (Id) => {
@@ -988,7 +1044,8 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyNhaCungUng/GetQuyTrinhDanhGia?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyNhaCungUng/SetQuyTrinhDanhGia`, data, httpOptions);
       },
       KhongDuyet: (data) => {
@@ -1007,15 +1064,18 @@ export class TaisanService {
     let url = API.CungUng;
     return {
       GetList: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/GetlistdmTieuChiDanhGia`, data, httpOptions);
       },
       GetlistdmTieuChiDanhGiaDangHoatDong: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/GetlistdmTieuChiDanhGiaDangHoatDong`, data, httpOptions);
       },
       Set: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/SetdmTieuChiDanhGia`, data, httpOptions);
       },
       Get: (Id) => {
@@ -1025,7 +1085,8 @@ export class TaisanService {
         return this.http.post(`${url}DanhMuc/DeleteListdmTieuChiDanhGia`, data, httpOptions)
       },
       Export: (data) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/ExportdmTieuChiDanhGia`, data, httpOptions)
       },
       Import: (data) => {
@@ -1052,7 +1113,8 @@ export class TaisanService {
   //       return this.http.get(`${url}SuCoSuaChua/GetSuCoSuaChuaTaiSanById?Id=${Id}`, httpOptions);
   //     },
   //     Set: (data) => {
-  // data.IdDuAn = this.store.getCurrent();
+  //if (!data.IdDuAn)
+  //        data.IdDuAn = this.store.getCurrent();
   //       return this.http.post(`${url}SuCoSuaChua/SetQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
   //     },
   //     KhongDuyet: (data) => {
@@ -1437,7 +1499,8 @@ export class TaisanService {
         return this.http.get(`${url}GetNext${endpoint}`, httpOptions);
       },
       GetList: (data: any) => {
-        data.IdDuAn = this.store.getCurrent();
+        if (!data.IdDuAn)
+          data.IdDuAn = this.store.getCurrent();
         return this.http
           .post(`${url}GetList${endpoint}`, data, httpOptions);
       },

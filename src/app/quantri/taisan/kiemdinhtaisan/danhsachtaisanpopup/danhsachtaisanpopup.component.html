@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="p-mt-3">
-        <p-table #tb [value]="listView" [globalFilterFields]="['Ma','Ten']"
+        <p-table #tb [value]="listView" [globalFilterFields]="['Ma','Ten']" [paginator]="true" [rows]="20"
             styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
             <ng-template pTemplate="colgroup">
                 <colgroup>
@@ -51,6 +51,9 @@
                     <td class="">{{item.MaTaiSan || item.Ma}} </td>
                     <td class="">{{item.TenTaiSan || item.Ten}} </td>
                 </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorleft">
+                Tổng số bản ghi {{listView?.length}}.
             </ng-template>
         </p-table>
     </div>
