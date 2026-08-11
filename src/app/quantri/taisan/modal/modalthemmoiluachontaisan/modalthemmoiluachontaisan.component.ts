@@ -69,7 +69,8 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
         DonViTinh: '',
         DinhMuc: null,
         KhoiLuong: null,
-        TyLe: null
+        TyLe: null,
+        isChia: false
       };
     } else {
       this.item.DinhMucTieuHao.DinhMuc = this.formatNumberString(this.item.DinhMucTieuHao.DinhMuc);

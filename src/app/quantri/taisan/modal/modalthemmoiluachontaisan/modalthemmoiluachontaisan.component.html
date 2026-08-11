@@ -153,6 +153,7 @@
                         <th class="text-center">Định mức</th>
                         <th class="text-center">Khối lượng</th>
                         <th class="text-center">Tỉ lệ</th>
+                        <th class="text-center">Chia</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-dinhMuc>
@@ -174,6 +175,9 @@
                             <input type="text" class="p-inputtext-sm text-right" pInputText
                                 [(ngModel)]="dinhMuc.TyLe"
                                 (blur)="onNumberBlur(dinhMuc, 'TyLe')" placeholder="" />
+                        </td>
+                        <td class="text-center">
+                            <p-checkbox binary="true" [(ngModel)]="dinhMuc.isChia"></p-checkbox>
                         </td>
                     </tr>
                 </ng-template>
