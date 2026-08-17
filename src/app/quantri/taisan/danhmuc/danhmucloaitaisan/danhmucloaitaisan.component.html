@@ -5,7 +5,7 @@
     <div class="p-d-flex p-flex-row">
         <button pButton pRipple label="Thêm mới " icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
         <button pButton pRipple label="Xóa" class="p-button-sm p-mr-2" (click)="deleteAll()"></button>
-        <button pButton pRipple label="Nhập excel" class="p-button-sm p-mr-2" (click)="importExcel()"></button>
+        <app-upload-file [multiple]="false" label="Nhập excel" class="p-mr-2" (itemChange)="importExcel($event)"></app-upload-file>
         <button pButton pRipple label="Xuất excel" class="p-button-sm p-mr-2" (click)="exportExcel()"></button>
         <!-- <button pButton pRipple label="Xóa tất cả" *ngIf="selectedItems.length!==0" class="p-button-sm p-mr-2"
             (click)="deleteAll()"></button> -->

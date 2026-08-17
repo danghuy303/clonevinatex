@@ -210,16 +210,10 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
   }
 
   handleChangeItem(data: any, index: any) {
-    console.log("data", { data, index });
-    console.log(" this.quyTrinh.listTaiSan", this.quyTrinh.listTaiSan);
-
     this.quyTrinh.listTaiSan[index].listFileDinhKem.push({
       FileName: data.NameLocal,
       FileNameGUI: data.Name
     })
-
-    console.log(" this.quyTrinh.listTaiSan", this.quyTrinh.listTaiSan);
-
   }
   cancelItem(i: any, index: any) {
     this.quyTrinh.listTaiSan[i].listFileDinhKem.splice(index, 1)
@@ -244,37 +238,44 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
       item.listSanLuongDropdown = list.map((x: any) => {
         return {
           label: (x.Ten || '') + (x.TendmLoaiNhienLieu ? ' ' + x.TendmLoaiNhienLieu : ''),
-          value: x.Id
+          value: x.IddmLoaiNhienLieu,
         };
       });
       item.rawSanLuongList = list;
-      
-      // Look up and restore SanLuong if IdSanLuong is already selected
-      if (item.IdSanLuong) {
-        const selected = list.find((x: any) => x.Id === item.IdSanLuong);
+
+      // Look up and restore SanLuong if IdSanLuong or IddmLoaiNhienLieu is already selected
+      const targetId = item.IdSanLuong || item.IddmLoaiNhienLieu;
+      if (targetId) {
+        const selected = list.find((x: any) => x.IddmLoaiNhienLieu === targetId || x.Id === targetId);
         if (selected) {
           item.DinhMuc = selected.SanLuong || 0;
           item.TieuHaoDinhMuc = selected.SanLuong || 0;
           item.DonViTinh_NhienLieu = selected.DonViTinh_NhienLieu;
+          item.TendmLoaiNhienLieu = selected.TendmLoaiNhienLieu;
+          item.IddmLoaiNhienLieu = selected.IddmLoaiNhienLieu;
+          item.IdSanLuong = selected.IddmLoaiNhienLieu;
         }
       }
     });
   }
 
   onChangeSanLuong(item: any) {
-    if (item.rawSanLuongList && item.IdSanLuong) {
-      const selected = item.rawSanLuongList.find((x: any) => x.Id === item.IdSanLuong);
+    const val = item.IdSanLuong || item.IddmLoaiNhienLieu;
+    if (item.rawSanLuongList && val) {
+      const selected = item.rawSanLuongList.find((x: any) => x.IddmLoaiNhienLieu === val);
       if (selected) {
         item.DinhMuc = selected.SanLuong || 0;
         item.TieuHaoDinhMuc = selected.SanLuong || 0;
         item.DonViTinh_NhienLieu = selected.DonViTinh_NhienLieu;
         item.TendmLoaiNhienLieu = selected.TendmLoaiNhienLieu;
+        item.IddmLoaiNhienLieu = selected.IddmLoaiNhienLieu;
       }
     } else {
       item.DinhMuc = 0;
       item.TieuHaoDinhMuc = 0;
       item.DonViTinh_NhienLieu = '';
       item.TendmLoaiNhienLieu = '';
+      item.IddmLoaiNhienLieu = '';
     }
   }
 

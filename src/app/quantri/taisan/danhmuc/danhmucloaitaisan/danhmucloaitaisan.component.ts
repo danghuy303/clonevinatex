@@ -148,30 +148,20 @@ export class DanhmucloaitaisanComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  importExcel() {
-    let modalRef = this._modal.open(UploadmodalComponent, {
-      size: 'md',
-      backdrop: 'static',
-    })
-    modalRef.componentInstance.type = "excel";
-    modalRef.componentInstance.single = true;
-    modalRef.componentInstance.onlyExcel = true;
-    modalRef.result
-      .then((res: any) => {
-        console.log(res);
-        this.fileUpload = res;
-        this._danhMucTaiSan.DanhMucLoaiTaiSan().Importdm(this.fileUpload[0].Name).subscribe((res: any) => {
+  importExcel(event: any) {
+    if (event) {
+      let fileName = event?.Name || event?.[0]?.Name || event?.[0]?.[0]?.Name;
+      if (fileName) {
+        this._danhMucTaiSan.DanhMucLoaiTaiSan().Importdm(fileName).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
             this.resetFilter();
           } else {
             this._toastr.error(res.Message);
           }
-        })
-      })
-      .catch(er => { })
-      .finally(() => {
-      })
+        });
+      }
+    }
   }
   exportExcel() {
     let data = {
