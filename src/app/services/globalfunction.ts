@@ -161,6 +161,98 @@ export function mapArrayForDropDown(array: Array<any>, labelProp: string, valueP
         }
     })
 }
+
+export function mapTreeForDropDown(
+    array: Array<any>,
+    labelProp: string = 'Ten',
+    valueProp: string = 'Id',
+    idProp: string = 'Id',
+    parentProp: string = 'IdParent'
+): Array<any> {
+    if (!array || !array.length) return [];
+
+    const allIds = new Set<string>();
+    array.forEach(item => {
+        if (item && item[idProp]) allIds.add(item[idProp]);
+    });
+
+    const childrenMap = new Map<string | null, Array<any>>();
+    array.forEach(item => {
+        if (!item) return;
+        let parentId = item[parentProp];
+        if (!parentId || !allIds.has(parentId)) {
+            parentId = null;
+        }
+        if (!childrenMap.has(parentId)) {
+            childrenMap.set(parentId, []);
+        }
+        childrenMap.get(parentId)!.push(item);
+    });
+
+    const result: Array<any> = [];
+
+    function traverse(parentId: string | null, level: number) {
+        const children = childrenMap.get(parentId);
+        if (!children) return;
+
+        children.forEach(child => {
+            const hasChildren = !!(childrenMap.get(child[idProp])?.length);
+            result.push({
+                label: child[labelProp] || '',
+                value: child[valueProp],
+                level: level,
+                isParent: hasChildren,
+                ten: child[labelProp] || '',
+                data: child
+            });
+            traverse(child[idProp], level + 1);
+        });
+    }
+
+    traverse(null, 0);
+    return result;
+}
+
+export function mapTreeNodes(
+    array: Array<any>,
+    labelProp: string = 'Ten',
+    valueProp: string = 'Id',
+    idProp: string = 'Id',
+    parentProp: string = 'IdParent'
+): Array<any> {
+    if (!array || !array.length) return [];
+
+    const allIds = new Set<string>();
+    array.forEach(item => {
+        if (item && item[idProp]) allIds.add(item[idProp]);
+    });
+
+    const nodeMap = new Map<string, any>();
+    const roots: Array<any> = [];
+
+    array.forEach(item => {
+        if (!item) return;
+        nodeMap.set(item[idProp], {
+            label: item[labelProp],
+            data: item,
+            expanded: true,
+            children: []
+        });
+    });
+
+    array.forEach(item => {
+        if (!item) return;
+        const node = nodeMap.get(item[idProp]);
+        let parentId = item[parentProp];
+        if (parentId && allIds.has(parentId) && nodeMap.has(parentId)) {
+            nodeMap.get(parentId).children.push(node);
+        } else {
+            roots.push(node);
+        }
+    });
+
+    return roots;
+}
 export function merge(newArr: Array<any>, existingArr: Array<any>, diffProp: string): Array<any> {
     let removeIndex = [];
     newArr.forEach((newEle) => {

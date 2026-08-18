@@ -4,7 +4,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
-import { DateToUnix, mapArrayForDropDown, UnixToDate, } from "src/app/services/globalfunction";
+import { DateToUnix, mapArrayForDropDown, mapTreeForDropDown, UnixToDate, } from "src/app/services/globalfunction";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
@@ -93,15 +93,14 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
   }
   GetListdmPhanXuong() {
     this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
+      let treeMapped = mapTreeForDropDown(res, 'Ten', 'Id');
       let nhaMay = [
         {
-          Id: 'Chưa có bộ phận sử dụng',
-          Ten: 'Chưa có bộ phận sử dụng'
+          label: 'Chưa có bộ phận sử dụng',
+          value: 'Chưa có bộ phận sử dụng'
         }
-      ]
-      let luaChonNhaMay = [...res, ...nhaMay]
-      // this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.listPhanXuong = mapArrayForDropDown(luaChonNhaMay, 'Ten', 'Id');
+      ];
+      this.listPhanXuong = [...treeMapped, ...nhaMay];
     })
   }
   changeTab(e) {

@@ -75,7 +75,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   }
 
   getListdmPhanXuong() {
-    this._servicesSanXuat.GetListdmPhanXuongOpt().subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmPhanXuong({}, false).subscribe((res: any) => {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

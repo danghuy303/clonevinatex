@@ -6,7 +6,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown, validVariable, DateToUnix, UnixToDate, } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, mapTreeForDropDown, validVariable, DateToUnix, UnixToDate, } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { LuachontaisannhaptaisanComponent } from '../luachontaisannhaptaisan/luachontaisannhaptaisan.component';
@@ -140,7 +140,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   GetListdmPhanXuong() {
     this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listPhanXuong = mapTreeForDropDown(res, 'Ten', 'Id');
     })
   }
 
@@ -159,13 +159,17 @@ export class ModalcapnhattaisanComponent implements OnInit {
   GetIem() {
     this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
       this.item = res.Data;
-      this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
-      this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
-      this.itemDonVi = this.listDonVi_copy.find(obj => obj.Id === this.item.TaiSan.IddmDonViTinh);
-      if (this.item.TaiSan.listTaiSan.length > 0) {
+      if (this.item.TaiSan) {
+        this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
+        this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix || this.item.TaiSan.NgaySanXuatUnix);
+        this.item.TaiSan.NgaySanXuat = UnixToDate(this.item.TaiSan.NgaySanXuatUnix || this.item.TaiSan.NgayNhapUnix);
+      }
+      this.itemDonVi = this.listDonVi_copy.find(obj => obj.Id === this.item.TaiSan?.IddmDonViTinh);
+      if (this.item.TaiSan?.listTaiSan?.length > 0) {
         this.item.TaiSan.listTaiSan.forEach(element => {
           element.ThoiGianDuaVaoSuDung = UnixToDate(element.ThoiGianDuaVaoSuDungUnix);
-          element.NgayNhap = UnixToDate(element.NgayNhapUnix);
+          element.NgayNhap = UnixToDate(element.NgayNhapUnix || element.NgaySanXuatUnix);
+          element.NgaySanXuat = UnixToDate(element.NgaySanXuatUnix || element.NgayNhapUnix);
           if (validVariable(this.item.IddmDonViTinh)) {
             element.TenDonViTinh = this.listDonVi_copy.find(obj => obj.Id === element.IddmDonViTinh).Ten;
           }
@@ -179,14 +183,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập mã và tên");
       return false;
     }
-    // if (!validVariable(this.item?.TaiSan?.MaQR)) {
-    //   this.toastr.error("Yêu cầu chọn mã QR máy/thiết bị");
-    //   return false;
-    // }
-    // if (!validVariable(this.item?.TaiSan?.TendmTaiSan)) {
-    //   this.toastr.error("Yêu cầu chọn nhóm máy/thiết bị");
-    //   return false;
-    // }
     if (!validVariable(this.item?.TaiSan?.SoNamKhauHao) || !validVariable(this.item?.TaiSan?.IddmLoaiTaiSan) || !validVariable(this.item?.TaiSan?.TenVietTat)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
       return false;
@@ -213,26 +209,55 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
 
   setData() {
-    this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
-    this.item.TaiSan.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.TaiSan.ThoiGianDuaVaoSuDung);
-
-    // Clean up listSanLuong and its nested listItem from empty placeholders
-    if (this.item.TaiSan.listSanLuong) {
-      this.item.TaiSan.listSanLuong = this.item.TaiSan.listSanLuong.map((ele: any) => {
-        const cleanedChildren = ele.listItem
-          ? ele.listItem.filter((dm: any) => dm.IddmLoaiNhienLieu)
-          : [];
-        return {
-          ...ele,
-          NgayApDungUnix: DateToUnix(ele.NgayApDung),
-          listItem: cleanedChildren
-        };
-      });
+    let ngayNhapDate = this.item.TaiSan?.NgayNhap || this.item.TaiSan?.NgaySanXuat || this.item.NgayNhap || this.item.NgaySanXuat;
+    let ngayNhapUnix = 0;
+    if (ngayNhapDate) {
+      const d = new Date(ngayNhapDate);
+      if (!isNaN(d.getTime())) {
+        ngayNhapUnix = Math.floor(d.getTime() / 1000);
+      }
+    }
+    if (!ngayNhapUnix) {
+      ngayNhapUnix = this.item.TaiSan?.NgayNhapUnix || this.item.TaiSan?.NgaySanXuatUnix || this.item.NgayNhapUnix || this.item.NgaySanXuatUnix || 0;
     }
 
-    // Clean up flat listDinhMucNhienLieu list from empty placeholders
-    if (this.item.TaiSan.listDinhMucNhienLieu) {
-      this.item.TaiSan.listDinhMucNhienLieu = this.item.TaiSan.listDinhMucNhienLieu.filter((dm: any) => dm.IddmLoaiNhienLieu);
+    let thoiGianDuaVaoSuDungUnix = 0;
+    if (this.item.TaiSan?.ThoiGianDuaVaoSuDung) {
+      const d = new Date(this.item.TaiSan.ThoiGianDuaVaoSuDung);
+      if (!isNaN(d.getTime())) {
+        thoiGianDuaVaoSuDungUnix = Math.floor(d.getTime() / 1000);
+      }
+    }
+    if (!thoiGianDuaVaoSuDungUnix) {
+      thoiGianDuaVaoSuDungUnix = this.item.TaiSan?.ThoiGianDuaVaoSuDungUnix || 0;
+    }
+
+    this.item.NgayNhapUnix = ngayNhapUnix;
+    this.item.NgaySanXuatUnix = ngayNhapUnix;
+
+    if (this.item.TaiSan) {
+      this.item.TaiSan.NgayNhapUnix = ngayNhapUnix;
+      this.item.TaiSan.NgaySanXuatUnix = ngayNhapUnix;
+      this.item.TaiSan.ThoiGianDuaVaoSuDungUnix = thoiGianDuaVaoSuDungUnix;
+
+      // Clean up listSanLuong and its nested listItem from empty placeholders
+      if (this.item.TaiSan.listSanLuong) {
+        this.item.TaiSan.listSanLuong = this.item.TaiSan.listSanLuong.map((ele: any) => {
+          const cleanedChildren = ele.listItem
+            ? ele.listItem.filter((dm: any) => dm.IddmLoaiNhienLieu)
+            : [];
+          return {
+            ...ele,
+            NgayApDungUnix: DateToUnix(ele.NgayApDung),
+            listItem: cleanedChildren
+          };
+        });
+      }
+
+      // Clean up flat listDinhMucNhienLieu list from empty placeholders
+      if (this.item.TaiSan.listDinhMucNhienLieu) {
+        this.item.TaiSan.listDinhMucNhienLieu = this.item.TaiSan.listDinhMucNhienLieu.filter((dm: any) => dm.IddmLoaiNhienLieu);
+      }
     }
 
     return this.item;
@@ -249,7 +274,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
               TaiSan: {
                 ...data.Data.TaiSan,
                 ThoiGianDuaVaoSuDung: UnixToDate(data.Data.TaiSan.ThoiGianDuaVaoSuDungUnix),
-                NgayNhap: UnixToDate(data.Data.TaiSan.NgayNhapUnix),
+                NgayNhap: UnixToDate(data.Data.TaiSan.NgayNhapUnix || data.Data.TaiSan.NgaySanXuatUnix),
+                NgaySanXuat: UnixToDate(data.Data.TaiSan.NgaySanXuatUnix || data.Data.TaiSan.NgayNhapUnix),
                 listSanLuong: data.Data.TaiSan.listSanLuong?.map((ele: any) => {
                   return {
                     ...ele,
@@ -271,7 +297,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ChuyenDuyet() {
-    this._serviceTaiSan.NhapTaiSan().ChuyenTiep(this.item).subscribe((res: any) => {
+    this._serviceTaiSan.NhapTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -281,7 +307,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     })
   }
   KhongDuyet() {
-    this._serviceTaiSan.NhapTaiSan().KhongDuyet(this.item).subscribe((res: any) => {
+    this._serviceTaiSan.NhapTaiSan().KhongDuyet(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {

@@ -3,9 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { vn } from 'src/app/services/const';
-import { validVariable } from 'src/app/services/globalfunction';
+import { validVariable, mapTreeNodes } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { ModaltaolichbaoduongComponent } from '../../modal/modaltaolichbaoduong/modaltaolichbaoduong.component';
 import { ChonComponent } from '../chon/chon.component';
 
 @Component({
@@ -25,6 +24,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   };
   eTable: string = "QLTS_TaiSan_QuyTrinhNhap";
   IdTable: string = '';
+  selectedBoPhanNode: any = null;
 
   @Input('item') item: any = {};
   @Input('TaiSanChaCon') TaiSanChaCon: string = "";
@@ -55,16 +55,17 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   }
 
   chonBoPhan(e) {
-      this.item.ThoiGianDuaVaoSuDung = null;
-      this.item.ThoiGianDuaVaoSuDungUnix = 0;
+    this.item.ThoiGianDuaVaoSuDung = null;
+    this.item.ThoiGianDuaVaoSuDungUnix = 0;
+    if (this.item.listTaiSan && this.item.listTaiSan[0]) {
       this.item.listTaiSan[0].ThoiGianDuaVaoSuDung = null;
       this.item.listTaiSan[0].ThoiGianDuaVaoSuDungUnix = 0;
-
+    }
   }
 
   LayMa(e) {
     this.item.listLichBaoDuong = [];
-    this.item.IddmTaiSan = '';
+    this.item.IddmTaiSan = this.item.IddmTaiSan ? this.item.IddmTaiSan : '';
     if (!validVariable(e.value)) {
       this.item.Ma = '';
       this.item.TendmTaiSan = '';
