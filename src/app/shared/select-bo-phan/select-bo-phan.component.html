@@ -1,0 +1,13 @@
+<p-dropdown [filter]="filter" [options]="listOptions" [(ngModel)]="value" [disabled]="disabled"
+    (onChange)="onDropdownChange($event)" [placeholder]="placeholder" [showClear]="showClear"
+    [styleClass]="styleClass">
+    <ng-template let-selectedItem pTemplate="selectedItem">
+        <span>{{selectedItem.label}}</span>
+    </ng-template>
+    <ng-template let-option pTemplate="item">
+        <div [style.padding-left]="option.level ? (option.level * 16 + 'px') : '0px'" class="d-flex p-ai-center">
+            <i [class]="option.level === 0 ? 'pi pi-building p-mr-2 text-primary' : 'pi pi-sitemap p-mr-2 text-secondary'" [style.font-size]="'0.85rem'"></i>
+            <span>{{option.label}}</span>
+        </div>
+    </ng-template>
+</p-dropdown>

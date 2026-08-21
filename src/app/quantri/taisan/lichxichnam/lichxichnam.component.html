@@ -17,9 +17,7 @@
         placeholder="Chọn năm" styleClass="p-inputtext-sm" (onChange)="loadData(true)"></p-dropdown>
     </div>
     <div class="p-mr-2">
-      <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
-        styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="filter.IdBoPhanSuDung"
-        (onChange)="loadData(true)"></p-dropdown>
+      <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="loadData(true)" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
     </div>
     <div class="p-mr-2">
       <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"

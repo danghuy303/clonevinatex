@@ -13,9 +13,7 @@
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="filter.IdBoPhanSuDung"
-                (onChange)="GetList(true)" placeholder="Bộ phận sử dụng" [showClear]="true" styleClass="p-inputtext-sm">
-            </p-dropdown>
+            <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" [options]="listPhanXuong" placeholder="Bộ phận sử dụng"></app-select-bo-phan>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"

@@ -29,8 +29,7 @@
                         <label class="p-col-12 p-xl-2 p-p-0 my-auto">Bộ phận sử dụng<span
                                 class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
-                            <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung"
-                                placeholder="Chọn bộ phận"></p-dropdown>
+                            <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" [options]="listPhanXuong" placeholder="Chọn bộ phận"></app-select-bo-phan>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">

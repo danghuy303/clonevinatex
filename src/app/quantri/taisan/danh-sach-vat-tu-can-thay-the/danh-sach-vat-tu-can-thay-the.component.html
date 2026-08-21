@@ -6,9 +6,7 @@
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listBoPhanSuDung" placeholder="Bộ phận sử dụng "
-                [(ngModel)]="filter.IdBoPhanSuDung" styleClass="p-inputtext-sm" (onChange)="GetList(true)"
-                [showClear]="true" [filter]="true"></p-dropdown>
+            <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" [options]="listBoPhanSuDung" placeholder="Bộ phận sử dụng"></app-select-bo-phan>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại máy/thiết bị "

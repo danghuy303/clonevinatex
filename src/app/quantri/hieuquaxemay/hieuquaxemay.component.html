@@ -8,9 +8,7 @@
     <div class="p-d-flex flex-column flex-lg-row p-pl-0 align-items-md-center">
       <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
         <div class="p-mr-2 mb-2 mb-md-0">
-          <p-dropdown [filter]="true" placeholder="Chọn bộ phận sử dụng" [options]="PhanXuong"
-            styleClass="p-inputtext-sm" [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()"
-            [showClear]="true"></p-dropdown>
+          <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()" [options]="PhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
         </div>
 
         <div class="p-mr-2 mb-2 mb-md-0">

@@ -171,15 +171,21 @@ export function mapTreeForDropDown(
 ): Array<any> {
     if (!array || !array.length) return [];
 
+    const getItemId = (item: any) => item[idProp] !== undefined ? item[idProp] : (item.value !== undefined ? item.value : item.Id);
+    const getItemLabel = (item: any) => item[labelProp] || item.label || item.Ten || '';
+    const getItemValue = (item: any) => item[valueProp] !== undefined ? item[valueProp] : (item.value !== undefined ? item.value : item.Id);
+
     const allIds = new Set<string>();
     array.forEach(item => {
-        if (item && item[idProp]) allIds.add(item[idProp]);
+        if (!item) return;
+        const id = getItemId(item);
+        if (id !== undefined && id !== null) allIds.add(id);
     });
 
     const childrenMap = new Map<string | null, Array<any>>();
     array.forEach(item => {
         if (!item) return;
-        let parentId = item[parentProp];
+        let parentId = item[parentProp] !== undefined ? item[parentProp] : item.IdParent;
         if (!parentId || !allIds.has(parentId)) {
             parentId = null;
         }
@@ -196,16 +202,22 @@ export function mapTreeForDropDown(
         if (!children) return;
 
         children.forEach(child => {
-            const hasChildren = !!(childrenMap.get(child[idProp])?.length);
+            const childId = getItemId(child);
+            const childLabel = getItemLabel(child);
+            const childValue = getItemValue(child);
+            const childLevel = child.level !== undefined ? child.level : level;
+            const hasChildren = childId !== undefined ? !!(childrenMap.get(childId)?.length) : false;
             result.push({
-                label: child[labelProp] || '',
-                value: child[valueProp],
-                level: level,
+                label: childLabel,
+                value: childValue,
+                level: childLevel,
                 isParent: hasChildren,
-                ten: child[labelProp] || '',
+                ten: childLabel,
                 data: child
             });
-            traverse(child[idProp], level + 1);
+            if (childId !== undefined) {
+                traverse(childId, level + 1);
+            }
         });
     }
 

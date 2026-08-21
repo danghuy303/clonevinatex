@@ -32,15 +32,13 @@
     <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-2 p-lg-2 p-p-0 my-auto">Bộ phận chuyển<span class="required">*</span></label>
       <div class="p-col-12 p-xl-10 p-lg-10 p-p-0">
-        <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"
-          styleClass="p-inputtext-sm" [(ngModel)]="item.IdBoPhanSuDungChuyen"></p-dropdown>
+        <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDungChuyen" [options]="listdmPhanXuong" placeholder="Bộ phận chuyển"></app-select-bo-phan>
       </div>
     </div>
     <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-2 p-lg-2 p-p-0 my-auto">Bộ phận đến<span class="required">*</span></label>
       <div class="p-col-12 p-xl-10 p-lg-10 p-p-0">
-        <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"
-          styleClass="p-inputtext-sm" [(ngModel)]="item.IdBoPhanSuDungDen"></p-dropdown>
+        <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDungDen" [options]="listdmPhanXuong" placeholder="Bộ phận đến"></app-select-bo-phan>
       </div>
     </div>
     <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">

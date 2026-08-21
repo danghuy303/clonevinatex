@@ -34,9 +34,7 @@
         <div class="p-col-12 p-lg-3 p-py-0 d-flex flex-column">
             <label class="">Bộ phận sử dụng:<span class="required">(*)</span></label>
             <div class="">
-                <p-dropdown [filter]="true" [options]="listBoPhan" [showClear]="true"
-                    [(ngModel)]="quyTrinh.IdBoPhanSuDung" placeholder="Chọn bộ phận"
-                    (onChange)="getListTaiSanDangSuDung()"></p-dropdown>
+                <app-select-bo-phan [(ngModel)]="quyTrinh.IdBoPhanSuDung" (onChange)="getListTaiSanDangSuDung()" [options]="listBoPhan" placeholder="Chọn bộ phận"></app-select-bo-phan>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-py-0 d-flex flex-column">

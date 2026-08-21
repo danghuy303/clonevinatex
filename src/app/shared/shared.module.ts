@@ -80,6 +80,7 @@ import { DanhSachTaiLieuCongViecPopupComponent } from './danh-sach-tai-lieu-cong
 import { SanluongComponent } from './sanluong/sanluong.component';
 import { LichsudownloadComponent } from './lichsudownload/lichsudownload.component';
 import { DinhmucdienComponent } from './dinhmucdien/dinhmucdien.component';
+import { SelectBoPhanComponent } from './select-bo-phan/select-bo-phan.component';
 
 @NgModule({
   declarations: [
@@ -136,6 +137,7 @@ import { DinhmucdienComponent } from './dinhmucdien/dinhmucdien.component';
     SanluongComponent,
     LichsudownloadComponent,
     DinhmucdienComponent,
+    SelectBoPhanComponent,
   ],
   imports: [
     AccordionModule,
@@ -217,7 +219,8 @@ import { DinhmucdienComponent } from './dinhmucdien/dinhmucdien.component';
     DinhMucNguyenLieuComponent,
     SanluongComponent,
     LichsudownloadComponent,
-    DinhmucdienComponent
+    DinhmucdienComponent,
+    SelectBoPhanComponent
   ]
 })
 export class SharedModule { }

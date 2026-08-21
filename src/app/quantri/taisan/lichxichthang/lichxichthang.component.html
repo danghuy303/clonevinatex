@@ -20,9 +20,7 @@
             </p-calendar>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
-                [(ngModel)]="filter.IdBoPhanSuDung" styleClass="p-inputtext-sm" [showClear]="true" [filter]="true"
-                (onChange)="GetList(true)"></p-dropdown>
+            <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn "

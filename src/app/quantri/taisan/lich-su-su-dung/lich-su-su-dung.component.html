@@ -10,9 +10,7 @@
       </p-dropdown>
     </div>
     <div class="p-mr-2">
-      <p-dropdown placeholder="Bộ phận sử dụng" [filter]="true" [showClear]="true" styleClass="p-inputtext-sm"
-        [options]="listdmPhanXuong" [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="LoadData(true)">
-      </p-dropdown>
+      <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="LoadData(true)" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"></app-select-bo-phan>
     </div>
     <div class="p-mr-2">
       <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
