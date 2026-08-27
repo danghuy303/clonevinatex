@@ -18,6 +18,7 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
   @Output() listSanLuongChange: EventEmitter<any> = new EventEmitter<any>();
   
   listLoaiNhienLieu: any = [];
+  rawLoaiNhienLieu: any = [];
   flatRows: any[] = [];
 
   constructor(
@@ -29,6 +30,7 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['Items'] || changes['listSanLuong']) {
       this.initializeNestedData();
+      this.syncDonViTinh();
     }
   }
 
@@ -41,8 +43,51 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
 
   getListLoaiNhienLieu() {
     this._danhMucTaiSan.LoaiNhienLieu().GetList({ CurrentPage: 0 }).subscribe((res: any) => {
+      this.rawLoaiNhienLieu = res.Data || [];
       this.listLoaiNhienLieu = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+      this.syncDonViTinh();
     })
+  }
+
+  syncDonViTinh() {
+    if (!this.rawLoaiNhienLieu || this.rawLoaiNhienLieu.length === 0) return;
+    if (this.listSanLuong && this.listSanLuong.length > 0) {
+      this.listSanLuong.forEach((sl: any) => {
+        if (sl.IddmLoaiNhienLieu) {
+          const found = this.rawLoaiNhienLieu.find((x: any) => x.Id === sl.IddmLoaiNhienLieu);
+          if (found) {
+            sl.DonViTinh_NhienLieu = found.DonViTinh || '';
+            sl.TendmLoaiNhienLieu = found.Ten || '';
+          }
+        }
+        if (sl.listItem && sl.listItem.length > 0) {
+          sl.listItem.forEach((child: any) => {
+            if (child.IddmLoaiNhienLieu) {
+              const found = this.rawLoaiNhienLieu.find((x: any) => x.Id === child.IddmLoaiNhienLieu);
+              if (found) {
+                child.DonViTinh_NhienLieu = found.DonViTinh || '';
+                child.TendmLoaiNhienLieu = found.Ten || '';
+              }
+            }
+          });
+        }
+      });
+    }
+  }
+
+  onChangeLoaiNhienLieu(item: any, event?: any) {
+    const id = event ? event.value : item.IddmLoaiNhienLieu;
+    if (item && id && this.rawLoaiNhienLieu) {
+      const selected = this.rawLoaiNhienLieu.find((x: any) => x.Id === id);
+      if (selected) {
+        item.DonViTinh_NhienLieu = selected.DonViTinh || '';
+        item.TendmLoaiNhienLieu = selected.Ten || '';
+      }
+    } else if (item && !id) {
+      item.DonViTinh_NhienLieu = '';
+      item.TendmLoaiNhienLieu = '';
+    }
+    this.changeData();
   }
 
   initializeNestedData() {

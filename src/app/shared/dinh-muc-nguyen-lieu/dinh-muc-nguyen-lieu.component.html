@@ -80,12 +80,12 @@
                 <ng-container *ngIf="row.isParent">
                     <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn"
                         [showClear]="true" styleClass="p-inputtext-sm" [(ngModel)]="row.parentItem.IddmLoaiNhienLieu"
-                        (ngModelChange)="changeData()" [disabled]="!isXoa"></p-dropdown>
+                        (onChange)="onChangeLoaiNhienLieu(row.parentItem, $event)" [disabled]="!isXoa"></p-dropdown>
                 </ng-container>
                 <ng-container *ngIf="!row.isParent && row.childItem">
                     <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn"
                         [showClear]="true" styleClass="p-inputtext-sm" [(ngModel)]="row.childItem.IddmLoaiNhienLieu"
-                        (ngModelChange)="changeData()" [disabled]="!isXoa"></p-dropdown>
+                        (onChange)="onChangeLoaiNhienLieu(row.childItem, $event)" [disabled]="!isXoa"></p-dropdown>
                 </ng-container>
             </td>
 
@@ -93,11 +93,11 @@
             <td>
                 <ng-container *ngIf="row.isParent">
                     <input type="text" class="p-inputtext-sm" [(ngModel)]="row.parentItem.DonViTinh_NhienLieu"
-                        (ngModelChange)="changeData()" pInputText [disabled]="!isXoa" />
+                        pInputText [disabled]="true" />
                 </ng-container>
                 <ng-container *ngIf="!row.isParent && row.childItem">
                     <input type="text" class="p-inputtext-sm" [(ngModel)]="row.childItem.DonViTinh_NhienLieu"
-                        (ngModelChange)="changeData()" pInputText [disabled]="!isXoa" />
+                        pInputText [disabled]="true" />
                 </ng-container>
             </td>
 

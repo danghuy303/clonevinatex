@@ -10,7 +10,7 @@ import { DanhmuctaisanService } from '../../../../../services/Taisan/danhmuctais
 })
 export class NhienlieumodalComponent implements OnInit {
 
-  item: any = { Ma: '', Ten: '', GhiChu: '' };
+  item: any = { Ma: '', Ten: '', DonViTinh: '', GhiChu: '' };
   title: any = '';
   type = '';
 

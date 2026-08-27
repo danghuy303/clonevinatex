@@ -29,6 +29,12 @@
                 </div>
             </div>
             <div class="p-col-12 p-lg-12 d-flex flex-column flex-xl-row p-p-2">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Đơn vị tính: </label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViTinh" pInputText />
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-12 d-flex flex-column flex-xl-row p-p-2">
                 <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
                 <div class="p-col-12 p-lg-10 p-p-0">
                     <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
