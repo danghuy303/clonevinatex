@@ -39,6 +39,11 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   };
   listPhanXuong = [];
   listTaiSan: any = [];
+  listCachTinh: any = [
+    { label: 'Giờ máy', value: 'Giờ máy' },
+    { label: 'Km', value: 'Km' },
+    { label: 'Sản lượng', value: 'Sản lượng' }
+  ];
 
   constructor(
     public _modal: NgbModal,
@@ -50,6 +55,9 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (this.item && !this.item.CachTinh) {
+      this.item.CachTinh = 'Giờ máy';
+    }
     this.title = this.listLoaiTaiSan.find(ele => ele.value === this.item.IddmLoaiTaiSan)?.label;
     // this.item.value = this.item.IddmLoaiTaiSan;
     // this.LayMa(this.item);
@@ -261,6 +269,16 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     const parts = str.split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return parts.join('.');
+  }
+
+  getDonViCachTinh(cachTinh: string): string {
+    if (cachTinh === 'Km') {
+      return 'km';
+    }
+    if (cachTinh === 'Sản lượng') {
+      return 'tấn';
+    }
+    return 'giờ';
   }
 
 }

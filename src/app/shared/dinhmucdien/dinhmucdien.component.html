@@ -14,20 +14,20 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th rowspan="2">STT</th>
-            <th rowspan="2">Nội dung</th>
-            <th colspan="2">Năng suất</th>
-            <th rowspan="2">Công suất điện (KW)</th>
-            <th rowspan="2">Giờ dùng điện/ca</th>
-            <th rowspan="2">Hệ số tiêu hao</th>
-            <th rowspan="2">Ghi chú</th>
-            <th rowspan="2" style="width: 70px;"><button pButton pRipple type="button" icon="pi pi-plus"
+            <th rowspan="2" class="text-center">STT</th>
+            <th rowspan="2" class="text-center">Nội dung</th>
+            <th colspan="2" class="text-center">Năng suất</th>
+            <th rowspan="2" class="text-center">Công suất điện (KW)</th>
+            <th rowspan="2" class="text-center">Giờ dùng điện/ca</th>
+            <th rowspan="2" class="text-center">Hệ số tiêu hao</th>
+            <th rowspan="2" class="text-center">Ghi chú</th>
+            <th rowspan="2" style="width: 70px;" class="text-center"><button pButton pRipple type="button" icon="pi pi-plus"
                     class="p-button-rounded p-button-sm " (click)="add()">
                 </button></th>
         </tr>
         <tr>
-            <th>ĐVT</th>
-            <th>Mức</th>
+            <th class="text-center">ĐVT</th>
+            <th class="text-center">Mức</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">

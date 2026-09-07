@@ -25,6 +25,11 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   eTable: string = "QLTS_TaiSan_QuyTrinhNhap";
   IdTable: string = '';
   selectedBoPhanNode: any = null;
+  listLoaiDongHo: any = [
+    { label: 'Giờ hoạt động', value: 'Giờ hoạt động' },
+    { label: 'Km', value: 'Km' },
+    { label: 'Sản lượng', value: 'Sản lượng' }
+  ];
 
   @Input('item') item: any = {};
   @Input('TaiSanChaCon') TaiSanChaCon: string = "";
@@ -51,7 +56,15 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.item.SoLuong = 1
+    if (!this.item.SoLuong) {
+      this.item.SoLuong = 1;
+    }
+    if (!this.item.LoaiDongHo) {
+      this.item.LoaiDongHo = 'Giờ hoạt động';
+    }
+    if (this.item.GiaTriDongHoHienTai === undefined || this.item.GiaTriDongHoHienTai === null) {
+      this.item.GiaTriDongHoHienTai = 0;
+    }
   }
 
   chonBoPhan(e) {

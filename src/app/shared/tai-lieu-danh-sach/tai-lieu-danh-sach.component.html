@@ -14,13 +14,13 @@
         </span> -->
     </header>
     <div class="p-px-3">
-        <p-table [columns]="cols" [value]="item.listFileDinhKem"
-            styleClass="p-datatable-gridlines p-datatable-sm p-datatable-striped">
+        <p-table [columns]="cols" [value]="item?.listFileDinhKem"
+            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
             <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th style="width: 50px">STT</th>
-                    <th>Tên tài liệu</th>
-                    <th style="width: 100px">Thao tác</th>
+                    <th style="width: 50px" class="text-center">STT</th>
+                    <th class="text-center">Tên tài liệu</th>
+                    <th style="width: 100px" class="text-center">Thao tác</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-tailieu let-columns="columns" let-i="rowIndex">

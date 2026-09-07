@@ -26,7 +26,7 @@
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiVatTu" (onChange)="LayMa($event)"
                     placeholder="Chọn loại máy/thiết bị" [(ngModel)]="item.IddmLoaiTaiSan"
-                    [showClear]="true"></p-dropdown>
+                    [showClear]="true" appendTo="body"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -97,11 +97,37 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.HangSanXuat" pInputText />
             </div>
         </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Cách tính : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <p-dropdown [options]="listCachTinh" [(ngModel)]="item.CachTinh" placeholder="Chọn cách tính"
+                    [style]="{'width': '100%'}" appendTo="body">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Chu kỳ chuẩn : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <div class="p-inputgroup">
+                    <p-inputNumber [(ngModel)]="item.ChuKyChuan" locale="en-EN" [min]="0" styleClass="w-100" class="w-100" inputStyleClass="text-right font-weight-bold"></p-inputNumber>
+                    <span class="p-inputgroup-addon font-italic text-muted" style="min-width: 45px;">{{getDonViCachTinh(item.CachTinh)}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị còn lại ban đầu : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <div class="p-inputgroup">
+                    <p-inputNumber [(ngModel)]="item.GiaTriConLaiBanDau" locale="en-EN" [min]="0" styleClass="w-100" class="w-100" inputStyleClass="text-right font-weight-bold"></p-inputNumber>
+                    <span class="p-inputgroup-addon font-italic text-muted" style="min-width: 45px;">{{getDonViCachTinh(item.CachTinh)}}</span>
+                </div>
+            </div>
+        </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhà cung cấp : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCungSanXuat" placeholder="Nhập nhà cung cấp"
-                    [(ngModel)]="item.IddmNhaCungUng" [showClear]="true"></p-dropdown>
+                    [(ngModel)]="item.IddmNhaCungUng" [showClear]="true" appendTo="body"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">

@@ -17,6 +17,7 @@ import { TaoQrPopupComponent } from '../tao-qr-popup/tao-qr-popup.component';
 import { API } from '../../../../services/host';
 import { HttpResponse } from '@angular/common/http';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { ChonComponent } from '../../screen/chon/chon.component';
 
 @Component({
   selector: 'app-modalcapnhattaisan',
@@ -37,6 +38,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   // newTableItem: any = {};
   listDonVi: any = [];
   listLoaiTaiSan: any = [];
+  listLoaiVatTu: any = [];
   listTinhTrangTaiSan: any = [];
   listCungSanXuat: any = [];
   listTinhTrangTaiSan_copy: any = [];
@@ -47,7 +49,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
   listPhanXuong = [];
   filter: any = { MaCongDoan: '' };
   dataQR: string = '';
-  elementType: any = 'canvas'
+  elementType: any = 'canvas';
+  listCachTinh: any = [
+    { label: 'Giờ máy', value: 'Giờ máy' },
+    { label: 'Km', value: 'Km' },
+    { label: 'Sản lượng', value: 'Sản lượng' }
+  ];
 
   constructor(
     public _modal: NgbModal,
@@ -86,10 +93,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
+    let ls3 = this._serviceTaiSan.GetlistdmLoaiVatTu(data).toPromise();
 
-    Promise.all([ls1, ls2]).then((values: any) => {
+    Promise.all([ls1, ls2, ls3]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
+      this.listLoaiVatTu = mapArrayForDropDown(values[2].Data, "Ten", "Id");
     });
   }
 
@@ -351,19 +360,99 @@ export class ModalcapnhattaisanComponent implements OnInit {
       listLichBaoDuong: [],
       listThongSoKyThuat: [],
       listThongSoAnToan: [],
-      IddmLoaiTaiSan: this.item.TaiSan.IddmLoaiTaiSan ? this.item.TaiSan.IddmLoaiTaiSan : ''
+      IddmLoaiTaiSan: this.item?.TaiSan?.IddmLoaiTaiSan ? this.item.TaiSan.IddmLoaiTaiSan : ''
     };
     // modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
+    modalRef.componentInstance.listLoaiVatTu = this.listLoaiVatTu;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
-    modalRef.componentInstance.IdBoPhanSuDung = this.item.TaiSan.IdBoPhanSuDung;
+    modalRef.componentInstance.IdBoPhanSuDung = this.item?.TaiSan?.IdBoPhanSuDung;
     modalRef.result
       .then((res: any) => {
+        if (!res.CachTinh) {
+          res.CachTinh = 'Giờ máy';
+        }
+        if (!this.item.TaiSan) {
+          this.item.TaiSan = {};
+        }
+        if (!this.item.TaiSan.listTaiSan) {
+          this.item.TaiSan.listTaiSan = [];
+        }
         this.item.TaiSan.listTaiSan.push(res);
+        this.item.TaiSan.listTaiSan = [...this.item.TaiSan.listTaiSan];
       })
       .catch((er) => {
       });
+  }
+
+  themDongMoi() {
+    if (!this.item.TaiSan) {
+      this.item.TaiSan = {};
+    }
+    if (!this.item.TaiSan.listTaiSan) {
+      this.item.TaiSan.listTaiSan = [];
+    }
+    this.item.TaiSan.listTaiSan.push({
+      IddmLoaiTaiSan: '',
+      IddmTaiSan: '',
+      TendmTaiSan: '',
+      Ma: '',
+      Ten: '',
+      CachTinh: 'Giờ máy',
+      ChuKyChuan: null,
+      GiaTriConLaiBanDau: null,
+      isXoa: false
+    });
+    this.item.TaiSan.listTaiSan = [...this.item.TaiSan.listTaiSan];
+  }
+
+  ChonTaiSan(item) {
+    let modalRef = this._modal.open(ChonComponent, {
+      size: "xl",
+      backdrop: "static",
+    });
+
+    modalRef.componentInstance.ItemDaChon = item.IddmTaiSan ? item.IddmTaiSan : "";
+    modalRef.componentInstance.item = item;
+    modalRef.result.then((res: any) => {
+      if (res && res.length > 0) {
+        item.IddmTaiSan = res[0]?.Id;
+        item.TendmTaiSan = res[0]?.Ten;
+        item.Ten = res[0]?.Ten;
+        item.Ma = res[0]?.Ma;
+        item.DonViNangSuat = res[0]?.DonViTinh;
+      }
+    })
+      .catch((er) => {
+      });
+  }
+
+  LayMa(e, item) {
+    item.IddmTaiSan = '';
+    if (!validVariable(e.value)) {
+      item.Ma = '';
+      item.TendmTaiSan = '';
+    } else {
+      this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
+        if (res.StatusCode === 500) {
+          this.toastr.error(res.Message);
+        }
+        else {
+          item.Ma = res.Data;
+        }
+      });
+    }
+  }
+
+  getDonViCachTinh(cachTinh: string): string {
+    if (cachTinh === 'Km') {
+      return 'km';
+    }
+    if (cachTinh === 'Sản lượng') {
+      return 'tấn';
+    }
+    return 'giờ';
   }
 
   CapNhatTaiSanCon(index, item) {
@@ -374,24 +463,46 @@ export class ModalcapnhattaisanComponent implements OnInit {
     });
     modalRef.componentInstance.item = item_copy;
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
+    modalRef.componentInstance.listLoaiVatTu = this.listLoaiVatTu;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
-    modalRef.componentInstance.IdBoPhanSuDung = this.item.TaiSan.IdBoPhanSuDung;
+    modalRef.componentInstance.IdBoPhanSuDung = this.item?.TaiSan?.IdBoPhanSuDung;
     modalRef.result
       .then((res: any) => {
-        this.item.TaiSan.listTaiSan[index] = res;
+        let list = this.item?.TaiSan?.listTaiSan;
+        if (list) {
+          let actualIndex = list.indexOf(item);
+          if (actualIndex !== -1) {
+            list[actualIndex] = res;
+          } else {
+            list[index] = res;
+          }
+          this.item.TaiSan.listTaiSan = [...list];
+        }
       })
       .catch((er) => {
       });
   }
 
-  delete(index) {
+  delete(index, item?: any) {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this.item.TaiSan.listTaiSan.splice(index, 1)[0];
+      let list = this.item.TaiSan?.listTaiSan;
+      if (list) {
+        let targetIndex = item ? list.indexOf(item) : index;
+        if (targetIndex === -1) targetIndex = index;
+        if (list[targetIndex]) {
+          if (list[targetIndex].Id) {
+            list[targetIndex].isXoa = true;
+          } else {
+            list.splice(targetIndex, 1);
+          }
+          this.item.TaiSan.listTaiSan = [...list];
+        }
+      }
     }).catch(er => console.log(er))
   }
 
