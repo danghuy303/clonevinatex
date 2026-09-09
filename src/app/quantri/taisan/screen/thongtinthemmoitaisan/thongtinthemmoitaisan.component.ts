@@ -53,9 +53,27 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
       });
       this.IdTable = this.item.IdTaiSan;
     }
+    if (changes['listLoaiTaiSan'] && this.listLoaiTaiSan) {
+      this.formatListLoaiTaiSan();
+    }
+  }
+
+  formatListLoaiTaiSan() {
+    if (this.listLoaiTaiSan && this.listLoaiTaiSan.length) {
+      this.listLoaiTaiSan = this.listLoaiTaiSan.map((ele: any) => {
+        if (ele && ele.Ma && !ele.label?.startsWith(ele.Ma + ' - ')) {
+          return {
+            ...ele,
+            label: `${ele.Ma} - ${ele.Ten || ele.label}`
+          };
+        }
+        return ele;
+      });
+    }
   }
 
   ngOnInit() {
+    this.formatListLoaiTaiSan();
     if (!this.item.SoLuong) {
       this.item.SoLuong = 1;
     }

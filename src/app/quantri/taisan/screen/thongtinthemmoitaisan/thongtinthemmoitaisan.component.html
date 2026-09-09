@@ -5,7 +5,8 @@
         </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="LayMa($event)"
-                placeholder="Chọn loại máy/thiết bị" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true" appendTo="body">
+                placeholder="Chọn loại máy/thiết bị" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"
+                appendTo="body">
             </p-dropdown>
         </div>
     </div>
@@ -16,13 +17,7 @@
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
         </div>
     </div>
-    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số lượng : </label>
-        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-inputNumber [min]="1" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
-            </p-inputNumber>
-        </div>
-    </div>
+    <div class="p-col-12 p-lg-4 p-p-2 d-none d-lg-block"></div>
 
     <!-- Row 2 -->
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
@@ -36,13 +31,15 @@
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Tên máy/thiết bị <span class="text-danger">(*)</span> :
         </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" placeholder="Nhập tên máy/thiết bị" pInputText />
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" placeholder="Nhập tên máy/thiết bị"
+                pInputText />
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn vị tính <span class="text-danger">(*)</span> : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số lượng : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViNangSuat" pInputText />
+            <p-inputNumber [min]="1" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+            </p-inputNumber>
         </div>
     </div>
 
@@ -60,20 +57,13 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Nhà cung cấp : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn vị <span class="text-danger">(*)</span> : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-dropdown [filter]="true" [options]="listCungSanXuat" placeholder="Nhập nhà cung cấp"
-                [(ngModel)]="item.IddmNhaCungUng" [showClear]="true" appendTo="body"></p-dropdown>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViNangSuat" pInputText />
         </div>
     </div>
 
     <!-- Row 4 -->
-    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Hãng sản xuất : </label>
-        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.HangSanXuat" pInputText />
-        </div>
-    </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Nước sản xuất : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
@@ -81,18 +71,25 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn vị quản lý : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Hãng sản xuất : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViQuanLy" pInputText />
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.HangSanXuat" pInputText />
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Nhà cung cấp : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <p-dropdown [filter]="true" [options]="listCungSanXuat" placeholder="Nhập nhà cung cấp"
+                [(ngModel)]="item.IddmNhaCungUng" [showClear]="true" appendTo="body"></p-dropdown>
         </div>
     </div>
 
     <!-- Row 5 -->
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Ngày đưa vào sử dụng : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Ngày sản xuất : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
-                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianDuaVaoSuDung"
+                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgaySanXuat"
                 inputId="icon" placeholder="dd/mm/yyyy" appendTo="body">
             </p-calendar>
         </div>
@@ -126,29 +123,7 @@
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Bộ phận sử dụng : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" (onChange)="chonBoPhan($event)"
-                [options]="listPhanXuong"></app-select-bo-phan>
-        </div>
-    </div>
-    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Vị trí lắp đặt : </label>
-        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ViTriLapDat" pInputText />
-        </div>
-    </div>
-
-    <!-- Row 7 -->
-    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Loại đồng hồ vận hành : </label>
-        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-dropdown [options]="listLoaiDongHo" [(ngModel)]="item.LoaiDongHo" placeholder="Chọn loại đồng hồ" [showClear]="true" appendTo="body">
-            </p-dropdown>
-        </div>
-    </div>
-    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Giá trị đồng hồ hiện tại : </label>
-        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [min]="0" [(ngModel)]="item.GiaTriDongHoHienTai">
-            </p-inputNumber>
+                [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
@@ -159,7 +134,7 @@
         </div>
     </div>
 
-    <!-- Row 8 -->
+    <!-- Row 7 -->
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
         <div class="p-field-checkbox p-col-12 p-xl-6 p-p-0 my-auto d-flex p-ai-center">
             <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
@@ -167,17 +142,28 @@
         </div>
         <div class="p-field-checkbox p-col-12 p-xl-6 p-p-0 my-auto d-flex p-ai-center">
             <p-checkbox (onClick)="isCanDuTru()" binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
-            <label class="p-mb-0 p-ml-2">Cần dự trữ <span class="required text-danger" *ngIf="item.isCanDuTru">(*)</span></label>
+            <label class="p-mb-0 p-ml-2">Cần dự trữ <span class="required text-danger"
+                    *ngIf="item.isCanDuTru">(*)</span></label>
         </div>
         <div *ngIf="item.isCanDuTru" class="p-col-12 p-xl-12 p-p-0 my-auto p-mt-2">
-            <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu" placeholder="Dự trữ tối thiểu">
+            <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu"
+                placeholder="Dự trữ tối thiểu">
             </p-inputNumber>
         </div>
     </div>
-    <div class="p-col-12 p-lg-8 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-2 p-lg-12 p-p-0 my-auto">Ghi chú : </label>
-        <div class="p-col-12 p-xl-10 p-lg-12 p-p-0">
-            <textarea pInputTextarea class="p-inputtext-sm" [rows]="1" [(ngModel)]="item.GhiChu"></textarea>
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Ghi chú : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row" *ngIf="item.IdBoPhanSuDung">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Thời gian đưa vào sử dụng <span class="text-danger">(*)</span> : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianDuaVaoSuDung"
+                inputId="icon" placeholder="dd/mm/yyyy" appendTo="body">
+            </p-calendar>
         </div>
     </div>
 </div>

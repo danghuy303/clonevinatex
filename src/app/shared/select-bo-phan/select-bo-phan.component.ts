@@ -1,6 +1,8 @@
-import { Component, EventEmitter, forwardRef, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, OnInit, Optional, Output, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { mapTreeForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
@@ -15,7 +17,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
     }
   ]
 })
-export class SelectBoPhanComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class SelectBoPhanComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
   @Input() ngModel: any;
   @Output() ngModelChange: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,17 +33,35 @@ export class SelectBoPhanComponent implements OnInit, OnChanges, ControlValueAcc
 
   listOptions: any[] = [];
   innerValue: any = null;
+  private storeSub!: Subscription;
 
   private onChangeCb: (_: any) => void = () => {};
   private onTouchedCb: () => void = () => {};
 
-  constructor(private _serviceTaiSan: TaisanService) {}
+  constructor(
+    private _serviceTaiSan: TaisanService,
+    @Optional() private store: StoreService
+  ) {}
 
   ngOnInit(): void {
     if (this.options && this.options.length) {
       this.processOptions(this.options);
     } else {
       this.loadData();
+    }
+
+    if (this.store) {
+      this.storeSub = this.store.getNhaMay().subscribe(res => {
+        if (res && (!this.options || !this.options.length)) {
+          this.loadData();
+        }
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
     }
   }
 
@@ -65,7 +85,8 @@ export class SelectBoPhanComponent implements OnInit, OnChanges, ControlValueAcc
       this.listOptions = [];
       return;
     }
-    if (data.length && data[0] && data[0].level !== undefined) {
+    const hasLevel = data.some(item => item && item.level !== undefined);
+    if (hasLevel) {
       this.listOptions = data;
     } else {
       this.listOptions = mapTreeForDropDown(data, 'Ten', 'Id');

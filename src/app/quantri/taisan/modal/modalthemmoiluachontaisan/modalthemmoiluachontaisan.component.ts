@@ -93,8 +93,13 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
 
     Promise.all([ls2, ls3]).then((values: any) => {
       // this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-      this.listCungSanXuat = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-      this.listLoaiVatTu = mapArrayForDropDown(values[1].Data, "Ten", "Id");
+      this.listCungSanXuat = mapArrayForDropDown(values[0]?.Data || [], "Ten", "Id");
+      let rawLoaiVatTu = Array.isArray(values[1]?.Data) ? values[1].Data : (values[1]?.Data?.Items || []);
+      this.listLoaiVatTu = rawLoaiVatTu.map((ele: any) => ({
+        ...ele,
+        label: ele.Ma ? `${ele.Ma} - ${ele.Ten}` : ele.Ten,
+        value: ele.Id
+      }));
     });
   }
   edit(item) {

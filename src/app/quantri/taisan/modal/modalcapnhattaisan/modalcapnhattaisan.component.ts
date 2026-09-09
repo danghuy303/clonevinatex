@@ -96,9 +96,19 @@ export class ModalcapnhattaisanComponent implements OnInit {
     let ls3 = this._serviceTaiSan.GetlistdmLoaiVatTu(data).toPromise();
 
     Promise.all([ls1, ls2, ls3]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
-      this.listLoaiVatTu = mapArrayForDropDown(values[2].Data, "Ten", "Id");
+      let rawLoaiTaiSan = Array.isArray(values[0]?.Data) ? values[0].Data : (values[0]?.Data?.Items || []);
+      this.listLoaiTaiSan = rawLoaiTaiSan.map((ele: any) => ({
+        ...ele,
+        label: ele.Ma ? `${ele.Ma} - ${ele.Ten}` : ele.Ten,
+        value: ele.Id
+      }));
+      this.listCungSanXuat = mapArrayForDropDown(values[1]?.Data || [], "Ten", "Id");
+      let rawLoaiVatTu = Array.isArray(values[2]?.Data) ? values[2].Data : (values[2]?.Data?.Items || []);
+      this.listLoaiVatTu = rawLoaiVatTu.map((ele: any) => ({
+        ...ele,
+        label: ele.Ma ? `${ele.Ma} - ${ele.Ten}` : ele.Ten,
+        value: ele.Id
+      }));
     });
   }
 
@@ -218,7 +228,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
 
   setData() {
-    let ngayNhapDate = this.item.TaiSan?.NgayNhap || this.item.TaiSan?.NgaySanXuat || this.item.NgayNhap || this.item.NgaySanXuat;
+    let ngayNhapDate = this.item.TaiSan?.NgaySanXuat || this.item.TaiSan?.NgayNhap || this.item.NgaySanXuat || this.item.NgayNhap;
     let ngayNhapUnix = 0;
     if (ngayNhapDate) {
       const d = new Date(ngayNhapDate);
@@ -227,17 +237,17 @@ export class ModalcapnhattaisanComponent implements OnInit {
       }
     }
     if (!ngayNhapUnix) {
-      ngayNhapUnix = this.item.TaiSan?.NgayNhapUnix || this.item.TaiSan?.NgaySanXuatUnix || this.item.NgayNhapUnix || this.item.NgaySanXuatUnix || 0;
+      ngayNhapUnix = this.item.TaiSan?.NgaySanXuatUnix || this.item.TaiSan?.NgayNhapUnix || this.item.NgaySanXuatUnix || this.item.NgayNhapUnix || 0;
     }
 
     let thoiGianDuaVaoSuDungUnix = 0;
-    if (this.item.TaiSan?.ThoiGianDuaVaoSuDung) {
+    if (this.item.TaiSan?.IdBoPhanSuDung && this.item.TaiSan?.ThoiGianDuaVaoSuDung) {
       const d = new Date(this.item.TaiSan.ThoiGianDuaVaoSuDung);
       if (!isNaN(d.getTime())) {
         thoiGianDuaVaoSuDungUnix = Math.floor(d.getTime() / 1000);
       }
     }
-    if (!thoiGianDuaVaoSuDungUnix) {
+    if (!thoiGianDuaVaoSuDungUnix && this.item.TaiSan?.IdBoPhanSuDung) {
       thoiGianDuaVaoSuDungUnix = this.item.TaiSan?.ThoiGianDuaVaoSuDungUnix || 0;
     }
 

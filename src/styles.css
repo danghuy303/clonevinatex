@@ -140,6 +140,23 @@ p-dropdown .p-dropdown {
   border: 1px solid #ced4da !important;
 }
 
+.p-dropdown.p-inputtext-sm {
+  height: 37px !important;
+}
+
+.p-dropdown.p-inputtext-sm .p-dropdown-label {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: normal !important;
+}
+
+.p-dropdown.p-inputtext-sm .p-dropdown-trigger {
+  height: 100% !important;
+}
+
 .p-multiselect {
   -moz-user-select: none !important;
   -ms-user-select: none !important;

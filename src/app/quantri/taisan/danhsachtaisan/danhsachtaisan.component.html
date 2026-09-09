@@ -26,7 +26,8 @@
             </div>
         </div>
         <div class="p-mr-2">
-            <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="Loaddata(true)" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
+            <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="Loaddata(true)"
+                [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại máy/thiết bị "

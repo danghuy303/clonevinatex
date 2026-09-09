@@ -2,3 +2,20 @@
     display: inline-block;
     width: 100%;
 }
+
+:host ::ng-deep .p-dropdown {
+    height: 37px !important;
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-label {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: normal !important;
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-trigger {
+    height: 100% !important;
+}

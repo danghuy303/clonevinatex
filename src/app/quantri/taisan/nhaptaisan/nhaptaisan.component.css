@@ -14,3 +14,20 @@
     padding: 0.1rem 0.5rem;
     border: 1px solid #e9ecef;
   }
+
+  ::ng-deep app-select-bo-phan .p-dropdown {
+    height: 37px !important;
+  }
+
+  ::ng-deep app-select-bo-phan .p-dropdown .p-dropdown-label {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: normal !important;
+  }
+
+  ::ng-deep app-select-bo-phan .p-dropdown .p-dropdown-trigger {
+    height: 100% !important;
+  }

@@ -1,10 +1,10 @@
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
-import { DateToUnix, formatdate, mapArrayForDropDown, } from "src/app/services/globalfunction";
+import { DateToUnix, formatdate, mapArrayForDropDown, mapTreeForDropDown } from "src/app/services/globalfunction";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
@@ -22,7 +22,7 @@ import { handleHTTPResponse } from "../../../services/globalfunction";
   templateUrl: './danhsachtaisan.component.html',
   styleUrls: ['./danhsachtaisan.component.css']
 })
-export class DanhsachtaisanComponent implements OnInit {
+export class DanhsachtaisanComponent implements OnInit, OnDestroy {
 
   filter: any = {};
   Keyword: any = '';
@@ -47,28 +47,35 @@ export class DanhsachtaisanComponent implements OnInit {
   ) {
     this.$sub = this.store.getNhaMay().subscribe(res => {
       if (res) {
-        this.ngOnInit()
+        this.filter.IdBoPhanSuDung = null;
+        this.ngOnInit();
       }
-    })
+    });
   }
 
   ngOnInit(): void {
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
-    })
+    });
     this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
+      let treeMapped = mapTreeForDropDown(res, 'Ten', 'Id');
       let nhaMay = [
         {
-          Id: 'Chưa có bộ phận sử dụng',
-          Ten: 'Chưa có bộ phận sử dụng'
+          label: 'Chưa có bộ phận sử dụng',
+          value: 'Chưa có bộ phận sử dụng',
+          level: 0
         }
-      ]
-      let luaChonNhaMay = [...res, ...nhaMay]
-      // this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.listPhanXuong = mapArrayForDropDown(luaChonNhaMay, 'Ten', 'Id');
-    })
+      ];
+      this.listPhanXuong = [...treeMapped, ...nhaMay];
+    });
     this.Loaddata();
+  }
+
+  ngOnDestroy(): void {
+    if (this.$sub) {
+      this.$sub.unsubscribe();
+    }
   }
 
   resetFilter() {
