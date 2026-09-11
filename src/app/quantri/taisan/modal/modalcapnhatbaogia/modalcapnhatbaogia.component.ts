@@ -102,6 +102,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
         STT: indexCha ? `${indexCha}.${index + 1}` : index + 1,
         SoLuong: ele.SoLuong,
         GhiChu: ele.GhiChu,
+        NguoiVanHanh: ele.NguoiVanHanh,
       },
       children: this.isEmpty(ele.listTaiSan) ? ele.listTaiSan.map((eleCon, indexCon) => {
         return this.mapDataModelToView(eleCon, indexCon, index + 1)
@@ -140,6 +141,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       GhiChu: item.data?.GhiChu || "",
       MaTaiSan: item.data?.MaTaiSan,
       TenTaiSan: item.data?.TenTaiSan,
+      NguoiVanHanh: item.data?.NguoiVanHanh,
       listTaiSan: this.isEmpty(item.children) ? item.children.map(ele => this.mapDataViewToModel(ele)) : null
     }
   }

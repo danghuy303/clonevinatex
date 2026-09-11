@@ -49,6 +49,7 @@
             <col>
             <col>
             <col>
+            <col>
             <col style="width: 100px;">
         </colgroup>
     </ng-template>
@@ -58,6 +59,7 @@
             <th class="text-center">Số quy trình</th>
             <th class="text-center">Ngày bàn giao</th>
             <th class="text-center">Bộ phận sử dụng</th>
+            <th class="text-center">Người sử dụng</th>
             <th class="text-center">Nội dung</th>
             <th class="text-center">Trạng thái</th>
             <th class="text-center">Thao tác</th>
@@ -73,6 +75,7 @@
             </td>
             <td class="text-center">{{item.NgayBanGiao|date:'dd/MM/yyyy'}}</td>
             <td class="text-center">{{item.TenBoPhanSuDung}}</td>
+            <td>{{item.NguoiVanHanh}}</td>
             <td>{{item.NoiDung}}</td>
             <td class="text-center">{{item.TenTrangThai}}</td>
             <td class="text-center">

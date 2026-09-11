@@ -62,10 +62,12 @@
         <p-tabPanel [header]="'2. Vật tư đang lắp (' + ((item.TaiSan?.listTaiSan | isXoa)?.length || 0) + ')'">
             <ng-template pTemplate="content">
                 <div class="p-d-flex p-flex-row p-jc-end p-mb-2">
-                    <button pButton pRipple type="button" icon="pi pi-plus" label="Thêm vật tư (Chọn từ danh mục)"
+                    <button pButton pRipple type="button" icon="pi pi-plus" label="Thêm vật tư"
                         class="p-button-sm p-mr-2" (click)="ThemMoiTaiSanCon()"></button>
-                    <button pButton pRipple type="button" icon="pi pi-plus" label="Thêm dòng mới"
-                        class="p-button-sm p-button-success p-mr-2" (click)="themDongMoi()"></button>
+                    <!-- <button pButton pRipple type="button" icon="pi pi-plus" label="Thêm dòng mới"
+                        class="p-button-sm p-button-success p-mr-2" (click)="themDongMoi()"></button> -->
+                    <app-upload-file [multiple]="false" label="Nhập excel" class="p-mr-2"
+                        (itemChange)="handleUpload($event)"></app-upload-file>
                     <button pButton pRipple type="button" icon="pi pi-download" label="Xuất excel"
                         class="p-button-sm p-button-outlined p-button-secondary" (click)="handleExport()"></button>
                 </div>

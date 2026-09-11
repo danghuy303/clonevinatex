@@ -45,6 +45,12 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Người sử dụng</label>
+            <div class="p-col-12 p-lg-9 p-p-0 my-auto">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NguoiVanHanh" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Nội dung</label>
             <div class="p-col-12 p-lg-9 p-p-0 my-auto">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
@@ -73,6 +79,7 @@
                     <col>
                     <col>
                     <col>
+                    <col>
                     <col style="width: 100px;">
                 </colgroup>
             </ng-template>
@@ -81,6 +88,7 @@
                     <th class="text-center">STT</th>
                     <th class="text-center">Mã</th>
                     <th class="text-center">Tên</th>
+                    <th class="text-center">Người sử dụng</th>
                     <th class="text-center">Số lượng</th>
                     <th class="text-center">Ghi chú</th>
                     <th class="text-center" *ngIf="tabTrangThai===0">Thao tác</th>
@@ -94,6 +102,10 @@
                         {{rowData.MaTaiSan}}
                     </td>
                     <td>{{rowData.TenTaiSan}}</td>
+                    <td>
+                        <input type="text" class="p-inputtext-sm" [(ngModel)]="rowData.NguoiVanHanh" pInputText
+                            *ngIf="rowData.isCha" placeholder="Người sử dụng" />
+                    </td>
                     <td>
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="rowData.SoLuong"
                             [disabled]="!rowData.isCha" placeholder="">

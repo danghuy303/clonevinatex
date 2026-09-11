@@ -165,6 +165,12 @@
                         <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" [options]="listPhanXuong"></app-select-bo-phan>
                     </div>
                 </div>
+                <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+                    <label class="p-col-12 p-xl-4 p-p-0 my-auto">Người sử dụng : </label>
+                    <div class="p-col-12 p-xl-8 p-p-0">
+                        <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NguoiVanHanh" pInputText />
+                    </div>
+                </div>
                 <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
                     <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
                         <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
