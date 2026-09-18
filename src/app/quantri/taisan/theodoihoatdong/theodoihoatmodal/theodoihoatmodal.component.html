@@ -34,9 +34,8 @@
             <!-- Bộ phận -->
             <div class="p-d-flex p-flex-column p-mb-2">
                 <label class="p-d-block p-mb-1">Bộ phận:</label>
-                <p-dropdown [filter]="true" [options]="listBoPhan" placeholder="Chọn bộ phận" [showClear]="true"
-                    styleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.IddmPhanXuong" (ngModelChange)="onChangeBoPhan()"
-                    style="width: 100%"></p-dropdown>
+                <app-select-bo-phan [(ngModel)]="quyTrinh.IddmPhanXuong" (onChange)="onChangeBoPhan()"
+                    [options]="listBoPhan" placeholder="Chọn bộ phận"></app-select-bo-phan>
             </div>
             <!-- Ngày and Ca inline -->
             <div class="p-grid">

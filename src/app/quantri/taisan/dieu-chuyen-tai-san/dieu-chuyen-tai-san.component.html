@@ -6,9 +6,8 @@
         *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
     <div class="p-d-flex p-flex-row">
-        <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listdmPhanXuong" [(ngModel)]="filter.idBoPhan"
-                (onChange)="Loaddata(true)" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm"></p-dropdown>
+        <div class="p-mr-2" style="width: 220px;">
+            <app-select-bo-phan [(ngModel)]="filter.idBoPhan" (onChange)="Loaddata(true)" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"></app-select-bo-phan>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"

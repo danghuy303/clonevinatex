@@ -1,5 +1,6 @@
 <div class="modal-header">
-    <app-stepper [title]="'Bảo dưỡng thiết bị'" [quyTrinh]="item" style="width: 100%"></app-stepper>
+    <!-- <app-stepper [title]="'Bảo dưỡng thiết bị'" [quyTrinh]="item" style="width: 100%"></app-stepper> -->
+    <app-stepper [title]="'Quy trình bảo dưỡng, sửa chữa'" [quyTrinh]="item" style="width: 100%"></app-stepper>
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
@@ -110,7 +111,9 @@
                         <label class="p-col-12 p-xl-2 p-p-0 my-auto">Bộ phận sử dụng<span
                                 class="required">(*)</span></label>
                         <div class="p-col-12 p-xl-10 p-p-0">
-                            <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" (onChange)="chonBoPhanSuDung($event.value)" [options]="listPhanXuong" placeholder="Chọn bộ phận"></app-select-bo-phan>
+                            <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung"
+                                (onChange)="chonBoPhanSuDung($event.value)" [options]="listPhanXuong"
+                                placeholder="Chọn bộ phận"></app-select-bo-phan>
                         </div>
                     </div>
 

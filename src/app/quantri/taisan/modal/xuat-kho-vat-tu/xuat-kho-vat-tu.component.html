@@ -34,9 +34,8 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bộ phận sử dụng <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn" [(ngModel)]="item.IddmKho"
-                    styleClass="p-inputtext-sm" tooltipPosition="top"
-                    (onChange)="GetListTaiSanDangSuDung()"></p-dropdown>
+                <app-select-bo-phan [(ngModel)]="item.IddmKho" (onChange)="GetListTaiSanDangSuDung()"
+                    [options]="listKho" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">

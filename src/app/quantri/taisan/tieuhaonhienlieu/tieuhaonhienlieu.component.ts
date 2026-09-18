@@ -120,7 +120,8 @@ export class TieuhaonhienlieuComponent implements OnInit, OnDestroy {
       keyboard: false
     });
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới tiêu hao nhiên liệu';
+    // modalRef.componentInstance.title = 'Thêm mới tiêu hao nhiên liệu';
+    modalRef.componentInstance.title = 'Thêm mới định mức sử dụng';
     modalRef.componentInstance.listLoaiNhienLieu = this.listLoaiNhienLieu;
     modalRef.componentInstance.listLoaiDinhMucNhienLieu = this.listLoaiDinhMucNhienLieu;
     modalRef.componentInstance.listBoPhan = this.listBoPhan;
@@ -140,7 +141,8 @@ export class TieuhaonhienlieuComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.eAction = this.eAction;
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật tiêu hao nhiên liệu';
+    // modalRef.componentInstance.title = 'Cập nhật tiêu hao nhiên liệu';
+    modalRef.componentInstance.title = 'Cập nhật định mức sử dụng';
     modalRef.componentInstance.listLoaiNhienLieu = this.listLoaiNhienLieu;
     modalRef.componentInstance.listLoaiDinhMucNhienLieu = this.listLoaiDinhMucNhienLieu;
     modalRef.componentInstance.listBoPhan = this.listBoPhan;

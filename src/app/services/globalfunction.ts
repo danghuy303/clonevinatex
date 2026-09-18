@@ -154,8 +154,10 @@ export function UnixToDate(unix: number): Date | null {
     }
 }
 export function mapArrayForDropDown(array: Array<any>, labelProp: string, valueProp: string): Array<any> {
+    if (!array || !Array.isArray(array)) return [];
     return array.map(ele => {
         return {
+            ...ele,
             label: ele[labelProp],
             value: ele[valueProp],
         }
@@ -196,6 +198,7 @@ export function mapTreeForDropDown(
     });
 
     const result: Array<any> = [];
+    const visited = new Set<any>();
 
     function traverse(parentId: string | null, level: number) {
         const children = childrenMap.get(parentId);
@@ -203,11 +206,18 @@ export function mapTreeForDropDown(
 
         children.forEach(child => {
             const childId = getItemId(child);
+            if (childId !== undefined && childId !== null) {
+                if (visited.has(childId)) {
+                    return;
+                }
+                visited.add(childId);
+            }
             const childLabel = getItemLabel(child);
             const childValue = getItemValue(child);
             const childLevel = child.level !== undefined ? child.level : level;
             const hasChildren = childId !== undefined ? !!(childrenMap.get(childId)?.length) : false;
             result.push({
+                ...child,
                 label: childLabel,
                 value: childValue,
                 level: childLevel,
@@ -215,13 +225,33 @@ export function mapTreeForDropDown(
                 ten: childLabel,
                 data: child
             });
-            if (childId !== undefined) {
+            if (childId !== undefined && childId !== null) {
                 traverse(childId, level + 1);
             }
         });
     }
 
     traverse(null, 0);
+
+    array.forEach(item => {
+        if (!item) return;
+        const id = getItemId(item);
+        if (id !== undefined && id !== null && !visited.has(id)) {
+            visited.add(id);
+            const childLabel = getItemLabel(item);
+            const childValue = getItemValue(item);
+            result.push({
+                ...item,
+                label: childLabel,
+                value: childValue,
+                level: item.level !== undefined ? item.level : 0,
+                isParent: false,
+                ten: childLabel,
+                data: item
+            });
+        }
+    });
+
     return result;
 }
 

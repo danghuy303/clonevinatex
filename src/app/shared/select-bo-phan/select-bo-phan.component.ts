@@ -28,12 +28,15 @@ export class SelectBoPhanComponent implements OnInit, OnChanges, OnDestroy, Cont
   @Input() options: any[];
   @Input() IdDuAn: any;
   @Input() styleClass: string = 'w-100 p-inputtext-sm';
+  @Input() style: any;
+  @Input() appendTo: any;
 
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
   listOptions: any[] = [];
   innerValue: any = null;
   private storeSub!: Subscription;
+  private masterList: any[] = [];
 
   private onChangeCb: (_: any) => void = () => {};
   private onTouchedCb: () => void = () => {};
@@ -76,21 +79,66 @@ export class SelectBoPhanComponent implements OnInit, OnChanges, OnDestroy, Cont
 
   loadData(): void {
     this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS(this.IdDuAn).subscribe((res: any) => {
+      this.masterList = res || [];
       this.processOptions(res);
     });
   }
 
   processOptions(data: any[]): void {
-    if (!data) {
+    if (!data || !data.length) {
       this.listOptions = [];
       return;
     }
     const hasLevel = data.some(item => item && item.level !== undefined);
     if (hasLevel) {
       this.listOptions = data;
-    } else {
-      this.listOptions = mapTreeForDropDown(data, 'Ten', 'Id');
+      return;
     }
+
+    const hasParent = data.some(item => item && (item.IdParent !== undefined || item.idParent !== undefined));
+    if (hasParent) {
+      this.listOptions = mapTreeForDropDown(data, 'Ten', 'Id');
+      return;
+    }
+
+    // Nếu options truyền vào bị thiếu IdParent, dùng master list để bổ sung IdParent
+    if (this.masterList && this.masterList.length) {
+      this.enrichAndMapTree(data, this.masterList);
+    } else {
+      this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS(this.IdDuAn).subscribe((res: any) => {
+        this.masterList = res || [];
+        this.enrichAndMapTree(data, this.masterList);
+      }, () => {
+        this.listOptions = mapTreeForDropDown(data, 'Ten', 'Id');
+      });
+    }
+  }
+
+  private enrichAndMapTree(data: any[], master: any[]): void {
+    const masterMap = new Map<string, any>();
+    master.forEach(item => {
+      if (item && item.Id) {
+        masterMap.set(item.Id, item);
+      }
+    });
+
+    const enriched = data.map(item => {
+      if (!item) return item;
+      const id = item.Id !== undefined ? item.Id : item.value;
+      const masterItem = masterMap.get(id);
+      if (masterItem) {
+        return {
+          ...masterItem,
+          ...item,
+          IdParent: masterItem.IdParent,
+          Ten: item.label || item.Ten || masterItem.Ten,
+          Id: id
+        };
+      }
+      return item;
+    });
+
+    this.listOptions = mapTreeForDropDown(enriched, 'Ten', 'Id');
   }
 
   get value(): any {

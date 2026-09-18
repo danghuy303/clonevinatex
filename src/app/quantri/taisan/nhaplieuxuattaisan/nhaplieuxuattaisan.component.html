@@ -7,10 +7,9 @@
             (click)="add()"></button>
     </div>
     <div class="d-flex flex-column flex-lg-row">
-        <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận "
-                [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="GetListTaiSanDeChon()"
-                [showClear]="true" [filter]="true"></p-dropdown>
+        <div class="p-mr-2" style="width: 220px;">
+            <app-select-bo-phan [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetListTaiSanDeChon()"
+                [options]="listPhanXuong" placeholder="Chọn bộ phận"></app-select-bo-phan>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn máy/thiết bị"

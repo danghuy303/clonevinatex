@@ -35,9 +35,8 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Phân xưởng<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Chọn phân xưởng"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong" (onChange)="GetListTaiSanDaBanGiao()">
-                </p-dropdown>
+                <app-select-bo-phan [(ngModel)]="item.IddmPhanXuong" (onChange)="GetListTaiSanDaBanGiao()"
+                    [options]="listdmPhanXuong" placeholder="Chọn phân xưởng"></app-select-bo-phan>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">

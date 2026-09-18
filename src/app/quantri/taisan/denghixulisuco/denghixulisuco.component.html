@@ -1,5 +1,8 @@
-<h4 class="title" style="color:#1f2779">
+<!-- <h4 class="title" style="color:#1f2779">
     Quy trình xử lý sự cố
+</h4> -->
+<h4 class="title" style="color:#1f2779">
+    Sửa chữa hư hỏng bất thường
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -53,6 +56,7 @@
                 <col>
                 <col>
                 <col>
+                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -62,6 +66,7 @@
                 <th class="text-center">Số quy trình</th>
                 <th class="text-center">Ngày</th>
                 <th class="text-center">Bộ phận sử dụng</th>
+                <th class="text-center">Máy</th>
                 <th class="text-center">Loại sự cố</th>
                 <th class="text-center">Độ ưu tiên</th>
                 <th class="text-center">Nội dung</th>
@@ -80,6 +85,9 @@
                 <td class="text-center"> {{item.Created|date:"dd/MM/yyyy"}}</td>
                 <td>
                     {{item.TenBoPhanSuDung}}
+                </td>
+                <td>
+                    {{item.TenTaiSan}}
                 </td>
                 <td>
                     {{item.TendmLoaiSuCo}}

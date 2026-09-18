@@ -66,7 +66,8 @@ export class ModaldenghixulisucoComponent implements OnInit {
     this.item.listChiPhiKhac = this.item.listChiPhiKhac ? this.item.listChiPhiKhac : [];
     this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
     this.item.listNhanCong = this.item.listNhanCong ? this.item.listNhanCong : [];
-    this.title = 'Đề nghị xử lý sự cố'
+    // this.title = 'Đề nghị xử lý sự cố'
+    this.title = 'Sửa chữa hư hỏng bất thường';
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
     }

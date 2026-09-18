@@ -100,6 +100,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((res: any) => {
         this.getOSName(res.url);
+        this.updateMenuExpanded(res.url);
       });
     this.US.push(rt);
     this._services.GetAllQuyen().subscribe((res: any) => {
@@ -344,7 +345,374 @@ export class QuantriComponent implements OnInit, OnDestroy {
     })
   }
 
+  updateMenuExpanded(url?: string) {
+    const currentUrl = url || this._router?.url || (window.location.hash ? window.location.hash.replace(/^#/, '') : '') || '';
+    const cleanUrl = currentUrl.split('?')[0];
+    if (!cleanUrl) return;
+
+    const checkMatch = (itemRouterLink: string): boolean => {
+      if (!itemRouterLink) return false;
+      const cleanLink = itemRouterLink.replace(/\/0$/, '');
+      return cleanUrl === itemRouterLink || cleanUrl.startsWith(cleanLink + '/') || cleanUrl === cleanLink;
+    };
+
+    const updateList = (menuList: MenuItem[]) => {
+      if (!menuList || !Array.isArray(menuList)) return;
+      menuList.forEach(group => {
+        if (group.items && Array.isArray(group.items)) {
+          const hasActiveChild = group.items.some(child => {
+            if (child.routerLink && checkMatch(child.routerLink)) {
+              return true;
+            }
+            if (child.items && Array.isArray(child.items)) {
+              return child.items.some(subChild => subChild.routerLink && checkMatch(subChild.routerLink));
+            }
+            return false;
+          });
+          group.expanded = hasActiveChild;
+        }
+      });
+    };
+
+    updateList(this.menuQLTS);
+    updateList(this.menuQLNS);
+    updateList(this.menu);
+  }
+
+  getNewMenuMMTB(): MenuItem[] {
+    const currentUrl = this._router?.url || (window.location.hash ? window.location.hash.replace(/^#/, '') : '') || '';
+    const cleanUrl = currentUrl.split('?')[0];
+
+    const isGroupActive = (links: string[]): boolean => {
+      if (!cleanUrl) return false;
+      return links.some(link => {
+        const cleanLink = link.replace(/\/0$/, '');
+        return cleanUrl === link || cleanUrl.startsWith(cleanLink + '/') || cleanUrl === cleanLink;
+      });
+    };
+
+    const group1Links = [
+      "/quantri/taisan/danhsachtaisan",
+      "/quantri/taisan/kiemdinhtaisan/0",
+      "/quantri/taisan/baohiemtaisan/0",
+      "/quantri/taisan/nhaptaisan/0",
+      "/quantri/taisan/bangiaotaisan/0",
+      "/quantri/taisan/thanhlytaisan/0",
+      "/quantri/taisan/khauhaotaisan/0",
+      "/quantri/taisan/lichsusudungtaisan/0",
+    ];
+
+    const group2Links = [
+      "/quantri/taisan/theodoihoatdong/0",
+      "/quantri/quantritaisan/hieuquaxemay",
+      "/quantri/quantritaisan/sogiodungmay",
+      "/quantri/taisan/tieuhaonhienlieu/0",
+    ];
+
+    const group3Links = [
+      "/quantri/taisan/quytrinhlapkehoachnam/0",
+      "/quantri/taisan/quytrinhlapkehoachthang/0",
+      "/quantri/taisan/quytrinhbaoduong/0",
+      "/quantri/taisan/denghixulisuco/0",
+      "/quantri/quantritaisan/danhsachvattucanthaythe",
+      "/quantri/quantritaisan/tonghopchiphisua",
+    ];
+
+    const group4Links = [
+      "/quantri/taisan/danhmuc/danhmucloaitaisan",
+      "/quantri/taisan/danhmuc/danhmuctaisan",
+      "/quantri/taisan/danhmuc/mucdouutien",
+      "/quantri/taisan/danhmuc/casanxuat",
+      "/quantri/taisan/danhmuc/loaisuco",
+      "/quantri/taisan/danhmuc/danhmucloaibaoduong",
+      "/quantri/taisan/danhmuc/danhmucloaicongviecbaoduong",
+      "/quantri/taisan/danhmuc/maqr",
+      "/quantri/taisan/danhmuc/doibaoduong",
+      "/quantri/taisan/danhmuc/khocungung",
+      "/quantri/taisan/danhmuc/loaidinhmuc",
+      "/quantri/taisan/danhmuc/nhienlieu",
+      "/quantri/taisan/danhmuc/noidangkiem",
+      "/quantri/taisan/danhmuc/donvibaohiem",
+      "/quantri/taisan/danhmuc/loaihinhbaohiem",
+    ];
+
+    return [
+      {
+        label: "Quản lý máy móc thiết bị",
+        expanded: isGroupActive(group1Links),
+        icon: "fas fa-cogs",
+        items: [
+          {
+            label: "Thực lực",
+            routerLink: "/quantri/taisan/danhsachtaisan",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Kiểm định",
+            routerLink: "/quantri/taisan/kiemdinhtaisan/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Bảo hiểm",
+            routerLink: "/quantri/taisan/baohiemtaisan/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Đầu tư",
+            routerLink: "/quantri/taisan/nhaptaisan/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Bàn giao",
+            routerLink: "/quantri/taisan/bangiaotaisan/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Thanh lý",
+            routerLink: "/quantri/taisan/thanhlytaisan/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Khấu hao",
+            routerLink: "/quantri/taisan/khauhaotaisan/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Lịch sử sử dụng",
+            routerLink: "/quantri/taisan/lichsusudungtaisan/0",
+            command: () => {
+              this.close();
+            },
+          },
+        ],
+      },
+      {
+        label: "Khai thác sử dụng MMTB",
+        expanded: isGroupActive(group2Links),
+        icon: "fas fa-chart-line",
+        items: [
+          {
+            label: "Theo dõi khối lượng hoạt động",
+            routerLink: "/quantri/taisan/theodoihoatdong/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Hệ số sử dụng",
+            routerLink: "/quantri/quantritaisan/hieuquaxemay",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "MMTB dừng bất thường",
+            routerLink: "/quantri/quantritaisan/sogiodungmay",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Định mức sử dụng",
+            routerLink: "/quantri/taisan/tieuhaonhienlieu/0",
+            command: () => {
+              this.close();
+            },
+          },
+        ],
+      },
+      {
+        label: "Bảo đảm kỹ thuật",
+        expanded: isGroupActive(group3Links),
+        icon: "fas fa-wrench",
+        items: [
+          {
+            label: "Tổng hợp lịch xích",
+            routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Kế hoạch lịch xích năm",
+            routerLink: "/quantri/taisan/quytrinhlapkehoachnam/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Kế hoạch lịch xích tháng",
+            routerLink: "/quantri/taisan/quytrinhlapkehoachthang/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Quy trình bảo dưỡng, sửa chữa",
+            routerLink: "/quantri/taisan/quytrinhbaoduong/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Sửa chữa hư hỏng bất thường",
+            routerLink: "/quantri/taisan/denghixulisuco/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Vật tư, phụ tùng thay thế",
+            routerLink: "/quantri/quantritaisan/danhsachvattucanthaythe",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Tổng hợp chi phí sửa chữa",
+            routerLink: "/quantri/quantritaisan/tonghopchiphisua",
+            command: () => {
+              this.close();
+            },
+          },
+        ],
+      },
+      {
+        label: "Danh mục",
+        expanded: isGroupActive(group4Links),
+        icon: "fas fa-warehouse",
+        items: [
+          {
+            label: "Loại máy/thiết bị",
+            routerLink: "/quantri/taisan/danhmuc/danhmucloaitaisan",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Nhóm máy/thiết bị/vật tư",
+            routerLink: "/quantri/taisan/danhmuc/danhmuctaisan",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Mức độ ưu tiên",
+            routerLink: "/quantri/taisan/danhmuc/mucdouutien",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Ca sản xuất",
+            routerLink: "/quantri/taisan/danhmuc/casanxuat",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Loại sự cố",
+            routerLink: "/quantri/taisan/danhmuc/loaisuco",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Loại bảo dưỡng ",
+            routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Loại công việc bảo dưỡng ",
+            routerLink: "/quantri/taisan/danhmuc/danhmucloaicongviecbaoduong",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Mã QR",
+            routerLink: "/quantri/taisan/danhmuc/maqr",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Đội bảo dưỡng",
+            routerLink: "/quantri/taisan/danhmuc/doibaoduong",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "kho cung ứng",
+            routerLink: "/quantri/taisan/danhmuc/khocungung",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Loại định mức",
+            routerLink: "/quantri/taisan/danhmuc/loaidinhmuc",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Nhiên liệu",
+            routerLink: "/quantri/taisan/danhmuc/nhienlieu",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Nơi đăng kiểm",
+            routerLink: "/quantri/taisan/danhmuc/noidangkiem",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Đơn vị bảo hiểm",
+            routerLink: "/quantri/taisan/danhmuc/donvibaohiem",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Loại hình bảo hiểm",
+            routerLink: "/quantri/taisan/danhmuc/loaihinhbaohiem",
+            command: () => {
+              this.close();
+            },
+          },
+        ],
+      },
+    ];
+  }
+
   CaiMeNu() {
+    this.menuQLNS = this.getNewMenuMMTB();
+    this.menu = this.menuQLNS;
+    this.updateMenuExpanded();
+  }
+
+  CaiMeNu_old() {
     this.menuQLNS = [
       {
         label: "Quản trị sản xuất",
@@ -462,6 +830,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
           }
         ],
       },
+      // #region Khóa lại do bản cũ
       // ngày 9/9/2025 đóng quản trị máy/thiết bị
       // {
       //   label: "Quản trị máy/thiết bị",
@@ -957,7 +1326,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
       //     // },
       //   ],
       // },
-
+      // #region 
       {
         label: "Quyết toán nguyên liệu",
         routerLink: "/quantri/quyettoannguyenlieu",
@@ -3214,6 +3583,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
     } else {
       this.display = !this.display;
       this.displayAsset = false;
+      this.updateMenuExpanded();
     }
   }
 
@@ -3248,6 +3618,11 @@ export class QuantriComponent implements OnInit, OnDestroy {
   }
 
   CaiMeNuQLTS() {
+    this.menuQLTS = this.getNewMenuMMTB();
+    this.updateMenuExpanded();
+  }
+
+  CaiMeNuQLTS_old() {
     this.menuQLTS = [
       {
         label: "Quản lý thông tin máy/thiết bị",

@@ -5,10 +5,9 @@
     <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
     <div></div>
     <div class="p-d-flex p-flex-row">
-        <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
-                [(ngModel)]="filter.IdBoPhanSuDung" styleClass="p-inputtext-sm" (onChange)="getList(true)"
-                [showClear]="true"></p-dropdown>
+        <div class="p-mr-2" style="width: 220px;">
+            <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getList(true)"
+                [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại máy/thiết bị "

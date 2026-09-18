@@ -42,14 +42,16 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     this.KiemTraButtonModal();
     this.getListdmPhanXuong();
     if (this.opt === 'add') {
-      this.title = "Bàn giao máy/thiết bị";
+      // this.title = "Bàn giao máy/thiết bị";
+      this.title = "Bàn giao";
       this.GetNextSoQuyTrinh();
     }
     else {
       if (validVariable(this.item.Id)) {
         this.GetQuyTrinh(this.item.Id);
       }
-      this.title = "Bàn giao máy/thiết bị";
+      // this.title = "Bàn giao máy/thiết bị";
+      this.title = "Bàn giao";
       this.listTaiSan_copy = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele, index);
       });

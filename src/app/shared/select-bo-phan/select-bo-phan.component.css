@@ -5,6 +5,7 @@
 
 :host ::ng-deep .p-dropdown {
     height: 37px !important;
+    width: 100%;
 }
 
 :host ::ng-deep .p-dropdown .p-dropdown-label {

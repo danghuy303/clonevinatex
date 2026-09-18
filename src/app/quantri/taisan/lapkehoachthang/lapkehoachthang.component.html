@@ -1,5 +1,6 @@
 <div class="modal-header">
-    <app-stepper [title]="'Lập kế hoạch lịch xích tháng'" [quyTrinh]="item" style="width: 100%"></app-stepper>
+    <!-- <app-stepper [title]="'Lập kế hoạch lịch xích tháng'" [quyTrinh]="item" style="width: 100%"></app-stepper> -->
+    <app-stepper [title]="'Kế hoạch lịch xích tháng'" [quyTrinh]="item" style="width: 100%"></app-stepper>
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
@@ -53,8 +54,7 @@
         <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Bộ phận sử dụng <span class="required">(*)</span></label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận"
-                    [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
+                <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" [options]="listPhanXuong" placeholder="Chọn bộ phận"></app-select-bo-phan>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">

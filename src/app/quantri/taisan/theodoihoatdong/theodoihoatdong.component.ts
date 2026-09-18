@@ -115,7 +115,8 @@ export class TheodoihoatdongComponent implements OnInit, OnDestroy {
       keyboard: false
     });
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới theo dõi hoạt động';
+    // modalRef.componentInstance.title = 'Thêm mới theo dõi hoạt động';
+    modalRef.componentInstance.title = 'Thêm mới theo dõi khối lượng hoạt động';
     modalRef.componentInstance.listBoPhan = this.listBoPhan;
     modalRef.componentInstance.eAction = this.eAction;
     modalRef.result.then((res: any) => {
@@ -133,7 +134,8 @@ export class TheodoihoatdongComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.eAction = this.eAction;
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật theo dõi hoạt động';
+    // modalRef.componentInstance.title = 'Cập nhật theo dõi hoạt động';
+    modalRef.componentInstance.title = 'Cập nhật theo dõi khối lượng hoạt động';
     modalRef.componentInstance.listBoPhan = this.listBoPhan;
     modalRef.componentInstance.quyTrinh = JSON.parse(JSON.stringify(item));
     modalRef.result

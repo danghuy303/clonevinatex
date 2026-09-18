@@ -303,3 +303,41 @@ a {
     margin-left: 259px;
     /* matches sidebar fixed width */
 }
+
+/* Home module button */
+:host ::ng-deep .btn-home-module {
+    color: #1890ff !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 4px 8px !important;
+    box-shadow: none !important;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+:host ::ng-deep .btn-home-module:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+:host ::ng-deep .btn-home-module:hover {
+    background: rgba(24, 144, 255, 0.08) !important;
+    border-radius: 6px;
+}
+
+:host ::ng-deep .btn-home-module .p-button-icon {
+    font-size: 1rem !important;
+    color: #1890ff !important;
+    margin-right: 6px !important;
+    line-height: 1;
+}
+
+:host ::ng-deep .btn-home-module .p-button-label {
+    font-weight: 500 !important;
+    font-size: 13.5px !important;
+    color: #1890ff !important;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+}

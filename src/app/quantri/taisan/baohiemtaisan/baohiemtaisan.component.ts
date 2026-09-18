@@ -124,7 +124,8 @@ export class BaohiemtaisanComponent implements OnInit, OnDestroy {
       keyboard: false
     });
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới bảo hiểm máy/thiết bị';
+    // modalRef.componentInstance.title = 'Thêm mới bảo hiểm máy/thiết bị';
+    modalRef.componentInstance.title = 'Thêm mới bảo hiểm';
     modalRef.componentInstance.listDonViBaoHiem = this.listDonViBaoHiem;
     modalRef.componentInstance.listLoaiHinhBaoHiem = this.listLoaiHinhBaoHiem;
     modalRef.componentInstance.eAction = this.eAction;
@@ -144,7 +145,8 @@ export class BaohiemtaisanComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.eAction = this.eAction;
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật bảo hiểm máy/thiết bị';
+    // modalRef.componentInstance.title = 'Cập nhật bảo hiểm máy/thiết bị';
+    modalRef.componentInstance.title = 'Cập nhật bảo hiểm';
     modalRef.componentInstance.listDonViBaoHiem = this.listDonViBaoHiem;
     modalRef.componentInstance.listLoaiHinhBaoHiem = this.listLoaiHinhBaoHiem;
     modalRef.componentInstance.listBoPhan = this.listBoPhan;

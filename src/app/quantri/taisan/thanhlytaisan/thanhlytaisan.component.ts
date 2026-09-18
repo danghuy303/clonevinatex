@@ -113,7 +113,8 @@ export class ThanhlytaisanComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = ' Thanh lý máy/thiết bị';
+    // modalRef.componentInstance.title = ' Thanh lý máy/thiết bị';
+    modalRef.componentInstance.title = 'Thanh lý';
     modalRef.componentInstance.item = {
       Id: '', IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "", TendmPhanXuong: "",
       isKetThuc: false, listFileDinhKem: [], listTaiSan: [],
@@ -133,7 +134,8 @@ export class ThanhlytaisanComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật thanh lý máy/thiết bị';
+    // modalRef.componentInstance.title = 'Cập nhật thanh lý máy/thiết bị';
+    modalRef.componentInstance.title = 'Cập nhật thanh lý';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

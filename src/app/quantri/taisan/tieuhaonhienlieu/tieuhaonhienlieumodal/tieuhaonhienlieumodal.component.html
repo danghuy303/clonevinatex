@@ -32,8 +32,8 @@
         <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column">
             <label class="">Bộ phận:</label>
             <div class="">
-                <p-dropdown [filter]="true" [options]="listBoPhan" placeholder="Chọn" [showClear]="true"
-                    styleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.IddmPhanXuong"></p-dropdown>
+                <app-select-bo-phan [(ngModel)]="quyTrinh.IddmPhanXuong" [options]="listBoPhan"
+                    placeholder="Chọn bộ phận"></app-select-bo-phan>
             </div>
         </div>
         <div class="p-col-12 p-lg-2 p-p-2 d-flex flex-column">
