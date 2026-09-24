@@ -393,6 +393,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
 
     const group1Links = [
       "/quantri/taisan/danhsachtaisan",
+      "/quantri/taisan/capchatluong",
       "/quantri/taisan/kiemdinhtaisan/0",
       "/quantri/taisan/baohiemtaisan/0",
       "/quantri/taisan/nhaptaisan/0",
@@ -445,6 +446,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
           {
             label: "Thực lực",
             routerLink: "/quantri/taisan/danhsachtaisan",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Cấp chất lượng",
+            routerLink: "/quantri/taisan/capchatluong",
             command: () => {
               this.close();
             },

@@ -40,6 +40,18 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   listLoaiNhienLieu: any = [];
   listLoaiDinhMucNhienLieu: any = [];
   listNoiDangKiem: any = [];
+  listPhanCap: any = [
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+    { label: '3', value: 3 },
+    { label: '4', value: 4 },
+    { label: '5', value: 5 }
+  ];
+  listDonViTienTe: any = [
+    { label: 'USD', value: 'USD' },
+    { label: 'VNĐ', value: 'VNĐ' },
+    { label: 'KIP', value: 'KIP' }
+  ];
 
   constructor(
     private _modal: NgbModal,
@@ -58,6 +70,15 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     } else {
       this.item.NgayNhap = new Date(this.item.NgayNhap)
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
+      if (this.item.PhanCap) {
+        this.item.PhanCap = Number(this.item.PhanCap);
+      }
+      if (!this.item.DonViTienTe) {
+        this.item.DonViTienTe = 'VNĐ';
+      }
+      if (this.item.DonViTienTe === 'VNĐ' && !this.item.TyGia) {
+        this.item.TyGia = 1;
+      }
     }
 
     this.getOptionsAll();
@@ -108,7 +129,22 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
       // this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
       this.item.NgayNhap = new Date(this.item.NgayNhap)
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
+      if (this.item.PhanCap) {
+        this.item.PhanCap = Number(this.item.PhanCap);
+      }
+      if (!this.item.DonViTienTe) {
+        this.item.DonViTienTe = 'VNĐ';
+      }
+      if (this.item.DonViTienTe === 'VNĐ' && !this.item.TyGia) {
+        this.item.TyGia = 1;
+      }
     })
+  }
+
+  changeDonViTienTe(e) {
+    if (this.item.DonViTienTe === 'VNĐ') {
+      this.item.TyGia = 1;
+    }
   }
 
   resetFilter() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { httpOptions, API } from './../host';
+import { httpOptions, API, host1 } from './../host';
 import { StoreService } from '../store.service';
 import { catchError, map } from 'rxjs/operators';
 
@@ -1596,6 +1596,18 @@ export class TaisanService {
 
   GetlistFileDinhKemForPhanCongCongViec(Id: any, eAction: any) {
     return this.http.get(`${API.auth}QuyTrinh/GetlistFileDinhKemForPhanCongCongViec?Id=${Id}&eAction=${eAction}`, httpOptions);
+  }
+
+  GetBaoCaoPhanCapMay(data: any) {
+    return this.http.post(`${host1}/QLTS_Vinatex/BaoCao/GetBaoCaoPhanCapMay`, data, httpOptions);
+  }
+
+  BaoCao() {
+    return {
+      GetBaoCaoPhanCapMay: (data: any) => {
+        return this.http.post(`${host1}/QLTS_Vinatex/BaoCao/GetBaoCaoPhanCapMay`, data, httpOptions);
+      }
+    };
   }
 
 }

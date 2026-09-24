@@ -1,0 +1,53 @@
+.table-responsive {
+  overflow-x: auto;
+}
+
+:host ::ng-deep .p-datatable-gridlines th,
+:host ::ng-deep .p-datatable-gridlines td {
+  border: 1px solid #dee2e6;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+/* Đồng bộ chiều cao cho ô dropdown và ô input tìm kiếm */
+:host ::ng-deep .filter-control,
+:host ::ng-deep .p-dropdown,
+:host ::ng-deep .p-dropdown.p-inputtext-sm,
+:host ::ng-deep .p-inputgroup {
+  height: 37px !important;
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-label {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: normal !important;
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-trigger {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+:host ::ng-deep .p-inputgroup > input,
+:host ::ng-deep .p-inputgroup > .p-inputtext {
+  height: 37px !important;
+  box-sizing: border-box !important;
+}
+
+:host ::ng-deep .p-inputgroup > button,
+:host ::ng-deep .p-inputgroup > .p-button {
+  height: 37px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}

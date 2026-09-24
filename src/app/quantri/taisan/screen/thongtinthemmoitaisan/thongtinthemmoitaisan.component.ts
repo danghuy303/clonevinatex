@@ -30,6 +30,18 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
     { label: 'Km', value: 'Km' },
     { label: 'Sản lượng', value: 'Sản lượng' }
   ];
+  listPhanCap: any = [
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+    { label: '3', value: 3 },
+    { label: '4', value: 4 },
+    { label: '5', value: 5 }
+  ];
+  listDonViTienTe: any = [
+    { label: 'USD', value: 'USD' },
+    { label: 'VNĐ', value: 'VNĐ' },
+    { label: 'KIP', value: 'KIP' }
+  ];
 
   @Input('item') item: any = {};
   @Input('TaiSanChaCon') TaiSanChaCon: string = "";
@@ -82,6 +94,21 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
     }
     if (this.item.GiaTriDongHoHienTai === undefined || this.item.GiaTriDongHoHienTai === null) {
       this.item.GiaTriDongHoHienTai = 0;
+    }
+    if (this.item.PhanCap) {
+      this.item.PhanCap = Number(this.item.PhanCap);
+    }
+    if (!this.item.DonViTienTe) {
+      this.item.DonViTienTe = 'VNĐ';
+    }
+    if (this.item.DonViTienTe === 'VNĐ' && !this.item.TyGia) {
+      this.item.TyGia = 1;
+    }
+  }
+
+  changeDonViTienTe(e) {
+    if (this.item.DonViTienTe === 'VNĐ') {
+      this.item.TyGia = 1;
     }
   }
 

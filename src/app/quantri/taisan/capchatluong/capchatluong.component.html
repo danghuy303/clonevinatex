@@ -1,0 +1,112 @@
+<div class="p-mb-3 p-mt-3">
+  <h4 style="color:#1f2779" class="m-0 font-weight-bold">Cấp chất lượng</h4>
+</div>
+
+<div class="p-d-flex p-ai-center p-jc-between p-mb-3 flex-column flex-md-row">
+  <div class="d-flex mb-2 mb-md-0">
+    <!-- Action buttons if needed in future -->
+  </div>
+
+  <div class="p-d-flex p-flex-row flex-wrap align-items-center">
+    <div class="p-mr-2 mb-2 mb-md-0" style="min-width: 220px;">
+      <p-dropdown
+        [filter]="true"
+        [options]="listDuAn"
+        placeholder="Chọn công ty"
+        [(ngModel)]="filter.IdDuAn"
+        styleClass="p-inputtext-sm w-100 filter-control"
+        (onChange)="getDataBaoCao()"
+        [showClear]="true">
+      </p-dropdown>
+    </div>
+
+    <div class="p-inputgroup mb-2 mb-md-0 filter-control" style="width: 220px;">
+      <input
+        type="text"
+        placeholder="Tìm kiếm"
+        class="p-inputtext-sm"
+        pInputText
+        (keyup.enter)="filterTable()"
+        [(ngModel)]="filter.Keyword" />
+      <button
+        type="button"
+        pButton
+        pRipple
+        icon="pi pi-search"
+        class="p-button-secondary p-button-sm p-button-text"
+        (click)="filterTable()">
+      </button>
+      <button
+        type="button"
+        pButton
+        pRipple
+        icon="pi pi-refresh"
+        class="p-button-secondary p-button-sm p-button-text"
+        (click)="resetFilter()">
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="p-mt-3 table-responsive">
+  <p-table
+    [value]="filteredItems"
+    [loading]="loading"
+    styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+    [paginator]="true"
+    [rows]="20"
+    [rowsPerPageOptions]="[20, 50, 100]">
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="text-center" rowspan="2" style="width: 50px; min-width: 50px;">STT</th>
+        <th class="text-center" rowspan="2" style="min-width: 450px;">LOẠI NHÃN HIỆU XE-MÁY</th>
+        <th class="text-center" rowspan="2" style="width: 100px; min-width: 90px;">ĐƠN VỊ TÍNH</th>
+        <th class="text-center" colspan="5" style="width: 275px;">PHÂN CẤP CHẤT LƯỢNG</th>
+      </tr>
+      <tr>
+        <th class="text-center" style="width: 55px; min-width: 50px;">1</th>
+        <th class="text-center" style="width: 55px; min-width: 50px;">2</th>
+        <th class="text-center" style="width: 55px; min-width: 50px;">3</th>
+        <th class="text-center" style="width: 55px; min-width: 50px;">4</th>
+        <th class="text-center" style="width: 55px; min-width: 50px;">5</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+      <tr>
+        <td class="text-center">{{ item.STT || (i + 1) }}</td>
+        <td>{{ item.MadmChiTieu ? (item.MadmChiTieu + ' - ' + item.TendmChiTieu) : item.TendmChiTieu }}</td>
+        <td class="text-center">{{ item.DonViTinh_SanLuong }}</td>
+        <td class="text-center">{{ item.SLKyNay_PhanCapCL_1 }}</td>
+        <td class="text-center">{{ item.SLKyNay_PhanCapCL_2 }}</td>
+        <td class="text-center">{{ item.SLKyNay_PhanCapCL_3 }}</td>
+        <td class="text-center">{{ item.SLKyNay_PhanCapCL_4 }}</td>
+        <td class="text-center">{{ item.SLKyNay_PhanCapCL_5 }}</td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="footer" *ngIf="filteredItems && filteredItems.length > 0">
+      <tr class="font-weight-bold bg-light">
+        <td colspan="3" class="text-center">Tổng cộng</td>
+        <td class="text-center">{{ getTotalCap(1) }}</td>
+        <td class="text-center">{{ getTotalCap(2) }}</td>
+        <td class="text-center">{{ getTotalCap(3) }}</td>
+        <td class="text-center">{{ getTotalCap(4) }}</td>
+        <td class="text-center">{{ getTotalCap(5) }}</td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" class="text-center">Không có dữ liệu</td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        Tổng số bản ghi: {{ filteredItems ? filteredItems.length : 0 }}
+      </div>
+    </ng-template>
+  </p-table>
+</div>

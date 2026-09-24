@@ -15,6 +15,7 @@ import { LoaikhauhaoComponent } from './danhmuc/loaikhauhao/loaikhauhao.componen
 import { LoaisucoComponent } from './danhmuc/loaisuco/loaisuco.component';
 import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 import { DanhsachtaisanComponent } from './danhsachtaisan/danhsachtaisan.component';
+import { CapchatluongComponent } from './capchatluong/capchatluong.component';
 import { DanhsachvattuComponent } from './danhsachvattu/danhsachvattu.component';
 import { DenghixulisucoComponent } from './denghixulisuco/denghixulisuco.component';
 import { KhauHaoTaiSanQuyTrinhComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-quy-trinh.component';
@@ -147,6 +148,7 @@ const routes: Routes = [
   { path: 'baohiemtaisan/:id', component: BaohiemtaisanComponent },
   { path: 'theodoihoatdong/:id', component: TheodoihoatdongComponent },
   { path: 'tieuhaonhienlieu/:id', component: TieuhaonhienlieuComponent },
+  { path: 'capchatluong', component: CapchatluongComponent },
 ];
 
 @NgModule({

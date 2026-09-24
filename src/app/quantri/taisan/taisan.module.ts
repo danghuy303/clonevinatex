@@ -36,6 +36,7 @@ import { VoiLibModule } from 'voi-lib';
 import { TaisanRoutingModule } from './taisan-routing.module';
 import { TaisanComponent } from './taisan.component';
 import { DanhsachtaisanComponent } from './danhsachtaisan/danhsachtaisan.component';
+import { CapchatluongComponent } from './capchatluong/capchatluong.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from 'src/app/services/loader.interceptor';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -453,6 +454,7 @@ import { DanhSachTheoNhomMayComponent } from './screenLichXich/danh-sach-theo-nh
     DonvibaohiemodalComponent,
     LoaihinhbaohiemmodalComponent,
     DanhSachTheoNhomMayComponent,
+    CapchatluongComponent,
     // TieuhaonhienlieutabComponent,
     // KiemdinhtaisantabComponent,
     // BaohiemtaisantabComponent,

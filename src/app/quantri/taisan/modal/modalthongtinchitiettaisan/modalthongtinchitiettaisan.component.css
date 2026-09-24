@@ -15,3 +15,8 @@ border-top: 0 none;
 .QR {
     padding-left: 50%;
 }
+
+:host ::ng-deep .p-panel-content .p-grid > [class*="p-col-"] {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+}
