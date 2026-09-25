@@ -11,7 +11,7 @@ export const host1 = `${window.location.origin.includes("localhost")
   // ? "http://27.71.231.140/"
   // ? "http://soid83.vinatex.com.vn/"
   //  ? "http://soispc.vinatex.com.vn/"
-  ? "http://103.130.212.35:2501"
+  ? "http://103.130.212.35:2502"
   // ? "http://103.130.212.35:2366"
   : window.location.origin
   }`;
@@ -49,6 +49,7 @@ export class API {
   public static SCM = host1 + "/SCM/";
   public static HopDong = host1 + "/HopDong/";
   public static TaiSan = host1 + "/QLTS_Vinatex/";
+  public static TongHopBaoCao = host1 + "/TongHopBaoCao/";
   public static TaiSanBaoCao = host1 + "/QLTS_Vinatex/BaoCao/";
   public static TaiSanDanhMuc = host1 + "/QLTS_Vinatex/DanhMuc/";
   public static CungUng = host1 + "/QuanLyCungUng/";

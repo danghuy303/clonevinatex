@@ -32,7 +32,8 @@
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Bộ phận sử dụng<span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-9 p-p-0">
-                <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"></app-select-bo-phan>
+                <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" [options]="listdmPhanXuong"
+                    placeholder="Bộ phận sử dụng"></app-select-bo-phan>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
@@ -44,12 +45,12 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <!-- <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Người sử dụng</label>
             <div class="p-col-12 p-lg-9 p-p-0 my-auto">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NguoiVanHanh" pInputText />
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Nội dung</label>
             <div class="p-col-12 p-lg-9 p-p-0 my-auto">
@@ -103,8 +104,21 @@
                     </td>
                     <td>{{rowData.TenTaiSan}}</td>
                     <td>
-                        <input type="text" class="p-inputtext-sm" [(ngModel)]="rowData.NguoiVanHanh" pInputText
-                            *ngIf="rowData.isCha" placeholder="Người sử dụng" />
+                        <p-autoComplete *ngIf="rowData.isCha" [(ngModel)]="rowData.NguoiVanHanh"
+                            [suggestions]="filteredCBNV" (completeMethod)="filterCBNV($event)"
+                            (onSelect)="onSelectCBNV($event, rowData)" [field]="fnResolveField"
+                            [dropdown]="true" placeholder="Người sử dụng"
+                            styleClass="p-inputtext-sm w-100" [style]="{'width': '100%'}"
+                            inputStyleClass="p-inputtext-sm" appendTo="body">
+                            <ng-template let-item pTemplate="item">
+                                <div>
+                                    <span>{{item.Ten || item.HoTen || item.TenNhanVien || item}}</span>
+                                    <span *ngIf="item.ChucVu || item.BoPhan" style="color: #6c757d; font-size: 11px; margin-left: 6px;">
+                                        ({{item.ChucVu || item.BoPhan}})
+                                    </span>
+                                </div>
+                            </ng-template>
+                        </p-autoComplete>
                     </td>
                     <td>
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="rowData.SoLuong"

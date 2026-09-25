@@ -92,7 +92,7 @@ export class
         this.currentUserSubject.next(null);
         localStorage.removeItem('access_token');
         this.currentAccess_Token.next(null);
-        this.router.navigate(['/login']);
+        window.location.href = '/reporteos/#/login';
         return true;
     }
 }

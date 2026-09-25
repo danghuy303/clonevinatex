@@ -14,7 +14,7 @@ export class QuytrinhServiceService {
     return this.http.post(`${API.auth}DanhMuc/SetTraoDoiQuyTrinh`, data, httpOptions);
   }
   TraoDoiQuyTrinh(data: any) {
-    return this.http.post(`${API.auth}DanhMuc/TraoDoiQuyTrinh`, data, httpOptions);
+    return this.http.post(`${API.auth}DanhMuc/GetListTraoDoiQuyTrinh`, data, httpOptions);
   }
 
   XemTruocTaiLIeuTraoDoi(IdFileDinhKem: any, Module: string) {

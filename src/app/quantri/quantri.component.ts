@@ -140,7 +140,6 @@ export class QuantriComponent implements OnInit, OnDestroy {
       { separator: true },
       {
         label: "Đăng xuất",
-        routerLink: ["/login"],
         command: () => {
           this.store.setNhaMay("");
           this._auth.logout();

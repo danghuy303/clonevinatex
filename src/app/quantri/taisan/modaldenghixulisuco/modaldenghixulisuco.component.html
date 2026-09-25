@@ -33,7 +33,8 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng <span class="required">(*)</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" (onChange)="chonBoPhanSD($event)" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
+                <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" (onChange)="chonBoPhanSD($event)"
+                    [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
@@ -234,18 +235,18 @@
                         <td class="text-center">
                             <p-calendar dateFormat="dd/mm/yy" [showTime]="true" inputStyleClass="p-inputtext-sm"
                                 [showIcon]="true" [locale]="lang" [(ngModel)]="suco.TuGio" inputId="icon"
-                                [maxDate]="suco.DenGio" [disabled]="suco.TuGio && !item.isDoiBaoDuong">
+                                [maxDate]="suco.DenGio" [disabled]="!item.isDoiBaoDuong">
                             </p-calendar>
                         </td>
                         <td class="text-center">
                             <p-calendar dateFormat="dd/mm/yy" [showTime]="true" inputStyleClass="p-inputtext-sm"
-                                [minDate]="suco.TuGio" [disabled]="suco.DenGio && !item.isDoiBaoDuong" [showIcon]="true"
+                                [minDate]="suco.TuGio" [disabled]="!item.isDoiBaoDuong" [showIcon]="true"
                                 [locale]="lang" [(ngModel)]="suco.DenGio" inputId="icon">
                             </p-calendar>
                         </td>
                         <td class="text-center">
                             <p-checkbox [(ngModel)]="suco.IsXuLy" binary="true" (onChange)="DaXuLy(suco)"
-                                [disabled]="suco.IsXuLy && !item.isDoiBaoDuong"></p-checkbox>
+                                [disabled]="!item.isDoiBaoDuong"></p-checkbox>
                         </td>
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-list"

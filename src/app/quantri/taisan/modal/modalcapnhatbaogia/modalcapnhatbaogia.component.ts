@@ -29,6 +29,8 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   listDonVi: any = [];
   NameFile: string = "";
   listTaiSan_copy: TreeNode[] = [];
+  listCBNV: any[] = [];
+  filteredCBNV: any[] = [];
 
   constructor(
     public _modal: NgbModal,
@@ -41,6 +43,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   ngOnInit(): void {
     this.KiemTraButtonModal();
     this.getListdmPhanXuong();
+    this.getListCBNV();
     if (this.opt === 'add') {
       // this.title = "Bàn giao máy/thiết bị";
       this.title = "Bàn giao";
@@ -69,6 +72,58 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
+
+  getListCBNV() {
+    let idDuAn = this.item.IdDuAn || this._serviceTaiSan.store.getCurrent() || '';
+    this._serviceTaiSan.GetListCBNVNganhXemayByIdDuAn(idDuAn).subscribe((res: any) => {
+      let data = Array.isArray(res) ? res : (res && Array.isArray(res.Data) ? res.Data : []);
+      this.listCBNV = data.map((x: any) => {
+        if (typeof x === 'string') {
+          return { Ten: x, DisplayText: x };
+        }
+        let ten = x.Ten || x.HoTen || x.TenNhanVien || x.TenDayDu || x.Name || '';
+        let ma = x.Ma || x.MaNhanVien || x.MaCBNV || '';
+        let chucVu = x.ChucVu || x.TenChucVu || x.BoPhan || x.TenBoPhan || '';
+        let displayText = ten;
+        if (chucVu) displayText += ` (${chucVu})`;
+        else if (ma) displayText += ` (${ma})`;
+        return {
+          ...x,
+          Ten: ten,
+          Ma: ma,
+          ChucVu: chucVu,
+          DisplayText: displayText
+        };
+      });
+    }, (err) => {
+      console.log('Error GetListCBNVNganhXemayByIdDuAn:', err);
+    });
+  }
+
+  filterCBNV(event: any) {
+    let query = (event && event.query != null ? event.query : '').trim().toLowerCase();
+    if (!query) {
+      this.filteredCBNV = [...this.listCBNV];
+    } else {
+      this.filteredCBNV = this.listCBNV.filter(item => {
+        let ten = (item.Ten || item.HoTen || item.TenNhanVien || '').toLowerCase();
+        let ma = (item.Ma || item.MaNhanVien || '').toLowerCase();
+        let chucVu = (item.ChucVu || item.TenChucVu || item.BoPhan || '').toLowerCase();
+        return ten.includes(query) || ma.includes(query) || chucVu.includes(query);
+      });
+    }
+  }
+
+  onSelectCBNV(event: any, rowData: any) {
+    let name = typeof event === 'string' ? event : (event.Ten || event.HoTen || event.TenNhanVien || event.TenDayDu || '');
+    rowData.NguoiVanHanh = name;
+  }
+
+  fnResolveField = (data: any) => {
+    if (!data) return '';
+    if (typeof data === 'string') return data;
+    return data.Ten || data.HoTen || data.TenNhanVien || data.TenDayDu || '';
+  };
 
   GetNhaMay() {
     this._servicesSanXuat.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
@@ -136,6 +191,10 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   mapDataViewToModel(item: any) {
+    let nguoiVanHanh = item.data?.NguoiVanHanh;
+    if (nguoiVanHanh && typeof nguoiVanHanh === 'object') {
+      nguoiVanHanh = nguoiVanHanh.Ten || nguoiVanHanh.HoTen || nguoiVanHanh.TenNhanVien || nguoiVanHanh.TenDayDu || '';
+    }
     return {
       Id: item.data?.Id || "",
       IdTaiSan: item.data?.IdTaiSan,
@@ -143,7 +202,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       GhiChu: item.data?.GhiChu || "",
       MaTaiSan: item.data?.MaTaiSan,
       TenTaiSan: item.data?.TenTaiSan,
-      NguoiVanHanh: item.data?.NguoiVanHanh,
+      NguoiVanHanh: nguoiVanHanh,
       listTaiSan: this.isEmpty(item.children) ? item.children.map(ele => this.mapDataViewToModel(ele)) : null
     }
   }
@@ -180,6 +239,9 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       });
       this.KiemTraButtonModal();
       this.CheckParent(this.listTaiSan_copy);
+      if (!this.listCBNV || this.listCBNV.length === 0) {
+        this.getListCBNV();
+      }
     })
   }
 

@@ -286,4 +286,17 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     return 'giờ';
   }
 
+  getLabelSanLuong(cachTinh: string): string {
+    if (cachTinh === 'Km') {
+      return 'Chiều dài (km)';
+    }
+    if (cachTinh === 'Giờ máy') {
+      return 'Số giờ máy (h)';
+    }
+    return 'Sản lượng (tấn)';
+  }
+
+  changeTab(e) {
+  }
+
 }

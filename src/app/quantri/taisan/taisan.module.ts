@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploadModule } from 'ng2-file-upload';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
@@ -467,6 +468,7 @@ import { DanhSachTheoNhomMayComponent } from './screenLichXich/danh-sach-theo-nh
     NgbModule,
     NgbProgressbarModule,
     FileUploadModule,
+    AutoCompleteModule,
     ButtonModule,
     CalendarModule,
     ChartModule,

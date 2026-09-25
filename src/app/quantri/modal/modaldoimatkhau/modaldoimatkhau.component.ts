@@ -44,7 +44,6 @@ export class ModaldoimatkhauComponent implements OnInit {
           if(res?.Error===4){
             this._toastr.success(res.Detail);
             this.auth.logout();
-            this._router.navigate(['/login']);
             this._activeModal.close();
           }else{
             this._toastr.error(res.Detail);

@@ -58,9 +58,13 @@ export class ModalbaoduongComponent implements OnInit {
       { value: 6, label: 'Thứ 7' },
     ];
     this.listDonViTinh = [
+      { value: 'Xe', label: 'Xe' },
       { value: 'May', label: 'Máy' },
-      { value: 'Coc', label: 'Cọc' },
-      { value: 'Day', label: 'Dây' },
+      { value: 'DayChuyen', label: 'Dây chuyền' },
+      { value: 'Cai', label: 'Cái' },
+      { value: 'ThietBi', label: 'Thiết bị' },
+      { value: 'Bo', label: 'Bộ' },
+      { value: 'Khac', label: 'Khác' },
     ];
     let data = {
       CurrentPage: 0,

@@ -386,6 +386,7 @@ export class TaisanService {
 
   BanGiaoTaiSan() {
     let url = API.TaiSan;
+    let urlBC = API.TongHopBaoCao;
     return {
       GetNextSoQuyTrinh: () => {
         // return this.http.get(`${url}BanGiaoTaiSan/GetNextQuyTrinhBanGiao`, httpOptions);
@@ -415,7 +416,15 @@ export class TaisanService {
       Delete: (Id) => {
         return this.http.get(`${url}NhatKySuDung/DeleteQuyTrinhBanGiaoTaiSanById?Id=${Id}`, httpOptions);
       },
+      GetListCBNVNganhXemayByIdDuAn: (IdDuAn?: any) => {
+        return this.http.get(`${urlBC}CongTacKyThuat/GetListCBNVNganhXemayByIdDuAn?IdDuAn=${IdDuAn || ''}`, httpOptions);
+      },
     };
+  }
+
+  GetListCBNVNganhXemayByIdDuAn(IdDuAn?: any) {
+    let url = API.TongHopBaoCao;
+    return this.http.get(`${url}CongTacKyThuat/GetListCBNVNganhXemayByIdDuAn?IdDuAn=${IdDuAn || ''}`, httpOptions);
   }
 
   KhauHaoTaiSan() {

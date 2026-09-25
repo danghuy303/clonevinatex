@@ -20,8 +20,8 @@
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Phân cấp : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-dropdown [options]="listPhanCap" placeholder="Chọn phân cấp"
-                [(ngModel)]="item.PhanCap" [showClear]="true" appendTo="body"></p-dropdown>
+            <p-dropdown [options]="listPhanCap" placeholder="Chọn phân cấp" [(ngModel)]="item.PhanCap"
+                [showClear]="true" appendTo="body"></p-dropdown>
         </div>
     </div>
 
@@ -44,7 +44,8 @@
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số lượng : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-inputNumber [min]="1" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+            <p-inputNumber [min]="1" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong"
+                [disabled]="true">
             </p-inputNumber>
         </div>
     </div>
@@ -111,8 +112,8 @@
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Nguyên giá ({{item.DonViTienTe || 'VNĐ'}}) : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" mode="decimal" locale="en-EN" [min]="0"
-                [(ngModel)]="item.NguyenGia" (onBlur)="edit(item)">
+            <p-inputNumber [minFractionDigits]="0" mode="decimal" locale="en-EN" [min]="0" [(ngModel)]="item.NguyenGia"
+                (onBlur)="edit(item)">
             </p-inputNumber>
         </div>
     </div>
@@ -121,9 +122,8 @@
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn vị tiền tệ : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-dropdown [options]="listDonViTienTe" placeholder="Chọn đơn vị tiền tệ"
-                [(ngModel)]="item.DonViTienTe" (onChange)="changeDonViTienTe($event)"
-                appendTo="body"></p-dropdown>
+            <p-dropdown [options]="listDonViTienTe" placeholder="Chọn đơn vị tiền tệ" [(ngModel)]="item.DonViTienTe"
+                (onChange)="changeDonViTienTe($event)" appendTo="body"></p-dropdown>
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
@@ -199,35 +199,42 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-8 p-p-2">
-        <div class="card p-3" style="border: 1.5px solid #90caf9; border-radius: 8px; background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%); box-shadow: 0 2px 6px rgba(0, 123, 255, 0.08);">
+        <div class="card p-3"
+            style="border: 1.5px solid #90caf9; border-radius: 8px; background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%); box-shadow: 0 2px 6px rgba(0, 123, 255, 0.08);">
             <div class="p-grid p-m-0 align-items-center">
                 <div class="p-col-12 p-md-6 p-p-2 d-flex flex-column flex-xl-row align-items-xl-center">
-                    <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto font-weight-bold text-primary">Phân nhóm : </label>
+                    <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto font-weight-bold text-primary">Phân nhóm :
+                    </label>
                     <div class="p-col-12 p-xl-8 p-lg-12 p-p-0 d-flex align-items-center">
                         <div class="p-d-flex p-ai-center p-mr-3">
                             <p-radioButton name="PhanNhom" [value]="1" [(ngModel)]="item.PhanNhom"
                                 inputId="phanNhom1"></p-radioButton>
-                            <label for="phanNhom1" class="ml-1 mb-0 font-weight-bold" style="cursor: pointer;">Đảm bảo</label>
+                            <label for="phanNhom1" class="ml-1 mb-0 font-weight-bold" style="cursor: pointer;">Đảm
+                                bảo</label>
                         </div>
                         <div class="p-d-flex p-ai-center">
                             <p-radioButton name="PhanNhom" [value]="2" [(ngModel)]="item.PhanNhom"
                                 inputId="phanNhom2"></p-radioButton>
-                            <label for="phanNhom2" class="ml-1 mb-0 font-weight-bold" style="cursor: pointer;">Huấn luyện</label>
+                            <label for="phanNhom2" class="ml-1 mb-0 font-weight-bold" style="cursor: pointer;">Huấn
+                                luyện</label>
                         </div>
                     </div>
                 </div>
                 <div class="p-col-12 p-md-6 p-p-2 d-flex flex-column flex-xl-row align-items-xl-center">
-                    <label class="p-col-12 p-xl-5 p-lg-12 p-p-0 my-auto font-weight-bold text-primary">Trạng thái sử dụng : </label>
+                    <label class="p-col-12 p-xl-5 p-lg-12 p-p-0 my-auto font-weight-bold text-primary">Trạng thái sử
+                        dụng : </label>
                     <div class="p-col-12 p-xl-7 p-lg-12 p-p-0 d-flex align-items-center">
                         <div class="p-d-flex p-ai-center p-mr-3">
                             <p-radioButton name="TrangThaiSD" [value]="1" [(ngModel)]="item.TrangThaiSD"
                                 inputId="trangThaiSD1"></p-radioButton>
-                            <label for="trangThaiSD1" class="ml-1 mb-0 font-weight-bold" style="cursor: pointer;">Thường xuyên</label>
+                            <label for="trangThaiSD1" class="ml-1 mb-0 font-weight-bold" style="cursor: pointer;">Thường
+                                xuyên</label>
                         </div>
                         <div class="p-d-flex p-ai-center">
                             <p-radioButton name="TrangThaiSD" [value]="2" [(ngModel)]="item.TrangThaiSD"
                                 inputId="trangThaiSD2"></p-radioButton>
-                            <label for="trangThaiSD2" class="ml-1 mb-0 font-weight-bold" style="cursor: pointer;">Dự phòng</label>
+                            <label for="trangThaiSD2" class="ml-1 mb-0 font-weight-bold" style="cursor: pointer;">Dự
+                                phòng</label>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,11 @@
 label {
     display: inline-block;
     margin-bottom: 0rem;
+}
+.field-radiobutton label,
+.p-field-checkbox label {
     margin-left: 0.5rem;
+    cursor: pointer;
 }
 .tan {
     padding-top: .5rem;
@@ -12,10 +16,82 @@ label {
 .check-pt {
     padding-top: 8px;
 }
-/* ::ng-deep .p-calendar {
-   width: 100px;
-} */
 
 ::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link {
     text-decoration: none;
 }
+
+/* Đảm bảo tất cả các control input có kích thước đồng đều */
+:host ::ng-deep .p-inputtext,
+:host ::ng-deep .p-dropdown,
+:host ::ng-deep .p-calendar,
+:host ::ng-deep .p-multiselect,
+:host ::ng-deep .p-inputnumber {
+    width: 100% !important;
+}
+
+:host ::ng-deep input.p-inputtext,
+:host ::ng-deep .p-dropdown,
+:host ::ng-deep .p-multiselect,
+:host ::ng-deep .p-calendar input.p-inputtext,
+:host ::ng-deep .p-inputnumber input.p-inputtext {
+    height: 37px !important;
+    min-height: 37px !important;
+    box-sizing: border-box !important;
+}
+
+:host ::ng-deep textarea.p-inputtext {
+    min-height: 37px !important;
+    box-sizing: border-box !important;
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-label {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: normal !important;
+}
+
+:host ::ng-deep .p-multiselect .p-multiselect-label {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: normal !important;
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-trigger,
+:host ::ng-deep .p-multiselect .p-multiselect-trigger {
+    height: 100% !important;
+}
+
+:host ::ng-deep .p-calendar {
+    display: flex !important;
+    width: 100% !important;
+}
+
+:host ::ng-deep .p-calendar .p-inputtext {
+    flex: 1 1 auto;
+}
+
+:host ::ng-deep .p-inputnumber {
+    display: flex !important;
+    width: 100% !important;
+}
+
+:host ::ng-deep .p-inputnumber .p-inputtext {
+    flex: 1 1 auto;
+}
+
+/* Chiều cao nhãn đồng nhất để các ô input trong cùng hàng luôn thẳng hàng, không bị lệch */
+.item-label {
+    display: flex;
+    align-items: flex-end;
+    min-height: 38px;
+    margin-bottom: 4px;
+    font-size: 13px;
+    line-height: 1.3;
+}
