@@ -85,7 +85,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
       this.item.DinhMucTieuHao.KhoiLuong = this.formatNumberString(this.item.DinhMucTieuHao.KhoiLuong);
       this.item.DinhMucTieuHao.TyLe = this.formatNumberString(this.item.DinhMucTieuHao.TyLe);
     }
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0 };
     // let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();

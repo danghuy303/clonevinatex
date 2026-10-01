@@ -51,6 +51,9 @@ export const mapQuyTrinhRoute = {
         NHAPVATTUDUTRU: '/quantri/taisan/quytrinhnhapvattu',
         QUYTRINHNHAPTAISAN: '/quantri/taisan/nhaptaisan',
         QUYTRINHTHOIHANCUNGCAP: '/quantri/taisan/thoihancungcapvattu',
+        QUYTRINHBANGIAOTAISAN: '/quantri/taisan/bangiaotaisan',
+        QUYTRINHTHUHOITAISAN: '/quantri/taisan/thuhoitaisan',
+        QUYTRINHTHANHLYTAISAN: '/quantri/taisan/thanhlytaisan',
 
         KIEMKEBANCHEPHAMHUE: '/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham-hue',
         PHIEUNHAPCHAIPE: '/quantri/hopdongsanxuat/khotho/nhapkho',

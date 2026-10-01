@@ -39,7 +39,7 @@ export class LichSuSuDungComponent implements OnInit {
 
   ngOnInit(): void {
     this.ResetData();
-    this.GetListPhanXuong();
+    // this.GetListPhanXuong();
     this.GetListLoaiTaiSan();
   }
 

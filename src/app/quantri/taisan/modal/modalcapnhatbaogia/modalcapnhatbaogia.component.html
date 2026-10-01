@@ -106,13 +106,15 @@
                     <td>
                         <p-autoComplete *ngIf="rowData.isCha" [(ngModel)]="rowData.NguoiVanHanh"
                             [suggestions]="filteredCBNV" (completeMethod)="filterCBNV($event)"
-                            (onSelect)="onSelectCBNV($event, rowData)" [field]="fnResolveField"
+                            (onSelect)="onSelectCBNV($event, rowData)" field="TendmChiTieu"
                             [dropdown]="true" placeholder="Người sử dụng"
                             styleClass="p-inputtext-sm w-100" [style]="{'width': '100%'}"
-                            inputStyleClass="p-inputtext-sm" appendTo="body">
+                            inputStyleClass="p-inputtext-sm" appendTo="body"
+                            [baseZIndex]="999999" [autoZIndex]="true" [minLength]="0" [completeOnFocus]="true"
+                            [delay]="100" emptyMessage="Không tìm thấy kết quả">
                             <ng-template let-item pTemplate="item">
                                 <div>
-                                    <span>{{item.Ten || item.HoTen || item.TenNhanVien || item}}</span>
+                                    <span>{{item.TendmChiTieu || item.Ten || item.HoTen || item}}</span>
                                     <span *ngIf="item.ChucVu || item.BoPhan" style="color: #6c757d; font-size: 11px; margin-left: 6px;">
                                         ({{item.ChucVu || item.BoPhan}})
                                     </span>

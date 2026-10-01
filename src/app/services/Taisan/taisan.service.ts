@@ -415,10 +415,7 @@ export class TaisanService {
       },
       Delete: (Id) => {
         return this.http.get(`${url}NhatKySuDung/DeleteQuyTrinhBanGiaoTaiSanById?Id=${Id}`, httpOptions);
-      },
-      GetListCBNVNganhXemayByIdDuAn: (IdDuAn?: any) => {
-        return this.http.get(`${urlBC}CongTacKyThuat/GetListCBNVNganhXemayByIdDuAn?IdDuAn=${IdDuAn || ''}`, httpOptions);
-      },
+      }
     };
   }
 

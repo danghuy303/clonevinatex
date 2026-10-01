@@ -238,7 +238,7 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
       item.listSanLuongDropdown = list.map((x: any) => {
         return {
           label: (x.Ten || '') + (x.TendmLoaiNhienLieu ? ' ' + x.TendmLoaiNhienLieu : ''),
-          value: x.IddmLoaiNhienLieu,
+          value: x.Id,
         };
       });
       item.rawSanLuongList = list;
@@ -260,12 +260,14 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
   }
 
   onChangeSanLuong(item: any) {
-    const val = item.IdSanLuong || item.IddmLoaiNhienLieu;
+    console.log("item", item);
+
+    const val = item.IdSanLuongMay || item.IdSanLuong || item.IddmLoaiNhienLieu;
     if (item.rawSanLuongList && val) {
-      const selected = item.rawSanLuongList.find((x: any) => x.IddmLoaiNhienLieu === val);
+      const selected = item.rawSanLuongList.find((x: any) => x.Id === val);
       if (selected) {
-        item.DinhMuc = selected.SanLuong || 0;
-        item.TieuHaoDinhMuc = selected.SanLuong || 0;
+        item.DinhMuc = selected.NhienLieu || 0;
+        item.TieuHaoDinhMuc = selected.NhienLieu || 0;
         item.DonViTinh_NhienLieu = selected.DonViTinh_NhienLieu;
         item.TendmLoaiNhienLieu = selected.TendmLoaiNhienLieu;
         item.IddmLoaiNhienLieu = selected.IddmLoaiNhienLieu;

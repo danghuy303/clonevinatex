@@ -76,7 +76,7 @@ export class BangiaotaisanComponent implements OnInit, OnDestroy {
 
   initData() {
     this.KiemTraTabTrangThai();
-    this.getListdmPhanXuong();
+    // this.getListdmPhanXuong();
   }
 
   ngOnDestroy(): void {

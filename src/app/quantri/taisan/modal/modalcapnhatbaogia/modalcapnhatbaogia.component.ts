@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +10,14 @@ import { vn } from 'src/app/services/const';
 import { mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalchontaisanComponent } from '../modalchontaisan/modalchontaisan.component';
+if (typeof (String.prototype as any).TendmChiTieu === 'undefined') {
+  Object.defineProperty(String.prototype, 'TendmChiTieu', {
+    get() {
+      return this.toString();
+    },
+    configurable: true
+  });
+}
 
 @Component({
   selector: 'app-modalcapnhatbaogia',
@@ -38,11 +46,12 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     public toastr: ToastrService,
     private _servicesSanXuat: SanXuatService,
     private _serviceTaiSan: TaisanService,
+    private cd: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
     this.KiemTraButtonModal();
-    this.getListdmPhanXuong();
+    // this.getListdmPhanXuong();
     this.getListCBNV();
     if (this.opt === 'add') {
       // this.title = "Bàn giao máy/thiết bị";
@@ -73,56 +82,105 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     })
   }
 
-  getListCBNV() {
-    let idDuAn = this.item.IdDuAn || this._serviceTaiSan.store.getCurrent() || '';
+  getListCBNV(callback?: () => void) {
+    let currentStore = this._serviceTaiSan.store.getCurrent();
+    let idDuAn = (this.item && validVariable(this.item.IdDuAn) && String(this.item.IdDuAn) !== '0')
+      ? this.item.IdDuAn
+      : (validVariable(currentStore) && String(currentStore) !== '0' ? currentStore : '');
     this._serviceTaiSan.GetListCBNVNganhXemayByIdDuAn(idDuAn).subscribe((res: any) => {
-      let data = Array.isArray(res) ? res : (res && Array.isArray(res.Data) ? res.Data : []);
-      this.listCBNV = data.map((x: any) => {
-        if (typeof x === 'string') {
-          return { Ten: x, DisplayText: x };
+      let rawList: any[] = [];
+      if (Array.isArray(res)) {
+        rawList = res;
+      } else if (res && Array.isArray(res.Data)) {
+        rawList = res.Data;
+      } else if (res && res.Data && Array.isArray(res.Data.Items)) {
+        rawList = res.Data.Items;
+      } else if (res && res.Data && Array.isArray(res.Data.Data)) {
+        rawList = res.Data.Data;
+      } else if (res && Array.isArray(res.Items)) {
+        rawList = res.Items;
+      } else if (res && Array.isArray(res.list)) {
+        rawList = res.list;
+      } else if (res && Array.isArray(res.List)) {
+        rawList = res.List;
+      } else if (res && typeof res === 'object') {
+        const found = Object.values(res).find(v => Array.isArray(v));
+        if (found) rawList = found as any[];
+        else if (res.Data && typeof res.Data === 'object') {
+          const foundData = Object.values(res.Data).find(v => Array.isArray(v));
+          if (foundData) rawList = foundData as any[];
         }
-        let ten = x.Ten || x.HoTen || x.TenNhanVien || x.TenDayDu || x.Name || '';
-        let ma = x.Ma || x.MaNhanVien || x.MaCBNV || '';
-        let chucVu = x.ChucVu || x.TenChucVu || x.BoPhan || x.TenBoPhan || '';
-        let displayText = ten;
+      }
+      this.listCBNV = rawList.map((x: any) => {
+        if (typeof x === 'string') {
+          return { TendmChiTieu: x, Ten: x, DisplayText: x };
+        }
+        let tendmChiTieu = x.TendmChiTieu || x.tendmChiTieu || x.TenDmChiTieu || x.TenChiTieu || x.Ten || x.HoTen || x.TenNhanVien || x.TenDayDu || x.Name || '';
+        let ma = x.MadmChiTieu || x.madmChiTieu || x.MaDmChiTieu || x.MaChiTieu || x.Ma || x.MaNhanVien || x.MaCBNV || '';
+        let chucVu = x.ChucVu || x.chucVu || x.TenChucVu || x.BoPhan || x.TenBoPhan || '';
+        let displayText = tendmChiTieu;
         if (chucVu) displayText += ` (${chucVu})`;
         else if (ma) displayText += ` (${ma})`;
         return {
           ...x,
-          Ten: ten,
+          TendmChiTieu: tendmChiTieu,
+          Ten: tendmChiTieu,
           Ma: ma,
+          MadmChiTieu: ma,
           ChucVu: chucVu,
           DisplayText: displayText
         };
       });
+      if (callback) callback();
+      this.cd.markForCheck();
+      this.cd.detectChanges();
     }, (err) => {
       console.log('Error GetListCBNVNganhXemayByIdDuAn:', err);
+      if (callback) callback();
+      this.cd.markForCheck();
+      this.cd.detectChanges();
     });
   }
 
   filterCBNV(event: any) {
-    let query = (event && event.query != null ? event.query : '').trim().toLowerCase();
-    if (!query) {
-      this.filteredCBNV = [...this.listCBNV];
-    } else {
-      this.filteredCBNV = this.listCBNV.filter(item => {
-        let ten = (item.Ten || item.HoTen || item.TenNhanVien || '').toLowerCase();
-        let ma = (item.Ma || item.MaNhanVien || '').toLowerCase();
-        let chucVu = (item.ChucVu || item.TenChucVu || item.BoPhan || '').toLowerCase();
-        return ten.includes(query) || ma.includes(query) || chucVu.includes(query);
+    let query = (event && event.query != null ? event.query : (typeof event === 'string' ? event : '')).trim().toLowerCase();
+    const doFilter = () => {
+      if (!query) {
+        this.filteredCBNV = [...(this.listCBNV || [])];
+      } else {
+        const removeAccents = (str: string) => str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+        const queryNoAccent = removeAccents(query);
+        this.filteredCBNV = (this.listCBNV || []).filter(item => {
+          let ten = (item.TendmChiTieu || item.Ten || item.HoTen || item.TenNhanVien || '').toLowerCase();
+          let ma = (item.MadmChiTieu || item.Ma || item.MaNhanVien || '').toLowerCase();
+          let chucVu = (item.ChucVu || item.TenChucVu || item.BoPhan || '').toLowerCase();
+          return ten.includes(query) || ma.includes(query) || chucVu.includes(query)
+            || removeAccents(ten).includes(queryNoAccent)
+            || removeAccents(ma).includes(queryNoAccent);
+        });
+      }
+      this.cd.markForCheck();
+      this.cd.detectChanges();
+    };
+
+    if (!this.listCBNV || this.listCBNV.length === 0) {
+      this.getListCBNV(() => {
+        doFilter();
       });
+    } else {
+      doFilter();
     }
   }
 
   onSelectCBNV(event: any, rowData: any) {
-    let name = typeof event === 'string' ? event : (event.Ten || event.HoTen || event.TenNhanVien || event.TenDayDu || '');
+    let name = typeof event === 'string' ? event : (event.TendmChiTieu || event.Ten || event.HoTen || event.TenNhanVien || event.TenDayDu || '');
     rowData.NguoiVanHanh = name;
   }
 
   fnResolveField = (data: any) => {
     if (!data) return '';
     if (typeof data === 'string') return data;
-    return data.Ten || data.HoTen || data.TenNhanVien || data.TenDayDu || '';
+    return data.TendmChiTieu || data.Ten || data.HoTen || data.TenNhanVien || data.TenDayDu || '';
   };
 
   GetNhaMay() {
@@ -193,7 +251,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   mapDataViewToModel(item: any) {
     let nguoiVanHanh = item.data?.NguoiVanHanh;
     if (nguoiVanHanh && typeof nguoiVanHanh === 'object') {
-      nguoiVanHanh = nguoiVanHanh.Ten || nguoiVanHanh.HoTen || nguoiVanHanh.TenNhanVien || nguoiVanHanh.TenDayDu || '';
+      nguoiVanHanh = nguoiVanHanh.TendmChiTieu || nguoiVanHanh.Ten || nguoiVanHanh.HoTen || nguoiVanHanh.TenNhanVien || nguoiVanHanh.TenDayDu || '';
     }
     return {
       Id: item.data?.Id || "",

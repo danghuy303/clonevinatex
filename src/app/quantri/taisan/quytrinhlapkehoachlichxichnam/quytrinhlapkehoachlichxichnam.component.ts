@@ -62,7 +62,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit, OnDestroy
       this.listNam.push({ value: i, label: i });
     }
     this.KiemTraTabTrangThai();
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
   }
 
   ngOnDestroy(): void {

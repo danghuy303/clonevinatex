@@ -43,7 +43,7 @@ export class DenghixulisucoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
     this.GetList();
     if (!this.$subRoute) {
       this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {

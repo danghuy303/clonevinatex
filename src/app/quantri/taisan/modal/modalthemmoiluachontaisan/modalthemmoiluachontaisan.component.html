@@ -41,8 +41,10 @@
         <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhóm vật tư <span class="text-danger">(*)</span>: </label>
             <div class="p-col-12 p-xl-8 p-p-0 d-flex">
-                <input type="text" class="p-inputtext-sm flex-grow-1" [(ngModel)]="item.TendmTaiSan" pInputText disabled />
-                <button pButton pRipple icon="pi pi-plus" class="p-button-sm ml-1" style="height: 37px;" (click)="ChonTaiSan()"></button>
+                <input type="text" class="p-inputtext-sm flex-grow-1" [(ngModel)]="item.TendmTaiSan" pInputText
+                    disabled />
+                <button pButton pRipple icon="pi pi-plus" class="p-button-sm ml-1" style="height: 37px;"
+                    (click)="ChonTaiSan()"></button>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
@@ -77,6 +79,38 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Hãng sản xuất : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.HangSanXuat" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ngày sản xuất : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+                    [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayNhap"
+                    [maxDate]="item.ThoiGianDuaVaoSuDung" inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhà cung cấp : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listCungSanXuat" placeholder="Nhập nhà cung cấp"
+                    [(ngModel)]="item.IddmNhaCungUng" [showClear]="true" appendTo="body"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+                    [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [minDate]="item.NgayNhap"
+                    [(ngModel)]="item.ThoiGianDuaVaoSuDung" inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tuổi thọ (tháng) : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="1" locale="en-EN" [min]="0" [(ngModel)]="item.TuoiTho">
@@ -85,7 +119,8 @@
         </div>
         <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">
-                {{ item.CachTinh === 'Km' ? 'Chiều dài (km)' : (item.CachTinh === 'Giờ máy' ? 'Số giờ máy (h)' : 'Sản lượng (tấn)') }} :
+                {{ item.CachTinh === 'Km' ? 'Chiều dài (km)' : (item.CachTinh === 'Giờ máy' ? 'Số giờ máy (h)' : 'Sản
+                lượng (tấn)') }} :
             </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="1" mode="decimal" locale="en-EN" [min]="0"
@@ -93,12 +128,7 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Hãng sản xuất : </label>
-            <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.HangSanXuat" pInputText />
-            </div>
-        </div>
+
         <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Cách tính : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
@@ -129,31 +159,9 @@
                 </div>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhà cung cấp : </label>
-            <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listCungSanXuat" placeholder="Nhập nhà cung cấp"
-                    [(ngModel)]="item.IddmNhaCungUng" [showClear]="true" appendTo="body"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ngày sản xuất : </label>
-            <div class="p-col-12 p-xl-8 p-p-0">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
-                    [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayNhap"
-                    [maxDate]="item.ThoiGianDuaVaoSuDung" inputId="icon" placeholder="dd/mm/yyyy">
-                </p-calendar>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng : </label>
-            <div class="p-col-12 p-xl-8 p-p-0">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
-                    [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [minDate]="item.NgayNhap"
-                    [(ngModel)]="item.ThoiGianDuaVaoSuDung" inputId="icon" placeholder="dd/mm/yyyy">
-                </p-calendar>
-            </div>
-        </div>
+
+
+
         <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row align-items-center">
             <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
                 <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
@@ -219,7 +227,8 @@
                             <ng-template pTemplate="body" let-dinhMuc>
                                 <tr>
                                     <td>
-                                        <input type="text" class="p-inputtext-sm" [(ngModel)]="dinhMuc.DonViTinh" pInputText />
+                                        <input type="text" class="p-inputtext-sm" [(ngModel)]="dinhMuc.DonViTinh"
+                                            pInputText />
                                     </td>
                                     <td>
                                         <input type="text" class="p-inputtext-sm text-right" pInputText
@@ -232,8 +241,9 @@
                                             placeholder="" />
                                     </td>
                                     <td>
-                                        <input type="text" class="p-inputtext-sm text-right" pInputText [(ngModel)]="dinhMuc.TyLe"
-                                            (blur)="onNumberBlur(dinhMuc, 'TyLe')" placeholder="" />
+                                        <input type="text" class="p-inputtext-sm text-right" pInputText
+                                            [(ngModel)]="dinhMuc.TyLe" (blur)="onNumberBlur(dinhMuc, 'TyLe')"
+                                            placeholder="" />
                                     </td>
                                     <td class="text-center">
                                         <p-checkbox binary="true" [(ngModel)]="dinhMuc.isChia"></p-checkbox>

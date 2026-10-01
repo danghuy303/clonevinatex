@@ -29,7 +29,7 @@ export class ModaldmcasanxuatComponent implements OnInit {
   ngOnInit(): void {
     console.log("listCongTy", this.listCongTy);
 
-    this.getListPhanXuong();
+    // this.getListPhanXuong();
     // Synchronize SoGio / SoGioLamViec fields on edit load
     this.item.isHoatDong = this.item.isHoatDong ?? this.item.HoatDong ?? true;
     if (this.item.SoGioLamViec === undefined && this.item.SoGio !== undefined) {

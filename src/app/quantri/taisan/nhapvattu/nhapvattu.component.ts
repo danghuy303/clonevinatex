@@ -63,7 +63,7 @@ export class NhapvattuComponent implements OnInit {
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
     }
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
     this.KiemTraButtonModal();
     this.ListNhaCungUng();
     this.getList();

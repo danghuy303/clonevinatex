@@ -68,7 +68,7 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
     else {
       this.GetIem();
     }
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();

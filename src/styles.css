@@ -545,3 +545,41 @@ iframe {
 .toast-container {
   z-index: 99999999 !important;
 }
+
+.p-autocomplete-panel {
+  z-index: 999999 !important;
+  background: #ffffff !important;
+  color: #212529 !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important;
+  max-height: 250px !important;
+}
+
+.p-autocomplete-panel .p-autocomplete-items {
+  padding: 0.5rem 0 !important;
+  list-style: none !important;
+  margin: 0 !important;
+}
+
+.p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
+  margin: 0 !important;
+  padding: 0.5rem 1rem !important;
+  border: 0 none !important;
+  color: #212529 !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s !important;
+}
+
+.p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item:hover,
+.p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item.p-highlight {
+  color: #212529 !important;
+  background: #e9ecef !important;
+}
+
+.p-autocomplete-panel .p-autocomplete-emptymessage {
+  padding: 0.5rem 1rem !important;
+  color: #6c757d !important;
+  font-style: italic !important;
+}

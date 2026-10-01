@@ -64,7 +64,7 @@ export class ThoihancungcapvattuComponent implements OnInit, OnDestroy {
     }
     this.GetList();
     this.KiemTraTabTrangThai();
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
   }
 
   ngOnDestroy(): void {

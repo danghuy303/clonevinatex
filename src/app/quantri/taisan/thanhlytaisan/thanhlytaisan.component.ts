@@ -59,7 +59,7 @@ export class ThanhlytaisanComponent implements OnInit, OnDestroy {
   initData() {
     this.GetList();
     this.KiemTraTabTrangThai();
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
   }
 
   ngOnDestroy(): void {

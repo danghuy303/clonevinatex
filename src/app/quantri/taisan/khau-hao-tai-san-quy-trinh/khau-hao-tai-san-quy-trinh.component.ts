@@ -64,7 +64,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit, OnDestroy {
     this.idUser = this._serviceAuth.currentUserValue.Id;
     this.KiemTraTabTrangThai();
     this.resetFilter();
-    this.getListdmPhanXuong();
+    // this.getListdmPhanXuong();
   }
 
   ngOnDestroy(): void {

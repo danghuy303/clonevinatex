@@ -55,6 +55,9 @@ export class TheodoihoatmodalComponent implements OnInit {
         });
       }
     }
+    if (this.quyTrinh.IddmPhanXuong) {
+      this.getListTaiSanDangSuDung();
+    }
     this.KiemTraButtonModal();
   }
 
@@ -159,12 +162,18 @@ export class TheodoihoatmodalComponent implements OnInit {
 
   // handle xử lý riêng
 
-  getListTaiSanDangSuDung() {
+  getListTaiSanDangSuDung(callback?: () => void) {
+    if (!this.quyTrinh.IddmPhanXuong) {
+      this.listTaiSan = [];
+      if (callback) callback();
+      return;
+    }
     this._serviceTaiSan.GetListTaiSanDangSuDung({ CurrentPage: 0, IdBoPhanSuDung: this.quyTrinh.IddmPhanXuong }).subscribe((res: any) => {
-      if (res.Data?.length) {
-        this.listTaiSan = res.Data;
-      }
-    })
+      this.listTaiSan = res.Data || [];
+      if (callback) callback();
+    }, (err: any) => {
+      if (callback) callback();
+    });
   }
 
   delete(item: any) {
@@ -180,32 +189,33 @@ export class TheodoihoatmodalComponent implements OnInit {
       this.toastr.error('Vui lòng chọn bộ phận');
       return;
     }
-    this.getListTaiSanDangSuDung();
-    let modalRef = this._modal.open(DanhsachtaisanpopupComponent, {
-      size: "lg",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.listDaChon = this.quyTrinh.listTaiSan ? this.quyTrinh.listTaiSan.map((ele: any) => ele.IdTaiSan) : [],
-      modalRef.componentInstance.listView = this.listTaiSan;
-    modalRef.componentInstance.title = 'Danh sách máy/thiết bị';
-    modalRef.result.then((res: any) => {
-      const _list = this.quyTrinh.listTaiSan || [];
-      this.quyTrinh.listTaiSan = res.map((ele: any) => {
-        let _newObj = _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan);
-        if (!_newObj) {
-          _newObj = { ...ele };
-          this.getSanLuongDropdownForAsset(_newObj);
-        }
-        return _newObj;
-      })
-    })
-      .catch((er) => {
+    this.getListTaiSanDangSuDung(() => {
+      let modalRef = this._modal.open(DanhsachtaisanpopupComponent, {
+        size: "lg",
+        backdrop: "static",
       });
+      modalRef.componentInstance.listDaChon = this.quyTrinh.listTaiSan ? this.quyTrinh.listTaiSan.map((ele: any) => ele.IdTaiSan) : [];
+      modalRef.componentInstance.listView = this.listTaiSan || [];
+      modalRef.componentInstance.title = 'Danh sách máy/thiết bị';
+      modalRef.result.then((res: any) => {
+        const _list = this.quyTrinh.listTaiSan || [];
+        this.quyTrinh.listTaiSan = res.map((ele: any) => {
+          let _newObj = _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan);
+          if (!_newObj) {
+            _newObj = { ...ele };
+            this.getSanLuongDropdownForAsset(_newObj);
+          }
+          return _newObj;
+        });
+      }).catch((er) => {});
+    });
   }
 
   onChangeBoPhan() {
     this.getListCaSanXuat();
     this.quyTrinh.IddmCaSanXuat = null;
+    this.listTaiSan = [];
+    this.getListTaiSanDangSuDung();
   }
 
   getListCaSanXuat() {

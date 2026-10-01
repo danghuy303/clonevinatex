@@ -66,7 +66,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit, OnDestr
 
     this.GetList();
     this.KiemTraTabTrangThai();
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
   }
 
   ngOnDestroy(): void {

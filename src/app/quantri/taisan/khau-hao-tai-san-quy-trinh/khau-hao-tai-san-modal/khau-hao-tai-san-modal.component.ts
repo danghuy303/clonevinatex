@@ -44,7 +44,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   ngOnInit(): void {
     this.GetMinDate();
     this.KiemTraButtonModal();
-    this.getListdmPhanXuong();
+    // this.getListdmPhanXuong();
     if (this.opt === 'add') {
       this.title = "Thêm mới";
       this.GetNextSoQuyTrinh();

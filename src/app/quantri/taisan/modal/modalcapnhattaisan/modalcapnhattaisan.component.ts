@@ -81,7 +81,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     else {
       this.GetIem();
     }
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
 
     // this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {

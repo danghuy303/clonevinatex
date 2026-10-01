@@ -69,13 +69,13 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
       if (res) {
         this.resetFilter();
         this.KiemTraTabTrangThai();
-        this.GetListdmPhanXuong();
+        // this.GetListdmPhanXuong();
       }
     });
 
     this.resetFilter();
     this.KiemTraTabTrangThai();
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
   }
 
   ngOnDestroy(): void {

@@ -64,7 +64,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
       this.CheckParent(this.item.listTaiSan);
     }
     this.KiemTraButtonModal();
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
     this.getList();
   }
   GetListdmPhanXuong() {

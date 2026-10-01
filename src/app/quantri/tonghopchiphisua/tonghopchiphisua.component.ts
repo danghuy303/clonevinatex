@@ -79,12 +79,12 @@ export class TonghopchiphisuaComponent implements OnInit, OnDestroy {
   }
 
   loadDuAnData() {
-    this._servicesSanXuat.GetListdmPhanXuong(null, false).subscribe((res: any) => {
-      this.PhanXuong = mapArrayForDropDown(res, "Ten", "Id");
-      if (res && res.length > 0) {
-        this.filter.IdBoPhanSuDung = res[0].Id;
-      }
-    });
+    // this._servicesSanXuat.GetListdmPhanXuong(null, false).subscribe((res: any) => {
+    //   this.PhanXuong = mapArrayForDropDown(res, "Ten", "Id");
+    //   if (res && res.length > 0) {
+    //     this.filter.IdBoPhanSuDung = res[0].Id;
+    //   }
+    // });
     this.getDataBaoCao();
   }
 

@@ -59,7 +59,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
       });
       this.CheckParent(this.item.listTaiSan);
     }
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
     this.KiemTraButtonModal();
   }
 

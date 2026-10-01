@@ -68,7 +68,7 @@ export class DieuChuyenTaiSanComponent implements OnInit, OnDestroy {
 
   initData() {
     this.resetFilter();
-    this.getListdmPhanXuong();
+    // this.getListdmPhanXuong();
   }
 
   ngOnDestroy(): void {

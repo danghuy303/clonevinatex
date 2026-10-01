@@ -62,14 +62,15 @@ export class CapnhatthuvienComponent implements OnInit, OnDestroy {
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
-    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
-      res.push({ Ten: "Chưa có bộ phận sử dụng", Id: "Chưa có bộ phận sử dụng" })
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
-      if (this.filter.IddmPhanXuong) {
-        this.getList();
-      }
-    })
+    this.getList();
+    // this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
+    //   res.push({ Ten: "Chưa có bộ phận sử dụng", Id: "Chưa có bộ phận sử dụng" })
+    //   this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    //   this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+    //   if (this.filter.IddmPhanXuong) {
+    //     this.getList();
+    //   }
+    // })
   }
 
   ngOnDestroy(): void {

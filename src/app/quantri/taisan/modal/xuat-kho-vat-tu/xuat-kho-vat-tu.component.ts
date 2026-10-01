@@ -42,7 +42,7 @@ export class XuatKhoVatTuComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetNextSoQuyTrinh();
-    this.GetListdmPhanXuong();
+    // this.GetListdmPhanXuong();
     this.KiemTraButtonModal();
     this.getListdmKhachHang();
     if (this.opt === 'edit') {
