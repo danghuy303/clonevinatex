@@ -22,6 +22,11 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
   TongGiaTriToanBang: any = 0;
   vatTu: any = [];
 
+  // Tối ưu phân trang và thu gọn/mở rộng DOM
+  first: number = 0;
+  rows: number = 10;
+  pagedListTaiSan: any[] = [];
+  isAllCollapsed: boolean = true;
 
   constructor(
     private _serviceTaiSan: TaisanService,
@@ -35,6 +40,41 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
     for (let i = 1; i <= 12; i++) {
       this.labelThang.push(`Tháng ${i}`);
     }
+    const list = Array.isArray(this.listTaiSan) ? this.listTaiSan : [];
+    list.forEach(item => {
+      if (item.isCollapsed === undefined) {
+        item.isCollapsed = true;
+      }
+    });
+    this.updatePagedList();
+  }
+
+  updatePagedList(): void {
+    const list = Array.isArray(this.listTaiSan) ? this.listTaiSan : [];
+    this.pagedListTaiSan = list.slice(this.first, this.first + this.rows);
+    setTimeout(() => {
+      if (this.voiPintable) {
+        this.voiPintable.active();
+      }
+    }, 100);
+  }
+
+  onPageChange(event: any): void {
+    this.first = event.first;
+    this.rows = event.rows;
+    this.updatePagedList();
+  }
+
+  toggleCollapse(item: any): void {
+    if (item.listVatTu && item.listVatTu.length > 0) {
+      item.isCollapsed = !item.isCollapsed;
+    }
+  }
+
+  toggleAll(collapse: boolean): void {
+    this.isAllCollapsed = collapse;
+    const list = Array.isArray(this.listTaiSan) ? this.listTaiSan : [];
+    list.forEach(item => item.isCollapsed = collapse);
   }
 
 

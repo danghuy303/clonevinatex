@@ -92,3 +92,125 @@
   overflow-wrap: break-word !important;
   padding: 6px 6px !important;
 }
+
+/* Đồng bộ chiều cao và căn chỉnh thanh bộ lọc (Button, Dropdown, DatePicker, Input) */
+.toolbar-filters {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+:host ::ng-deep .toolbar-filters button.p-button,
+:host ::ng-deep .toolbar-filters .p-button {
+  height: 37px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  line-height: normal !important;
+  font-size: 0.875rem !important;
+}
+
+:host ::ng-deep .toolbar-filters app-select-bo-phan {
+  display: inline-block !important;
+  height: 37px !important;
+  width: 100% !important;
+}
+
+:host ::ng-deep .toolbar-filters app-select-bo-phan .p-dropdown,
+:host ::ng-deep .toolbar-filters .p-dropdown,
+:host ::ng-deep .toolbar-filters .p-dropdown.p-inputtext-sm {
+  height: 37px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  font-size: 0.875rem !important;
+}
+
+:host ::ng-deep .toolbar-filters .p-dropdown .p-dropdown-label {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: normal !important;
+  box-sizing: border-box !important;
+}
+
+:host ::ng-deep .toolbar-filters .p-dropdown .p-dropdown-trigger {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+:host ::ng-deep .toolbar-filters .p-dropdown .p-dropdown-clear-icon {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin-top: 0 !important;
+}
+
+:host ::ng-deep .toolbar-filters p-calendar {
+  height: 37px !important;
+  display: inline-flex !important;
+  align-items: stretch !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+:host ::ng-deep .toolbar-filters .p-calendar {
+  height: 37px !important;
+  display: inline-flex !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+:host ::ng-deep .toolbar-filters .p-calendar .p-inputtext,
+:host ::ng-deep .toolbar-filters .p-calendar .p-inputtext.p-inputtext-sm {
+  height: 37px !important;
+  box-sizing: border-box !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: normal !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  font-size: 0.875rem !important;
+}
+
+:host ::ng-deep .toolbar-filters .p-calendar button.p-datepicker-trigger,
+:host ::ng-deep .toolbar-filters .p-calendar .p-button {
+  height: 37px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  border-left: 0 !important;
+}
+
+:host ::ng-deep .toolbar-filters .p-inputgroup {
+  height: 37px !important;
+  display: inline-flex !important;
+  align-items: stretch !important;
+  box-sizing: border-box !important;
+}
+
+:host ::ng-deep .toolbar-filters .p-inputgroup > input,
+:host ::ng-deep .toolbar-filters .p-inputgroup > .p-inputtext {
+  height: 37px !important;
+  box-sizing: border-box !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: normal !important;
+  font-size: 0.875rem !important;
+}
+
+:host ::ng-deep .toolbar-filters .p-inputgroup > button,
+:host ::ng-deep .toolbar-filters .p-inputgroup > .p-button {
+  height: 37px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}

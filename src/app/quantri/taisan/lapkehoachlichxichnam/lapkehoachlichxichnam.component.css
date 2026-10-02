@@ -1,0 +1,22 @@
+:host ::ng-deep .p-datatable-virtual-scrollable-body {
+    min-height: 200px;
+}
+
+.cell-content-baoduong {
+    min-height: 38px;
+    max-height: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+.cell-content-baoduong .badge-baoduong {
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+}

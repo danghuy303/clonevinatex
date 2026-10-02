@@ -3,3 +3,11 @@
 :host ::ng-deep .p-inputtext.p-inputtext-sm{
     font-size: 1rem;
 }
+
+:host ::ng-deep .p-autocomplete {
+    width: 100%;
+}
+
+:host ::ng-deep .p-autocomplete .p-autocomplete-input {
+    width: 100%;
+}

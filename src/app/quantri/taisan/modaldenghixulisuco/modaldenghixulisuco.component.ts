@@ -66,6 +66,17 @@ export class ModaldenghixulisucoComponent implements OnInit {
     this.item.listChiPhiKhac = this.item.listChiPhiKhac ? this.item.listChiPhiKhac : [];
     this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
     this.item.listNhanCong = this.item.listNhanCong ? this.item.listNhanCong : [];
+    this.item.listNhienLieu.forEach(ele => {
+      if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+    });
+    this.item.listNhanCong.forEach(ele => {
+      if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+    });
+    if (this.item.listVatTu) {
+      this.item.listVatTu.forEach(ele => {
+        if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+      });
+    }
     // this.title = 'Đề nghị xử lý sự cố'
     this.title = 'Sửa chữa hư hỏng bất thường';
     if (this.opt === 'add') {
@@ -115,6 +126,8 @@ export class ModaldenghixulisucoComponent implements OnInit {
           Id: "",
           Ten: '',
           SoLuong: 0,
+          DonGia: 0,
+          VAT: 0,
           GiaTri: 0,
           GhiChu: '',
         })
@@ -125,6 +138,8 @@ export class ModaldenghixulisucoComponent implements OnInit {
           Id: "",
           Ten: '',
           SoLuong: 0,
+          DonGia: 0,
+          VAT: 0,
           GiaTri: 0,
           GhiChu: '',
         })
@@ -420,6 +435,9 @@ export class ModaldenghixulisucoComponent implements OnInit {
       this.item.listVatTu = [...listVatTuThayThe].filter(
         (value, index, self) => self.findIndex((m) => m.IdVatTuThayThe === value.IdVatTuThayThe) === index,
       );
+      this.item.listVatTu.forEach(ele => {
+        if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+      });
     }
   }
 

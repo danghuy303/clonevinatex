@@ -6,35 +6,49 @@
       <h4 style="color:#1f2779" class="m-0 font-weight-bold">Hệ số sử dụng</h4>
     </div>
 
-    <div class="p-d-flex flex-column flex-lg-row p-pl-0 align-items-md-center">
-      <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
-        <div class="p-mr-2 mb-2 mb-md-0">
+    <div class="p-d-flex flex-column flex-lg-row p-pl-0 align-items-center p-ai-center">
+      <div class="toolbar-filters p-d-flex flex-row flex-wrap align-items-center p-ai-center mb-md-2 mb-lg-0">
+        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center">
+          <button pButton pRipple type="button" label="Xuất excel" icon="pi pi-file-excel"
+            class="p-button-sm p-button-success" (click)="exportExcel()"></button>
+        </div>
+
+        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" style="width: 220px;">
           <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()" [options]="PhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
         </div>
 
-        <div class="p-mr-2 mb-2 mb-md-0">
+        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" style="min-width: 105px;">
           <p-dropdown [filter]="true" placeholder="Chọn loại thời gian" [options]="LoaiThoiGian"
-            styleClass="p-inputtext-sm" [(ngModel)]="filter.LoaiThoiGian" (onChange)="getDataBaoCao()"></p-dropdown>
+            styleClass="p-inputtext-sm w-100" [(ngModel)]="filter.LoaiThoiGian" (onChange)="getDataBaoCao()"></p-dropdown>
         </div>
 
-        <div class="p-mr-2 mb-2 mb-md-0" *ngIf="filter.LoaiThoiGian === 0">
+        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" *ngIf="filter.LoaiThoiGian === 0" style="width: 145px;">
           <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
             [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.TuNgay" [locale]="lang"
-            (onSelect)="getDataBaoCao()" inputId="icon" placeholder="Từ ngày">
+            (onSelect)="getDataBaoCao()" inputId="icon" placeholder="Từ ngày" styleClass="w-100">
           </p-calendar>
         </div>
 
-        <div class="p-mr-2 mb-2 mb-md-0" *ngIf="filter.LoaiThoiGian === 0">
+        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" *ngIf="filter.LoaiThoiGian === 0" style="width: 145px;">
           <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
             [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.DenNgay"
             [minDate]="filter.TuNgay" [locale]="lang" (onSelect)="getDataBaoCao()" inputId="icon"
-            placeholder="Đến ngày">
+            placeholder="Đến ngày" styleClass="w-100">
           </p-calendar>
         </div>
 
-        <div class="p-mr-2 mb-2 mb-md-0" *ngIf="filter.LoaiThoiGian === 3">
+        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" *ngIf="filter.LoaiThoiGian === 3" style="min-width: 120px;">
           <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="filter.nam" placeholder="Chọn năm"
-            styleClass="p-inputtext-sm" (onChange)="getDataBaoCao()"></p-dropdown>
+            styleClass="p-inputtext-sm w-100" (onChange)="getDataBaoCao()"></p-dropdown>
+        </div>
+
+        <div class="p-inputgroup mb-2 mb-lg-0" style="width: 200px;">
+          <input type="text" placeholder="Tìm kiếm..." [(ngModel)]="filter.Keyword" (keyup.enter)="getDataBaoCao()"
+            class="p-inputtext-sm" pInputText />
+          <button type="button" pButton pRipple icon="pi pi-search"
+            class="p-button-secondary p-button-sm p-button-text" (click)="getDataBaoCao()"></button>
+          <button type="button" pButton pRipple icon="pi pi-refresh"
+            class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>
       </div>
     </div>
@@ -42,7 +56,8 @@
 
   <!-- Table Container -->
   <div class="p-mt-3 table-responsive">
-    <p-table [value]="filteredItems" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+    <p-table #tb [value]="filteredItems" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+      [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20, 50, 100]" (onPage)="changePage($event)">
       <ng-template pTemplate="header">
         <tr>
           <th class="text-center" rowspan="2" style="width: 50px; min-width: 50px;">TT</th>
@@ -68,7 +83,7 @@
         <tr
           [ngClass]="{'font-weight-bold': isGroup(item) || isTongCong(item), 'bg-light-blue': isGroup(item), 'bg-light-gray': isTongCong(item)}">
           <td class="text-center">
-            {{ (20 * (paging.CurrentPage - 1) + i + 1) }}
+            <span *ngIf="!isGroup(item) && !isTongCong(item)">{{ i + 1 }}</span>
           </td>
           <td [ngStyle]="{'padding-left': isGroup(item) ? '10px' : '25px'}">
             {{ item.NhanHieuBienSoDangKy }}
@@ -109,13 +124,16 @@
           <td>{{ item.GhiChu }}</td>
         </tr>
       </ng-template>
-    </p-table>
-  </div>
 
-  <!-- Table Footer / Summary & Pagination Bar -->
-  <div class="p-d-flex p-ai-center p-jc-between p-mt-2 flex-column flex-sm-row border-top pt-2">
-    <span class="mb-2 mb-sm-0">Tổng số bản ghi {{paging.TotalCount}}.</span>
-    <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
-      (onPageChange)="changePage($event)"></p-paginator>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="13" class="text-center">Không có dữ liệu</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="paginatorleft">
+        <span>Tổng số bản ghi {{ filteredItems?.length || 0 }}.</span>
+      </ng-template>
+    </p-table>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DateToUnix, mapArrayForDropDown } from "src/app/services/globalfunction";
@@ -6,6 +6,8 @@ import { vn } from "src/app/services/const";
 import * as moment from "moment";
 import { Subscription } from "rxjs";
 import { StoreService } from "src/app/services/store.service";
+import { ToastrService } from "ngx-toastr";
+import { API } from "src/app/services/host";
 
 @Component({
   selector: "app-hieuquaxemay",
@@ -19,6 +21,7 @@ export class HieuquaxemayComponent implements OnInit, OnDestroy {
     TuNgay: new Date(),
     DenNgay: new Date(),
     nam: new Date().getFullYear(),
+    Keyword: "",
   };
 
   listNam: any = [];
@@ -52,13 +55,15 @@ export class HieuquaxemayComponent implements OnInit, OnDestroy {
     CurrentPage: 1,
     TotalCount: 0,
   };
+  @ViewChild('tb') tb: any;
 
   $sub!: Subscription;
 
   constructor(
     private _servicesSanXuat: SanXuatService,
     private taisanService: TaisanService,
-    private store: StoreService
+    private store: StoreService,
+    private _toastr: ToastrService
   ) {
     this.$sub = this.store.getNhaMay().subscribe((res) => {
       if (res) {
@@ -95,10 +100,16 @@ export class HieuquaxemayComponent implements OnInit, OnDestroy {
   }
 
   getDataBaoCao() {
+    const _idDuAn = this.store.getCurrent();
+
+    if (!_idDuAn) {
+      return;
+    }
     let payload: any = {
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       LoaiThoiGian: this.filter.LoaiThoiGian,
-      IdDuAn: this.store.getCurrent(),
+      IdDuAn: _idDuAn,
+      Keyword: this.filter.Keyword,
     };
 
     if (this.filter.LoaiThoiGian === 0) {
@@ -119,7 +130,7 @@ export class HieuquaxemayComponent implements OnInit, OnDestroy {
 
   isGroup(item: any): boolean {
     return (
-      !item.NhanHieuBienSoDangKy &&
+      !item.NguoiSuDung &&
       !item.KhauHaoCoBan &&
       !item.TongChiPhiSuaChua &&
       !item.ChiPhiNhienLieuSanXuat &&
@@ -201,9 +212,55 @@ export class HieuquaxemayComponent implements OnInit, OnDestroy {
         matchGhiChu
       );
     });
+    this.paging.TotalCount = this.filteredItems.length;
+    if (this.tb) {
+      this.tb.first = 0;
+    }
   }
 
   changePage(event: any) {
-    this.paging.CurrentPage = event.page + 1;
+    this.paging.CurrentPage = (event.page || 0) + 1;
+  }
+
+  resetFilter() {
+    this.filter.Keyword = "";
+    this.getDataBaoCao();
+  }
+
+  exportExcel() {
+    const _idDuAn = this.store.getCurrent();
+    if (!_idDuAn) {
+      return;
+    }
+    let payload: any = {
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      LoaiThoiGian: this.filter.LoaiThoiGian,
+      IdDuAn: _idDuAn,
+      Keyword: this.filter.Keyword,
+    };
+
+    if (this.filter.LoaiThoiGian === 0) {
+      payload.TuNgay = DateToUnix(this.filter.TuNgay);
+      payload.DenNgay = DateToUnix(this.filter.DenNgay);
+    } else if (this.filter.LoaiThoiGian === 3) {
+      payload.nam = this.filter.nam;
+    }
+
+    this.taisanService.ExportHieuQuaXeMay(payload).subscribe(
+      (res: any) => {
+        if (res?.StatusCode === 200) {
+          const _url = res.Data?.startsWith("http")
+            ? res.Data
+            : `${API.imgURL}${res.Data}`;
+          this._toastr.success(res.Message || "Xuất excel thành công");
+          window.open(_url);
+        } else {
+          this._toastr.error(res?.Message || "Có lỗi xảy ra khi xuất dữ liệu");
+        }
+      },
+      (error) => {
+        this._toastr.error("Có lỗi xảy ra khi xuất dữ liệu");
+      }
+    );
   }
 }

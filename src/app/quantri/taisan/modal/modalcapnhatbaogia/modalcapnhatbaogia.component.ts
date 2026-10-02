@@ -39,6 +39,8 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   listTaiSan_copy: TreeNode[] = [];
   listCBNV: any[] = [];
   filteredCBNV: any[] = [];
+  isLoadedCBNV: boolean = false;
+  isLoadingCBNV: boolean = false;
 
   constructor(
     public _modal: NgbModal,
@@ -83,11 +85,18 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   getListCBNV(callback?: () => void) {
+    if (this.isLoadedCBNV || this.isLoadingCBNV) {
+      if (callback) callback();
+      return;
+    }
+    this.isLoadingCBNV = true;
     let currentStore = this._serviceTaiSan.store.getCurrent();
     let idDuAn = (this.item && validVariable(this.item.IdDuAn) && String(this.item.IdDuAn) !== '0')
       ? this.item.IdDuAn
       : (validVariable(currentStore) && String(currentStore) !== '0' ? currentStore : '');
     this._serviceTaiSan.GetListCBNVNganhXemayByIdDuAn(idDuAn).subscribe((res: any) => {
+      this.isLoadingCBNV = false;
+      this.isLoadedCBNV = true;
       let rawList: any[] = [];
       if (Array.isArray(res)) {
         rawList = res;
@@ -136,6 +145,8 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       this.cd.detectChanges();
     }, (err) => {
       console.log('Error GetListCBNVNganhXemayByIdDuAn:', err);
+      this.isLoadingCBNV = false;
+      this.isLoadedCBNV = true;
       if (callback) callback();
       this.cd.markForCheck();
       this.cd.detectChanges();
@@ -144,32 +155,22 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
 
   filterCBNV(event: any) {
     let query = (event && event.query != null ? event.query : (typeof event === 'string' ? event : '')).trim().toLowerCase();
-    const doFilter = () => {
-      if (!query) {
-        this.filteredCBNV = [...(this.listCBNV || [])];
-      } else {
-        const removeAccents = (str: string) => str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
-        const queryNoAccent = removeAccents(query);
-        this.filteredCBNV = (this.listCBNV || []).filter(item => {
-          let ten = (item.TendmChiTieu || item.Ten || item.HoTen || item.TenNhanVien || '').toLowerCase();
-          let ma = (item.MadmChiTieu || item.Ma || item.MaNhanVien || '').toLowerCase();
-          let chucVu = (item.ChucVu || item.TenChucVu || item.BoPhan || '').toLowerCase();
-          return ten.includes(query) || ma.includes(query) || chucVu.includes(query)
-            || removeAccents(ten).includes(queryNoAccent)
-            || removeAccents(ma).includes(queryNoAccent);
-        });
-      }
-      this.cd.markForCheck();
-      this.cd.detectChanges();
-    };
-
-    if (!this.listCBNV || this.listCBNV.length === 0) {
-      this.getListCBNV(() => {
-        doFilter();
-      });
+    if (!query) {
+      this.filteredCBNV = [...(this.listCBNV || [])];
     } else {
-      doFilter();
+      const removeAccents = (str: string) => str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+      const queryNoAccent = removeAccents(query);
+      this.filteredCBNV = (this.listCBNV || []).filter(item => {
+        let ten = (item.TendmChiTieu || item.Ten || item.HoTen || item.TenNhanVien || '').toLowerCase();
+        let ma = (item.MadmChiTieu || item.Ma || item.MaNhanVien || '').toLowerCase();
+        let chucVu = (item.ChucVu || item.TenChucVu || item.BoPhan || '').toLowerCase();
+        return ten.includes(query) || ma.includes(query) || chucVu.includes(query)
+          || removeAccents(ten).includes(queryNoAccent)
+          || removeAccents(ma).includes(queryNoAccent);
+      });
     }
+    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onSelectCBNV(event: any, rowData: any) {
@@ -297,7 +298,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       });
       this.KiemTraButtonModal();
       this.CheckParent(this.listTaiSan_copy);
-      if (!this.listCBNV || this.listCBNV.length === 0) {
+      if (!this.isLoadedCBNV && !this.isLoadingCBNV) {
         this.getListCBNV();
       }
     })

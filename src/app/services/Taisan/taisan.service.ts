@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { httpOptions, API, host1 } from './../host';
 import { StoreService } from '../store.service';
 import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -1402,6 +1403,9 @@ export class TaisanService {
   GetListHieuQuaXeMay(data) {
     return this.http.post(`${API.TaiSanBaoCao}GetListHieuQuaXeMay`, data, httpOptions);
   }
+  ExportHieuQuaXeMay(data) {
+    return this.http.post(`${API.TaiSanBaoCao}ExportHieuQuaXeMay`, data, httpOptions);
+  }
 
 
   //  báo cáo thu mua
@@ -1570,7 +1574,11 @@ export class TaisanService {
   }
 
   GetListdmPhanXuongForIdDuAn_QLTS(IdDuAn?: any) {
-    return this.http.get(`${API.TaiSan}DanhMuc/GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn ? IdDuAn : this.store.getCurrent()}`, httpOptions)
+    let id = IdDuAn ? IdDuAn : this.store.getCurrent();
+    if (!id) {
+      return of([]);
+    }
+    return this.http.get(`${API.TaiSan}DanhMuc/GetListdmPhanXuongForIdDuAn?IdDuAn=${id}`, httpOptions);
   }
 
   GetlistdmLoaiVatTu(data: any) {

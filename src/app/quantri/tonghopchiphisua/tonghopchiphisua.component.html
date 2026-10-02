@@ -8,7 +8,8 @@
     <div class="p-d-flex flex-column flex-lg-row p-pl-0 align-items-md-center">
       <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
         <div class="p-mr-2">
-          <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()" [options]="PhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
+          <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()" [options]="PhanXuong"
+            placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
         </div>
 
         <div class="p-mr-2">
@@ -46,7 +47,7 @@
         <tr>
           <th class="text-center" rowspan="2" style="width: 60px;">TT</th>
           <th class="text-center" rowspan="2">Tên phương tiện</th>
-          <th class="text-center" rowspan="2" style="width: 120px;">Biển số</th>
+          <th class="text-center" rowspan="2" style="width: 120px;">Mã</th>
           <th class="text-center" rowspan="2" style="width: 160px;">Kiểu chuyên dùng</th>
           <th class="text-center" rowspan="2" style="width: 160px;">Người sử dụng</th>
           <th class="text-center" colspan="5">Chi phí sửa chữa</th>
@@ -135,7 +136,7 @@
           <td class="text-center">{{(20 * (paging.CurrentPage -
             1) + i + 1) }}</td>
           <td [ngStyle]="{'padding-left': isGroup(item) ? '10px' : '25px'}">{{item.TenPhuongTien}}</td>
-          <td class="text-center">{{item.BienSo}}</td>
+          <td class="text-center">{{item.MaPhuongTien}}</td>
           <td>{{item.KieuChuyenDung}}</td>
           <td>{{item.NguoiSuDung}}</td>
           <td class="text-right">

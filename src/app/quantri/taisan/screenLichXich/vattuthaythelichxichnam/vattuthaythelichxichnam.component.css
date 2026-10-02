@@ -13,3 +13,31 @@
     max-width: 150px !important;
 }
 
+.row-taisan-header {
+    background-color: #f1f5f9 !important;
+    cursor: default;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.row-taisan-header.cursor-pointer {
+    cursor: pointer;
+}
+
+.row-taisan-header.cursor-pointer:hover {
+    background-color: #e2e8f0 !important;
+}
+
+.row-taisan-header td {
+    background-color: inherit !important;
+}
+
+.toggle-icon {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    margin-right: 6px;
+    font-size: 11px;
+    color: #007bff;
+}
+
+

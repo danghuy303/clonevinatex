@@ -12,7 +12,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { ModalluachonloaibaoduongComponent } from '../modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
 import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
-import { exhaustMap } from 'rxjs/operators';
+import { exhaustMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 
 @Component({
@@ -37,6 +37,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   currentYear: any = 0;
   checkBtnChonTaiSan: boolean;
   keyword: any = '';
+  keywordSubject = new Subject<string>();
+  filteredListTaiSan: any[] = [];
   differ: any;
   opp: boolean = false;
   private customerDiffer: KeyValueDiffer<string, any>;
@@ -95,8 +97,36 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     // this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
     //   this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     // })
+    this.initSearchDebounce();
     this.KiemTraButtonModal();
     // this.customerDiffer = this.differs.find(this.item).create();
+  }
+
+  initSearchDebounce() {
+    this.keywordSubject
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe(() => {
+        this.applyFilter();
+      });
+  }
+
+  onKeywordChange(val: string) {
+    this.keyword = val;
+    this.keywordSubject.next(val);
+  }
+
+  applyFilter() {
+    const list = this.item.listTaiSan || [];
+    if (!this.keyword || !this.keyword.trim()) {
+      this.filteredListTaiSan = list;
+    } else {
+      const kw = this.keyword.trim().toLowerCase();
+      this.filteredListTaiSan = list.filter((t: any) => {
+        return (t.TenTaiSan && t.TenTaiSan.toLowerCase().includes(kw)) ||
+               (t.MaTaiSan && t.MaTaiSan.toLowerCase().includes(kw));
+      });
+    }
+    this.syncCheckedState();
   }
 
   // customerChanged(changes: KeyValueChanges<string, any>) {
@@ -136,6 +166,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
           }, 0)
         })
         this.item.Nam = UnixToDate(this.item.ThoiGianUnix).getFullYear();
+        this.applyFilter();
         this.KiemTraButtonModal();
       });
   }
@@ -357,6 +388,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
 
   clear() {
     this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
+    this.applyFilter();
   }
 
   ChangeYear() {
@@ -369,6 +401,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(data).subscribe((res: any) => {
       this.item.listTaiSan = res.Data.listTaiSan;
       this.checkDisableSelectMonth();
+      this.applyFilter();
     });
   }
 
@@ -428,7 +461,49 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     }
     this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(data).subscribe((res: any) => {
       this.item.listTaiSan = res.Data.listTaiSan;
+      this.applyFilter();
     })
+  }
+
+  syncCheckedState() {
+    const list = this.filteredListTaiSan || [];
+    this.checkedAll = list.length > 0 && list.every((t: any) => t.checked);
+  }
+
+  checkAll(e: any) {
+    const isChecked = e.checked ?? this.checkedAll;
+    (this.filteredListTaiSan || []).forEach((t: any) => {
+      t.checked = isChecked;
+    });
+    this.syncCheckedState();
+  }
+
+  checked(item: any) {
+    this.syncCheckedState();
+  }
+
+  hasSelected(): boolean {
+    return (this.item.listTaiSan || []).some((t: any) => t.checked);
+  }
+
+  deleteSelected() {
+    const listSelected = (this.item.listTaiSan || []).filter((t: any) => t.checked);
+    if (!listSelected.length) {
+      this.toastr.warning("Vui lòng chọn ít nhất một máy/thiết bị để xóa!");
+      return;
+    }
+
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = `Bạn có chắc chắn muốn xóa ${listSelected.length} dòng đã chọn chứ?`;
+    modalRef.result
+      .then((res) => {
+        this.item.listTaiSan = (this.item.listTaiSan || []).filter((t: any) => !t.checked);
+        this.applyFilter();
+        this.toastr.success("Đã xóa các dòng đã chọn thành công!");
+      })
+      .catch((er) => console.log(er));
   }
 
   delete(index: any) {
@@ -438,19 +513,29 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa chứ?";
     modalRef.result
       .then((res) => {
-        this.item.listTaiSan.splice(index, 1);
-        //  this.item.IdBoPhanSuDung = null;
-        this.item.listTaiSan = [...this.item.listTaiSan]
+        const itemToDelete = this.filteredListTaiSan[index];
+        if (itemToDelete) {
+          const originalIndex = this.item.listTaiSan.indexOf(itemToDelete);
+          if (originalIndex !== -1) {
+            this.item.listTaiSan.splice(originalIndex, 1);
+          }
+        } else {
+          this.item.listTaiSan.splice(index, 1);
+        }
+        this.item.listTaiSan = [...this.item.listTaiSan];
+        this.applyFilter();
       })
       .catch((er) => console.log(er));
   }
 
   resetFilter() {
     this.keyword = '';
+    this.applyFilter();
   }
 
   HandListTaiSan(data) {
     this.item.listTaiSan = data;
+    this.applyFilter();
   }
 
   ChonCongDoan(event: any) {

@@ -117,6 +117,17 @@
                 </p-inputNumber>
             </div>
         </div>
+
+
+        <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Cách tính : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <p-dropdown [options]="listCachTinh" [(ngModel)]="item.CachTinh" placeholder="Chọn cách tính"
+                    [style]="{'width': '100%'}" appendTo="body">
+                </p-dropdown>
+            </div>
+        </div>
+
         <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">
                 {{ item.CachTinh === 'Km' ? 'Chiều dài (km)' : (item.CachTinh === 'Giờ máy' ? 'Số giờ máy (h)' : 'Sản
@@ -126,15 +137,6 @@
                 <p-inputNumber [minFractionDigits]="1" mode="decimal" locale="en-EN" [min]="0"
                     [(ngModel)]="item.SanLuong">
                 </p-inputNumber>
-            </div>
-        </div>
-
-        <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Cách tính : </label>
-            <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [options]="listCachTinh" [(ngModel)]="item.CachTinh" placeholder="Chọn cách tính"
-                    [style]="{'width': '100%'}" appendTo="body">
-                </p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-py-1 p-px-2 d-flex flex-column flex-xl-row">

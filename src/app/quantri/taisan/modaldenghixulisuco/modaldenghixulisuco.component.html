@@ -321,7 +321,7 @@
                             </td>
 
                             <td class="text-center">
-                                {{baoduong.DonGia * baoduong.SoLuong * (1 + baoduong.VAT / 100) | number:"1.0-0"}}
+                                {{baoduong.DonGia * baoduong.SoLuong * (1 + (baoduong.VAT || 0) / 100) | number:"1.0-0"}}
                                 <!-- <p-inputNumber [minFractionDigits]="0" locale="en-EN" [disabled]="true"
                                     [value]="baoduong.DonGia * baoduong.SoLuong * (1 + baoduong.VAT / 100)">
                                 </p-inputNumber> -->
@@ -387,7 +387,7 @@
                             </td>
 
                             <td class="text-center">
-                                {{baoduong.DonGia * baoduong.SoLuong * (1 + baoduong.VAT / 100) | number:"1.0-0"}}
+                                {{baoduong.DonGia * baoduong.SoLuong * (1 + (baoduong.VAT || 0) / 100) | number:"1.0-0"}}
                             </td>
                             <td>
                                 <button pButton pRipple icon="pi pi-trash"
@@ -456,7 +456,7 @@
                             </td>
 
                             <td class="text-center">
-                                {{baoduong.DonGia * baoduong.SoLuong * (1 + baoduong.VAT / 100) | number:"1.0-0"}}
+                                {{baoduong.DonGia * baoduong.SoLuong * (1 + (baoduong.VAT || 0) / 100) | number:"1.0-0"}}
                             </td>
                             <td>
                                 <button pButton pRipple icon="pi pi-trash"

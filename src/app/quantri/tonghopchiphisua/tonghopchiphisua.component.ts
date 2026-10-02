@@ -95,9 +95,15 @@ export class TonghopchiphisuaComponent implements OnInit, OnDestroy {
   }
 
   getDataBaoCao() {
+    const _idDuAn = this.store.getCurrent();
+    if (!_idDuAn) {
+      return;
+    }
+
     let payload: any = {
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       LoaiThoiGian: this.filter.LoaiThoiGian,
+      IdDuAn: _idDuAn,
     };
 
     if (this.filter.LoaiThoiGian === 0) {
@@ -106,8 +112,6 @@ export class TonghopchiphisuaComponent implements OnInit, OnDestroy {
     } else if (this.filter.LoaiThoiGian === 3) {
       payload.nam = this.filter.nam;
     }
-
-    payload.IdDuAn = this.store.getCurrent();
 
     this.taisanService.GetLisChiPhiSuaChuaPhuongTien(payload).subscribe((res: any) => {
       this.items = res.Data || [];

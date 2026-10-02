@@ -7,26 +7,29 @@
 
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
+        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
+            *ngIf="checkQuyen.ThemMoi"></button>
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" [options]="listPhanXuong" placeholder="Bộ phận sử dụng"></app-select-bo-phan>
+            <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" [options]="listPhanXuong"
+                placeholder="Bộ phận sử dụng"></app-select-bo-phan>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" [showClear]="true" [(ngModel)]="filter.Ngay"
-                (onChange)="GetList(true)" styleClass="p-inputtext-sm">
+            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" [showClear]="true"
+                [(ngModel)]="filter.Ngay" (onChange)="GetList(true)" styleClass="p-inputtext-sm">
             </p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuNgay" [maxDate]="filter.DenNgay"  inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)" >
+                [(ngModel)]="filter.TuNgay" [maxDate]="filter.DenNgay" inputId="icon" placeholder="Từ ngày"
+                (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-mr-2">
             <p-calendar [(ngModel)]="filter.DenNgay" dateFormat="dd/mm/yy" placeholder="Đến ngày"
-                inputStyleClass="p-inputtext-sm" [minDate]="filter.TuNgay" 
-                inputId="min-max" [showIcon]="true" (onSelect)="GetList(true)">
+                inputStyleClass="p-inputtext-sm" [minDate]="filter.TuNgay" inputId="min-max" [showIcon]="true"
+                (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width: 200px;">

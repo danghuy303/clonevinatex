@@ -50,7 +50,10 @@ export class SelectBoPhanComponent implements OnInit, OnChanges, OnDestroy, Cont
     if (this.options && this.options.length) {
       this.processOptions(this.options);
     } else {
-      this.loadData();
+      const idDuAn = this.IdDuAn || (this.store ? this.store.getCurrent() : null);
+      if (idDuAn) {
+        this.loadData();
+      }
     }
 
     if (this.store) {
@@ -72,13 +75,22 @@ export class SelectBoPhanComponent implements OnInit, OnChanges, OnDestroy, Cont
     if (changes['options'] && this.options) {
       this.processOptions(this.options);
     }
+    if (changes['IdDuAn'] && !changes['IdDuAn'].firstChange) {
+      if (this.IdDuAn) {
+        this.loadData();
+      }
+    }
     if (changes['ngModel']) {
       this.innerValue = this.ngModel;
     }
   }
 
   loadData(): void {
-    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS(this.IdDuAn).subscribe((res: any) => {
+    const idDuAn = this.IdDuAn || (this.store ? this.store.getCurrent() : null);
+    if (!idDuAn) {
+      return;
+    }
+    this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS(idDuAn).subscribe((res: any) => {
       this.masterList = res || [];
       this.processOptions(res);
     });
@@ -105,7 +117,12 @@ export class SelectBoPhanComponent implements OnInit, OnChanges, OnDestroy, Cont
     if (this.masterList && this.masterList.length) {
       this.enrichAndMapTree(data, this.masterList);
     } else {
-      this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS(this.IdDuAn).subscribe((res: any) => {
+      const idDuAn = this.IdDuAn || (this.store ? this.store.getCurrent() : null);
+      if (!idDuAn) {
+        this.listOptions = mapTreeForDropDown(data, 'Ten', 'Id');
+        return;
+      }
+      this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS(idDuAn).subscribe((res: any) => {
         this.masterList = res || [];
         this.enrichAndMapTree(data, this.masterList);
       }, () => {
