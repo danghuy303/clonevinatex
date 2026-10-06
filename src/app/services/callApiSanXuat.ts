@@ -17,6 +17,11 @@ export class SanXuatService {
         return this.http.get(`${url}DanhMuc/GetlistNgoiNha?Loai=${Loai}`, httpOptions)
     }
 
+    GetListHuongDanSuDung() {
+        let url = API.auth;
+        return this.http.get(`${url}DanhMuc/GetListHuongDanSuDung`, httpOptions);
+    }
+
     //Cấp bông
     //this.store.getCurrent();
     //data.IdNhaMay =this.store.getCurrent().toString();

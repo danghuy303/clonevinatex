@@ -55,6 +55,8 @@ export class QuantriComponent implements OnInit, OnDestroy {
   permissions: any = [];
   listHome: any = [];
   avt: string = '';
+  displayHuongDan: boolean = false;
+  dataHuongDan: any = { listVideo: [], listTaiLieu: [], ThongTinHoTro: null };
 
   constructor(
     private _auth: AuthenticationService,
@@ -187,6 +189,44 @@ export class QuantriComponent implements OnInit, OnDestroy {
         };
       })
     });
+  }
+
+  openHuongDan() {
+    this.displayHuongDan = true;
+    this._services.GetListHuongDanSuDung().subscribe((res: any) => {
+      if (res && res.Data) {
+        this.dataHuongDan = res.Data;
+      }
+    });
+  }
+
+  openVideo(video: any) {
+    if (!video) return;
+    const url = video.LinkHTTP || video.Link || video.Path;
+    if (url) {
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+        window.open(url, '_blank');
+      } else {
+        window.open(`${API.imgURL}/${url}`, '_blank');
+      }
+    } else {
+      this.toastr.warning('Không tìm thấy đường dẫn video!');
+    }
+  }
+
+  downloadTaiLieu(doc: any) {
+    if (!doc) return;
+    const path = doc.LinkURLEncodeDownload || doc.Link || doc.Path;
+    if (path) {
+      if (path.startsWith('http://') || path.startsWith('https://')) {
+        window.open(path, '_blank');
+      } else {
+        const fullUrl = `${API.imgURL}${path.startsWith('/') ? '' : '/'}${path}`;
+        window.open(fullUrl, '_blank');
+      }
+    } else {
+      this.toastr.warning('Không tìm thấy đường dẫn tải tài liệu!');
+    }
   }
 
 
@@ -674,13 +714,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
-          {
-            label: "kho cung ứng",
-            routerLink: "/quantri/taisan/danhmuc/khocungung",
-            command: () => {
-              this.close();
-            },
-          },
+          // {
+          //   label: "kho cung ứng",
+          //   routerLink: "/quantri/taisan/danhmuc/khocungung",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
           {
             label: "Loại định mức",
             routerLink: "/quantri/taisan/danhmuc/loaidinhmuc",
@@ -4079,13 +4119,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
-          {
-            label: "kho cung ứng",
-            routerLink: "/quantri/taisan/danhmuc/khocungung",
-            command: () => {
-              this.close();
-            },
-          },
+          // {
+          //   label: "kho cung ứng",
+          //   routerLink: "/quantri/taisan/danhmuc/khocungung",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
           {
             label: "Loại định mức",
             routerLink: "/quantri/taisan/danhmuc/loaidinhmuc",

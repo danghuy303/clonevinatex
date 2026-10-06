@@ -31,7 +31,7 @@ export class BangiaotaisanComponent implements OnInit, OnDestroy {
   filter: any = {};
   eAction: any = "QUYTRINHBANGIAOTAISAN";
   loaiTab: any = 0;
-  paging: any = {};
+  paging: any = { currentPage: 1, totalCount: 0 };
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: any = [];
   trangThai: any = 1;

@@ -39,6 +39,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   keyword: any = '';
   keywordSubject = new Subject<string>();
   filteredListTaiSan: any[] = [];
+  checkedAll: boolean = false;
   differ: any;
   opp: boolean = false;
   private customerDiffer: KeyValueDiffer<string, any>;

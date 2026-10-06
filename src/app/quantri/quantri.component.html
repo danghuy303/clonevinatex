@@ -106,8 +106,13 @@
                 </p-overlayPanel>
             </div>
             <div style="padding-right: 10px; margin:auto 0px; position: relative;">
-                <p-button type="text" icon="pi pi-home" label="Quản lý thiết bị" styleClass="p-button-text btn-home-module"
-                    [ngbPopover]="popContentHome">
+                <p-button type="text" icon="pi pi-question-circle" styleClass="p-button-text btn-help-module"
+                    pTooltip="Hướng dẫn sử dụng" tooltipPosition="bottom" (click)="openHuongDan()">
+                </p-button>
+            </div>
+            <div style="padding-right: 10px; margin:auto 0px; position: relative;">
+                <p-button type="text" icon="pi pi-home" label="Quản lý thiết bị"
+                    styleClass="p-button-text btn-home-module" [ngbPopover]="popContentHome">
                 </p-button>
             </div>
             <div style="padding-right: 10px; margin:auto 0px; position: relative;">
@@ -116,6 +121,81 @@
                 </p-button>
                 <div class="badge" (click)="openCanhBao($event)" *ngIf="newCanhBao>0">{{newCanhBao}}</div>
             </div>
+
+            <!-- Modal Hướng dẫn sử dụng hệ thống -->
+            <p-dialog [(visible)]="displayHuongDan" [modal]="true" [style]="{width: '1080px', maxWidth: '95vw'}"
+                [baseZIndex]="10000" [draggable]="false" [resizable]="false" styleClass="dialog-huong-dan">
+                <ng-template pTemplate="header">
+                    <div class="huong-dan-header">
+                        <span class="huong-dan-title">Hướng dẫn sử dụng hệ thống</span>
+                    </div>
+                </ng-template>
+                <div class="huong-dan-body">
+                    <div class="p-grid">
+                        <!-- Cột Video Hướng dẫn -->
+                        <div class="p-col-12 p-md-6 pr-md-3">
+                            <div class="section-title text-danger">
+                                <i class="fab fa-youtube mr-2"></i>
+                                <span>Video Hướng dẫn</span>
+                            </div>
+                            <div class="item-list">
+                                <div class="item-card item-video" *ngFor="let video of dataHuongDan?.listVideo"
+                                    (click)="openVideo(video)">
+                                    <div class="video-play-icon">
+                                        <i class="pi pi-play"></i>
+                                    </div>
+                                    <span class="item-text" [title]="video.TieuDe || video.FileName">{{video.TieuDe ||
+                                        video.FileName || 'Video hướng dẫn'}}</span>
+                                </div>
+                                <div *ngIf="!dataHuongDan?.listVideo || dataHuongDan?.listVideo.length === 0"
+                                    class="empty-text">
+                                    Chưa có video hướng dẫn
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cột Tài liệu & Biểu mẫu -->
+                        <div class="p-col-12 p-md-6 pl-md-3">
+                            <div class="section-title text-primary">
+                                <i class="far fa-file-alt mr-2"></i>
+                                <span>Tài liệu & Biểu mẫu</span>
+                            </div>
+                            <div class="item-list">
+                                <div class="item-card item-tailieu" *ngFor="let doc of dataHuongDan?.listTaiLieu"
+                                    (click)="downloadTaiLieu(doc)">
+                                    <div class="doc-file-icon">
+                                        <i class="far fa-file"></i>
+                                    </div>
+                                    <span class="item-text" [title]="doc.TieuDe || doc.FileName">{{doc.TieuDe ||
+                                        doc.FileName || 'Tài liệu'}}</span>
+                                    <div class="doc-download-icon">
+                                        <i class="pi pi-download"></i>
+                                    </div>
+                                </div>
+                                <div *ngIf="!dataHuongDan?.listTaiLieu || dataHuongDan?.listTaiLieu.length === 0"
+                                    class="empty-text">
+                                    Chưa có tài liệu
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Box Cần hỗ trợ thêm? -->
+                    <div class="support-box mt-3" *ngIf="dataHuongDan?.ThongTinHoTro">
+                        <div class="support-header">
+                            <i class="far fa-question-circle mr-2"></i>
+                            <strong>{{dataHuongDan.ThongTinHoTro.Ten || 'Cần hỗ trợ thêm?'}}</strong>
+                        </div>
+                        <div class="support-content">
+                            <span>Liên hệ hotline kỹ thuật: <strong>{{dataHuongDan.ThongTinHoTro.Path}}</strong></span>
+                            <span *ngIf="dataHuongDan.ThongTinHoTro.TenHam">
+                                ({{dataHuongDan.ThongTinHoTro.TenHam}})</span>
+                            <span *ngIf="dataHuongDan.ThongTinHoTro.TenBang"> hoặc gửi email về
+                                <strong>{{dataHuongDan.ThongTinHoTro.TenBang}}</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </p-dialog>
 
             <ng-template #popContentHome>
                 <ul class="list-group">
