@@ -481,8 +481,15 @@ a {
 .doc-download-icon {
     color: #3b82f6;
     font-size: 15px;
-    padding-left: 8px;
+    padding: 4px 6px;
+    border-radius: 4px;
     flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.doc-download-icon:hover {
+    background-color: #dbeafe;
+    color: #1d4ed8;
 }
 
 .empty-text {

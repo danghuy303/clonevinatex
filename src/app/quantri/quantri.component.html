@@ -162,13 +162,13 @@
                             </div>
                             <div class="item-list">
                                 <div class="item-card item-tailieu" *ngFor="let doc of dataHuongDan?.listTaiLieu"
-                                    (click)="downloadTaiLieu(doc)">
+                                    (click)="openTaiLieu(doc)">
                                     <div class="doc-file-icon">
                                         <i class="far fa-file"></i>
                                     </div>
                                     <span class="item-text" [title]="doc.TieuDe || doc.FileName">{{doc.TieuDe ||
                                         doc.FileName || 'Tài liệu'}}</span>
-                                    <div class="doc-download-icon">
+                                    <div class="doc-download-icon" (click)="downloadTaiLieu(doc, $event)" title="Tải xuống tài liệu">
                                         <i class="pi pi-download"></i>
                                     </div>
                                 </div>

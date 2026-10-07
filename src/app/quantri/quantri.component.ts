@@ -214,7 +214,25 @@ export class QuantriComponent implements OnInit, OnDestroy {
     }
   }
 
-  downloadTaiLieu(doc: any) {
+  openTaiLieu(doc: any) {
+    if (!doc) return;
+    const linkDoc = doc.LinkDocViewer || doc.LinkURLGoogleView || doc.Link;
+    if (linkDoc) {
+      if (linkDoc.startsWith('http://') || linkDoc.startsWith('https://')) {
+        window.open(linkDoc, '_blank');
+      } else {
+        const fullUrl = `${API.imgURL}${linkDoc.startsWith('/') ? '' : '/'}${linkDoc}`;
+        window.open(fullUrl, '_blank');
+      }
+    } else {
+      this.toastr.warning('Không tìm thấy đường dẫn xem tài liệu!');
+    }
+  }
+
+  downloadTaiLieu(doc: any, event?: MouseEvent) {
+    if (event) {
+      event.stopPropagation();
+    }
     if (!doc) return;
     const path = doc.LinkURLEncodeDownload || doc.Link || doc.Path;
     if (path) {
