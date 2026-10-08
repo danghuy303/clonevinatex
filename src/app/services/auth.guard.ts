@@ -18,15 +18,15 @@ export class AuthGuard implements CanActivate {
         const accessToken = localStorage.getItem('access_token');
 
         if (!accessToken || !this.authenticationService.isTokenValid()) {
-            // Nếu không có token hoặc token không hợp lệ, redirect về login
-            this.router.navigate(['/login']);
+            // Nếu không có token hoặc token không hợp lệ (hết hạn), điều hướng về reporteos/#/login
+            this.authenticationService.logout();
             return false;
         }
 
-        // Nếu có token, kiểm tra xem currentUser có tồn tại không
+        // Nếu có token, kiểm tra xem currentUser có tồn tại và hợp lệ không
         const currentUser = this.authenticationService.currentUserValue;
-        if (currentUser) {
-            // User đã đăng nhập, cho phép truy cập
+        if (currentUser && this.authenticationService.isUserValid(currentUser)) {
+            // User đã đăng nhập hợp lệ, cho phép truy cập
             return true;
         }
 
@@ -35,19 +35,23 @@ export class AuthGuard implements CanActivate {
             return false;
         }
 
-        // Token tồn tại nhưng chưa lấy thông tin user, gọi GetCurrentUser
+        // Token tồn tại nhưng chưa có thông tin user hợp lệ, gọi GetCurrentUser
         this.isLoadingUser = true;
         try {
-            await this.authenticationService.GetCurrentUser().toPromise();
-            // Nếu thành công, cho phép truy cập
+            const user: any = await this.authenticationService.GetCurrentUser().toPromise();
+            if (!this.authenticationService.isUserValid(user)) {
+                // GetCurrentUser trả về "Chưa đăng nhập" hoặc không hợp lệ -> chuyển về reporteos
+                console.warn('GetCurrentUser returned unauthenticated or invalid user:', user);
+                this.authenticationService.logout();
+                return false;
+            }
+            // Nếu thành công và hợp lệ, cho phép truy cập
             (window as any).autoLogin = true;
             return true;
         } catch (error) {
-            // Nếu lỗi (token hết hạn hoặc không hợp lệ), redirect về login
+            // Nếu lỗi (token hết hạn hoặc không hợp lệ), điều hướng về reporteos/#/login
             console.error('Failed to get current user:', error);
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('currentUser');
-            this.router.navigate(['/login']);
+            this.authenticationService.logout();
             return false;
         } finally {
             this.isLoadingUser = false;

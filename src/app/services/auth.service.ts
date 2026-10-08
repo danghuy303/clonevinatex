@@ -22,7 +22,20 @@ export class
 
     constructor(private http: HttpClient, private router: Router) {
         const currentUserData = localStorage.getItem('currentUser');
-        this.currentUserSubject = new BehaviorSubject<any>(currentUserData ? JSON.parse(currentUserData) : null);
+        let initialUser = null;
+        if (currentUserData) {
+            try {
+                const parsed = JSON.parse(currentUserData);
+                if (this.isUserValid(parsed)) {
+                    initialUser = parsed;
+                } else {
+                    localStorage.removeItem('currentUser');
+                }
+            } catch (e) {
+                localStorage.removeItem('currentUser');
+            }
+        }
+        this.currentUserSubject = new BehaviorSubject<any>(initialUser);
         this.currentAccess_Token = new BehaviorSubject<any>(localStorage.getItem('access_token'));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -38,19 +51,54 @@ export class
         if (!token) return false;
         
         try {
-            // Giải mã JWT token để kiểm tra thời hạn (nếu cần)
-            const payload = JSON.parse(atob(token.split('.')[1]));
+            const parts = token.split('.');
+            if (parts.length < 2) return false;
+            let base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+            while (base64.length % 4) {
+                base64 += '=';
+            }
+            const payload = JSON.parse(atob(base64));
+            if (!payload || !payload.exp) return true;
             const currentTime = Math.floor(Date.now() / 1000);
             return payload.exp > currentTime;
         } catch (error) {
             return false;
         }
     }
+    public isUserValid(user: any): boolean {
+        if (!user) return false;
+        if (typeof user === 'string') {
+            const lower = user.toLowerCase();
+            if (lower.includes('chưa đăng nhập') || lower.includes('chuadangnhap')) {
+                return false;
+            }
+            try {
+                user = JSON.parse(user);
+            } catch (e) {
+                return false;
+            }
+        }
+        if (user.sError === 'ChuaDangNhap' || user.Error === 'ChuaDangNhap') {
+            return false;
+        }
+        if (user.Detail === 'Chưa đăng nhập' || user.Message === 'Chưa đăng nhập') {
+            return false;
+        }
+        if (!user.Id && !user.UserName) {
+            return false;
+        }
+        return true;
+    }
     public GetCurrentUser() {
         const url = API.auth + 'QuanTri/GetCurrentUser';
-        return this.http.get(url, httpOptions).pipe(map(res => {
-            localStorage.setItem('currentUser', JSON.stringify(res));
-            this.currentUserSubject.next(res);
+        return this.http.get(url, httpOptions).pipe(map((res: any) => {
+            if (this.isUserValid(res)) {
+                localStorage.setItem('currentUser', JSON.stringify(res));
+                this.currentUserSubject.next(res);
+            } else {
+                localStorage.removeItem('currentUser');
+                this.currentUserSubject.next(null);
+            }
             return res;
         }));
     }
