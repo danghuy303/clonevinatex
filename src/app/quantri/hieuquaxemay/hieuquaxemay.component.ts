@@ -129,6 +129,7 @@ export class HieuquaxemayComponent implements OnInit, OnDestroy {
   }
 
   isGroup(item: any): boolean {
+    return false;
     return (
       !item.NguoiSuDung &&
       !item.KhauHaoCoBan &&

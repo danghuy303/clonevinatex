@@ -102,6 +102,7 @@ export class KetquadautuComponent implements OnInit, OnDestroy {
   }
 
   isGroup(item: any): boolean {
+    return false;
     return (
       !item.DonViTinh &&
       !item.DonGia &&

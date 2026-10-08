@@ -123,6 +123,7 @@ export class TonghopchiphisuaComponent implements OnInit, OnDestroy {
   }
 
   isGroup(item: any): boolean {
+    return false;
     return (
       !item.BienSo &&
       !item.Cong &&

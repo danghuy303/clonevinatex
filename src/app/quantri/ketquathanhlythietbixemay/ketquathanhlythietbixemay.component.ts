@@ -116,6 +116,7 @@ export class KetquathanhlythietbixemayComponent implements OnInit, OnDestroy {
   }
 
   isGroup(item: any): boolean {
+    return false;
     return (
       !item.BienSoDangKy &&
       !item.KieuChuyenDung &&

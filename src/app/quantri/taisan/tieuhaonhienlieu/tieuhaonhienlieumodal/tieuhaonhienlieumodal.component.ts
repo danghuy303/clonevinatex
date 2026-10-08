@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from '../../../../quantri/modal/modalthongbao/modalthongbao.component';
@@ -28,6 +29,7 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
   listLoaiNhienLieu: any = [];
   listLoaiDinhMucNhienLieu: any = [];
   listBoPhan: any = [];
+  private sanLuongCache: { [idTaiSan: string]: any[] } = {};
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -45,10 +47,8 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
       this.quyTrinh.NgayBatDau = UnixToDate(this.quyTrinh.NgayBatDauUnix);
       this.quyTrinh.NgayKetThuc = UnixToDate(this.quyTrinh.NgayKetThucUnix);
       this.getTongChiPhiTaiSan();
-      if (this.quyTrinh.listTaiSan) {
-        this.quyTrinh.listTaiSan.forEach((ele: any) => {
-          this.getSanLuongDropdownForAsset(ele);
-        });
+      if (this.quyTrinh.listTaiSan?.length) {
+        this.loadSanLuongForList(this.quyTrinh.listTaiSan);
       }
     }
     this.KiemTraButtonModal();
@@ -99,10 +99,8 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
             NgayBatDau: UnixToDate(res.Data.NgayBatDauUnix),
             NgayKetThuc: UnixToDate(res.Data.NgayKetThucUnix)
           }
-          if (this.quyTrinh.listTaiSan) {
-            this.quyTrinh.listTaiSan.forEach((ele: any) => {
-              this.getSanLuongDropdownForAsset(ele);
-            });
+          if (this.quyTrinh.listTaiSan?.length) {
+            this.loadSanLuongForList(this.quyTrinh.listTaiSan);
           }
           this.getTongChiPhiTaiSan();
           this.KiemTraButtonModal();
@@ -181,6 +179,7 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
     modalRef.componentInstance.title = 'Danh sách máy/thiết bị';
     modalRef.result.then((res: any) => {
       const _list = this.quyTrinh.listTaiSan || [];
+      const newItems: any[] = [];
       this.quyTrinh.listTaiSan = res.map((ele: any) => {
         let _newObj = _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan);
         if (!_newObj) {
@@ -188,10 +187,13 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
             ...ele,
             listFileDinhKem: []
           };
-          this.getSanLuongDropdownForAsset(_newObj);
+          newItems.push(_newObj);
         }
         return _newObj;
-      })
+      });
+      if (newItems.length > 0) {
+        this.loadSanLuongForList(newItems);
+      }
     })
       .catch((er) => {
       });
@@ -231,31 +233,73 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
     window.open(API.imgURL + url);
   }
 
+  loadSanLuongForList(listTaiSan: any[]) {
+    if (!listTaiSan || listTaiSan.length === 0) return;
+
+    const uniqueIds = Array.from(new Set(listTaiSan.map((x: any) => x.IdTaiSan).filter((id: any) => !!id)));
+    const needFetchIds = uniqueIds.filter((id: any) => !this.sanLuongCache[id]);
+
+    if (needFetchIds.length === 0) {
+      listTaiSan.forEach((item: any) => {
+        if (item.IdTaiSan && this.sanLuongCache[item.IdTaiSan]) {
+          this.applySanLuongToItem(item, this.sanLuongCache[item.IdTaiSan]);
+        }
+      });
+      return;
+    }
+
+    const requests = needFetchIds.map((id: any) => this._serviceTaiSan.GetSanLuongMay(id));
+    forkJoin(requests).subscribe((responses: any[]) => {
+      responses.forEach((res: any, index: number) => {
+        const id = needFetchIds[index];
+        this.sanLuongCache[id] = res?.Data || res || [];
+      });
+
+      listTaiSan.forEach((item: any) => {
+        if (item.IdTaiSan && this.sanLuongCache[item.IdTaiSan]) {
+          this.applySanLuongToItem(item, this.sanLuongCache[item.IdTaiSan]);
+        }
+      });
+    });
+  }
+
+  applySanLuongToItem(item: any, list: any[]) {
+    if (!list) return;
+    item.rawSanLuongList = list;
+    item.listSanLuongDropdown = list.map((x: any) => {
+      return {
+        label: (x.Ten || '') + (x.TendmLoaiNhienLieu ? ' ' + x.TendmLoaiNhienLieu : ''),
+        value: x.Id,
+      };
+    });
+
+    const targetId = item.IdSanLuongMay || item.IdSanLuong || item.IddmLoaiNhienLieu;
+    if (targetId) {
+      const selected = list.find((x: any) => x.Id === targetId || x.IddmLoaiNhienLieu === targetId);
+      if (selected) {
+        if (!item.IdSanLuongMay) {
+          item.IdSanLuongMay = selected.Id;
+        }
+        item.DinhMuc = item.DinhMuc || selected.NhienLieu || selected.SanLuong || 0;
+        item.TieuHaoDinhMuc = item.TieuHaoDinhMuc || selected.NhienLieu || selected.SanLuong || 0;
+        item.DonViTinh_NhienLieu = selected.DonViTinh_NhienLieu;
+        item.TendmLoaiNhienLieu = selected.TendmLoaiNhienLieu;
+        item.IddmLoaiNhienLieu = selected.IddmLoaiNhienLieu;
+        item.IdSanLuong = selected.IddmLoaiNhienLieu || selected.Id;
+      }
+    }
+  }
+
   getSanLuongDropdownForAsset(item: any) {
-    if (!item.IdTaiSan) return;
+    if (!item?.IdTaiSan) return;
+    if (this.sanLuongCache[item.IdTaiSan]) {
+      this.applySanLuongToItem(item, this.sanLuongCache[item.IdTaiSan]);
+      return;
+    }
     this._serviceTaiSan.GetSanLuongMay(item.IdTaiSan).subscribe((res: any) => {
       const list = res.Data || res || [];
-      item.listSanLuongDropdown = list.map((x: any) => {
-        return {
-          label: (x.Ten || '') + (x.TendmLoaiNhienLieu ? ' ' + x.TendmLoaiNhienLieu : ''),
-          value: x.Id,
-        };
-      });
-      item.rawSanLuongList = list;
-
-      // Look up and restore SanLuong if IdSanLuong or IddmLoaiNhienLieu is already selected
-      const targetId = item.IdSanLuong || item.IddmLoaiNhienLieu;
-      if (targetId) {
-        const selected = list.find((x: any) => x.IddmLoaiNhienLieu === targetId || x.Id === targetId);
-        if (selected) {
-          item.DinhMuc = selected.SanLuong || 0;
-          item.TieuHaoDinhMuc = selected.SanLuong || 0;
-          item.DonViTinh_NhienLieu = selected.DonViTinh_NhienLieu;
-          item.TendmLoaiNhienLieu = selected.TendmLoaiNhienLieu;
-          item.IddmLoaiNhienLieu = selected.IddmLoaiNhienLieu;
-          item.IdSanLuong = selected.IddmLoaiNhienLieu;
-        }
-      }
+      this.sanLuongCache[item.IdTaiSan] = list;
+      this.applySanLuongToItem(item, list);
     });
   }
 

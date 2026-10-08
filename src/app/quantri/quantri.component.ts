@@ -210,7 +210,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
         window.open(`${API.imgURL}/${url}`, '_blank');
       }
     } else {
-      this.toastr.warning('Không tìm thấy đường dẫn video!');
+      this._toastr.warning('Không tìm thấy đường dẫn video!');
     }
   }
 
@@ -225,7 +225,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
         window.open(fullUrl, '_blank');
       }
     } else {
-      this.toastr.warning('Không tìm thấy đường dẫn xem tài liệu!');
+      this._toastr.warning('Không tìm thấy đường dẫn xem tài liệu!');
     }
   }
 
@@ -243,7 +243,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
         window.open(fullUrl, '_blank');
       }
     } else {
-      this.toastr.warning('Không tìm thấy đường dẫn tải tài liệu!');
+      this._toastr.warning('Không tìm thấy đường dẫn tải tài liệu!');
     }
   }
 

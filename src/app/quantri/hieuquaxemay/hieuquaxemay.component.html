@@ -14,30 +14,35 @@
         </div>
 
         <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" style="width: 220px;">
-          <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()" [options]="PhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
+          <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="getDataBaoCao()" [options]="PhanXuong"
+            placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
         </div>
 
         <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" style="min-width: 105px;">
           <p-dropdown [filter]="true" placeholder="Chọn loại thời gian" [options]="LoaiThoiGian"
-            styleClass="p-inputtext-sm w-100" [(ngModel)]="filter.LoaiThoiGian" (onChange)="getDataBaoCao()"></p-dropdown>
+            styleClass="p-inputtext-sm w-100" [(ngModel)]="filter.LoaiThoiGian"
+            (onChange)="getDataBaoCao()"></p-dropdown>
         </div>
 
-        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" *ngIf="filter.LoaiThoiGian === 0" style="width: 145px;">
+        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" *ngIf="filter.LoaiThoiGian === 0"
+          style="width: 145px;">
           <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
             [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.TuNgay" [locale]="lang"
             (onSelect)="getDataBaoCao()" inputId="icon" placeholder="Từ ngày" styleClass="w-100">
           </p-calendar>
         </div>
 
-        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" *ngIf="filter.LoaiThoiGian === 0" style="width: 145px;">
+        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" *ngIf="filter.LoaiThoiGian === 0"
+          style="width: 145px;">
           <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
             [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="filter.DenNgay"
-            [minDate]="filter.TuNgay" [locale]="lang" (onSelect)="getDataBaoCao()" inputId="icon"
-            placeholder="Đến ngày" styleClass="w-100">
+            [minDate]="filter.TuNgay" [locale]="lang" (onSelect)="getDataBaoCao()" inputId="icon" placeholder="Đến ngày"
+            styleClass="w-100">
           </p-calendar>
         </div>
 
-        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" *ngIf="filter.LoaiThoiGian === 3" style="min-width: 120px;">
+        <div class="p-mr-2 mb-2 mb-lg-0 d-flex align-items-center" *ngIf="filter.LoaiThoiGian === 3"
+          style="min-width: 120px;">
           <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="filter.nam" placeholder="Chọn năm"
             styleClass="p-inputtext-sm w-100" (onChange)="getDataBaoCao()"></p-dropdown>
         </div>
@@ -45,8 +50,8 @@
         <div class="p-inputgroup mb-2 mb-lg-0" style="width: 200px;">
           <input type="text" placeholder="Tìm kiếm..." [(ngModel)]="filter.Keyword" (keyup.enter)="getDataBaoCao()"
             class="p-inputtext-sm" pInputText />
-          <button type="button" pButton pRipple icon="pi pi-search"
-            class="p-button-secondary p-button-sm p-button-text" (click)="getDataBaoCao()"></button>
+          <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text"
+            (click)="getDataBaoCao()"></button>
           <button type="button" pButton pRipple icon="pi pi-refresh"
             class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>
@@ -66,7 +71,8 @@
           <th class="text-center" rowspan="2" style="width: 110px; min-width: 100px;">Khấu hao cơ bản</th>
           <th class="text-center" rowspan="2" style="width: 120px; min-width: 100px;">Tổng chi phí sửa chữa</th>
           <th class="text-center" rowspan="2" style="width: 120px; min-width: 100px;">Chi phí nhiên liệu sản xuất</th>
-          <th class="text-center" rowspan="2" style="width: 130px; min-width: 110px;">Lương lái xe máy (chính + phụ)</th>
+          <th class="text-center" rowspan="2" style="width: 130px; min-width: 110px;">Lương lái xe máy (chính + phụ)
+          </th>
           <th class="text-center" rowspan="2" style="width: 110px; min-width: 100px;">Cộng chi phí</th>
           <th class="text-center" rowspan="2" style="width: 110px; min-width: 100px;">Doanh thu</th>
           <th class="text-center" rowspan="2" style="width: 110px; min-width: 100px;">Hiệu quả</th>
@@ -88,7 +94,7 @@
           <td [ngStyle]="{'padding-left': isGroup(item) ? '10px' : '25px'}">
             {{ item.NhanHieuBienSoDangKy }}
           </td>
-          <td class="text-center">{{ item.NguoiSuDung }}</td>
+          <td class="text-center">{{ item.NguoiVanHanh }}</td>
           <td class="text-right">
             <span *ngIf="item.KhauHaoCoBan !== null && item.KhauHaoCoBan !== undefined">{{ item.KhauHaoCoBan |
               number:"0.0-0" }}</span>
