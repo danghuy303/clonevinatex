@@ -152,7 +152,8 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   }
 
   edit(item) {
-    this.item.GiaTriConLai = item.NguyenGia;
+    if (!this.item.GiaTriConLai)
+      this.item.GiaTriConLai = item.NguyenGia;
   }
   isCanDuTru() {
     this.item.isCanDuTru = true;

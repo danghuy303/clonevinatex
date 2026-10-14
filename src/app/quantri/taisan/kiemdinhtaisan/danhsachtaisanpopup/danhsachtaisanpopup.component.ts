@@ -28,8 +28,12 @@ export class DanhsachtaisanpopupComponent implements OnInit {
   getList() {
     this.listView.forEach((ele: any) => {
       ele.checked = this.listDaChon.includes(ele.IdTaiSan || ele.Id);
+      ele.Ma = ele.Ma || ele.MaTaiSan;
+      ele.Ten = ele.Ten || ele.TenTaiSan;
+      ele.MaTaiSan = ele.MaTaiSan || ele.Ma;
+      ele.TenTaiSan = ele.TenTaiSan || ele.Ten;
     });
-    this.checkAll = this.listView.every((ele: any) => ele.checked);
+    this.checkAll = this.listView.length > 0 && this.listView.every((ele: any) => ele.checked);
   }
 
   select() {

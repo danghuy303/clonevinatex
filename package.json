@@ -2,9 +2,9 @@
   "name": "vinatexv1",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --base-href=./",
+    "ng": "node --openssl-legacy-provider ./node_modules/@angular/cli/bin/ng",
+    "start": "node --openssl-legacy-provider ./node_modules/@angular/cli/bin/ng serve",
+    "build": "node --openssl-legacy-provider ./node_modules/@angular/cli/bin/ng build --base-href=./",
     "ci": "ng build --base-href=./ && cd /Users/mac/Documents/deployscript/vinatex && sh deployAllTest.sh",
     "deploy": "cd /Users/mac/Documents/deployscript/vinatex && sh deployAllTest.sh",
     "test": "ng test",

@@ -9,7 +9,8 @@
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2" style="width: 220px;">
-            <app-select-bo-phan [(ngModel)]="filter.idBoPhan" (onChange)="Loaddata(true)" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"></app-select-bo-phan>
+            <app-select-bo-phan [(ngModel)]="filter.idBoPhan" (onChange)="Loaddata(true)" [options]="listdmPhanXuong"
+                placeholder="Bộ phận sử dụng"></app-select-bo-phan>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
@@ -72,7 +73,7 @@
                 {{item.SoQuyTrinh}}
             </td>
             <td class="text-center">{{item.NgayBanGiao|date:'dd/MM/yyyy'}}</td>
-            <td class="text-center">{{item.TenBoPhanSuDung}}</td>
+            <td class="text-left ">{{item.TenBoPhanSuDung}}</td>
             <td>{{item.NoiDung}}</td>
             <td class="text-center">{{item.TenTrangThai}}</td>
             <td class="text-center">

@@ -16,11 +16,11 @@
             <input #inputtt1 type="text" pInputText class="p-inputtext-sm"
                 (input)="tb.filterGlobal($event.target.value, 'contains')" placeholder="Tìm kiếm" />
             <button type="button" pButton pRipple icon="pi pi-refresh" styleClass="p-button-warn p-inputtext-sm"
-                (click)="tb.filterGlobal($event.target.value, '')" (click)="inputtt1.value = ''"></button>
+                (click)="inputtt1.value = ''; tb.filterGlobal('', 'contains')"></button>
         </div>
     </div>
     <div class="p-mt-3">
-        <p-table #tb [value]="listView" [globalFilterFields]="['Ma','Ten']" [paginator]="true" [rows]="20"
+        <p-table #tb [value]="listView" [globalFilterFields]="['Ma', 'Ten', 'MaTaiSan', 'TenTaiSan']" [paginator]="true" [rows]="20"
             styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
             <ng-template pTemplate="colgroup">
                 <colgroup>
