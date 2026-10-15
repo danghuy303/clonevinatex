@@ -64,7 +64,7 @@
 
         <div class="p-d-flex p-ai-center p-jc-between p-mb-4">
             <div></div>
-            <div class="p-mr-2"><strong>Tổng số: <span style="color: red;">{{items.TongSoTaiSan}}</span> thiết
+            <div class="p-mr-2"><strong>Tổng số: <span style="color: red;">{{items.TongSoTaiSan | number}}</span> thiết
                     bị</strong></div>
         </div>
         <div class=" bg-white p-mb-4">
@@ -175,7 +175,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="paginatorleft">
-                    Tổng số bản ghi {{items.listTaiSan?.length}}.
+                    Tổng số bản ghi {{items.listTaiSan?.length | number}}.
                 </ng-template>
             </p-table>
         </div>
@@ -184,7 +184,7 @@
     <div *ngIf="filter.LoaiKeHoach === 'THANG'">
         <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
             <div></div>
-            <div class="p-mr-2"><strong>Tổng số: <span style="color: red;"> {{itemsLichXichThang.TongSoTaiSan}}</span>
+            <div class="p-mr-2"><strong>Tổng số: <span style="color: red;"> {{itemsLichXichThang.TongSoTaiSan | number}}</span>
                     thiết bị</strong></div>
         </div>
         <div class="p-col-12 p-mb-4 pintable-container bg-white" style="height: calc(100vh - 250px); z-index: 999;"

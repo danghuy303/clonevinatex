@@ -122,8 +122,8 @@
                         <p-inputNumber locale="en-EN" [(ngModel)]="item.DonGia" (onBlur)="tinhThanhTien(item)"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                     </td>
-                    <td class="text-right">{{item.ThanhTien | number:'0.0-0'}}</td>
-                    <td class="text-right">{{item.TenDuAn}}</td>
+                    <td class="text-right">{{item.ThanhTien | number}}</td>
+                    <td>{{item.TenDuAn}}</td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                     </td>

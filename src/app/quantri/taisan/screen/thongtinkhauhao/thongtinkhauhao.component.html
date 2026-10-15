@@ -23,7 +23,7 @@
             <td class="text-center"> {{i + 1}}</td>
             <td class="text-center">{{item.Ngay | date:'dd/MM/yyyy'}}</td>
             <td class="text-right">{{item.GiaTriTruocKhauHao | number:'0.0'}}</td>
-            <td class="text-right">{{item.TyLeKhauHao}}</td>
+            <td class="text-right">{{item.TyLeKhauHao | number}}</td>
             <td class="text-right">{{item.GiaTriConLai |number:'0.0'}}</td>
         </tr>
     </ng-template>

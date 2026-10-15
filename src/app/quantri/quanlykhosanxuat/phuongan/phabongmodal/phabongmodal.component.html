@@ -302,15 +302,15 @@
                                     <input style="width: 100%; text-align: right; border: transparent; color:#495057"
                                         [tabindex]="-1" type="number" [(ngModel)]="lobong.SoLuongKien_KiemKe">
                                 </ng-container>
-                                <ng-container *ngIf="!isEditing">{{lobong.SoLuongKien_KiemKe}}</ng-container>
+                                <ng-container *ngIf="!isEditing">{{lobong.SoLuongKien_KiemKe | number}}</ng-container>
 
                             </td>
-                            <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                                {{lobong.SoLuongKien}}</td>
-                            <td class="text-center tc-w-100 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                                {{lobong.SoLuongDung}}</td>
-                            <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                                {{lobong.TonCuoi}}</td>
+                            <td class="text-right tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SoLuongKien | number}}</td>
+                            <td class="text-right tc-w-100 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SoLuongDung | number}}</td>
+                            <td class="text-right tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.TonCuoi | number}}</td>
                             <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
                                 {{lobong.TyLe|number:'0.2-2'}}</td>
                             <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">

@@ -128,8 +128,8 @@
                         [(ngModel)]="item.IdNhaCungUng" [showClear]="true" (onChange)="ChonNhaCungUng(item)">
                     </p-dropdown>
                 </td>
-                <td class="text-right"> {{item.DonGia | number:"0.0-0"}}</td>
-                <td class="text-right"> {{item.ThanhTien | number:"0.0-0"}}</td>
+                <td class="text-right"> {{item.DonGia | number}}</td>
+                <td class="text-right"> {{item.ThanhTien | number}}</td>
                 <td class="text-center">
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                         [locale]="lang" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon"

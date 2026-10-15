@@ -101,7 +101,7 @@
                             (ngModelChange)="TongKhoiLuong(item)" #input (keydown)="navigateTable($event, i, 0)">
                         </p-inputNumber>
                     </td>
-                    <td class="text-right">{{item.KgCone}}</td>
+                    <td class="text-right">{{item.KgCone | number}}</td>
                     <td>
                         <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TongKhoiLuong" #input
                             (keydown)="navigateTable($event, i, 1)" disabled>

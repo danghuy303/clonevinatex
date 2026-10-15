@@ -26,17 +26,17 @@
                             <td class="text-center tc-w-200" style="background-color: white;z-index: 999;">                 
                                         {{item.TenSanPham}}
                             </td>
-                            <td class="text-center tc-w-121">
-                                {{item.TongChiPhi}}
+                            <td class="text-right tc-w-121">
+                                {{item.TongChiPhi | number}}
                             </td>
                             <td class="text-center tc-w-200">
                                Tổng 
                             </td>
-                            <td class="text-center tc-w-121">
-                                {{item.Tong}}
+                            <td class="text-right tc-w-121">
+                                {{item.Tong | number}}
                             </td>
-                            <td class="text-center tc-w-100" *ngFor="let prop of item.lstChiPhi">
-                               {{prop.ChiPhi}}
+                            <td class="text-right tc-w-100" *ngFor="let prop of item.lstChiPhi">
+                               {{prop.ChiPhi | number}}
                             </td>
 
                         </tr>
@@ -50,11 +50,11 @@
                             <td class="text-center tc-w-200">
                                {{nhaMay.TenDuAn}}
                             </td>
-                            <td class="text-center tc-w-121">
-                                {{nhaMay.TongChiPhi}}
+                            <td class="text-right tc-w-121">
+                                {{nhaMay.TongChiPhi | number}}
                             </td>
-                            <td class="text-center tc-w-100" *ngFor="let thang of nhaMay.lstChiPhi">
-                              {{thang.ChiPhi}} 
+                            <td class="text-right tc-w-100" *ngFor="let thang of nhaMay.lstChiPhi">
+                              {{thang.ChiPhi | number}} 
                             </td>
                         </tr>
                     </ng-container>

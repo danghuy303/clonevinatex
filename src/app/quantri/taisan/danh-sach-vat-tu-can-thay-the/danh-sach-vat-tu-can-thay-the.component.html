@@ -129,18 +129,18 @@
                 <td>
                     <div *ngIf="rowData.isShow">{{rowData.Ten}}</div>
                 </td>
-                <td style="text-align: right;">
-                    <div *ngIf="rowData.isShow">{{rowData.TuoiTho | number:'0.0-0'}}</div>
+                <td class="text-right">
+                    <div *ngIf="rowData.isShow">{{rowData.TuoiTho | number}}</div>
                 </td>
-                <td style="text-align: right;">
-                    <div *ngIf="rowData.isShow">{{rowData.SoLuongTon | number:'0.0-0'}}</div>
+                <td class="text-right">
+                    <div *ngIf="rowData.isShow">{{rowData.SoLuongTon | number}}</div>
                 </td>
-                <td style="text-align: right;">
+                <td class="text-right">
                     <div class="p-d-flex p-ai-center p-jc-between">
                         <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                         <div [style]="{'color':rowData.SoLuongThayThe > rowData.SoLuongTon ?'red':''}"
                             class="text-right">
-                            {{rowData.SoLuongThayThe | number:'0.0-0'}}</div>
+                            {{rowData.SoLuongThayThe | number}}</div>
                     </div>
                 </td>
                 <td>{{rowData.TenTaiSan}}</td>
@@ -149,7 +149,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
+                Tổng số bản ghi {{paging.TotalCount | number}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
                     [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>

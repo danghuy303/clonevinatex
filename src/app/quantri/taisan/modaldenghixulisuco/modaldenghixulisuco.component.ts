@@ -28,6 +28,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   item: any = {};
   type = '';
   opt = '';
+  eAction: string = 'QUYTRINHXULYSUCO';
   listPhanXuong = [];
   listDoUuTien = [];
   listNguoiThucHien = [];
@@ -61,7 +62,9 @@ export class ModaldenghixulisucoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    if (!this.item.eAction) {
+      this.item.eAction = this.eAction || 'QUYTRINHXULYSUCO';
+    }
     this.item.listTaiSan = this.item.listTaiSan ? this.item.listTaiSan : [];
     this.item.listChiPhiKhac = this.item.listChiPhiKhac ? this.item.listChiPhiKhac : [];
     this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
@@ -162,6 +165,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   setData() {
     let data = {
       ...this.item,
+      eAction: this.eAction || this.item.eAction || 'QUYTRINHXULYSUCO',
       listTaiSan: this.item.listTaiSan.map(item => {
         return {
           ...item,
@@ -234,7 +238,10 @@ export class ModaldenghixulisucoComponent implements OnInit {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
-          this.item = res.Data;
+          this.item = {
+            ...res.Data,
+            eAction: this.eAction || 'QUYTRINHXULYSUCO',
+          };
           this.item.listTaiSan.forEach(ele => {
             ele.DenGio = UnixToDate(ele.DenGioUnix);
             ele.TuGio = UnixToDate(ele.TuGioUnix);

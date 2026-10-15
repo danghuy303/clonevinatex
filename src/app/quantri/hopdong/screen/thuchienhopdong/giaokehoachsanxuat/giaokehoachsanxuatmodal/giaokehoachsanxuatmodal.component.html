@@ -178,7 +178,7 @@
                                 <div>
                                     <div *ngFor="let items of item.listQuyCachDongGoi">
                                         <span *ngIf="!items.isXoa">
-                                            {{items.objQuyCachDongGoi.label}} - {{items.KhoiLuong}}
+                                            {{items.objQuyCachDongGoi.label}} - {{items.KhoiLuong | number}}
                                         </span>
                                     </div>
                                 </div>

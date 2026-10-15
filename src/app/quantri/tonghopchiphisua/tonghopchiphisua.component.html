@@ -140,28 +140,26 @@
           <td>{{item.KieuChuyenDung}}</td>
           <td>{{item.NguoiSuDung}}</td>
           <td class="text-right">
-            <span *ngIf="item.VatTu !== null && item.VatTu !== undefined">{{item.VatTu | number:"0.0-0"}}</span>
+            <span *ngIf="item.VatTu !== null && item.VatTu !== undefined">{{item.VatTu | number}}</span>
           </td>
           <td class="text-right">
-            <span *ngIf="item.NhienLieu !== null && item.NhienLieu !== undefined">{{item.NhienLieu |
-              number:"0.0-0"}}</span>
+            <span *ngIf="item.NhienLieu !== null && item.NhienLieu !== undefined">{{item.NhienLieu | number}}</span>
           </td>
           <td class="text-right">
-            <span *ngIf="item.NhanCong !== null && item.NhanCong !== undefined">{{item.NhanCong |
-              number:"0.0-0"}}</span>
+            <span *ngIf="item.NhanCong !== null && item.NhanCong !== undefined">{{item.NhanCong | number}}</span>
           </td>
           <td class="text-right">
-            <span *ngIf="item.VAT !== null && item.VAT !== undefined">{{item.VAT | number:"0.0-0"}}</span>
+            <span *ngIf="item.VAT !== null && item.VAT !== undefined">{{item.VAT | number}}</span>
           </td>
           <td class="text-right">
-            <span *ngIf="item.Cong !== null && item.Cong !== undefined">{{item.Cong | number:"0.0-0"}}</span>
+            <span *ngIf="item.Cong !== null && item.Cong !== undefined">{{item.Cong | number}}</span>
           </td>
           <td>{{item.GhiChu}}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="summary">
         <div class="p-d-flex p-ai-center p-jc-between">
-          Tổng số bản ghi {{paging.TotalCount}}.
+          Tổng số bản ghi {{paging.TotalCount | number}}.
           <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
             (onPageChange)="changePage($event)"></p-paginator>
         </div>

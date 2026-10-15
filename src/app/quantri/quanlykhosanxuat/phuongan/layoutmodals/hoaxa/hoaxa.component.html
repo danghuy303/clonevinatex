@@ -82,9 +82,9 @@
                     <tbody>
                         <tr *ngFor="let lobong of item.listItem;let i = index" [ngStyle]="{'background-color': lobong.Mau}">
                             <td (click)="xepLoBong(lobong,i)" style="cursor: pointer;">{{lobong.TenLoBong}}</td>
-                            <td class="text-right">{{lobong.SoLuong}}</td>
-                            <td class="text-right">{{lobong.DaXep}}</td>
-                            <td class="text-right">{{lobong.ConLai}}</td>
+                            <td class="text-right">{{lobong.SoLuong | number}}</td>
+                            <td class="text-right">{{lobong.DaXep | number}}</td>
+                            <td class="text-right">{{lobong.ConLai | number}}</td>
                         </tr>
                         <tr>
                             <td>
@@ -124,8 +124,8 @@
                         <tr *ngFor="let lobong of item.listLoBong;let i = index"
                             [ngStyle]="{'background-color': lobong.Mau}">
                             <td (click)="xepLoBong(lobong,i)">{{lobong.TenLoBong}}</td>
-                            <td class="text-right">{{lobong.SoLuong}}</td>
-                            <td class="text-right">{{lobong.DaXep}}</td>
+                            <td class="text-right">{{lobong.SoLuong | number}}</td>
+                            <td class="text-right">{{lobong.DaXep | number}}</td>
                             <!-- <td class="text-right">{{lobong.ConLai}}</td> -->
                         </tr>
                         <tr>

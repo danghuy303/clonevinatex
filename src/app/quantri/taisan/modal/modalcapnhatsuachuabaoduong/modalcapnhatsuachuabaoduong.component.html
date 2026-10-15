@@ -132,7 +132,7 @@
                         {{rowData.Ma}}
                     </td>
                     <td>{{rowData.Ten}}</td>
-                    <td class="text-center">{{rowData.NguyenGia|number:'0.0'}}</td>
+                    <td class="text-right">{{rowData.NguyenGia | number}}</td>
                     <td class="text-center">{{rowData.NgayNhap|date:'dd/MM/yyyy'}}</td>
                 </tr>
             </ng-template>
@@ -169,7 +169,7 @@
                     <td class="text-center">{{item.Ma}}</td>
                     <td class="text-center">{{item.Ten}}</td>
                     <td class="text-center">{{item.GhiChu}}</td>
-                    <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td>
+                    <td class="text-right">{{item.NguyenGia | number}}</td>
                     <td class="text-center">{{item.NgayNhap|date:'dd/MM/yyyy'}}</td>
                 </tr>
             </ng-template>

@@ -125,7 +125,7 @@
                         <td>{{item.Ma}}</td>
                         <td>{{item.Ten}}</td>
                         <td class="text-center">{{item.DonViTinh}}</td>
-                        <td class="text-right">{{item.Ton}}</td>
+                        <td class="text-right">{{item.Ton | number}}</td>
                         <td>
                             <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuong"></p-inputNumber>
                         </td>

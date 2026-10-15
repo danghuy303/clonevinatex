@@ -38,7 +38,7 @@
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
                         <tr>
                             <td>{{item.Ten}}</td>
-                            <td>{{item.TrongLuong |number:'0.0-3'}}</td>
+                            <td class="text-right">{{item.TrongLuong | number}}</td>
                             <td class="text-center"><button pButton pRipple type="button" icon="pi pi-forward"
                                     class="p-button-rounded" (click)="pickItem(item.Id)"></button></td>
                             <!-- pi-forward -->
@@ -74,19 +74,19 @@
                             <td class="text-center"><button pButton pRipple type="button" icon="pi pi-backward"
                                     class="p-button-rounded" (click)="refundItem(item.Id)"></button></td>
                             <td>{{item.Ten}}</td>
-                            <td>{{item.TrongLuong|number:'0.0-3'}}</td>
+                            <td class="text-right">{{item.TrongLuong | number}}</td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="footer">
                         <tr>
                             <td class="text-center"></td>
                             <td>Trọng lượng B/Q hiện tại</td>
-                            <td>{{currentTrongLuong |number:'0.0-3'}}</td>
+                            <td class="text-right">{{currentTrongLuong | number}}</td>
                         </tr>
                         <tr>
                             <td class="text-center"></td>
                             <td>Trọng lượng B/Q yêu cầu</td>
-                            <td>{{resultTrongLuong |number:'0.0-3'}}</td>
+                            <td class="text-right">{{resultTrongLuong | number}}</td>
                         </tr>
                     </ng-template>
     

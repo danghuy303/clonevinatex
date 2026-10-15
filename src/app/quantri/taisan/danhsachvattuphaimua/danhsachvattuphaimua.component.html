@@ -80,9 +80,9 @@
                 <td class="text-center"> {{item.Ten}}</td>
                 <td class="text-center"> {{item.DonViTinh}} </td>
                 <td class="text-center">{{item.Ngay|date:"dd/MM/yyyy"}} </td>
-                <td class="text-right"> {{item.SoLuongGoi | number:'0.0-0'}} </td>
-                <td class="text-right"> {{item.SoLuong | number:'0.0-0'}} </td>
-                <td class="text-right"> {{item.DonGia | number:'0.0-0'}} </td>
+                <td class="text-right"> {{item.SoLuongGoi | number}} </td>
+                <td class="text-right"> {{item.SoLuong | number}} </td>
+                <td class="text-right"> {{item.DonGia | number}} </td>
                 <td class="text-center"> {{item.TendmNhaCungUng}} </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
@@ -92,7 +92,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
+                Tổng số bản ghi {{paging.TotalCount | number}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
                     [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>

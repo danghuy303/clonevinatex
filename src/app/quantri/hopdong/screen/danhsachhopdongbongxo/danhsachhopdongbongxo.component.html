@@ -76,12 +76,12 @@
                 <td class="text-left">{{item.SoHopDong}} - {{item.TenHopDong}} </td>
                 <td class="text-center">{{item.NgayKy | date:'dd/MM/yyyy'}}</td>
                 <td class="text-left">{{item.TendmLoaiTienTe}}</td>
-                <td class="text-right">{{item.GiaTri |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.GiaTriQuyetToan |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.GiaTriThanhToan |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.GiaTriConLai |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.SoLuongDaMua |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.SoLuongDaVe |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.GiaTri | number}}</td>
+                <td class="text-right">{{item.GiaTriQuyetToan | number}}</td>
+                <td class="text-right">{{item.GiaTriThanhToan | number}}</td>
+                <td class="text-right">{{item.GiaTriConLai | number}}</td>
+                <td class="text-right">{{item.SoLuongDaMua | number}}</td>
+                <td class="text-right">{{item.SoLuongDaVe | number}}</td>
                 <td class="text-left">{{item.BenA}}</td>
                 <td class="text-left">{{item.BenB}}</td>
                 <td class="text-center">
@@ -90,7 +90,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.TotalItem}}.
+            <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.TotalItem | number}}.
                 <p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>

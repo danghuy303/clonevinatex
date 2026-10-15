@@ -117,12 +117,12 @@
                     <td>{{item.Ma}}</td>
                     <td>{{item.Ten}}</td>
                     <td class="text-center">{{item.DonViDatHang}}</td>
-                    <td class="text-right">{{item.SoLuongDat | number:'0.0-0'}}</td>
+                    <td class="text-right">{{item.SoLuongDat | number}}</td>
                     <td>
                         <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongNhan" (onBlur)="tinhConThieu(item)"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                     </td>
-                    <td class="text-right">{{item.SoLuongGoi | number:'0.0-0'}}</td>
+                    <td class="text-right">{{item.SoLuongGoi | number}}</td>
                     <td>
                         <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongBoSung"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
@@ -130,8 +130,8 @@
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                     </td>
-                    <td class="text-right">{{item.DonGia | number:'0.0-0'}}</td>
-                    <td class="">{{item.ThanhTien | number:'0.0-0'}}</td>
+                    <td class="text-right">{{item.DonGia | number}}</td>
+                    <td class="text-right">{{item.ThanhTien | number}}</td>
                     <td>
                         <button pButton pRipple icon="pi pi-trash"
                             class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"

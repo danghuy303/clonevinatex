@@ -59,9 +59,9 @@
 								inputId="binary" [disabled]="item.disable"></p-checkbox>
 						</td>
 						<td [ngStyle]="{'color': item.isLoBongTuongLai?'red':''}">{{item.Ma}}</td>
-						<td class="text-right">{{item.SoLuongKien}}</td>
+						<td class="text-right">{{item.SoLuongKien | number}}</td>
 						<td class="text-right">{{item.Mic|number:'0.0-2'}}</td>
-						<td class="text-right">{{item.GiaBong}}</td>
+						<td class="text-right">{{item.GiaBong | number}}</td>
 						<td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
 						<td class="text-center">{{item.NgayVeDuKien|date:'dd/MM/yyyy'}}</td>
 						<td>{{item.GhiChu}}</td>

@@ -45,8 +45,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{item.Ten}}</td>
-                        <td>{{item.Mic |number:'0.0-3'}}</td>
-                        <td>{{item.ThuTu}}</td>
+                        <td class="text-right">{{item.Mic | number}}</td>
+                        <td class="text-center">{{item.ThuTu}}</td>
                         <td class="text-center"><button pButton pRipple type="button" icon="pi pi-forward"
                                 class="p-button-rounded" (click)="doiKien(item)"></button></td>
                         <!-- pi-forward -->
@@ -87,8 +87,8 @@
                         <!-- <td class="text-center"><button pButton pRipple type="button" icon="pi pi-backward"
                                     class="p-button-rounded" (click)="refundItem(item.Id)"></button></td> -->
                         <td>{{item.Ten}}</td>
-                        <td>{{item.Mic|number:'0.0-3'}}</td>
-                        <td>{{item.ThuTu}}</td>
+                        <td class="text-right">{{item.Mic | number}}</td>
+                        <td class="text-center">{{item.ThuTu}}</td>
                     </tr>
                 </ng-template>
             </p-table>

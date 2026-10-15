@@ -73,9 +73,9 @@
             <td *ngFor="let col of cols" [ngClass]="{'text-center': col.align==='center'}">
                 {{item[col.field]}}
             </td>
-            <td class="text-center">{{item.Ne|number:'0.0'}}</td>
-            <td class="text-center">{{item.Nm|number:'0.0'}}</td>
-            <td class="text-center">{{item.DoSan|number:'0.0'}}</td>
+            <td class="text-right">{{item.Ne|number}}</td>
+            <td class="text-right">{{item.Nm|number}}</td>
+            <td class="text-right">{{item.DoSan|number}}</td>
             <td class="text-center">{{item.GhiChu}}</td>
             <td class="text-center date">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
@@ -89,7 +89,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
         <div class="p-d-flex p-flex-column p-flex-sm-row p-ai-center p-jc-between">
-            Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
+            Tổng số bản ghi {{paging.TotalItem | number}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
                 (onPageChange)="changePage($event)"></p-paginator>
         </div>
     </ng-template>

@@ -103,11 +103,13 @@ export class DenghixulisucoComponent implements OnInit {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Đề nghị xử lý sự cố';
     modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
+    modalRef.componentInstance.eAction = this.eAction;
     modalRef.componentInstance.item = {
       Id: '', IdTrangThai: '', TenTrangThai: "", SoQuyTrinh: '',
       isKetThuc: false, listTaiSan: [], IdDuAn: 0,
       listVatTu: [], listChiPhiKhac: [], listNhanCong: [],
       listFileDinhKem: [],
+      eAction: this.eAction,
     };
     modalRef.result.then(res => {
 
@@ -127,7 +129,10 @@ export class DenghixulisucoComponent implements OnInit {
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Đề nghị xử lý sự cố';
     modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
+    modalRef.componentInstance.eAction = this.eAction;
+    let itemData = JSON.parse(JSON.stringify(item.Data));
+    itemData.eAction = this.eAction;
+    modalRef.componentInstance.item = itemData;
     modalRef.result
       .then(data => {
       })

@@ -142,12 +142,12 @@
                                 ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
                             </ng-container>
                         </td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SoLuongKien}}</td>
-                        <td class="text-center tc-w-100" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SoLuongDung}}</td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.TonCuoi}}</td>
+                        <td class="text-right tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.SoLuongKien | number}}</td>
+                        <td class="text-right tc-w-100" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.SoLuongDung | number}}</td>
+                        <td class="text-right tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.TonCuoi | number}}</td>
                         <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.TyLe|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">

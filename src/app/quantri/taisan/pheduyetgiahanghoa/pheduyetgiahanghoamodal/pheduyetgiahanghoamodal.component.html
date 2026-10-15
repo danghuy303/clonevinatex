@@ -94,7 +94,7 @@
                             <p-inputNumber locale="en-EN" [(ngModel)]="item.GiaVanChuyen" (onBlur)="tinhTyLe(item)"
                                 [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
                         </td>
-                        <td class="text-center">{{item.TyLe | number:'0.2-2'}}</td>
+                        <td class="text-right">{{item.TyLe | number}}</td>
                         <td class="">{{item.TendmNhaCungUng}}</td>
                         <td>
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />

@@ -38,7 +38,7 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{item.Ten}}</td>
-                        <td>{{item.Mic |number:'0.0-3'}}</td>
+                        <td class="text-right">{{item.Mic | number}}</td>
                         <td class="text-center"><button pButton pRipple type="button" icon="pi pi-forward"
                                 class="p-button-rounded" (click)="pickItem(item.Id)"></button></td>
                         <!-- pi-forward -->
@@ -74,19 +74,19 @@
                         <td class="text-center"><button pButton pRipple type="button" icon="pi pi-backward"
                                 class="p-button-rounded" (click)="refundItem(item.Id)"></button></td>
                         <td>{{item.Ten}}</td>
-                        <td>{{item.Mic|number:'0.0-3'}}</td>
+                        <td class="text-right">{{item.Mic | number}}</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <tr>
                         <td class="text-center"></td>
                         <td>Mic B/Q hiện tại</td>
-                        <td>{{currentMic |number:'0.0-3'}}</td>
+                        <td class="text-right">{{currentMic | number}}</td>
                     </tr>
                     <tr>
                         <td class="text-center"></td>
                         <td>Mic B/Q yêu cầu</td>
-                        <td>{{resultMic |number:'0.0-3'}}</td>
+                        <td class="text-right">{{resultMic | number}}</td>
                     </tr>
                 </ng-template>
 

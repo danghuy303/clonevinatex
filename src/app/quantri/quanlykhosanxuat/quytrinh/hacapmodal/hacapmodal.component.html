@@ -107,7 +107,7 @@
                         <td>{{i+1}}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <!-- <td style="text-align: center;">{{item.DonViThietKe}}</td> -->
-                        <td>{{item.Ton}}</td>
+                        <td class="text-right">{{item.Ton | number}}</td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>

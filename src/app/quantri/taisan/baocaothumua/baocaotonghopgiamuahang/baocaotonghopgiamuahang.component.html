@@ -65,7 +65,7 @@
                         </Span>
                         <div *ngIf="data.DinhDang === 'float'"
                             [style]="{width:'100%', 'text-align':data.Horizontal}">
-                            {{data.GiaTri | number:'0.0-0'}}
+                            {{data.GiaTri | number}}
                         </div>
                         <div *ngIf="data.DinhDang !== 'float'" [style]="{width:'100%','text-align':data.Horizontal}">
                             {{data.GiaTri}}
@@ -82,7 +82,7 @@
 </div>
 
 <div class="d-flex align-items-center justify-content-between">
-    Tổng số bản ghi {{paging.TotalCount}}.
+    Tổng số bản ghi {{paging.TotalCount | number}}.
     <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20" (onPageChange)="changePage($event)">
     </p-paginator>
 </div>

@@ -109,7 +109,7 @@
                     <td>{{item.Ma}}</td>
                     <td>{{item.Ten}}</td>
                     <td class="text-center">{{item.DonViDatHang}}</td>
-                    <td class="text-right">{{item.SoLuongTon}}</td>
+                    <td class="text-right">{{item.SoLuongTon | number}}</td>
                     <td>
                         <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongYeuCau" (onBlur)="TinhSoLuongGoi(item)"
                             [inputStyle]="{'text-align': 'right','width':'100%'}"></p-inputNumber>
@@ -118,7 +118,7 @@
                         <p-inputNumber locale="en-EN" [(ngModel)]="item.SoLuongGoi"
                             [inputStyle]="{'text-align': 'right','width':'100%','color':item.SoLuongYeuCau < item.SoLuongGoi ? 'red' : ''}"></p-inputNumber>
                     </td>
-                    <td class="text-right">{{item.SoLuongLuyKe}}</td>
+                    <td class="text-right">{{item.SoLuongLuyKe | number}}</td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                     </td>

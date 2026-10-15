@@ -206,19 +206,19 @@
                      {{ lobong.Ma }}
                   </td>
                   <td
-                     class="text-center tc-w-60"
+                     class="text-right tc-w-60"
                      [ngStyle]="{ 'background-color': lobong.Mau }">
-                     {{ lobong.SoLuongKien }}
+                     {{ lobong.SoLuongKien | number }}
                   </td>
                   <td
-                     class="text-center tc-w-100"
+                     class="text-right tc-w-100"
                      [ngStyle]="{ 'background-color': lobong.Mau }">
-                     {{ lobong.SoLuongDung }}
+                     {{ lobong.SoLuongDung | number }}
                   </td>
                   <td
-                     class="text-center tc-w-60"
+                     class="text-right tc-w-60"
                      [ngStyle]="{ 'background-color': lobong.Mau }">
-                     {{ lobong.TonCuoi }}
+                     {{ lobong.TonCuoi | number }}
                   </td>
                   <td
                      class="text-center tc-w-80"

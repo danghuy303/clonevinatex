@@ -76,20 +76,20 @@
                 <td>{{item.NuocSanXuat}}</td>
                 <td>{{item.Catalog}}</td>
                 <td>{{item.PartNo }}</td>
-                <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
+                <td class="text-right">{{item.TuoiTho | number}}</td>
                 <td>{{item.ViTri}}</td>
                 <td>{{item.DiaChiGiaKho}}</td>
                 <td>{{item.DonViTinh}}</td>
-                <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
+                <td class="text-right">{{item.TonKho | number}}</td>
                 <!-- <td style="text-align: right;">{{item.DuTruToiThieu | number:'0.0-0'}}</td> -->
                 <!-- <td style="text-align: right;">{{item.SoLuongCanThayThe | number:'0.0-0'}}</td> -->
                 <!-- <td class="text-center">{{item.ThoiGianDuaVaoSuDung | date:"dd/MM/yyyy"}}</td> -->
-                <td style="text-align: right;">{{item.DonGiaNhapGanNhat | number:'0.0-0'}}</td>
+                <td class="text-right">{{item.DonGiaNhapGanNhat | number}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
+                Tổng số bản ghi {{paging.TotalCount | number}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
                     [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>
@@ -147,16 +147,16 @@
                 <td>{{item.Ma}} </td>
                 <td>{{item.Ten}}</td>
                 <!-- <td >{{item.TenNhaCungCap}}</td> -->
-                <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.SoLuongCanThayThe | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.DonGiaNhapGanNhat | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.ThanhTien | number:'0.0-0'}}</td>
+                <td class="text-right">{{item.TuoiTho | number}}</td>
+                <td class="text-right">{{item.TonKho | number}}</td>
+                <td class="text-right">{{item.SoLuongCanThayThe | number}}</td>
+                <td class="text-right">{{item.DonGiaNhapGanNhat | number}}</td>
+                <td class="text-right">{{item.ThanhTien | number}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
+                Tổng số bản ghi {{paging.TotalCount | number}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
                     [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>

@@ -85,7 +85,7 @@
                         {{item.TyLePhaBong | truncate: 60}}
                     </div>
                 </td>
-                <td class="text-center">{{item.KhoiLuongBong|number:'0.2-2'}}</td>
+                <td class="text-right">{{item.KhoiLuongBong|number}}</td>
                 <td class="" *ngFor="let col of cols">
                     <div [pTooltip]="item[col.field]" tooltipPosition="top" class="ellipsis">
                         {{item[col.field] | truncate: 60}}
@@ -100,7 +100,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
+                Tổng số bản ghi {{paging.TotalItem | number}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
                     [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>

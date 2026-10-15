@@ -105,8 +105,8 @@
             <td>{{rowData.TendmLoaiTaiSan}}</td>
             <td>{{rowData.HangSanXuat}}</td>
             <!-- <td class="text-center">{{rowData.TendmPhanXuong}}</td> -->
-            <td style="text-align: right;">{{rowData.NguyenGia|number:'0.0'}}</td>
-            <td style="text-align: right;">{{rowData.GiaTriConLai|number:'0.0'}}</td>
+            <td class="text-right">{{rowData.NguyenGia|number}}</td>
+            <td class="text-right">{{rowData.GiaTriConLai|number}}</td>
             <td class="text-center">{{rowData.ThoiGianDuaVaoSuDung| date:'dd/MM/yyyy'}}</td>
             <td>{{rowData.NguoiVanHanh}}</td>
             <td>{{rowData.TendmTinhTrangTaiSan}}</td>
@@ -121,7 +121,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
         <div class="p-d-flex p-ai-center p-jc-between">
-            Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
+            Tổng số bản ghi {{paging.TotalCount | number}}.<p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
                 (onPageChange)="changePage($event)"></p-paginator>
         </div>
     </ng-template>

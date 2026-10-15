@@ -54,10 +54,10 @@
                 <td class="text-center"> {{ 20 * (paging.currentPage - 1) + i + 1 }} </td>
                 <td class="text-center">{{item.soQuyTrinh}}</td>
                 <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.giaTri}}</td>
-                <td class="text-center">{{item.giaTriQuyetToan}}</td>
-                <td class="text-center">{{item.giaTriChietKhau}}</td>
-                <td class="text-center">{{item.giaTriConLai}}</td>
+                <td class="text-right">{{item.giaTri | number}}</td>
+                <td class="text-right">{{item.giaTriQuyetToan | number}}</td>
+                <td class="text-right">{{item.giaTriChietKhau | number}}</td>
+                <td class="text-right">{{item.giaTriConLai | number}}</td>
                 <td class="text-center">{{item.tenKhachHang}}</td>
                 <!-- <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td> -->
                 <td class="text-center">

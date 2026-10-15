@@ -32,7 +32,7 @@
                 {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
             </td>
             <td class="text-right">
-                {{item.GiaTri}}
+                {{item.GiaTri | number}}
             </td>
             <td class="text-center date" >
                 <button pButton pRipple type="button" icon="pi pi-pencil"

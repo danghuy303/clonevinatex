@@ -110,12 +110,12 @@
                         <td style="text-align: center;">{{ i + 1 }}</td>
                         <td>{{item.Ma}}</td>
                         <td>{{item.Ten}}</td>
-                        <td class="text-right">{{item.Mic}}</td>
+                        <td class="text-right">{{item.Mic | number}}</td>
                         <td class="text-right">
-                            {{item.TonSoLuong|number:'0.0'}}
+                            {{item.TonSoLuong | number}}
                         </td>
                         <td class="text-right">
-                            {{item.TonTrongLuong|number:'0.2'}}
+                            {{item.TonTrongLuong | number}}
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.SoLuong" #input
@@ -141,10 +141,10 @@
                         <td></td>
                         <td></td>
                         <td class="text-right">
-                            {{quyTrinh.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-1'}}
+                            {{quyTrinh.listItem|isXoa|SumByKey:'SoLuong' | number}}
                         </td>
                         <td class="text-right">
-                            {{quyTrinh.listItem|isXoa|SumByKey:'TrongLuong'|number:'0.2-2'}}
+                            {{quyTrinh.listItem|isXoa|SumByKey:'TrongLuong' | number}}
                         </td>
                         <td></td>
                     </tr>

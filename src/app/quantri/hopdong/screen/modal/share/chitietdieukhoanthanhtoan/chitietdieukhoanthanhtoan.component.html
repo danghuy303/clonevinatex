@@ -38,8 +38,8 @@
                 <td class="text-center">{{item.NoiDung}}</td>
 
                 <td class="text-center">{{item.NgayThanhToan|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.GiaTri|number:'0.0'}}</td>
-                <td class="text-center">{{item.TyLe|number:'0.0'}}</td>
+                <td class="text-right">{{item.GiaTri | number}}</td>
+                <td class="text-right">{{item.TyLe | number}}</td>
                 <td class="text-center date">
                     <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item, i)"></button>
                     <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-text p-button-sm p-button-secondary" (click)="delete(i)"></button>

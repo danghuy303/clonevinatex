@@ -87,8 +87,8 @@
                         <tr *ngFor="let lobong of item.listLoBong;let i = index"
                             [ngStyle]="{'background-color': lobong.Mau}">
                             <td class="name" (click)="xepLoBong(lobong,i)">{{lobong.TenLoBong}}</td>
-                            <td class="text-right">{{lobong.SoLuong}}</td>
-                            <td class="text-right">{{lobong.DaXep}}</td>
+                            <td class="text-right">{{lobong.SoLuong | number}}</td>
+                            <td class="text-right">{{lobong.DaXep | number}}</td>
                             <!-- <td class="text-right">{{lobong.ConLai}}</td> -->
                         </tr>
                         <tr>
@@ -97,8 +97,8 @@
                                     Tổng số
                                 </div>
                             </td>
-                            <td class="text-right">{{item.listLoBong|SumByKey:'SoLuong'}}</td>
-                            <td class="text-right">{{item.listLoBong|SumByKey:'DaXep'}}</td>
+                            <td class="text-right">{{item.listLoBong|SumByKey:'SoLuong' | number}}</td>
+                            <td class="text-right">{{item.listLoBong|SumByKey:'DaXep' | number}}</td>
                             <!-- <td></td> -->
                         </tr>
                         <tr>
