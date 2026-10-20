@@ -258,7 +258,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row align-items-xl-center">
+                <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row align-items-xl-center flex-wrap">
+                    <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
+                        <p-checkbox binary="true" [(ngModel)]="item.isTaiSanCoDinh"></p-checkbox>
+                        <label class="mb-0">Tài sản cố định</label>
+                    </div>
                     <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
                         <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
                         <label class="mb-0">Giá trị cao</label>

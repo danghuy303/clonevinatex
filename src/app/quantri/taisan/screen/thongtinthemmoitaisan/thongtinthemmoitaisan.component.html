@@ -246,12 +246,16 @@
             </div>
         </div>
     </div>
-    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row align-items-xl-center">
-        <div class="p-field-checkbox p-col-12 p-xl-6 p-p-0 my-auto d-flex p-ai-center">
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row align-items-xl-center flex-wrap">
+        <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto d-flex p-ai-center">
+            <p-checkbox binary="true" [(ngModel)]="item.isTaiSanCoDinh"></p-checkbox>
+            <label class="p-mb-0 p-ml-2">Tài sản cố định</label>
+        </div>
+        <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto d-flex p-ai-center">
             <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
             <label class="p-mb-0 p-ml-2">Giá trị cao</label>
         </div>
-        <div class="p-field-checkbox p-col-12 p-xl-6 p-p-0 my-auto d-flex p-ai-center">
+        <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto d-flex p-ai-center">
             <p-checkbox (onClick)="isCanDuTru()" binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
             <label class="p-mb-0 p-ml-2">Cần dự trữ <span class="required text-danger"
                     *ngIf="item.isCanDuTru">(*)</span></label>

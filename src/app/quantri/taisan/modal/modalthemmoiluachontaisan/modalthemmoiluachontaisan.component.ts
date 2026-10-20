@@ -58,6 +58,11 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     if (this.item && !this.item.CachTinh) {
       this.item.CachTinh = 'Giờ máy';
     }
+    if (this.opt === 'add' || (!this.item?.Id && this.opt !== 'edit')) {
+      if (this.item && this.item.isTaiSanCoDinh === undefined) {
+        this.item.isTaiSanCoDinh = true;
+      }
+    }
     this.title = this.listLoaiTaiSan.find(ele => ele.value === this.item.IddmLoaiTaiSan)?.label;
     // this.item.value = this.item.IddmLoaiTaiSan;
     // this.LayMa(this.item);

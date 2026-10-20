@@ -363,6 +363,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.item = {
       Id: "",
       isXoa: false,
+      isTaiSanCoDinh: true,
       listFileDinhKem: [],
       Created: new Date(),
       Modified: new Date(),

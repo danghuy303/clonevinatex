@@ -115,6 +115,11 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
     if (this.item.DonViTienTe === 'VNĐ' && !this.item.TyGia) {
       this.item.TyGia = 1;
     }
+    if (this.opt === 'add' || (!this.item.Id && this.opt !== 'edit')) {
+      if (this.item.isTaiSanCoDinh === undefined) {
+        this.item.isTaiSanCoDinh = true;
+      }
+    }
   }
 
   changeDonViTienTe(e) {

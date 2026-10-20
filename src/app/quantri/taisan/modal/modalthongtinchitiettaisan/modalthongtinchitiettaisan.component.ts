@@ -15,7 +15,10 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 })
 export class ModalthongtinchitiettaisanComponent implements OnInit {
 
-  item: any = {};
+  opt: any = '';
+  item: any = {
+    isTaiSanCoDinh: true
+  };
   getId: any = '';
   XemTheo: any = '';
   lang: any = vn;
@@ -65,8 +68,15 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     let date = new Date();
     this.filter.TuNgay = new Date(date.getFullYear(), 0, 1);
     this.filter.DenNgay = new Date(date.getFullYear(), 11, 31);
+    if (this.opt === 'add' || (!this.getId && !this.item?.Id)) {
+      if (this.item.isTaiSanCoDinh === undefined) {
+        this.item.isTaiSanCoDinh = true;
+      }
+    }
     if (!this.isXemChiTiet) {
-      this.GetById();
+      if (this.getId) {
+        this.GetById();
+      }
     } else {
       this.item.NgayNhap = new Date(this.item.NgayNhap)
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);

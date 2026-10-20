@@ -168,6 +168,7 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
       TaiSan: {
         Id: "",
         isXoa: false,
+        isTaiSanCoDinh: true,
         listFileDinhKem: [],
         Created: new Date(),
         Modified: new Date(),
