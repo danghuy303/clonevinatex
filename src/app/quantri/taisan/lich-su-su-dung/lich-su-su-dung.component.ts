@@ -57,7 +57,12 @@ export class LichSuSuDungComponent implements OnInit {
       MaCongDoan: ""
     }
     this._serviceDmTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
-      this.listdmLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+      let rawLoaiTaiSan = Array.isArray(res?.Data) ? res.Data : (res?.Data?.Items || []);
+      this.listdmLoaiTaiSan = rawLoaiTaiSan.map((ele: any) => ({
+        ...ele,
+        label: ele.Ma && ele.Ten ? `${ele.Ma} - ${ele.Ten}` : (ele.Ten || ele.Ma || ''),
+        value: ele.Id
+      }));
     })
   }
 

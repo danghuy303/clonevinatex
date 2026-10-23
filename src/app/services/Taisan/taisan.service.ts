@@ -1573,6 +1573,13 @@ export class TaisanService {
     return this.http.post(`${API.TaiSan}NhatKySuDung/ExportKiemDinhTaiSan`, data, httpOptions);
   }
 
+  GetListTheoDoiHoatDongXe_May(data: any) {
+    return this.http.post(`${API.TaiSan}NhatKySuDung/GetListTheoDoiHoatDongXe_May`, data, httpOptions);
+  }
+  ExportTheoDoiHoatDongXe_May(data: any) {
+    return this.http.post(`${API.TaiSan}NhatKySuDung/ExportTheoDoiHoatDongXe_May`, data, httpOptions);
+  }
+
   GetListdmPhanXuongForIdDuAn_QLTS(IdDuAn?: any) {
     let id = IdDuAn ? IdDuAn : this.store.getCurrent();
     if (!id) {

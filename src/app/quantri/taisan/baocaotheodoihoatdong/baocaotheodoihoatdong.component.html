@@ -1,0 +1,136 @@
+<div class="p-mb-3 p-mt-2">
+    <h4 style="color:#1f2779; font-weight: 600;">Báo cáo theo dõi khối lượng hoạt động</h4>
+</div>
+
+<div class="p-d-flex p-flex-column p-flex-md-row p-jc-between p-ai-md-center p-mb-3">
+    <!-- Nút hành động bên trái -->
+    <div class="p-d-flex p-flex-row p-mb-2 p-mb-md-0">
+        <button pButton pRipple label="Xuất excel" icon="pi pi-file-excel" class="p-button-sm p-button-success p-mr-2"
+            (click)="exportExcel()"></button>
+        <button pButton pRipple label="Làm mới" icon="pi pi-refresh" class="p-button-sm p-button-secondary"
+            (click)="resetFilter()"></button>
+    </div>
+
+    <!-- Bộ lọc bên phải -->
+    <div class="p-d-flex p-flex-row p-flex-wrap p-ai-center">
+        <!-- Bộ phận sử dụng -->
+        <div class="p-mr-2 p-mb-2">
+            <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="onChangeBoPhan()" [options]="listBoPhan"
+                placeholder="Chọn bộ phận sử dụng">
+            </app-select-bo-phan>
+        </div>
+
+        <!-- Máy/thiết bị (dropdown listTaiSan) -->
+        <div class="p-mr-2 p-mb-2" style="min-width: 200px; max-width: 250px;">
+            <p-multiSelect [options]="listTaiSan" [(ngModel)]="filter.listIdTaiSan" defaultLabel="Chọn máy/thiết bị"
+                selectedItemsLabel="{0} máy/thiết bị" [filter]="true" [showClear]="true" (onChange)="GetList(true)"
+                styleClass="p-inputtext-sm w-100" appendTo="body">
+            </p-multiSelect>
+        </div>
+
+        <!-- Từ ngày -->
+        <div class="p-mr-2 p-mb-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.TuNgay" inputId="tuNgay" placeholder="Từ ngày" [locale]="lang"
+                (onSelect)="GetList(true)">
+            </p-calendar>
+        </div>
+
+        <!-- Đến ngày -->
+        <div class="p-mr-2 p-mb-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.DenNgay" inputId="denNgay" placeholder="Đến ngày" [locale]="lang"
+                [minDate]="filter.TuNgay" (onSelect)="GetList(true)">
+            </p-calendar>
+        </div>
+
+        <!-- Ô tìm kiếm từ khóa -->
+        <div class="p-inputgroup p-mb-2" style="width: 200px;">
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
+                (keyup.enter)="GetList(true)" />
+            <button type="button" pButton pRipple icon="pi pi-search"
+                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
+        </div>
+    </div>
+</div>
+
+<!-- Bảng hiển thị báo cáo -->
+<div class="card p-p-0">
+    <p-table [value]="items" [loading]="loading" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+        [responsive]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center" rowspan="2" style="width: 55px;">STT</th>
+                <th class="text-center" rowspan="2" style="width: 105px;">Ngày tháng</th>
+                <th class="text-center" rowspan="2" style="min-width: 220px;">NỘI DUNG CÔNG VIỆC</th>
+                <th class="text-center" colspan="2">Thời gian Lviệc</th>
+                <th class="text-center" colspan="2">Kết quả</th>
+                <th class="text-center" rowspan="2" style="width: 130px;">Sử dụng NL, DMP</th>
+                <th class="text-center" rowspan="2" style="width: 150px;">Xác nhận người quản lý</th>
+            </tr>
+            <tr>
+                <th class="text-center" style="width: 110px;">Từ - đến</th>
+                <th class="text-center" style="width: 75px;">Tổng</th>
+                <th class="text-center" style="width: 85px;">K.lượng</th>
+                <th class="text-center" style="width: 70px;">ĐVT</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center font-weight-bold">
+                    {{ item.STT || (i + 1 + (paging.CurrentPage - 1) * paging.PageSize) }}
+                </td>
+                <td class="text-center">
+                    {{ item.NgayThang || (item.NgayUnix ? (item.NgayUnix * 1000 | date:'dd/MM/yyyy') : (item.Ngay |
+                    date:'dd/MM/yyyy')) || item.Ngay }}
+                </td>
+                <td>
+                    <span class="font-weight-500">{{ item.NoiDungCongViec || item.NoiDung || item.CongViec }}</span>
+                    <div *ngIf="item.TenTaiSan || item.MaTaiSan" class="text-muted small">
+                        <span>{{ item.MaTaiSan ? item.MaTaiSan + ' - ' : '' }}{{ item.TenTaiSan }}</span>
+                    </div>
+                </td>
+                <td class="text-center">
+                    {{ item.ThoiGianTuDen || item.TuDen || (item.TuGio && item.DenGio ? (item.TuGio + ' - ' +
+                    item.DenGio) : (item.TuGio || item.DenGio || '')) }}
+                </td>
+                <td class="text-right font-weight-bold">
+                    {{ item.TongThoiGian !== undefined ? item.TongThoiGian : (item.Tong !== undefined ? item.Tong :
+                    (item.ThoiGianLamViecTong !== undefined ? item.ThoiGianLamViecTong : item.TongGio)) }}
+                </td>
+                <td class="text-right">
+                    {{ (item.KhoiLuong !== undefined ? item.KhoiLuong : (item.KetQuaKhoiLuong !== undefined ?
+                    item.KetQuaKhoiLuong : (item.SoLuong !== undefined ? item.SoLuong : item.SanLuong))) | number }}
+                </td>
+                <td class="text-center">
+                    {{ item.DonViTinh || item.DVT || item.KetQuaDonViTinh }}
+                </td>
+                <td>
+                    {{ item.SuDungNL_DMP || item.SuDungNL || item.NhienLieu || item.NhienLieuDMP }}
+                </td>
+                <td class="text-center">
+                    {{ item.XacNhanNguoiQuanLy || item.NguoiQuanLyXacNhan || item.XacNhan || item.NguoiQuanLy }}
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="9" class="text-center p-p-4 text-muted">
+                    Không có dữ liệu
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <!-- Phân trang -->
+    <div class="p-d-flex p-jc-between p-ai-center p-p-2" *ngIf="paging.TotalCount > 0">
+        <div class="text-muted font-italic">
+            Tổng số: <b>{{ paging.TotalCount }}</b> bản ghi
+        </div>
+        <p-paginator [rows]="paging.PageSize" [totalRecords]="paging.TotalCount" (onPageChange)="changePage($event)"
+            [rowsPerPageOptions]="[10, 20, 50, 100]">
+        </p-paginator>
+    </div>
+</div>

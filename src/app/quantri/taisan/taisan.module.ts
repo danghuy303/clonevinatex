@@ -243,6 +243,7 @@ import { DanhsachtaisanpopupComponent } from './kiemdinhtaisan/danhsachtaisanpop
 import { NoidangkiemComponent } from './danhmuc/noidangkiem/noidangkiem.component';
 import { NoidangkiemmodalComponent } from './danhmuc/noidangkiem/noidangkiemmodal/noidangkiemmodal.component';
 import { TheodoihoatdongComponent } from './theodoihoatdong/theodoihoatdong.component';
+import { BaocaotheodoihoatdongComponent } from './baocaotheodoihoatdong/baocaotheodoihoatdong.component';
 import { BaohiemtaisanComponent } from './baohiemtaisan/baohiemtaisan.component';
 import { TieuhaonhienlieuComponent } from './tieuhaonhienlieu/tieuhaonhienlieu.component';
 import { BaohiemtaisanmodalComponent } from './baohiemtaisan/baohiemtaisanmodal/baohiemtaisanmodal.component';
@@ -445,6 +446,7 @@ import { DanhSachTheoNhomMayComponent } from './screenLichXich/danh-sach-theo-nh
     NoidangkiemComponent,
     NoidangkiemmodalComponent,
     TheodoihoatdongComponent,
+    BaocaotheodoihoatdongComponent,
     BaohiemtaisanComponent,
     TieuhaonhienlieuComponent,
     BaohiemtaisanmodalComponent,

@@ -1,0 +1,16 @@
+:host ::ng-deep .p-datatable th {
+    font-weight: 600;
+    background-color: #f8f9fa;
+    color: #333;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+:host ::ng-deep .p-datatable td {
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+:host ::ng-deep .p-multiselect {
+    min-width: 200px;
+}

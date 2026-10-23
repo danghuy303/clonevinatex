@@ -463,6 +463,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
 
     const group2Links = [
       "/quantri/taisan/theodoihoatdong/0",
+      "/quantri/taisan/baocaotheodoihoatdong",
       "/quantri/quantritaisan/hieuquaxemay",
       "/quantri/quantritaisan/sogiodungmay",
       "/quantri/taisan/tieuhaonhienlieu/0",
@@ -581,6 +582,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
           {
             label: "Theo dõi khối lượng hoạt động",
             routerLink: "/quantri/taisan/theodoihoatdong/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Báo cáo theo dõi khối lượng hoạt động",
+            routerLink: "/quantri/taisan/baocaotheodoihoatdong",
             command: () => {
               this.close();
             },
@@ -3862,6 +3870,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
           {
             label: "Theo dõi hoạt động",
             routerLink: "/quantri/taisan/theodoihoatdong/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Báo cáo theo dõi khối lượng hoạt động",
+            routerLink: "/quantri/taisan/baocaotheodoihoatdong",
             command: () => {
               this.close();
             },

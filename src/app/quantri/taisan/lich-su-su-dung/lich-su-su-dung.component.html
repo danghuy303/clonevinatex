@@ -38,7 +38,8 @@
   <ng-template pTemplate="colgroup">
     <colgroup>
       <col style="width: 50px">
-      <col>
+      <col style="width: 200px">
+      <col style="width: 150px">
       <col>
       <col style="width: 150px">
       <col>
@@ -48,6 +49,7 @@
   <ng-template pTemplate="header">
     <tr>
       <th>STT</th>
+      <th>Loại máy/thiết bị</th>
       <th>Mã máy/thiết bị</th>
       <th>Tên máy/thiết bị</th>
       <th>Ngày</th>
@@ -58,6 +60,7 @@
   <ng-template pTemplate="body" let-item let-i="rowIndex">
     <tr>
       <td class="text-center">{{20 * (paging.currentPage - 1) + i + 1 }}</td>
+      <td>{{item.TenLoaiTaiSan || item.TendmLoaiTaiSan || item.LoaiTaiSan || item.TenLoaiMay}}</td>
       <td>{{item.MaTaiSan}}</td>
       <td>{{item.TenTaiSan}}</td>
       <td class="text-center">{{item.Ngay | date:'dd/MM/yyyy'}}</td>

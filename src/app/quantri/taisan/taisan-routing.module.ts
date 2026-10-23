@@ -71,6 +71,7 @@ import { KiemDinhTaiSanComponent } from './kiemdinhtaisan/kiemdinhtaisan.compone
 import { NoidangkiemComponent } from './danhmuc/noidangkiem/noidangkiem.component';
 import { BaohiemtaisanComponent } from './baohiemtaisan/baohiemtaisan.component';
 import { TheodoihoatdongComponent } from './theodoihoatdong/theodoihoatdong.component';
+import { BaocaotheodoihoatdongComponent } from './baocaotheodoihoatdong/baocaotheodoihoatdong.component';
 import { TieuhaonhienlieuComponent } from './tieuhaonhienlieu/tieuhaonhienlieu.component';
 import { DonvibaohiemComponent } from './danhmuc/donvibaohiem/donvibaohiem.component';
 import { LoaihinhbaohiemComponent } from './danhmuc/loaihinhbaohiem/loaihinhbaohiem.component';
@@ -147,6 +148,8 @@ const routes: Routes = [
   { path: 'kiemdinhtaisan/:id', component: KiemDinhTaiSanComponent },
   { path: 'baohiemtaisan/:id', component: BaohiemtaisanComponent },
   { path: 'theodoihoatdong/:id', component: TheodoihoatdongComponent },
+  { path: 'baocaotheodoihoatdong', component: BaocaotheodoihoatdongComponent },
+  { path: 'baocaotheodoihoatdong/:id', component: BaocaotheodoihoatdongComponent },
   { path: 'tieuhaonhienlieu/:id', component: TieuhaonhienlieuComponent },
   { path: 'capchatluong', component: CapchatluongComponent },
 ];
