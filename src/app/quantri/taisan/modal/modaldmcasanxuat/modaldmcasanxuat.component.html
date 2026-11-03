@@ -17,7 +17,8 @@
             <div class="p-col-12 p-lg-4 p-p-2 p-d-flex p-flex-row p-ai-center">
                 <label class="p-col-4 p-p-0 my-auto">Thứ tự:</label>
                 <div class="p-col-8 p-p-0">
-                    <input type="number" class="p-inputtext-sm" [(ngModel)]="item.ThuTu" pInputText style="width: 100%" />
+                    <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.ThuTu"
+                        styleClass="w-100" class="w-100" inputStyleClass="p-inputtext-sm"></p-inputNumber>
                 </div>
             </div>
 
@@ -53,7 +54,9 @@
             <div class="p-col-12 p-lg-4 p-p-2 p-d-flex p-flex-row p-ai-center">
                 <label class="p-col-6 p-p-0 my-auto">Số giờ làm việc:</label>
                 <div class="p-col-6 p-p-0">
-                    <input type="number" class="p-inputtext-sm" [(ngModel)]="item.SoGioLamViec" pInputText style="width: 100%" />
+                    <p-inputNumber [minFractionDigits]="0" [min]="0" mode="decimal" locale="en-EN"
+                        [(ngModel)]="item.SoGioLamViec" styleClass="w-100" class="w-100"
+                        inputStyleClass="p-inputtext-sm"></p-inputNumber>
                 </div>
             </div>
 

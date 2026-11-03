@@ -47,12 +47,14 @@ export class DenghixulisucoComponent implements OnInit {
     this.GetList();
     if (!this.$subRoute) {
       this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
-        if (res.id !== "0") {
+        if (res.id && res.id !== "0") {
           this._serviceTaiSan
             .QuyTrinhXuLySuCo()
             .Get(res.id)
             .subscribe((res: any) => {
-              this.update(res);
+              if (res?.Data) {
+                this.update(res);
+              }
             });
         }
       });
@@ -127,7 +129,13 @@ export class DenghixulisucoComponent implements OnInit {
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Đề nghị xử lý sự cố';
     modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
+    const itemData = item?.Data ? JSON.parse(JSON.stringify(item.Data)) : {};
+    itemData.listVatTu = itemData.listVatTu || [];
+    itemData.listTaiSan = itemData.listTaiSan || [];
+    itemData.listNhienLieu = itemData.listNhienLieu || [];
+    itemData.listNhanCong = itemData.listNhanCong || [];
+    itemData.listChiPhiKhac = itemData.listChiPhiKhac || [];
+    modalRef.componentInstance.item = itemData;
     modalRef.result
       .then(data => {
       })

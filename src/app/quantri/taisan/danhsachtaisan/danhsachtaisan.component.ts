@@ -54,9 +54,10 @@ export class DanhsachtaisanComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
+    let data = { PageSize: 20, CurrentPage: 0, Keyword: this.Keyword };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+      let rawLoaiTaiSan = Array.isArray(res?.Data) ? res.Data : (res?.Data?.Items || []);
+      this.listLoaiTaiSan = mapArrayForDropDown(rawLoaiTaiSan, "Ten", "Id");
     });
     this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       let treeMapped = mapTreeForDropDown(res, 'Ten', 'Id');

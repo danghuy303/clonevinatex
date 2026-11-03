@@ -195,7 +195,11 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.opt = "edit";
     // modalRef.componentInstance.title = "Cập nhật máy/thiết bị";
     modalRef.componentInstance.title = "Cập nhật đầu tư";
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
+    const itemData = item && item.Data ? JSON.parse(JSON.stringify(item.Data)) : {};
+    if (!itemData.TaiSan) {
+      itemData.TaiSan = {};
+    }
+    modalRef.componentInstance.item = itemData;
     modalRef.result.then(res => {
     }).catch(er => console.log(er))
       .finally(() => {

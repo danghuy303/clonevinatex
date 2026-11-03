@@ -1186,7 +1186,7 @@ export class TaisanService {
       },
       GetListTaiSanKhauHao: (IdDuAn, IdBoPhanSuDung, CurrentPage: number, PageSize: number, Keyword, Ngay: number) => {
         let data = {
-          IdDuAn: IdDuAn,
+          IdDuAn: IdDuAn || this.store.getCurrent(),
           IdBoPhanSuDung: IdBoPhanSuDung,
           CurrentPage: CurrentPage,
           PageSize: PageSize,

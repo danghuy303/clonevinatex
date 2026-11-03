@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, formatLocaleNumber, mapArrayForDropDown, parseLocaleNumber, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ChonComponent } from '../../screen/chon/chon.component';
@@ -247,38 +247,20 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
 
   onNumberBlur(obj: any, field: string) {
     if (!obj) return;
-    let val = obj[field];
-    if (val !== null && val !== undefined && val !== '') {
-      let strVal = val.toString().trim();
-      strVal = strVal.replace(/,/g, '.');
-      const parts = strVal.split('.');
-      if (parts.length > 2) {
-        strVal = parts.slice(0, -1).join('') + '.' + parts[parts.length - 1];
-      }
-      const num = parseFloat(strVal);
-      if (!isNaN(num)) {
-        obj[field] = this.formatNumberString(strVal);
-      } else {
-        obj[field] = null;
-      }
+    const num = this.parseNumber(obj[field]);
+    if (num !== null) {
+      obj[field] = this.formatNumberString(num);
     } else {
       obj[field] = null;
     }
   }
 
   parseNumber(val: any): number {
-    if (val === null || val === undefined || val === '') return null;
-    const strVal = val.toString().replace(/,/g, '');
-    const num = parseFloat(strVal);
-    return isNaN(num) ? null : num;
+    return parseLocaleNumber(val);
   }
 
   formatNumberString(val: any): string {
-    if (val === null || val === undefined || val === '') return '';
-    const str = val.toString().replace(/,/g, '');
-    const parts = str.split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return parts.join('.');
+    return formatLocaleNumber(val);
   }
 
   getDonViCachTinh(cachTinh: string): string {

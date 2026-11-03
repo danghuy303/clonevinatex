@@ -16,6 +16,10 @@ th {
   word-wrap: break-word !important;
 }
 
+.p-button-icon-only .p-button-label {
+  display: none !important;
+}
+
 /* .unset-width.p-datatable-sm table{
     width: unset !important;
 } */

@@ -148,10 +148,18 @@ export function
 export function DateToDatePicker(date: any): any {
     return validVariable(date) ? new Date(date) : undefined;
 }
-export function UnixToDate(unix: number): Date | null {
-    if (unix !== undefined && unix !== null && unix !== 0) {
-        return new Date(unix * 1000);
+export function UnixToDate(unix: any): Date | null {
+    if (unix instanceof Date) {
+        return isNaN(unix.getTime()) ? null : unix;
     }
+    if (typeof unix === 'string' && isNaN(Number(unix))) {
+        const d = new Date(unix);
+        return isNaN(d.getTime()) ? null : d;
+    }
+    if (unix !== undefined && unix !== null && unix !== 0 && !isNaN(Number(unix))) {
+        return new Date(Number(unix) * 1000);
+    }
+    return null;
 }
 export function mapArrayForDropDown(array: Array<any>, labelProp: string, valueProp: string): Array<any> {
     if (!array || !Array.isArray(array)) return [];
@@ -369,6 +377,85 @@ export function dinhDangSo(number: any): any {
         return 0;
     } else {
         return number;
+    }
+}
+
+export function getMachineNumberSeparators(): { groupSep: string; decimalSep: string } {
+    try {
+        const groupSep = new Intl.NumberFormat(undefined, { useGrouping: true }).format(1111).replace(/\d/g, '').trim().charAt(0) || ',';
+        const decimalSep = new Intl.NumberFormat(undefined, { useGrouping: false }).format(1.1).replace(/\d/g, '').trim().charAt(0) || '.';
+        return { groupSep, decimalSep };
+    } catch {
+        return { groupSep: ',', decimalSep: '.' };
+    }
+}
+
+export function parseLocaleNumber(val: any): number {
+    if (val === null || val === undefined || val === '') return null;
+    if (typeof val === 'number') return isNaN(val) ? null : val;
+
+    let str = val.toString().trim();
+    if (!str) return null;
+
+    const { groupSep, decimalSep } = getMachineNumberSeparators();
+    str = str.replace(/[\s\u00A0\u202F]/g, '');
+
+    const hasComma = str.includes(',');
+    const hasDot = str.includes('.');
+
+    if (hasComma && hasDot) {
+        const lastComma = str.lastIndexOf(',');
+        const lastDot = str.lastIndexOf('.');
+        if (lastComma > lastDot) {
+            str = str.replace(/\./g, '').replace(/,/g, '.');
+        } else {
+            str = str.replace(/,/g, '');
+        }
+    } else if (hasComma || hasDot) {
+        const sep = hasComma ? ',' : '.';
+        const escapedSep = sep === '.' ? '\\.' : ',';
+        const parts = str.split(sep);
+
+        if (sep === decimalSep) {
+            if (parts.length === 2) {
+                str = parts[0] + '.' + parts[1];
+            } else {
+                const isGroupedInteger = new RegExp(`^-?[1-9]\\d{0,2}(?:${escapedSep}\\d{3})+$`).test(str);
+                if (isGroupedInteger) {
+                    str = parts.join('');
+                } else {
+                    str = parts.slice(0, -1).join('') + '.' + parts[parts.length - 1];
+                }
+            }
+        } else {
+            const isGroupedInteger = new RegExp(`^-?[1-9]\\d{0,2}(?:${escapedSep}\\d{3})+$`).test(str);
+            if (isGroupedInteger) {
+                str = parts.join('');
+            } else if (parts.length === 2) {
+                str = parts[0] + '.' + parts[1];
+            } else {
+                str = parts.join('');
+            }
+        }
+    }
+
+    const num = parseFloat(str);
+    return isNaN(num) ? null : num;
+}
+
+export function formatLocaleNumber(val: any, maxFractionDigits: number = 20): string {
+    const num = parseLocaleNumber(val);
+    if (num === null) return '';
+    try {
+        return new Intl.NumberFormat(undefined, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: maxFractionDigits,
+        }).format(num);
+    } catch {
+        return num.toLocaleString(undefined, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: maxFractionDigits,
+        });
     }
 }
 

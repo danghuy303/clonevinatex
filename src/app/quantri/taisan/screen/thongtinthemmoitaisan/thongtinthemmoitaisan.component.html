@@ -27,7 +27,7 @@
 
     <!-- Row 2 -->
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Nhóm máy/Thiết bị : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Tên MMTB : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0 d-flex">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TendmTaiSan" pInputText disabled />
             <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="ChonTaiSan()"></button>
@@ -51,13 +51,13 @@
 
     <!-- Row 3 -->
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Model : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Model (số khung) : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Modem" pInputText />
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số seri : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số seri (số máy): </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoSeri" pInputText />
         </div>
@@ -68,6 +68,18 @@
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViNangSuat" pInputText />
         </div>
     </div>
+    <!-- <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số khung : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoKhung" pInputText />
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số máy : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoMay" pInputText />
+        </div>
+    </div> -->
 
     <!-- Row 4 -->
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
@@ -92,7 +104,7 @@
 
     <!-- Row 5 -->
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Ngày sản xuất : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Năm sản xuất : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgaySanXuat"
@@ -104,8 +116,8 @@
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số năm khấu hao <span class="text-danger">(*)</span> :
         </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao"
-                mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1"> </p-inputNumber>
+            <p-inputNumber [min]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao" mode="decimal"
+                [minFractionDigits]="1" [maxFractionDigits]="1"> </p-inputNumber>
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
@@ -134,7 +146,8 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Giá trị còn lại ({{item.DonViTienTe || 'VNĐ'}}) : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Giá trị nhận chuyển giao ({{item.DonViTienTe || 'VNĐ'}}) :
+        </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <p-inputNumber [minFractionDigits]="0" mode="decimal" locale="en-EN" [min]="0"
                 [(ngModel)]="item.GiaTriConLai">
@@ -153,18 +166,17 @@
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Người sử dụng : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-autoComplete [(ngModel)]="item.NguoiVanHanh"
-                [suggestions]="filteredCBNV" (completeMethod)="filterCBNV($event)"
-                (onSelect)="onSelectCBNV($event)" field="TendmChiTieu"
-                [dropdown]="true" placeholder="Người sử dụng"
-                styleClass="p-inputtext-sm w-100" [style]="{'width': '100%'}"
-                inputStyleClass="p-inputtext-sm w-100" appendTo="body"
-                [baseZIndex]="999999" [autoZIndex]="true" [minLength]="0" [completeOnFocus]="true"
-                [delay]="100" emptyMessage="Không tìm thấy kết quả">
+            <p-autoComplete [(ngModel)]="item.NguoiVanHanh" [suggestions]="filteredCBNV"
+                (completeMethod)="filterCBNV($event)" (onSelect)="onSelectCBNV($event)" field="TendmChiTieu"
+                [dropdown]="true" placeholder="Người sử dụng" styleClass="p-inputtext-sm w-100"
+                [style]="{'width': '100%'}" inputStyleClass="p-inputtext-sm w-100" appendTo="body" [baseZIndex]="999999"
+                [autoZIndex]="true" [minLength]="0" [completeOnFocus]="true" [delay]="100"
+                emptyMessage="Không tìm thấy kết quả">
                 <ng-template let-cbnv pTemplate="item">
                     <div>
                         <span>{{cbnv.TendmChiTieu || cbnv.Ten || cbnv.HoTen || cbnv}}</span>
-                        <span *ngIf="cbnv.ChucVu || cbnv.BoPhan" style="color: #6c757d; font-size: 11px; margin-left: 6px;">
+                        <span *ngIf="cbnv.ChucVu || cbnv.BoPhan"
+                            style="color: #6c757d; font-size: 11px; margin-left: 6px;">
                             ({{cbnv.ChucVu || cbnv.BoPhan}})
                         </span>
                     </div>

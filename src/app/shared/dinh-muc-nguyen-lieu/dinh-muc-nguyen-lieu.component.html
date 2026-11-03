@@ -19,7 +19,7 @@
     <ng-template pTemplate="header">
         <tr>
             <th rowspan="2" style="width: 50px;" class="text-center">STT</th>
-            <th rowspan="2" style="width: 200px;" class="text-center">Tên</th>
+            <th rowspan="2" style="width: 200px;" class="text-center">Nội dung công việc</th>
             <th colspan="2" class="text-center">Sản lượng</th>
             <th colspan="3" class="text-center">Nhiên liệu</th>
             <th colspan="3" class="text-center">Thời gian làm việc</th>
@@ -57,15 +57,17 @@
                         class="p-button-text p-button-sm p-p-0" style="width: 2rem; height: 2rem; padding: 0;"
                         (click)="toggleExpand(row.parentItem)">
                     </button>
-                    <input *ngIf="row.isParent" type="text" class="p-inputtext-sm" style="flex-grow: 1;" [(ngModel)]="row.parentItem.Ten"
-                        (ngModelChange)="changeData()" pInputText [disabled]="!isXoa" />
+                    <input *ngIf="row.isParent" type="text" class="p-inputtext-sm" style="flex-grow: 1;"
+                        [(ngModel)]="row.parentItem.Ten" (ngModelChange)="changeData()" pInputText
+                        [disabled]="!isXoa" />
                 </div>
             </td>
 
             <!-- Sản lượng - ĐVT -->
             <td>
-                <input *ngIf="row.isParent" type="text" class="p-inputtext-sm" [(ngModel)]="row.parentItem.DonViTinh_SanLuong"
-                    (ngModelChange)="changeData()" pInputText [disabled]="!isXoa" />
+                <input *ngIf="row.isParent" type="text" class="p-inputtext-sm"
+                    [(ngModel)]="row.parentItem.DonViTinh_SanLuong" (ngModelChange)="changeData()" pInputText
+                    [disabled]="!isXoa" />
             </td>
 
             <!-- Sản lượng - Định mức -->
@@ -78,13 +80,13 @@
             <!-- Nhiên liệu - Loại nhiên liệu -->
             <td>
                 <ng-container *ngIf="row.isParent">
-                    <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn"
-                        [showClear]="true" styleClass="p-inputtext-sm" [(ngModel)]="row.parentItem.IddmLoaiNhienLieu"
+                    <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn" [showClear]="true"
+                        styleClass="p-inputtext-sm" [(ngModel)]="row.parentItem.IddmLoaiNhienLieu"
                         (onChange)="onChangeLoaiNhienLieu(row.parentItem, $event)" [disabled]="!isXoa"></p-dropdown>
                 </ng-container>
                 <ng-container *ngIf="!row.isParent && row.childItem">
-                    <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn"
-                        [showClear]="true" styleClass="p-inputtext-sm" [(ngModel)]="row.childItem.IddmLoaiNhienLieu"
+                    <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn" [showClear]="true"
+                        styleClass="p-inputtext-sm" [(ngModel)]="row.childItem.IddmLoaiNhienLieu"
                         (onChange)="onChangeLoaiNhienLieu(row.childItem, $event)" [disabled]="!isXoa"></p-dropdown>
                 </ng-container>
             </td>
@@ -96,21 +98,21 @@
                         pInputText [disabled]="true" />
                 </ng-container>
                 <ng-container *ngIf="!row.isParent && row.childItem">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="row.childItem.DonViTinh_NhienLieu"
-                        pInputText [disabled]="true" />
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="row.childItem.DonViTinh_NhienLieu" pInputText
+                        [disabled]="true" />
                 </ng-container>
             </td>
 
             <!-- Nhiên liệu - Định mức -->
             <td>
                 <ng-container *ngIf="row.isParent">
-                    <p-inputNumber locale="en-EN" [(ngModel)]="row.parentItem.NhienLieu"
-                        (ngModelChange)="changeData()" [minFractionDigits]="5" [maxFractionDigits]="10" [disabled]="!isXoa">
+                    <p-inputNumber locale="en-EN" [(ngModel)]="row.parentItem.NhienLieu" (ngModelChange)="changeData()"
+                        [minFractionDigits]="5" [maxFractionDigits]="10" [disabled]="!isXoa">
                     </p-inputNumber>
                 </ng-container>
                 <ng-container *ngIf="!row.isParent && row.childItem">
-                    <p-inputNumber locale="en-EN" [(ngModel)]="row.childItem.NhienLieu"
-                        (ngModelChange)="changeData()" [minFractionDigits]="5" [maxFractionDigits]="10" [disabled]="!isXoa">
+                    <p-inputNumber locale="en-EN" [(ngModel)]="row.childItem.NhienLieu" (ngModelChange)="changeData()"
+                        [minFractionDigits]="5" [maxFractionDigits]="10" [disabled]="!isXoa">
                     </p-inputNumber>
                 </ng-container>
             </td>

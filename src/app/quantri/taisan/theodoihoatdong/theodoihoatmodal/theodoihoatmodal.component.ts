@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from '../../../../quantri/modal/modalthongbao/modalthongbao.component';
 import { vn } from '../../../../services/const';
-import { DateToUnix, deepCopy, getSTT, mapArrayForDropDown, merge, UnixToDate, validVariable } from '../../../../services/globalfunction';
+import { DateToUnix, deepCopy, getSTT, mapArrayForDropDown, merge, parseLocaleNumber, UnixToDate, validVariable } from '../../../../services/globalfunction';
 import { StoreService } from '../../../../services/store.service';
 import { TaisanService } from '../../../../services/Taisan/taisan.service';
 import { DanhsachtaisanpopupComponent } from '../../kiemdinhtaisan/danhsachtaisanpopup/danhsachtaisanpopup.component';
@@ -39,6 +39,12 @@ export class TheodoihoatmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (!this.quyTrinh || typeof this.quyTrinh !== 'object') {
+      this.quyTrinh = { listTaiSan: [] };
+    }
+    if (!Array.isArray(this.quyTrinh.listTaiSan)) {
+      this.quyTrinh.listTaiSan = [];
+    }
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
       this.quyTrinh.Ngay = new Date();
@@ -46,11 +52,15 @@ export class TheodoihoatmodalComponent implements OnInit {
       if (this.quyTrinh.NgayUnix) {
         this.quyTrinh.Ngay = UnixToDate(this.quyTrinh.NgayUnix);
       } else if (this.quyTrinh.Ngay) {
-        this.quyTrinh.Ngay = UnixToDate(this.quyTrinh.Ngay) || new Date(this.quyTrinh.Ngay);
+        this.quyTrinh.Ngay = UnixToDate(this.quyTrinh.Ngay);
+      }
+      if ((!this.quyTrinh.Ngay || this.quyTrinh.Ngay.getFullYear() <= 1970) && this.quyTrinh.Created) {
+        this.quyTrinh.Ngay = UnixToDate(this.quyTrinh.Created);
       }
       this.getListCaSanXuat();
       if (this.quyTrinh.listTaiSan) {
         this.quyTrinh.listTaiSan.forEach((ele: any) => {
+          this.tinhThanhTien(ele);
           this.getSanLuongDropdownForAsset(ele);
         });
       }
@@ -84,8 +94,10 @@ export class TheodoihoatmodalComponent implements OnInit {
       IdDuAn: this.store.getCurrent(),
       NgayUnix: DateToUnix(this.quyTrinh.Ngay),
       listTaiSan: this.quyTrinh.listTaiSan.map((ele: any) => {
+        const thanhTien = (parseLocaleNumber(ele.ThucTe) || 0) * (parseLocaleNumber(ele.DonGia) || 0);
         return {
           ...ele,
+          ThanhTien: thanhTien,
           NgayBatDauUnix: DateToUnix(this.quyTrinh.Ngay),
           NgayKetThucUnix: DateToUnix(this.quyTrinh.Ngay),
           // Remove client-only dropdown lists to keep data save payload clean
@@ -101,13 +113,17 @@ export class TheodoihoatmodalComponent implements OnInit {
     if (this.ValidateData()) {
       this._serviceTaiSan.TheoDoiHoatDong().SetQuyTrinh(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
+          const dataObj = (res.Data && typeof res.Data === 'object') ? res.Data : this.quyTrinh;
           this.quyTrinh = {
-            ...res.Data,
-            Ngay: UnixToDate(res.Data.NgayUnix || res.Data.Ngay),
+            ...this.quyTrinh,
+            ...dataObj,
+            listTaiSan: Array.isArray(dataObj.listTaiSan) ? dataObj.listTaiSan : (this.quyTrinh.listTaiSan || []),
+            Ngay: UnixToDate(dataObj.NgayUnix || dataObj.Ngay) || this.quyTrinh.Ngay,
           }
           this.getListCaSanXuat();
           if (this.quyTrinh.listTaiSan) {
             this.quyTrinh.listTaiSan.forEach((ele: any) => {
+              this.tinhThanhTien(ele);
               this.getSanLuongDropdownForAsset(ele);
             });
           }
@@ -257,6 +273,8 @@ export class TheodoihoatmodalComponent implements OnInit {
         const selected = list.find((x: any) => x.Id === item.IdSanLuong);
         if (selected) {
           item.SanLuong = selected.SanLuong || 0;
+          item.DonViTinh_SanLuong = selected.DonViTinh_SanLuong || selected.DonViTinh || item.DonViTinh_SanLuong || item.DonViTinh || '';
+          item.DonViTinh = item.DonViTinh_SanLuong;
           item.DinhMuc = selected.SanLuong || 0;
           item.TieuHaoDinhMuc = selected.SanLuong || 0;
         }
@@ -269,7 +287,8 @@ export class TheodoihoatmodalComponent implements OnInit {
       const selected = item.rawSanLuongList.find((x: any) => x.Id === item.IdSanLuong);
       if (selected) {
         item.SanLuong = selected.SanLuong || 0;
-        item.DonViTinh_SanLuong = selected.DonViTinh_SanLuong;
+        item.DonViTinh_SanLuong = selected.DonViTinh_SanLuong || selected.DonViTinh || '';
+        item.DonViTinh = item.DonViTinh_SanLuong;
         item.DinhMuc = selected.SanLuong || 0;
         item.TieuHaoDinhMuc = selected.SanLuong || 0;
         item.DonViTinh_NhienLieu = selected.DonViTinh_NhienLieu;
@@ -277,8 +296,14 @@ export class TheodoihoatmodalComponent implements OnInit {
       }
     } else {
       item.SanLuong = 0;
+      item.DonViTinh_SanLuong = '';
+      item.DonViTinh = '';
       item.DinhMuc = 0;
       item.TieuHaoDinhMuc = 0;
     }
+  }
+
+  tinhThanhTien(item: any) {
+    item.ThanhTien = (parseLocaleNumber(item.ThucTe) || 0) * (parseLocaleNumber(item.DonGia) || 0);
   }
 }

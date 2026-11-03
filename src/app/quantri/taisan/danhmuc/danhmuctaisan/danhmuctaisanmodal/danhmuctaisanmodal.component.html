@@ -44,7 +44,8 @@
         <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
             <label class="">Tuổi thọ : </label>
             <div class="">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TuoiTho" pInputText />
+                <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.TuoiTho">
+                </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">

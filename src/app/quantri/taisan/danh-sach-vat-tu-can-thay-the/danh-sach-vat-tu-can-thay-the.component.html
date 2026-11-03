@@ -108,7 +108,7 @@
                         (onChange)="checkAll($event)"></p-checkbox>
                 </th>
                 <th class="text-center">Mã vật tư</th>
-                <th class="text-center">Tên vật tư</th>
+                <th class="text-center">Nhóm vật tư</th>
                 <th class="text-center">Tuổi thọ (Tháng)</th>
                 <th class="text-center">Số lượng tồn</th>
                 <th class="text-center">Số lượng cần thay</th>
@@ -149,8 +149,8 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalCount | number}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
-                    [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
+                Tổng số bản ghi {{paging.TotalCount | number}}.<p-paginator #paginator
+                    [totalRecords]="paging.TotalCount" [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>
     </p-treeTable>

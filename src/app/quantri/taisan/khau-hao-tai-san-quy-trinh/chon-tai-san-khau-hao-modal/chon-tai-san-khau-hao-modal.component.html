@@ -32,6 +32,7 @@
                 <col>
                 <col>
                 <col>
+                <col>
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -68,7 +69,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="paginatorleft">
-            <b>Tổng số bản ghi {{items.length}}</b>
+            <b>Tổng số bản ghi {{items?.length || 0}}</b>
         </ng-template>
     </p-treeTable>
 </div>

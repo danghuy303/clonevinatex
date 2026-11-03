@@ -39,13 +39,13 @@
             <input type="text" pInputText [(ngModel)]="item.Ten" placeholder="Nhập tên chi phí"/>
           </td>
           <td>
-            <input type="text" pInputText [(ngModel)]="item.SoLuong" placeholder="Nhập số lượng lao động"/>
+            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong" placeholder="Nhập số lượng lao động"></p-inputNumber>
           </td>
           <td>
-            <input type="text" pInputText [(ngModel)]="item.HeSoLCB" placeholder="Nhập hệ số lương cơ bản"/>
+            <p-inputNumber [minFractionDigits]="0" mode="decimal" locale="en-EN" [(ngModel)]="item.HeSoLCB" placeholder="Nhập hệ số lương cơ bản"></p-inputNumber>
           </td>
           <td>
-            <input type="text" pInputText [(ngModel)]="item.PhuCap" placeholder="Nhập phụ cấp"/>
+            <p-inputNumber [minFractionDigits]="0" mode="decimal" locale="en-EN" [(ngModel)]="item.PhuCap" placeholder="Nhập phụ cấp"></p-inputNumber>
           </td>
           <td  class="text-center">
             <p-checkbox [(ngModel)]="item.isLaoDongGianTiep" [binary]="true"></p-checkbox>

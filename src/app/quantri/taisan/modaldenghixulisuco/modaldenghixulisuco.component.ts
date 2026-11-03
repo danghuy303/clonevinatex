@@ -25,7 +25,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
 
     newitem: any = {};
     showDropDown: boolean = false;
-    item: any = {};
+    item: any = { listVatTu: [], listTaiSan: [], listNhienLieu: [], listNhanCong: [], listChiPhiKhac: [] };
     type = '';
     opt = '';
     listPhanXuong = [];
@@ -47,6 +47,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
     listMayDeep: any = [];
     listVatTu: any = [];
     listVatTuThayThe: any = [];
+    listVatTuThayTheDeep: any = [];
     listNhienLieu: any = [];
     listNhanCong: any = [];
     isDeXuat: boolean = false;
@@ -62,21 +63,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.item.listTaiSan = this.item.listTaiSan ? this.item.listTaiSan : [];
-        this.item.listChiPhiKhac = this.item.listChiPhiKhac ? this.item.listChiPhiKhac : [];
-        this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
-        this.item.listNhanCong = this.item.listNhanCong ? this.item.listNhanCong : [];
-        this.item.listNhienLieu.forEach(ele => {
-            if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
-        });
-        this.item.listNhanCong.forEach(ele => {
-            if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
-        });
-        if (this.item.listVatTu) {
-            this.item.listVatTu.forEach(ele => {
-                if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
-            });
-        }
+        this.normalizeItemData();
         // this.title = 'Đề nghị xử lý sự cố'
         this.title = 'Sửa chữa hư hỏng bất thường';
         if (this.opt === 'add') {
@@ -159,7 +146,138 @@ export class ModaldenghixulisucoComponent implements OnInit {
         })
     }
 
+    getVatTuKey(vt: any): string {
+        if (!vt) return '';
+        return vt.IdVatTuThayThe || vt.IdVatTuCanThayThe || vt.IdVatTu || vt.IddmItem || vt.TenTaiSan || vt.Id || '';
+    }
+
+    resolveDonGia(vt: any, fallbackVt?: any, dmVt?: any): number {
+        const candidates = [
+            fallbackVt?.DonGia,
+            vt?.DonGia,
+            fallbackVt?.GiaTri,
+            vt?.GiaTri,
+            fallbackVt?.NguyenGia,
+            vt?.NguyenGia,
+            dmVt?.DonGia,
+            dmVt?.GiaTri,
+            dmVt?.NguyenGia
+        ];
+        for (const c of candidates) {
+            if (c !== undefined && c !== null && c !== '' && Number(c) !== 0 && !isNaN(Number(c))) {
+                return Number(c);
+            }
+        }
+        return 0;
+    }
+
+    normalizeItemData() {
+        if (!this.item) {
+            this.item = {};
+        }
+        this.item.listTaiSan = this.item.listTaiSan ? this.item.listTaiSan : [];
+        this.item.listChiPhiKhac = this.item.listChiPhiKhac ? this.item.listChiPhiKhac : [];
+        this.item.listNhienLieu = this.item.listNhienLieu ? this.item.listNhienLieu : [];
+        this.item.listNhanCong = this.item.listNhanCong ? this.item.listNhanCong : [];
+        this.item.listVatTu = this.item.listVatTu ? this.item.listVatTu : [];
+
+        this.item.listNhienLieu.forEach(ele => {
+            if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+            ele.DonGia = this.resolveDonGia(ele);
+            ele.GiaTri = ele.DonGia;
+        });
+        this.item.listNhanCong.forEach(ele => {
+            if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+            ele.DonGia = this.resolveDonGia(ele);
+            ele.GiaTri = ele.DonGia;
+        });
+
+        this.item.listVatTu.forEach(ele => {
+            const idVatTu = ele.IdVatTuThayThe || ele.IdVatTuCanThayThe || ele.IdVatTu;
+            if (idVatTu) {
+                ele.IdVatTuThayThe = ele.IdVatTuThayThe || idVatTu;
+                ele.IdVatTuCanThayThe = ele.IdVatTuCanThayThe || idVatTu;
+            }
+            if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+            const dmVt = (this.listVatTuThayTheDeep || []).find(d => this.getVatTuKey(d) === this.getVatTuKey(ele));
+            ele.DonGia = this.resolveDonGia(ele, null, dmVt);
+            ele.GiaTri = ele.DonGia;
+        });
+
+        this.item.listTaiSan.forEach(ts => {
+            if (Array.isArray(ts.listVatTu)) {
+                ts.listVatTu.forEach(vt => {
+                    const idVatTu = vt.IdVatTuThayThe || vt.IdVatTuCanThayThe || vt.IdVatTu;
+                    if (idVatTu) {
+                        vt.IdVatTuThayThe = vt.IdVatTuThayThe || idVatTu;
+                        vt.IdVatTuCanThayThe = vt.IdVatTuCanThayThe || idVatTu;
+                    }
+                    const key = this.getVatTuKey(vt);
+                    const existing = this.item.listVatTu.find(m => this.getVatTuKey(m) === key);
+                    const dmVt = (this.listVatTuThayTheDeep || []).find(d => this.getVatTuKey(d) === key);
+                    vt.DonGia = this.resolveDonGia(vt, existing, dmVt);
+                    vt.GiaTri = vt.DonGia;
+                    if (vt.VAT === undefined || vt.VAT === null || vt.VAT === 0) {
+                        vt.VAT = existing?.VAT ?? vt.VAT ?? 0;
+                    }
+                    if (existing && (!existing.DonGia || existing.DonGia === 0) && vt.DonGia) {
+                        existing.DonGia = vt.DonGia;
+                        existing.GiaTri = vt.DonGia;
+                    }
+                });
+            }
+        });
+    }
+
+    syncVatTuToTaiSan() {
+        if (Array.isArray(this.item.listVatTu)) {
+            this.item.listVatTu.forEach(ele => {
+                const idVatTu = ele.IdVatTuThayThe || ele.IdVatTuCanThayThe || ele.IdVatTu;
+                if (idVatTu) {
+                    ele.IdVatTuThayThe = ele.IdVatTuThayThe || idVatTu;
+                    ele.IdVatTuCanThayThe = ele.IdVatTuCanThayThe || idVatTu;
+                }
+                ele.DonGia = ele.DonGia ?? ele.GiaTri ?? 0;
+                ele.GiaTri = ele.DonGia;
+                if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+            });
+        }
+        if (Array.isArray(this.item.listNhienLieu)) {
+            this.item.listNhienLieu.forEach(ele => {
+                ele.DonGia = ele.DonGia ?? ele.GiaTri ?? 0;
+                ele.GiaTri = ele.DonGia;
+                if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+            });
+        }
+        if (Array.isArray(this.item.listNhanCong)) {
+            this.item.listNhanCong.forEach(ele => {
+                ele.DonGia = ele.DonGia ?? ele.GiaTri ?? 0;
+                ele.GiaTri = ele.DonGia;
+                if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+            });
+        }
+        if (Array.isArray(this.item.listTaiSan)) {
+            this.item.listTaiSan.forEach(ts => {
+                if (Array.isArray(ts.listVatTu)) {
+                    ts.listVatTu.forEach(vt => {
+                        const key = this.getVatTuKey(vt);
+                        const matched = (this.item.listVatTu || []).find(m => this.getVatTuKey(m) === key);
+                        if (matched) {
+                            vt.DonGia = matched.DonGia;
+                            vt.GiaTri = matched.DonGia;
+                            vt.VAT = matched.VAT ?? 0;
+                            if (matched.SoLuong !== undefined && matched.SoLuong !== null) {
+                                vt.SoLuong = matched.SoLuong;
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+
     setData() {
+        this.syncVatTuToTaiSan();
         let data = {
             ...this.item,
             listTaiSan: this.item.listTaiSan.map(item => {
@@ -239,6 +357,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
                         ele.DenGio = UnixToDate(ele.DenGioUnix);
                         ele.TuGio = UnixToDate(ele.TuGioUnix);
                     })
+                    this.normalizeItemData();
                     this.toastr.success(res.Message);
                     this.KiemTraButtonModal();
                 }
@@ -417,6 +536,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
     }
 
     ChonVatTuThayThe(data: any, index: any) {
+        this.syncVatTuToTaiSan();
         let modalRef = this._modal.open(ChonVatTuThayTheComponent, {
             backdrop: 'static',
             size: 'lg'
@@ -425,13 +545,17 @@ export class ModaldenghixulisucoComponent implements OnInit {
         modalRef.componentInstance.IdTaiSan = this.item.IdTaiSan;
         modalRef.componentInstance.listVatTu = data.listVatTu ? JSON.parse(JSON.stringify(data.listVatTu)) : [];
         modalRef.result.then(res => {
-            data.listVatTu = JSON.parse(JSON.stringify(res));;
+            data.listVatTu = JSON.parse(JSON.stringify(res));
+            this.normalizeItemData();
         })
     }
 
     GetListVatTuByIdTaiSan(IdTaiSan) {
+        if (!IdTaiSan) return;
         this._serviceTaiSan.GetListVatTuByIdTaiSan(IdTaiSan).subscribe((vattu: any) => {
-            this.listVatTuThayThe = mapArrayForDropDown(vattu.Data, 'TenTaiSan', 'IdVatTuThayThe');
+            this.listVatTuThayTheDeep = vattu?.Data || [];
+            this.listVatTuThayThe = mapArrayForDropDown(this.listVatTuThayTheDeep, 'TenTaiSan', 'IdVatTuThayThe');
+            this.normalizeItemData();
         })
     }
 
@@ -439,17 +563,55 @@ export class ModaldenghixulisucoComponent implements OnInit {
         let listVatTuThayThe = [];
         if (e.index === 1) {
             this.isDeXuat = this.item.listTaiSan.every(ele => ele.IsXuLy);
-            let arr = this.item.listTaiSan.filter(ele =>
-                this.listNoiDungVatTuDeep.find(obj => obj.Id === ele?.IddmCongViecThucHien)?.Ma === 'THAYTHE');
-            arr.forEach(obj => {
-                listVatTuThayThe = [...obj.listVatTu, ...listVatTuThayThe];
-            })
-            this.item.listVatTu = [...listVatTuThayThe].filter(
-                (value, index, self) => self.findIndex((m) => m.IdVatTuThayThe === value.IdVatTuThayThe) === index,
-            );
-            this.item.listVatTu.forEach(ele => {
-                if (ele.VAT === undefined || ele.VAT === null) ele.VAT = 0;
+            const existingVatTu = Array.isArray(this.item.listVatTu) ? [...this.item.listVatTu] : [];
+            let arr = (this.item.listTaiSan || []).filter(ele => {
+                if (!this.listNoiDungVatTuDeep || !this.listNoiDungVatTuDeep.length) {
+                    return Array.isArray(ele?.listVatTu) && ele.listVatTu.length > 0;
+                }
+                return this.listNoiDungVatTuDeep.find(obj => obj.Id === ele?.IddmCongViecThucHien)?.Ma === 'THAYTHE';
             });
+            arr.forEach(obj => {
+                if (Array.isArray(obj.listVatTu)) {
+                    listVatTuThayThe = [...obj.listVatTu, ...listVatTuThayThe];
+                }
+            });
+            const uniqueVatTu = [...listVatTuThayThe].filter(
+                (value, index, self) => self.findIndex((m) => this.getVatTuKey(m) === this.getVatTuKey(value)) === index,
+            );
+            if (uniqueVatTu.length > 0 || arr.length > 0) {
+                this.item.listVatTu = uniqueVatTu.map(vt => {
+                    const key = this.getVatTuKey(vt);
+                    const existing = existingVatTu.find(m => this.getVatTuKey(m) === key);
+                    const dmVt = (this.listVatTuThayTheDeep || []).find(d => this.getVatTuKey(d) === key);
+                    const idVatTu = vt.IdVatTuThayThe || vt.IdVatTuCanThayThe || existing?.IdVatTuThayThe || existing?.IdVatTuCanThayThe;
+                    const donGia = this.resolveDonGia(vt, existing, dmVt);
+                    return {
+                        ...(existing || {}),
+                        ...vt,
+                        Id: existing?.Id || vt.Id || '',
+                        IdVatTuThayThe: idVatTu || vt.IdVatTuThayThe,
+                        IdVatTuCanThayThe: idVatTu || vt.IdVatTuCanThayThe,
+                        TenTaiSan: vt.TenTaiSan || existing?.TenTaiSan || dmVt?.TenTaiSan || '',
+                        SoLuong: vt.SoLuong ?? existing?.SoLuong ?? 0,
+                        DonGia: donGia,
+                        GiaTri: donGia,
+                        VAT: existing?.VAT ?? vt.VAT ?? 0
+                    };
+                });
+            } else {
+                this.item.listVatTu = existingVatTu.map(ele => {
+                    const dmVt = (this.listVatTuThayTheDeep || []).find(d => this.getVatTuKey(d) === this.getVatTuKey(ele));
+                    const donGia = this.resolveDonGia(ele, null, dmVt);
+                    return {
+                        ...ele,
+                        DonGia: donGia,
+                        GiaTri: donGia,
+                        VAT: ele.VAT ?? 0
+                    };
+                });
+            }
+        } else {
+            this.syncVatTuToTaiSan();
         }
     }
 

@@ -44,13 +44,25 @@ export class TheodoihoatdongComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.$subRoute = this.activatedRoute.params.subscribe((res: any) => {
-      if (res.id !== "0") {
+    this.$subRoute = this.activatedRoute.params.subscribe((param: any) => {
+      if (param.id && param.id !== "0") {
         this._serviceTaiSan
           .TheoDoiHoatDong()
-          .Get(res.id)
+          .Get(param.id)
           .subscribe((res: any) => {
-            this.update(res.Data);
+            if (res && res.StatusCode === 200 && res.Data && typeof res.Data === 'object') {
+              this.update(res.Data);
+            } else {
+              if (res?.Message) {
+                this._toastr.error(res.Message);
+              }
+              const fallbackItem = this.items?.find((x: any) => x.Id === param.id);
+              if (fallbackItem) {
+                this.update(fallbackItem);
+              } else {
+                this.changeParam(0);
+              }
+            }
           });
       }
     });
@@ -127,6 +139,10 @@ export class TheodoihoatdongComponent implements OnInit, OnDestroy {
       })
   }
   update(item: any) {
+    const safeItem = (item && typeof item === 'object') ? JSON.parse(JSON.stringify(item)) : { listTaiSan: [] };
+    if (!Array.isArray(safeItem.listTaiSan)) {
+      safeItem.listTaiSan = [];
+    }
     let modalRef = this._modal.open(TheodoihoatmodalComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -137,7 +153,7 @@ export class TheodoihoatdongComponent implements OnInit, OnDestroy {
     // modalRef.componentInstance.title = 'Cập nhật theo dõi hoạt động';
     modalRef.componentInstance.title = 'Cập nhật theo dõi khối lượng hoạt động';
     modalRef.componentInstance.listBoPhan = this.listBoPhan;
-    modalRef.componentInstance.quyTrinh = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.quyTrinh = safeItem;
     modalRef.result
       .then((data: any) => {
       })

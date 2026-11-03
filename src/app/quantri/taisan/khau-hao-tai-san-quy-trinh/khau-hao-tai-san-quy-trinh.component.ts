@@ -133,6 +133,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit, OnDestroy {
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.tabTrangThai = 0;
+    modalRef.componentInstance.eAction = this.eAction;
     modalRef.componentInstance.item = {
       Id: "",
       IdTrangThai: "",
@@ -142,6 +143,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit, OnDestroy {
       listFileDinhKem: [],
       LoaiKhauHao: "",
       IdDuAn: this.store.getCurrent(),
+      eAction: this.eAction,
     }
     modalRef.result
       .then((res: any) => {
@@ -161,7 +163,11 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.opt = "edit";
     // modalRef.componentInstance.tabTrangThai = this.trangThai;  
     modalRef.componentInstance.tabTrangThai = 0;
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
+    modalRef.componentInstance.eAction = this.eAction;
+    modalRef.componentInstance.item = {
+      ...JSON.parse(JSON.stringify(item.Data)),
+      eAction: this.eAction,
+    };
     modalRef.result
       .then((res: any) => {
       })

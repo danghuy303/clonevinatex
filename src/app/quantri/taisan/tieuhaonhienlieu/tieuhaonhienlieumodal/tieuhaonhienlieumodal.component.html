@@ -128,7 +128,7 @@
                             {{item.DonViTinh_NhienLieu}}
                         </td>
                         <td class="text-right">
-                            {{item.DinhMuc || item.TieuHaoDinhMuc}}
+                            {{ (item.DinhMuc || item.TieuHaoDinhMuc) | number }}
                         </td>
                         <td class="text-center">
                             <p-inputNumber locale="en-EN" [(ngModel)]="item.TieuThu" [minFractionDigits]="2"

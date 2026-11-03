@@ -27,6 +27,15 @@ export class ChonVatTuThayTheComponent implements OnInit {
     private _serviceTaiSan: TaisanService,) { }
 
   ngOnInit(): void {
+    if (Array.isArray(this.listVatTu)) {
+      this.listVatTu.forEach(ele => {
+        const idVt = ele.IdVatTuCanThayThe || ele.IdVatTuThayThe;
+        if (idVt) {
+          ele.IdVatTuCanThayThe = ele.IdVatTuCanThayThe || idVt;
+          ele.IdVatTuThayThe = ele.IdVatTuThayThe || idVt;
+        }
+      });
+    }
     this.GetListVatTuByIdTaiSan(this.IdTaiSan);
   }
 
@@ -40,9 +49,13 @@ export class ChonVatTuThayTheComponent implements OnInit {
   ChonVatTu(value, idx) {
     let check = this.Check(this.listVatTu, value);
     if (check < 2) {
+      const found = this.listNoiDungVatTuDeep.find(ele => ele.IdVatTuThayThe === value);
       this.listVatTu[idx] = {
-        ...this.listNoiDungVatTuDeep.find(ele => ele.IdVatTuThayThe === value),
-        IdVatTuCanThayThe:this.listNoiDungVatTuDeep.find(ele => ele.IdVatTuThayThe === value).IdVatTuThayThe
+        ...this.listVatTu[idx],
+        ...found,
+        DonGia: found?.DonGia ?? found?.GiaTri ?? found?.NguyenGia ?? this.listVatTu[idx]?.DonGia ?? 0,
+        IdVatTuCanThayThe: found?.IdVatTuThayThe || value,
+        IdVatTuThayThe: found?.IdVatTuThayThe || value
       };
     } else {
       this.listVatTu[idx] = {

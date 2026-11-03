@@ -21,6 +21,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   item: any = {};
   opt: any = "";
   title: any = "";
+  eAction: any = "QUYTRINHKHAUHAOTAISAN";
   checkbutton: any = {};
   uploader: FileUploader;
   tabTrangThai: number = 0;
@@ -42,6 +43,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.item.eAction = this.item.eAction || this.eAction;
     this.GetMinDate();
     this.KiemTraButtonModal();
     // this.getListdmPhanXuong();
@@ -50,12 +52,8 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     } else {
       this.title = "Cập nhật";
-      this.item.Ngay = UnixToDate(this.item.NgayUnix)
-      let listTaiSan: TreeNode[] = [];
-      listTaiSan = this.item.listTaiSan?.map((ele, index) => {
-        return this.mapDataModelToView(ele, index);
-      });
-      this.listTaiSan_copy = listTaiSan;
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
+      this.listTaiSan_copy = [...(this.item.listTaiSan || [])];
       this.Loaddata();
       console.log("item", this.item);
 
@@ -119,10 +117,15 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       console.log("this item", this.Setdata());
       this._serviceTaiSan.KhauHaoTaiSan().Set(this.Setdata()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
-          this.item = res.Data;
-          this.item.listTaiSan.forEach((ele, index) => {
+          this.item = {
+            ...res.Data,
+            eAction: this.eAction,
+            Ngay: UnixToDate(res.Data?.NgayUnix),
+          };
+          this.item.listTaiSan?.forEach((ele, index) => {
             ele.STT = index + 1;
-          })
+          });
+          this.listTaiSan_copy = [...(this.item.listTaiSan || [])];
           this.KiemTraButtonModal();
           this.toastr.success(res.Message);
         } else {
@@ -228,11 +231,9 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       modalRef.componentInstance.item = {};
       modalRef.result
         .then((res: any) => {
-          res.forEach((element, index) => {
-            element.STT = index + 1;
-          })
           this.listTaiSan_copy = this.MergeArr(res, this.listTaiSan_copy, "IdTaiSan");
           this.item.listTaiSan = this.listTaiSan_copy;
+          this.Loaddata();
         })
         .catch((er) => {
         });
@@ -294,7 +295,8 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   }
 
   ChonLoaiTaiSan() {
-    this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
+    this.item.listTaiSan = [];
+    this.listTaiSan_copy = [];
   }
 
 }

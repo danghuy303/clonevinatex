@@ -331,7 +331,7 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Chi phí vận chuyển:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <input type="text" [(ngModel)]="HopDong.ChiPhiVanChuyen" class="p-inputtext-sm p-pl-0" pInputText />
+        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="HopDong.ChiPhiVanChuyen"></p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">

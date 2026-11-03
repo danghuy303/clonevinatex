@@ -70,6 +70,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.item = this.item || {};
+    this.item.TaiSan = this.item.TaiSan || {};
     this.addItem(false);
     if (this.item.TaiSan.NgayNhapUnix !== 0 || this.item.TaiSan.NgayNhapUnix === 0) {
       this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
@@ -177,7 +179,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   GetIem() {
     this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
-      this.item = res.Data;
+      this.item = res.Data || {};
+      if (!this.item.TaiSan) {
+        this.item.TaiSan = {};
+      }
       if (this.item.TaiSan) {
         this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
         this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix || this.item.TaiSan.NgaySanXuatUnix);
@@ -286,7 +291,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this._serviceTaiSan.NhapTaiSan().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
-          this.item = res.Data;
+          this.item = res.Data || {};
+      if (!this.item.TaiSan) {
+        this.item.TaiSan = {};
+      }
           this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((data: any) => {
             this.item = {
               ...data.Data,
@@ -558,7 +566,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
       size: "lg",
       backdrop: "static",
     });
-    modalRef.componentInstance.listItemDaChon = this.item.TaiSan.IdThuVien ? this.item.TaiSan.IdThuVien : "";
+    modalRef.componentInstance.listItemDaChon = this.item?.TaiSan?.IdThuVien ? this.item.TaiSan.IdThuVien : "";
     modalRef.componentInstance.item = this.item;
     modalRef.result
       .then((res: any) => {
@@ -611,8 +619,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
       size: "lg",
       backdrop: "static",
     });
-    modalRef.componentInstance.listItemDaChon = this.item.TaiSan.IdThuVien ? this.item.TaiSan.IdThuVien : "";
-    modalRef.componentInstance.item = this.item.TaiSan.MaQR;
+    modalRef.componentInstance.listItemDaChon = this.item?.TaiSan?.IdThuVien ? this.item.TaiSan.IdThuVien : "";
+    modalRef.componentInstance.item = this.item?.TaiSan?.MaQR;
     modalRef.result
       .then((res: any) => {
         this.item.TaiSan.MaQR = res
@@ -635,7 +643,9 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   InQrCode() {
     let listMaQr: any = [];
-    listMaQr.push(this.item.TaiSan.MaQR);
+    if (this.item?.TaiSan?.MaQR) {
+      listMaQr.push(this.item.TaiSan.MaQR);
+    }
     let data = {
       listMaQr: listMaQr,
       SoLuong: 1,

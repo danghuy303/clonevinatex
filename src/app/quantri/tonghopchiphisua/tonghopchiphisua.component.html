@@ -57,7 +57,8 @@
           <th class="text-center" style="width: 110px;">Vật tư</th>
           <th class="text-center" style="width: 110px;">Nhiên liệu</th>
           <th class="text-center" style="width: 110px;">Nhân công</th>
-          <th class="text-center" style="width: 100px;">VAT</th>
+          <th class="text-center" style="width: 110px;">Chi phí khác</th>
+          <!-- <th class="text-center" style="width: 100px;">VAT</th> -->
           <th class="text-center" style="width: 120px;">Cộng</th>
         </tr>
         <!-- Filtering Row -->
@@ -138,7 +139,7 @@
           <td [ngStyle]="{'padding-left': isGroup(item) ? '10px' : '25px'}">{{item.TenPhuongTien}}</td>
           <td class="text-center">{{item.MaPhuongTien}}</td>
           <td>{{item.KieuChuyenDung}}</td>
-          <td>{{item.NguoiSuDung}}</td>
+          <td>{{item.NguoiVanHanh || item.NguoiSuDung}}</td>
           <td class="text-right">
             <span *ngIf="item.VatTu !== null && item.VatTu !== undefined">{{item.VatTu | number}}</span>
           </td>
@@ -149,8 +150,11 @@
             <span *ngIf="item.NhanCong !== null && item.NhanCong !== undefined">{{item.NhanCong | number}}</span>
           </td>
           <td class="text-right">
-            <span *ngIf="item.VAT !== null && item.VAT !== undefined">{{item.VAT | number}}</span>
+            <span *ngIf="item.ChiPhiKhac !== null && item.ChiPhiKhac !== undefined">{{item.ChiPhiKhac | number}}</span>
           </td>
+          <!-- <td class="text-right">
+            <span *ngIf="item.VAT !== null && item.VAT !== undefined">{{item.VAT | number}}</span>
+          </td> -->
           <td class="text-right">
             <span *ngIf="item.Cong !== null && item.Cong !== undefined">{{item.Cong | number}}</span>
           </td>

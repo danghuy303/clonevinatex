@@ -41,6 +41,7 @@ export class TonghopchiphisuaComponent implements OnInit, OnDestroy {
     VatTu: "",
     NhienLieu: "",
     NhanCong: "",
+    ChiPhiKhac: "",
     VAT: "",
     Cong: "",
     GhiChu: "",
@@ -155,6 +156,9 @@ export class TonghopchiphisuaComponent implements OnInit, OnDestroy {
       const matchNhanCong = item.NhanCong === null || item.NhanCong === undefined
         ? true
         : String(item.NhanCong).includes(this.filterTable.NhanCong);
+      const matchChiPhiKhac = item.ChiPhiKhac === null || item.ChiPhiKhac === undefined
+        ? true
+        : String(item.ChiPhiKhac).includes(this.filterTable.ChiPhiKhac);
       const matchVAT = item.VAT === null || item.VAT === undefined
         ? true
         : String(item.VAT).includes(this.filterTable.VAT);
@@ -171,6 +175,7 @@ export class TonghopchiphisuaComponent implements OnInit, OnDestroy {
         matchVatTu &&
         matchNhienLieu &&
         matchNhanCong &&
+        matchChiPhiKhac &&
         matchVAT &&
         matchCong &&
         matchGhiChu

@@ -41,12 +41,8 @@
             <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row ">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Thứ tự: <span class="required">(*)</span> </label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <!-- <p-inputNumber [minFractionDigits]="0" [min]="0" [maxFractionDigits]="0" [(ngModel)]="item.ThuTu" > 
-                    </p-inputNumber> -->
-                    <input min='0' type="number" class="p-inputtext-sm" [(ngModel)]="item.ThuTu"
-                        onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
-                        pInputText>
-
+                    <p-inputNumber [minFractionDigits]="0" [min]="0" [maxFractionDigits]="0" locale="en-EN" [(ngModel)]="item.ThuTu">
+                    </p-inputNumber>
                 </div>
             </div>
             <div class="p-col-12 p-lg-12   d-flex flex-column flex-xl-row">
