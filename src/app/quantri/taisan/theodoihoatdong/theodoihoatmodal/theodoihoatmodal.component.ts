@@ -65,7 +65,10 @@ export class TheodoihoatmodalComponent implements OnInit {
         });
       }
     }
-    if (this.quyTrinh.IddmPhanXuong) {
+    if (!this.quyTrinh.IdBoPhanSuDung && this.quyTrinh.IddmPhanXuong) {
+      this.quyTrinh.IdBoPhanSuDung = this.quyTrinh.IddmPhanXuong;
+    }
+    if (this.quyTrinh.IdBoPhanSuDung) {
       this.getListTaiSanDangSuDung();
     }
     this.KiemTraButtonModal();
@@ -90,6 +93,8 @@ export class TheodoihoatmodalComponent implements OnInit {
   setData() {
     let data = {
       ...this.quyTrinh,
+      IdBoPhanSuDung: this.quyTrinh.IdBoPhanSuDung,
+      IddmPhanXuong: this.quyTrinh.IdBoPhanSuDung,
       eAction: this.eAction,
       IdDuAn: this.store.getCurrent(),
       NgayUnix: DateToUnix(this.quyTrinh.Ngay),
@@ -179,12 +184,12 @@ export class TheodoihoatmodalComponent implements OnInit {
   // handle xử lý riêng
 
   getListTaiSanDangSuDung(callback?: () => void) {
-    if (!this.quyTrinh.IddmPhanXuong) {
+    if (!this.quyTrinh?.IdBoPhanSuDung) {
       this.listTaiSan = [];
       if (callback) callback();
       return;
     }
-    this._serviceTaiSan.GetListTaiSanDangSuDung({ CurrentPage: 0, IdBoPhanSuDung: this.quyTrinh.IddmPhanXuong }).subscribe((res: any) => {
+    this._serviceTaiSan.GetListTaiSanDangSuDung({ CurrentPage: 0, IdBoPhanSuDung: this.quyTrinh.IdBoPhanSuDung }).subscribe((res: any) => {
       this.listTaiSan = res.Data || [];
       if (callback) callback();
     }, (err: any) => {
@@ -201,7 +206,7 @@ export class TheodoihoatmodalComponent implements OnInit {
   }
 
   handleThemTaiSan() {
-    if (!this.quyTrinh.IddmPhanXuong) {
+    if (!this.quyTrinh?.IdBoPhanSuDung) {
       this.toastr.error('Vui lòng chọn bộ phận');
       return;
     }
@@ -228,6 +233,9 @@ export class TheodoihoatmodalComponent implements OnInit {
   }
 
   onChangeBoPhan() {
+    if (!this.quyTrinh || typeof this.quyTrinh !== 'object') {
+      this.quyTrinh = { listTaiSan: [] };
+    }
     this.getListCaSanXuat();
     this.quyTrinh.IddmCaSanXuat = null;
     this.listTaiSan = [];
@@ -235,14 +243,16 @@ export class TheodoihoatmodalComponent implements OnInit {
   }
 
   getListCaSanXuat() {
-    if (!this.quyTrinh.IddmPhanXuong) {
+    const idBoPhan = this.quyTrinh?.IdBoPhanSuDung;
+    if (!idBoPhan) {
       this.listCaSanXuat = [];
       return;
     }
     let data = {
       CurrentPage: 1,
       PageSize: 1000,
-      IddmPhanXuong: this.quyTrinh.IddmPhanXuong
+      IdBoPhanSuDung: idBoPhan,
+      IddmPhanXuong: idBoPhan
     };
     this._danhMucTaiSan.DanhMucCaSanXuat().GetList(data).subscribe((res: any) => {
       const items = res.Data?.Items || res.Data || res.items || res || [];

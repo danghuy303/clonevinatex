@@ -34,7 +34,7 @@
             <!-- Bộ phận -->
             <div class="p-d-flex p-flex-column p-mb-2">
                 <label class="p-d-block p-mb-1">Bộ phận:</label>
-                <app-select-bo-phan [(ngModel)]="quyTrinh.IddmPhanXuong" (onChange)="onChangeBoPhan()"
+                <app-select-bo-phan [(ngModel)]="quyTrinh.IdBoPhanSuDung" (onChange)="onChangeBoPhan()"
                     [options]="listBoPhan" placeholder="Chọn bộ phận"></app-select-bo-phan>
             </div>
             <!-- Ngày and Ca inline -->
@@ -42,7 +42,8 @@
                 <div class="p-col-4 p-pt-0 p-pl-0">
                     <label class="p-d-block p-mb-1">Ngày:</label>
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                        [(ngModel)]="quyTrinh.Ngay" inputId="icon" placeholder="Ngày" [style]="{'width': '100%'}"></p-calendar>
+                        [(ngModel)]="quyTrinh.Ngay" inputId="icon" placeholder="Ngày"
+                        [style]="{'width': '100%'}"></p-calendar>
                 </div>
                 <div class="p-col-8  p-pt-0 p-pr-0">
                     <label class="p-d-block p-mb-1">Ca:</label>
@@ -138,21 +139,22 @@
 
                         <!-- Sản lượng - Thực tế -->
                         <td>
-                            <p-inputNumber locale="en-EN" [(ngModel)]="item.ThucTe" (ngModelChange)="tinhThanhTien(item)"
-                                [minFractionDigits]="2" [maxFractionDigits]="10" styleClass="p-inputtext-sm"
-                                [style]="{'width': '100%'}"></p-inputNumber>
+                            <p-inputNumber locale="en-EN" [(ngModel)]="item.ThucTe"
+                                (ngModelChange)="tinhThanhTien(item)" [minFractionDigits]="2" [maxFractionDigits]="10"
+                                styleClass="p-inputtext-sm" [style]="{'width': '100%'}"></p-inputNumber>
                         </td>
 
                         <!-- Sản lượng - Đơn giá -->
                         <td>
-                            <p-inputNumber locale="en-EN" [(ngModel)]="item.DonGia" (ngModelChange)="tinhThanhTien(item)"
-                                [minFractionDigits]="0" styleClass="p-inputtext-sm"
-                                [style]="{'width': '100%'}"></p-inputNumber>
+                            <p-inputNumber locale="en-EN" [(ngModel)]="item.DonGia"
+                                (ngModelChange)="tinhThanhTien(item)" [minFractionDigits]="0"
+                                styleClass="p-inputtext-sm" [style]="{'width': '100%'}"></p-inputNumber>
                         </td>
 
                         <!-- Sản lượng - Thành tiền -->
                         <td class="text-right">
-                            {{ (item.ThanhTien !== undefined && item.ThanhTien !== null ? item.ThanhTien : ((item.ThucTe || 0) * (item.DonGia || 0))) | number:'1.0-2' }}
+                            {{ (item.ThanhTien !== undefined && item.ThanhTien !== null ? item.ThanhTien : ((item.ThucTe
+                            || 0) * (item.DonGia || 0))) | number:'1.0-2' }}
                         </td>
 
                         <!-- Người vận hành -->
