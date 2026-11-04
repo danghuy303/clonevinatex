@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { getDonViTinhSanLuongContext } from 'src/app/services/const';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { LohangComponent } from '../../quanlykhosanxuat/thongke/lohang/lohang.component';
 
@@ -32,10 +33,10 @@ export class
   ) { }
 
   ngOnInit(): void {
-    let data = { Keyword: "", CurrentPage: 0, PageSize: 2, IddmLoaiTaiSan: this.LayId.IddmLoaiTaiSan };
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 1000, IddmLoaiTaiSan: this.LayId.IddmLoaiTaiSan };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetList(data).subscribe((res: any) => {
-      this.items = res.Data;
-      this.listLoaiBaoDuong = mapArrayForDropDown(res.Data, "Ten", "Id");
+      this.items = Array.isArray(res.Data) ? res.Data : (res.Data?.Items || []);
+      this.listLoaiBaoDuong = mapArrayForDropDown(this.items, "Ten", "Id");
       if (this.item.IddmLoaiBaoDuong) {
         this.chonLoaiBaoDuong(this.item.IddmLoaiBaoDuong);
       }
@@ -52,8 +53,10 @@ export class
       this.item.MaLoaiThoiGian = filter?.MaLoaiThoiGian;
       if (!this.item.ThoiGianBaoDuong)
         this.item.ThoiGianBaoDuong = filter?.ThoiGianBaoDuong;
-      if (!this.item.SanLuong)
-        this.item.SanLuong = filter?.SanLuong;
+      this.item.DonViTinh_SanLuong = filter?.DonViTinh_SanLuong || this.item.DonViTinh_SanLuong;
+      this.item.NangSuat = filter?.NangSuat;
+      this.item.SanLuong = (filter?.NangSuat !== undefined && filter?.NangSuat !== null) ? filter.NangSuat : filter?.SanLuong;
+
     }
 
   }
@@ -80,7 +83,13 @@ export class
     return text;
   }
 
+  getLabelSanLuong(): string {
+    const ctx = getDonViTinhSanLuongContext(this.item?.DonViTinh_SanLuong);
+    return ctx ? ctx.label : 'Sản lượng (tấn)';
+  }
+
   GhiLai() {
+    this.item.NangSuat = this.item.SanLuong;
     if (this.opt === 'add') {
       if (validVariable(this.item.IddmLoaiBaoDuong)) {
         this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;

@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { listDonViTinh_SanLuong } from 'src/app/services/const';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 @Component({
@@ -30,6 +31,12 @@ export class ModalbaoduongComponent implements OnInit {
   listDonViTinh: any = [];
   listLoaiThucHienBaoDuong: any = [];
   listVatTu: any = [];
+  listDonViTinh_SanLuong: any = listDonViTinh_SanLuong;
+
+
+
+
+
 
   constructor(public activeModal: NgbActiveModal,
     private _danhMucTaiSan: DanhmuctaisanService,
@@ -43,6 +50,9 @@ export class ModalbaoduongComponent implements OnInit {
       this.item.TuGio = UnixToDate(this.item.TuGioUnix);
     }
     this.item.listCongViec = this.item.listCongViec ? this.item.listCongViec : [];
+    if (!this.item.DonViTinh_SanLuong) {
+      this.item.DonViTinh_SanLuong = 'SanLuong';
+    }
     this.GetListdmLoaiTaiSan();
     this.getData();
     this.GetListVatTuTheoLoaiTaiSan();
@@ -57,6 +67,7 @@ export class ModalbaoduongComponent implements OnInit {
       { value: 5, label: 'Thứ 6' },
       { value: 6, label: 'Thứ 7' },
     ];
+  
     this.listDonViTinh = [
       { value: 'Xe', label: 'Xe' },
       { value: 'May', label: 'Máy' },
@@ -66,6 +77,7 @@ export class ModalbaoduongComponent implements OnInit {
       { value: 'Bo', label: 'Bộ' },
       { value: 'Khac', label: 'Khác' },
     ];
+  
     let data = {
       CurrentPage: 0,
       Keyword: '',

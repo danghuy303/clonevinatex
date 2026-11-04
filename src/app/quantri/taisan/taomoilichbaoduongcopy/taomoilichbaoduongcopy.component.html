@@ -16,7 +16,7 @@
             </th>
             <th class="text-center">Loại bảo dưỡng</th>
             <th class="text-center">Theo thời gian</th>
-            <th class="text-center">Theo sản lượng (Tấn)</th>
+            <th class="text-center">Theo sản lượng/giờ/km</th>
             <th class="text-center">Ghi chú</th>
             <th class="text-center"> <button pButton pRipple icon="pi pi-plus" (click)="addBaoDuong()"
                     class="p-button-sm p-mr-2"></button></th>
@@ -30,7 +30,7 @@
             <td>{{x.TendmLoaiBaoDuong}}</td>
             <td class="text-right">{{getTextTime(x.ThoiGianBaoDuong, x.MaLoaiThoiGian)}}</td>
             <!-- <td class="text-right">{{x.NangSuat}}</td> -->
-            <td class="text-right">{{x.SanLuong | number:'0.0-0'}}</td>
+            <td class="text-right">{{ (x.SanLuong !== undefined && x.SanLuong !== null ? x.SanLuong : x.NangSuat) | number:'0.0-0' }} <small *ngIf="getDonViSanLuong(x)" class="text-muted ml-1">({{getDonViSanLuong(x)}})</small></td>
             <td>{{x.GhiChu}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"

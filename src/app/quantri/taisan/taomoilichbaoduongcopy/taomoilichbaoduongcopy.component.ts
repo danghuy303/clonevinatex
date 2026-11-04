@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChange
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { validVariable } from 'src/app/services/globalfunction';
+import { getDonViTinhSanLuongContext } from 'src/app/services/const';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { ModalcapnhatbaoduongcopyyComponent } from '../modalcapnhatbaoduongcopyy/modalcapnhatbaoduongcopyy.component';
@@ -102,6 +103,11 @@ export class TaomoilichbaoduongcopyComponent implements OnInit, OnChanges {
   //     this.item.listLichBaoDuong[index].isXoa = true;
   //   }
   // }
+  getDonViSanLuong(x: any): string {
+    const ctx = getDonViTinhSanLuongContext(x?.DonViTinh_SanLuong);
+    return ctx ? ctx.unit : '';
+  }
+
   delete(index) {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
