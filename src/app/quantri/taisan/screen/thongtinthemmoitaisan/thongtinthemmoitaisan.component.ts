@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { vn } from 'src/app/services/const';
-import { validVariable, mapTreeNodes } from 'src/app/services/globalfunction';
+import { validVariable, mapTreeNodes, UnixToDate, DateToUnix } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ChonComponent } from '../chon/chon.component';
 
@@ -73,10 +73,38 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
     if (changes['listLoaiTaiSan'] && this.listLoaiTaiSan) {
       this.formatListLoaiTaiSan();
     }
-    if (changes['item'] && this.item && this.item.IdDuAn) {
-      if (!this.isLoadedCBNV && !this.isLoadingCBNV) {
+    if (changes['item'] && this.item) {
+      this.initDates();
+      if (this.item.IdDuAn && !this.isLoadedCBNV && !this.isLoadingCBNV) {
+
         this.getListCBNV();
       }
+    }
+  }
+
+  initDates() {
+    if (!this.item) return;
+    if (this.item.NgayCapGiayChungNhanDangKyUnix && !this.item.NgayCapGiayChungNhanDangKy) {
+      this.item.NgayCapGiayChungNhanDangKy = UnixToDate(this.item.NgayCapGiayChungNhanDangKyUnix);
+    } else if (typeof this.item.NgayCapGiayChungNhanDangKy === 'string') {
+      this.item.NgayCapGiayChungNhanDangKy = UnixToDate(this.item.NgayCapGiayChungNhanDangKy) || new Date(this.item.NgayCapGiayChungNhanDangKy);
+    } else if (this.item.NgayCapDangKyUnix && !this.item.NgayCapGiayChungNhanDangKy) {
+      this.item.NgayCapGiayChungNhanDangKy = UnixToDate(this.item.NgayCapDangKyUnix);
+    } else if (typeof this.item.NgayCapDangKy === 'string') {
+      this.item.NgayCapGiayChungNhanDangKy = UnixToDate(this.item.NgayCapDangKy) || new Date(this.item.NgayCapDangKy);
+    }
+
+    if (this.item.ThoiGianDaiTuGanNhatUnix && !this.item.ThoiGianDaiTuGanNhat) {
+      this.item.ThoiGianDaiTuGanNhat = UnixToDate(this.item.ThoiGianDaiTuGanNhatUnix);
+    } else if (typeof this.item.ThoiGianDaiTuGanNhat === 'string') {
+      this.item.ThoiGianDaiTuGanNhat = UnixToDate(this.item.ThoiGianDaiTuGanNhat) || new Date(this.item.ThoiGianDaiTuGanNhat);
+    }
+
+    if (this.item.SoGiayChungNhanDangKy === undefined && this.item.SoDangKy !== undefined) {
+      this.item.SoGiayChungNhanDangKy = this.item.SoDangKy;
+    }
+    if (this.item.ThoiGianKhauHaoConLai === undefined && this.item.SoNamKhauHaoConLai !== undefined) {
+      this.item.ThoiGianKhauHaoConLai = this.item.SoNamKhauHaoConLai;
     }
   }
 
@@ -95,6 +123,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.initDates();
     this.getListCBNV();
     this.formatListLoaiTaiSan();
     if (!this.item.SoLuong) {

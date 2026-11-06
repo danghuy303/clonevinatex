@@ -1,0 +1,28 @@
+:host ::ng-deep .p-datatable-sm td {
+    padding: 0.25rem 0.35rem;
+    vertical-align: middle;
+}
+
+:host ::ng-deep .p-datatable-sm .p-inputtext {
+    padding: 0.3rem 0.45rem;
+    font-size: 0.85rem;
+}
+
+:host ::ng-deep .p-datatable-sm .p-dropdown {
+    height: 31px;
+}
+
+:host ::ng-deep .p-datatable-sm .p-dropdown .p-dropdown-label {
+    padding: 0.3rem 0.45rem;
+    font-size: 0.85rem;
+    line-height: 1.2;
+}
+
+:host ::ng-deep .p-datatable-sm .p-inputnumber {
+    width: 100%;
+}
+
+:host ::ng-deep .p-datatable-sm .p-inputnumber input {
+    text-align: right;
+    width: 100%;
+}

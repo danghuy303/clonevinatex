@@ -187,6 +187,22 @@ export class ModalcapnhattaisanComponent implements OnInit {
         this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
         this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix || this.item.TaiSan.NgaySanXuatUnix);
         this.item.TaiSan.NgaySanXuat = UnixToDate(this.item.TaiSan.NgaySanXuatUnix || this.item.TaiSan.NgayNhapUnix);
+        if (this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix || this.item.TaiSan.NgayCapDangKyUnix) {
+          this.item.TaiSan.NgayCapGiayChungNhanDangKy = UnixToDate(this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix || this.item.TaiSan.NgayCapDangKyUnix);
+        } else if (this.item.TaiSan.NgayCapGiayChungNhanDangKy) {
+          this.item.TaiSan.NgayCapGiayChungNhanDangKy = UnixToDate(this.item.TaiSan.NgayCapGiayChungNhanDangKy) || new Date(this.item.TaiSan.NgayCapGiayChungNhanDangKy);
+        }
+        if (this.item.TaiSan.ThoiGianDaiTuGanNhatUnix) {
+          this.item.TaiSan.ThoiGianDaiTuGanNhat = UnixToDate(this.item.TaiSan.ThoiGianDaiTuGanNhatUnix);
+        } else if (this.item.TaiSan.ThoiGianDaiTuGanNhat) {
+          this.item.TaiSan.ThoiGianDaiTuGanNhat = UnixToDate(this.item.TaiSan.ThoiGianDaiTuGanNhat) || new Date(this.item.TaiSan.ThoiGianDaiTuGanNhat);
+        }
+        if (this.item.TaiSan.SoGiayChungNhanDangKy === undefined && this.item.TaiSan.SoDangKy !== undefined) {
+          this.item.TaiSan.SoGiayChungNhanDangKy = this.item.TaiSan.SoDangKy;
+        }
+        if (this.item.TaiSan.ThoiGianKhauHaoConLai === undefined && this.item.TaiSan.SoNamKhauHaoConLai !== undefined) {
+          this.item.TaiSan.ThoiGianKhauHaoConLai = this.item.TaiSan.SoNamKhauHaoConLai;
+        }
       }
       this.itemDonVi = this.listDonVi_copy.find(obj => obj.Id === this.item.TaiSan?.IddmDonViTinh);
       if (this.item.TaiSan?.listTaiSan?.length > 0) {
@@ -263,6 +279,26 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this.item.TaiSan.NgayNhapUnix = ngayNhapUnix;
       this.item.TaiSan.NgaySanXuatUnix = ngayNhapUnix;
       this.item.TaiSan.ThoiGianDuaVaoSuDungUnix = thoiGianDuaVaoSuDungUnix;
+
+      if (this.item.TaiSan.NgayCapGiayChungNhanDangKy) {
+        const d = new Date(this.item.TaiSan.NgayCapGiayChungNhanDangKy);
+        if (!isNaN(d.getTime())) {
+          this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix = Math.floor(d.getTime() / 1000);
+          this.item.TaiSan.NgayCapDangKyUnix = this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix;
+        }
+      }
+      if (this.item.TaiSan.ThoiGianDaiTuGanNhat) {
+        const d = new Date(this.item.TaiSan.ThoiGianDaiTuGanNhat);
+        if (!isNaN(d.getTime())) {
+          this.item.TaiSan.ThoiGianDaiTuGanNhatUnix = Math.floor(d.getTime() / 1000);
+        }
+      }
+      if (this.item.TaiSan.SoGiayChungNhanDangKy && !this.item.TaiSan.SoDangKy) {
+        this.item.TaiSan.SoDangKy = this.item.TaiSan.SoGiayChungNhanDangKy;
+      }
+      if (this.item.TaiSan.ThoiGianKhauHaoConLai !== undefined && this.item.TaiSan.SoNamKhauHaoConLai === undefined) {
+        this.item.TaiSan.SoNamKhauHaoConLai = this.item.TaiSan.ThoiGianKhauHaoConLai;
+      }
 
       // Clean up listSanLuong and its nested listItem from empty placeholders
       if (this.item.TaiSan.listSanLuong) {

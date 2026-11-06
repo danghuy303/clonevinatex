@@ -29,44 +29,39 @@
     </div>
     <app-chuyenbuoc [(quyTrinh)]="quyTrinh"></app-chuyenbuoc>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-3 p-p-2 d-flex flex-column">
-            <label class="">Bộ phận:</label>
-            <div class="">
-                <app-select-bo-phan [(ngModel)]="quyTrinh.IddmPhanXuong" [options]="listBoPhan"
-                    placeholder="Chọn bộ phận"></app-select-bo-phan>
+        <!-- Left Side (Bộ phận, Ngày) -->
+        <div class="p-col-12 p-lg-6 p-p-2">
+            <!-- Bộ phận -->
+            <div class="p-d-flex p-flex-column p-mb-2">
+                <label class="p-d-block p-mb-1">Bộ phận:</label>
+                <app-select-bo-phan [(ngModel)]="quyTrinh.IddmPhanXuong" (onChange)="onChangeBoPhan()"
+                    [options]="listBoPhan" placeholder="Chọn bộ phận"></app-select-bo-phan>
             </div>
-        </div>
-        <div class="p-col-12 p-lg-2 p-p-2 d-flex flex-column">
-            <label class="">Ngày bắt đầu:</label>
-            <div class="">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.NgayBatDau"
+            <!-- Ngày -->
+            <div class="p-d-flex p-flex-column p-mb-2">
+                <label class="p-d-block p-mb-1">Ngày:</label>
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.Ngay"
                     [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"
-                    [showIcon]="true" inputId="icon" placeholder="">
+                    [showIcon]="true" inputId="icon" placeholder="Ngày" [style]="{'width': '100%'}">
                 </p-calendar>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-2 p-p-2 d-flex flex-column">
-            <label class="">Ngày kết thúc:</label>
-            <div class="">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.NgayKetThuc"
-                    [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"
-                    [showIcon]="true" inputId="icon" placeholder="">
-                </p-calendar>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-5 p-p-2 d-flex flex-column">
-            <label class="">Nội dung:</label>
-            <div class="">
-                <input locale="en-EN" [(ngModel)]="quyTrinh.NoiDung" style="height: '32.6px !important'" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-12 p-p-2 d-flex flex-column">
-            <label class="">Ghi chú:</label>
-            <div class="">
-                <input locale="en-EN" [(ngModel)]="quyTrinh.GhiChu" style="height: '32.6px !important'" pInputText />
             </div>
         </div>
 
+        <!-- Right Side (Nội dung, Ghi chú) -->
+        <div class="p-col-12 p-lg-6 p-p-2">
+            <!-- Nội dung -->
+            <div class="p-d-flex p-flex-column p-mb-2">
+                <label class="p-d-block p-mb-1">Nội dung:</label>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.NoiDung" pInputText
+                    style="width: 100%" />
+            </div>
+            <!-- Ghi chú -->
+            <div class="p-d-flex p-flex-column p-mb-2">
+                <label class="p-d-block p-mb-1">Ghi chú:</label>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.GhiChu" pInputText
+                    style="width: 100%" />
+            </div>
+        </div>
     </div>
     <p-panel header="Danh sách máy/thiết bị" [toggleable]="true">
         <div>
@@ -74,8 +69,9 @@
                 <button pButton pRipple type="button" label="Thêm máy/thiết bị" class="p-mr-2 p-button-sm "
                     (click)="handleThemTaiSan()"></button>
                 <div class="d-flex p-ai-center">
-                    <span class="p-mr-2">Tổng chi phí: </span>
-                    <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.TongChiPhi" disabled></p-inputNumber>
+                    <span class="p-mr-2 font-weight-bold">Tổng chi phí:</span>
+                    <p-inputNumber locale="en-EN" [(ngModel)]="quyTrinh.TongChiPhi" disabled
+                        styleClass="p-inputtext-sm"></p-inputNumber>
                 </div>
             </div>
             <p-table [value]="quyTrinh.listTaiSan"
@@ -83,23 +79,25 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width: 50px;">
-                        <col style="width: 150px;">
-                        <col>
-                        <col style="width: 200px;">
-                        <col style="width: 90px;">
-                        <col style="width: 100px;">
+                        <col style="width: 120px;">
+                        <col style="width: 180px;">
+                        <col style="width: 220px;">
                         <col style="width: 130px;">
+                        <col style="width: 90px;">
                         <col style="width: 120px;">
                         <col style="width: 120px;">
+                        <col style="width: 120px;">
+                        <col style="width: 130px;">
                         <col style="width: 150px;">
                         <col style="width: 50px;">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th rowspan="2" class="text-center"> STT </th>
+                        <th rowspan="2" class="text-center">STT</th>
                         <th rowspan="2" class="text-center">Mã</th>
-                        <th rowspan="2" class="text-center">Tên</th>
+                        <th rowspan="2" class="text-center">Tên máy</th>
+                        <th rowspan="2" class="text-center">Nội dung công việc</th>
                         <th colspan="3" class="text-center">Theo định mức</th>
                         <th rowspan="2" class="text-center">Tiêu hao thực tế</th>
                         <th rowspan="2" class="text-center">Đơn giá</th>
@@ -114,45 +112,86 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr>
-                        <td class="text-center"> {{i + 1}}</td>
-                        <td>{{item.MaTaiSan}}</td>
-                        <td>{{item.TenTaiSan}}</td>
-                        <td>
-                            <p-dropdown [filter]="true" [options]="item.listSanLuongDropdown"
-                                placeholder="Chọn nhiên liệu" [showClear]="true" styleClass="p-inputtext-sm"
-                                [(ngModel)]="item.IdSanLuongMay" (ngModelChange)="onChangeSanLuong(item)"
-                                style="width: 100%"></p-dropdown>
-                        </td>
-                        <td class="text-center">
-                            {{item.DonViTinh_NhienLieu}}
-                        </td>
-                        <td class="text-right">
-                            {{ (item.DinhMuc || item.TieuHaoDinhMuc) | number }}
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber locale="en-EN" [(ngModel)]="item.TieuThu" [minFractionDigits]="2"
-                                [maxFractionDigits]="2" (onBlur)="handleChiPhiTaiSan(item)" placeholder=""
-                                styleClass="p-inputtext-sm" style="width: 100%">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber locale="en-EN" [(ngModel)]="item.DonGia" placeholder=""
-                                (onBlur)="handleChiPhiTaiSan(item)" styleClass="p-inputtext-sm" style="width: 100%">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-right">
-                            {{item.ThanhTien | number:'0.0-0' }}
-                        </td>
-                        <td>
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText
-                                style="width: 100%" />
+                    <!-- Dòng cha: Thiết bị / Máy -->
+                    <tr class="table-secondary font-weight-bold" style="background-color: #f1f3f5;">
+                        <td class="text-center font-weight-bold">{{i + 1}}</td>
+                        <td class="font-weight-bold">{{item.MaTaiSan}}</td>
+                        <td class="font-weight-bold" colspan="9">
+                            <div class="d-flex p-jc-between p-ai-center">
+                                <span>{{item.TenTaiSan}}</span>
+                                <button pButton pRipple type="button" icon="pi pi-plus"
+                                    class="p-button-sm p-button-outlined p-button-primary p-py-1"
+                                    pTooltip="Thêm công việc"
+                                    (click)="addCongViec(item)"></button>
+                            </div>
                         </td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-trash"
-                                class="p-button-text p-button-sm p-button-secondary" pTooltip="Xóa"
+                                class="p-button-text p-button-sm p-button-danger" pTooltip="Xóa máy"
                                 (click)="delete(item)"></button>
                         </td>
+                    </tr>
+                    <!-- Dòng con: Các công việc thuộc máy (item.listCongViec) -->
+                    <tr *ngFor="let cv of item.listCongViec; let cIdx = index">
+                        <td class="text-center text-muted">{{i + 1}}.{{cIdx + 1}}</td>
+                        <td colspan="2" class="text-right text-muted" style="font-size: 0.85rem; font-style: italic;">
+                        </td>
+                        <!-- Nội dung công việc -->
+                        <td>
+                            <p-dropdown [filter]="true" [options]="item.listSanLuongDropdown" appendTo="body"
+                                placeholder="Chọn công việc" [showClear]="true" styleClass="p-inputtext-sm"
+                                [(ngModel)]="cv.IdSanLuongMay" (ngModelChange)="onChangeSanLuong(cv, item)"
+                                [style]="{'width': '100%'}"></p-dropdown>
+                        </td>
+                        <!-- Loại nhiên liệu (hiển thị dạng text) -->
+                        <td class="text-center">
+                            {{cv.TendmLoaiNhienLieu}}
+                        </td>
+                        <!-- Đơn vị tính -->
+                        <td class="text-center">
+                            {{cv.DonViTinh_NhienLieu}}
+                        </td>
+                        <!-- Định mức tiêu hao -->
+                        <td class="text-right">
+                            {{ (cv.DinhMuc || cv.TieuHaoDinhMuc) | number }}
+                        </td>
+                        <!-- Tiêu hao thực tế -->
+                        <td class="text-center">
+                            <p-inputNumber locale="en-EN" [(ngModel)]="cv.TieuThu" [minFractionDigits]="2"
+                                [maxFractionDigits]="2" (ngModelChange)="handleChiPhiTaiSan(cv)" placeholder=""
+                                styleClass="p-inputtext-sm" [style]="{'width': '100%'}">
+                            </p-inputNumber>
+                        </td>
+                        <!-- Đơn giá -->
+                        <td>
+                            <p-inputNumber locale="en-EN" [(ngModel)]="cv.DonGia" placeholder=""
+                                (ngModelChange)="handleChiPhiTaiSan(cv)" styleClass="p-inputtext-sm" [style]="{'width': '100%'}">
+                            </p-inputNumber>
+                        </td>
+                        <!-- Thành tiền -->
+                        <td class="text-right">
+                            {{cv.ThanhTien | number:'0.0-0' }}
+                        </td>
+                        <!-- Ghi chú -->
+                        <td>
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="cv.GhiChu" pInputText
+                                style="width: 100%" placeholder="Ghi chú" />
+                        </td>
+                        <!-- Xóa dòng con -->
+                        <td class="text-center">
+                            <button pButton pRipple type="button" icon="pi pi-times"
+                                class="p-button-text p-button-sm p-button-danger" pTooltip="Xóa công việc"
+                                (click)="deleteCongViec(item, cIdx)"></button>
+                        </td>
+                    </tr>
+                    <!-- Khi chưa có công việc -->
+                    <tr *ngIf="!item.listCongViec || item.listCongViec.length === 0">
+                        <td class="text-center text-muted">{{i + 1}}.1</td>
+                        <td colspan="10" class="text-center text-muted" style="font-style: italic; padding: 6px;">
+                            Chưa có công việc nào. Nhấn
+                            <a href="javascript:void(0)" (click)="addCongViec(item)">+ Thêm công việc</a> để thêm dòng.
+                        </td>
+                        <td></td>
                     </tr>
                 </ng-template>
             </p-table>

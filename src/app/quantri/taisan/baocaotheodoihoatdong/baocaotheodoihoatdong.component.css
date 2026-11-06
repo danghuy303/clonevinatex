@@ -12,5 +12,23 @@
 }
 
 :host ::ng-deep .p-multiselect {
-    min-width: 200px;
+    min-width: 180px;
+    width: 100%;
+}
+
+:host ::ng-deep app-select-bo-phan,
+:host ::ng-deep app-select-bo-phan .p-dropdown {
+    width: 100% !important;
+}
+
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .filter-item {
+        max-width: 100% !important;
+    }
 }

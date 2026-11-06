@@ -1,83 +1,179 @@
 <div class="modal-header">
-    <h5 class="modal-title">
-        {{title}}</h5>
+    <h5 class="modal-title">{{title}}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
-<div class="modal-body">
-    <div class="p-grid">
-        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
-            <label class="">Mã : </label>
-            <div class="">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
-            </div>
+
+<div class="modal-body p-fluid">
+    <!-- FORM THÔNG TIN CƠ BẢN -->
+    <div class="p-grid p-nogutter">
+        <!-- Hàng 1 -->
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="font-weight-500">Mã :</label>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
         </div>
-        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
-            <label class="">Tên : </label>
-            <div class="">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
-            </div>
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="font-weight-500">Tên :</label>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
         </div>
-        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
-            <label class="">Loại máy/thiết bị/vật tư <span class="text-danger">(*)</span> : </label>
-            <div class="">
-                <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmLoaiTaiSan"></p-dropdown>
-            </div>
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="font-weight-500">Loại máy/thiết bị/vật tư <span class="text-danger">(*)</span> :</label>
+            <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn" [(ngModel)]="item.IddmLoaiTaiSan"
+                [showClear]="true" styleClass="p-inputtext-sm" appendTo="body"></p-dropdown>
         </div>
-        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
-            <label class="">Catalog No. : </label>
-            <div class="">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Catalog" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
-            <label class="">Part No. : </label>
-            <div class="">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.PartNo" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
-            <label class="">Xuất xứ : </label>
-            <div class="">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NuocSanXuat" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
-            <label class="">Tuổi thọ : </label>
-            <div class="">
-                <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.TuoiTho">
-                </p-inputNumber>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
-            <label class="">Vị trí : </label>
-            <div class="">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ViTri" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
-            <label class="">Đơn vị tính : </label>
-            <div class="">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViTinh" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-pt-0 d-flex flex-column">
-            <label class="">Địa chỉ giá kho : </label>
-            <div class="">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DiaChiGiaKho" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-pt-0 d-flex flex-column">
-            <label class="">Ghi chú : </label>
-            <div class="">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
-            </div>
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="font-weight-500">Catalog No. :</label>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Catalog" pInputText />
         </div>
 
+        <!-- Hàng 2 -->
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="font-weight-500">Part No. :</label>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.PartNo" pInputText />
+        </div>
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="font-weight-500">Xuất xứ :</label>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NuocSanXuat" pInputText />
+        </div>
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="font-weight-500">Tuổi thọ :</label>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TuoiTho" pInputText />
+        </div>
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="font-weight-500">Vị trí :</label>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ViTri" pInputText />
+        </div>
 
+        <!-- Hàng 3 -->
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="font-weight-500">Đơn vị tính :</label>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViTinh" pInputText />
+        </div>
+        <div class="p-col-12 p-lg-3 p-p-2">
+            <label class="font-weight-500">Địa chỉ giá kho :</label>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DiaChiGiaKho" pInputText />
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-2">
+            <label class="font-weight-500">Ghi chú :</label>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+        </div>
     </div>
+
+    <!-- TIÊU ĐỀ & NÚT THAO TÁC BẢNG ĐỊNH MỨC -->
+    <div class="p-d-flex p-jc-between p-ai-center mt-3 mb-2">
+        <h6 class="font-weight-bold mb-0" style="color: #0b6cb8; font-size: 0.95rem; text-transform: uppercase;">
+            ĐỊNH MỨC NSMMTB, NSLĐ VÀ NHIÊN LIỆU
+        </h6>
+        <div class="p-d-flex p-flex-row">
+            <button pButton pRipple type="button" icon="pi pi-upload" label="Nhập Excel" class="p-button-sm p-mr-2"
+                (click)="nhapExcel()"></button>
+            <button pButton pRipple type="button" icon="pi pi-download" label="Xuất Excel"
+                class="p-button-sm p-button-outlined p-button-secondary" (click)="xuatExcel()"></button>
+        </div>
+    </div>
+
+    <!-- BẢNG ĐỊNH MỨC -->
+    <p-table [value]="item.listDinhMuc" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm w-100">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width: 4%;">
+                <col style="width: 24%;">
+                <col style="width: 6.5%;">
+                <col style="width: 7.5%;">
+                <col style="width: 6.5%;">
+                <col style="width: 7.5%;">
+                <col style="width: 12%;">
+                <col style="width: 6.5%;">
+                <col style="width: 7.5%;">
+                <col style="width: 13.5%;">
+                <col style="width: 4.5%;">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th rowspan="2" class="text-center align-middle">STT</th>
+                <th rowspan="2" class="text-center align-middle">Danh mục (công việc)</th>
+                <th colspan="2" class="text-center">Định mức NSMMTB (sản)</th>
+                <th colspan="2" class="text-center">Định mức NSLĐ (sản)</th>
+                <th colspan="3" class="text-center">Định mức tiêu hao nhiên liệu (trần)</th>
+                <th rowspan="2" class="text-center align-middle">Ghi chú</th>
+                <th rowspan="2" class="text-center align-middle">
+                    <button pButton pRipple type="button" icon="pi pi-plus"
+                        class="p-button-rounded p-button-sm"
+                        (click)="addDinhMuc()" pTooltip="Thêm mới"></button>
+                </th>
+            </tr>
+            <tr>
+                <th class="text-center">ĐVT</th>
+                <th class="text-center">NSMMTB</th>
+                <th class="text-center">ĐVT</th>
+                <th class="text-center">NSLĐ</th>
+                <th class="text-center">Loại nhiên liệu</th>
+                <th class="text-center">ĐVT</th>
+                <th class="text-center">Mức tiêu hao</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row let-i="rowIndex">
+            <tr>
+                <td class="text-center">{{i + 1}}</td>
+                <td>
+                    <input type="text" class="p-inputtext-sm w-100" [(ngModel)]="row.Ten" pInputText />
+                </td>
+                <td>
+                    <input type="text" class="p-inputtext-sm text-center w-100" [(ngModel)]="row.DonViTinh_NSMMTB" pInputText />
+                </td>
+                <td>
+                    <p-inputNumber locale="en-EN" [(ngModel)]="row.NSMMTB" [minFractionDigits]="0"
+                        [maxFractionDigits]="3" styleClass="p-inputtext-sm w-100" class="w-100">
+                    </p-inputNumber>
+                </td>
+                <td>
+                    <input type="text" class="p-inputtext-sm text-center w-100" [(ngModel)]="row.DonViTinh_NSLD" pInputText />
+                </td>
+                <td>
+                    <p-inputNumber locale="en-EN" [(ngModel)]="row.NSLD" [minFractionDigits]="0"
+                        [maxFractionDigits]="3" styleClass="p-inputtext-sm w-100" class="w-100">
+                    </p-inputNumber>
+                </td>
+                <td>
+                    <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" appendTo="body" placeholder="Chọn"
+                        [showClear]="true" styleClass="p-inputtext-sm w-100" [style]="{'width': '100%'}" [(ngModel)]="row.IddmLoaiNhienLieu"
+                        (onChange)="onChangeLoaiNhienLieu(row)"></p-dropdown>
+                </td>
+                <td>
+                    <input type="text" class="p-inputtext-sm text-center w-100" [(ngModel)]="row.DonViTinh_NhienLieu" pInputText />
+                </td>
+                <td>
+                    <p-inputNumber locale="en-EN" [(ngModel)]="row.MucTieuHao" [minFractionDigits]="0"
+                        [maxFractionDigits]="4" styleClass="p-inputtext-sm w-100" class="w-100">
+                    </p-inputNumber>
+                </td>
+                <td>
+                    <input type="text" class="p-inputtext-sm w-100" [(ngModel)]="row.GhiChu" pInputText />
+                </td>
+                <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-trash"
+                        class="p-button-text p-button-sm p-button-secondary" pTooltip="Xóa"
+                        (click)="deleteDinhMuc(i)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="11" class="text-center text-muted p-p-2">
+                    Chưa có dữ liệu
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
-<div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-end p-mb-3">
-    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2 p-button-secondary"
-        (click)="activeModal.dismiss()"></button>
-    <button pButton pRipple label="Chấp nhận" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
+
+<div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-between p-ai-center">
+    <span class="text-muted" style="font-size: 0.875rem;">(*) Trường bắt buộc</span>
+    <div>
+        <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2 p-button-secondary"
+            (click)="activeModal.dismiss()"></button>
+        <button pButton pRipple label="Chấp nhận" icon="pi pi-save" class="p-button-sm" (click)="GhiLai()"></button>
+    </div>
 </div>

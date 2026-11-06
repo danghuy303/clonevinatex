@@ -215,6 +215,64 @@
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
         </div>
     </div>
+
+    <!-- Thông tin chuyên dùng & Đăng ký -->
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Kiểu chuyên dùng : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.KieuChuyenDung"
+                placeholder="Nhập kiểu chuyên dùng" pInputText />
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Mầu sơn : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MauSon" placeholder="Nhập mầu sơn" pInputText />
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số GCN đăng ký : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoGiayChungNhanDangKy"
+                placeholder="Nhập số GCN đăng ký" pInputText />
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Ngày cấp GCN : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
+                [(ngModel)]="item.NgayCapGiayChungNhanDangKy" inputId="icon" placeholder="dd/mm/yyyy" appendTo="body">
+            </p-calendar>
+        </div>
+    </div>
+
+    <!-- Khấu hao & Đại tu -->
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">TG khấu hao còn lại : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <p-inputNumber [min]="0" locale="en-EN" [(ngModel)]="item.ThoiGianKhauHaoConLai" mode="decimal"
+                [minFractionDigits]="1" [maxFractionDigits]="1" placeholder="Số năm">
+            </p-inputNumber>
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số lần đại tu : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <p-inputNumber [min]="0" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLanDaiTu"
+                placeholder="Số lần">
+            </p-inputNumber>
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">TG đại tu gần nhất : </label>
+        <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianDaiTuGanNhat"
+                inputId="icon" placeholder="dd/mm/yyyy" appendTo="body">
+            </p-calendar>
+        </div>
+    </div>
     <div class="p-col-12 p-lg-8 p-p-2">
         <div class="card p-3"
             style="border: 1.5px solid #90caf9; border-radius: 8px; background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%); box-shadow: 0 2px 6px rgba(0, 123, 255, 0.08);">

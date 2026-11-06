@@ -1,172 +1,166 @@
-<p-table [value]="flatRows" [rowTrackBy]="trackByRow"
-    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+<div class="p-d-flex p-flex-row p-jc-between p-mb-2">
+    <div>
+        <button *ngIf="isXoa" pButton pRipple type="button" icon="pi pi-bookmark" label="Lấy định mức từ danh mục"
+            class="p-button-sm p-mr-2" (click)="layDinhMucTuDanhMuc()"></button>
+    </div>
+    <div class="p-d-flex p-flex-row">
+        <button *ngIf="isXoa" pButton pRipple type="button" icon="pi pi-upload" label="Nhập Excel"
+            class="p-button-sm p-mr-2" (click)="nhapExcel()"></button>
+        <button pButton pRipple type="button" icon="pi pi-download" label="Xuất Excel"
+            class="p-button-sm p-button-outlined p-button-secondary" (click)="xuatExcel()"></button>
+    </div>
+</div>
+
+<p-table [value]="listSanLuong" [rowTrackBy]="trackByRow" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
     <ng-template pTemplate="colgroup">
         <colgroup>
-            <col style="width:50px">
-            <col style="width:200px">
-            <col style="width:100px">
-            <col style="width:120px">
-            <col style="width:180px">
-            <col style="width:100px">
-            <col style="width:120px">
-            <col style="width:100px">
-            <col style="width:100px">
-            <col style="width:100px">
-            <col style="">
-            <col *ngIf="isXoa" style="width:100px">
+            <col style="width: 45px;">
+            <col style="width: 220px;">
+            <col style="width: 90px;">
+            <col style="width: 100px;">
+            <col style="width: 90px;">
+            <col style="width: 100px;">
+            <col style="width: 140px;">
+            <col style="width: 90px;">
+            <col style="width: 100px;">
+            <col style="width: 105px;">
+            <col style="width: 105px;">
+            <col style="width: 105px;">
+            <col style="width: 150px;">
+            <col style="width: 60px;">
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th rowspan="2" style="width: 50px;" class="text-center">STT</th>
-            <th rowspan="2" style="width: 200px;" class="text-center">Nội dung công việc</th>
-            <th colspan="2" class="text-center">Sản lượng</th>
-            <th colspan="3" class="text-center">Nhiên liệu</th>
+            <th rowspan="2" class="text-center">STT</th>
+            <th rowspan="2" class="text-center">Nội dung công việc</th>
+            <th colspan="2" class="text-center">Sản lượng (NSMMTB)</th>
+            <th colspan="2" class="text-center">Năng suất lao động (NSLĐ)</th>
+            <th colspan="3" class="text-center">Định mức tiêu hao nhiên liệu</th>
             <th colspan="3" class="text-center">Thời gian làm việc</th>
             <th rowspan="2" class="text-center">Ghi chú</th>
-            <th rowspan="2" *ngIf="isXoa" style="width: 100px;" class="text-center">
-                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm"
-                    (click)="addParent()" pTooltip="Thêm sản lượng" tooltipPosition="bottom">
+            <th rowspan="2" class="text-center" style="width: 60px;">
+                <button *ngIf="isXoa" pButton pRipple type="button" icon="pi pi-plus"
+                    class="p-button-rounded p-button-sm" (click)="addDinhMuc()" pTooltip="Thêm mới">
                 </button>
             </th>
         </tr>
         <tr>
-            <th style="width: 100px;" class="text-center">ĐVT</th>
-            <th style="width: 120px;" class="text-center">Định mức</th>
-            <th style="width: 180px;" class="text-center">Loại nhiên liệu</th>
-            <th style="width: 100px;" class="text-center">ĐVT</th>
-            <th style="width: 120px;" class="text-center">Định mức</th>
-            <th style="width: 100px;" class="text-center">Số ca làm việc / ngày</th>
-            <th style="width: 100px;" class="text-center">Số ngày làm / tháng</th>
-            <th style="width: 100px;" class="text-center">Số tháng làm / năm</th>
+            <th class="text-center">ĐVT</th>
+            <th class="text-center">Định mức</th>
+            <th class="text-center">ĐVT</th>
+            <th class="text-center">Định mức</th>
+            <th class="text-center">Loại nhiên liệu</th>
+            <th class="text-center">ĐVT</th>
+            <th class="text-center">Định mức</th>
+            <th class="text-center">Số ca làm việc / ngày</th>
+            <th class="text-center">Số ngày làm / tháng</th>
+            <th class="text-center">Số tháng làm / năm</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-row let-i="rowIndex">
         <tr>
-            <!-- STT -->
-            <td class="text-center">
-                <span *ngIf="row.isParent">{{row.parentIndex + 1}}</span>
-            </td>
+            <td class="text-center">{{i + 1}}</td>
 
-            <!-- Tên -->
+            <!-- Nội dung công việc -->
             <td>
-                <div style="display: flex; align-items: center; gap: 4px;">
-                    <button *ngIf="row.isParent && row.parentItem.listItem && row.parentItem.listItem.length > 0"
-                        pButton pRipple type="button"
-                        [icon]="row.parentItem.isExpanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-                        class="p-button-text p-button-sm p-p-0" style="width: 2rem; height: 2rem; padding: 0;"
-                        (click)="toggleExpand(row.parentItem)">
-                    </button>
-                    <input *ngIf="row.isParent" type="text" class="p-inputtext-sm" style="flex-grow: 1;"
-                        [(ngModel)]="row.parentItem.Ten" (ngModelChange)="changeData()" pInputText
-                        [disabled]="!isXoa" />
+                <div *ngIf="row.isTuDanhMuc" class="p-d-flex p-ai-center">
+                    <span>{{row.Ten || row.TenCongViec}}</span>
+                    <i class="pi pi-lock text-primary ml-1" style="font-size: 0.75rem;" pTooltip="Định mức từ danh mục"></i>
                 </div>
+                <input *ngIf="!row.isTuDanhMuc" type="text" class="p-inputtext-sm w-100" [(ngModel)]="row.Ten"
+                    (change)="syncRow(row)" (blur)="syncRow(row)" pInputText [disabled]="!isXoa" />
             </td>
 
-            <!-- Sản lượng - ĐVT -->
-            <td>
-                <input *ngIf="row.isParent" type="text" class="p-inputtext-sm"
-                    [(ngModel)]="row.parentItem.DonViTinh_SanLuong" (ngModelChange)="changeData()" pInputText
-                    [disabled]="!isXoa" />
+            <!-- NSMMTB - ĐVT -->
+            <td class="text-center">
+                <span *ngIf="row.isTuDanhMuc">{{row.DonViTinh_NSMMTB || row.DonViTinh_SanLuong || row.DonViTinh}}</span>
+                <input *ngIf="!row.isTuDanhMuc" type="text" class="p-inputtext-sm text-center w-100"
+                    [(ngModel)]="row.DonViTinh_NSMMTB" (change)="syncRow(row)" (blur)="syncRow(row)" pInputText [disabled]="!isXoa" />
             </td>
 
-            <!-- Sản lượng - Định mức -->
-            <td>
-                <p-inputNumber *ngIf="row.isParent" locale="en-EN" [(ngModel)]="row.parentItem.SanLuong"
-                    (ngModelChange)="changeData()" [minFractionDigits]="2" [maxFractionDigits]="2" [disabled]="!isXoa">
+            <!-- NSMMTB - Định mức -->
+            <td class="text-right">
+                <span *ngIf="row.isTuDanhMuc">{{(row.NSMMTB !== undefined && row.NSMMTB !== null ? row.NSMMTB : row.SanLuong) | number:'1.0-3'}}</span>
+                <p-inputNumber *ngIf="!row.isTuDanhMuc" locale="en-EN" [(ngModel)]="row.NSMMTB"
+                    (onBlur)="syncRow(row)" [minFractionDigits]="0" [maxFractionDigits]="3" [disabled]="!isXoa"
+                    styleClass="p-inputtext-sm w-100" class="w-100">
                 </p-inputNumber>
             </td>
 
-            <!-- Nhiên liệu - Loại nhiên liệu -->
+            <!-- NSLĐ - ĐVT -->
+            <td class="text-center">
+                <span *ngIf="row.isTuDanhMuc">{{row.DonViTinh_NSLD || row.DonViTinh_NhanCong}}</span>
+                <input *ngIf="!row.isTuDanhMuc" type="text" class="p-inputtext-sm text-center w-100"
+                    [(ngModel)]="row.DonViTinh_NSLD" (change)="syncRow(row)" (blur)="syncRow(row)" pInputText [disabled]="!isXoa" />
+            </td>
+
+            <!-- NSLĐ - Định mức -->
+            <td class="text-right">
+                <span *ngIf="row.isTuDanhMuc">{{(row.NSLD !== undefined && row.NSLD !== null ? row.NSLD : row.NhanCong) | number:'1.0-3'}}</span>
+                <p-inputNumber *ngIf="!row.isTuDanhMuc" locale="en-EN" [(ngModel)]="row.NSLD"
+                    (onBlur)="syncRow(row)" [minFractionDigits]="0" [maxFractionDigits]="3" [disabled]="!isXoa"
+                    styleClass="p-inputtext-sm w-100" class="w-100">
+                </p-inputNumber>
+            </td>
+
+            <!-- Loại nhiên liệu -->
             <td>
-                <ng-container *ngIf="row.isParent">
-                    <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn" [showClear]="true"
-                        styleClass="p-inputtext-sm" [(ngModel)]="row.parentItem.IddmLoaiNhienLieu"
-                        (onChange)="onChangeLoaiNhienLieu(row.parentItem, $event)" [disabled]="!isXoa"></p-dropdown>
-                </ng-container>
-                <ng-container *ngIf="!row.isParent && row.childItem">
-                    <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" placeholder="Chọn" [showClear]="true"
-                        styleClass="p-inputtext-sm" [(ngModel)]="row.childItem.IddmLoaiNhienLieu"
-                        (onChange)="onChangeLoaiNhienLieu(row.childItem, $event)" [disabled]="!isXoa"></p-dropdown>
-                </ng-container>
+                <span *ngIf="row.isTuDanhMuc">{{row.TendmLoaiNhienLieu}}</span>
+                <p-dropdown *ngIf="!row.isTuDanhMuc" [filter]="true" [options]="listLoaiNhienLieu" appendTo="body"
+                    placeholder="Chọn" [showClear]="true" styleClass="p-inputtext-sm w-100" [style]="{'width': '100%'}"
+                    [(ngModel)]="row.IddmLoaiNhienLieu" (onChange)="onChangeLoaiNhienLieu(row)" [disabled]="!isXoa">
+                </p-dropdown>
             </td>
 
             <!-- Nhiên liệu - ĐVT -->
-            <td>
-                <ng-container *ngIf="row.isParent">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="row.parentItem.DonViTinh_NhienLieu"
-                        pInputText [disabled]="true" />
-                </ng-container>
-                <ng-container *ngIf="!row.isParent && row.childItem">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="row.childItem.DonViTinh_NhienLieu" pInputText
-                        [disabled]="true" />
-                </ng-container>
+            <td class="text-center">
+                <span *ngIf="row.isTuDanhMuc">{{row.DonViTinh_NhienLieu}}</span>
+                <input *ngIf="!row.isTuDanhMuc" type="text" class="p-inputtext-sm text-center w-100"
+                    [(ngModel)]="row.DonViTinh_NhienLieu" (change)="syncRow(row)" (blur)="syncRow(row)" pInputText [disabled]="!isXoa" />
             </td>
 
             <!-- Nhiên liệu - Định mức -->
+            <td class="text-right">
+                <span *ngIf="row.isTuDanhMuc">{{(row.MucTieuHao !== undefined && row.MucTieuHao !== null ? row.MucTieuHao : row.NhienLieu) | number:'1.0-4'}}</span>
+                <p-inputNumber *ngIf="!row.isTuDanhMuc" locale="en-EN" [(ngModel)]="row.MucTieuHao"
+                    (onBlur)="syncRow(row)" [minFractionDigits]="0" [maxFractionDigits]="4" [disabled]="!isXoa"
+                    styleClass="p-inputtext-sm w-100" class="w-100">
+                </p-inputNumber>
+            </td>
+
+            <!-- Số ca làm việc / ngày -->
             <td>
-                <ng-container *ngIf="row.isParent">
-                    <p-inputNumber locale="en-EN" [(ngModel)]="row.parentItem.NhienLieu" (ngModelChange)="changeData()"
-                        [minFractionDigits]="5" [maxFractionDigits]="10" [disabled]="!isXoa">
-                    </p-inputNumber>
-                </ng-container>
-                <ng-container *ngIf="!row.isParent && row.childItem">
-                    <p-inputNumber locale="en-EN" [(ngModel)]="row.childItem.NhienLieu" (ngModelChange)="changeData()"
-                        [minFractionDigits]="5" [maxFractionDigits]="10" [disabled]="!isXoa">
-                    </p-inputNumber>
-                </ng-container>
-            </td>
-
-            <!-- Thời gian làm việc - Số ca làm việc/ngày -->
-            <td [class.cell-disabled]="!row.isParent">
-                <p-inputNumber *ngIf="row.isParent" locale="en-EN" [(ngModel)]="row.parentItem.SoCa"
-                    (ngModelChange)="changeData()" [disabled]="!isXoa">
+                <p-inputNumber locale="en-EN" [(ngModel)]="row.SoCa" (onBlur)="syncRow(row)" [disabled]="!isXoa"
+                    styleClass="p-inputtext-sm text-center w-100" class="w-100">
                 </p-inputNumber>
             </td>
 
-            <!-- Thời gian làm việc - Số ngày làm/tháng -->
-            <td [class.cell-disabled]="!row.isParent">
-                <p-inputNumber *ngIf="row.isParent" locale="en-EN" [(ngModel)]="row.parentItem.SoNgay"
-                    (ngModelChange)="changeData()" [disabled]="!isXoa">
+            <!-- Số ngày làm / tháng -->
+            <td>
+                <p-inputNumber locale="en-EN" [(ngModel)]="row.SoNgay" (onBlur)="syncRow(row)" [disabled]="!isXoa"
+                    styleClass="p-inputtext-sm text-center w-100" class="w-100">
                 </p-inputNumber>
             </td>
 
-            <!-- Thời gian làm việc - Số tháng làm/năm -->
-            <td [class.cell-disabled]="!row.isParent">
-                <p-inputNumber *ngIf="row.isParent" locale="en-EN" [(ngModel)]="row.parentItem.SoThang"
-                    (ngModelChange)="changeData()" [disabled]="!isXoa">
+            <!-- Số tháng làm / năm -->
+            <td>
+                <p-inputNumber locale="en-EN" [(ngModel)]="row.SoThang" (onBlur)="syncRow(row)" [disabled]="!isXoa"
+                    styleClass="p-inputtext-sm text-center w-100" class="w-100">
                 </p-inputNumber>
             </td>
 
             <!-- Ghi chú -->
-            <td [class.cell-disabled]="!row.isParent">
-                <input *ngIf="row.isParent" type="text" class="p-inputtext-sm" [(ngModel)]="row.parentItem.GhiChu"
-                    (ngModelChange)="changeData()" pInputText [disabled]="!isXoa" />
+            <td>
+                <input type="text" class="p-inputtext-sm w-100" [(ngModel)]="row.GhiChu" (change)="syncRow(row)"
+                    (blur)="syncRow(row)" pInputText [disabled]="!isXoa" />
             </td>
 
-            <!-- Actions -->
-            <td *ngIf="isXoa" class="text-center">
-                <div class="p-d-flex p-jc-center p-ai-center" style="gap: 4px;">
-                    <!-- Actions for parent row -->
-                    <ng-container *ngIf="row.isParent">
-                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-sm p-button-rounded"
-                            (click)="addChild(row.parentItem)" pTooltip="Thêm nhiên liệu" showDelay="500"
-                            tooltipPosition="bottom">
-                        </button>
-                        <button pButton pRipple icon="pi pi-trash"
-                            class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                            (click)="deleteParent(row.parentIndex)" pTooltip="Xóa sản lượng" showDelay="500"
-                            tooltipPosition="bottom"></button>
-                    </ng-container>
-
-                    <!-- Actions for child row -->
-                    <ng-container *ngIf="!row.isParent">
-                        <button pButton pRipple icon="pi pi-trash"
-                            class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                            (click)="deleteChild(row.parentItem, row.childIndex)" pTooltip="Xóa nhiên liệu"
-                            showDelay="500" tooltipPosition="bottom"></button>
-                    </ng-container>
-                </div>
+            <!-- Thao tác -->
+            <td class="text-center">
+                <button *ngIf="isXoa" pButton pRipple type="button" icon="pi pi-trash"
+                    class="p-button-text p-button-sm p-button-secondary" (click)="deleteRow(i)"
+                    pTooltip="Xóa"></button>
             </td>
         </tr>
     </ng-template>

@@ -2,26 +2,29 @@
     <h4 style="color:#1f2779; font-weight: 600;">Báo cáo theo dõi khối lượng hoạt động</h4>
 </div>
 
-<div class="p-d-flex p-flex-column p-flex-md-row p-jc-between p-ai-md-center p-mb-3">
+<div class="p-d-flex p-flex-column p-flex-xl-row p-jc-xl-between p-ai-xl-center p-mb-3">
     <!-- Nút hành động bên trái -->
-    <div class="p-d-flex p-flex-row p-mb-2 p-mb-md-0">
-        <button pButton pRipple label="Xuất excel" icon="pi pi-file-excel" class="p-button-sm p-button-success p-mr-2"
+    <div class="p-d-flex p-flex-wrap p-ai-center p-mb-2 p-mb-xl-0">
+        <button pButton pRipple label="Xuất excel" icon="pi pi-file-excel" class="p-button-sm p-button-success p-mr-2 p-mb-2"
             (click)="exportExcel()"></button>
-        <button pButton pRipple label="Làm mới" icon="pi pi-refresh" class="p-button-sm p-button-secondary"
+        <button pButton pRipple [label]="isAllExpanded ? 'Thu gọn tất cả' : 'Mở rộng tất cả'"
+            [icon]="isAllExpanded ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"
+            class="p-button-sm p-button-outlined p-button-secondary p-mr-2 p-mb-2" (click)="toggleExpandAll()"></button>
+        <button pButton pRipple label="Làm mới" icon="pi pi-refresh" class="p-button-sm p-button-secondary p-mb-2"
             (click)="resetFilter()"></button>
     </div>
 
     <!-- Bộ lọc bên phải -->
-    <div class="p-d-flex p-flex-row p-flex-wrap p-ai-center">
+    <div class="p-d-flex p-flex-wrap p-ai-center filter-group">
         <!-- Bộ phận sử dụng -->
-        <div class="p-mr-2 p-mb-2">
+        <div class="p-mr-2 p-mb-2 filter-item" style="min-width: 170px; max-width: 240px; flex: 1 1 auto;">
             <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="onChangeBoPhan()" [options]="listBoPhan"
                 placeholder="Chọn bộ phận sử dụng">
             </app-select-bo-phan>
         </div>
 
         <!-- Máy/thiết bị (dropdown listTaiSan) -->
-        <div class="p-mr-2 p-mb-2" style="min-width: 200px; max-width: 250px;">
+        <div class="p-mr-2 p-mb-2 filter-item" style="min-width: 180px; max-width: 250px; flex: 1 1 auto;">
             <p-multiSelect [options]="listTaiSan" [(ngModel)]="filter.listIdTaiSan" defaultLabel="Chọn máy/thiết bị"
                 selectedItemsLabel="{0} máy/thiết bị" [filter]="true" [showClear]="true" (onChange)="GetList(true)"
                 styleClass="p-inputtext-sm w-100" appendTo="body">
@@ -29,23 +32,23 @@
         </div>
 
         <!-- Từ ngày -->
-        <div class="p-mr-2 p-mb-2">
+        <div class="p-mr-2 p-mb-2 filter-item" style="width: 135px; flex: 0 0 135px;">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="tuNgay" placeholder="Từ ngày" [locale]="lang"
-                (onSelect)="GetList(true)">
+                (onSelect)="GetList(true)" styleClass="w-100" [style]="{'width': '100%'}">
             </p-calendar>
         </div>
 
         <!-- Đến ngày -->
-        <div class="p-mr-2 p-mb-2">
+        <div class="p-mr-2 p-mb-2 filter-item" style="width: 135px; flex: 0 0 135px;">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.DenNgay" inputId="denNgay" placeholder="Đến ngày" [locale]="lang"
-                [minDate]="filter.TuNgay" (onSelect)="GetList(true)">
+                [minDate]="filter.TuNgay" (onSelect)="GetList(true)" styleClass="w-100" [style]="{'width': '100%'}">
             </p-calendar>
         </div>
 
         <!-- Ô tìm kiếm từ khóa -->
-        <div class="p-inputgroup p-mb-2" style="width: 200px;">
+        <div class="p-inputgroup p-mb-2 filter-item" style="min-width: 160px; max-width: 200px; flex: 1 1 auto;">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
                 (keyup.enter)="GetList(true)" />
             <button type="button" pButton pRipple icon="pi pi-search"
@@ -77,42 +80,111 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr>
-                <td class="text-center font-weight-bold">
-                    {{ item.STT || (i + 1 + (paging.CurrentPage - 1) * paging.PageSize) }}
-                </td>
-                <td class="text-center">
-                    {{ item.NgayThang || (item.NgayUnix ? (item.NgayUnix * 1000 | date:'dd/MM/yyyy') : (item.Ngay |
-                    date:'dd/MM/yyyy')) || item.Ngay }}
-                </td>
-                <td>
-                    <span class="font-weight-500">{{ item.NoiDungCongViec || item.NoiDung || item.CongViec }}</span>
-                    <div *ngIf="item.TenTaiSan || item.MaTaiSan" class="text-muted small">
-                        <span>{{ item.MaTaiSan ? item.MaTaiSan + ' - ' : '' }}{{ item.TenTaiSan }}</span>
-                    </div>
-                </td>
-                <td class="text-center">
-                    {{ item.ThoiGianTuDen || item.TuDen || (item.TuGio && item.DenGio ? (item.TuGio + ' - ' +
-                    item.DenGio) : (item.TuGio || item.DenGio || '')) }}
-                </td>
-                <td class="text-right font-weight-bold">
-                    {{ item.TongThoiGian !== undefined ? item.TongThoiGian : (item.Tong !== undefined ? item.Tong :
-                    (item.ThoiGianLamViecTong !== undefined ? item.ThoiGianLamViecTong : item.TongGio)) }}
-                </td>
-                <td class="text-right">
-                    {{ (item.KhoiLuong !== undefined ? item.KhoiLuong : (item.KetQuaKhoiLuong !== undefined ?
-                    item.KetQuaKhoiLuong : (item.SoLuong !== undefined ? item.SoLuong : item.SanLuong))) | number }}
-                </td>
-                <td class="text-center">
-                    {{ item.DonViTinh || item.DVT || item.KetQuaDonViTinh }}
-                </td>
-                <td>
-                    {{ item.SuDungNL_DMP || item.SuDungNL || item.NhienLieu || item.NhienLieuDMP }}
-                </td>
-                <td class="text-center">
-                    {{ item.XacNhanNguoiQuanLy || item.NguoiQuanLyXacNhan || item.XacNhan || item.NguoiQuanLy }}
-                </td>
-            </tr>
+            <!-- Nếu có listHoatDong (Cấu trúc phân cấp Máy/Thiết bị -> Hoạt động) -->
+            <ng-container *ngIf="item.listHoatDong; else flatRow">
+                <!-- Dòng cha: Thiết bị / Máy -->
+                <tr class="table-secondary font-weight-bold" style="background-color: #f1f3f5; cursor: pointer;"
+                    (click)="toggleItem(item)">
+                    <td class="text-center font-weight-bold" style="background-color: #e9ecef;">
+                        <i class="pi p-mr-1"
+                            [ngClass]="item.isExpanded !== false ? 'pi-chevron-down' : 'pi-chevron-right'"
+                            style="font-size: 0.8rem; color: #495057;"></i>
+                        {{ i + 1 + (paging.CurrentPage - 1) * paging.PageSize }}
+                    </td>
+                    <td colspan="8" class="font-weight-bold text-primary">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            <div>
+                                <i class="pi pi-cog p-mr-1"></i>
+                                <span>{{ item.Ma ? (item.Ma + ' - ') : '' }}{{ item.Ten }}</span>
+                            </div>
+                            <span class="badge badge-light text-muted" *ngIf="item.isExpanded === false"
+                                style="font-size: 0.75rem; font-weight: normal; border: 1px solid #ced4da;">
+                                Đã thu gọn (nhấn để mở)
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Dòng con: Các hoạt động của thiết bị -->
+                <ng-container *ngIf="item.isExpanded !== false">
+                    <tr *ngFor="let hd of item.listHoatDong; let cIdx = index">
+                        <td class="text-center text-muted" style="font-size: 0.9rem;">
+                            {{ i + 1 }}.{{ cIdx + 1 }}
+                        </td>
+                        <td class="text-center">
+                            {{ (hd.Ngay | date:'dd/MM/yyyy') || hd.Ngay }}
+                        </td>
+                        <td>
+                            {{ hd.NoiDung }}
+                        </td>
+                        <td class="text-center">
+                            {{ hd.ThoiGianLamViec || (hd.TuGio && hd.DenGio ? (hd.TuGio + ' - ' + hd.DenGio) : (hd.TuGio
+                            || hd.DenGio || '')) }}
+                        </td>
+                        <td class="text-right font-weight-bold">
+                            {{ hd.ThoiGianLamViec_Tong !== null && hd.ThoiGianLamViec_Tong !== undefined ?
+                            (hd.ThoiGianLamViec_Tong | number) : '' }}
+                        </td>
+                        <td class="text-right">
+                            {{ hd.KhoiLuong !== null && hd.KhoiLuong !== undefined ? (hd.KhoiLuong | number) : '' }}
+                        </td>
+                        <td class="text-center">
+                            {{ hd.DonViTinh }}
+                        </td>
+                        <td>
+                            {{ hd.NhienLieu }}
+                        </td>
+                        <td class="text-center">
+                            {{ hd.XacNhanNguoiQuanLy || hd.NguoiQuanLy || '' }}
+                        </td>
+                    </tr>
+                    <tr *ngIf="item.listHoatDong.length === 0">
+                        <td></td>
+                        <td colspan="8" class="text-muted font-italic" style="padding-left: 20px;">
+                            Không có dữ liệu hoạt động
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-container>
+
+            <!-- Fallback cho dạng phẳng nếu có -->
+            <ng-template #flatRow>
+                <tr>
+                    <td class="text-center font-weight-bold">
+                        {{ item.STT || (i + 1 + (paging.CurrentPage - 1) * paging.PageSize) }}
+                    </td>
+                    <td class="text-center">
+                        {{ item.NgayThang || (item.NgayUnix ? (item.NgayUnix * 1000 | date:'dd/MM/yyyy') : (item.Ngay |
+                        date:'dd/MM/yyyy')) || item.Ngay }}
+                    </td>
+                    <td>
+                        <span class="font-weight-500">{{ item.NoiDungCongViec || item.NoiDung || item.CongViec }}</span>
+                        <div *ngIf="item.TenTaiSan || item.MaTaiSan" class="text-muted small">
+                            <span>{{ item.MaTaiSan ? item.MaTaiSan + ' - ' : '' }}{{ item.TenTaiSan }}</span>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        {{ item.ThoiGianTuDen || item.TuDen || (item.TuGio && item.DenGio ? (item.TuGio + ' - ' +
+                        item.DenGio) : (item.TuGio || item.DenGio || '')) }}
+                    </td>
+                    <td class="text-right font-weight-bold">
+                        {{ item.TongThoiGian !== undefined ? item.TongThoiGian : (item.Tong !== undefined ? item.Tong :
+                        (item.ThoiGianLamViecTong !== undefined ? item.ThoiGianLamViecTong : item.TongGio)) }}
+                    </td>
+                    <td class="text-right">
+                        {{ (item.KhoiLuong !== undefined ? item.KhoiLuong : (item.KetQuaKhoiLuong !== undefined ?
+                        item.KetQuaKhoiLuong : (item.SoLuong !== undefined ? item.SoLuong : item.SanLuong))) | number }}
+                    </td>
+                    <td class="text-center">
+                        {{ item.DonViTinh || item.DVT || item.KetQuaDonViTinh }}
+                    </td>
+                    <td>
+                        {{ item.SuDungNL_DMP || item.SuDungNL || item.NhienLieu || item.NhienLieuDMP }}
+                    </td>
+                    <td class="text-center">
+                        {{ item.XacNhanNguoiQuanLy || item.NguoiQuanLyXacNhan || item.XacNhan || item.NguoiQuanLy }}
+                    </td>
+                </tr>
+            </ng-template>
         </ng-template>
 
         <ng-template pTemplate="emptymessage">

@@ -209,8 +209,19 @@ p-calendar button.p-datepicker-trigger {
   /* min-width: 110px; */
 }
 
+.p-calendar.p-calendar-w-btn .p-inputtext,
+p-calendar.p-calendar-w-btn .p-inputtext,
+p-calendar > span.p-calendar-w-btn > input {
+  width: calc(100% - 2.357rem) !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
 
 p-calendar>span>button {
+  width: 2.357rem !important;
+  min-width: 2.357rem !important;
+  max-width: 2.357rem !important;
+  flex: 0 0 2.357rem !important;
   padding: 0.3rem 0 !important;
   color: #607d8b !important;
   background-color: transparent !important;

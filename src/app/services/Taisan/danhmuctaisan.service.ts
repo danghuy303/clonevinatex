@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { httpOptions, API } from './../host';
 import { StoreService } from '../store.service';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -431,6 +432,31 @@ export class DanhmuctaisanService {
       Exportdm: (data) => {
         data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyTaiSan/ExportdmLoaiTaiSan`, data, httpOptions)
+      },
+      ExportFileMauDinhMucSanLuong: (data?: any) => {
+        const idDuAn = this.store.getCurrent();
+        const payload = typeof data === 'object' ? { IdDuAn: idDuAn, ...data } : { Id: data || '', IdDuAn: idDuAn };
+        const id = payload.Id || '';
+        return this.http.get(`${url}QuanLyTaiSan/ExportFileMauDinhMucSanLuong?Id=${id}&IdDuAn=${idDuAn}`, httpOptions).pipe(
+          catchError((err: any) => {
+            if (err.status === 405) {
+              return this.http.post(`${url}QuanLyTaiSan/ExportFileMauDinhMucSanLuong`, payload, httpOptions);
+            }
+            throw err;
+          })
+        );
+      },
+      ImportDinhMucSanLuong: (FileName: string, Id?: string) => {
+        const idDuAn = this.store.getCurrent();
+        const payload = { FileName, Id: Id || '', IdDuAn: idDuAn };
+        return this.http.get(`${url}QuanLyTaiSan/ImportDinhMucSanLuong?FileName=${FileName}&Id=${Id || ''}&IdDuAn=${idDuAn}`, httpOptions).pipe(
+          catchError((err: any) => {
+            if (err.status === 405) {
+              return this.http.post(`${url}QuanLyTaiSan/ImportDinhMucSanLuong`, payload, httpOptions);
+            }
+            throw err;
+          })
+        );
       }
     }
   }

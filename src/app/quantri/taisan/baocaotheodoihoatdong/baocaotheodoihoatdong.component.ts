@@ -30,6 +30,7 @@ export class BaocaotheodoihoatdongComponent implements OnInit, OnDestroy {
     TotalCount: 0
   };
   loading: boolean = false;
+  isAllExpanded: boolean = true;
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   private $sub!: Subscription;
@@ -149,6 +150,13 @@ export class BaocaotheodoihoatdongComponent implements OnInit, OnDestroy {
         this.items = [];
         this.paging.TotalCount = 0;
       }
+      if (Array.isArray(this.items)) {
+        this.items.forEach(it => {
+          if (it.isExpanded === undefined) {
+            it.isExpanded = this.isAllExpanded;
+          }
+        });
+      }
     }, (err) => {
       this.loading = false;
       console.error(err);
@@ -189,6 +197,25 @@ export class BaocaotheodoihoatdongComponent implements OnInit, OnDestroy {
     };
     this.getListTaiSanDangSuDung();
     this.GetList(true);
+  }
+
+  toggleExpandAll(): void {
+    this.isAllExpanded = !this.isAllExpanded;
+    if (Array.isArray(this.items)) {
+      this.items.forEach(it => {
+        it.isExpanded = this.isAllExpanded;
+      });
+    }
+  }
+
+  toggleItem(item: any, event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    item.isExpanded = item.isExpanded === false ? true : false;
+    if (Array.isArray(this.items) && this.items.length) {
+      this.isAllExpanded = this.items.every(it => it.isExpanded !== false);
+    }
   }
 
   changePage(event: any): void {
