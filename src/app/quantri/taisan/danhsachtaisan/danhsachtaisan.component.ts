@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
-import { DateToUnix, formatdate, mapArrayForDropDown, mapTreeForDropDown } from "src/app/services/globalfunction";
+import { DateToUnix, UnixToDate, formatdate, mapArrayForDropDown, mapTreeForDropDown } from "src/app/services/globalfunction";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
@@ -28,6 +28,7 @@ export class DanhsachtaisanComponent implements OnInit, OnDestroy {
   Keyword: any = '';
   eAction: any = "";
   loaiTab: any = 0;
+  namHienTai: number = new Date().getFullYear();
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: TreeNode[];
@@ -54,10 +55,13 @@ export class DanhsachtaisanComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    let data = { PageSize: 20, CurrentPage: 0, Keyword: this.Keyword };
+    let data = { PageSize: 1000, CurrentPage: 0, Keyword: this.Keyword };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       let rawLoaiTaiSan = Array.isArray(res?.Data) ? res.Data : (res?.Data?.Items || []);
-      this.listLoaiTaiSan = mapArrayForDropDown(rawLoaiTaiSan, "Ten", "Id");
+      this.listLoaiTaiSan = rawLoaiTaiSan.map((item: any) => ({
+        label: item.Ma ? `${item.Ma} - ${item.Ten}` : (item.Ten || ''),
+        value: item.Id
+      }));
     });
     this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       let treeMapped = mapTreeForDropDown(res, 'Ten', 'Id');
@@ -84,6 +88,40 @@ export class DanhsachtaisanComponent implements OnInit, OnDestroy {
     this.Loaddata(true);
   }
 
+  normalizeItem(obj: any) {
+    if (!obj) return;
+    if (obj.NgayCapGiayChungNhanDangKyUnix && !obj.NgayCapGiayChungNhanDangKy) {
+      obj.NgayCapGiayChungNhanDangKy = UnixToDate(obj.NgayCapGiayChungNhanDangKyUnix);
+    } else if (typeof obj.NgayCapGiayChungNhanDangKy === 'string') {
+      obj.NgayCapGiayChungNhanDangKy = UnixToDate(obj.NgayCapGiayChungNhanDangKy) || new Date(obj.NgayCapGiayChungNhanDangKy);
+    } else if (obj.NgayCapDangKyUnix && !obj.NgayCapGiayChungNhanDangKy) {
+      obj.NgayCapGiayChungNhanDangKy = UnixToDate(obj.NgayCapDangKyUnix);
+    } else if (typeof obj.NgayCapDangKy === 'string' && !obj.NgayCapGiayChungNhanDangKy) {
+      obj.NgayCapGiayChungNhanDangKy = UnixToDate(obj.NgayCapDangKy) || new Date(obj.NgayCapDangKy);
+    }
+
+    if (obj.ThoiGianDaiTuGanNhatUnix && !obj.ThoiGianDaiTuGanNhat) {
+      obj.ThoiGianDaiTuGanNhat = UnixToDate(obj.ThoiGianDaiTuGanNhatUnix);
+    } else if (typeof obj.ThoiGianDaiTuGanNhat === 'string') {
+      obj.ThoiGianDaiTuGanNhat = UnixToDate(obj.ThoiGianDaiTuGanNhat) || new Date(obj.ThoiGianDaiTuGanNhat);
+    }
+
+    if (obj.ThoiGianDuaVaoSuDungUnix && !obj.ThoiGianDuaVaoSuDung) {
+      obj.ThoiGianDuaVaoSuDung = UnixToDate(obj.ThoiGianDuaVaoSuDungUnix);
+    }
+
+    if (obj.NgaySanXuatUnix && !obj.NgaySanXuat) {
+      obj.NgaySanXuat = UnixToDate(obj.NgaySanXuatUnix);
+    }
+
+    if (obj.SoGiayChungNhanDangKy === undefined && obj.SoDangKy !== undefined) {
+      obj.SoGiayChungNhanDangKy = obj.SoDangKy;
+    }
+    if (obj.ThoiGianKhauHaoConLai === undefined && obj.SoNamKhauHaoConLai !== undefined) {
+      obj.ThoiGianKhauHaoConLai = obj.SoNamKhauHaoConLai;
+    }
+  }
+
   Loaddata(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
@@ -104,26 +142,30 @@ export class DanhsachtaisanComponent implements OnInit, OnDestroy {
       isQuaHan: this.loaiTab === 2,
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
-      this.paging.CurrentPage = res.Data.Page;
+      this.paging.CurrentPage = res.Data.Page || 1;
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;
       // this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
       let items = [];
       this.items = [];
-      items = res.Data.Items;
-      items.forEach(obj => {
+      items = res.Data?.Items || [];
+      const curPage = this.paging.CurrentPage || 1;
+      items.forEach((obj, index) => {
+        this.normalizeItem(obj);
         obj.isCha = true;
+        obj.STT = (curPage - 1) * 20 + index + 1;
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
-          obj.listTaiSan.forEach(element => {
+          obj.listTaiSan.forEach((element, cIndex) => {
+            this.normalizeItem(element);
+            element.STT = `${obj.STT}.${cIndex + 1}`;
             obj_copy.children.push({ data: element });
           });
           obj.listTaiSan = undefined;
         }
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children });
-
       });
     })
   }

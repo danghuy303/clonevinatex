@@ -69,13 +69,15 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
       if (res) {
         this.resetFilter();
         this.KiemTraTabTrangThai();
-        // this.GetListdmPhanXuong();
+        this.GetListdmPhanXuong();
+        this.GetListdmLoaiTaiSan();
       }
     });
 
     this.resetFilter();
     this.KiemTraTabTrangThai();
-    // this.GetListdmPhanXuong();
+    this.GetListdmPhanXuong();
+    this.GetListdmLoaiTaiSan();
   }
 
   ngOnDestroy(): void {
@@ -101,7 +103,17 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
         }
       ];
       this.listPhanXuong = [...treeMapped, ...nhaMay];
-    })
+    });
+  }
+  GetListdmLoaiTaiSan() {
+    let data = { PageSize: 1000, CurrentPage: 0, Keyword: '' };
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
+      let rawLoaiTaiSan = Array.isArray(res?.Data) ? res.Data : (res?.Data?.Items || []);
+      this.listLoaiTaiSan = rawLoaiTaiSan.map((item: any) => ({
+        label: item.Ma ? `${item.Ma} - ${item.Ten}` : (item.Ten || ''),
+        value: item.Id
+      }));
+    });
   }
   changeTab(e) {
     this.trangThai = e.index + 1;
@@ -124,6 +136,7 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       Loai: 0
     };
     this._serviceTaiSan.NhapTaiSan().GetList(data).subscribe((res: any) => {
@@ -143,13 +156,13 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children });
       });
-    })
+    });
   }
   KiemTraTabTrangThai() {
     this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.Loaddata();
-    })
+    });
   }
   add() {
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
@@ -183,8 +196,8 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
     }).catch(er => console.log(er))
       .finally(() => {
         this.Loaddata();
-        this.changeParam(0)
-      })
+        this.changeParam(0);
+      });
   }
   update(item: any) {
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
@@ -203,9 +216,9 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
     modalRef.result.then(res => {
     }).catch(er => console.log(er))
       .finally(() => {
-        this.Loaddata()
+        this.Loaddata();
         this.changeParam(0);
-      })
+      });
   }
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
@@ -219,7 +232,7 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
     }
     this._servicesSanXuat.GetListdmMay(data).subscribe((res: any) => {
       this.listDanhSachMay = res;
-    })
+    });
   }
 
   check() {
@@ -244,7 +257,7 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
         this.Loaddata();
       } else this.toastr.error(res.Message);
 
-    })
+    });
   }
 
   handlExcel() {
@@ -253,20 +266,20 @@ export class NhaptaisanComponent implements OnInit, OnDestroy {
         window.open(`${API.imgURL}${res.Data}`)
         this.toastr.success(res.Message);
       } else this.toastr.error(res.Message);
-    })
+    });
   }
 
   handleUpload(e: any) {
     this._serviceTaiSan.ImportQuyTrinhNhapTaiSan(e.Name, this.store.getCurrent()).subscribe((res: any) => {
       handleHTTPResponse(res, this.toastr, () => {
         if (res.StatusCode === 200) {
-          this.Loaddata()
+          this.Loaddata();
           this.toastr.success(res.Message);
         } else {
           this.toastr.error(res.Message);
         }
-      })
-    })
+      });
+    });
   }
 
 }

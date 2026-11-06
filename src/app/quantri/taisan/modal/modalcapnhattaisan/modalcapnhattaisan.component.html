@@ -165,13 +165,15 @@
         <p-tabPanel
             [header]="'3. Định mức nhiên liệu (' + (item.TaiSan?.listSanLuong?.length || item.TaiSan?.listDinhMucNhienLieu?.length || 0) + ')'">
             <ng-template pTemplate="content">
-                <app-dinh-muc-nguyen-lieu [Items]="item.TaiSan?.listDinhMucNhienLieu"
+                <div style="width: 100%; max-width: 100%; overflow-x: auto;">
+                    <app-dinh-muc-nguyen-lieu [Items]="item.TaiSan?.listDinhMucNhienLieu"
                     (ItemsChange)="item.TaiSan ? item.TaiSan.listDinhMucNhienLieu = $event : null"
                     [listSanLuong]="item.TaiSan?.listSanLuong"
                     (listSanLuongChange)="item.TaiSan ? item.TaiSan.listSanLuong = $event : null"
                     [itemTaiSan]="item.TaiSan"
                     [idTaiSan]="item.TaiSan?.Id || item.TaiSan?.IddmTaiSan"
                     [isXoa]="checkbutton.Ghi"></app-dinh-muc-nguyen-lieu>
+                </div>
             </ng-template>
         </p-tabPanel>
 

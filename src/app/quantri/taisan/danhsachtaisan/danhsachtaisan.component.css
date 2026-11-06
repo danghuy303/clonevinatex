@@ -1,7 +1,7 @@
 .p-field-checkbox {
-    margin-bottom:0rem;
-    display:flex;
-    align-items:center;
+    margin-bottom: 0rem;
+    display: flex;
+    align-items: center;
     padding-top: 0.5rem;
 }
 
@@ -9,4 +9,48 @@
     padding-top: .5rem;
 }
 
+/* Đồng bộ style bảng chuẩn theo project */
+:host ::ng-deep .p-treetable th {
+    background-color: #828282 !important;
+    border: 1px solid #ffffff !important;
+    color: #ffffff !important;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 6px;
+    white-space: normal;
+}
 
+:host ::ng-deep .p-treetable td {
+    font-size: 13px;
+    padding: 6px 8px;
+    vertical-align: middle;
+    border: 1px solid #dee2e6 !important;
+}
+
+:host ::ng-deep .p-treetable .p-treetable-scrollable-header-box,
+:host ::ng-deep .p-treetable .p-treetable-scrollable-body {
+    min-width: 100%;
+}
+
+:host ::ng-deep .p-treetable table,
+:host ::ng-deep .p-treetable .p-treetable-scrollable-header-table,
+:host ::ng-deep .p-treetable .p-treetable-scrollable-body-table {
+    min-width: 2265px !important;
+    width: 2265px !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+}
+
+:host ::ng-deep .p-treetable .p-treetable-scrollable-body {
+    min-height: 350px;
+}
+
+:host ::ng-deep .p-treetable-toggler {
+    color: #495057;
+}
+
+:host ::ng-deep .p-treetable-tbody > tr:hover {
+    background-color: #f8f9fa !important;
+}

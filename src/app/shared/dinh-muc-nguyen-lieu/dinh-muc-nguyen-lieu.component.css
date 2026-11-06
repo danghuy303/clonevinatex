@@ -1,0 +1,44 @@
+:host {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+.table-responsive-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+:host ::ng-deep .table-responsive-wrapper .p-datatable {
+    width: 100%;
+}
+
+:host ::ng-deep .table-responsive-wrapper .p-datatable-wrapper {
+    overflow-x: visible !important;
+}
+
+:host ::ng-deep .table-responsive-wrapper table {
+    min-width: 1385px !important;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+:host ::ng-deep .table-responsive-wrapper th {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 12px;
+    padding: 6px 4px;
+    white-space: normal;
+}
+
+:host ::ng-deep .table-responsive-wrapper td {
+    padding: 4px 4px;
+    vertical-align: middle;
+    font-size: 13px;
+}
+

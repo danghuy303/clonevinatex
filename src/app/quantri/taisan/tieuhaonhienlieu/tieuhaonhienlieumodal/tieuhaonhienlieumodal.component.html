@@ -121,8 +121,7 @@
                                 <span>{{item.TenTaiSan}}</span>
                                 <button pButton pRipple type="button" icon="pi pi-plus"
                                     class="p-button-sm p-button-outlined p-button-primary p-py-1"
-                                    pTooltip="Thêm công việc"
-                                    (click)="addCongViec(item)"></button>
+                                    pTooltip="Thêm công việc" (click)="addCongViec(item)"></button>
                             </div>
                         </td>
                         <td class="text-center">
@@ -157,15 +156,16 @@
                         </td>
                         <!-- Tiêu hao thực tế -->
                         <td class="text-center">
-                            <p-inputNumber locale="en-EN" [(ngModel)]="cv.TieuThu" [minFractionDigits]="2"
-                                [maxFractionDigits]="2" (ngModelChange)="handleChiPhiTaiSan(cv)" placeholder=""
+                            <p-inputNumber locale="en-EN" [(ngModel)]="cv.TieuThu" [minFractionDigits]="0"
+                                [maxFractionDigits]="3" (ngModelChange)="handleChiPhiTaiSan(cv)" placeholder=""
                                 styleClass="p-inputtext-sm" [style]="{'width': '100%'}">
                             </p-inputNumber>
                         </td>
                         <!-- Đơn giá -->
                         <td>
                             <p-inputNumber locale="en-EN" [(ngModel)]="cv.DonGia" placeholder=""
-                                (ngModelChange)="handleChiPhiTaiSan(cv)" styleClass="p-inputtext-sm" [style]="{'width': '100%'}">
+                                (ngModelChange)="handleChiPhiTaiSan(cv)" styleClass="p-inputtext-sm"
+                                [style]="{'width': '100%'}">
                             </p-inputNumber>
                         </td>
                         <!-- Thành tiền -->
