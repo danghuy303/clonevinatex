@@ -90,6 +90,13 @@ export class DanhsachtaisanComponent implements OnInit, OnDestroy {
 
   normalizeItem(obj: any) {
     if (!obj) return;
+
+    if (obj.GiayCNDK_NgayCapUnix && !obj.GiayCNDK_NgayCap) {
+      obj.GiayCNDK_NgayCap = UnixToDate(obj.GiayCNDK_NgayCapUnix);
+    } else if (typeof obj.GiayCNDK_NgayCap === 'string') {
+      obj.GiayCNDK_NgayCap = UnixToDate(obj.GiayCNDK_NgayCap) || new Date(obj.GiayCNDK_NgayCap);
+    }
+
     if (obj.NgayCapGiayChungNhanDangKyUnix && !obj.NgayCapGiayChungNhanDangKy) {
       obj.NgayCapGiayChungNhanDangKy = UnixToDate(obj.NgayCapGiayChungNhanDangKyUnix);
     } else if (typeof obj.NgayCapGiayChungNhanDangKy === 'string') {
@@ -98,6 +105,14 @@ export class DanhsachtaisanComponent implements OnInit, OnDestroy {
       obj.NgayCapGiayChungNhanDangKy = UnixToDate(obj.NgayCapDangKyUnix);
     } else if (typeof obj.NgayCapDangKy === 'string' && !obj.NgayCapGiayChungNhanDangKy) {
       obj.NgayCapGiayChungNhanDangKy = UnixToDate(obj.NgayCapDangKy) || new Date(obj.NgayCapDangKy);
+    }
+
+    if (!obj.GiayCNDK_NgayCap && obj.NgayCapGiayChungNhanDangKy) {
+      obj.GiayCNDK_NgayCap = obj.NgayCapGiayChungNhanDangKy;
+    }
+
+    if (obj.GiayCNDK_So === undefined) {
+      obj.GiayCNDK_So = obj.SoGiayChungNhanDangKy !== undefined ? obj.SoGiayChungNhanDangKy : obj.SoDangKy;
     }
 
     if (obj.ThoiGianDaiTuGanNhatUnix && !obj.ThoiGianDaiTuGanNhat) {

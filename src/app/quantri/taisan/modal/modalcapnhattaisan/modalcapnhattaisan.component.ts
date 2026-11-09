@@ -187,18 +187,22 @@ export class ModalcapnhattaisanComponent implements OnInit {
         this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
         this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix || this.item.TaiSan.NgaySanXuatUnix);
         this.item.TaiSan.NgaySanXuat = UnixToDate(this.item.TaiSan.NgaySanXuatUnix || this.item.TaiSan.NgayNhapUnix);
-        if (this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix || this.item.TaiSan.NgayCapDangKyUnix) {
-          this.item.TaiSan.NgayCapGiayChungNhanDangKy = UnixToDate(this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix || this.item.TaiSan.NgayCapDangKyUnix);
+        if (this.item.TaiSan.GiayCNDK_NgayCapUnix) {
+          this.item.TaiSan.GiayCNDK_NgayCap = UnixToDate(this.item.TaiSan.GiayCNDK_NgayCapUnix);
+        } else if (typeof this.item.TaiSan.GiayCNDK_NgayCap === 'string') {
+          this.item.TaiSan.GiayCNDK_NgayCap = UnixToDate(this.item.TaiSan.GiayCNDK_NgayCap) || new Date(this.item.TaiSan.GiayCNDK_NgayCap);
+        } else if (this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix || this.item.TaiSan.NgayCapDangKyUnix) {
+          this.item.TaiSan.GiayCNDK_NgayCap = UnixToDate(this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix || this.item.TaiSan.NgayCapDangKyUnix);
         } else if (this.item.TaiSan.NgayCapGiayChungNhanDangKy) {
-          this.item.TaiSan.NgayCapGiayChungNhanDangKy = UnixToDate(this.item.TaiSan.NgayCapGiayChungNhanDangKy) || new Date(this.item.TaiSan.NgayCapGiayChungNhanDangKy);
+          this.item.TaiSan.GiayCNDK_NgayCap = UnixToDate(this.item.TaiSan.NgayCapGiayChungNhanDangKy) || new Date(this.item.TaiSan.NgayCapGiayChungNhanDangKy);
         }
-        if (this.item.TaiSan.ThoiGianDaiTuGanNhatUnix) {
-          this.item.TaiSan.ThoiGianDaiTuGanNhat = UnixToDate(this.item.TaiSan.ThoiGianDaiTuGanNhatUnix);
-        } else if (this.item.TaiSan.ThoiGianDaiTuGanNhat) {
-          this.item.TaiSan.ThoiGianDaiTuGanNhat = UnixToDate(this.item.TaiSan.ThoiGianDaiTuGanNhat) || new Date(this.item.TaiSan.ThoiGianDaiTuGanNhat);
+        this.item.TaiSan.NgayCapGiayChungNhanDangKy = this.item.TaiSan.GiayCNDK_NgayCap;
+
+        if (this.item.TaiSan.GiayCNDK_So === undefined) {
+          this.item.TaiSan.GiayCNDK_So = this.item.TaiSan.SoGiayChungNhanDangKy !== undefined ? this.item.TaiSan.SoGiayChungNhanDangKy : this.item.TaiSan.SoDangKy;
         }
-        if (this.item.TaiSan.SoGiayChungNhanDangKy === undefined && this.item.TaiSan.SoDangKy !== undefined) {
-          this.item.TaiSan.SoGiayChungNhanDangKy = this.item.TaiSan.SoDangKy;
+        if (this.item.TaiSan.SoGiayChungNhanDangKy === undefined) {
+          this.item.TaiSan.SoGiayChungNhanDangKy = this.item.TaiSan.GiayCNDK_So;
         }
         if (this.item.TaiSan.ThoiGianKhauHaoConLai === undefined && this.item.TaiSan.SoNamKhauHaoConLai !== undefined) {
           this.item.TaiSan.ThoiGianKhauHaoConLai = this.item.TaiSan.SoNamKhauHaoConLai;
@@ -280,20 +284,21 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this.item.TaiSan.NgaySanXuatUnix = ngayNhapUnix;
       this.item.TaiSan.ThoiGianDuaVaoSuDungUnix = thoiGianDuaVaoSuDungUnix;
 
-      if (this.item.TaiSan.NgayCapGiayChungNhanDangKy) {
-        const d = new Date(this.item.TaiSan.NgayCapGiayChungNhanDangKy);
+      let ngayCapGCN = this.item.TaiSan.GiayCNDK_NgayCap || this.item.TaiSan.NgayCapGiayChungNhanDangKy;
+      if (ngayCapGCN) {
+        const d = new Date(ngayCapGCN);
         if (!isNaN(d.getTime())) {
-          this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix = Math.floor(d.getTime() / 1000);
-          this.item.TaiSan.NgayCapDangKyUnix = this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix;
+          const unix = Math.floor(d.getTime() / 1000);
+          this.item.TaiSan.GiayCNDK_NgayCapUnix = unix;
+          this.item.TaiSan.NgayCapGiayChungNhanDangKyUnix = unix;
+          this.item.TaiSan.NgayCapDangKyUnix = unix;
         }
       }
-      if (this.item.TaiSan.ThoiGianDaiTuGanNhat) {
-        const d = new Date(this.item.TaiSan.ThoiGianDaiTuGanNhat);
-        if (!isNaN(d.getTime())) {
-          this.item.TaiSan.ThoiGianDaiTuGanNhatUnix = Math.floor(d.getTime() / 1000);
-        }
-      }
-      if (this.item.TaiSan.SoGiayChungNhanDangKy && !this.item.TaiSan.SoDangKy) {
+      if (this.item.TaiSan.GiayCNDK_So !== undefined) {
+        this.item.TaiSan.SoGiayChungNhanDangKy = this.item.TaiSan.GiayCNDK_So;
+        this.item.TaiSan.SoDangKy = this.item.TaiSan.GiayCNDK_So;
+      } else if (this.item.TaiSan.SoGiayChungNhanDangKy && !this.item.TaiSan.GiayCNDK_So) {
+        this.item.TaiSan.GiayCNDK_So = this.item.TaiSan.SoGiayChungNhanDangKy;
         this.item.TaiSan.SoDangKy = this.item.TaiSan.SoGiayChungNhanDangKy;
       }
       if (this.item.TaiSan.ThoiGianKhauHaoConLai !== undefined && this.item.TaiSan.SoNamKhauHaoConLai === undefined) {

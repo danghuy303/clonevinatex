@@ -59,9 +59,7 @@
     <p-tabPanel header="Đến hạn"></p-tabPanel>
     <p-tabPanel header="Quá hạn"></p-tabPanel>
 </p-tabView>
-<p-treeTable [value]="items" 
-    [scrollable]="true" 
-    scrollHeight="calc(100vh - 280px)"
+<p-treeTable [value]="items" [scrollable]="true" scrollHeight="calc(100vh - 280px)"
     styleClass="p-treetable-sm p-treetable-gridlines p-treetable-striped p-datatable-sm p-datatable-gridlines">
     <ng-template pTemplate="colgroup">
         <colgroup>
@@ -134,7 +132,8 @@
             </td>
             <td>
                 <div>{{rowData.TendmLoaiTaiSan || rowData.Ten}}</div>
-                <div *ngIf="rowData.HangSanXuat" class="text-muted" style="font-size: 11px;">{{rowData.HangSanXuat}}</div>
+                <div *ngIf="rowData.HangSanXuat" class="text-muted" style="font-size: 11px;">{{rowData.HangSanXuat}}
+                </div>
             </td>
             <td>{{rowData.KieuChuyenDung}}</td>
             <td>{{rowData.NuocSanXuat}}</td>
@@ -143,12 +142,14 @@
             <td class="text-center">{{rowData.ThoiGianKhauHaoConLai}}</td>
             <td class="text-right">{{rowData.NguyenGia | number}}</td>
             <td class="text-right">{{rowData.GiaTriConLai | number}}</td>
-            <td>{{rowData.SoGiayChungNhanDangKy || rowData.SoDangKy}}</td>
-            <td class="text-center">{{rowData.NgayCapGiayChungNhanDangKy | date:'dd/MM/yyyy'}}</td>
+            <td>{{rowData.GiayCNDK_So || rowData.SoGiayChungNhanDangKy || rowData.SoDangKy}}</td>
+            <td class="text-center">{{(rowData.GiayCNDK_NgayCap || rowData.NgayCapGiayChungNhanDangKy) |
+                date:'dd/MM/yyyy'}}</td>
             <td>{{rowData.SoKhung || rowData.Modem}}</td>
             <td>{{rowData.SoMay || rowData.SoSeri}}</td>
             <td>{{rowData.MauSon}}</td>
-            <td class="text-center">{{(rowData.NgaySanXuat | date:'yyyy') || (rowData.NgaySanXuat | date:'dd/MM/yyyy') || rowData.NamSanXuat}}</td>
+            <td class="text-center">{{ (rowData.NgayNhap | date:'dd/MM/yyyy')
+                || rowData.NamSanXuat}}</td>
             <td class="text-center">{{(rowData.ThoiGianDuaVaoSuDung || rowData.NgayNhap) | date:'dd/MM/yyyy'}}</td>
             <td class="text-center">{{rowData.PhanCap || rowData.CapChatLuong || rowData.TendmTinhTrangTaiSan}}</td>
             <td class="text-center">{{rowData.SoLanDaiTu}}</td>

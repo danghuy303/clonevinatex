@@ -84,6 +84,13 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
 
   initDates() {
     if (!this.item) return;
+
+    if (this.item.GiayCNDK_NgayCapUnix && !this.item.GiayCNDK_NgayCap) {
+      this.item.GiayCNDK_NgayCap = UnixToDate(this.item.GiayCNDK_NgayCapUnix);
+    } else if (typeof this.item.GiayCNDK_NgayCap === 'string') {
+      this.item.GiayCNDK_NgayCap = UnixToDate(this.item.GiayCNDK_NgayCap) || new Date(this.item.GiayCNDK_NgayCap);
+    }
+
     if (this.item.NgayCapGiayChungNhanDangKyUnix && !this.item.NgayCapGiayChungNhanDangKy) {
       this.item.NgayCapGiayChungNhanDangKy = UnixToDate(this.item.NgayCapGiayChungNhanDangKyUnix);
     } else if (typeof this.item.NgayCapGiayChungNhanDangKy === 'string') {
@@ -94,14 +101,24 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
       this.item.NgayCapGiayChungNhanDangKy = UnixToDate(this.item.NgayCapDangKy) || new Date(this.item.NgayCapDangKy);
     }
 
+    if (!this.item.GiayCNDK_NgayCap && this.item.NgayCapGiayChungNhanDangKy) {
+      this.item.GiayCNDK_NgayCap = this.item.NgayCapGiayChungNhanDangKy;
+    }
+    if (!this.item.NgayCapGiayChungNhanDangKy && this.item.GiayCNDK_NgayCap) {
+      this.item.NgayCapGiayChungNhanDangKy = this.item.GiayCNDK_NgayCap;
+    }
+
     if (this.item.ThoiGianDaiTuGanNhatUnix && !this.item.ThoiGianDaiTuGanNhat) {
       this.item.ThoiGianDaiTuGanNhat = UnixToDate(this.item.ThoiGianDaiTuGanNhatUnix);
     } else if (typeof this.item.ThoiGianDaiTuGanNhat === 'string') {
       this.item.ThoiGianDaiTuGanNhat = UnixToDate(this.item.ThoiGianDaiTuGanNhat) || new Date(this.item.ThoiGianDaiTuGanNhat);
     }
 
-    if (this.item.SoGiayChungNhanDangKy === undefined && this.item.SoDangKy !== undefined) {
-      this.item.SoGiayChungNhanDangKy = this.item.SoDangKy;
+    if (this.item.GiayCNDK_So === undefined) {
+      this.item.GiayCNDK_So = this.item.SoGiayChungNhanDangKy !== undefined ? this.item.SoGiayChungNhanDangKy : this.item.SoDangKy;
+    }
+    if (this.item.SoGiayChungNhanDangKy === undefined && this.item.GiayCNDK_So !== undefined) {
+      this.item.SoGiayChungNhanDangKy = this.item.GiayCNDK_So;
     }
     if (this.item.ThoiGianKhauHaoConLai === undefined && this.item.SoNamKhauHaoConLai !== undefined) {
       this.item.ThoiGianKhauHaoConLai = this.item.SoNamKhauHaoConLai;
