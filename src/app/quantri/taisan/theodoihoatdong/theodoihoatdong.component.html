@@ -46,7 +46,7 @@
                 <col style="width:50px">
                 <col style="width: 150px;">
                 <col style="width: 120px;">
-                <col style="width: 200px;">
+                <col style="width: 300px;">
                 <col>
                 <col>
                 <col style="width: 150px;">
@@ -74,7 +74,12 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center">{{item.Created | date:'dd/MM/yyyy'}}</td>
-                <td>{{item.MMTB || getMMTB(item)}}</td>
+                <td style="white-space: pre-line;">
+                    <div *ngFor="let mmtb of (item.listMMTB || getListMMTB(item))">{{mmtb}}</div>
+                    <ng-container *ngIf="!(item.listMMTB || getListMMTB(item))?.length">
+                        {{item.MMTB || getMMTB(item)}}
+                    </ng-container>
+                </td>
                 <td>{{item.NoiDung}}</td>
                 <td>{{item.GhiChu}}</td>
                 <td class="text-center">

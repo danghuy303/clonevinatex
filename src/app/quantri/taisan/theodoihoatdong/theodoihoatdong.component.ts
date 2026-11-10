@@ -110,37 +110,55 @@ export class TheodoihoatdongComponent implements OnInit, OnDestroy {
       IddmPhanXuong: this.filter.IddmPhanXuong || '',
     };
     this._serviceTaiSan.TheoDoiHoatDong().GetList(data).subscribe((res: any) => {
-      this.items = (res.Data?.Items || []).map((ele: any) => ({
-        ...ele,
-        MMTB: this.getMMTB(ele)
-      }));
+      this.items = (res.Data?.Items || []).map((ele: any) => {
+        const listMMTB = this.getListMMTB(ele);
+        return {
+          ...ele,
+          listMMTB: listMMTB,
+          MMTB: listMMTB.join('\n')
+        };
+      });
       this.paging.TotalCount = res.Data?.TotalCount || 0;
     })
   }
 
-  getMMTB(item: any): string {
-    if (!item) return '';
-    if (typeof item.MMTB === 'string' && item.MMTB.trim() !== '') {
-      return item.MMTB;
-    }
-    const ma = item.MaTaiSan || item.Ma || item.MaMMTB || item.MaMay;
-    const ten = item.TenTaiSan || item.Ten || item.TenMMTB || item.TenMay || item.TendmTaiSan;
-    if (ma && ten) {
-      return `${ma} - ${ten}`;
-    }
-    if (ten) return ten;
-    if (ma) return ma;
+  getListMMTB(item: any): string[] {
+    if (!item) return [];
 
     if (Array.isArray(item.listTaiSan) && item.listTaiSan.length > 0) {
-      return item.listTaiSan.map((ts: any) => {
+      const list = item.listTaiSan.map((ts: any) => {
         const tsMa = ts.MaTaiSan || ts.Ma || ts.MaMMTB || ts.MaMay;
         const tsTen = ts.TenTaiSan || ts.Ten || ts.TenMMTB || ts.TenMay || ts.TendmTaiSan;
         if (tsMa && tsTen) return `${tsMa} - ${tsTen}`;
         return tsTen || tsMa || '';
-      }).filter((s: string) => !!s).join('; ');
+      }).filter((s: string) => !!s);
+      if (list.length > 0) return list;
     }
 
-    return '';
+    const ma = item.MaTaiSan || item.Ma || item.MaMMTB || item.MaMay;
+    const ten = item.TenTaiSan || item.Ten || item.TenMMTB || item.TenMay || item.TendmTaiSan;
+    if (ma && ten) {
+      return [`${ma} - ${ten}`];
+    }
+    if (ten || ma) {
+      return [ten || ma];
+    }
+
+    if (typeof item.MMTB === 'string' && item.MMTB.trim() !== '') {
+      if (item.MMTB.includes('\n')) {
+        return item.MMTB.split('\n').map((s: string) => s.trim()).filter(Boolean);
+      }
+      if (item.MMTB.includes(';')) {
+        return item.MMTB.split(';').map((s: string) => s.trim()).filter(Boolean);
+      }
+      return [item.MMTB];
+    }
+
+    return [];
+  }
+
+  getMMTB(item: any): string {
+    return this.getListMMTB(item).join('\n');
   }
 
   changeParam(id: any) {
