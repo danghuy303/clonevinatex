@@ -190,7 +190,8 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
       this.item.Ma = '';
       this.item.TendmTaiSan = '';
     } else {
-      this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
+      if (!validVariable(this.item.Ma) || (typeof this.item.Ma === 'string' && this.item.Ma.trim() === '')) {
+        this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
         if (res.StatusCode === 500) {
           this.toastr.error(res.Message);
         }
@@ -198,6 +199,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
           this.item.Ma = res.Data;
         }
       })
+    }
     }
     this.handleAsset.emit(e.value)
   }

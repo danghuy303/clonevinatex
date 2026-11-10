@@ -113,13 +113,17 @@ export class LoaihinhbaohiemComponent implements OnInit {
    }
  
    deleteAll() {
+    if (!this.selectedItems || this.selectedItems.length === 0) {
+      this._toastr.warning("Vui lòng chọn ít nhất 1 bản ghi để xóa!");
+      return;
+    }
      let modalRef = this._modal.open(ModalthongbaoComponent, {
        backdrop: 'static'
      });
      modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
      const listId = this.selectedItems.map((ele: any) => ele.Id);
      modalRef.result.then(res => {
-       this._danhMucTaiSan.DanhMucLoaiTaiSan().DeleteList(listId).subscribe((res: any) => {
+       this._danhMucTaiSan.LoaiHinhBaoHiem().Delete(listId).subscribe((res: any) => {
          if (res) {
            if (res.StatusCode === 200) {
              this._toastr.success(res.Message);

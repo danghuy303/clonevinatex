@@ -223,27 +223,47 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item?.TaiSan?.Ten) || !validVariable(this.item?.TaiSan?.Ma)) {
-      this.toastr.error("Yêu cầu nhập mã và tên");
+    if (!validVariable(this.item?.TaiSan?.IddmLoaiTaiSan)) {
+      this.toastr.error("Vui lòng chọn loại máy/thiết bị!");
       return false;
     }
-    if (!validVariable(this.item?.TaiSan?.SoNamKhauHao) || !validVariable(this.item?.TaiSan?.IddmLoaiTaiSan) || !validVariable(this.item?.TaiSan?.TenVietTat)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc");
+    if (!validVariable(this.item?.TaiSan?.Ma) || (typeof this.item?.TaiSan?.Ma === 'string' && this.item?.TaiSan?.Ma.trim() === '')) {
+      this.toastr.error("Vui lòng nhập mã máy/thiết bị!");
       return false;
     }
-    if (!validVariable(this.item?.TaiSan?.DonViNangSuat)) {
-      this.toastr.error("Yêu cầu nhập đơn vị");
+    if (!validVariable(this.item?.TaiSan?.Ten) || (typeof this.item?.TaiSan?.Ten === 'string' && this.item?.TaiSan?.Ten.trim() === '')) {
+      this.toastr.error("Vui lòng nhập tên máy/thiết bị!");
+      return false;
+    }
+    if (false) {
+
+      return false;
+    }
+    if (!validVariable(this.item?.TaiSan?.TenVietTat) || (typeof this.item?.TaiSan?.TenVietTat === 'string' && this.item?.TaiSan?.TenVietTat.trim() === '')) {
+      this.toastr.error("Vui lòng nhập tên viết tắt!");
+      return false;
+    }
+    if (!validVariable(this.item?.TaiSan?.SoNamKhauHao)) {
+      this.toastr.error("Vui lòng nhập số năm khấu hao!");
+      return false;
+    }
+    if (false) {
+
+      return false;
+    }
+    if (!validVariable(this.item?.TaiSan?.DonViNangSuat) || (typeof this.item?.TaiSan?.DonViNangSuat === 'string' && this.item?.TaiSan?.DonViNangSuat.trim() === '')) {
+      this.toastr.error("Vui lòng nhập đơn vị!");
       return false;
     }
     if (this.item?.TaiSan?.IdBoPhanSuDung != null) {
       if (!validVariable(this.item?.TaiSan?.ThoiGianDuaVaoSuDung)) {
-        this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
+        this.toastr.error("Vui lòng nhập thời gian đưa vào sử dụng!");
         return false;
       }
     }
     if (this.item?.TaiSan?.isCanDuTru) {
       if (!validVariable(this.item?.TaiSan?.DuTruToiThieu) || this.item?.TaiSan?.DuTruToiThieu <= 0) {
-        this.toastr.error("Yêu cầu nhập số lượng dự trữ");
+        this.toastr.error("Vui lòng nhập số lượng dự trữ tối thiểu!");
         return false;
       }
     }
@@ -339,6 +359,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
           this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((data: any) => {
             this.item = {
               ...data.Data,
+              SoQuyTrinh: data.Data?.SoQuyTrinh || res.Data?.SoQuyTrinh || this.item?.SoQuyTrinh,
               TaiSan: {
                 ...data.Data.TaiSan,
                 ThoiGianDuaVaoSuDung: UnixToDate(data.Data.TaiSan.ThoiGianDuaVaoSuDungUnix),

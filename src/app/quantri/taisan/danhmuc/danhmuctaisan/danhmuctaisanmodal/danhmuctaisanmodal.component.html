@@ -94,13 +94,12 @@
             <tr>
                 <th rowspan="2" class="text-center align-middle">STT</th>
                 <th rowspan="2" class="text-center align-middle">Danh mục (công việc)</th>
-                <th colspan="2" class="text-center">Định mức NSMMTB (sản)</th>
-                <th colspan="2" class="text-center">Định mức NSLĐ (sản)</th>
+                <th colspan="2" class="text-center">Định mức NSMMTB (sàn)</th>
+                <th colspan="2" class="text-center">Định mức NSLĐ (sàn)</th>
                 <th colspan="3" class="text-center">Định mức tiêu hao nhiên liệu (trần)</th>
                 <th rowspan="2" class="text-center align-middle">Ghi chú</th>
                 <th rowspan="2" class="text-center align-middle">
-                    <button pButton pRipple type="button" icon="pi pi-plus"
-                        class="p-button-rounded p-button-sm"
+                    <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm"
                         (click)="addDinhMuc()" pTooltip="Thêm mới"></button>
                 </th>
             </tr>
@@ -121,7 +120,8 @@
                     <input type="text" class="p-inputtext-sm w-100" [(ngModel)]="row.Ten" pInputText />
                 </td>
                 <td>
-                    <input type="text" class="p-inputtext-sm text-center w-100" [(ngModel)]="row.DonViTinh_NSMMTB" pInputText />
+                    <input type="text" class="p-inputtext-sm text-center w-100" [(ngModel)]="row.DonViTinh_NSMMTB"
+                        pInputText />
                 </td>
                 <td>
                     <p-inputNumber locale="en-EN" [(ngModel)]="row.NSMMTB" [minFractionDigits]="0"
@@ -129,20 +129,22 @@
                     </p-inputNumber>
                 </td>
                 <td>
-                    <input type="text" class="p-inputtext-sm text-center w-100" [(ngModel)]="row.DonViTinh_NSLD" pInputText />
+                    <input type="text" class="p-inputtext-sm text-center w-100" [(ngModel)]="row.DonViTinh_NSLD"
+                        pInputText />
                 </td>
                 <td>
-                    <p-inputNumber locale="en-EN" [(ngModel)]="row.NSLD" [minFractionDigits]="0"
-                        [maxFractionDigits]="3" styleClass="p-inputtext-sm w-100" class="w-100">
+                    <p-inputNumber locale="en-EN" [(ngModel)]="row.NSLD" [minFractionDigits]="0" [maxFractionDigits]="3"
+                        styleClass="p-inputtext-sm w-100" class="w-100">
                     </p-inputNumber>
                 </td>
                 <td>
                     <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" appendTo="body" placeholder="Chọn"
-                        [showClear]="true" styleClass="p-inputtext-sm w-100" [style]="{'width': '100%'}" [(ngModel)]="row.IddmLoaiNhienLieu"
-                        (onChange)="onChangeLoaiNhienLieu(row)"></p-dropdown>
+                        [showClear]="true" styleClass="p-inputtext-sm w-100" [style]="{'width': '100%'}"
+                        [(ngModel)]="row.IddmLoaiNhienLieu" (onChange)="onChangeLoaiNhienLieu(row)"></p-dropdown>
                 </td>
                 <td>
-                    <input type="text" class="p-inputtext-sm text-center w-100" [(ngModel)]="row.DonViTinh_NhienLieu" pInputText />
+                    <input type="text" class="p-inputtext-sm text-center w-100" [(ngModel)]="row.DonViTinh_NhienLieu"
+                        pInputText />
                 </td>
                 <td>
                     <p-inputNumber locale="en-EN" [(ngModel)]="row.MucTieuHao" [minFractionDigits]="0"

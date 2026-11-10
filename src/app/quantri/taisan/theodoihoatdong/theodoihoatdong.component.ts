@@ -110,9 +110,37 @@ export class TheodoihoatdongComponent implements OnInit, OnDestroy {
       IddmPhanXuong: this.filter.IddmPhanXuong || '',
     };
     this._serviceTaiSan.TheoDoiHoatDong().GetList(data).subscribe((res: any) => {
-      this.items = res.Data.Items;
-      this.paging.TotalCount = res.Data.TotalCount;
+      this.items = (res.Data?.Items || []).map((ele: any) => ({
+        ...ele,
+        MMTB: this.getMMTB(ele)
+      }));
+      this.paging.TotalCount = res.Data?.TotalCount || 0;
     })
+  }
+
+  getMMTB(item: any): string {
+    if (!item) return '';
+    if (typeof item.MMTB === 'string' && item.MMTB.trim() !== '') {
+      return item.MMTB;
+    }
+    const ma = item.MaTaiSan || item.Ma || item.MaMMTB || item.MaMay;
+    const ten = item.TenTaiSan || item.Ten || item.TenMMTB || item.TenMay || item.TendmTaiSan;
+    if (ma && ten) {
+      return `${ma} - ${ten}`;
+    }
+    if (ten) return ten;
+    if (ma) return ma;
+
+    if (Array.isArray(item.listTaiSan) && item.listTaiSan.length > 0) {
+      return item.listTaiSan.map((ts: any) => {
+        const tsMa = ts.MaTaiSan || ts.Ma || ts.MaMMTB || ts.MaMay;
+        const tsTen = ts.TenTaiSan || ts.Ten || ts.TenMMTB || ts.TenMay || ts.TendmTaiSan;
+        if (tsMa && tsTen) return `${tsMa} - ${tsTen}`;
+        return tsTen || tsMa || '';
+      }).filter((s: string) => !!s).join('; ');
+    }
+
+    return '';
   }
 
   changeParam(id: any) {

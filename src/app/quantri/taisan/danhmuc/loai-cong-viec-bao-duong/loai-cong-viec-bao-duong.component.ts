@@ -119,6 +119,10 @@ export class LoaiCongViecBaoDuongComponent implements OnInit {
     }).catch(er => console.log(er))
   }
   deleteAll() {
+    if (!this.selectedItems || this.selectedItems.length === 0) {
+      this._toastr.warning("Vui lòng chọn ít nhất 1 bản ghi để xóa!");
+      return;
+    }
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });

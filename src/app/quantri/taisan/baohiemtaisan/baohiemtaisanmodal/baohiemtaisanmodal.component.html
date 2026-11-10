@@ -30,13 +30,13 @@
     <app-chuyenbuoc [(quyTrinh)]="quyTrinh"></app-chuyenbuoc>
     <div class="p-grid">
         <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
-            <label class="">Bộ phận sử dụng:</label>
+            <label class="">Bộ phận sử dụng: <span class="text-danger">(*)</span></label>
             <div class="">
                 <app-select-bo-phan [(ngModel)]="quyTrinh.IdBoPhanSuDung" (onChange)="getListTaiSanDangSuDung()" [options]="listBoPhan" placeholder="Chọn bộ phận"></app-select-bo-phan>
             </div>
         </div>
         <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
-            <label class="">Số hợp đồng:</label>
+            <label class="">Số hợp đồng: <span class="text-danger">(*)</span></label>
             <div class="">
                 <input locale="en-EN" [(ngModel)]="quyTrinh.SoHopDong" styleClass="p-inputtext-sm" pInputText />
             </div>
@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
-            <label class="">Ngày bắt đầu:</label>
+            <label class="">Ngày bắt đầu: <span class="text-danger">(*)</span></label>
             <div class="">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.NgayBatDau"
                     [maxDate]="quyTrinh.NgayHetHan" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
@@ -65,7 +65,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-2 p-p-1 d-flex flex-column">
-            <label class="">Ngày hết hạn:</label>
+            <label class="">Ngày hết hạn: <span class="text-danger">(*)</span></label>
             <div class="">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.NgayHetHan"
                     [minDate]="quyTrinh.NgayBatDau" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"

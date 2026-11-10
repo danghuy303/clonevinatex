@@ -42,12 +42,13 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số lượng : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Tên viết tắt <span class="text-danger">(*)</span> :
+        </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <p-inputNumber [min]="1" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
-            </p-inputNumber>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenVietTat" pInputText />
         </div>
     </div>
+
 
     <!-- Row 3 -->
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
@@ -104,7 +105,7 @@
 
     <!-- Row 5 -->
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Năm sản xuất : </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Ngày sản xuất : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayNhap"
@@ -185,10 +186,10 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-2 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Tên viết tắt <span class="text-danger">(*)</span> :
-        </label>
+        <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Số lượng : </label>
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenVietTat" pInputText />
+            <p-inputNumber [min]="1" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+            </p-inputNumber>
         </div>
     </div>
 

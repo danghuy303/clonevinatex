@@ -63,6 +63,34 @@ export class BaohiemtaisanmodalComponent implements OnInit {
   }
 
   ValidateData() {
+    if (!validVariable(this.quyTrinh.IdBoPhanSuDung)) {
+      this.toastr.error("Yêu cầu chọn bộ phận sử dụng!");
+      return false;
+    }
+    if (!validVariable(this.quyTrinh.SoHopDong) || !this.quyTrinh.SoHopDong.toString().trim()) {
+      this.toastr.error("Yêu cầu nhập số hợp đồng!");
+      return false;
+    }
+    if (!validVariable(this.quyTrinh.NgayBatDau)) {
+      this.toastr.error("Yêu cầu chọn ngày bắt đầu!");
+      return false;
+    }
+    if (!validVariable(this.quyTrinh.NgayHetHan)) {
+      this.toastr.error("Yêu cầu chọn ngày hết hạn!");
+      return false;
+    }
+    const dStart = new Date(this.quyTrinh.NgayBatDau);
+    const dEnd = new Date(this.quyTrinh.NgayHetHan);
+    dStart.setHours(0, 0, 0, 0);
+    dEnd.setHours(0, 0, 0, 0);
+    if (dEnd.getTime() < dStart.getTime()) {
+      this.toastr.error("Ngày hết hạn phải lớn hơn hoặc bằng ngày bắt đầu!");
+      return false;
+    }
+    if (!this.quyTrinh.listTaiSan || this.quyTrinh.listTaiSan.length === 0) {
+      this.toastr.error("Yêu cầu chọn ít nhất một máy/thiết bị!");
+      return false;
+    }
     return true;
   }
 
@@ -98,14 +126,16 @@ export class BaohiemtaisanmodalComponent implements OnInit {
   }
 
   ChuyenDuyet() {
-    this._serviceTaiSan.BaoHiemTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
-        this.activeModal.close();
-      }
-    })
+    if (this.ValidateData()) {
+      this._serviceTaiSan.BaoHiemTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        }
+      })
+    }
   }
 
   KhongDuyet() {
