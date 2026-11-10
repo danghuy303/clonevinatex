@@ -78,6 +78,7 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
         this.GetById();
       }
     } else {
+      this.normalizeItemFields();
       this.item.NgayNhap = new Date(this.item.NgayNhap)
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
       if (this.item.PhanCap) {
@@ -109,7 +110,11 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     let ls4 = this._danhMucTaiSan.NoiDangKiem().GetList({ CurrentPage: 0 }).toPromise();
 
     Promise.all([ls0, ls1, ls2, ls3, ls4]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listLoaiTaiSan = (values[0].Data || []).map((ele: any) => ({
+        ...ele,
+        label: ele.Ma ? `${ele.Ma} - ${ele.Ten}` : ele.Ten,
+        value: ele.Id
+      }));
       this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
 
       this.listLoaiNhienLieu = mapArrayForDropDown(values[2].Data, 'Ten', 'Id');
@@ -133,10 +138,37 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     })
   }
 
+  normalizeItemFields() {
+    if (!this.item) return;
+    if (this.item.GiayCNDK_NgayCapUnix && !this.item.GiayCNDK_NgayCap) {
+      this.item.GiayCNDK_NgayCap = UnixToDate(this.item.GiayCNDK_NgayCapUnix);
+    } else if (typeof this.item.GiayCNDK_NgayCap === 'string') {
+      this.item.GiayCNDK_NgayCap = UnixToDate(this.item.GiayCNDK_NgayCap) || new Date(this.item.GiayCNDK_NgayCap);
+    } else if (!this.item.GiayCNDK_NgayCap && (this.item.NgayCapGiayChungNhanDangKyUnix || this.item.NgayCapDangKyUnix)) {
+      this.item.GiayCNDK_NgayCap = UnixToDate(this.item.NgayCapGiayChungNhanDangKyUnix || this.item.NgayCapDangKyUnix);
+    }
+    if (this.item.GiayCNDK_So === undefined) {
+      this.item.GiayCNDK_So = this.item.SoGiayChungNhanDangKy !== undefined ? this.item.SoGiayChungNhanDangKy : this.item.SoDangKy;
+    }
+    if (this.item.ThoiGianDaiTuGanNhatUnix && !this.item.ThoiGianDaiTuGanNhat) {
+      this.item.ThoiGianDaiTuGanNhat = UnixToDate(this.item.ThoiGianDaiTuGanNhatUnix);
+    } else if (typeof this.item.ThoiGianDaiTuGanNhat === 'string') {
+      this.item.ThoiGianDaiTuGanNhat = UnixToDate(this.item.ThoiGianDaiTuGanNhat) || new Date(this.item.ThoiGianDaiTuGanNhat);
+    }
+    if (!this.item.TendmTaiSan && this.item.TenNhomTaiSan) {
+      this.item.TendmTaiSan = this.item.TenNhomTaiSan;
+    }
+    if (this.item.ThoiGianKhauHaoConLai === undefined && this.item.SoNamKhauHaoConLai !== undefined) {
+      this.item.ThoiGianKhauHaoConLai = this.item.SoNamKhauHaoConLai;
+    }
+  }
+
   GetById() {
     this._serviceTaiSan.ListDanhSachTaiSan().Get(this.getId).subscribe((res: any) => {
       this.item = res.Data;
+      this.normalizeItemFields();
       // this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
+      this.normalizeItemFields();
       this.item.NgayNhap = new Date(this.item.NgayNhap)
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
       if (this.item.PhanCap) {

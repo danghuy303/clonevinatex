@@ -726,13 +726,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
-          {
-            label: "Mã QR",
-            routerLink: "/quantri/taisan/danhmuc/maqr",
-            command: () => {
-              this.close();
-            },
-          },
+          // {
+          //   label: "Mã QR",
+          //   routerLink: "/quantri/taisan/danhmuc/maqr",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
           {
             label: "Đội bảo dưỡng",
             routerLink: "/quantri/taisan/danhmuc/doibaoduong",
@@ -4138,13 +4138,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
-          {
-            label: "Mã QR",
-            routerLink: "/quantri/taisan/danhmuc/maqr",
-            command: () => {
-              this.close();
-            },
-          },
+          // {
+          //   label: "Mã QR",
+          //   routerLink: "/quantri/taisan/danhmuc/maqr",
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
           {
             label: "Đội bảo dưỡng",
             routerLink: "/quantri/taisan/danhmuc/doibaoduong",

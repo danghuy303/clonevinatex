@@ -48,7 +48,7 @@
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                     [locale]="lang" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon"
-                    [(ngModel)]="item.NgayThanhLy" placeholder="dd/mm/yyyy">
+                    [(ngModel)]="item.NgayThanhLy" [maxDate]="maxDate" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>

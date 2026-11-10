@@ -48,7 +48,7 @@ export interface DonViTinhSanLuongContext {
 }
 
 export const listDonViTinh_SanLuong: { label: string; value: string }[] = [
-    { label: 'Bảo dưỡng theo sản lượng (tấn)', value: 'SanLuong' },
+    { label: 'Bảo dưỡng theo sản lượng', value: 'SanLuong' },
     { label: 'Bảo dưỡng theo Giờ', value: 'Gio' },
     { label: 'Bảo dưỡng theo Km', value: 'Km' },
     { label: 'Bảo dưỡng theo Tấn/km', value: 'TanKm' },
@@ -57,8 +57,8 @@ export const listDonViTinh_SanLuong: { label: string; value: string }[] = [
 export const DON_VI_TINH_SAN_LUONG_CONFIG: Record<string, DonViTinhSanLuongContext> = {
     'SanLuong': {
         value: 'SanLuong',
-        label: 'Bảo dưỡng theo sản lượng (tấn)',
-        fieldLabel: 'Sản lượng (tấn)',
+        label: 'Bảo dưỡng theo sản lượng',
+        fieldLabel: 'Sản lượng',
         unit: 'tấn'
     },
     'Gio': {

@@ -26,6 +26,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
   listPhanXuong = [];
   checkbutton: any = {};
   lang: any = vn;
+  maxDate: Date = new Date();
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   public listdsTaiSan: any = [];
   public listTaiSanRef: any = [];
