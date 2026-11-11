@@ -54,7 +54,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetList();
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
   getListCongDoan() {
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetListLoaiTaiSan().subscribe((res: any) => {
@@ -74,7 +74,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       Keyword: this.filter.Keyword,
-      MaCongDoan: this.filter.MaCongDoan ? this.filter.MaCongDoan : '',
+      MaCongDoan: '',
 
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetListdmLoaiTaiSanForDanhMuc(data).subscribe((res: any) => {

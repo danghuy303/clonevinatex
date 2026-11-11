@@ -230,7 +230,7 @@ delete (item: any) {
   this._confirmService.show({
     message: 'Bạn chắc chắn muốn xóa máy/thiết bị này?'
   }, () => {
-    this.quyTrinh.listTaiSan = this.quyTrinh.listTaiSan?.filter((ele: any) => ele.IdTaiSan !== item.IdTaiSan);
+    this.quyTrinh.listTaiSan = this.quyTrinh.listTaiSan?.filter((ele: any) => (ele.IdTaiSan || ele.Id) !== (item.IdTaiSan || item.Id));
   })
 }
 
@@ -244,15 +244,44 @@ handleThemTaiSan() {
       size: "lg",
       backdrop: "static",
     });
-    modalRef.componentInstance.listDaChon = this.quyTrinh.listTaiSan ? this.quyTrinh.listTaiSan.map((ele: any) => ele.IdTaiSan) : [];
+    modalRef.componentInstance.listDaChon = this.quyTrinh.listTaiSan ? this.quyTrinh.listTaiSan.map((ele: any) => ele.IdTaiSan || ele.Id) : [];
     modalRef.componentInstance.listView = this.listTaiSan || [];
     modalRef.componentInstance.title = 'Danh sách máy/thiết bị';
     modalRef.result.then((res: any) => {
       const _list = this.quyTrinh.listTaiSan || [];
       this.quyTrinh.listTaiSan = res.map((ele: any) => {
-        let _newObj = _list.find((x: any) => x.IdTaiSan === ele.IdTaiSan);
+        const assetId = ele.IdTaiSan || ele.Id;
+        let _newObj = _list.find((x: any) => {
+          const xId = x.IdTaiSan || x.Id;
+          return xId && xId === assetId;
+        });
         if (!_newObj) {
-          _newObj = { ...ele, listCongViec: [] };
+          _newObj = {
+            ...ele,
+            Id: ele.Id,
+            IdTaiSan: assetId,
+            MaTaiSan: ele.MaTaiSan || ele.Ma || '',
+            TenTaiSan: ele.TenTaiSan || ele.Ten || '',
+            Ma: ele.Ma || ele.MaTaiSan || '',
+            Ten: ele.Ten || ele.TenTaiSan || '',
+            NguoiVanHanh: ele.NguoiVanHanh || '',
+            GhiChu: ele.GhiChu || '',
+            DonViTinh: ele.DonViTinh || ele.DonViNangSuat || '',
+            DonViNangSuat: ele.DonViNangSuat || '',
+            SoLuong: ele.SoLuong || 1,
+            Modem: ele.Modem || '',
+            SoSeri: ele.SoSeri || '',
+            NuocSanXuat: ele.NuocSanXuat || '',
+            HangSanXuat: ele.HangSanXuat || '',
+            TenVietTat: ele.TenVietTat || '',
+            BienSo: ele.BienSo || '',
+            KieuChuyenDung: ele.KieuChuyenDung || '',
+            NguyenGia: ele.NguyenGia || 0,
+            GiaTriConLai: ele.GiaTriConLai || 0,
+            ThoiGianDuaVaoSuDung: ele.ThoiGianDuaVaoSuDung,
+            ThoiGianDuaVaoSuDungUnix: ele.ThoiGianDuaVaoSuDungUnix,
+            listCongViec: []
+          };
           this.addCongViec(_newObj);
           this.getSanLuongDropdownForAsset(_newObj);
         } else {
@@ -269,20 +298,20 @@ addCongViec(item: any) {
   if (!Array.isArray(item.listCongViec)) {
     item.listCongViec = [];
   }
-  const newCv: any = {
-    IdSanLuong: null,
-    DonViTinh_SanLuong: '',
-    DonViTinh: '',
-    DinhMuc: 0,
-    TuGio: null,
-    DenGio: null,
-    GioQuyDoi: 0,
-    ThucTe: null,
-    DonGia: null,
-    ThanhTien: 0,
-    NguoiVanHanh: '',
-    GhiChu: ''
-  };
+    const newCv: any = {
+      IdSanLuong: null,
+      DonViTinh_SanLuong: item.DonViTinh_SanLuong || item.DonViTinh || item.DonViNangSuat || '',
+      DonViTinh: item.DonViTinh_SanLuong || item.DonViTinh || item.DonViNangSuat || '',
+      DinhMuc: item.DinhMuc || 0,
+      TuGio: null,
+      DenGio: null,
+      GioQuyDoi: 0,
+      ThucTe: null,
+      DonGia: null,
+      ThanhTien: 0,
+      NguoiVanHanh: item.NguoiVanHanh || '',
+      GhiChu: item.GhiChu || ''
+    };
   item.listCongViec.push(newCv);
   if (item.rawSanLuongList && item.rawSanLuongList.length === 1) {
     newCv.IdSanLuong = item.rawSanLuongList[0].Id;
@@ -470,6 +499,9 @@ getSanLuongDropdownForAsset(item: any) {
 
       if (Array.isArray(item.listCongViec)) {
         item.listCongViec.forEach((cv: any) => {
+          if (!cv.IdSanLuong && list.length === 1) {
+            cv.IdSanLuong = list[0].Id;
+          }
           if (cv.IdSanLuong) {
             const selected = list.find((x: any) => x.Id === cv.IdSanLuong);
             if (selected) {

@@ -44,10 +44,12 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
       this.quyTrinh.Ngay = new Date();
+      this.quyTrinh.NgayBatDau = new Date();
+      this.quyTrinh.NgayKetThuc = new Date();
     } else {
       this.quyTrinh.Ngay = UnixToDate(this.quyTrinh.NgayUnix || this.quyTrinh.NgayBatDauUnix) || new Date();
-      this.quyTrinh.NgayBatDau = UnixToDate(this.quyTrinh.NgayBatDauUnix);
-      this.quyTrinh.NgayKetThuc = UnixToDate(this.quyTrinh.NgayKetThucUnix);
+      this.quyTrinh.NgayBatDau = UnixToDate(this.quyTrinh.NgayBatDauUnix) || this.quyTrinh.Ngay;
+      this.quyTrinh.NgayKetThuc = UnixToDate(this.quyTrinh.NgayKetThucUnix) || this.quyTrinh.Ngay;
       if (this.quyTrinh.listTaiSan?.length) {
         this.quyTrinh.listTaiSan.forEach((ele: any) => {
           this.normalizeTaiSanItem(ele);
@@ -77,6 +79,26 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
   }
 
   ValidateData() {
+    if (!validVariable(this.quyTrinh.IddmPhanXuong)) {
+      this.toastr.error("Vui lòng chọn bộ phận!");
+      return false;
+    }
+    if (!validVariable(this.quyTrinh.NgayBatDau)) {
+      this.toastr.error("Vui lòng chọn ngày bắt đầu!");
+      return false;
+    }
+    if (!validVariable(this.quyTrinh.NgayKetThuc)) {
+      this.toastr.error("Vui lòng chọn ngày kết thúc!");
+      return false;
+    }
+    if (new Date(this.quyTrinh.NgayBatDau).getTime() > new Date(this.quyTrinh.NgayKetThuc).getTime()) {
+      this.toastr.error("Ngày bắt đầu không được lớn hơn ngày kết thúc!");
+      return false;
+    }
+    if (!validVariable(this.quyTrinh.NoiDung) || (typeof this.quyTrinh.NoiDung === 'string' && this.quyTrinh.NoiDung.trim() === '')) {
+      this.toastr.error("Vui lòng nhập nội dung!");
+      return false;
+    }
     return true;
   }
 
@@ -87,9 +109,9 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
       IdBoPhanSuDung: this.quyTrinh.IddmPhanXuong || this.quyTrinh.IdBoPhanSuDung,
       eAction: this.eAction,
       IdDuAn: this.store.getCurrent(),
-      NgayUnix: DateToUnix(this.quyTrinh.Ngay),
-      NgayBatDauUnix: DateToUnix(this.quyTrinh.Ngay || this.quyTrinh.NgayBatDau),
-      NgayKetThucUnix: DateToUnix(this.quyTrinh.Ngay || this.quyTrinh.NgayKetThuc),
+      NgayUnix: DateToUnix(this.quyTrinh.NgayBatDau || this.quyTrinh.Ngay),
+      NgayBatDauUnix: DateToUnix(this.quyTrinh.NgayBatDau || this.quyTrinh.Ngay),
+      NgayKetThucUnix: DateToUnix(this.quyTrinh.NgayKetThuc || this.quyTrinh.Ngay),
       listTaiSan: (this.quyTrinh.listTaiSan || []).map((ele: any) => {
         const listCongViecClean = (ele.listCongViec || []).map((cv: any) => {
           const donGia = Number(cv.DonGia) || 0;
@@ -154,6 +176,9 @@ export class TieuhaonhienlieumodalComponent implements OnInit {
   }
 
   ChuyenDuyet() {
+    if (!this.ValidateData()) {
+      return;
+    }
     this._serviceTaiSan.TieuHaoNhienLieu().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);

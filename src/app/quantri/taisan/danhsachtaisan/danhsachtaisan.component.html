@@ -84,6 +84,7 @@
             <col style="width: 85px;">
             <col style="width: 110px;">
             <col style="width: 140px;">
+            <col style="width: 120px;">
             <col style="width: 75px;">
         </colgroup>
     </ng-template>
@@ -106,6 +107,7 @@
             <th class="text-center" rowspan="2">Số lần đại tu</th>
             <th class="text-center" rowspan="2">TG đại tu gần nhất</th>
             <th class="text-center" rowspan="2">Người sử dụng</th>
+            <th class="text-center" rowspan="2">Trạng thái</th>
             <th class="text-center" rowspan="2">Thao tác</th>
         </tr>
         <tr>
@@ -140,21 +142,23 @@
             <td>{{rowData.BienSo || rowData.BienSoDangKy}}</td>
             <td class="text-center">{{rowData.SoNamKhauHao}}</td>
             <td class="text-center">{{rowData.ThoiGianKhauHaoConLai}}</td>
-            <td class="text-right">{{rowData.NguyenGia | number}}</td>
-            <td class="text-right">{{rowData.GiaTriConLai | number}}</td>
+            <td class="text-right">{{rowData.NguyenGia | number:'0.0-0'}}</td>
+            <td class="text-right">{{rowData.GiaTriConLai | number:'0.0-0'}}</td>
             <td>{{rowData.GiayCNDK_So || rowData.SoGiayChungNhanDangKy || rowData.SoDangKy}}</td>
             <td class="text-center">{{(rowData.GiayCNDK_NgayCap || rowData.NgayCapGiayChungNhanDangKy) |
                 date:'dd/MM/yyyy'}}</td>
             <td>{{rowData.SoKhung || rowData.Modem}}</td>
             <td>{{rowData.SoMay || rowData.SoSeri}}</td>
             <td>{{rowData.MauSon}}</td>
-            <td class="text-center">{{ (rowData.NgayNhap | date:'dd/MM/yyyy')
+            <td class="text-center">{{ (rowData.NgayNhap | date:'yyyy')
                 || rowData.NamSanXuat}}</td>
             <td class="text-center">{{(rowData.ThoiGianDuaVaoSuDung || rowData.NgayNhap) | date:'dd/MM/yyyy'}}</td>
             <td class="text-center">{{rowData.PhanCap }}</td>
             <td class="text-center">{{rowData.SoLanDaiTu}}</td>
             <td class="text-center">{{rowData.ThoiGianDaiTuGanNhat | date:'dd/MM/yyyy'}}</td>
             <td>{{rowData.NguoiVanHanh || rowData.NguoiSuDung || rowData.TendmPhanXuong}}</td>
+            <td class="text-center">{{rowData.TendmTinhTrangTaiSan || rowData.TenTinhTrang || rowData.TendmTinhTrang}}
+            </td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-eye"
                     class="p-button-text p-button-sm p-button-secondary" ngbTooltip="Xem Thông tin máy/thiết bị"

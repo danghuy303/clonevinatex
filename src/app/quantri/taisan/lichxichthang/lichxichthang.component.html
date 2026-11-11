@@ -22,11 +22,6 @@
         <div class="p-mr-2">
             <app-select-bo-phan [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng"></app-select-bo-phan>
         </div>
-        <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn "
-                [(ngModel)]="filter.IddmLoaiTaiSan" styleClass="p-inputtext-sm" [showClear]="true" [filter]="true"
-                (onChange)="GetList(true)"></p-dropdown>
-        </div>
     </div>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">

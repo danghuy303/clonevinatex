@@ -83,7 +83,7 @@ export class LichxichnamComponent implements OnInit {
   }
   loadData() {
     let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: this.filter.Ma, IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '', Ngay: DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)), LoaiKeHoach: '',
       IdDuAn: 0,
     };

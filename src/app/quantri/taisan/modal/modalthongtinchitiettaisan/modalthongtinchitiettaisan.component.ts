@@ -79,8 +79,10 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
       }
     } else {
       this.normalizeItemFields();
-      this.item.NgayNhap = new Date(this.item.NgayNhap)
-      this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
+      this.item.NgayNhap = this.formatDate(this.item.NgayNhap, this.item.NgayNhapUnix);
+      this.item.ThoiGianDuaVaoSuDung = this.formatDate(this.item.ThoiGianDuaVaoSuDung, this.item.ThoiGianDuaVaoSuDungUnix);
+
+
       if (this.item.PhanCap) {
         this.item.PhanCap = Number(this.item.PhanCap);
       }
@@ -161,6 +163,79 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     if (this.item.ThoiGianKhauHaoConLai === undefined && this.item.SoNamKhauHaoConLai !== undefined) {
       this.item.ThoiGianKhauHaoConLai = this.item.SoNamKhauHaoConLai;
     }
+    this.item.NgayNhap = this.formatDate(this.item.NgayNhap, this.item.NgayNhapUnix);
+    this.item.ThoiGianDuaVaoSuDung = this.formatDate(this.item.ThoiGianDuaVaoSuDung, this.item.ThoiGianDuaVaoSuDungUnix);
+  }
+
+  get defaultDateNgayNhap(): Date {
+    if (this.item && this.item.ThoiGianDuaVaoSuDung) {
+      let d = this.toDate(this.item.ThoiGianDuaVaoSuDung);
+      if (d && d.getFullYear() > 1970) return d;
+    }
+    return new Date();
+  }
+
+  formatDate(val: any, unixVal?: any): Date | null {
+    if (!val && unixVal) {
+      let d = UnixToDate(unixVal);
+      if (d && d.getFullYear() > 1970) return d;
+    }
+    if (!val) return null;
+    if (val instanceof Date) {
+      return (isNaN(val.getTime()) || val.getFullYear() <= 1970) ? null : val;
+    }
+    if (typeof val === 'number') {
+      if (val <= 0 || val <= 1970) return null;
+      if (val > 1970 && val < 3000) return new Date(val, 0, 1);
+      const d = new Date(val);
+      return (isNaN(d.getTime()) || d.getFullYear() <= 1970) ? null : d;
+    }
+    if (typeof val === 'string') {
+      let str = val.trim();
+      if (!str || str.startsWith('0001-01-01') || str.startsWith('1970-01-01')) return null;
+      if (/^\d{4}$/.test(str)) {
+        let yr = Number(str);
+        return yr <= 1970 ? null : new Date(yr, 0, 1);
+      }
+      let unix = DateToUnix(str);
+      if (unix && unix > 0) {
+        let d = UnixToDate(unix);
+        return (d && d.getFullYear() > 1970) ? d : null;
+      }
+      let d = new Date(str);
+      return (!isNaN(d.getTime()) && d.getFullYear() > 1970) ? d : null;
+    }
+    return null;
+  }
+
+  toDate(val: any): Date | null {
+    return this.formatDate(val);
+  }
+
+  checkValidNgayNhap() {
+    if (this.item.NgayNhap && this.item.ThoiGianDuaVaoSuDung) {
+      let dNgayNhap = this.toDate(this.item.NgayNhap);
+      let dSuDung = this.toDate(this.item.ThoiGianDuaVaoSuDung);
+      if (dNgayNhap && dSuDung && dNgayNhap > dSuDung) {
+        this.toastr.warning('Năm sản xuất phải nhỏ hơn thời gian đưa vào sử dụng!');
+        this.item.NgayNhap = null;
+        return false;
+      }
+    }
+    return true;
+  }
+
+  checkValidThoiGianDuaVaoSuDung() {
+    if (this.item.NgayNhap && this.item.ThoiGianDuaVaoSuDung) {
+      let dNgayNhap = this.toDate(this.item.NgayNhap);
+      let dSuDung = this.toDate(this.item.ThoiGianDuaVaoSuDung);
+      if (dNgayNhap && dSuDung && dNgayNhap > dSuDung) {
+        this.toastr.warning('Thời gian đưa vào sử dụng phải lớn hơn năm sản xuất!');
+        this.item.ThoiGianDuaVaoSuDung = null;
+        return false;
+      }
+    }
+    return true;
   }
 
   GetById() {
@@ -169,8 +244,10 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
       this.normalizeItemFields();
       // this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
       this.normalizeItemFields();
-      this.item.NgayNhap = new Date(this.item.NgayNhap)
-      this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
+      this.item.NgayNhap = this.formatDate(this.item.NgayNhap, this.item.NgayNhapUnix);
+      this.item.ThoiGianDuaVaoSuDung = this.formatDate(this.item.ThoiGianDuaVaoSuDung, this.item.ThoiGianDuaVaoSuDungUnix);
+
+
       if (this.item.PhanCap) {
         this.item.PhanCap = Number(this.item.PhanCap);
       }

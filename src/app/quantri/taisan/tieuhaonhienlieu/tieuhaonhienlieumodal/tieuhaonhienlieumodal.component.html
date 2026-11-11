@@ -29,21 +29,34 @@
     </div>
     <app-chuyenbuoc [(quyTrinh)]="quyTrinh"></app-chuyenbuoc>
     <div class="p-grid">
-        <!-- Left Side (Bộ phận, Ngày) -->
+        <!-- Left Side (Bộ phận, Ngày bắt đầu, Ngày kết thúc) -->
         <div class="p-col-12 p-lg-6 p-p-2">
             <!-- Bộ phận -->
             <div class="p-d-flex p-flex-column p-mb-2">
-                <label class="p-d-block p-mb-1">Bộ phận:</label>
+                <label class="p-d-block p-mb-1">Bộ phận: <span class="text-danger">(*)</span></label>
                 <app-select-bo-phan [(ngModel)]="quyTrinh.IddmPhanXuong" (onChange)="onChangeBoPhan()"
                     [options]="listBoPhan" placeholder="Chọn bộ phận"></app-select-bo-phan>
             </div>
-            <!-- Ngày -->
-            <div class="p-d-flex p-flex-column p-mb-2">
-                <label class="p-d-block p-mb-1">Ngày:</label>
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.Ngay"
-                    [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"
-                    [showIcon]="true" inputId="icon" placeholder="Ngày" [style]="{'width': '100%'}">
-                </p-calendar>
+            <!-- Từ ngày & Đến ngày -->
+            <div class="p-grid p-m-0">
+                <div class="p-col-6 p-p-0 p-pr-1">
+                    <div class="p-d-flex p-flex-column p-mb-2">
+                        <label class="p-d-block p-mb-1">Từ ngày: <span class="text-danger">(*)</span></label>
+                        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.NgayBatDau"
+                            [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"
+                            [showIcon]="true" inputId="icon" placeholder="Từ ngày" [style]="{'width': '100%'}">
+                        </p-calendar>
+                    </div>
+                </div>
+                <div class="p-col-6 p-p-0 p-pl-1">
+                    <div class="p-d-flex p-flex-column p-mb-2">
+                        <label class="p-d-block p-mb-1">Đến ngày: <span class="text-danger">(*)</span></label>
+                        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [(ngModel)]="quyTrinh.NgayKetThuc"
+                            [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"
+                            [showIcon]="true" inputId="icon" placeholder="Đến ngày" [style]="{'width': '100%'}">
+                        </p-calendar>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -51,7 +64,7 @@
         <div class="p-col-12 p-lg-6 p-p-2">
             <!-- Nội dung -->
             <div class="p-d-flex p-flex-column p-mb-2">
-                <label class="p-d-block p-mb-1">Nội dung:</label>
+                <label class="p-d-block p-mb-1">Nội dung: <span class="text-danger">(*)</span></label>
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.NoiDung" pInputText
                     style="width: 100%" />
             </div>

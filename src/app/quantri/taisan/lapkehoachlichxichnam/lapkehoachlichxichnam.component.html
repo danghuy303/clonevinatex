@@ -34,6 +34,7 @@
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
+
                 <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
@@ -43,17 +44,11 @@
                 <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ThemMoiDanhSachTaiSan()" [options]="listPhanXuong" placeholder="Chọn bộ phận"></app-select-bo-phan>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chọn công đoạn: </label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown #congdoan [filter]="true" [showClear]="true" [options]="listCongDoan"
-                    [(ngModel)]="item.MaCongDoan" (onChange)="ThemMoiDanhSachTaiSan()" [resetFilterOnHide]="true"
-                    placeholder="Chọn công đoạn"></p-dropdown>
-            </div>
-        </div> -->
+
         <div class="p-col-12 p-lg-7 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
+
                 <textarea pInputTextarea class="p-inputtext-sm" [rows]="1" [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>

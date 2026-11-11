@@ -67,7 +67,7 @@ export class DanhMucDoiBaoDuongComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       Keyword: this.Keyword,
-      MaCongDoan: this.filter.MaCongDoan ? this.filter.MaCongDoan : '',
+      MaCongDoan: '',
     };
     this._danhMucTaiSan.DoiBaoDuong().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
@@ -82,7 +82,7 @@ export class DanhMucDoiBaoDuongComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới đội bảo dưỡng';
-    modalRef.componentInstance.listCongDoan = this.listCongDoan;
+
     modalRef.result.then(res => {
       this.GetList()
     }).catch(er => console.log(er))
@@ -95,7 +95,7 @@ export class DanhMucDoiBaoDuongComponent implements OnInit {
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật đội bảo dưỡng';
-    modalRef.componentInstance.listCongDoan = this.listCongDoan;
+
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then(res => {
       this.GetList()

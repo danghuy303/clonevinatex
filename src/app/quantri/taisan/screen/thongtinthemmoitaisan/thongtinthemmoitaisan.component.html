@@ -109,7 +109,8 @@
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayNhap"
-                inputId="icon" placeholder="dd/mm/yyyy" appendTo="body">
+                inputId="icon" placeholder="dd/mm/yyyy" appendTo="body" [maxDate]="item.ThoiGianDuaVaoSuDung"
+                [defaultDate]="item.ThoiGianDuaVaoSuDung || defaultDate">
             </p-calendar>
         </div>
     </div>
@@ -200,7 +201,7 @@
         <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianDuaVaoSuDung"
-                inputId="icon" placeholder="dd/mm/yyyy" appendTo="body">
+                inputId="icon" placeholder="dd/mm/yyyy" appendTo="body" [minDate]="item.NgayNhap">
             </p-calendar>
         </div>
     </div>

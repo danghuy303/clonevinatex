@@ -51,9 +51,9 @@ export class LichxichthangComponent implements OnInit {
     let getFullYear = new Date().getFullYear();
     let getMonth = new Date().getMonth() + 1;
     // this.filter.Ngay = `${getMonth}/${getFullYear}`;
-    this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
-      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
-    })
+    // this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
+    //   this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+    // })
     this._serviceTaiSan.GetListdmPhanXuongForIdDuAn_QLTS().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
@@ -67,7 +67,7 @@ export class LichxichthangComponent implements OnInit {
       Keyword: "",
       CurrentPage: 0,
       PageSize: 20,
-      MaCongDoan: this.filter.IddmLoaiTaiSan,
+      MaCongDoan: '',
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       IddmLoaiTaiSan: '',
       IdUser: '',

@@ -157,15 +157,38 @@ export class ModalbaoduongComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ mã!");
       return false;
     }
+    if (typeof this.item.Ma === 'string' && this.item.Ma.trim().startsWith('.')) {
+      this.toastr.error("Mã không được bắt đầu bằng dấu chấm '.'!");
+      return false;
+    }
     if (!validVariable(this.item.Ten)) {
       this.toastr.error("Yêu cầu nhập đầy đủ tên !");
+      return false;
+    }
+    if (!validVariable(this.item.KyHieu)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ ký hiệu !");
+      return false;
+    }
+    if (false) {
       return false;
     }
     if (!validVariable(this.item.Ten)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ký hiệu !");
       return false;
     }
-    if (!validVariable(this.item.listIddmLoaiTaiSan) || !validVariable(this.item.IddmMucDoUuTien)) {
+    if (!validVariable(this.item.listIddmLoaiTaiSan) || !Array.isArray(this.item.listIddmLoaiTaiSan) || this.item.listIddmLoaiTaiSan.length === 0) {
+      this.toastr.error("Yêu cầu chọn loại máy/thiết bị!");
+      return false;
+    }
+    if (!validVariable(this.item.ThoiGianDinhMuc) || this.item.ThoiGianDinhMuc === null) {
+      this.toastr.error("Yêu cầu nhập thời gian định mức (phút)!");
+      return false;
+    }
+    if (!validVariable(this.item.SoNguoi) || this.item.SoNguoi === null) {
+      this.toastr.error("Yêu cầu nhập số người!");
+      return false;
+    }
+    if (!validVariable(this.item.IddmMucDoUuTien)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc !");
       return false;
     }

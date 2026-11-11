@@ -231,6 +231,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this.toastr.error("Vui lòng nhập mã máy/thiết bị!");
       return false;
     }
+    if (typeof this.item?.TaiSan?.Ma === 'string' && this.item?.TaiSan?.Ma.trim().startsWith('.')) {
+      this.toastr.error("Mã máy/thiết bị không được bắt đầu bằng dấu chấm '.'!");
+      return false;
+    }
     if (!validVariable(this.item?.TaiSan?.Ten) || (typeof this.item?.TaiSan?.Ten === 'string' && this.item?.TaiSan?.Ten.trim() === '')) {
       this.toastr.error("Vui lòng nhập tên máy/thiết bị!");
       return false;

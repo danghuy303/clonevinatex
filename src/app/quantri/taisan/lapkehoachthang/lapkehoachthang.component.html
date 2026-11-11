@@ -29,82 +29,6 @@
         </div>
     </div>
     <app-chuyenbuoc [(quyTrinh)]="item"></app-chuyenbuoc>
-    <!-- <div class="modal-body">
-    <div class="p-d-flex p-flex-row p-jc-between">
-        <div class="modal-bt p-mb-4 ">
-            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
-                (click)="activeModal.dismiss()"></button>
-            <button pButton pRipple *ngIf="checkbutton.Ghi" type="button" label="Ghi lại" class="p-mr-2 p-button-sm "
-                (click)="GhiLai()"></button>
-            <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
-                (click)="XoaQuyTrinh()"></button>
-            <button pButton *ngIf="checkbutton.ChuyenTiep" pRipple type="button" label="Chuyển duyệt"
-                class="p-mr-2 p-button-sm " (click)="ChapNhan()"></button>
-            <button pButton *ngIf="checkbutton.KhongDuyet" pRipple type="button" label="Không duyệt"
-                class="p-mr-2 p-button-sm " (click)="KhongDuyet()"></button>
-        </div>
-    </div>
-    <div class="p-grid">
-        <div class="p-col-12 p-lg-6  p-p-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Nội dung</label>
-            <div class="p-col-12 p-xl-10 p-p-0">
-                <input locale="en-EN" pInputText [(ngModel)]="item.NoiDung" />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Bộ phận sử dụng <span class="required">(*)</span></label>
-            <div class="p-col-12 p-xl-10 p-p-0">
-                <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" [options]="listPhanXuong" placeholder="Chọn bộ phận"></app-select-bo-phan>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Loại máy/thiết bị <span class="required">(*)</span></label>
-            <div class="p-col-12 p-xl-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan"
-                    placeholder="Chọn loại máy/thiết bị"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chọn tháng, năm <span class="required">(*)</span></label>
-            <div class="p-col-12 p-xl-10 p-p-0">
-                <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    inputId="icon" (onSelect)="chonThang(item.ThoiGian, true)" placeholder="Chọn tháng, năm"
-                    [locale]="vi" [(ngModel)]="item.ThoiGian">
-                </p-calendar>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-xl-10 p-p-0">
-                <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
-            </div>
-        </div>
-    </div>
-
-    <p-tabView>
-        <p-tabPanel header="Danh sách máy/thiết bị">
-            <ng-template pTemplate="content">
-                <div class="p-d-flex p-flex-row p-jc-between p-grid">
-                    <div class="modal-bt p-col-12 p-lg-4 p-pb-3 p-pl-0 p-pt-0 d-flex flex-column flex-lg-row ">
-                        <button pButton pRipple type="button" label="Thêm máy/thiết bị" class="p-mr-2 p-button-sm "
-                            (click)="ThemMoiDanhSachTaiSan()"></button>
-                    </div>
-                    <div class="modal-bt p-col-12 p-lg-6 p-pl-0 p-pt-0 d-flex flex-column flex-lg-row">
-                    </div>
-                    <div class="modal-bt p-col-12 p-lg-2 p-pl-0 p-pt-0 d-flex flex-column flex-lg-row">
-                        <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
-                        <div class="p-col-12 p-lg-8 p-p-0">
-                        </div>
-                    </div>
-                </div>
-                <app-taisanlichxichthang [listTaiSan]="item.listTaiSan" [soNgay]="ngayCuoiCungCuaThangDaChon"
-                    [ThoiGianDaChon]="item.ThoiGian" [checkBtnChonTaiSan]="checkBtnChonTaiSan">
-                </app-taisanlichxichthang>
-            </ng-template>
-        </p-tabPanel>
-    </p-tabView>
-
-</div> -->
 
     <div class="p-grid">
         <div class="p-col-12 p-lg-6  p-p-2 d-flex flex-column flex-xl-row">
@@ -119,15 +43,6 @@
                 <app-select-bo-phan [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ThemMoiDanhSachTaiSan('CHONLAI')" [options]="listPhanXuong" placeholder="Chọn bộ phận"></app-select-bo-phan>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chọn công đoạn</label>
-                <div class="p-col-12 p-xl-10 p-p-0">
-                    <p-dropdown #congdoan [filter]="true" [showClear]="true" [options]="listCongDoan"
-                        [resetFilterOnHide]="true" [(ngModel)]="item.MaCongDoan" placeholder="Chọn công đoạn"
-                        (onChange)="ThemMoiDanhSachTaiSan('CHONLAI')" (onShow)="SaveOldVal()"></p-dropdown>
-                </div>
-            </div> -->
-
         <div class="p-col-12 p-lg-6 p-p-2 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ghi chú</label>
             <div class="p-col-12 p-xl-10 p-p-0">
@@ -149,12 +64,6 @@
     <p-tabView>
         <p-tabPanel header="Danh sách máy/thiết bị">
             <ng-template pTemplate="content">
-                <!-- <div class="p-grid p-jc-end">
-                    <span class="p-input-icon-left mb-3" style="width: 300px">
-                        <i class="pi pi-search"></i>
-                        <input type="text" [(ngModel)]="keyword"  pInputText placeholder="Tìm kiếm..." />
-                    </span>
-                </div> -->
                 <app-taisanlichxichthang [listTaiSan]="item.listTaiSan" [soNgay]="ngayCuoiCungCuaThangDaChon"
                     [ThoiGianDaChon]="item.ThoiGian" [checkBtnChonTaiSan]="checkBtnChonTaiSan">
                 </app-taisanlichxichthang>

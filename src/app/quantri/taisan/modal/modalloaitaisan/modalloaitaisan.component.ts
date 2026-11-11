@@ -23,7 +23,7 @@ export class ModalloaitaisanComponent implements OnInit {
     public toastr: ToastrService) { this.item.isHoatDong = true }
 
   ngOnInit(): void {
-    this.getListCongDoan();
+    // this.getListCongDoan();
   }
 
   ValidateData() {

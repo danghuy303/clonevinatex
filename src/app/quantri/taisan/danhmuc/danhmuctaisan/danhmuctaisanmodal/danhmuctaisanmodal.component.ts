@@ -270,8 +270,20 @@ export class DanhmuctaisanmodalComponent implements OnInit {
   }
 
   ValidateData() {
+    if (!validVariable(this.item.Ma) || (typeof this.item.Ma === 'string' && this.item.Ma.trim() === '')) {
+      this.toastr.error("Vui lòng nhập mã!");
+      return false;
+    }
+    if (typeof this.item.Ma === 'string' && this.item.Ma.trim().startsWith('.')) {
+      this.toastr.error("Mã không được bắt đầu bằng dấu chấm '.'!");
+      return false;
+    }
+    if (!validVariable(this.item.Ten) || (typeof this.item.Ten === 'string' && this.item.Ten.trim() === '')) {
+      this.toastr.error("Vui lòng nhập tên!");
+      return false;
+    }
     if (!validVariable(this.item.IddmLoaiTaiSan)) {
-      this.toastr.error("Yêu cầu chọn loại vật tư!");
+      this.toastr.error("Yêu cầu chọn loại máy/thiết bị/vật tư!");
       return false;
     }
     return true;

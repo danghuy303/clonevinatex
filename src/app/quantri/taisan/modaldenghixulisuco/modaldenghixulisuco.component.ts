@@ -292,9 +292,30 @@ export class ModaldenghixulisucoComponent implements OnInit {
     }
 
     ValidateData() {
-        if (!validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.IdDoUuTien)) {
-            this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+        if (!validVariable(this.item.IdBoPhanSuDung)) {
+            this.toastr.error("Vui lòng chọn bộ phận sử dụng!");
             return false;
+
+        }
+        if (!validVariable(this.item.IdTaiSan)) {
+            this.toastr.error("Vui lòng chọn máy!");
+            return false;
+
+        }
+        if (!validVariable(this.item.IdDoUuTien)) {
+            this.toastr.error("Vui lòng chọn mức độ ưu tiên!");
+            return false;
+
+        }
+        if (!validVariable(this.item.IddmLoaiSuCo)) {
+            this.toastr.error("Vui lòng chọn loại sự cố!");
+            if (true) {
+            return false;
+
+        }
+
+
+
         }
         // if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
         //   this.toastr.error("Yêu cầu nhập thêm máy/thiết bị!");
@@ -377,6 +398,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
         if (!validVariable(this.item.IdBoPhanSuDung)) {
             this.toastr.error("Yêu cầu nhập đầy đủ bộ phận sử dụng!");
             return false;
+
         }
         let modalRef = this._modal.open(XulysucoluachontaisanComponent, {
             size: "xl",
@@ -424,6 +446,9 @@ export class ModaldenghixulisucoComponent implements OnInit {
         })
     }
     ChuyenDuyet() {
+        if (!this.ValidateData()) {
+            return;
+        }
         if (this.item.isDoiBaoDuong && this.item.listTaiSan.some(x => !x.IsXuLy)) {
             this.toastr.error("Vui lòng hoàn thành các công việc trước khi chuyển tiếp!")
             return;

@@ -2,7 +2,7 @@
     Danh mục đội bảo dưỡng
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
-    <div class="p-d-flex p-fle|filter:keyWordx-row">
+    <div class="p-d-flex p-flex-row">
         <button pButton pRipple label="Thêm mới " icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
         <button pButton pRipple label="Xóa" class="p-button-sm p-mr-2" (click)="deleteAll()"></button>
         <!-- <button pButton pRipple label="Nhập excel"  class="p-button-sm p-mr-2"
@@ -11,16 +11,7 @@
             (click)="exportExcel()"></button> -->
     </div>
     <div class="p-d-flex p-flex-row">
-        <div class="p-d-flex p-flex-row" style="width:200px">
-            <div style="width:200px; margin-right:10px ;">
-                <div class="p-col-12 p-p-0">
-                    <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
-                        [(ngModel)]="filter.MaCongDoan" styleClass="p-inputtext-sm" [showClear]="true" [filter]="true"
-                        (onChange)="GetList(true)">
-                    </p-dropdown>
-                </div>
-            </div>
-        </div>
+
         <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" [(ngModel)]="Keyword" (keyup.enter)="GetList(true)"
                 class="p-inputtext-sm" pInputText />

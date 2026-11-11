@@ -15,6 +15,7 @@ import { ChonComponent } from '../chon/chon.component';
 export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
 
   lang: any = vn;
+  defaultDate: Date = new Date();
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   checkbutton: any = {};
   NameFile: any = "";
@@ -196,7 +197,11 @@ export class ThongtinthemmoitaisanComponent implements OnInit, OnChanges {
           this.toastr.error(res.Message);
         }
         else {
-          this.item.Ma = res.Data;
+          let ma = res.Data;
+          if (typeof ma === 'string' && ma.startsWith('.')) {
+            ma = ma.replace(/^\.+/, '');
+          }
+          this.item.Ma = ma;
         }
       })
     }

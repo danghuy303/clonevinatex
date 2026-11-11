@@ -169,7 +169,7 @@ export class BaocaotheodoihoatdongComponent implements OnInit, OnDestroy {
   exportExcel(): void {
     const payload = this.getPayload();
     this._serviceTaiSan.ExportTheoDoiHoatDongXe_May(payload).subscribe((res: any) => {
-      if (res?.StatusCode === 200 || res?.Data) {
+      if (res?.StatusCode === 200) {
         if (res.Message) {
           this.toastr.success(res.Message);
         }
