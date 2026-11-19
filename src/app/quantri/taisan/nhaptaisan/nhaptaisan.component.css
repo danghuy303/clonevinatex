@@ -1,3 +1,67 @@
+.investment-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.investment-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+    max-width: 100%;
+}
+
+:host ::ng-deep .investment-actions .p-button {
+    flex-shrink: 0;
+    white-space: nowrap;
+    margin-right: 0 !important;
+}
+
+.investment-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 8px;
+    flex: 1 1 1000px;
+    min-width: 0;
+}
+
+.investment-filters > div {
+    min-width: 0;
+}
+
+:host ::ng-deep .investment-filters app-select-bo-phan,
+:host ::ng-deep .investment-filters p-dropdown,
+:host ::ng-deep .investment-filters p-calendar {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+:host ::ng-deep .investment-filters .p-dropdown,
+:host ::ng-deep .investment-filters .p-calendar {
+    width: 100%;
+    min-width: 0;
+}
+
+:host ::ng-deep .investment-filters .p-calendar input,
+.investment-search input {
+    width: 100%;
+    min-width: 0;
+}
+
+.investment-search .p-button {
+    flex-shrink: 0;
+}
+
+@media (max-width: 575px) {
+    .investment-filters {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
 /* ::ng-deep .MY-tree-table-class .pi-chevron-right:before {
     content: "\e90d";
   }

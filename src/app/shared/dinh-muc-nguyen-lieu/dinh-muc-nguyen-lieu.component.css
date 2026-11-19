@@ -13,12 +13,82 @@
     border-radius: 4px;
 }
 
-:host ::ng-deep .table-responsive-wrapper .p-datatable {
+:host ::ng-deep .table-responsive-wrapper .p-treetable {
     width: 100%;
 }
 
-:host ::ng-deep .table-responsive-wrapper .p-datatable-wrapper {
+:host ::ng-deep .table-responsive-wrapper .p-treetable-wrapper {
     overflow-x: visible !important;
+}
+
+.dinh-muc-name,
+.dinh-muc-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.dinh-muc-name > input {
+    flex: 1;
+    min-width: 0;
+}
+
+:host ::ng-deep .dinh-muc-tree .p-treetable-toggler {
+    flex-shrink: 0;
+}
+
+.dinh-muc-actions {
+    justify-content: center;
+    gap: 2px;
+}
+
+:host ::ng-deep .dinh-muc-actions .p-button {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+}
+
+:host ::ng-deep .dinh-muc-tree input.p-inputtext {
+    height: 28px;
+    padding: 0.3rem 0.45rem;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+:host ::ng-deep .dinh-muc-tree .p-inputnumber {
+    width: 100%;
+}
+
+:host ::ng-deep .dinh-muc-tree .dinh-muc-dropdown {
+    height: 28px;
+    min-width: 0;
+    padding: 0;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+:host ::ng-deep .dinh-muc-tree .dinh-muc-dropdown .p-dropdown-label {
+    padding: 0.3rem 0.45rem;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    min-width: 0;
+}
+
+:host ::ng-deep .dinh-muc-tree .dinh-muc-dropdown .p-dropdown-trigger {
+    width: 1.5rem;
+    flex: 0 0 1.5rem;
+}
+
+:host ::ng-deep .dinh-muc-tree .dinh-muc-dropdown.p-dropdown-clearable .p-dropdown-label {
+    padding-right: 1.25rem;
+}
+
+:host ::ng-deep .dinh-muc-tree .dinh-muc-dropdown .p-dropdown-clear-icon {
+    right: 1.5rem;
+    font-size: 0.75rem;
+    margin-top: -0.375rem;
 }
 
 :host ::ng-deep .table-responsive-wrapper table {

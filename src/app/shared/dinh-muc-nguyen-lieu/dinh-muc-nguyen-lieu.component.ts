@@ -1,3 +1,4 @@
+import { buildDinhMucTree, visitDinhMucRows, removeDinhMucRow } from './dinh-muc-tree';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -20,7 +21,9 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
   @Input() itemTaiSan: any = {};
   @Input() idTaiSan: any = '';
   @Input() isXoa: boolean = true;
-  @Output('Items') itemChange: EventEmitter<any> = new EventEmitter<any>();
+  @Input() showExportExcel: boolean = true;
+  dinhMucTree: any[] = [];
+  @Output('ItemsChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() listSanLuongChange: EventEmitter<any> = new EventEmitter<any>();
 
   listLoaiNhienLieu: any = [];
@@ -43,11 +46,6 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
     }
     const slChange = changes['listSanLuong'];
     const itemsChange = changes['Items'];
-    if (slChange && !slChange.isFirstChange()) {
-      if (slChange.currentValue === this.listSanLuong) {
-        return;
-      }
-    }
     if ((slChange && slChange.currentValue) || (itemsChange && itemsChange.currentValue)) {
       this.initializeData();
     }
@@ -60,6 +58,10 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
 
   trackByRow(index: number, row: any) {
     return row ? (row._uid || row.Id || index) : index;
+  }
+
+  rebuildDinhMucTree() {
+    this.dinhMucTree = buildDinhMucTree(this.listSanLuong, this.dinhMucTree, () => generateGuid());
   }
 
   getListLoaiNhienLieu() {
@@ -75,7 +77,7 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
   syncDonViTinh() {
     if (!this.rawLoaiNhienLieu || this.rawLoaiNhienLieu.length === 0) return;
     if (this.listSanLuong && this.listSanLuong.length > 0) {
-      this.listSanLuong.forEach((sl: any) => {
+      visitDinhMucRows(this.listSanLuong, (sl: any) => {
         if (sl.IddmLoaiNhienLieu) {
           const found = this.rawLoaiNhienLieu.find((x: any) => x.Id === sl.IddmLoaiNhienLieu);
           if (found) {
@@ -119,6 +121,7 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
       this.listSanLuong = [];
     }
 
+    this.rebuildDinhMucTree();
     this.syncDonViTinh();
   }
 
@@ -153,7 +156,7 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
       SoNgay: x.SoNgay !== undefined && x.SoNgay !== null ? x.SoNgay : 26,
       SoThang: x.SoThang !== undefined && x.SoThang !== null ? x.SoThang : 12,
       GhiChu: x.GhiChu || '',
-      listItem: x.listItem || []
+      listItem: Array.isArray(x.listItem) ? x.listItem.map(child => this.mapRow(child)) : []
     };
   }
 
@@ -236,47 +239,27 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
     }
 
     let addedCount = 0;
-    catalogItems.forEach((item: any) => {
+    const merge = (source: any[], target: any[], parentId: any = null) => source.forEach(item => {
       const ten = (item.Ten || item.TenCongViec || '').trim();
-      if (!ten) return;
-
-      const exists = this.listSanLuong.some((existing: any) => {
-        const existingTen = (existing.Ten || existing.TenCongViec || '').trim();
-        return existingTen.toLowerCase() === ten.toLowerCase();
-      });
-
-      if (!exists) {
-        const newRow: any = {
-          _uid: generateGuid(),
-          Id: item.Id || null,
-          isTuDanhMuc: true,
-          isNgoaiDanhMuc: false,
-          Ten: ten,
-          TenCongViec: ten,
-          DonViTinh_NSMMTB: item.DonViTinh_NSMMTB || item.DonViTinh_SanLuong || item.DonViTinh || '',
-          DonViTinh_SanLuong: item.DonViTinh_SanLuong || item.DonViTinh_NSMMTB || item.DonViTinh || '',
-          DonViTinh: item.DonViTinh || item.DonViTinh_NSMMTB || item.DonViTinh_SanLuong || '',
-          NSMMTB: item.NSMMTB !== undefined && item.NSMMTB !== null ? item.NSMMTB : (item.SanLuong !== undefined ? item.SanLuong : null),
-          SanLuong: item.SanLuong !== undefined && item.SanLuong !== null ? item.SanLuong : (item.NSMMTB !== undefined ? item.NSMMTB : null),
-          DonViTinh_NSLD: item.DonViTinh_NSLD || item.DonViTinh_NhanCong || '',
-          DonViTinh_NhanCong: item.DonViTinh_NhanCong || item.DonViTinh_NSLD || '',
-          NSLD: item.NSLD !== undefined && item.NSLD !== null ? item.NSLD : (item.NhanCong !== undefined ? item.NhanCong : null),
-          NhanCong: item.NhanCong !== undefined && item.NhanCong !== null ? item.NhanCong : (item.NSLD !== undefined ? item.NSLD : null),
-          IddmLoaiNhienLieu: item.IddmLoaiNhienLieu || null,
-          TendmLoaiNhienLieu: item.TendmLoaiNhienLieu || item.TenLoaiNhienLieu || '',
-          DonViTinh_NhienLieu: item.DonViTinh_NhienLieu || '',
-          MucTieuHao: item.MucTieuHao !== undefined && item.MucTieuHao !== null ? item.MucTieuHao : (item.NhienLieu !== undefined ? item.NhienLieu : null),
-          NhienLieu: item.NhienLieu !== undefined && item.NhienLieu !== null ? item.NhienLieu : (item.MucTieuHao !== undefined ? item.MucTieuHao : null),
-          SoCa: item.SoCa !== undefined && item.SoCa !== null ? item.SoCa : 2,
-          SoNgay: item.SoNgay !== undefined && item.SoNgay !== null ? item.SoNgay : 26,
-          SoThang: item.SoThang !== undefined && item.SoThang !== null ? item.SoThang : 12,
-          GhiChu: item.GhiChu || '',
-          listItem: []
+      const existing = target.find(row => (item.Id && row.Id === item.Id) ||
+        (row.Ten || row.TenCongViec || '').trim().toLowerCase() === ten.toLowerCase());
+      if (existing) {
+        merge(item.listItem || [], existing.listItem, existing.Id);
+      } else {
+        const copy = (row: any, idParent: any) => {
+          const mapped = this.mapRow({ ...row, isTuDanhMuc: true, isNgoaiDanhMuc: false });
+          mapped.Id = mapped.Id || generateGuid();
+          mapped.IdParent = idParent;
+          mapped.listItem = (row.listItem || []).map(child => copy(child, mapped.Id));
+          addedCount++;
+          return mapped;
         };
-        this.listSanLuong.push(newRow);
-        addedCount++;
+        target.push(copy(item, parentId));
       }
     });
+    const source = catalogItems.map(item => this.mapRow(item));
+    buildDinhMucTree(source, [], () => generateGuid());
+    merge(source, this.listSanLuong);
 
     this.syncDonViTinh();
     this.changeData();
@@ -289,13 +272,15 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
     }
   }
 
-  addDinhMuc() {
+  addDinhMuc(parent?: any) {
+    if (parent && parent.data.IdParent) return;
     if (!Array.isArray(this.listSanLuong)) {
       this.listSanLuong = [];
     }
     const newRow = {
       _uid: generateGuid(),
-      Id: null,
+      Id: generateGuid(),
+      IdParent: parent ? parent.data.Id : null,
       isTuDanhMuc: false,
       isNgoaiDanhMuc: true,
       Ten: '',
@@ -320,19 +305,23 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
       GhiChu: '',
       listItem: []
     };
-    this.listSanLuong.push(newRow);
+    if (parent) {
+      parent.data.listItem.push(newRow);
+    } else {
+      this.listSanLuong.push(newRow);
+    }
+    if (parent) parent.expanded = true;
+    this.rebuildDinhMucTree();
     this.isInternalChange = true;
     this.listSanLuongChange.emit(this.listSanLuong);
     this.itemChange.emit(this.listSanLuong);
     this.cdRef.detectChanges();
   }
 
-  deleteRow(index: number) {
-    if (this.listSanLuong && index >= 0 && index < this.listSanLuong.length) {
-      this.listSanLuong.splice(index, 1);
-      this.changeData();
-      this.cdRef.detectChanges();
-    }
+  deleteRow(node: any) {
+    removeDinhMucRow(this.listSanLuong, node.data);
+    this.changeData();
+    this.cdRef.detectChanges();
   }
 
   nhapExcel() {
@@ -395,8 +384,9 @@ export class DinhMucNguyenLieuComponent implements OnInit, OnChanges {
   }
 
   changeData() {
+    this.rebuildDinhMucTree();
     if (Array.isArray(this.listSanLuong)) {
-      this.listSanLuong.forEach((row: any) => {
+      visitDinhMucRows(this.listSanLuong, (row: any) => {
         row.TenCongViec = row.TenCongViec || row.Ten;
         row.Ten = row.Ten || row.TenCongViec;
         row.SanLuong = row.NSMMTB !== undefined && row.NSMMTB !== null ? row.NSMMTB : row.SanLuong;

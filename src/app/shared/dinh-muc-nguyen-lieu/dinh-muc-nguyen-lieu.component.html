@@ -6,14 +6,14 @@
     <div class="p-d-flex p-flex-row">
         <button *ngIf="isXoa" pButton pRipple type="button" icon="pi pi-upload" label="Nhập Excel"
             class="p-button-sm p-mr-2" (click)="nhapExcel()"></button>
-        <button pButton pRipple type="button" icon="pi pi-download" label="Xuất Excel"
+        <button *ngIf="showExportExcel" pButton pRipple type="button" icon="pi pi-download" label="Xuất Excel"
             class="p-button-sm p-button-outlined p-button-secondary" (click)="xuatExcel()"></button>
     </div>
 </div>
 
 <div class="table-responsive-wrapper">
-    <p-table [value]="listSanLuong" [rowTrackBy]="trackByRow"
-        styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+    <p-treeTable [value]="dinhMucTree"
+        styleClass="dinh-muc-tree p-treetable-gridlines p-datatable-sm">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width: 45px;">
@@ -29,7 +29,7 @@
                 <col style="width: 95px;">
                 <col style="width: 95px;">
                 <col style="width: 130px;">
-                <col style="width: 55px;">
+                <col style="width: 75px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -41,7 +41,7 @@
                 <th colspan="3" class="text-center">Định mức tiêu hao nhiên liệu</th>
                 <th colspan="3" class="text-center">Thời gian làm việc</th>
                 <th rowspan="2" class="text-center">Ghi chú</th>
-                <th rowspan="2" class="text-center" style="width: 55px;">
+                <th rowspan="2" class="text-center" style="width: 75px;">
                     <button *ngIf="isXoa" pButton pRipple type="button" icon="pi pi-plus"
                         class="p-button-rounded p-button-sm" (click)="addDinhMuc()" pTooltip="Thêm mới">
                     </button>
@@ -60,12 +60,14 @@
                 <th class="text-center">Số tháng làm / năm</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-row let-i="rowIndex">
-            <tr>
-                <td class="text-center">{{i + 1}}</td>
+        <ng-template pTemplate="body" let-rowNode let-row="rowData">
+            <tr [ttRow]="rowNode">
+                <td class="text-center">{{rowNode.node.label}}</td>
 
                 <!-- Nội dung công việc -->
                 <td>
+                    <div class="dinh-muc-name">
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                     <div *ngIf="row.isTuDanhMuc" class="p-d-flex p-ai-center">
                         <span>{{row.Ten || row.TenCongViec}}</span>
                         <i class="pi pi-lock text-primary ml-1" style="font-size: 0.75rem;"
@@ -73,6 +75,7 @@
                     </div>
                     <input *ngIf="!row.isTuDanhMuc" type="text" class="p-inputtext-sm w-100" [(ngModel)]="row.Ten"
                         (change)="syncRow(row)" (blur)="syncRow(row)" pInputText [disabled]="!isXoa" />
+                    </div>
                 </td>
 
                 <!-- NSMMTB - ĐVT -->
@@ -116,7 +119,7 @@
                     <span *ngIf="row.isTuDanhMuc">{{row.TenLoaiNhienLieu || row.LoaiNhienLieu ||
                         row.TendmLoaiNhienLieu}}</span>
                     <p-dropdown *ngIf="!row.isTuDanhMuc" [filter]="true" [options]="listLoaiNhienLieu" appendTo="body"
-                        placeholder="Chọn" [showClear]="true" styleClass="p-inputtext-sm w-100"
+                        placeholder="Chọn" [showClear]="true" styleClass="dinh-muc-dropdown w-100"
                         [style]="{'width': '100%'}" [(ngModel)]="row.IddmLoaiNhienLieu"
                         (onChange)="onChangeLoaiNhienLieu(row)" [disabled]="!isXoa">
                     </p-dropdown>
@@ -171,11 +174,16 @@
 
                 <!-- Thao tác -->
                 <td class="text-center">
+                    <div *ngIf="isXoa" class="dinh-muc-actions">
+                    <button *ngIf="!row.IdParent" pButton pRipple type="button" icon="pi pi-plus"
+                        class="p-button-text p-button-sm" (click)="addDinhMuc(rowNode.node)"
+                        pTooltip="Thêm công việc con" aria-label="Thêm công việc con"></button>
                     <button *ngIf="isXoa" pButton pRipple type="button" icon="pi pi-trash"
-                        class="p-button-text p-button-sm p-button-secondary" (click)="deleteRow(i)"
-                        pTooltip="Xóa"></button>
+                        class="p-button-text p-button-sm p-button-secondary" (click)="deleteRow(rowNode.node)"
+                        pTooltip="Xóa công việc và các công việc con"></button>
+                    </div>
                 </td>
             </tr>
         </ng-template>
-    </p-table>
+    </p-treeTable>
 </div>

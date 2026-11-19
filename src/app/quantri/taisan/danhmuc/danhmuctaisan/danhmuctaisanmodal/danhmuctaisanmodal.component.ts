@@ -1,3 +1,4 @@
+import { buildDinhMucTree, visitDinhMucRows, removeDinhMucRow } from '../../../../../shared/dinh-muc-nguyen-lieu/dinh-muc-tree';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { mapArrayForDropDown, validVariable } from '../../../../../services/globalfunction';
 import { ToastrService } from 'ngx-toastr';
@@ -22,6 +23,20 @@ export class DanhmuctaisanmodalComponent implements OnInit {
   rawListLoaiNhienLieu: any = [];
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   Keyword = "";
+  dinhMucTree: any[] = [];
+
+  rebuildDinhMucTree() {
+    this.dinhMucTree = buildDinhMucTree(this.item.listDinhMuc, this.dinhMucTree, () => this.createDinhMucId());
+  }
+
+  private createDinhMucId(): string {
+    const bytes = new Uint8Array(16);
+    window.crypto.getRandomValues(bytes);
+    bytes[6] = (bytes[6] & 15) | 64;
+    bytes[8] = (bytes[8] & 63) | 128;
+    const hex = Array.from(bytes, value => ('0' + value.toString(16)).slice(-2)).join('');
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+  }
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -91,6 +106,7 @@ export class DanhmuctaisanmodalComponent implements OnInit {
       DonViTinh_NhienLieu: x.DonViTinh_NhienLieu || x.DonViTinhNhienLieu || '',
       MucTieuHao: x.MucTieuHao !== undefined && x.MucTieuHao !== null ? x.MucTieuHao : (x.NhienLieu !== undefined && x.NhienLieu !== null ? x.NhienLieu : (x.TieuHao !== undefined && x.TieuHao !== null ? x.TieuHao : null)),
       NhienLieu: x.NhienLieu !== undefined && x.NhienLieu !== null ? x.NhienLieu : (x.MucTieuHao !== undefined && x.MucTieuHao !== null ? x.MucTieuHao : (x.TieuHao !== undefined && x.TieuHao !== null ? x.TieuHao : null)),
+      listItem: Array.isArray(x.listItem) ? x.listItem.map(child => this.mapRow(child)) : [],
       GhiChu: x.GhiChu || ''
     };
   }
@@ -118,11 +134,12 @@ export class DanhmuctaisanmodalComponent implements OnInit {
     }
     this.item.listSanLuong = this.item.listDinhMuc;
     this.syncLoaiNhienLieuForRows();
+    this.rebuildDinhMucTree();
   }
 
   syncLoaiNhienLieuForRows() {
     if (!this.item.listDinhMuc || !Array.isArray(this.item.listDinhMuc)) return;
-    this.item.listDinhMuc.forEach((row: any) => {
+    visitDinhMucRows(this.item.listDinhMuc, (row: any) => {
       if (this.listLoaiNhienLieu && this.listLoaiNhienLieu.length > 0) {
         if (row.IddmLoaiNhienLieu && !row.TendmLoaiNhienLieu) {
           const found = this.listLoaiNhienLieu.find((x: any) => x.value === row.IddmLoaiNhienLieu);
@@ -176,11 +193,14 @@ export class DanhmuctaisanmodalComponent implements OnInit {
     }
   }
 
-  addDinhMuc() {
+  addDinhMuc(parent?: any) {
+    if (parent && parent.data.IdParent) return;
     if (!Array.isArray(this.item.listDinhMuc)) {
       this.item.listDinhMuc = [];
     }
     const newRow = {
+      Id: this.createDinhMucId(),
+      IdParent: parent ? parent.data.Id : null,
       Ten: '',
       TenCongViec: '',
       DonViTinh_NSMMTB: '',
@@ -197,17 +217,23 @@ export class DanhmuctaisanmodalComponent implements OnInit {
       DonViTinh_NhienLieu: '',
       MucTieuHao: null,
       NhienLieu: null,
+      listItem: [],
       GhiChu: ''
     };
-    this.item.listDinhMuc.push(newRow);
+    if (parent) {
+      parent.data.listItem.push(newRow);
+    } else {
+      this.item.listDinhMuc.push(newRow);
+    }
     this.item.listSanLuong = this.item.listDinhMuc;
+    if (parent) parent.expanded = true;
+    this.rebuildDinhMucTree();
   }
 
-  deleteDinhMuc(index: number) {
-    if (this.item.listDinhMuc && index >= 0 && index < this.item.listDinhMuc.length) {
-      this.item.listDinhMuc.splice(index, 1);
-      this.item.listSanLuong = this.item.listDinhMuc;
-    }
+  deleteDinhMuc(node: any) {
+    removeDinhMucRow(this.item.listDinhMuc, node.data);
+    this.item.listSanLuong = this.item.listDinhMuc;
+    this.rebuildDinhMucTree();
   }
 
   nhapExcel() {
@@ -234,6 +260,7 @@ export class DanhmuctaisanmodalComponent implements OnInit {
                   this.item.listDinhMuc = [...this.item.listDinhMuc, ...mappedList];
                 }
                 this.item.listSanLuong = this.item.listDinhMuc;
+                this.rebuildDinhMucTree();
                 this.syncLoaiNhienLieuForRows();
                 this.cdRef.detectChanges();
               }
@@ -292,7 +319,7 @@ export class DanhmuctaisanmodalComponent implements OnInit {
   GhiLai() {
     if (this.ValidateData()) {
       if (Array.isArray(this.item.listDinhMuc)) {
-        this.item.listDinhMuc.forEach((row: any) => {
+        visitDinhMucRows(this.item.listDinhMuc, (row: any) => {
           row.TenCongViec = row.TenCongViec || row.Ten;
           row.Ten = row.Ten || row.TenCongViec;
           row.SanLuong = row.NSMMTB !== undefined && row.NSMMTB !== null ? row.NSMMTB : row.SanLuong;

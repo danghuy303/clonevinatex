@@ -329,24 +329,18 @@ export class ModalcapnhattaisanComponent implements OnInit {
         this.item.TaiSan.SoNamKhauHaoConLai = this.item.TaiSan.ThoiGianKhauHaoConLai;
       }
 
-      // Clean up listSanLuong and its nested listItem from empty placeholders
+      const prepareRows = (rows: any[]) => (rows || []).map(row => ({
+        ...row,
+        NgayApDungUnix: row.NgayApDung ? DateToUnix(row.NgayApDung) : row.NgayApDungUnix,
+        listItem: prepareRows(row.listItem)
+      }));
       if (this.item.TaiSan.listSanLuong) {
-        this.item.TaiSan.listSanLuong = this.item.TaiSan.listSanLuong.map((ele: any) => {
-          const cleanedChildren = ele.listItem
-            ? ele.listItem.filter((dm: any) => dm.IddmLoaiNhienLieu)
-            : [];
-          return {
-            ...ele,
-            NgayApDungUnix: DateToUnix(ele.NgayApDung),
-            listItem: cleanedChildren
-          };
-        });
+        this.item.TaiSan.listSanLuong = prepareRows(this.item.TaiSan.listSanLuong);
+      }
+      if (this.item.TaiSan.listDinhMucNhienLieu) {
+        this.item.TaiSan.listDinhMucNhienLieu = prepareRows(this.item.TaiSan.listDinhMucNhienLieu);
       }
 
-      // Clean up flat listDinhMucNhienLieu list from empty placeholders
-      if (this.item.TaiSan.listDinhMucNhienLieu) {
-        this.item.TaiSan.listDinhMucNhienLieu = this.item.TaiSan.listDinhMucNhienLieu.filter((dm: any) => dm.IddmLoaiNhienLieu);
-      }
     }
 
     return this.item;

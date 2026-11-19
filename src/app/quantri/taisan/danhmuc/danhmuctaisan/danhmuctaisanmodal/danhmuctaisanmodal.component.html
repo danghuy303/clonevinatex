@@ -66,19 +66,19 @@
             ĐỊNH MỨC NSMMTB, NSLĐ VÀ NHIÊN LIỆU
         </h6>
         <div class="p-d-flex p-flex-row">
-            <button pButton pRipple type="button" icon="pi pi-upload" label="Nhập Excel" class="p-button-sm p-mr-2"
+            <button pButton pRipple type="button" icon="pi pi-upload" label="Nhập" class="p-button-sm p-mr-2"
                 (click)="nhapExcel()"></button>
-            <button pButton pRipple type="button" icon="pi pi-download" label="Xuất Excel"
+            <button pButton pRipple type="button" icon="pi pi-download" label="Xuất"
                 class="p-button-sm p-button-outlined p-button-secondary" (click)="xuatExcel()"></button>
         </div>
     </div>
 
     <!-- BẢNG ĐỊNH MỨC -->
-    <p-table [value]="item.listDinhMuc" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm w-100">
+    <p-treeTable [value]="dinhMucTree" styleClass="dinh-muc-tree p-treetable-gridlines p-datatable-sm w-100">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width: 4%;">
-                <col style="width: 24%;">
+                <col style="width: 23%;">
                 <col style="width: 6.5%;">
                 <col style="width: 7.5%;">
                 <col style="width: 6.5%;">
@@ -86,8 +86,8 @@
                 <col style="width: 12%;">
                 <col style="width: 6.5%;">
                 <col style="width: 7.5%;">
-                <col style="width: 13.5%;">
-                <col style="width: 4.5%;">
+                <col style="width: 12%;">
+                <col style="width: 7%;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -113,11 +113,11 @@
                 <th class="text-center">Mức tiêu hao</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-row let-i="rowIndex">
-            <tr>
-                <td class="text-center">{{i + 1}}</td>
+        <ng-template pTemplate="body" let-rowNode let-row="rowData">
+            <tr [ttRow]="rowNode">
+                <td class="text-center">{{rowNode.node.label}}</td>
                 <td>
-                    <input type="text" class="p-inputtext-sm w-100" [(ngModel)]="row.Ten" pInputText />
+                    <div class="dinh-muc-name"><p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler><input type="text" class="p-inputtext-sm w-100" [(ngModel)]="row.Ten" pInputText /></div>
                 </td>
                 <td>
                     <input type="text" class="p-inputtext-sm text-center w-100" [(ngModel)]="row.DonViTinh_NSMMTB"
@@ -139,7 +139,7 @@
                 </td>
                 <td>
                     <p-dropdown [filter]="true" [options]="listLoaiNhienLieu" appendTo="body" placeholder="Chọn"
-                        [showClear]="true" styleClass="p-inputtext-sm w-100" [style]="{'width': '100%'}"
+                        [showClear]="true" styleClass="dinh-muc-dropdown w-100" [style]="{'width': '100%'}"
                         [(ngModel)]="row.IddmLoaiNhienLieu" (onChange)="onChangeLoaiNhienLieu(row)"></p-dropdown>
                 </td>
                 <td>
@@ -155,9 +155,12 @@
                     <input type="text" class="p-inputtext-sm w-100" [(ngModel)]="row.GhiChu" pInputText />
                 </td>
                 <td class="text-center">
+                    <div class="dinh-muc-actions">
+                    <button *ngIf="!row.IdParent" pButton pRipple type="button" icon="pi pi-plus" class="p-button-text p-button-sm" pTooltip="Thêm công việc con" aria-label="Thêm công việc con" (click)="addDinhMuc(rowNode.node)"></button>
                     <button pButton pRipple type="button" icon="pi pi-trash"
-                        class="p-button-text p-button-sm p-button-secondary" pTooltip="Xóa"
-                        (click)="deleteDinhMuc(i)"></button>
+                        class="p-button-text p-button-sm p-button-secondary" pTooltip="Xóa công việc và các công việc con"
+                        (click)="deleteDinhMuc(rowNode.node)"></button>
+                    </div>
                 </td>
             </tr>
         </ng-template>
@@ -168,7 +171,7 @@
                 </td>
             </tr>
         </ng-template>
-    </p-table>
+    </p-treeTable>
 </div>
 
 <div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-between p-ai-center">
