@@ -507,16 +507,18 @@ export class QuantriComponent implements OnInit, OnDestroy {
       "/quantri/taisan/danhmuc/loaihinhbaohiem",
     ];
 
-    return [
+    const rawMenu: MenuItem[] = [
       {
         label: "Quản lý máy móc thiết bị",
         expanded: isGroupActive(group1Links),
         icon: "fas fa-cogs",
+        visible: !this.checkmenu("TB_QUANLYMAYMOC"),
         items: [
           {
             label: "Đầu tư",
             routerLink: "/quantri/taisan/nhaptaisan/0",
             styleClass: "menu-item-process",
+            visible: !this.checkmenu("QUYTRINHNHAPTAISAN"),
             command: () => {
               this.close();
             },
@@ -541,6 +543,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Bàn giao",
             routerLink: "/quantri/taisan/bangiaotaisan/0",
             styleClass: "menu-item-process",
+            visible: !this.checkmenu("QUYTRINHBANGIAOTAISAN"),
             command: () => {
               this.close();
             },
@@ -549,6 +552,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Kiểm định",
             routerLink: "/quantri/taisan/kiemdinhtaisan/0",
             styleClass: "menu-item-process",
+            visible: !this.checkmenu("KIEMDINHTAISAN"),
             command: () => {
               this.close();
             },
@@ -557,6 +561,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Khấu hao",
             routerLink: "/quantri/taisan/khauhaotaisan/0",
             styleClass: "menu-item-process",
+            visible: !this.checkmenu("QUYTRINHKHAUHAOTAISAN"),
             command: () => {
               this.close();
             },
@@ -573,6 +578,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Thanh lý",
             routerLink: "/quantri/taisan/thanhlytaisan/0",
             styleClass: "menu-item-process",
+            visible: !this.checkmenu("THANHLYTAISAN"),
             command: () => {
               this.close();
             },
@@ -581,6 +587,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
           //   label: "Bảo hiểm",
           //   routerLink: "/quantri/taisan/baohiemtaisan/0",
           //   styleClass: "menu-item-process",
+          //   visible: !this.checkmenu("BAOHIEMTAISAN"),
           //   command: () => {
           //     this.close();
           //   },
@@ -589,6 +596,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
           //   label: "Thu hồi",
           //   routerLink: "/quantri/taisan/thuhoitaisan/0",
           //   styleClass: "menu-item-process",
+          //   visible: !this.checkmenu("QUYTRINHTHUHOITAISAN"),
           //   command: () => {
           //     this.close();
           //   },
@@ -599,11 +607,13 @@ export class QuantriComponent implements OnInit, OnDestroy {
         label: "Khai thác sử dụng MMTB",
         expanded: isGroupActive(group2Links),
         icon: "fas fa-chart-line",
+        visible: !this.checkmenu("TB_KHAITHACSUDUNG"),
         items: [
           {
             label: "Theo dõi khối lượng hoạt động",
             routerLink: "/quantri/taisan/theodoihoatdong/0",
             styleClass: "menu-item-process",
+            visible: !this.checkmenu("THEODOIHOATDONG"),
             command: () => {
               this.close();
             },
@@ -636,6 +646,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Định mức sử dụng",
             routerLink: "/quantri/taisan/tieuhaonhienlieu/0",
             styleClass: "menu-item-process",
+            visible: !this.checkmenu("TIEUHAONHIENLIEU"),
             command: () => {
               this.close();
             },
@@ -646,6 +657,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
         label: "Bảo đảm kỹ thuật",
         expanded: isGroupActive(group3Links),
         icon: "fas fa-wrench",
+        visible: !this.checkmenu("TB_DAMBAOKYTHUAT"),
         items: [
           {
             label: "Tổng hợp lịch xích",
@@ -659,6 +671,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Kế hoạch lịch xích năm",
             routerLink: "/quantri/taisan/quytrinhlapkehoachnam/0",
             styleClass: "menu-item-process",
+            visible: !this.checkmenu("LAPKEHOACHLICHXICHNAM"),
             command: () => {
               this.close();
             },
@@ -675,6 +688,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Quy trình bảo dưỡng, sửa chữa",
             routerLink: "/quantri/taisan/quytrinhbaoduong/0",
             styleClass: "menu-item-process",
+            visible: !this.checkmenu("QUYTRINHBAODUONGTAISAN"),
             command: () => {
               this.close();
             },
@@ -683,6 +697,7 @@ export class QuantriComponent implements OnInit, OnDestroy {
             label: "Sửa chữa hư hỏng bất thường",
             routerLink: "/quantri/taisan/denghixulisuco/0",
             styleClass: "menu-item-process",
+            visible: !this.checkmenu("QUYTRINHXULYSUCO"),
             command: () => {
               this.close();
             },
@@ -831,6 +846,14 @@ export class QuantriComponent implements OnInit, OnDestroy {
         ],
       },
     ];
+
+    return rawMenu
+      .filter(group => group.visible !== false)
+      .map(group => ({
+        ...group,
+        items: group.items ? group.items.filter(child => child.visible !== false) : [],
+      }))
+      .filter(group => !group.items || group.items.length > 0);
   }
 
   CaiMeNu() {
