@@ -1,6 +1,7 @@
 import { DecimalPipe } from '@angular/common';
 import { InputNumber } from 'primeng/inputnumber';
 import { parseLocaleNumber } from './globalfunction';
+import { configureDecimalEditing } from './input-number-decimal-editing';
 
 /**
  * Cấu hình toàn cục cho PrimeNG InputNumber:
@@ -97,6 +98,8 @@ export function configureInputNumberLocale(): void {
         return originalInsert.call(this, event, text, sign);
       };
     }
+
+    configureDecimalEditing();
 
     // Cấu hình toàn cục cho Angular DecimalPipe (| number) để hiển thị text số đồng bộ theo định dạng máy
     if (DecimalPipe && DecimalPipe.prototype) {

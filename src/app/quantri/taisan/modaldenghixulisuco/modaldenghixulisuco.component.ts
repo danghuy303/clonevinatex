@@ -32,7 +32,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
     listDoUuTien = [];
     listNguoiThucHien = [];
     listLoaiSuCo = [];
-    checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
+    checkbutton: any = null;
     lang: any = vn;
     yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
     public listdsTaiSan: any = [];
@@ -430,6 +430,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
             });
     }
     KiemTraButtonModal() {
+        this.checkbutton = null;
         this._services.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
             this.checkbutton = res;
         });

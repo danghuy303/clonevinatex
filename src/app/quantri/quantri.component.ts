@@ -642,15 +642,15 @@ export class QuantriComponent implements OnInit, OnDestroy {
               this.close();
             },
           },
-          {
-            label: "Định mức sử dụng",
-            routerLink: "/quantri/taisan/tieuhaonhienlieu/0",
-            styleClass: "menu-item-process",
-            visible: !this.checkmenu("TIEUHAONHIENLIEU"),
-            command: () => {
-              this.close();
-            },
-          },
+          // {
+          //   label: "Định mức sử dụng",
+          //   routerLink: "/quantri/taisan/tieuhaonhienlieu/0",
+          //   styleClass: "menu-item-process",
+          //   visible: !this.checkmenu("TIEUHAONHIENLIEU"),
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
         ],
       },
       {

@@ -69,7 +69,7 @@
                     <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng : </label>
                     <div class="p-col-12 p-xl-8 p-p-0">
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
-                            </p-inputNumber>
+                        </p-inputNumber>
                     </div>
                 </div>
                 <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -130,9 +130,8 @@
                         <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                             [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
                             [(ngModel)]="item.NgayNhap" inputId="icon" placeholder="dd/mm/yyyy"
-                            [defaultDate]="defaultDateNgayNhap"
-                            [maxDate]="item.ThoiGianDuaVaoSuDung" (onSelect)="checkValidNgayNhap()"
-                            (onInput)="checkValidNgayNhap()">
+                            [defaultDate]="defaultDateNgayNhap" [maxDate]="item.ThoiGianDuaVaoSuDung"
+                            (onSelect)="checkValidNgayNhap()" (onInput)="checkValidNgayNhap()">
                         </p-calendar>
                     </div>
                 </div>
@@ -181,7 +180,7 @@
                     </div>
                 </div>
                 <div *ngIf="item.IdRoot === item.Id" class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-                    <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị nhận chuyển giao ({{item.DonViTienTe ||
+                    <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị còn ({{item.DonViTienTe ||
                         'VNĐ'}}) :
                     </label>
                     <div class="p-col-12 p-xl-8 p-p-0">
@@ -290,7 +289,7 @@
                                         <p-radioButton name="PhanNhom" [value]="1" [(ngModel)]="item.PhanNhom"
                                             inputId="phanNhom1"></p-radioButton>
                                         <label for="phanNhom1" class="ml-1 mb-0 font-weight-bold"
-                                             style="cursor: pointer;">Đảm bảo</label>
+                                            style="cursor: pointer;">Đảm bảo</label>
                                     </div>
                                     <div class="p-d-flex p-ai-center">
                                         <p-radioButton name="PhanNhom" [value]="2" [(ngModel)]="item.PhanNhom"
@@ -420,8 +419,8 @@
                 <p-tabPanel header="Định mức nhiên liệu">
                     <ng-template pTemplate="content">
                         <app-dinh-muc-nguyen-lieu [Items]="item.listDinhMucNhienLieu" [listSanLuong]="item.listSanLuong"
-                            [itemTaiSan]="item" [idTaiSan]="item?.Id || item?.IddmTaiSan"
-                            [isXoa]="false" [showExportExcel]="false"></app-dinh-muc-nguyen-lieu>
+                            [itemTaiSan]="item" [idTaiSan]="item?.Id || item?.IddmTaiSan" [isXoa]="false"
+                            [showExportExcel]="false"></app-dinh-muc-nguyen-lieu>
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel header="Định mức điện">
